@@ -1,0 +1,44 @@
+image: maven:3.3.9-jdk-8
+
+stages:
+    - build
+    - sonar
+    - deploy
+
+build:
+    stage: build
+    script:
+        - mvn package -Dmaven.repo.local=/cache --update-snapshots
+
+sonar:preview:
+    stage: sonar
+    only:
+        - branches
+    except:
+        - master
+        - develop
+    script:
+        # install IDS ssl cert into the docker image; see here for more info: https://git.idscorporation.ca/ids/ids-adminscripts
+        - bash -c "source <(curl -fsSL http://ubidev04.idscorporation.ca/pub/ssl/idsna-ssl-setup.sh)"
+        # run sonar preview using current branch compared to develop
+        - mvn --batch-mode verify sonar:sonar -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_LOGIN -Dsonar.analysis.mode=preview -Dsonar.gitlab.project_id=$CI_PROJECT_PATH -Dsonar.gitlab.commit_sha=$(git log --pretty=format:%H origin/develop..$CI_COMMIT_SHA | tr '\n' ',') -Dsonar.gitlab.ref_name=$CI_COMMIT_REF_NAME
+
+sonar:analyse:
+    stage: sonar
+    only:
+        - develop
+    script:
+        # install IDS ssl cert into the docker image; see here for more info: https://git.idscorporation.ca/ids/ids-adminscripts
+        - bash -c "source <(curl -fsSL http://ubidev04.idscorporation.ca/pub/ssl/idsna-ssl-setup.sh)"
+        # run sonar analysis using current develop branch
+        - mvn --batch-mode verify sonar:sonar -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_LOGIN
+
+deploy:tags:
+    stage: deploy
+    script:
+        - mvn deploy -Dmaven.repo.local=/cache --settings=$PWD/settings.xml --batch-mode -DaltDeploymentRepository=deploy::default::$MAVEN_DEPLOY_REPO --update-snapshots -DskipTests
+    only:
+        - /^v\d+\.\d+\.\d+$/
+    except:
+        - branches
+        - triggers
