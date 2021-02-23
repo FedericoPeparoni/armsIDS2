@@ -1,0 +1,17 @@
+image: maven:3.3.9-jdk-8
+
+stages:
+    - build
+    - deploy
+
+build:
+    stage: build
+    script:
+        - mvn package -Dmaven.repo.local=/cache --update-snapshots
+
+deploy:tags:
+    stage: deploy
+    script:
+        - mvn deploy -Dmaven.repo.local=/cache --settings=$PWD/settings.xml --batch-mode -DaltDeploymentRepository=deploy::default::$MAVEN_DEPLOY_REPO --update-snapshots -DskipTests
+    only:
+        - tags
