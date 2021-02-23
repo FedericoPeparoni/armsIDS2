@@ -1,0 +1,27 @@
+image: maven:3.3.9-jdk-8
+
+stages:
+    - build
+    - deploy
+    
+build:feat:
+    stage: build
+    script:
+        - mvn package -Dmaven.repo.local=/cache --settings=$PWD/settings.xml --batch-mode --update-snapshots -DskipTests
+    except:
+        - develop
+        - master
+
+build:dev:
+    stage: build
+    script:
+        - mvn package -Dmaven.repo.local=/cache --settings=$PWD/settings.xml --batch-mode --update-snapshots -DskipTests
+    only:
+        - develop
+
+deploy:master:
+    stage: deploy
+    only:
+        - master
+    script:
+        - mvn deploy -Dmaven.repo.local=/cache --settings=$PWD/settings.xml --batch-mode -DaltDeploymentRepository=deploy::default::$MAVEN_DEPLOY_REPO --update-snapshots -DskipTests
