@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><interestInvoice><global>
+    <realInvoiceNumber>Head Office001002</realInvoiceNumber>
+    <invoiceNumber>PREVIEW</invoiceNumber>
+    <invoiceName>Aviation invoice PREVIEW</invoiceName>
+    <invoiceIssueLocation>Head Office</invoiceIssueLocation>
+    <invoiceDateStr>2017-04-18</invoiceDateStr>
+    <accountId>6</accountId>
+    <accountName>Air Botswana</accountName>
+    <fromName>admin</fromName>
+    <fromPosition>Manager</fromPosition>
+    <billingName>Agnes Khunwana</billingName>
+    <billingAddress>Sir Seretse Khama International Airport, Gaborone, Botswana</billingAddress>
+    <billingContactTel>123456</billingContactTel>
+    <totalAmount>22.33</totalAmount>
+    <totalAmountStr>22.33</totalAmountStr>
+    <totalAmountStrWithCurrencySymbol>P22.33</totalAmountStrWithCurrencySymbol>
+    <creditAmount>0.0</creditAmount>
+    <creditAmountStr>0.00</creditAmountStr>
+    <creditAmountStrWithCurrencySymbol>P0.00</creditAmountStrWithCurrencySymbol>
+    <amountDue>22.33</amountDue>
+    <amountDueStr>45</amountDueStr>
+    <amountDueStrWithCurrencySymbol>P22.33</amountDueStrWithCurrencySymbol>
+    <invoiceCurrencyCode>USD</invoiceCurrencyCode>
+    <invoiceCurrencyAnspCode>KES</invoiceCurrencyAnspCode>
+    <invoiceCurrencyUsdCode>USD</invoiceCurrencyUsdCode>
+    <totalAmountAnspStr>45</totalAmountAnspStr>
+    <totalAmountAnsp>45</totalAmountAnsp>
+    <totalAmountUsdStr>45</totalAmountUsdStr>
+    <totalAmountUsd>45</totalAmountUsd>
+    <amountDueAnspStr>1111</amountDueAnspStr>
+    <amountDueAnsp>1111</amountDueAnsp>
+    <amountDueUsdStr>1111</amountDueUsdStr>
+    <amountDueUsd>1111</amountDueUsd>
+    <kraClerkName>clerk</kraClerkName>
+    <kraReceiptNumber>receipt n</kraReceiptNumber>
+    <billingEmail>test@gmail.com</billingEmail>
+    <totalAmountStrInWords>one</totalAmountStrInWords>
+    <totalAmountStrInWordsSpanish>un</totalAmountStrInWordsSpanish>
+    <totalAmountStrInWordsWithCurrencySymbol>one USD</totalAmountStrInWordsWithCurrencySymbol>
+    <totalAmountStrInWordsWithCurrencySymbolSpanish>un USD</totalAmountStrInWordsWithCurrencySymbolSpanish>
+    <amountDueStrInWords>one</amountDueStrInWords>
+    <amountDueStrInWordsSpanish>un</amountDueStrInWordsSpanish>
+    <amountDueStrInWordsWithCurrencySymbol>one USD</amountDueStrInWordsWithCurrencySymbol>
+    <amountDueStrInWordsWithCurrencySymbolSpanish>un USD</amountDueStrInWordsWithCurrencySymbolSpanish>
+    <invoiceCurrencyInWords>US Dollars</invoiceCurrencyInWords>
+    <totalOutstandingAmount>506.00</totalOutstandingAmount>
+    <exchageRate>0.15</exchageRate>
+    <exchageRateUsd>1.0</exchageRateUsd>
+    <invoiceBillingPeriod>April-2017</invoiceBillingPeriod>
+    <invoiceDueDateStr>2017-05-18</invoiceDueDateStr>
+    <defaultPenaltyAmount>70.00</defaultPenaltyAmount>
+    <defaultPenaltyAmountStr>70.00</defaultPenaltyAmountStr>
+    <punitivePenaltyAmount>30.00</punitivePenaltyAmount>
+    <punitivePenaltyAmountStr>30.00</punitivePenaltyAmountStr>
+    <overdueInvoiceOverdueDays>18</overdueInvoiceOverdueDays>
+    <overdueInvoiceAmount>957.86</overdueInvoiceAmount>
+    <overdueInvoiceNumber>LA-157926</overdueInvoiceNumber></global><overduePenaltyInvoices>
+      <overduePenaltyInvoice>
+          <invoiceNumber>Head Office001002</invoiceNumber>
+          <invoiceDateOfIssueStr>2017-04-13</invoiceDateOfIssueStr>
+          <paymentDueDateStr>2017-02-18</paymentDueDateStr>
+          <amountOwing>139.23</amountOwing>
+          <amountOwingStr>139.23</amountOwingStr>
+          <amountOwingStrWithCurrencySymbol>P139.23</amountOwingStrWithCurrencySymbol>
+          <amountOwingAnspStr>121</amountOwingAnspStr>
+          <amountOwingAnsp>121</amountOwingAnsp></overduePenaltyInvoice>
+  </overduePenaltyInvoices><bankAccountList>
+    <bankAccount>
+        <accountNumber>1002208</accountNumber>
+        <branchCode>290267</branchCode>
+        <currencyCode>BWP</currencyCode>
+    </bankAccount>
+    <bankAccount>
+        <accountNumber>1009981</accountNumber>
+        <branchCode>290667</branchCode>
+        <currencyCode>USD</currencyCode>
+    </bankAccount>
+    <bankAccount>
+        <accountNumber>1006990</accountNumber>
+        <branchCode>290667</branchCode>
+        <currencyCode>ZAR</currencyCode>
+    </bankAccount>
+   </bankAccountList></interestInvoice>

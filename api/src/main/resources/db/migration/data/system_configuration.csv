@@ -1,0 +1,2 @@
+item_name,item_class,data_type,units,range,default_value,current_value,created_by
+Log file name,logging,4,NULL,NULL,logs/abms.log,NULL,system

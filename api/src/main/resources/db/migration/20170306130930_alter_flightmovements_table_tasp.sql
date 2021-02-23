@@ -1,0 +1,1 @@
+alter table flight_movements add column tasp_charge numeric(10,2);

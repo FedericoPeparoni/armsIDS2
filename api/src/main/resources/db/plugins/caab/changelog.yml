@@ -1,0 +1,5 @@
+databaseChangeLog:
+    # CAAB Sage Plugin
+    - include:
+        file: sage/changelog.yml
+        relativeToChangelogFile: true

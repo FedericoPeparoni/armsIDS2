@@ -1,0 +1,2 @@
+name;description;enabled;key;created_by;visible
+KCAA AATIS Integration;Integrate adhoc fees from AATIS (TASP fees) based on permit numbers.;false;kcaa.aatis;system;false

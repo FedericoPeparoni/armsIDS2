@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<included>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+<!--
+    <logger name="javax.activation" level="${app.loglevel.default}"/>
+    <logger name="javax.xml.bind" level="${app.loglevel.default}"/>
+    <logger name="ch.qos.logback" level="${app.loglevel.default}"/>
+    <logger name="com.sun" level="${app.loglevel.default}"/>
+    <logger name="org.apache" level="${app.loglevel.default}"/>
+    <logger name="org.apache.catalina.startup.DigesterFactory" level="OFF"/>
+    <logger name="org.hibernate.validator" level="${app.loglevel.hibernate}"/>
+    <logger name="org.hibernate" level="${app.loglevel.hibernate}"/>
+    <logger name="org.springframework" level="${app.loglevel.default}"/>
+    <logger name="org.springframework.web" level="${app.loglevel.default}"/>
+    <logger name="org.springframework.security" level="${app.loglevel.default}"/>
+    <logger name="org.springframework.cache" level="${app.loglevel.default}"/>
+    <logger name="sun.rmi" level="${app.loglevel.default}"/>
+    <logger name="liquibase" level="${app.loglevel.default}"/>
+    <logger name="sun.rmi.transport" level="${app.loglevel.default}"/>
+-->
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+</included>

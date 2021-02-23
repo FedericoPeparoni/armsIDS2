@@ -1,0 +1,1 @@
+alter table flight_movements add item18_operator varchar(50);

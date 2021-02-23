@@ -1,0 +1,2 @@
+name;description;enabled;key;created_by;visible
+KCAA Account System Integration;Integrate invoices, credit notes, debit notes, and aircraft registration payments with KCAA ERP account system.;false;kcaa.erp;system;false

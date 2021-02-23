@@ -1,0 +1,17 @@
+databaseChangeLog:
+    # Generic Translations
+    - changeSet:
+        id: all_translations
+        author: Davlet Panech
+        runOnChange: true
+        changes:
+          - sqlFile:
+              path: all_translations.sql
+              relativeToChangelogFile: true
+              splitStatements: false
+              endDelimiter: ""
+              encoding: utf8
+    # Release Note Translations
+    - include:
+        file: releasenotes/changelog.yml
+        relativeToChangelogFile: true

@@ -1,0 +1,3 @@
+name;description;enabled;key;created_by;visible
+Cronos 1;Flight plan importer using the Cronos 1 connector;true;cronos1;system;true
+Cronos 2;Flight plan importer using the Cronos 2 connector;false;cronos2;system;true

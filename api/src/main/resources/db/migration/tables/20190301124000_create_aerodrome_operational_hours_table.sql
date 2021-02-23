@@ -1,0 +1,20 @@
+create table aerodrome_operational_hours(
+	id                  		    serial primary key,
+	aerodrome_id        		    integer NOT NULL UNIQUE references aerodromes (id),
+	operational_hours_monday        varchar(255),
+	operational_hours_tuesday       varchar(255),
+	operational_hours_wednesday     varchar(255),
+	operational_hours_thursday      varchar(255),
+	operational_hours_friday        varchar(255),
+	operational_hours_saturday      varchar(255),
+	operational_hours_sunday        varchar(255),
+	operational_hours_holidays_1    varchar(255),
+	operational_hours_holidays_2    varchar(255),
+	holiday_dates_holidays_1        varchar(255),
+	holiday_dates_holidays_2        varchar(255),
+	version                         bigint DEFAULT 0 NOT NULL,
+    created_at                      timestamp with time zone NOT NULL DEFAULT now(),
+    created_by                      varchar(50) NOT NULL,
+    updated_at                      timestamp with time zone,
+    updated_by                      varchar(50)
+);

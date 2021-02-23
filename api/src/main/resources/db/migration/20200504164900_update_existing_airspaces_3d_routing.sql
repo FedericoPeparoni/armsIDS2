@@ -1,0 +1,1 @@
+UPDATE airspaces set airspace_ceiling = 999;

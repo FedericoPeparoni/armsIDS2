@@ -1,0 +1,17 @@
+databaseChangeLog:
+    # CAAB Plugins
+    - include:
+        file: caab/changelog.yml
+        relativeToChangelogFile: true
+    # KCAA Plugins
+    - include:
+        file: kcaa/changelog.yml
+        relativeToChangelogFile: true
+    # CRONOS Plugins
+    - include:
+        file: cronos/changelog.yml
+        relativeToChangelogFile: true
+    # AMHS Plugin
+    - include:
+        file: amhs/changelog.yml
+        relativeToChangelogFile: true

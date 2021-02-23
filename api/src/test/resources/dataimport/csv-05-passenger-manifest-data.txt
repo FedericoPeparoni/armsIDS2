@@ -1,0 +1,2 @@
+"documentNumber","dateOfFlight","operator","typeOfFlight","aircraftType","registration","flightId","totalPersons","internationalPassengers","domesticPassengers"
+"100","2016-11-21","Air Canada","international","AA12X","1112","AC889","87","80","7"

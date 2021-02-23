@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <groupId>org.springframework.boot</groupId>
+        <version>1.4.1.RELEASE</version>
+        <relativePath />
+    </parent>
+
+    <groupId>ca.ids.abms</groupId>
+    <artifactId>api</artifactId>
+    <version>1.5.2</version>
+    <packaging>jar</packaging>
+
+    <name>api</name>
+    <description>ABMS API</description>
+    <url>https://git.idscorporation.ca/abms/api/wikis/home</url>
+
+    <scm>
+        <url>https://git.idscorporation.ca/abms/api</url>
+    </scm>
+
+    <properties>
+        <!-- overrides project.artifactId value for SonarQube Project Name,
+            more descriptive then 'api' -->
+        <sonar.projectName>abms-api</sonar.projectName>
+        <birt.version>4.4.2</birt.version>
+        <commons-codec.version>1.10</commons-codec.version>
+        <commons-io.version>2.5</commons-io.version>
+        <commons-lang.version>2.6</commons-lang.version>
+        <commons-lang3.version>3.5</commons-lang3.version>
+        <geotools.version>12-RC1</geotools.version>
+        <guava.version>19.0</guava.version>
+        <hibernate.spatial.version>5.2.4.Final</hibernate.spatial.version>
+        <inflector.version>1.0.1</inflector.version>
+        <jackson-datatype-hibernate5.version>2.9.5</jackson-datatype-hibernate5.version>
+        <jackson-datatype-jsr310.version>2.8.1</jackson-datatype-jsr310.version>
+        <jacoco.version>0.7.7.201606060606</jacoco.version>
+        <janino.version>2.7.8</janino.version>
+        <java.version>1.8</java.version>
+        <liquibase-slf4j.version>1.2.1</liquibase-slf4j.version>
+        <liquibase.version>3.5.1</liquibase.version>
+        <metrics-spring.version>3.1.3</metrics-spring.version>
+        <opencsv.version>3.8</opencsv.version>
+        <org.mapstruct.version>1.0.0.Final</org.mapstruct.version>
+        <pdfbox.version>2.0.4</pdfbox.version>
+        <poi.version>3.9</poi.version>
+        <postgresql.version>9.4.1212</postgresql.version>
+        <powermock.version>1.7.1</powermock.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <routeparser.version>1.3.17</routeparser.version>
+        <sortpom-maven-plugin.version>2.5.0</sortpom-maven-plugin.version>
+        <httpclient.version>4.5.2</httpclient.version>
+        <ant-jsch.version>1.9.4</ant-jsch.version>
+        <ant-common-net.version>1.9.4</ant-common-net.version>
+        <nfs-client.version>1.0.3</nfs-client.version>
+        <ids-spring-cache.version>1.5.7</ids-spring-cache.version>
+        <ids-xyzmodem.version>1.0.0</ids-xyzmodem.version>
+        <io-springfox-swagger.version>2.8.0</io-springfox-swagger.version>
+        <swagger-ui.version>3.19.0</swagger-ui.version>
+        <icu4j.version>64.2</icu4j.version>
+        <javax.inject.version>1</javax.inject.version>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>ca.ids</groupId>
+            <artifactId>ids-oxr-client</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ca.ids</groupId>
+            <artifactId>ids-routeparser</artifactId>
+            <version>${routeparser.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.9.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.9.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-hibernate5</artifactId>
+            <version>${jackson-datatype-hibernate5.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson-datatype-jsr310.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mattbertolini</groupId>
+            <artifactId>liquibase-slf4j</artifactId>
+            <version>${liquibase-slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>${opencsv.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ryantenney.metrics</groupId>
+            <artifactId>metrics-spring</artifactId>
+            <version>${metrics-spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>metrics-annotation</artifactId>
+                    <groupId>com.codahale.metrics</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>metrics-core</artifactId>
+                    <groupId>com.codahale.metrics</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>metrics-healthchecks</artifactId>
+                    <groupId>com.codahale.metrics</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons-codec.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>${pdfbox.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.atteo</groupId>
+            <artifactId>evo-inflector</artifactId>
+            <version>${inflector.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.birt.runtime</groupId>
+            <artifactId>org.eclipse.birt.runtime</artifactId>
+            <version>${birt.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>org.eclipse.orbit.mongodb</artifactId>
+                    <groupId>org.eclipse.birt.runtime</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-geojson</artifactId>
+            <version>${geotools.version}</version>
+        </dependency>
+
+        <!-- This allows us to use Java 8 Date API in JPA repositories, etc -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-java8</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-spatial</artifactId>
+            <version>${hibernate.spatial.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>${jacoco.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-jdk8</artifactId>
+            <version>${org.mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-data</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpclient.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-jsch</artifactId>
+            <version>${ant-jsch.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-commons-net</artifactId>
+            <version>${ant-common-net.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.emc.ecs</groupId>
+            <artifactId>nfs-client</artifactId>
+            <version>${nfs-client.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ca.ids</groupId>
+            <artifactId>ids-spring-cache</artifactId>
+            <version>${ids-spring-cache.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ca.ids</groupId>
+            <artifactId>ids-xyzmodem</artifactId>
+            <version>${ids-xyzmodem.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>6.2.2.jre8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>mailapi</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.sun.mail/smtp -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>smtp</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+
+        <!-- https://github.com/xdrop/fuzzywuzzy -->
+        <dependency>
+            <groupId>me.xdrop</groupId>
+            <artifactId>fuzzywuzzy</artifactId>
+            <version>1.1.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${io-springfox-swagger.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${io-springfox-swagger.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>swagger-ui</artifactId>
+            <version>${swagger-ui.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>${icu4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>${javax.inject.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        
+    </dependencies>
+
+	<!--     <repositories> -->
+	<!--         <repository> -->
+	<!--             <snapshots> -->
+	<!--                 <enabled>true</enabled> -->
+	<!--             </snapshots> -->
+	<!--             <id>ids</id> -->
+	<!--             <name>Shared IDS components</name> -->
+	<!--             <url>http://maven.idscorporation.ca/archiva/repository/ids</url> -->
+	<!--         </repository> -->
+	<!--         <repository> -->
+	<!--             <snapshots> -->
+	<!--                 <enabled>false</enabled> -->
+	<!--             </snapshots> -->
+	<!--             <id>world</id> -->
+	<!--             <name>External software repository</name> -->
+	<!--             <url>http://maven.idscorporation.ca/archiva/repository/internal</url> -->
+	<!--         </repository> -->
+	<!--     </repositories> -->
+	<repositories>
+	        <repository>
+	            <releases>
+	                <enabled>true</enabled>
+	            </releases>
+	            <snapshots>
+	                <enabled>false</enabled>
+	            </snapshots>
+	            <id>osgeo</id>
+	            <name>OSGeo Release Repository</name>
+	            <url>https://repo.osgeo.org/repository/release/</url>
+	        </repository>
+	    </repositories>
+
+    <build>
+        <defaultGoal>spring-boot:run</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>com.github.ekryd.sortpom</groupId>
+                <artifactId>sortpom-maven-plugin</artifactId>
+                <version>${sortpom-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sort</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sortProperties>true</sortProperties>
+                    <nrOfIndentSpace>4</nrOfIndentSpace>
+                    <sortDependencies>groupId,artifactId</sortDependencies>
+                    <sortPlugins>groupId,artifactId</sortPlugins>
+                    <keepBlankLines>true</keepBlankLines>
+                    <expandEmptyElements>false</expandEmptyElements>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.bsc.maven</groupId>
+                <artifactId>maven-processor-plugin</artifactId>
+                <version>2.2.4</version>
+                <executions>
+                    <execution>
+                        <id>process</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.mapstruct</groupId>
+                        <artifactId>mapstruct-processor</artifactId>
+                        <version>${org.mapstruct.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <defaultOutputDirectory>${project.build.directory}/generated-sources</defaultOutputDirectory>
+                    <processors>
+                        <processor>org.mapstruct.ap.MappingProcessor</processor>
+                    </processors>
+                    <options>
+                        <mapstruct.defaultComponentModel>spring</mapstruct.defaultComponentModel>
+                    </options>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <id>pre-unit-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>post-unit-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

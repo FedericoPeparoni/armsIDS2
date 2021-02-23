@@ -1,0 +1,2 @@
+name;description;enabled;key;created_by;visible
+KCAA eAIP Integration;Integrate requisition fees from eAIP based on req numbers.;false;kcaa.eaip;system;false

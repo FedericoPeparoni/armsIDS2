@@ -1,0 +1,1444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.6.0.v201606072122</property>
+    <text-property name="title" key="IATA_INVOICE"></text-property>
+    <property name="units">in</property>
+    <method name="beforeFactory"><![CDATA[reportContext.getAppContext().put("MAX_PAGE_BREAK_INTERVAL", 1000000);]]></method>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.datatools.enablement.oda.xml" name="xml" id="1242">
+            <property name="FILELIST">../example_xml/IATA_INVOICE.example.xml</property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.datatools.enablement.oda.xml.dataSet" name="flight_movements" id="1243">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">flightDateStr</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">flightDateStr</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">operatorName</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">operatorName</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">icaoCode</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">icaoCode</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">flightId</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">flightId</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">aircraftType</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">aircraftType</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">regNum</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">regNum</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">depAd</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">depAd</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">destAd</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">destAd</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">crossDist</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="heading">crossDist</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">mtow</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="heading">mtow</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">enrouteChargesUSD</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="heading">enrouteChargesUSD</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">billingDateStr</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">billingDateStr</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">distanceUnitOfMeasure</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">distanceUnitOfMeasure</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">mtowUnitOfMeasure</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">mtowUnitOfMeasure</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">enrouteChargesANSP</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="heading">enrouteChargesANSP</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">enrouteChargesANSPStr</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">enrouteChargesANSPStr</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">enrouteChargesAnspStr</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">enrouteChargesAnspStr</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">routing</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">routing</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">dFactor</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="heading">dFactor</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">flightDateStr</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">operatorName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">icaoCode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">flightId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">aircraftType</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">regNum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">depAd</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">destAd</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">crossDist</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">mtow</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">enrouteChargesUSD</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">billingDateStr</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">distanceUnitOfMeasure</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">mtowUnitOfMeasure</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">enrouteChargesANSP</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">enrouteChargesANSPStr</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">enrouteChargesAnspStr</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">18</property>
+                        <property name="name">routing</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">19</property>
+                        <property name="name">dFactor</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">xml</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">flightDateStr</property>
+                    <property name="nativeName">flightDateStr</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">operatorName</property>
+                    <property name="nativeName">operatorName</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">icaoCode</property>
+                    <property name="nativeName">icaoCode</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">flightId</property>
+                    <property name="nativeName">flightId</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">aircraftType</property>
+                    <property name="nativeName">aircraftType</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">regNum</property>
+                    <property name="nativeName">regNum</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">depAd</property>
+                    <property name="nativeName">depAd</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">destAd</property>
+                    <property name="nativeName">destAd</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">crossDist</property>
+                    <property name="nativeName">crossDist</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">2</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">mtow</property>
+                    <property name="nativeName">mtow</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">2</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">enrouteChargesUSD</property>
+                    <property name="nativeName">enrouteChargesUSD</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">2</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">billingDateStr</property>
+                    <property name="nativeName">billingDateStr</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">distanceUnitOfMeasure</property>
+                    <property name="nativeName">distanceUnitOfMeasure</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">mtowUnitOfMeasure</property>
+                    <property name="nativeName">mtowUnitOfMeasure</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">enrouteChargesANSP</property>
+                    <property name="nativeName">enrouteChargesANSP</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">2</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">enrouteChargesANSPStr</property>
+                    <property name="nativeName">enrouteChargesANSPStr</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">17</property>
+                    <property name="name">enrouteChargesAnspStr</property>
+                    <property name="nativeName">enrouteChargesAnspStr</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">18</property>
+                    <property name="name">routing</property>
+                    <property name="nativeName">routing</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">19</property>
+                    <property name="name">dFactor</property>
+                    <property name="nativeName">dFactor</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">2</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[table0#-TNAME-#table0#:#[/iataInvoiceReport/flightMovements/flightMovementInfo]#:#{flightDateStr;STRING;/flightDateStr},{operatorName;STRING;/operatorName},{icaoCode;STRING;/icaoCode},{flightId;STRING;/flightId},{aircraftType;STRING;/aircraftType},{regNum;STRING;/regNum},{depAd;STRING;/depAd},{destAd;STRING;/destAd},{crossDist;BIGDECIMAL;/crossDist},{mtow;BIGDECIMAL;/mtow},{enrouteChargesUSD;BIGDECIMAL;/enrouteChargesUSD},{billingDateStr;STRING;/billingDateStr},{distanceUnitOfMeasure;STRING;/distanceUnitOfMeasure},{mtowUnitOfMeasure;STRING;/mtowUnitOfMeasure},{enrouteChargesANSP;BIGDECIMAL;/enrouteChargesANSP},{enrouteChargesANSPStr;STRING;/enrouteChargesANSPStr},{enrouteChargesAnspStr;STRING;/enrouteChargesAnspStr},{routing;STRING;/routing},{dFactor;BIGDECIMAL;/dFactor}#:#<"xsi","http:%%www.w3.org%2001%XMLSchema-instance">]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>flightDateStr</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>flightDateStr</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>operatorName</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>operatorName</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>icaoCode</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>icaoCode</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>flightId</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>flightId</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>aircraftType</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>aircraftType</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>regNum</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>regNum</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>depAd</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>depAd</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>destAd</design:name>
+              <design:position>8</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>destAd</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>crossDist</design:name>
+              <design:position>9</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>2</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>crossDist</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>mtow</design:name>
+              <design:position>10</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>2</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>mtow</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>enrouteChargesUSD</design:name>
+              <design:position>11</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>2</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>enrouteChargesUSD</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>MAX_ROW</name>
+                    <value>-1</value>
+                </ex-property>
+                <ex-property>
+                    <name>XML_FILE</name>
+                </ex-property>
+            </list-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.datatools.enablement.oda.xml.dataSet" name="props" id="1314">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">year</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="heading">year</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">month</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="heading">month</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">intervalDescr</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">intervalDescr</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">totalEnrouteChargesUSD</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="heading">totalEnrouteChargesUSD</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">invoiceNumber</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">invoiceNumber</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">totalEnrouteChargesANSP</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="heading">totalEnrouteChargesANSP</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">year</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">month</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">intervalDescr</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">totalEnrouteChargesUSD</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">invoiceNumber</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">totalEnrouteChargesANSP</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">xml</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">year</property>
+                    <property name="nativeName">year</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">month</property>
+                    <property name="nativeName">month</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">name</property>
+                    <property name="nativeName">name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">intervalDescr</property>
+                    <property name="nativeName">intervalDescr</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">totalEnrouteChargesUSD</property>
+                    <property name="nativeName">totalEnrouteChargesUSD</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">2</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">invoiceNumber</property>
+                    <property name="nativeName">invoiceNumber</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">totalEnrouteChargesANSP</property>
+                    <property name="nativeName">totalEnrouteChargesANSP</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">2</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[table0#-TNAME-#table0#:#[/iataInvoiceReport/props]#:#{year;INT;/year},{month;INT;/month},{name;STRING;/name},{intervalDescr;STRING;/intervalDescr},{totalEnrouteChargesUSD;BIGDECIMAL;/totalEnrouteChargesUSD},{invoiceNumber;STRING;/invoiceNumber},{totalEnrouteChargesANSP;BIGDECIMAL;/totalEnrouteChargesANSP}#:#<"xsi","http:%%www.w3.org%2001%XMLSchema-instance">]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>year</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>year</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>month</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>month</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>name</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>name</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>intervalDescr</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>intervalDescr</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>totalEnrouteChargesUSD</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>2</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>totalEnrouteChargesUSD</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>MAX_ROW</name>
+                    <value>-1</value>
+                </ex-property>
+                <ex-property>
+                    <name>XML_FILE</name>
+                </ex-property>
+            </list-property>
+        </oda-data-set>
+    </data-sets>
+    <styles>
+        <style name="report" id="4">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="6">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="NewSimpleMasterPage" id="1201">
+            <property name="orientation">landscape</property>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="1373">
+            <property name="dataSet">props</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">year</property>
+                    <text-property name="displayName">year</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["year"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">month</property>
+                    <text-property name="displayName">month</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["month"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">name</property>
+                    <text-property name="displayName">name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["name"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">intervalDescr</property>
+                    <text-property name="displayName">intervalDescr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["intervalDescr"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">totalEnrouteChargesUSD</property>
+                    <text-property name="displayName">totalEnrouteChargesUSD</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["totalEnrouteChargesUSD"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">invoiceNumber</property>
+                    <text-property name="displayName">invoiceNumber</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["invoiceNumber"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <column id="1410"/>
+            <column id="1411"/>
+            <column id="1412"/>
+            <column id="1413"/>
+            <column id="1414"/>
+            <column id="1415"/>
+            <column id="1416"/>
+            <column id="1417"/>
+            <column id="1418"/>
+            <column id="1419"/>
+            <column id="1420"/>
+            <detail>
+                <row id="1386">
+                    <cell id="1387">
+                        <property name="colSpan">11</property>
+                        <property name="rowSpan">1</property>
+                        <text id="1435">
+                            <property name="fontFamily">"Arial"</property>
+                            <property name="fontSize">18px</property>
+                            <property name="fontWeight">normal</property>
+                            <property name="textUnderline">none</property>
+                            <property name="paddingTop">5pt</property>
+                            <property name="paddingBottom">5pt</property>
+                            <property name="textAlign">center</property>
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Kenneth Kaunda International Airport, P.O. Box 30175, Lusaka, Zambia
+Tel:+260 211 271044/271313/271184/271248/271390
+Fax:+260 211 224777/271281
+Email: zacl@zacl.aero
+Website: www.zacl.co.zm]]></text-property>
+                        </text>
+                    </cell>
+                </row>
+                <row id="1422">
+                    <cell id="1423">
+                        <property name="colSpan">11</property>
+                        <property name="rowSpan">1</property>
+                        <label id="1436">
+                            <property name="fontFamily">"Arial"</property>
+                            <property name="fontSize">14pt</property>
+                            <property name="fontWeight">bold</property>
+                            <property name="paddingTop">5pt</property>
+                            <property name="paddingBottom">5pt</property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">ROUTE AIR NAVIGATION CHARGES</text-property>
+                        </label>
+                    </cell>
+                </row>
+                <row id="1437">
+                    <cell id="1438">
+                        <property name="colSpan">11</property>
+                        <property name="rowSpan">1</property>
+                        <data id="1449">
+                            <property name="fontSize">14pt</property>
+                            <property name="fontWeight">bold</property>
+                            <property name="paddingTop">5pt</property>
+                            <property name="paddingBottom">5pt</property>
+                            <property name="textAlign">center</property>
+                            <property name="dataSet">props</property>
+                            <list-property name="boundDataColumns">
+                                <structure>
+                                    <property name="name">intervalDescr</property>
+                                    <text-property name="displayName">intervalDescr</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["intervalDescr"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                            </list-property>
+                            <property name="resultSetColumn">intervalDescr</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+        <table id="1537">
+            <property name="pageBreakAfter">always</property>
+            <property name="width">10.489583333333334in</property>
+            <property name="dataSet">flight_movements</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">billingDateStr</property>
+                    <text-property name="displayName">billingDateStr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["billingDateStr"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">operatorName</property>
+                    <text-property name="displayName">operatorName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["operatorName"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">icaoCode</property>
+                    <text-property name="displayName">icaoCode</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["icaoCode"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">flightId</property>
+                    <text-property name="displayName">flightId</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["flightId"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">aircraftType</property>
+                    <text-property name="displayName">aircraftType</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["aircraftType"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">regNum</property>
+                    <text-property name="displayName">regNum</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["regNum"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">depAd</property>
+                    <text-property name="displayName">depAd</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["depAd"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">destAd</property>
+                    <text-property name="displayName">destAd</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["destAd"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">crossDist</property>
+                    <text-property name="displayName">crossDist</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["crossDist"] ? dataSetRow["crossDist"].toFixed(2) : ""</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">mtow</property>
+                    <text-property name="displayName">mtow</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["mtow"]</expression>
+                    <property name="dataType">decimal</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">enrouteChargesUSD</property>
+                    <text-property name="displayName">enrouteChargesUSD</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["enrouteChargesUSD"]</expression>
+                    <property name="dataType">decimal</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">routing</property>
+                    <text-property name="displayName">routing</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["routing"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">dFactor</property>
+                    <text-property name="displayName">dFactor</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["dFactor"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+            </list-property>
+            <property name="pageBreakInterval">0</property>
+            <column id="1597">
+                <property name="width">0.75in</property>
+            </column>
+            <column id="1598">
+                <property name="width">1.5in</property>
+            </column>
+            <column id="1599">
+                <property name="width">0.7in</property>
+            </column>
+            <column id="1600">
+                <property name="width">0.6in</property>
+            </column>
+            <column id="1601">
+                <property name="width">0.5in</property>
+            </column>
+            <column id="1602">
+                <property name="width">0.5in</property>
+            </column>
+            <column id="1603">
+                <property name="width">0.5in</property>
+            </column>
+            <column id="1604">
+                <property name="width">0.5in</property>
+            </column>
+            <column id="1642">
+                <property name="width">0.5in</property>
+            </column>
+            <column id="1456">
+                <property name="width">3in</property>
+            </column>
+            <column id="1606">
+                <property name="width">0.6in</property>
+            </column>
+            <column id="1607">
+                <property name="width">0.75in</property>
+            </column>
+            <header>
+                <row id="1538">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">medium</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">medium</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">medium</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">medium</property>
+                    <property name="height">0.4375in</property>
+                    <cell id="1539">
+                        <property name="backgroundColor">#E9E9E9</property>
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="1540">
+                            <property name="fontWeight">bold</property>
+                            <text-property name="text">DATE</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1541">
+                        <property name="backgroundColor">#E9E9E9</property>
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="1542">
+                            <property name="fontWeight">bold</property>
+                            <text-property name="text">OPERATOR&#13;
+NAME</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1543">
+                        <property name="backgroundColor">#E9E9E9</property>
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="1544">
+                            <property name="fontWeight">bold</property>
+                            <text-property name="text">ATC E&amp;F&#13;
+OP. CODE</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1545">
+                        <property name="backgroundColor">#E9E9E9</property>
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="1546">
+                            <property name="fontWeight">bold</property>
+                            <text-property name="text">FLIGHT&#13;
+ID</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1547">
+                        <property name="backgroundColor">#E9E9E9</property>
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="1548">
+                            <property name="fontWeight">bold</property>
+                            <text-property name="text">AIR.&#13;
+TYPE</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1549">
+                        <property name="backgroundColor">#E9E9E9</property>
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="1550">
+                            <property name="fontWeight">bold</property>
+                            <text-property name="text">REG.&#13;
+NO.</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1551">
+                        <property name="backgroundColor">#E9E9E9</property>
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="1552">
+                            <property name="fontWeight">bold</property>
+                            <text-property name="text">FROM</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1553">
+                        <property name="backgroundColor">#E9E9E9</property>
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="1554">
+                            <property name="fontWeight">bold</property>
+                            <text-property name="text">TO</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1639">
+                        <property name="backgroundColor">#E9E9E9</property>
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="1556">
+                            <property name="fontWeight">bold</property>
+                            <text-property name="text">DIST</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1453">
+                        <property name="backgroundColor">#E9E9E9</property>
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="1457">
+                            <property name="fontWeight">bold</property>
+                            <text-property name="text">ROUTING</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1557">
+                        <property name="backgroundColor">#E9E9E9</property>
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="1558">
+                            <property name="fontWeight">bold</property>
+                            <text-property name="text">MTOW</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1559">
+                        <property name="backgroundColor">#E9E9E9</property>
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="1560">
+                            <property name="fontWeight">bold</property>
+                            <text-property name="text">AMOUNT&#13;
+USD</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="1561">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">medium</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">medium</property>
+                    <property name="textAlign">center</property>
+                    <cell id="1562">
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="1625">
+                            <property name="backgroundAttachment">scroll</property>
+                            <property name="backgroundPositionX">0%</property>
+                            <property name="backgroundPositionY">0%</property>
+                            <property name="backgroundRepeat">repeat</property>
+                            <property name="fontFamily">sans-serif</property>
+                            <property name="fontSize">9pt</property>
+                            <property name="fontWeight">normal</property>
+                            <property name="fontStyle">normal</property>
+                            <property name="fontVariant">normal</property>
+                            <property name="color">black</property>
+                            <property name="textLineThrough">none</property>
+                            <property name="textOverline">none</property>
+                            <property name="textUnderline">none</property>
+                            <property name="borderBottomColor">black</property>
+                            <property name="borderBottomStyle">none</property>
+                            <property name="borderBottomWidth">medium</property>
+                            <property name="borderLeftColor">black</property>
+                            <property name="borderLeftStyle">none</property>
+                            <property name="borderLeftWidth">medium</property>
+                            <property name="borderRightColor">black</property>
+                            <property name="borderRightStyle">none</property>
+                            <property name="borderRightWidth">medium</property>
+                            <property name="borderTopColor">black</property>
+                            <property name="borderTopStyle">none</property>
+                            <property name="borderTopWidth">medium</property>
+                            <property name="marginTop">0pt</property>
+                            <property name="marginLeft">0pt</property>
+                            <property name="marginBottom">0pt</property>
+                            <property name="marginRight">0pt</property>
+                            <property name="paddingTop">1pt</property>
+                            <property name="paddingLeft">1pt</property>
+                            <property name="paddingBottom">1pt</property>
+                            <property name="paddingRight">1pt</property>
+                            <property name="textAlign">center</property>
+                            <property name="letterSpacing">normal</property>
+                            <property name="lineHeight">normal</property>
+                            <property name="orphans">2</property>
+                            <property name="textTransform">none</property>
+                            <property name="whiteSpace">normal</property>
+                            <property name="widows">2</property>
+                            <property name="wordSpacing">normal</property>
+                            <property name="display">block</property>
+                            <property name="pageBreakAfter">auto</property>
+                            <property name="pageBreakBefore">auto</property>
+                            <property name="pageBreakInside">auto</property>
+                            <property name="showIfBlank">false</property>
+                            <property name="canShrink">false</property>
+                            <property name="overflow">hidden</property>
+                            <property name="resultSetColumn">billingDateStr</property>
+                        </data>
+                    </cell>
+                    <cell id="1563">
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="1626">
+                            <property name="resultSetColumn">operatorName</property>
+                        </data>
+                    </cell>
+                    <cell id="1565">
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="1627">
+                            <property name="resultSetColumn">icaoCode</property>
+                        </data>
+                    </cell>
+                    <cell id="1567">
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="1628">
+                            <property name="resultSetColumn">flightId</property>
+                        </data>
+                    </cell>
+                    <cell id="1569">
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="1629">
+                            <property name="resultSetColumn">aircraftType</property>
+                        </data>
+                    </cell>
+                    <cell id="1571">
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="1630">
+                            <property name="resultSetColumn">regNum</property>
+                        </data>
+                    </cell>
+                    <cell id="1573">
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="1631">
+                            <property name="resultSetColumn">depAd</property>
+                        </data>
+                    </cell>
+                    <cell id="1575">
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="1632">
+                            <property name="resultSetColumn">destAd</property>
+                        </data>
+                    </cell>
+                    <cell id="1640">
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="1645">
+                            <structure name="numberFormat">
+                                <property name="category">Fixed</property>
+                                <property name="pattern">###0.00{RoundingMode=HALF_UP}</property>
+                            </structure>
+                            <property name="resultSetColumn">dFactor</property>
+                        </data>
+                    </cell>
+                    <cell id="1454">
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="1644">
+                            <property name="resultSetColumn">routing</property>
+                        </data>
+                    </cell>
+                    <cell id="1579">
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="1636">
+                            <structure name="numberFormat">
+                                <property name="category">Fixed</property>
+                                <property name="pattern">###0.00{RoundingMode=HALF_UP}</property>
+                            </structure>
+                            <property name="resultSetColumn">mtow</property>
+                        </data>
+                    </cell>
+                    <cell id="1581">
+                        <property name="fontSize">9pt</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="1638">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">###0.00{RoundingMode=HALF_UP}</property>
+                            </structure>
+                            <property name="resultSetColumn">enrouteChargesUSD</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="1583">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">medium</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">medium</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">medium</property>
+                    <cell id="1584">
+                        <property name="fontSize">9pt</property>
+                    </cell>
+                    <cell id="1585">
+                        <property name="fontSize">9pt</property>
+                    </cell>
+                    <cell id="1586">
+                        <property name="fontSize">9pt</property>
+                    </cell>
+                    <cell id="1587">
+                        <property name="fontSize">9pt</property>
+                    </cell>
+                    <cell id="1588">
+                        <property name="fontSize">9pt</property>
+                    </cell>
+                    <cell id="1589">
+                        <property name="fontSize">9pt</property>
+                    </cell>
+                    <cell id="1590">
+                        <property name="fontSize">9pt</property>
+                    </cell>
+                    <cell id="1591">
+                        <property name="fontSize">9pt</property>
+                    </cell>
+                    <cell id="1641">
+                        <property name="fontSize">9pt</property>
+                    </cell>
+                    <cell id="1455">
+                        <property name="fontSize">9pt</property>
+                    </cell>
+                    <cell id="1593">
+                        <property name="fontSize">9pt</property>
+                        <property name="textAlign">right</property>
+                        <label id="1594">
+                            <property name="fontWeight">bold</property>
+                            <text-property name="text">TOTAL:</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1595">
+                        <property name="fontSize">9pt</property>
+                        <data id="1596">
+                            <property name="fontWeight">bold</property>
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">###0.00{RoundingMode=HALF_UP}</property>
+                            </structure>
+                            <property name="textAlign">center</property>
+                            <property name="dataSet">props</property>
+                            <list-property name="boundDataColumns">
+                                <structure>
+                                    <property name="name">totalEnrouteChargesUSD</property>
+                                    <text-property name="displayName">totalEnrouteChargesUSD</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["totalEnrouteChargesUSD"]</expression>
+                                    <property name="dataType">decimal</property>
+                                </structure>
+                            </list-property>
+                            <property name="resultSetColumn">totalEnrouteChargesUSD</property>
+                        </data>
+                    </cell>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>

@@ -1,0 +1,2408 @@
+databaseChangeLog:
+    - include:
+        file: 20160921152723_create_users_table.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20160926163900_create_roles_and_permissions.sql
+        relativeToChangelogFile: true
+    - changeSet:
+        id: 20160928110500_add_default_users_roles_and_permissions
+        author: derek
+        changes:
+            - loadData:
+                file: db/migration/data/users.csv
+                tableName: users
+            - loadData:
+                file: db/migration/data/roles.csv
+                tableName: roles
+            - loadData:
+                file: db/migration/data/user_role.csv
+                tableName: user_role
+            - loadData:
+                file: db/migration/data/permissions.csv
+                tableName: permissions
+            - sql:
+                comment: Gives admin role every permission
+                sql: insert into role_permission(role_id, permission_id) select 1, id from permissions
+    - include:
+        file: 20161004100622_create_oauth_tables.sql
+        relativeToChangelogFile: true
+    - changeSet:
+        id: 20161004110000_add_default_oauth_settings
+        author: derek
+        changes:
+            - loadData:
+                file: db/migration/data/oauth_client_details.csv
+                tableName: oauth_client_details
+                separator: ;
+    - include:
+        file: 20161019170600_create_countries.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161019170600_create_currencies.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161019170600_create_account_table.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161025131200_alter_roles_and_permissions.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161024111300_create_aerodromes_table.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161028105300_create_navigation_billing_formula.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161027103000_create_aircraft_tables.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161031163000_create_system_data_and_item_tables.sql
+        relativeToChangelogFile: true
+    - changeSet:
+        id: 20161031163000_add_system_data_and_item
+        author: luigi
+        changes:
+            - loadData:
+                file: db/migration/data/system_item_type.csv
+                tableName: system_item_types
+            - loadData:
+                file: db/migration/data/system_data_type.csv
+                tableName: system_data_types
+    - include:
+        file: 20161031163000_create_system_configuration_table.sql
+        relativeToChangelogFile: true
+    - changeSet:
+        id: 20161031163000_add_system_configuration
+        author: luigi
+        changes:
+            - sqlFile:
+                path: data/000000001_add_system_configuration.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - include:
+        file: 20161102155700_create_passenger_service_charge_table.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161102113000_create_transaction_table.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161103113000_create_billing_ledger_table.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161103155900_create_account_exemption_table.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161104120300_alter_currencies.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161107154400_alter_countries_currencies.sql
+        relativeToChangelogFile: true
+    - changeSet:
+        id: 20161107154700_load_countries_and_currencies
+        author: cristian
+        changes:
+            - loadData:
+                file: db/migration/data/countries.csv
+                tableName: countries
+            - loadData:
+                file: db/migration/data/currencies.csv
+                tableName: currencies
+    - include:
+        file: 20161107164100_alter_users.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161109154000_create_aircraft_type_exemption_table.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161108103600_create_ldp_billing_formulas.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161108144000_create_invoice_template_table.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161108145000_create_service_charge_catalogue_table.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161109175500_alter_account_exemptions.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161110132300_create_utilities_schedules.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161111140700_create_utilities_towns_and_village.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161110164100_create_average_mtow_factor_table.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161110140800_create_regional_country_table.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161115120800_alter_regional_countries.sql
+        relativeToChangelogFile: true
+    - include:
+        file: 20161116145900_alter_passenger_service_charge_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20161122082200_create_passenger_manifest.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20161124044100_create_airspace_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20161125033000_alter_aerodrome.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Carmine
+        file: 20161128134030_create_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20161130051300_alter_airspace.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20161129162600_create_exempt_flight_routes.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Carmine
+        file: 20161130164430_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20161130124400_create_certificate_templates.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20161201172100_alter_wake_turbolence_categories.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: db/migration/procedure/flight_movements_summary.sql
+    - changeSet:
+        id: 000000002_add_aircraft_type.sql
+        author: luigi
+        changes:
+            - sqlFile:
+                path: data/000000002_add_aircraft_type.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - include:
+        author: Cristian
+        file: 20161202161500_update_system_configuration_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20161207131400_alter_aerodrome.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20161129044600_alter_service_charge_catalogue.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20161209171500_update_currencies.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike DiDomizio
+        file: 20161210102900_update_oauth_client_details.sql
+        relativeToChangelogFile: true
+    - changeSet:
+        id: 20161210120400_update_currency_symbols
+        author: cristian
+        changes:
+            - loadUpdateData:
+                file: db/migration/data/currency_symbols.csv
+                tableName: currencies
+                primaryKey: id
+                encoding: UTF-8
+    - include:
+        author: Carmine
+        file: 20161210172230_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20161214102900_create_certificates.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20161215105200_alter_billing_ledger_table.sql
+        relativeToChangelogFile: true
+    - changeSet:
+        id: 20170103142000_update_default_permissions
+        author: Carmine
+        changes:
+            - loadData:
+                file: db/migration/data/permissions_2.csv
+                tableName: permissions
+                separator: ;
+            - sql:
+                comment: Gives admin role every permission
+                sql: insert into role_permission(role_id, permission_id,created_by) select 1, id,created_by from permissions where name like '%zzzz_aircraft_type%'
+    - include:
+        author: Carmine
+        file: 20170103143000_create_unspecified_aircraft_tables.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Carmine
+        file: 20170105094000_alter_invoice_template_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike DiDomizio
+        file: 20170106145500_update_system_configuration_date_format.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170109064800_alter_account_exemption.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Carmine
+        file: 20170110110000_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Igor
+        file: 20170111110400_alter_transactions_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Igor
+        file: 20170111111400_alter_billing_ledgers_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Igor
+        file: 20170111111500_create_transaction_payment_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Stefano Menotti
+        file: 20170110115400_create_billing_centers_table.sql
+        relativeToChangelogFile: true
+    - changeSet:
+        id: 20170110151500_update_default_permissions
+        author: Stefano Menotti
+        changes:
+            - loadData:
+                file: db/migration/data/permissions_3.csv
+                tableName: permissions
+                separator: ;
+            - sql:
+                comment: Gives admin role every permission
+                sql: insert into role_permission(role_id, permission_id,created_by) select 1, id,created_by from permissions where name like '%billing_center%'
+    - include:
+        author: Cristian
+        file: 20170111084100_alter_exempt_flight_routes.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170111120000_create_exempt_flight_status.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170112064000_alter_aerodrome_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170112062700_alter_exempt_flight_routes.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170112092800_create_tower_movement_logs.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170113061000_alter_user_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Carmine
+        file: 20170116154800_create_radar_summary_tables.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170117035400_alter_exempt_aircraft_type.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170116092600_alter_accounts_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170118030000_alter_navigation_billing_formula.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170119105000_create_rejected_items_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170119100900_alter_ldp_billing_formulas.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Carmine
+        file: 20170119113000_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - changeSet:
+        id: 20170120051500_update_default_permissions
+        author: Cristian
+        changes:
+            - loadData:
+                file: db/migration/data/permissions_4.csv
+                tableName: permissions
+                separator: ;
+            - sql:
+                comment: Gives admin role every permission
+                sql: insert into role_permission(role_id, permission_id,created_by) select 1, id,created_by from permissions where name like '%charges_schedule%'
+    - include:
+        author: Mike DiDomizio
+        file: 20170120214800_update_system_configuration_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170123051000_create_unspecified_departure_destination_locations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170123045000_create_atc_movement_logs.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Carmine Talpa
+        file: 20170124153000_alter_tower_movement_logs.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Igor
+        file: 20170124153500_alter_billing_ledgers_transactions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170126062000_alter_exempt_aircraft_type.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170130045000_create_nominal_routes_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen
+        file: 20170202175832_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170203093900_alter_invoice_template_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170125122400_alter_atc_movement_logs.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170206111900_alter_invoice_template_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170207035200_alter_tower_movement_logs.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike DiDomizio
+        file: 20170131213200_alter_unspecified_departure_destination_locations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170207050000_create_repositioning_aerodrome_clusters_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170207052000_create_repositioning_assigned_aerodrome_clusters_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170207030000_alter_exempt_flight_route.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen
+        file: 20170208140700_alter_flight_movements_table_eet.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike DiDomizio
+        file: 20170116221700_insert_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Carmine Talpa
+        file: 20170207134800_create_route_segments_tables.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Carmine Talpa
+        file: 20170210115300_alter_radar_summaries.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170210094100_alter_atc_movement_logs.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen
+        file: 201702131449_update_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike DiDomizio
+        file: 20170213160000_alter_accounts_drop_current_standing.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170217105800_alter_atc_movement_logs.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170217105900_alter_tower_movement_logs.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Carmine
+        file: 20170221125000_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike DiDomizio
+        file: 20170221162000_insert_wake_turbulence_categories.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike DiDomizio
+        file: 20170221174200_alter_atc_movement_logs_fix_column_spelling_error.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170222064700_update_enum_values.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Carmine
+        file: 20170223104000_alter_route_segment_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170227093800_alter_passenger_service_charge_returns.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Carmine
+        file: 20170228125300_alter_flight_movement.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Carmine
+        file: 20170301115000_alter_route_segments.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Carmine
+        file: 20170301115800_insert_system_configurations.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen
+        file: 20170306130930_alter_flightmovements_table_tasp.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170306092300_create_currency_exchange_rates.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170307053700_alter_service_charge_catalogue.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170308094200_alter_atc_tower_movement_logs.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170309093300_alter_unspecified_aircraft_types.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen
+        file: 20170309153800_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen
+        file: 20170309154230_insert_system_configuration_table_radar_floor.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Carmine
+        file: 20170310090000_update_system_configuration_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet
+        file: 20170313133000_alter_billing_centers_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170310104300_alter_exempt_flight_route.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170311093200_create_rejected_items.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike DiDomizio
+        file: 20170310154800_alter_utilities_towns_and_villages.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet
+        file: 20170314151500_alter_flight_movement_charge_status.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet
+        file: 20170314151501_alter_billing_ledgers.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Carmine
+        file: 20170314163000_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Igor
+        file: 20170315162900_update_system_configuration_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Igor
+        file: 20170315163100_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Igor
+        file: 20170315170300_alter_aerodromecategories_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Carmine
+        file: 20170317170500_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet
+        file: 20170320132000_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Yuan
+        file: 20170322142200_alter_timestamp_with_timezone.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Carmine
+        file: 20170323185800_alter_atc_movement_logs.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Carmine
+        file: 20170323185900_alter_tower_movement_logs.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Carmine
+        file: 20170325180400_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike DiDomizio
+        file: 20170323205100_update_system_configuration_currency.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170325112100_recreate_rejected_items.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet
+        file: 20170327124000_alter_billing_centers_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Carmine
+        file: 20170328090000_alter_unspecified_departure_destination_locations.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike DiDomizio
+        file: 20170329155800_alter_exempt_flight_routes.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen
+        file: 20170330085600_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet
+        file: 20170403151600_alter_billing_ledgers_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet
+        file: 20170403151640_alter_billing_ledgers_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet
+        file: 20170403151645_alter_transactions_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet
+        file: 20170403163700_alter_users_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Yuan
+        file: db/migration/procedure/flight_movements_summary_3.sql
+    - include:
+        author: Mike DiDomizio
+        file: 20170329170200_alter_flight_movements.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike DiDomizio
+        file: 20170329172700_create_charge_view.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet
+        file: 20170404172200_alter_transactions_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike DiDomizio
+        file: 20170406161200_create_charge_view.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 201704061715_alter_billing_ledgers_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Igor
+        file: 201704071448_create_invoice_overdue_penalties_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike DiDomizio
+        file: 20170407154000_create_charge_view.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20170407174800_create_invoice_items_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20170410161700_create_recurring_charges_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20170411184100_alter_line_items_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20170418155500_alter_line_items_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Igor
+        file: 201704131600_alter_transaction_payments_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170420032200_update_recurring_charges_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170428053000_alter_flight_movement_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20170503181100_alter_invoice_line_items_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170505042600_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20170508105300_alter_invoice_line_items_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170419053400_create_route_caches_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170505084400_insert_system_configuration_table_delete_route_cache.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20170508160000_alter_invoice_line_items_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20170509120000_alter_invoice_line_items_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170510043400_create_report_templates_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170517080000_create_aircraft_registration_prefixes.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170517113700_alter_exempt_flight_status_table.sql
+        relativeToChangelogFile: true
+    - changeSet:
+        id: 20170518021500_add_aircraft_registration_prefixes
+        author: luigi
+        changes:
+            - sqlFile:
+                path: data/000000001_add_aircraft_registration_prefixes.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - include:
+        author: Luigi
+        file: 20180518092900_alter_system_configuration_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170519124700_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170519033500_alter_account_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170504082700_create_recalculation_job_tables.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170525060300_alter_currency_exchange_rates_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170526061500_alter_route_segmets_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170531114100_alter_service_charge_catalogs_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike DiDomizio
+        file: 20170602143600_alter_airspaces.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170613090000_update_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170615082500_alter_route_caches_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170613062600_update_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170620055000_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170620103900_alter_accounts_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20170626144500_alter_permissions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20170626160800_alter_role_permission.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170703100000_alter_route_caches_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Igor
+        file: 20170705172300_alter_invoice_templates.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170710104400_alter_uniqueness_constraints.sql
+        relativeToChangelogFile: true
+    - changeSet:
+        id: 20170712030000_update_default_permissions
+        author: Luigi
+        changes:
+            - loadData:
+                file: db/migration/data/permissions_5.csv
+                tableName: permissions
+                separator: ;
+            - sql:
+                comment: Gives admin role every permission
+                sql: insert into role_permission(role_id, permission_id,created_by) select 1, id,created_by from permissions where name like '%manage_route_cache%'
+    - include:
+        author: Olga
+        file: 20170712201600_alter_permissions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20170712202000_alter_role_permission.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170724110200_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170727030000_alter_billing_ledgers_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170727031000_revenue_view.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170804083200_alter_role_permission.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20170808153800_update_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet
+        file: 20170821150000_account_uniqueness.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20170825134700_insert_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170911083200_alter_aircraft_registrations_unique_constraint.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Jonathan
+        file: 20170920140500_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170922040000_alter_enroute_air_navigation_formulas_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170922040000_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170926030000_alter_aerodromecategories_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170926030000_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20170926112100_alter_system_configuration_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20170927104000_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20171003033000_alter_enroute_air_navigation_formulas_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20171004144400_alter_job_execution_table_parameters_column.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20171006144000_create_st_invert_function.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20171006144500_create_st_difference_function.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20171010084000_alter_system_configuration_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20171010154700_create_fm_datetimematch_function.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20171011103000_alter_fm_datetimematch_function.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20171013151900_alter_tower_movement_logs.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20171018110000_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20171018135500_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20171018202200_alter_accounts_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Jonathan
+        file: 20171024120000_alter_aircraft_registrations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike R
+        file: 20171026154000_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Jonathan
+        file: 20171031101900_create_uploaded_files_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20171102170700_alter_system_configuration_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Jonathan
+        file: 20171103094000_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike R
+        file: 20171106151000_alter_table_flight_movements.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20171107103300_alter_billing_ledgers_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20171108050000_alter_system_configuration_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20171108094200_alter_billing_ledgers_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: db/migration/procedure/flight_movements_summary_4.sql
+    - include:
+        author: Luigi
+        file: 20171109050500_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20171110154600_alter_system_configuration_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20171110172900_alter_transactions_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi Rosito
+        file: 20171114102000_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20171114101900_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20171115041200_alter_audited_entity_tables.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike R
+        file: 20171115142500_create_user_event_log_and_types_tables.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20171120060000_create_flight_schedules_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20171120145700_alter_permissions_and_role_permission_tables.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20171120172400_create_local_aircraft_registries_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20171121174500_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike R
+        file: 20171123114500_alter_all_exemptions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20171128060000_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20171124055800_create_aerodrome_prefixes.sql
+        relativeToChangelogFile: true
+    - changeSet:
+        id: 20170518021500_add_aerodrome_prefixes
+        author: Cristian
+        changes:
+            - sqlFile:
+                path: data/000000001_add_aerodrome_prefixes.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - include:
+        author: Olga
+        file: 20171128145400_alter_average_mtow_factors_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike R
+        file: 20171128170002_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20171130171200_alter_local_aircraft_registries_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20171204102136_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20171205043000_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike R
+        file: 20171206173002_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20171128080700_alter_account_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20171129114000_insert_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Jonathan
+        file: 20171207105600_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Jonathan
+        file: 20171211093700_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike R
+        file: 20171207143000_alter_aerodromes_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike R
+        file: 20171211061700_update_account_types_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20171213025100_update_systemconfig_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20171214185600_alter_average_mtow_factors_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20171218055800_update_invoice_state_types.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Jonathan
+        file: 20171218113000_alter_aircraft_registration_prefixes_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Jonathan
+        file: 2017201217172900_alter_permissions_and_role_permission_tables.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20171221030000_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20180109043000_create_fpl_scheduler_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180104000000_update_user_event_types.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20171227140500_create_cached_events_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180111122400_insert_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180112162600_modify_cached_events_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180115175200_create_plugins_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180115000000_alter_user_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180116110111_add_languages_permissions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20180116125300_alter_accounts_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20180116125800_create_notification_event_types_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20180116130300_create_account_event_map_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180126000010_add_role_permissions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180122102200_create_cached_event_metadata_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: procedure/plugin_id.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180123135600_alter_system_item_types_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180124092300_alter_plugins_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Jonathan Baldwin
+        file: 20180126094500_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20182901054300_add_indexes_in_flight_movements.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180130101100_alter_plugins.sql
+        relativeToChangelogFile: true
+    - changeSet:
+        id: 20170712030000_update_default_permissions
+        author: Samuel Craymer
+        changes:
+            - loadData:
+                file: db/migration/data/permissions_6.csv
+                tableName: permissions
+                separator: ;
+            - sql:
+                comment: Gives admin role every permission
+                sql: insert into role_permission(role_id, permission_id, created_by) select 1, id, created_by from permissions where name like '%manage_cached_event%' or name like '%manage_plugin%'
+    - include:
+        author: Mike R
+        file: 20180201130000_add_permissions_passenger_reconcile.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: db/migration/procedure/flight_movements_summary_5.sql
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180208090600_add_language_configs_new.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Jonathan B
+        file: 20180214151400_alter_billing_ledgers_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Jonathan B
+        file: 20180216145300_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20180221121800_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20180301033600_add_func_flight_movements.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20180227182600_update_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20180302043900_update_func_flight_movements.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180305163500_alter_uploaded_files.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20180308110500_update_func_flight_movements.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180321094901_languages.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: procedure/add_languages_by_json.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180311130800_update_sysconf.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Jonathan B
+        file: 20180321140400_update_language_defaults.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180327163400_update_billing_ledgers_state_type.sql
+        relativeToChangelogFile: true
+    - changeSet:
+        id: 20180313111800_update_default_permissions
+        author: Cristian
+        changes:
+            - loadData:
+                file: db/migration/data/permissions_7.csv
+                tableName: permissions
+                separator: ;
+            - sql:
+                comment: Gives admin approvalGroup every permission
+                sql: insert into role_permission(role_id, permission_id, created_by) select 1, id, created_by from permissions where name like '%approval_workflow%'
+    - include:
+        author: Cristian
+        file: 20180307082800_create_approval_workflows.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20180316112500_create_pending_transactions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20180322094500_insert_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20180410114200_alter_roles.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20180410155800_alter_users_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20180411065700_reset_receipt_sequence_number.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: 20180412150400_alter_account_table_self_care.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20180413121300_add_constraint_for_transaction_payments.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20180418101300_change_flight_id_length.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20180419111400_fix_fm_datetimematch.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: 20180419132500_alter_aircraft_registration_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20180423115300_alter_users_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20180427093700_alter_role_permission.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Jonathan B
+        file: 20180409121600_alter_service_charge_catalogue.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180501161700_modify_billing_ledgers_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180501175200_alter_fm_datetimematch.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180502172000_alter_uploaded_files.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20180502104000_create_job_locking_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20180507112200_alter_users_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180427105100_add_adap_sysconfig.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180508081200_fix_aerodrome_cat_links.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 201805071700_alter_billing_center_constraints.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20180508063500_alter_passenger_service_charge_returns_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180418080000_alter_service_charge_catalogue.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180418040000_alter_invoice_line_items.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Jonathan B
+        file: 20180418224900_create_charges_adjustments_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180419125800_alter_billing_centers.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180508001800_alter_currency_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180508002000_alter_aerodrome_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180509201100_alter_external_id_unique.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20180510153100_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20180510170800_create_air_traffic_statistics_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20180511093200_alter_air_traffic_statistics_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20180511163900_create_revenue_statistics_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20180510113700_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180511082200_rounding_configs.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180514135800_alter_pscr.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180515212400_insert_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Kieran Gubbins
+        file: 20180516144700_create_charge_view.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: 20180516153500_regional_flight_changes.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Jonathan
+        file: 20180522095000_alter_accounts_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20180522110100_update_charge_view.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20180518061400_update_invoice_overdue_penalties_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180521220500_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180524151200_update_permissions_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Jonathan
+        file: 20180525101800_overflights_to_int_overflights.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180601220000_alter_charge_adjustments.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20180611183000_create_external_charge_categories.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20180614181500_alter_invoice_line_items.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: procedure/external_charge_category_id.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20180626192500_alter_charge_adjustments.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180620130000_updatesettings.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20180619154300_update_charge_view.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20180619155100_update_revenue_view.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20180706045600_alter_roles.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180704083300_newsysconfig.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20180705043000_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20180706100000_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20180709100000_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180709224500_alter_accounts_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20180710100000_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20180710184300_create_bank_codes.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20180711183100_alter_plugins.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Igor
+        file: 20180711100000_create_exempt_aircraft_flights_table.sql
+        relativeToChangelogFile: true
+    - changeSet:
+        id: 20180812140000_update_default_permissions
+        author: Igor
+        changes:
+            - loadData:
+                file: db/migration/data/permissions_8.csv
+                tableName: permissions
+                separator: ;
+            - sql:
+                comment: Gives admin role every permission
+                sql: insert into role_permission(role_id, permission_id,created_by) select 1, id,created_by from permissions where name like '%exempt_aircraft_flights%'
+    - include:
+        author: Olga
+        file: 20180719154900_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20180724200000_alter_transaction_payments.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180724093805_mapconfigs.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180726103600_portal_config.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20180720114500_alter_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20180720145200_create_self_care_portal_approval_requests.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180731103500_fixcoords.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Jonathan B
+        file: 20180802163800_alter_flight_movements.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180821151100_alter_flight_movements.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180822085401_captcha_config.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20180828152500_alter_users_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen
+        file: 20180713112200_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20180829161900_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180831102700_updatesysconfig.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: 20180829143300_system_config_allow_zero_length_route.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20180806085800_alter_job_executions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20180807084100_add_job_translations.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20180815173100_alter_account_user_map.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180830210900_insert_system_configuration_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180905102700_taspsysconfig.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20180904205800_alter_cached_events.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180907111502_transactions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20180906111900_alter_charges_adjustments_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180907195700_changelog_lang_1.2.9.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180914142300_changelog_lang_1.2.10.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180914154700_update_lang.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20180917104400_more_airspace_types.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20180925155500_changelog_lang_1.2.11.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20180925191800_alter_flight_movements.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20181003160500_nominal_routes_unique_constraint.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20181010143700_alter_transactions_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20181010175100_changelog_lang_1.2.12.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20181029141700_changelog_lang_1.2.13.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20181112130500_sysconfig_numeric_ranges.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20181112175800_account_external_charge_categories_uniqueness.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20181113155100_alter_flight_movements.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20181122111500_try_parse_aviation_time_of_day.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20181213195800_changelog_lang_1.2.14.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190118171000_update_system_configurations.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190108163900_changelog_lang_1.2.15.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190118230300_changelog_lang_1.2.16.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20190311160900_update_system_configurations.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190313160500_alter_tower_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20190314153500_alter_cached_events.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190318193000_update_cached_event_results.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190318204500_changelog_lang_1.2.18.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190319164500_alter_atc_movement_log_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: 20180531153200_create_tables_venezuela.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: 20180606125100_alter_flightmovements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: 20180606140700_rename_columns_venezuela.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20180608080000_currency_id.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20180608080001_insert_or_update_vtu_currency.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20180608080200_alter_currency_exchange_rates_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20180608161500_make_charges_double_in_flight_movements.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180608130301_ven_historical_vtu.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180612084100_fix_invoice_settings.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Igor
+        file: 20180612153300_alter_billing_ledgers_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20180611162500_alter_flightmovement_categories.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180613132600_veftousd.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20180614085000_alter_transactions_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: db/migration/procedure/flight_movements_summary_6.sql
+    - include:
+        author: Luigi
+        file: 20180716060000_create_flight_reassignments_table.sql
+        relativeToChangelogFile: true
+    - changeSet:
+        id: 20180716090000_update_default_permissions
+        author: Luigi
+        changes:
+            - loadData:
+                file: db/migration/data/permissions_9.csv
+                tableName: permissions
+                separator: ;
+            - sql:
+                comment: Gives admin approvalGroup every permission
+                sql: insert into role_permission(role_id, permission_id, created_by) select 1, id, created_by from permissions where name like '%flight_reassignment%'
+    - include:
+        author: Helen
+        file: 20180713112200_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20180717040000_alter_accounts_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20180727025000_create_flight_reassignment_aerodroms_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Luigi
+        file: 20180727030000_alter_flight_reassignments_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Nathaniel Goodwin
+        file: 20180802120301_fixrange.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20180806085800_alter_job_executions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Cristian
+        file: 20180807084100_add_job_translations.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20180927172600_oauth_client_details.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20181024190700_add_furh_charge.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20181211164000_system_configurations.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20181214114000_system_config_spelling.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20181217103100_insert_currencies.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20181217123100_update_currency_exchange_rates.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20181217151100_alter_system_configurations.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20181219203300_alter_system_configurations.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20181221170000_changelog_lang_1.4.0.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20190103182500_create_bank_accounts.sql
+        relativeToChangelogFile: true
+    - changeSet:
+        id: 20190111165800_update_default_permissions
+        author: Samuel Craymer
+        changes:
+            - loadData:
+                file: db/migration/data/permissions_10.csv
+                tableName: permissions
+                separator: ;
+            - sql:
+                comment: Gives admin role every permission
+                sql: insert into role_permission(role_id, permission_id, created_by) select 1, id, created_by from permissions where name like '%banking_information%'
+    - include:
+        author: Helen Eskina
+        file: 201901051426_backdate_payment.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: 201901091130_system_configuration_small_aircraft.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: tables/201901111230_alter_aircraft_registrations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20190109213100_alter_transactions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20190111172500_alter_bank_accounts.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190111180700_insert_system_configuration.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20190111183600_alter_transactions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20190102151300_create_aerodrome_service_types.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20190102174100_alter_permissions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20190103162700_create_aerodrome_services_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20190104161600_create_aerodrome_service_outages_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190115165000_changelog_lang_1.4.1.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: tables/20190106121000_alter_aircraft_registrations.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20190118142000_insert_system_configuration.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: tables/20190118150000_alter_passenger_service_charge_returns_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: tables/20190121150600_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20190122154400_alter_permissions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: tables/20190122105300_create_interest_rates_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20190129130500_insert_system_configurations.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: tables/20190131142800_alter_invoice_overdue_penalties_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20190201115500_route_segments_index.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20190204105600_alter_system_configurations.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190206195500_changelog_lang_1.4.2.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190207195600_changelog_lang_1.4.3.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190208195700_changelog_lang_1.4.4.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20190209120400_alter_system_configurations.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190211195800_changelog_lang_1.4.5.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190212245800_changelog_lang_1.4.6.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: procedure/local_airspace_union_geom.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: 201902271606_insert_system_config.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190225155500_indra_radar_support.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190228203100_changelog_lang_1.4.7.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: tables/20190301124000_create_aerodrome_operational_hours_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: 20190301010500_alter_permissions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20190304120000_currency_target.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: 201903011744_zero_charges_flight_support.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20190311165400_insert_system_configurations.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20190318101200_insert_system_configuration.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190503180300_changelog_lang_1.4.8.sql
+        relativeToChangelogFile: true
+    - changeSet:
+        id: 20190318165500_add_approach_fees
+        author: Helen and Samuel Craymer
+        changes:
+            - sqlFile:
+                path: 20190318165500_add_approach_fees.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+        preConditions:
+            - onFail: MARK_RAN
+            - not:
+                - changeSetExecuted:
+                    id: raw
+                    author: includeAll
+                    changeLogFile: classpath:/db/migration/20190211214900_add_approach_fees.sql
+    - include:
+        author: Helen Eskina
+        file: 20190328155800_remove_trigger_actual_dep_dest_ad.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20190325172200_alter_permissions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20190326113000_insert_permissions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20190326171000_alter_permissions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20190328104800_alter_permissions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190328170500_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190402204900_changelog_lang_1.2.19.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20190404150000_translations.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: 20190405110000_radar_summaries_uniqueness.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga
+        file: tables/20190409163600_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: tables/20190412103000_flight_movements_item18_operator.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: tables/20190415155301_alter_unspecified_departure_destination_locations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190416191400_changelog_lang_1.2.20.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20190416203400_alter_pending_transactions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20190426155400_alter_billing_ledgers.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: tables/20190423100600_create_transaction_approvals_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: tables/20190423103000_create_pending_transaction_approvals_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20190501170700_alter_permissions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: data/20190501180100_update_aerodrome_prefixes.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: tables/20190430142000_alter_flight_movements_table_add_cumulative.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: data/20190502200400_insert_system_configuration.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190506193700_delete_cached_routes.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190510190400_changelog_lang_1.4.9.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: tables/201905131540_remove_furh_columns.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190606203400_changelog_lang_1.4.10.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: data/20190627210100_add_aircraft_types.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: 20190605131900_insert_config_segment_gap.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: tables/20190611130600_alter_nominal_routes_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20190612173300_alter_aircraft_type_exemptions_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: 20190620213100_update_fm_billing_date.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20190712144200_add_extended_hours_surcharge_fee.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: data/20190717173300_insert_system_configuration.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: tables/20190722141200_alter_flight_movements_table_null_constraints.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: tables/20190723151200_alter_flight_movements_table_null_constraints_delta.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: 20190724104600_sync_local_aircraft_registration_seq.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: 20190730171300_system_config_named_points.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike R
+        file: 20190815153000_alter_permissions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: tables/20190820153000_alter_flight_movement_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike R
+        file: tables/20190820153000_alter_service_charge_catalogues.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike R
+        file: tables/20190822113000_alter_invoice_line_items.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: tables/20190823132500_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: 20190904130500_sysconfig_min_radar_route.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike R
+        file: tables/20190906113000_alter_passenger_service_charge.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike R
+        file: tables/20190911143000_alter_passenger_service_charge.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: 20190916122500_sysconfig_small_aircraft_flag.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20190917112500_alter_system_configuration_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: tables/20190917013900_alter_billing_ledgers_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20191022101200_insert_system_configuration.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: tables/20191025111500_alter_billing_ledgers_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: tables/20191030141200_alter_billing_ledgers_table_revenue_report.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike R
+        file: tables/20191112123000_create_amhs_configuration_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20191113105500_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20191114164700_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: 20191119113300_sysconfig_flight_level_validation.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: 20191120102800_sysconfig_update_flight_level.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: 20191121112300_sysconfig_flight_level_title2.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20191209154200_insert_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: data/20191210110200_add_aircraft_types.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: tables/20191211155200_alter_account_exemptions_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: tables/20191211114400_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: tables/20191211142600_alter_aircraft_type_exemptions_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: tables/20191212114700_alter_exempt_flight_routes_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20191230110400_insert_system_configurations.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike R
+        file: 20200108160000_alter_system_configurations_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike R
+        file: tables/20200113153000_create_credit_payments_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: tables/20200108143200_alter_exempt_flight_status_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: tables/20200109100800_alter_exempt_aircraft_flights_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: tables/20200109105400_alter_exempt_aircraft_flights_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: tables/20200109164600_alter_repositioning_aerodrome_clusters_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20200120115200_update_system_configuration_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Mike Rose
+        file: 20200122150000_alter_charge_view.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20200210104800_alter_system_configuration_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: 20200211115200_alter_system_configuration_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina
+        file: tables/20200304154700_alter_tables_tma_crossing.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina       
+        file: procedure/local_airspace_union_geom_2.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina       
+        file: 20200326144000_system_configuration_tma.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: tables/20200324123900_alter_accounts_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Olga Bila
+        file: tables/20200327111600_create_self_care_portal_inactivity_expiry_notices_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina               
+        file: 20200415162800_add_default_flight_levels.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina               
+        file: 20200504164900_update_existing_airspaces_3d_routing.sql
+        relativeToChangelogFile: true     
+    - include:
+        author: Helen Eskina               
+        file: tables/20200512152500_nominal_exempted_routes_unique.sql
+        relativeToChangelogFile: true           
+    - include:
+        author: Olga Bila
+        file: tables/20200507150800_alter_flight_movements_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Helen Eskina               
+        file: tables/202006171500_alter_radar_summary_table_constraint.sql
+        relativeToChangelogFile: true           
+    - include:
+        author: Olga Bila
+        file: 20200630161000_alter_system_configuration_table.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Alessio Bulleri              
+        file: tables/20200721140200_alter_billing_centers_table.sql
+        relativeToChangelogFile: true  
+    - include:
+        author: Alessio Bulleri              
+        file: 20200720174600_insert_system_configurations.sql
+        relativeToChangelogFile: true   
+    - include:
+        author: Alessio Bulleri              
+        file: tables/20200728125600_alter_billing_centers_table.sql
+        relativeToChangelogFile: true   
+    - include:
+        author: Alessio Bulleri              
+        file: tables/20200728151600_alter_billing_ledgers_table.sql
+        relativeToChangelogFile: true   
+    - include:
+        author: Alessio Bulleri              
+        file: tables/20200728152600_alter_transactions_table.sql
+        relativeToChangelogFile: true  
+    - include:
+        author: Davlet Panech
+        file: tables/20200614150400_amhs_config_tables.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Davlet Panech
+        file: tables/20200811203300_clear_amhs_ip_addresses.sql
+        relativeToChangelogFile: true   
+    - include:
+        author: Alessio Bulleri              
+        file: 20200918032900_revenue_view_aviation.sql
+        relativeToChangelogFile: true    

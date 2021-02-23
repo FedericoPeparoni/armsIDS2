@@ -1,0 +1,301 @@
+#
+# See also: https://fedoraproject.org/wiki/Packaging:Scriptlets?rd=Packaging:ScriptletSnippets#Systemd
+#
+
+# This is not defined in EL6
+%{!?_rundir: %define _rundir %_localstatedir/run}
+
+%global		spec_version       1
+%global		_pkg_confdir       %_sysconfdir/abms/api
+%global		_pkg_datadir       %_datadir/abms/api
+%global		_pkg_jardir        %_datadir/abms/api/lib
+%global         _pkg_statedir      %_localstatedir/lib/abms/api
+%global		_pkg_logdir        %_localstatedir/log/abms/api
+%global		_pkg_rundir        %_rundir/abms/api
+%global		_pkg_libexecdir    %_libexecdir/abms/api
+%global         __os_install_post  %{nil}
+%global         debug_package      %{nil}
+
+%if 0%{?compress}
+%global         _binary_payload    w9.xzdio
+%else
+%global         _binary_payload    w0.gzdio
+%endif
+
+# Detect whether we are using SystemD (EL 7+) or SysV init (EL 6 or below)
+%if 0%{?_unitdir:1}
+%define have_systemd 1
+%else
+%define have_systemd 0
+%endif
+
+Summary:	ABMS - REST API webservice
+Name:		@@RPM_NAME@@
+Epoch:		0
+Version:	@@RPM_VERSION@@
+Release:	%{spec_version}@@RPM_RELEASE_SUFFIX@@
+License:	Proprietary
+Group:		IDS
+
+Requires:	java >= 1:1.8.0
+Requires(post):	httpd, perl, diffutils
+Requires:	httpd
+
+%if %have_systemd
+%{?systemd_requires}
+%endif
+
+BuildArch: 	noarch
+%if %have_systemd
+BuildRequires:	systemd
+%endif
+Source0: 	@@JAR_FILE_BASENAME@@
+Source1:	run.sh
+Source2:	systemd.start.sh
+Source3:	systemd.start.post.sh
+Source4:	systemd.remove-startup-trigger-file.sh
+Source11:	startup.conf
+Source12:	application-defaults.properties
+Source21:	%{name}.service
+Source22:	%{name}.httpd.conf
+Source23:	%{name}.tmpfiles.conf
+Source25:	%{name}.init
+Source26:	initd.start.sh
+Source27:	initd.cleanup_on_boot.sh
+Source91:	remove_obsolete_props.pl
+
+Requires(pre):	abms-user
+
+%description
+ABMS - REST API webservice
+
+# ---------------------------------------------------------------------------
+# PREP
+# ---------------------------------------------------------------------------
+%prep
+%setup -cT
+
+# ---------------------------------------------------------------------------
+# BUILD
+# ---------------------------------------------------------------------------
+%build
+%__rm -rf BOOT-INF
+# config files
+%__unzip %{SOURCE0} BOOT-INF/classes/config/overrides.linux.example/'*'
+find BOOT-INF -type f -a -name '*.properties' | xargs -i mv '{}' ./
+# db queries
+%__unzip %{SOURCE0} BOOT-INF/classes/dbqueries/'*'
+%__mv BOOT-INF/classes/dbqueries ./
+find dbqueries -type d -exec chmod 0750 '{}' '+'
+find dbqueries -type f -exec chmod 0640 '{}' '+'
+# post-install SQL scripts
+%__unzip %{SOURCE0} BOOT-INF/classes/db/migration/post-install/'*'
+%__mv BOOT-INF/classes/db/migration/post-install ./db-post-install
+find db-post-install -type d -exec chmod 0755 '{}' '+'
+find db-post-install -type f -exec chmod 0644 '{}' '+'
+if [ `find db-post-install -name '*.sql' -type f | wc -l` -le 0 ] ; then
+	echo "unable to find post-install SQL scripts -- please fix the RPM spec!" >&2
+	exit 1
+fi
+
+# ---------------------------------------------------------------------------
+# INSTALL
+# ---------------------------------------------------------------------------
+%install
+set -e
+[ "$RPM_BUILD_ROOT" != / ] && %{__rm} -rf "$RPM_BUILD_ROOT"
+
+# create directories
+%__install -d "$RPM_BUILD_ROOT"%_pkg_datadir
+%__install -d "$RPM_BUILD_ROOT"%_pkg_datadir/db
+%__install -d "$RPM_BUILD_ROOT"%_pkg_datadir/conf
+%__install -d "$RPM_BUILD_ROOT"%_pkg_jardir
+%__install -d "$RPM_BUILD_ROOT"%_pkg_confdir
+%__install -d "$RPM_BUILD_ROOT"%_pkg_logdir
+%__install -d "$RPM_BUILD_ROOT"%_pkg_rundir
+%__install -d "$RPM_BUILD_ROOT"%_pkg_statedir
+%__install -d "$RPM_BUILD_ROOT"%_pkg_statedir/cores
+%__install -d "$RPM_BUILD_ROOT"%_pkg_libexecdir
+%__install -d "$RPM_BUILD_ROOT"%_sysconfdir/httpd/conf.d
+
+# install files
+%__install %SOURCE0 "$RPM_BUILD_ROOT"%_pkg_jardir/
+%__install %SOURCE1 "$RPM_BUILD_ROOT"%_pkg_libexecdir/
+%__install %SOURCE2 "$RPM_BUILD_ROOT"%_pkg_libexecdir/
+%__install %SOURCE3 "$RPM_BUILD_ROOT"%_pkg_libexecdir/
+%__install %SOURCE4 "$RPM_BUILD_ROOT"%_pkg_libexecdir/
+%__install %SOURCE91 "$RPM_BUILD_ROOT"%_pkg_libexecdir/
+%__install %SOURCE11 "$RPM_BUILD_ROOT"%_pkg_confdir/
+%__install %SOURCE12 "$RPM_BUILD_ROOT"%_pkg_datadir/conf/
+%__install *.properties "$RPM_BUILD_ROOT"%_pkg_confdir/
+%__cp -r dbqueries "$RPM_BUILD_ROOT"%_pkg_confdir/
+%__install %SOURCE22 "$RPM_BUILD_ROOT"%_sysconfdir/httpd/conf.d/%{name}.conf
+%__cp -r db-post-install "$RPM_BUILD_ROOT"%_pkg_datadir/db/post-install
+
+# SystemD
+%if %have_systemd
+	# service config file
+	%__install -d "$RPM_BUILD_ROOT"%_unitdir
+	%__install %SOURCE21 "$RPM_BUILD_ROOT"%_unitdir/
+	# tmpfiles to prevent /run/abms/api from being deleted on boot
+	%__install -d "$RPM_BUILD_ROOT"%_tmpfilesdir
+	%__install %SOURCE23 "$RPM_BUILD_ROOT"%_tmpfilesdir/%name.conf
+# SysV
+%else
+	# init script
+	%__install -d "$RPM_BUILD_ROOT"%_initddir
+	%__install -m 0755 %SOURCE25 "$RPM_BUILD_ROOT"%_initddir/%name
+	%__install -m 0755 %SOURCE26 "$RPM_BUILD_ROOT"%_pkg_libexecdir/
+	# a script for deleting stale .pid files and such like
+	%__install -m 0755 %SOURCE27 "$RPM_BUILD_ROOT"%_pkg_libexecdir/cleanup_on_boot.sh
+	# make sure cleanup script is called on boot
+	%__install -d "$RPM_BUILD_ROOT"%_sysconfdir/rc.d
+	for level in 3 4 5 ; do
+		%__install -d "$RPM_BUILD_ROOT"%_sysconfdir/rc.d/rc${level}.d
+		%__ln_s %_pkg_libexecdir/cleanup_on_boot.sh "$RPM_BUILD_ROOT"%_sysconfdir/rc.d/rc${level}.d/S50abms-api-cleanup-on-boot
+	done
+%endif
+
+# ---------------------------------------------------------------------------
+# CLEAN
+# ---------------------------------------------------------------------------
+%clean
+[ "%{buildroot}" != / ] && %{__rm} -rf "%{buildroot}"
+
+# ---------------------------------------------------------------------------
+# POST
+# ---------------------------------------------------------------------------
+%post
+
+# update apache config files if necessary
+if %__grep -qiP '^\s+ProxyPreserveHost\s+on\s*$' %_sysconfdir/httpd/conf.d/%name.conf >/dev/null 2>&1 ; then
+	if %__perl -p -e 's/^(\s+ProxyPreserveHost\s+)on\s*?\n?$/${1}off\n/gi' %_sysconfdir/httpd/conf.d/%name.conf >%_sysconfdir/httpd/conf.d/%name.conf.rpm_tmp && \
+	   ! diff -q %_sysconfdir/httpd/conf.d/%name.conf %_sysconfdir/httpd/conf.d/%name.conf.rpm_tmp >/dev/null 2>&1 ; then
+		echo "warning: changing ProxyPreserveHost to <off> in %_sysconfdir/httpd/conf.d/%name.conf" >&2
+		%__cat %_sysconfdir/httpd/conf.d/%name.conf.rpm_tmp >%_sysconfdir/httpd/conf.d/%name.conf
+		%__rm -f %_sysconfdir/httpd/conf.d/%name.conf.rpm_tmp
+	fi
+fi
+
+# update application.properties if necessary
+obsolete_props="
+	abms.customerConfigName
+	app.spatiadb.fplImport.enabled
+	app.spatiadb.fplImport.schedule
+	app.spatiadb.fplImport.timeout.minutes
+	app.cronos2.fplImport.enabled
+	app.cronos2.fplImport.schedule
+	app.cronos2.fplImport.timeout.minutes
+"
+if [ -f %_pkg_confdir/application.properties ] && \
+	[ -f %_pkg_confdir/application.properties.rpmnew ] && \
+	# check whether the old file contains any obsolete properties
+	%__grep -q -F `echo -n $obsolete_props | %__awk -vRS=' ' -vORS=' ' '{print "-e", $0}'` %_pkg_confdir/application.properties >/dev/null 2>&1 ; then
+	# merge configuration to a temporary file; then rename it
+	if %__perl %_pkg_libexecdir/remove_obsolete_props.pl %_pkg_confdir/application.properties %_pkg_confdir/application.properties.rpmnew $obsolete_props >%_pkg_confdir/application.properties.rpm_merged 2>/dev/null &&
+		! diff -q %_pkg_confdir/application.properties %_pkg_confdir/application.properties.rpm_merged >/dev/null 2>&1 ; then
+		%__rm -f %_pkg_confdir/application.properties.rpmsave
+		%__mv %_pkg_confdir/application.properties %_pkg_confdir/application.properties.rpmsave
+		echo "warning: %_pkg_confdir/application.properties renamed to %_pkg_confdir/application.properties.rpmsave"
+		%__mv %_pkg_confdir/application.properties.rpm_merged %_pkg_confdir/application.properties
+		echo "warning: obsolete properties removed from %_pkg_confdir/application.properties"
+	fi
+fi
+
+# SystemD
+%if %have_systemd
+	# tell apache and systemd to re-read their configuration files
+	# because we provide new ones upon installation
+	systemctl reload httpd >/dev/null 2>&1 || :
+	systemctl daemon-reload >/dev/null 2>&1 || :
+	# system-provided macro
+	%systemd_post %{name}.service
+# SysV
+%else
+	# new install: register service
+	if [ "$1" -eq 1 ] ; then
+		/sbin/chkconfig --add %{name}
+	fi
+	# reload Apache
+	/sbin/service httpd reload >/dev/null 2>&1 || :
+%endif
+
+# ---------------------------------------------------------------------------
+# PREUN
+# ---------------------------------------------------------------------------
+%preun
+
+# SystemD
+%if %have_systemd
+	# system-provided macro
+	%systemd_preun %{name}.service
+# SysV
+%else
+	# uninstall: stop & unregister service
+	if [ $1 -eq 0 ] ; then
+		/sbin/service %{name} status >/dev/null 2>&1 && /sbin/service %{name} stop || :
+		/sbin/chkconfig --del %{name} || :
+	fi
+%endif
+
+# ---------------------------------------------------------------------------
+# POSTUN
+# ---------------------------------------------------------------------------
+%postun
+
+# SystemD
+%if %have_systemd
+	# system-provided macro
+	%systemd_postun_with_restart %{name}.service
+# SysV
+%else
+	# upgrade: restart service
+	if [ $1 -ge 1 ] ; then
+		/sbin/service %{name} status >/dev/null 2>&1 && /sbin/service %{name} restart || :
+	fi
+	# reload Apache
+	/sbin/service httpd reload >/dev/null 2>&1 || :
+%endif
+
+# ---------------------------------------------------------------------------
+# trigger: abms-x400
+# ---------------------------------------------------------------------------
+%triggerin -- abms-x400
+/sbin/usermod -aG aftn abms
+
+
+# ---------------------------------------------------------------------------
+# FILES
+# ---------------------------------------------------------------------------
+%files
+%attr(0750, root,   abms) %dir                 %_pkg_confdir
+%attr(0640, root,   abms) %config(noreplace)   %_pkg_confdir/*.properties
+%attr(0640, root,   abms) %config(noreplace)   %_pkg_confdir/*.conf
+%attr(-,    root,   abms) %config(noreplace)   %_pkg_confdir/dbqueries
+%attr(0644, root,   root) %config(noreplace)   %_sysconfdir/httpd/conf.d/*.conf
+%attr(0755, root,   root) %dir                 %_pkg_libexecdir
+%attr(0755, root,   root)                      %_pkg_libexecdir/*.sh
+%attr(0755, root,   root)                      %_pkg_libexecdir/*.pl
+%attr(0755, root,   root) %dir                 %_pkg_datadir
+%attr(0755, root,   root) %dir                 %_pkg_datadir/conf
+%attr(0644, root,   root)                      %_pkg_datadir/conf/*.properties
+%attr(0755, root,   root) %dir                 %_pkg_datadir/db
+%attr(0755, root,   root) %dir                 %_pkg_datadir/db/post-install
+%attr(0644, root,   root) 	               %_pkg_datadir/db/post-install/*.sql
+%attr(0755, root,   root) %dir                 %_pkg_jardir
+%attr(0644, root,   root)                      %_pkg_jardir/*.jar
+%attr(0750, abms,   abms) %dir                 %_pkg_logdir
+%attr(0755, abms,   abms) %dir                 %_pkg_rundir
+%attr(0750, abms,   abms) %dir                 %_pkg_statedir
+%attr(0750, abms,   abms) %dir                 %_pkg_statedir/cores
+
+# SystemD
+%if %have_systemd
+	%attr(0644, root,   root)                      %_unitdir/*
+	%attr(0644, root,   root)                      %_tmpfilesdir/*.conf
+# SysV
+%else
+	%attr(0755, root,   root)                      %_initddir/*
+	%attr(-,    root,   root)                      %_sysconfdir/rc.d/rc*.d/*
+%endif
+

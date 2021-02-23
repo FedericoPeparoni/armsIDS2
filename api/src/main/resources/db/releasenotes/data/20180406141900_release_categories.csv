@@ -1,0 +1,4 @@
+key,title,sort_order
+change,Change Request,1
+feature,Feature Request,2
+bug,Bugs,3

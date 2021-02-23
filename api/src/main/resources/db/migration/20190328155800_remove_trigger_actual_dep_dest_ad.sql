@@ -1,0 +1,1 @@
+DROP TRIGGER IF EXISTS trg_actual_dep_dest_ad ON flight_movements;

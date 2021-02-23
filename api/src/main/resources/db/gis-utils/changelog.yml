@@ -1,0 +1,13 @@
+databaseChangeLog:
+    - changeSet:
+        id: ids__st_intersection.sql
+        author: Davlet Panech
+        runOnChange: true
+        changes:
+          - sqlFile:
+              path: ids__st_intersection.sql
+              relativeToChangelogFile: true
+              splitStatements: false
+              endDelimiter: ""
+              encoding: utf8
+              

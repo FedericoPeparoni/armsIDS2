@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+    <springProperty name="LOG_CONSOLE_ENABLED" source="logging.consoleEnabled"/>
+    <springProperty name="LOG_JOURNALD_CONSOLE_ENABLED" source="logging.journaldConsoleEnabled"/>
+    <springProperty name="LOG_FILE_ENABLED" source="logging.fileEnabled"/>
+    <springProperty name="LOG_FILE_MAX_SIZE" source="logging.fileMaxSize"/>
+    <springProperty name="LOG_FILE_MAX_INDEX" source="logging.fileMaxIndex"/>
+    <springProperty name="JOURNALD_CONSOLE_LOG_PATTERN" source="logging.pattern.journald.console"/>
+    <include resource="config/logback/included/defaults.xml"/>
+    <include resource="config/logback/included/console-appender.xml"/>
+    <include resource="config/logback/included/journald-console-appender.xml"/>
+    <include resource="config/logback/included/file-appender.xml"/>
+    <root level="INFO">
+        <if condition='${LOG_CONSOLE_ENABLED}'>
+            <then>
+                <appender-ref ref="CONSOLE"/>
+            </then>
+        </if>
+        <if condition='${LOG_JOURNALD_CONSOLE_ENABLED}'>
+            <then>
+                <appender-ref ref="JOURNALD_CONSOLE"/>
+            </then>
+        </if>
+        <if condition="${LOG_FILE_ENABLED}">
+            <then>
+                <appender-ref ref="FILE"/>
+            </then>
+        </if>
+    </root>
+</configuration>

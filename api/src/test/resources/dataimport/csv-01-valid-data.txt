@@ -1,0 +1,3 @@
+"flightId","dayOfFlight","departureTime","transitPassengers","joiningPassengers","children","chargeableItlPassengers","chargeableDomesticPassengers"
+"XGF1113","2016-11-09","1212","1","2","2","5","4"
+"BF7612","2016-11-10","0507","22","33","44","55","66"

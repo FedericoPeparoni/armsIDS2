@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<iataInvoiceReport>
+  <props>
+    <name>IATA invoice - Mar 2017</name>
+    <intervalDescr>March of 2017</intervalDescr>
+    <totalEnrouteChargesUSD>23.0</totalEnrouteChargesUSD>
+    <invoiceNumber>XXXXXX</invoiceNumber>
+    <totalEnrouteChargesANSP>100</totalEnrouteChargesANSP></props>
+  <exchangeRates>
+    <exchangeRateInfo>
+      <exchangeRate>0.0987</exchangeRate>
+      <dayOfMonth>2017-01-01</dayOfMonth>
+  </exchangeRateInfo>
+    <exchangeRateInfo>
+        <exchangeRate>0.0987</exchangeRate>
+        <dayOfMonth>2017-01-31</dayOfMonth>
+    </exchangeRateInfo>
+  </exchangeRates>
+  <flightMovements>
+    <flightMovementInfo>
+      <flightMovementId>28</flightMovementId>
+      <flightDateStr>2017-03-06</flightDateStr>
+      <operatorName>Air Botswana</operatorName>
+      <icaoCode>BOT</icaoCode>
+      <flightId>BOT001</flightId>
+      <aircraftType>C135</aircraftType>
+      <regNum>A2ABF01</regNum>
+      <depAd>FBSK</depAd>
+      <destAd>FBGZ</destAd>
+      <crossDist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+      <mtow>150.05</mtow>
+      <enrouteChargesUSD>11.0</enrouteChargesUSD>
+      <billingDateStr>2017-03-07</billingDateStr>
+      <distanceUnitOfMeasure>kg</distanceUnitOfMeasure>
+      <mtowUnitOfMeasure>kg</mtowUnitOfMeasure>
+      <dFactor>67.0</dFactor>
+      <wFactor>130.0</wFactor>
+      <exchangeRate>0.09712</exchangeRate>
+      <enrouteChargesANSP>100</enrouteChargesANSP>
+      <enrouteChargesANSPStr>2</enrouteChargesANSPStr>
+      <enrouteChargesAnspStr>3</enrouteChargesAnspStr>
+      <routing>DCT</routing>
+    </flightMovementInfo>
+    <flightMovementInfo>
+      <flightMovementId>29</flightMovementId>
+      <flightDateStr>2017-03-06</flightDateStr>
+      <operatorName>Air Botswana</operatorName>
+      <icaoCode>BOT</icaoCode>
+      <flightId>BOT002</flightId>
+      <aircraftType>AT42</aircraftType>
+      <regNum>A2ABN</regNum>
+      <depAd>FBSW</depAd>
+      <destAd>FBSP</destAd>
+      <crossDist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+      <mtow>77020.6</mtow>
+      <enrouteChargesUSD>12.0</enrouteChargesUSD>
+      <billingDateStr>2017-03-07</billingDateStr>
+      <distanceUnitOfMeasure>kg</distanceUnitOfMeasure>
+      <mtowUnitOfMeasure>kg</mtowUnitOfMeasure>
+      <dFactor>69.0</dFactor>
+      <wFactor>132.0</wFactor>
+      <enrouteChargesANSP>100</enrouteChargesANSP>
+      <enrouteChargesANSPStr>2</enrouteChargesANSPStr>
+      <enrouteChargesAnspStr>3</enrouteChargesAnspStr>
+      <routing>DCT</routing>
+    </flightMovementInfo>
+  </flightMovements>
+</iataInvoiceReport>

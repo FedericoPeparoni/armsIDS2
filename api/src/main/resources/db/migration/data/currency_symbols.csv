@@ -1,0 +1,165 @@
+id, currency_code, currency_name, exchange_rate_to_usd, country_code, symbol, active, allow_updated_from_web, created_by
+1,CAD,Canadian Dollar,0.76,1,$,false,true,system
+2,USD,US Dollar,1,2,$,true,true,system
+3,AED,United Arab Emirates Dirham,3.67268,10,د.إ,false,true,system
+4,AFN,Afghan Afghani,57.392301,4,؋,false,true,system
+5,ALL,Albanian Lek,109.3524,8,Lek,false,true,system
+6,AMD,Armenian Dram,410.088,12,$ ,false,true,system
+7,ANG,Netherlands Antillean Guilder,1.78348,57,ƒ,false,true,system
+8,AOA,Angolan Kwanza,98.845423,5,$ ,false,true,system
+9,ARS,Argentine Peso,8.4907959,11,$,false,true,system
+10,AUD,Australian Dollar,1.1364829,17,$,false,true,system
+11,AWG,Aruban Florin,1.79,3,ƒ,false,true,system
+12,AZN,Azerbaijani Manat,0.78413297,19,ман,false,true,system
+13,BAM,Bosnia-Herzegovina Convertible Mark,1.536073,29,KM,false,true,system
+14,BBD,Barbadian Dollar,2,36,$,false,true,system
+15,BDT,Bangladeshi Taka,77.48635,25,$ ,false,true,system
+16,BGN,Bulgarian Lev,1.535377,26,лв,false,true,system
+17,BHD,Bahraini Dinar,0.3770049,27,$ ,false,true,system
+18,BIF,Burundian Franc,1566.6513,20,$ ,false,true,system
+19,BMD,Bermudan Dollar,1,33,$,false,true,system
+20,BND,Brunei Dollar,1.274172,37,$,false,true,system
+21,BOB,Bolivian Boliviano,6.922598,34,$b,false,true,system
+22,BRL,Brazilian Real,2.467782,35,R$,false,true,system
+23,BSD,Bahamian Dollar,1,28,$,false,true,system
+24,BTN,Bhutanese Ngultrum,61.31471,38,$ ,false,true,system
+25,BWP,Botswanan Pula,9.122408,40,P,false,true,system
+26,BYR,Belarusian Ruble,10698.11667,31,Br,false,true,system
+27,BZD,Belize Dollar,2.001599,21,BZ$,false,true,system
+28,CDF,Congolese Franc,923.8838,49,$ ,false,true,system
+29,CHF,Swiss Franc,0.94722,43,CHF,false,true,system
+30,CLF,Chilean Unit of Account (UF),0.02402,44,$ ,false,true,system
+31,CLP,Chilean Peso,583.712205,44,$,false,true,system
+32,CNY,Chinese Yuan,6.126388,45,¥,false,true,system
+33,COP,Colombian Peso,2060.75,51,$,false,true,system
+34,CRC,Costa Rican Colon,539.8881,54,₡,false,true,system
+35,CUP,Cuban Peso,1.0017,55,₱,false,true,system
+36,CVE,Cape Verdean Escudo,86.038025,53,$ ,false,true,system
+37,CYP,Cypriot Pound,0.51685,59,$ ,false,true,system
+38,CZK,Czech Republic Koruna,21.652799,60,Kč,false,true,system
+39,DJF,Djiboutian Franc,179.49456,62,$ ,false,true,system
+40,DKK,Danish Krone,5.845723,64,kr,false,true,system
+41,DOP,Dominican Peso,43.674889,65,RD$,false,true,system
+42,DZD,Algerian Dinar,83.42126,66,$ ,false,true,system
+43,EEK,Estonian Kroon,12.09775,72,$ ,false,true,system
+44,EGP,Egyptian Pound,7.1491319,68,£,false,true,system
+45,ERN,Eritrean Nakfa,15.062575,69,$ ,false,true,system
+46,ETB,Ethiopian Birr,20.052219,73,$ ,false,true,system
+47,EUR,Euro,0.78553899,20,€,false,true,system
+48,FJD,Fijian Dollar,1.919624,75,$,false,true,system
+49,FKP,Falkland Islands Pound,0.619789,76,£,false,true,system
+50,GBP,British Pound Sterling,0.619789,81,£,false,true,system
+51,GEL,Georgian Lari,1.756119,82,$ ,false,true,system
+52,GGP,Guernsey Pound,0.619789,83,£,false,true,system
+53,GHS,Ghanaian Cedi,3.236828,84,¢,false,true,system
+54,GIP,Gibraltar Pound,0.619789,85,£,false,true,system
+55,GMD,Gambian Dalasi,41.473039,88,$ ,false,true,system
+56,GNF,Guinean Franc,7066.553332,86,$ ,false,true,system
+57,GTQ,Guatemalan Quetzal,7.638012,94,Q,false,true,system
+58,GYD,Guyanaese Dollar,204.953748,97,$,false,true,system
+59,HKD,Hong Kong Dollar,7.756636,98,$,false,true,system
+60,HNL,Honduran Lempira,21.28046,100,L,false,true,system
+61,HRK,Croatian Kuna,6.018157,101,kn,false,true,system
+62,HTG,Haitian Gourde,44.869079,102,$ ,false,true,system
+63,HUF,Hungarian Forint,240.410698,103,Ft,false,true,system
+64,IDR,Indonesian Rupiah,12019.35,104,Rp,false,true,system
+65,ILS,Israeli New Sheqel,3.740664,112,₪,false,true,system
+66,INR,Indian Rupee,61.18339,106,₹,false,true,system
+67,IQD,Iraqi Dinar,1178.555067,110,$ ,false,true,system
+68,IRR,Iranian Rial,26650.66667,109,﷼,false,true,system
+69,ISK,Icelandic Krona,120.206,108,kr,false,true,system
+70,JEP,Jersey Pound,0.619789,115,£,false,true,system
+71,JMD,Jamaican Dollar,112.4843,114,J$,false,true,system
+72,JOD,Jordanian Dinar,0.709381,116,$ ,false,true,system
+73,JPY,Japanese Yen,106.7332,117,¥,false,true,system
+74,KES,Kenyan Shilling,89.010829,119,KSh,false,true,system
+75,KGS,Kyrgystani Som,55.459299,120,лв,false,true,system
+76,KHR,Cambodian Riel,4087.211667,121,៛,false,true,system
+77,KMF,Comorian Franc,385.552551,52,$ ,false,true,system
+78,KPW,North Korean Won,900,183,₩,false,true,system
+79,KRW,South Korean Won,1056.23665,124,₩,false,true,system
+80,KWD,Kuwaiti Dinar,0.289026,125,$ ,false,true,system
+81,KYD,Cayman Islands Dollar,0.827139,58,$,false,true,system
+82,KZT,Kazakhstani Tenge,181.524899,118,лв,false,true,system
+83,LAK,Laotian Kip,8059.601666,126,₭,false,true,system
+84,LBP,Lebanese Pound,1515.193332,127,$ ,false,true,system
+85,LKR,Sri Lankan Rupee,130.7483,132,₨,false,true,system
+86,LRD,Liberian Dollar,91.50915,128,$,false,true,system
+87,LSL,Lesotho Loti,11.03778,133,$ ,false,true,system
+88,LTL,Lithuanian Litas,2.710464,134,$ ,false,true,system
+89,LVL,Latvian Lats,0.551244,136,$ ,false,true,system
+90,LYD,Libyan Dinar,1.221027,129,$ ,false,true,system
+91,MAD,Moroccan Dirham,8.6964,139,$ ,false,true,system
+92,MDL,Moldovan Leu,14.576,141,$ ,false,true,system
+93,MGA,Malagasy Ariary,2706.415,142,$ ,false,true,system
+94,MKD,Macedonian Denar,48.434649,146,ден,false,true,system
+95,MMK,Myanma Kyat,995.2738,149,$ ,false,true,system
+96,MNT,Mongolian Tugrik,1848.666667,151,₮,false,true,system
+97,MOP,Macanese Pataca,8.006405,137,$ ,false,true,system
+98,MRO,Mauritanian Ouguiya,292.741039,157,$ ,false,true,system
+99,MTL,Maltese Lira,0.683737,148,$ ,false,true,system
+100,MUR,Mauritian Rupee,31.42244,157,₨,false,true,system
+101,MVR,Maldivian Rufiyaa,15.407999,143,$ ,false,true,system
+102,MWK,Malawian Kwacha,435.541,158,$ ,false,true,system
+103,MXN,Mexican Peso,13.51751,144,$,false,true,system
+104,MYR,Malaysian Ringgit,3.2674439,159,RM,false,true,system
+105,NZD,New Zealand dollar,1.36592429,172,$,false,true,system
+106,MZN,Mozambican Metical,31.335525,153,MT,false,true,system
+107,NAD,Namibian Dollar,11.031779,161,$,false,true,system
+108,NGN,Nigerian Naira,165.5093,165,₦,false,true,system
+109,NIO,Nicaraguan Cordoba,26.53707,166,C$,false,true,system
+110,NOK,Norwegian Krone,6.564656,169,kr,false,true,system
+111,NPR,Nepalese Rupee,98.41346,170,₨,false,true,system
+112,OMR,Omani Rial,0.38504302,173,﷼,false,true,system
+113,PAB,Panamanian Balboa,1,175,B/.,false,true,system
+114,PEN,Peruvian Nuevo Sol,2.9038949,177,S/.,false,true,system
+115,PGK,Papua New Guinean Kina,2.519169,180,$ ,false,true,system
+116,PHP,Philippine Peso,44.780079,178,₱,false,true,system
+117,PKR,Pakistani Rupee,102.933899,174,₨,false,true,system
+118,PLN,Polish Zloty,3.313428,181,zł,false,true,system
+119,PYG,Paraguayan Guarani,4581.613392,185,Gs,false,true,system
+120,QAR,Qatari Rial,3.641683,188,﷼,false,true,system
+121,RON,Romanian Leu,3.466491,190,lei,false,true,system
+122,RSD,Serbian Dinar,93.796718,206,Дин.,false,true,system
+123,RUB,Russian Ruble,40.922359,191,руб,false,true,system
+124,RWF,Rwandan Franc,692.12739,192,$ ,false,true,system
+125,SAR,Saudi Riyal,3.7520959,193,﷼,false,true,system
+126,SBD,Solomon Islands Dollar,7.37136,200,$,false,true,system
+127,SCR,Seychellois Rupee,13.94673,215,₨,false,true,system
+128,SDG,Sudanese Pound,5.7017819,194,$ ,false,true,system
+129,SEK,Swedish Krona,7.2223949,212,kr,false,true,system
+130,SGD,Singapore Dollar,1.271388,196,$,false,true,system
+131,SHP,Saint Helena Pound,0.61978995,198,£,false,true,system
+132,SLL,Sierra Leonean Leone,4350.5,201,$ ,false,true,system
+133,SOS,Somali Shilling,783.16764,204,S,false,true,system
+134,SRD,Surinamese Dollar,3.308567,209,$,false,true,system
+135,STD,Sao Tomean Dobra,19219.18333,208,$ ,false,true,system
+136,SVC,Salvadoran Colon,8.7552953,202,$ ,false,true,system
+137,SYP,Syrian Pound,163.016664,216,£,false,true,system
+138,SZL,Swazi Lilangeni,11.011699,213,$ ,false,true,system
+139,THB,Thai Baht,32.265639,220,$ ,false,true,system
+140,TJS,Tajikistani Somoni,4.993574,221,$ ,false,true,system
+141,TMT,Turkmenistani Manat,2.85,223,$ ,false,true,system
+142,TND,Tunisian Dinar,1.795722,227,$ ,false,true,system
+143,TOP,Tongan Paanga,1.960911,225,$ ,false,true,system
+144,TRY,Turkish Lira,2.243859,228,₺,false,true,system
+145,TTD,Trinidad and Tobago Dollar,6.347437,226,TT$,false,true,system
+146,TWD,New Taiwan Dollar,30.3821901,230,NT$,false,true,system
+147,TZS,Tanzanian Shilling,1695.788333,231,$ ,false,true,system
+148,UAH,Ukrainian Hryvnia,12.96808,233,₴,false,true,system
+149,UGX,Ugandan Shilling,2680.034999,232,$ ,false,true,system
+150,UYU,Uruguayan Peso,24.402799,234,$U,false,true,system
+151,UZS,Uzbekistan Som,2380.74002,236,лв,false,true,system
+152,VEF,Venezuelan Bolivar,6.304875,239,Bs,false,true,system
+153,VND,Vietnamese Dong,21266.76667,242,₫,false,true,system
+154,VUV,Vanuatu Vatu,98.402501,243,$ ,false,true,system
+155,WST,Samoan Tala,2.36815,245,$ ,false,true,system
+156,XAF,CFA Franc BEAC,515.298903,46,$ ,false,true,system
+157,XCD,East Caribbean Dollar,2.701499,62,$,false,true,system
+158,XOF,CFA Franc BCEAO,515.194795,20,$ ,false,true,system
+159,XPF,CFP Franc,93.704059,186,$ ,false,true,system
+160,YER,Yemeni Rial,215.014999,246,﷼,false,true,system
+161,ZAR,South African Rand,11.01493,247,R,false,true,system
+162,ZMK,Zambian Kwacha (pre-2013),5252.024744,248,$ ,false,true,system
+163,ZMW,Zambian Kwacha,6.37977,248,$ ,false,true,system
+164,ZWD,Zimbabwean Dollar,322.355006,249,Z$,false,true,system

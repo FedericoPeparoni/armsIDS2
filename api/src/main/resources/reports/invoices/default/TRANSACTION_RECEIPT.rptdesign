@@ -1,0 +1,3105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.7.0.v201706222054</property>
+    <text-property name="title" key="TRANSACTION_RECEIPT"></text-property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.datatools.enablement.oda.xml" name="xml" id="81">
+            <property name="FILELIST">../example_xml/TRANSACTION_RECEIPT.example.xml</property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.datatools.enablement.oda.xml.dataSet" name="global" id="82">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">receiptName</property>
+                    <property name="alias">receiptName</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">receiptName</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">transactionIssueLocation</property>
+                    <property name="alias">transactionIssueLocation</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">transactionIssueLocation</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">transactionNumber</property>
+                    <property name="alias">transactionNumber</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">transactionNumber</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">transactionRealNumber</property>
+                    <property name="alias">transactionRealNumber</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">transactionRealNumber</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">transactionPayerName</property>
+                    <property name="alias">transactionPayerName</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">transactionPayerName</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">paymentAmount</property>
+                    <property name="alias">paymentAmount</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="heading">paymentAmount</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">paymentAmountStr</property>
+                    <property name="alias">paymentAmountStr</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">paymentAmountStr</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">paymentAmountStrWithCurrencySymbol</property>
+                    <property name="alias">paymentAmountStrWithCurrencySymbol</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">paymentAmountStrWithCurrencySymbol</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">transactionReferenceNumber</property>
+                    <property name="alias">transactionReferenceNumber</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">transactionReferenceNumber</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">transactionDateStr</property>
+                    <property name="alias">transactionDateStr</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">transactionDateStr</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">bankName</property>
+                    <property name="alias">bankName</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">bankName</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">bankBranch</property>
+                    <property name="alias">bankBranch</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">bankBranch</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">bankAccount</property>
+                    <property name="alias">bankAccount</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">bankAccount</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">transactionOfficerName</property>
+                    <property name="alias">transactionOfficerName</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">transactionOfficerName</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">transactionOfficerPosition</property>
+                    <property name="alias">transactionOfficerPosition</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">transactionOfficerPosition</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">paymentAmountStrInWordsLine1</property>
+                    <property name="alias">paymentAmountStrInWordsLine1</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">paymentAmountStrInWordsLine1</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">paymentAmountStrInWordsLine2</property>
+                    <property name="alias">paymentAmountStrInWordsLine2</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">paymentAmountStrInWordsLine2</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">paymentAmountStrInWordsLine3</property>
+                    <property name="alias">paymentAmountStrInWordsLine3</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">paymentAmountStrInWordsLine3</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">localAmount</property>
+                    <property name="alias">localAmount</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="heading">localAmount</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">localAmountStr</property>
+                    <property name="alias">localAmountStr</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">localAmountStr</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">localAmountStrWithCurrencySymbol</property>
+                    <property name="alias">localAmountStrWithCurrencySymbol</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">localAmountStrWithCurrencySymbol</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">transactionPaymentExchangeRate</property>
+                    <property name="alias">transactionPaymentExchangeRate</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">transactionPaymentExchangeRate</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">transactionPaymentExchangeRateStr</property>
+                    <property name="alias">transactionPaymentExchangeRateStr</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">transactionPaymentExchangeRateStr</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">paymentCurrencyCode</property>
+                    <property name="alias">paymentCurrencyCode</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">paymentCurrencyCode</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">localCurrencyCode</property>
+                    <property name="alias">localCurrencyCode</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">localCurrencyCode</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">isDebit</property>
+                    <property name="alias">isDebit</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">isDebit</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">transactionDescription</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">transactionDescription</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">receiptName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">transactionIssueLocation</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">transactionNumber</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">transactionRealNumber</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">transactionPayerName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">paymentAmount</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">paymentAmountStr</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">paymentAmountStrWithCurrencySymbol</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">transactionReferenceNumber</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">transactionDateStr</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">bankName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">bankBranch</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">bankAccount</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">transactionOfficerName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">transactionOfficerPosition</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">paymentAmountStrInWordsLine1</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">paymentAmountStrInWordsLine2</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">18</property>
+                        <property name="name">paymentAmountStrInWordsLine3</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">19</property>
+                        <property name="name">localAmount</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">20</property>
+                        <property name="name">localAmountStr</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">21</property>
+                        <property name="name">localAmountStrWithCurrencySymbol</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">22</property>
+                        <property name="name">transactionPaymentExchangeRate</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">23</property>
+                        <property name="name">transactionPaymentExchangeRateStr</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">24</property>
+                        <property name="name">paymentCurrencyCode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">25</property>
+                        <property name="name">localCurrencyCode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">26</property>
+                        <property name="name">isDebit</property>
+                        <property name="dataType">boolean</property>
+                    </structure>
+                    <structure>
+                        <property name="position">27</property>
+                        <property name="name">transactionDescription</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">xml</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">receiptName</property>
+                    <property name="nativeName">receiptName</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">transactionIssueLocation</property>
+                    <property name="nativeName">transactionIssueLocation</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">transactionNumber</property>
+                    <property name="nativeName">transactionNumber</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">transactionRealNumber</property>
+                    <property name="nativeName">transactionRealNumber</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">transactionPayerName</property>
+                    <property name="nativeName">transactionPayerName</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">paymentAmount</property>
+                    <property name="nativeName">paymentAmount</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">paymentAmountStr</property>
+                    <property name="nativeName">paymentAmountStr</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">paymentAmountStrWithCurrencySymbol</property>
+                    <property name="nativeName">paymentAmountStrWithCurrencySymbol</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">transactionReferenceNumber</property>
+                    <property name="nativeName">transactionReferenceNumber</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">transactionDateStr</property>
+                    <property name="nativeName">transactionDateStr</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">bankName</property>
+                    <property name="nativeName">bankName</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">bankBranch</property>
+                    <property name="nativeName">bankBranch</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">bankAccount</property>
+                    <property name="nativeName">bankAccount</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">transactionOfficerName</property>
+                    <property name="nativeName">transactionOfficerName</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">transactionOfficerPosition</property>
+                    <property name="nativeName">transactionOfficerPosition</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">paymentAmountStrInWordsLine1</property>
+                    <property name="nativeName">paymentAmountStrInWordsLine1</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">17</property>
+                    <property name="name">paymentAmountStrInWordsLine2</property>
+                    <property name="nativeName">paymentAmountStrInWordsLine2</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">18</property>
+                    <property name="name">paymentAmountStrInWordsLine3</property>
+                    <property name="nativeName">paymentAmountStrInWordsLine3</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">19</property>
+                    <property name="name">localAmount</property>
+                    <property name="nativeName">localAmount</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">2</property>
+                </structure>
+                <structure>
+                    <property name="position">20</property>
+                    <property name="name">localAmountStr</property>
+                    <property name="nativeName">localAmountStr</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">21</property>
+                    <property name="name">localAmountStrWithCurrencySymbol</property>
+                    <property name="nativeName">localAmountStrWithCurrencySymbol</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">22</property>
+                    <property name="name">transactionPaymentExchangeRate</property>
+                    <property name="nativeName">transactionPaymentExchangeRate</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">23</property>
+                    <property name="name">transactionPaymentExchangeRateStr</property>
+                    <property name="nativeName">transactionPaymentExchangeRateStr</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">24</property>
+                    <property name="name">paymentCurrencyCode</property>
+                    <property name="nativeName">paymentCurrencyCode</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">25</property>
+                    <property name="name">localCurrencyCode</property>
+                    <property name="nativeName">localCurrencyCode</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">26</property>
+                    <property name="name">isDebit</property>
+                    <property name="nativeName">isDebit</property>
+                    <property name="dataType">boolean</property>
+                    <property name="nativeDataType">16</property>
+                </structure>
+                <structure>
+                    <property name="position">27</property>
+                    <property name="name">transactionDescription</property>
+                    <property name="nativeName">transactionDescription</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[table0#-TNAME-#table0#:#[/transactionReceipt/global]#:#{receiptName;STRING;/receiptName},{transactionIssueLocation;STRING;/transactionIssueLocation},{transactionNumber;STRING;/transactionNumber},{transactionRealNumber;STRING;/transactionRealNumber},{transactionPayerName;STRING;/transactionPayerName},{paymentAmount;STRING;/paymentAmount},{paymentAmountStr;STRING;/paymentAmountStr},{paymentAmountStrWithCurrencySymbol;STRING;/paymentAmountStrWithCurrencySymbol},{transactionReferenceNumber;STRING;/transactionReferenceNumber},{transactionDateStr;STRING;/transactionDateStr},{bankName;STRING;/bankName},{bankBranch;STRING;/bankBranch},{bankAccount;STRING;/bankAccount},{transactionOfficerName;STRING;/transactionOfficerName},{transactionOfficerPosition;STRING;/transactionOfficerPosition},{paymentAmountStrInWordsLine1;STRING;/paymentAmountStrInWordsLine1},{paymentAmountStrInWordsLine2;STRING;/paymentAmountStrInWordsLine2},{paymentAmountStrInWordsLine3;STRING;/paymentAmountStrInWordsLine3},{localAmount;BIGDECIMAL;/localAmount},{localAmountStr;STRING;/localAmountStr},{localAmountStrWithCurrencySymbol;STRING;/localAmountStrWithCurrencySymbol},{transactionPaymentExchangeRate;STRING;/transactionPaymentExchangeRate},{transactionPaymentExchangeRateStr;STRING;/transactionPaymentExchangeRateStr},{paymentCurrencyCode;STRING;/paymentCurrencyCode},{localCurrencyCode;STRING;/localCurrencyCode},{isDebit;BOOLEAN;/isDebit},{transactionDescription;STRING;/transactionDescription}]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>receiptName</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>receiptName</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>transactionIssueLocation</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>transactionIssueLocation</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>transactionNumber</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>transactionNumber</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>transactionRealNumber</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>transactionRealNumber</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>transactionPayerName</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>transactionPayerName</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>paymentAmount</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>paymentAmount</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>paymentAmountStr</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>paymentAmountStr</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>paymentAmountStrWithCurrencySymbol</design:name>
+              <design:position>8</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>paymentAmountStrWithCurrencySymbol</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>paymentAmountStrInWords</design:name>
+              <design:position>9</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>paymentAmountStrInWords</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>transactionReferenceNumber</design:name>
+              <design:position>10</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>transactionReferenceNumber</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>transactionDateStr</design:name>
+              <design:position>11</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>transactionDateStr</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>bankName</design:name>
+              <design:position>12</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>bankName</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>bankBranch</design:name>
+              <design:position>13</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>bankBranch</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>bankAccount</design:name>
+              <design:position>14</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>bankAccount</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>transactionOfficerName</design:name>
+              <design:position>15</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>transactionOfficerName</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>transactionOfficerPosition</design:name>
+              <design:position>16</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>transactionOfficerPosition</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>MAX_ROW</name>
+                    <value>-1</value>
+                </ex-property>
+                <ex-property>
+                    <name>XML_FILE</name>
+                </ex-property>
+            </list-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.datatools.enablement.oda.xml.dataSet" name="paymentInfoList" id="1148">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">billingLedgerId</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">billingLedgerId</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">invoiceNumber</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">invoiceNumber</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">invoiceDateStr</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">invoiceDateStr</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">paymentAmount</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">paymentAmount</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">paymentAmountStr</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">paymentAmountStr</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">paymentAmountStrWithCurrencySymbol</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">paymentAmountStrWithCurrencySymbol</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">localAmount</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">localAmount</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">localAmountStr</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">localAmountStr</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">localAmountStrWithCurrencySymbol</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">localAmountStrWithCurrencySymbol</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">paymentExchangeRate</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">paymentExchangeRate</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">paymentExchangeRateStr</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">paymentExchangeRateStr</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">transactionDescription</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">transactionDescription</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">billingLedgerId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">invoiceNumber</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">invoiceDateStr</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">paymentAmount</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">paymentAmountStr</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">paymentAmountStrWithCurrencySymbol</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">localAmount</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">localAmountStr</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">localAmountStrWithCurrencySymbol</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">paymentExchangeRate</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">paymentExchangeRateStr</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">transactionDescription</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">xml</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">billingLedgerId</property>
+                    <property name="nativeName">billingLedgerId</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">invoiceNumber</property>
+                    <property name="nativeName">invoiceNumber</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">invoiceDateStr</property>
+                    <property name="nativeName">invoiceDateStr</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">paymentAmount</property>
+                    <property name="nativeName">paymentAmount</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">paymentAmountStr</property>
+                    <property name="nativeName">paymentAmountStr</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">paymentAmountStrWithCurrencySymbol</property>
+                    <property name="nativeName">paymentAmountStrWithCurrencySymbol</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">localAmount</property>
+                    <property name="nativeName">localAmount</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">localAmountStr</property>
+                    <property name="nativeName">localAmountStr</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">localAmountStrWithCurrencySymbol</property>
+                    <property name="nativeName">localAmountStrWithCurrencySymbol</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">paymentExchangeRate</property>
+                    <property name="nativeName">paymentExchangeRate</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">paymentExchangeRateStr</property>
+                    <property name="nativeName">paymentExchangeRateStr</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">transactionDescription</property>
+                    <property name="nativeName">transactionDescription</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[table0#-TNAME-#table0#:#[/transactionReceipt/paymentInfoList/paymentInfo]#:#{billingLedgerId;STRING;/billingLedgerId},{invoiceNumber;STRING;/invoiceNumber},{invoiceDateStr;STRING;/invoiceDateStr},{paymentAmount;STRING;/paymentAmount},{paymentAmountStr;STRING;/paymentAmountStr},{paymentAmountStrWithCurrencySymbol;STRING;/paymentAmountStrWithCurrencySymbol},{localAmount;STRING;/localAmount},{localAmountStr;STRING;/localAmountStr},{localAmountStrWithCurrencySymbol;STRING;/localAmountStrWithCurrencySymbol},{paymentExchangeRate;STRING;/paymentExchangeRate},{paymentExchangeRateStr;STRING;/paymentExchangeRateStr},{transactionDescription;STRING;/transactionDescription}]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>billingLedgerId</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>billingLedgerId</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>invoiceNumber</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>invoiceNumber</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>invoiceDateStr</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>invoiceDateStr</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>paymentAmount</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>paymentAmount</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>paymentAmountStr</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>paymentAmountStr</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>paymentAmountStrWithCurrencySymbol</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>paymentAmountStrWithCurrencySymbol</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>localAmount</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>localAmount</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>localAmountStr</design:name>
+              <design:position>8</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>localAmountStr</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>localAmountStrWithCurrencySymbol</design:name>
+              <design:position>9</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>localAmountStrWithCurrencySymbol</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>paymentExchangeRate</design:name>
+              <design:position>10</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>paymentExchangeRate</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>paymentExchangeRateStr</design:name>
+              <design:position>11</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>paymentExchangeRateStr</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>MAX_ROW</name>
+                    <value>-1</value>
+                </ex-property>
+                <ex-property>
+                    <name>XML_FILE</name>
+                    <value>C:\ABMS\git\api\src\main\resources\reports\reports\transaction_receipt2.example.xml</value>
+                </ex-property>
+            </list-property>
+        </oda-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2"/>
+    </page-setup>
+    <body>
+        <table id="1166">
+            <property name="dataSet">global</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">isDebit</property>
+                    <text-property name="displayName">isDebit</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["isDebit"]</expression>
+                    <property name="dataType">boolean</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <method name="onCreate"><![CDATA[isDebit = this.getRowData().getColumnValue("isDebit")
+
+reportContext.setGlobalVariable("isDebit", isDebit)]]></method>
+            <column id="1175"/>
+            <detail>
+                <row id="1170">
+                    <cell id="1171">
+                        <data id="1172">
+                            <list-property name="visibility">
+                                <structure>
+                                    <property name="format">all</property>
+                                    <expression name="valueExpr" type="javascript">true</expression>
+                                </structure>
+                            </list-property>
+                            <property name="resultSetColumn">isDebit</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+        <grid id="4">
+            <property name="fontFamily">"Arial"</property>
+            <property name="width">7.822916666666667in</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">title</property>
+                    <text-property name="displayName">title</text-property>
+                    <expression name="expression" type="javascript">"RECEIPT"</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <column id="5">
+                <property name="width">1.3125in</property>
+            </column>
+            <column id="6">
+                <property name="width">2.0416666666666665in</property>
+            </column>
+            <row id="7">
+                <property name="borderBottomColor">#054275</property>
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">5px</property>
+                <cell id="8">
+                    <property name="paddingBottom">11pt</property>
+                    <property name="paddingRight">1pt</property>
+                    <property name="textAlign">right</property>
+                    <property name="verticalAlign">middle</property>
+                    <image id="1281">
+                        <property name="marginRight">10pt</property>
+                        <property name="height">0.7291666666666666in</property>
+                        <property name="width">1.4583333333333333in</property>
+                        <property name="source">embed</property>
+                        <property name="imageName">IDSNA.png</property>
+                    </image>
+                </cell>
+                <cell id="9">
+                    <property name="paddingBottom">11pt</property>
+                    <grid id="18">
+                        <column id="19"/>
+                        <column id="20"/>
+                        <row id="21">
+                            <cell id="22">
+                                <property name="colSpan">2</property>
+                                <property name="rowSpan">1</property>
+                                <property name="paddingTop">0pt</property>
+                                <property name="paddingLeft">0pt</property>
+                                <property name="paddingBottom">0pt</property>
+                                <property name="paddingRight">0pt</property>
+                                <label id="33">
+                                    <property name="fontFamily">"Arial"</property>
+                                    <property name="fontSize">18pt</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="color">#054275</property>
+                                    <text-property name="text">IDS North America Ltd.</text-property>
+                                </label>
+                            </cell>
+                        </row>
+                        <row id="24">
+                            <cell id="25">
+                                <property name="colSpan">2</property>
+                                <property name="rowSpan">1</property>
+                                <property name="paddingTop">0pt</property>
+                                <property name="paddingLeft">0pt</property>
+                                <property name="paddingBottom">0pt</property>
+                                <property name="paddingRight">0pt</property>
+                                <text id="40">
+                                    <property name="fontFamily">"Arial"</property>
+                                    <property name="fontSize">9pt</property>
+                                    <property name="contentType">auto</property>
+                                    <text-property name="content"><![CDATA[155 Terence Matthews Crescent, Ottawa, Ontario K2M 2A8, Canada
+Tel: +1 613 5910500 Fax: +1 613 5910981
+Website: www.idscorporation.com]]></text-property>
+                                </text>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+            </row>
+            <row id="10">
+                <cell id="11">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                    <data id="1177">
+                        <property name="backgroundAttachment">scroll</property>
+                        <property name="backgroundPositionX">0%</property>
+                        <property name="backgroundPositionY">0%</property>
+                        <property name="backgroundRepeat">repeat</property>
+                        <property name="fontFamily">"Arial"</property>
+                        <property name="fontSize">24pt</property>
+                        <property name="fontWeight">bold</property>
+                        <property name="fontStyle">normal</property>
+                        <property name="fontVariant">normal</property>
+                        <property name="color">#054275</property>
+                        <property name="textLineThrough">none</property>
+                        <property name="textOverline">none</property>
+                        <property name="textUnderline">none</property>
+                        <property name="borderBottomColor">black</property>
+                        <property name="borderBottomStyle">none</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">black</property>
+                        <property name="borderLeftStyle">none</property>
+                        <property name="borderLeftWidth">medium</property>
+                        <property name="borderRightColor">black</property>
+                        <property name="borderRightStyle">none</property>
+                        <property name="borderRightWidth">medium</property>
+                        <property name="borderTopColor">black</property>
+                        <property name="borderTopStyle">none</property>
+                        <property name="borderTopWidth">medium</property>
+                        <property name="marginTop">0pt</property>
+                        <property name="marginLeft">0pt</property>
+                        <property name="marginBottom">0pt</property>
+                        <property name="marginRight">0pt</property>
+                        <property name="paddingTop">5pt</property>
+                        <property name="paddingLeft">1pt</property>
+                        <property name="paddingBottom">5pt</property>
+                        <property name="paddingRight">1pt</property>
+                        <property name="textAlign">center</property>
+                        <property name="letterSpacing">normal</property>
+                        <property name="lineHeight">normal</property>
+                        <property name="orphans">2</property>
+                        <property name="textTransform">none</property>
+                        <property name="whiteSpace">normal</property>
+                        <property name="widows">2</property>
+                        <property name="wordSpacing">normal</property>
+                        <property name="display">block</property>
+                        <property name="pageBreakAfter">auto</property>
+                        <property name="pageBreakBefore">auto</property>
+                        <property name="pageBreakInside">auto</property>
+                        <property name="showIfBlank">false</property>
+                        <property name="canShrink">false</property>
+                        <property name="overflow">hidden</property>
+                        <property name="resultSetColumn">title</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="13">
+                <property name="height">0.7916666666666666in</property>
+                <cell id="14">
+                    <property name="paddingTop">1pt</property>
+                    <grid id="824">
+                        <property name="width">3.3541666666666665in</property>
+                        <column id="825">
+                            <property name="width">1.5416666666666667in</property>
+                        </column>
+                        <row id="827">
+                            <cell id="828">
+                                <label id="829">
+                                    <property name="fontFamily">"Arial"</property>
+                                    <property name="fontSize">9pt</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="paddingTop">3pt</property>
+                                    <property name="paddingLeft">3pt</property>
+                                    <property name="paddingBottom">3pt</property>
+                                    <property name="paddingRight">3pt</property>
+                                    <text-property name="text">FROM:</text-property>
+                                </label>
+                            </cell>
+                        </row>
+                        <row id="832">
+                            <cell id="833">
+                                <data id="1087">
+                                    <property name="backgroundColor">#EBEBEB</property>
+                                    <property name="paddingTop">3pt</property>
+                                    <property name="paddingLeft">3pt</property>
+                                    <property name="paddingBottom">3pt</property>
+                                    <property name="paddingRight">3pt</property>
+                                    <property name="dataSet">global</property>
+                                    <list-property name="boundDataColumns">
+                                        <structure>
+                                            <property name="name">transactionPayerName</property>
+                                            <text-property name="displayName">transactionPayerName</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["transactionPayerName"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                    </list-property>
+                                    <property name="resultSetColumn">transactionPayerName</property>
+                                </data>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+                <cell id="15">
+                    <grid id="63">
+                        <property name="width">4.15625in</property>
+                        <column id="64">
+                            <property name="width">1.5416666666666667in</property>
+                        </column>
+                        <column id="65">
+                            <property name="width">2.6145833333333335in</property>
+                        </column>
+                        <row id="66">
+                            <cell id="67">
+                                <label id="75">
+                                    <property name="fontFamily">"Arial"</property>
+                                    <property name="fontSize">9pt</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="paddingTop">3pt</property>
+                                    <property name="paddingLeft">3pt</property>
+                                    <property name="paddingBottom">3pt</property>
+                                    <property name="paddingRight">3pt</property>
+                                    <text-property name="text">AIRPORT / STATION:</text-property>
+                                </label>
+                            </cell>
+                            <cell id="68">
+                                <data id="1085">
+                                    <property name="backgroundColor">#EBEBEB</property>
+                                    <property name="paddingTop">3pt</property>
+                                    <property name="paddingLeft">3pt</property>
+                                    <property name="paddingBottom">3pt</property>
+                                    <property name="paddingRight">3pt</property>
+                                    <property name="dataSet">global</property>
+                                    <list-property name="boundDataColumns">
+                                        <structure>
+                                            <property name="name">transactionIssueLocation</property>
+                                            <text-property name="displayName">transactionIssueLocation</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["transactionIssueLocation"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                    </list-property>
+                                    <property name="resultSetColumn">transactionIssueLocation</property>
+                                </data>
+                            </cell>
+                        </row>
+                        <row id="69">
+                            <cell id="70">
+                                <label id="76">
+                                    <property name="fontFamily">"Arial"</property>
+                                    <property name="fontSize">9pt</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="paddingTop">3pt</property>
+                                    <property name="paddingLeft">3pt</property>
+                                    <property name="paddingBottom">3pt</property>
+                                    <property name="paddingRight">3pt</property>
+                                    <text-property name="text">RECEIPT NUMBER:</text-property>
+                                </label>
+                            </cell>
+                            <cell id="71">
+                                <data id="1086">
+                                    <property name="backgroundColor">#EBEBEB</property>
+                                    <property name="paddingTop">3pt</property>
+                                    <property name="paddingLeft">3pt</property>
+                                    <property name="paddingBottom">3pt</property>
+                                    <property name="paddingRight">3pt</property>
+                                    <property name="dataSet">global</property>
+                                    <list-property name="boundDataColumns">
+                                        <structure>
+                                            <property name="name">transactionNumber</property>
+                                            <text-property name="displayName">transactionNumber</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["transactionNumber"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">transactionRealNumber</property>
+                                            <text-property name="displayName">transactionRealNumber</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["transactionRealNumber"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                    </list-property>
+                                    <property name="resultSetColumn">transactionNumber</property>
+                                </data>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+            </row>
+        </grid>
+        <grid id="966">
+            <property name="width">7.90625in</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">withThanksBlurb</property>
+                    <text-property name="displayName">withThanksBlurb</text-property>
+                    <expression name="expression" type="javascript">reportContext.getGlobalVariable("isDebit") == true ? "Updated with thanks the sum of:" : "Received with thanks the sum of:"</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <column id="967">
+                <property name="width">7.90625in</property>
+            </column>
+            <row id="968">
+                <cell id="969">
+                    <property name="fontFamily">"Arial"</property>
+                    <grid id="974">
+                        <property name="width">7.875in</property>
+                        <column id="975">
+                            <property name="width">2.2in</property>
+                        </column>
+                        <column id="976"/>
+                        <row id="977">
+                            <cell id="978">
+                                <data id="1181">
+                                    <property name="backgroundAttachment">scroll</property>
+                                    <property name="backgroundPositionX">0%</property>
+                                    <property name="backgroundPositionY">0%</property>
+                                    <property name="backgroundRepeat">repeat</property>
+                                    <property name="fontFamily">"Arial"</property>
+                                    <property name="fontSize">10pt</property>
+                                    <property name="fontWeight">normal</property>
+                                    <property name="fontStyle">normal</property>
+                                    <property name="fontVariant">normal</property>
+                                    <property name="color">black</property>
+                                    <property name="textLineThrough">none</property>
+                                    <property name="textOverline">none</property>
+                                    <property name="textUnderline">none</property>
+                                    <property name="borderBottomColor">black</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderBottomWidth">medium</property>
+                                    <property name="borderLeftColor">black</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderLeftWidth">medium</property>
+                                    <property name="borderRightColor">black</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderRightWidth">medium</property>
+                                    <property name="borderTopColor">black</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="borderTopWidth">medium</property>
+                                    <property name="marginTop">0pt</property>
+                                    <property name="marginLeft">0pt</property>
+                                    <property name="marginBottom">0pt</property>
+                                    <property name="marginRight">0pt</property>
+                                    <property name="paddingTop">1pt</property>
+                                    <property name="paddingLeft">1pt</property>
+                                    <property name="paddingBottom">1pt</property>
+                                    <property name="paddingRight">1pt</property>
+                                    <property name="letterSpacing">normal</property>
+                                    <property name="lineHeight">normal</property>
+                                    <property name="orphans">2</property>
+                                    <property name="textTransform">none</property>
+                                    <property name="whiteSpace">normal</property>
+                                    <property name="widows">2</property>
+                                    <property name="wordSpacing">normal</property>
+                                    <property name="display">block</property>
+                                    <property name="pageBreakAfter">auto</property>
+                                    <property name="pageBreakBefore">auto</property>
+                                    <property name="pageBreakInside">auto</property>
+                                    <property name="showIfBlank">false</property>
+                                    <property name="canShrink">false</property>
+                                    <property name="overflow">hidden</property>
+                                    <property name="resultSetColumn">withThanksBlurb</property>
+                                </data>
+                            </cell>
+                            <cell id="979">
+                                <data id="982">
+                                    <property name="borderBottomStyle">dotted</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="dataSet">global</property>
+                                    <list-property name="boundDataColumns">
+                                        <structure>
+                                            <property name="name">paymentAmountStrWithCurrencySymbol</property>
+                                            <text-property name="displayName">paymentAmountStrWithCurrencySymbol</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["paymentAmountStrWithCurrencySymbol"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                    </list-property>
+                                    <property name="resultSetColumn">paymentAmountStrWithCurrencySymbol</property>
+                                </data>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+            </row>
+            <row id="970">
+                <cell id="971">
+                    <property name="fontFamily">"Arial"</property>
+                    <property name="paddingLeft">20pt</property>
+                    <data id="983">
+                        <property name="fontSize">9pt</property>
+                        <property name="borderBottomStyle">dotted</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="dataSet">global</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">paymentAmountStrInWordsLine1</property>
+                                <text-property name="displayName">paymentAmountStrInWordsLine1</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["paymentAmountStrInWordsLine1"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">paymentAmountStrInWordsLine1</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="972">
+                <cell id="973">
+                    <property name="fontFamily">"Arial"</property>
+                    <property name="paddingLeft">20pt</property>
+                    <data id="984">
+                        <property name="fontSize">9pt</property>
+                        <property name="borderBottomStyle">dotted</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="dataSet">global</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">paymentAmountStrInWordsLine2</property>
+                                <text-property name="displayName">paymentAmountStrInWordsLine2</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["paymentAmountStrInWordsLine2"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">paymentAmountStrInWordsLine2</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="985">
+                <cell id="986">
+                    <property name="fontFamily">"Arial"</property>
+                    <property name="paddingLeft">20pt</property>
+                    <data id="987">
+                        <property name="fontSize">9pt</property>
+                        <property name="borderBottomStyle">dotted</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="dataSet">global</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">paymentAmountStrInWordsLine3</property>
+                                <text-property name="displayName">paymentAmountStrInWordsLine3</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["paymentAmountStrInWordsLine3"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">paymentAmountStrInWordsLine3</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="988">
+                <cell id="989">
+                    <property name="fontFamily">"Arial"</property>
+                    <property name="paddingTop">10pt</property>
+                    <grid id="990">
+                        <property name="width">7.9375in</property>
+                        <column id="991">
+                            <property name="width">1.4in</property>
+                        </column>
+                        <column id="992">
+                            <property name="width">1.9in</property>
+                        </column>
+                        <column id="999">
+                            <property name="width">0.6in</property>
+                        </column>
+                        <column id="1001">
+                            <property name="width">1.84375in</property>
+                        </column>
+                        <row id="993">
+                            <cell id="994">
+                                <label id="996">
+                                    <text-property name="text">By POS/Cash/Cheque No.:</text-property>
+                                </label>
+                            </cell>
+                            <cell id="995">
+                                <data id="997">
+                                    <property name="borderBottomStyle">dotted</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="dataSet">global</property>
+                                    <list-property name="boundDataColumns">
+                                        <structure>
+                                            <property name="name">transactionReferenceNumber</property>
+                                            <text-property name="displayName">transactionReferenceNumber</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["transactionReferenceNumber"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                    </list-property>
+                                    <property name="resultSetColumn">transactionReferenceNumber</property>
+                                </data>
+                            </cell>
+                            <cell id="998">
+                                <label id="1002">
+                                    <property name="textAlign">right</property>
+                                    <text-property name="text">Dated:</text-property>
+                                </label>
+                            </cell>
+                            <cell id="1000">
+                                <data id="1003">
+                                    <property name="borderBottomStyle">dotted</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="dataSet">global</property>
+                                    <list-property name="boundDataColumns">
+                                        <structure>
+                                            <property name="name">transactionDateStr</property>
+                                            <text-property name="displayName">transactionDateStr</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["transactionDateStr"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                    </list-property>
+                                    <property name="resultSetColumn">transactionDateStr</property>
+                                </data>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+            </row>
+            <row id="1004">
+                <cell id="1005">
+                    <property name="fontFamily">"Arial"</property>
+                    <property name="paddingTop">10pt</property>
+                    <grid id="1006">
+                        <property name="width">9.7in</property>
+                        <column id="1007">
+                            <property name="width">4.6in</property>
+                        </column>
+                        <column id="1008"/>
+                        <row id="1009">
+                            <cell id="1010">
+                                <grid id="1015">
+                                    <property name="width">4.34375in</property>
+                                    <column id="1016">
+                                        <property name="width">0.9in</property>
+                                    </column>
+                                    <column id="1017">
+                                        <property name="width">3.4479166666666665in</property>
+                                    </column>
+                                    <row id="1018">
+                                        <cell id="1019">
+                                            <label id="1021">
+                                                <text-property name="text">Drawn on:</text-property>
+                                            </label>
+                                        </cell>
+                                        <cell id="1020">
+                                            <label id="1023">
+                                                <property name="borderBottomStyle">dotted</property>
+                                                <property name="borderBottomWidth">thin</property>
+                                            </label>
+                                        </cell>
+                                    </row>
+                                </grid>
+                            </cell>
+                            <cell id="1011"/>
+                        </row>
+                        <row id="1012">
+                            <cell id="1013">
+                                <grid id="1024">
+                                    <property name="width">4.354166666666667in</property>
+                                    <column id="1025">
+                                        <property name="width">0.9in</property>
+                                    </column>
+                                    <column id="1026">
+                                        <property name="width">3.4583333333333335in</property>
+                                    </column>
+                                    <row id="1027">
+                                        <cell id="1028">
+                                            <label id="1030">
+                                                <text-property name="text">Bank:</text-property>
+                                            </label>
+                                        </cell>
+                                        <cell id="1029">
+                                            <label id="1031">
+                                                <property name="borderBottomStyle">dotted</property>
+                                                <property name="borderBottomWidth">thin</property>
+                                            </label>
+                                        </cell>
+                                    </row>
+                                </grid>
+                            </cell>
+                            <cell id="1014">
+                                <grid id="1032">
+                                    <property name="width">3.4479166666666665in</property>
+                                    <column id="1033">
+                                        <property name="width">0.9in</property>
+                                    </column>
+                                    <column id="1034"/>
+                                    <row id="1035">
+                                        <cell id="1036">
+                                            <label id="1037">
+                                                <property name="textAlign">right</property>
+                                                <text-property name="text">Branch:</text-property>
+                                            </label>
+                                        </cell>
+                                        <cell id="1038">
+                                            <label id="1039">
+                                                <property name="borderBottomStyle">dotted</property>
+                                                <property name="borderBottomWidth">thin</property>
+                                            </label>
+                                        </cell>
+                                    </row>
+                                </grid>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+            </row>
+        </grid>
+        <label id="1040">
+            <property name="fontFamily">"Arial"</property>
+            <property name="marginTop">10pt</property>
+            <list-property name="visibility">
+                <structure>
+                    <property name="format">all</property>
+                    <expression name="valueExpr" type="javascript">reportContext.getGlobalVariable("isDebit") == true</expression>
+                </structure>
+            </list-property>
+            <text-property name="text">Toward payment of the following invoices:</text-property>
+        </label>
+        <table id="1041">
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">thin</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">thin</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">thin</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">thin</property>
+            <property name="marginTop">5pt</property>
+            <property name="width">7.947916666666667in</property>
+            <property name="dataSet">paymentInfoList</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">billingLedgerId</property>
+                    <text-property name="displayName">billingLedgerId</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["billingLedgerId"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">invoiceNumber</property>
+                    <text-property name="displayName">invoiceNumber</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["invoiceNumber"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">invoiceDateStr</property>
+                    <text-property name="displayName">invoiceDateStr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["invoiceDateStr"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">paymentAmount</property>
+                    <text-property name="displayName">paymentAmount</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["paymentAmount"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">paymentAmountStr</property>
+                    <text-property name="displayName">paymentAmountStr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["paymentAmountStr"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">paymentAmountStrWithCurrencySymbol</property>
+                    <text-property name="displayName">paymentAmountStrWithCurrencySymbol</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["paymentAmountStrWithCurrencySymbol"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">localAmount</property>
+                    <text-property name="displayName">localAmount</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["localAmount"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">localAmountStr</property>
+                    <text-property name="displayName">localAmountStr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["localAmountStr"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">localAmountStrWithCurrencySymbol</property>
+                    <text-property name="displayName">localAmountStrWithCurrencySymbol</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["localAmountStrWithCurrencySymbol"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">paymentExchangeRate</property>
+                    <text-property name="displayName">paymentExchangeRate</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["paymentExchangeRate"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">paymentExchangeRateStr</property>
+                    <text-property name="displayName">paymentExchangeRateStr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["paymentExchangeRateStr"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">totalAmountBlurb</property>
+                    <text-property name="displayName">totalAmountBlurb</text-property>
+                    <expression name="expression" type="javascript">reportContext.getGlobalVariable("isDebit") == true ? "Amount to pay:" : "Total amount received:"</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">amountBlurb</property>
+                    <text-property name="displayName">amountBlurb</text-property>
+                    <expression name="expression" type="javascript">reportContext.getGlobalVariable("isDebit") == true ? "Amount Owed" : "Amount Received"</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <column id="1060">
+                <property name="width">1.59375in</property>
+            </column>
+            <column id="1061">
+                <property name="width">1.59375in</property>
+            </column>
+            <column id="1062">
+                <property name="width">1.7in</property>
+            </column>
+            <column id="1063">
+                <property name="width">1.7in</property>
+            </column>
+            <column id="1064">
+                <property name="width">1.3in</property>
+            </column>
+            <header>
+                <row id="1069">
+                    <property name="backgroundColor">#E1E1E1</property>
+                    <property name="fontWeight">bold</property>
+                    <cell id="1070">
+                        <property name="colSpan">1</property>
+                        <property name="rowSpan">2</property>
+                        <property name="fontFamily">"Arial"</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <property name="verticalAlign">middle</property>
+                        <label id="1065">
+                            <list-property name="visibility">
+                                <structure>
+                                    <property name="format">all</property>
+                                    <expression name="valueExpr" type="javascript">reportContext.getGlobalVariable("isDebit") == true</expression>
+                                </structure>
+                            </list-property>
+                            <text-property name="text">Invoice Number</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1071">
+                        <property name="colSpan">1</property>
+                        <property name="rowSpan">2</property>
+                        <property name="fontFamily">"Arial"</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <property name="verticalAlign">middle</property>
+                        <label id="1066">
+                            <list-property name="visibility">
+                                <structure>
+                                    <property name="format">all</property>
+                                    <expression name="valueExpr" type="javascript">reportContext.getGlobalVariable("isDebit") == true</expression>
+                                </structure>
+                            </list-property>
+                            <text-property name="text">Date</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1072">
+                        <property name="colSpan">3</property>
+                        <property name="rowSpan">1</property>
+                        <property name="fontFamily">"Arial"</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1182">
+                            <property name="backgroundAttachment">scroll</property>
+                            <property name="backgroundPositionX">0%</property>
+                            <property name="backgroundPositionY">0%</property>
+                            <property name="backgroundRepeat">repeat</property>
+                            <property name="fontFamily">"Arial"</property>
+                            <property name="fontSize">10pt</property>
+                            <property name="fontWeight">bold</property>
+                            <property name="fontStyle">normal</property>
+                            <property name="fontVariant">normal</property>
+                            <property name="color">black</property>
+                            <property name="textLineThrough">none</property>
+                            <property name="textOverline">none</property>
+                            <property name="textUnderline">none</property>
+                            <property name="borderBottomColor">black</property>
+                            <property name="borderBottomStyle">none</property>
+                            <property name="borderBottomWidth">medium</property>
+                            <property name="borderLeftColor">black</property>
+                            <property name="borderLeftStyle">none</property>
+                            <property name="borderLeftWidth">medium</property>
+                            <property name="borderRightColor">black</property>
+                            <property name="borderRightStyle">none</property>
+                            <property name="borderRightWidth">medium</property>
+                            <property name="borderTopColor">black</property>
+                            <property name="borderTopStyle">none</property>
+                            <property name="borderTopWidth">medium</property>
+                            <property name="marginTop">0pt</property>
+                            <property name="marginLeft">0pt</property>
+                            <property name="marginBottom">0pt</property>
+                            <property name="marginRight">0pt</property>
+                            <property name="paddingTop">1pt</property>
+                            <property name="paddingLeft">1pt</property>
+                            <property name="paddingBottom">1pt</property>
+                            <property name="paddingRight">1pt</property>
+                            <property name="textAlign">center</property>
+                            <property name="letterSpacing">normal</property>
+                            <property name="lineHeight">normal</property>
+                            <property name="orphans">2</property>
+                            <property name="textTransform">none</property>
+                            <property name="whiteSpace">normal</property>
+                            <property name="widows">2</property>
+                            <property name="wordSpacing">normal</property>
+                            <property name="display">block</property>
+                            <property name="pageBreakAfter">auto</property>
+                            <property name="pageBreakBefore">auto</property>
+                            <property name="pageBreakInside">auto</property>
+                            <property name="showIfBlank">false</property>
+                            <property name="canShrink">false</property>
+                            <property name="overflow">hidden</property>
+                            <property name="resultSetColumn">amountBlurb</property>
+                        </data>
+                    </cell>
+                </row>
+                <row id="1042">
+                    <property name="backgroundColor">#E1E1E1</property>
+                    <property name="fontWeight">bold</property>
+                    <cell id="1045">
+                        <property name="fontFamily">"Arial"</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text-data id="1154">
+                            <property name="dataSet">global</property>
+                            <list-property name="boundDataColumns">
+                                <structure>
+                                    <property name="name">paymentCurrencyCode</property>
+                                    <text-property name="displayName">paymentCurrencyCode</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["paymentCurrencyCode"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                            </list-property>
+                            <expression name="valueExpr">"Foreign Currency (" + row["paymentCurrencyCode"] + ")"</expression>
+                            <property name="contentType">html</property>
+                        </text-data>
+                    </cell>
+                    <cell id="1046">
+                        <property name="fontFamily">"Arial"</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text-data id="1155">
+                            <property name="dataSet">global</property>
+                            <list-property name="boundDataColumns">
+                                <structure>
+                                    <property name="name">localCurrencyCode</property>
+                                    <text-property name="displayName">localCurrencyCode</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["localCurrencyCode"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                            </list-property>
+                            <expression name="valueExpr">"Local Currency (" + row["localCurrencyCode"] + ")"</expression>
+                            <property name="contentType">html</property>
+                        </text-data>
+                    </cell>
+                    <cell id="1047">
+                        <property name="fontFamily">"Arial"</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1076">
+                            <property name="fontWeight">normal</property>
+                            <text-property name="text">Rate</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="1048">
+                    <cell id="1049">
+                        <property name="fontFamily">"Arial"</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1080">
+                            <list-property name="visibility">
+                                <structure>
+                                    <property name="format">all</property>
+                                    <expression name="valueExpr" type="javascript">reportContext.getGlobalVariable("isDebit") == true</expression>
+                                </structure>
+                            </list-property>
+                            <property name="resultSetColumn">invoiceNumber</property>
+                        </data>
+                    </cell>
+                    <cell id="1050">
+                        <property name="fontFamily">"Arial"</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1081">
+                            <list-property name="visibility">
+                                <structure>
+                                    <property name="format">all</property>
+                                    <expression name="valueExpr" type="javascript">reportContext.getGlobalVariable("isDebit") == true</expression>
+                                </structure>
+                            </list-property>
+                            <property name="resultSetColumn">invoiceDateStr</property>
+                        </data>
+                    </cell>
+                    <cell id="1051">
+                        <property name="fontFamily">"Arial"</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1082">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">paymentAmountStr</property>
+                        </data>
+                    </cell>
+                    <cell id="1052">
+                        <property name="fontFamily">"Arial"</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1083">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">localAmountStr</property>
+                        </data>
+                    </cell>
+                    <cell id="1053">
+                        <property name="fontFamily">"Arial"</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1084">
+                            <property name="textAlign">right</property>
+                            <property name="width">85pt</property>
+                            <property name="resultSetColumn">paymentExchangeRateStr</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="1054">
+                    <property name="fontWeight">bold</property>
+                    <property name="height">0.4166666666666667in</property>
+                    <cell id="1055">
+                        <property name="colSpan">2</property>
+                        <property name="rowSpan">1</property>
+                        <property name="fontFamily">"Arial"</property>
+                        <property name="fontSize">11pt</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <property name="paddingTop">5pt</property>
+                        <property name="paddingBottom">5pt</property>
+                        <data id="1178">
+                            <property name="backgroundAttachment">scroll</property>
+                            <property name="backgroundPositionX">0%</property>
+                            <property name="backgroundPositionY">0%</property>
+                            <property name="backgroundRepeat">repeat</property>
+                            <property name="fontFamily">"Arial"</property>
+                            <property name="fontSize">11pt</property>
+                            <property name="fontWeight">bold</property>
+                            <property name="fontStyle">normal</property>
+                            <property name="fontVariant">normal</property>
+                            <property name="color">black</property>
+                            <property name="textLineThrough">none</property>
+                            <property name="textOverline">none</property>
+                            <property name="textUnderline">none</property>
+                            <property name="borderBottomColor">black</property>
+                            <property name="borderBottomStyle">none</property>
+                            <property name="borderBottomWidth">medium</property>
+                            <property name="borderLeftColor">black</property>
+                            <property name="borderLeftStyle">none</property>
+                            <property name="borderLeftWidth">medium</property>
+                            <property name="borderRightColor">black</property>
+                            <property name="borderRightStyle">none</property>
+                            <property name="borderRightWidth">medium</property>
+                            <property name="borderTopColor">black</property>
+                            <property name="borderTopStyle">none</property>
+                            <property name="borderTopWidth">medium</property>
+                            <property name="marginTop">0pt</property>
+                            <property name="marginLeft">0pt</property>
+                            <property name="marginBottom">0pt</property>
+                            <property name="marginRight">0pt</property>
+                            <property name="paddingTop">1pt</property>
+                            <property name="paddingLeft">1pt</property>
+                            <property name="paddingBottom">1pt</property>
+                            <property name="paddingRight">1pt</property>
+                            <property name="letterSpacing">normal</property>
+                            <property name="lineHeight">normal</property>
+                            <property name="orphans">2</property>
+                            <property name="textTransform">none</property>
+                            <property name="whiteSpace">normal</property>
+                            <property name="widows">2</property>
+                            <property name="wordSpacing">normal</property>
+                            <property name="display">block</property>
+                            <property name="pageBreakAfter">auto</property>
+                            <property name="pageBreakBefore">auto</property>
+                            <property name="pageBreakInside">auto</property>
+                            <property name="showIfBlank">false</property>
+                            <property name="canShrink">false</property>
+                            <property name="overflow">hidden</property>
+                            <property name="resultSetColumn">totalAmountBlurb</property>
+                        </data>
+                    </cell>
+                    <cell id="1057">
+                        <property name="fontFamily">"Arial"</property>
+                        <property name="fontSize">11pt</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <property name="paddingTop">5pt</property>
+                        <property name="paddingBottom">5pt</property>
+                        <data id="1078">
+                            <property name="textAlign">right</property>
+                            <property name="dataSet">global</property>
+                            <list-property name="boundDataColumns">
+                                <structure>
+                                    <property name="name">paymentAmount</property>
+                                    <text-property name="displayName">paymentAmount</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["paymentAmount"]</expression>
+                                    <property name="dataType">decimal</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">paymentAmountStr</property>
+                                    <text-property name="displayName">paymentAmountStr</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["paymentAmountStr"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">paymentAmountStrWithCurrencySymbol</property>
+                                    <text-property name="displayName">paymentAmountStrWithCurrencySymbol</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["paymentAmountStrWithCurrencySymbol"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                            </list-property>
+                            <property name="resultSetColumn">paymentAmountStr</property>
+                        </data>
+                    </cell>
+                    <cell id="1058">
+                        <property name="fontFamily">"Arial"</property>
+                        <property name="fontSize">11pt</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <property name="paddingTop">5pt</property>
+                        <property name="paddingBottom">5pt</property>
+                        <data id="1079">
+                            <property name="textAlign">right</property>
+                            <property name="dataSet">global</property>
+                            <list-property name="boundDataColumns">
+                                <structure>
+                                    <property name="name">localAmount</property>
+                                    <text-property name="displayName">localAmount</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["localAmount"]</expression>
+                                    <property name="dataType">decimal</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">localAmountStr</property>
+                                    <text-property name="displayName">localAmountStr</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["localAmountStr"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">localAmountStrWithCurrencySymbol</property>
+                                    <text-property name="displayName">localAmountStrWithCurrencySymbol</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["localAmountStrWithCurrencySymbol"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                            </list-property>
+                            <property name="resultSetColumn">localAmountStr</property>
+                        </data>
+                    </cell>
+                    <cell id="1059">
+                        <property name="fontFamily">"Arial"</property>
+                        <property name="fontSize">10pt</property>
+                        <property name="fontWeight">normal</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <property name="paddingTop">5pt</property>
+                        <property name="paddingBottom">5pt</property>
+                        <data id="1089">
+                            <property name="textAlign">right</property>
+                            <property name="width">85pt</property>
+                            <property name="dataSet">global</property>
+                            <list-property name="boundDataColumns">
+                                <structure>
+                                    <property name="name">transactionPaymentExchangeRate</property>
+                                    <text-property name="displayName">transactionPaymentExchangeRate</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["transactionPaymentExchangeRate"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">transactionPaymentExchangeRateStr</property>
+                                    <text-property name="displayName">transactionPaymentExchangeRateStr</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["transactionPaymentExchangeRateStr"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                            </list-property>
+                            <property name="resultSetColumn">transactionPaymentExchangeRateStr</property>
+                        </data>
+                    </cell>
+                </row>
+            </footer>
+        </table>
+        <table id="1242">
+            <property name="width">7.947916666666667in</property>
+            <property name="dataSet">global</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">transactionDescription</property>
+                    <expression name="expression" type="javascript">dataSetRow["transactionDescription"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <column id="1252">
+                <property name="width">1.03125in</property>
+            </column>
+            <column id="1253"/>
+            <header>
+                <row id="1276">
+                    <property name="height">0.2708333333333333in</property>
+                    <cell id="1277">
+                        <property name="colSpan">2</property>
+                        <property name="rowSpan">1</property>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="1246">
+                    <cell id="1247">
+                        <label id="1274">
+                            <property name="backgroundAttachment">scroll</property>
+                            <property name="backgroundPositionX">0%</property>
+                            <property name="backgroundPositionY">0%</property>
+                            <property name="backgroundRepeat">repeat</property>
+                            <property name="fontFamily">"Arial"</property>
+                            <property name="fontSize">10pt</property>
+                            <property name="fontWeight">normal</property>
+                            <property name="fontStyle">normal</property>
+                            <property name="fontVariant">normal</property>
+                            <property name="color">black</property>
+                            <property name="textLineThrough">none</property>
+                            <property name="textOverline">none</property>
+                            <property name="textUnderline">none</property>
+                            <property name="borderBottomColor">black</property>
+                            <property name="borderBottomStyle">none</property>
+                            <property name="borderBottomWidth">medium</property>
+                            <property name="borderLeftColor">black</property>
+                            <property name="borderLeftStyle">none</property>
+                            <property name="borderLeftWidth">medium</property>
+                            <property name="borderRightColor">black</property>
+                            <property name="borderRightStyle">none</property>
+                            <property name="borderRightWidth">medium</property>
+                            <property name="borderTopColor">black</property>
+                            <property name="borderTopStyle">none</property>
+                            <property name="borderTopWidth">medium</property>
+                            <property name="marginTop">0pt</property>
+                            <property name="marginLeft">0pt</property>
+                            <property name="marginBottom">0pt</property>
+                            <property name="marginRight">0pt</property>
+                            <property name="paddingTop">1pt</property>
+                            <property name="paddingLeft">1pt</property>
+                            <property name="paddingBottom">1pt</property>
+                            <property name="paddingRight">1pt</property>
+                            <property name="letterSpacing">normal</property>
+                            <property name="lineHeight">normal</property>
+                            <property name="orphans">2</property>
+                            <property name="textTransform">none</property>
+                            <property name="whiteSpace">normal</property>
+                            <property name="widows">2</property>
+                            <property name="wordSpacing">normal</property>
+                            <property name="display">block</property>
+                            <property name="pageBreakAfter">auto</property>
+                            <property name="pageBreakBefore">auto</property>
+                            <property name="pageBreakInside">auto</property>
+                            <property name="showIfBlank">false</property>
+                            <property name="canShrink">false</property>
+                            <property name="overflow">hidden</property>
+                            <text-property name="text">Description:</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1248">
+                        <data id="1280">
+                            <property name="backgroundAttachment">scroll</property>
+                            <property name="backgroundPositionX">0%</property>
+                            <property name="backgroundPositionY">0%</property>
+                            <property name="backgroundRepeat">repeat</property>
+                            <property name="fontFamily">"Arial"</property>
+                            <property name="fontSize">10pt</property>
+                            <property name="fontWeight">normal</property>
+                            <property name="fontStyle">normal</property>
+                            <property name="fontVariant">normal</property>
+                            <property name="color">black</property>
+                            <property name="textLineThrough">none</property>
+                            <property name="textOverline">none</property>
+                            <property name="textUnderline">none</property>
+                            <property name="borderBottomColor">black</property>
+                            <property name="borderBottomStyle">dotted</property>
+                            <property name="borderBottomWidth">thin</property>
+                            <property name="borderLeftColor">black</property>
+                            <property name="borderLeftStyle">none</property>
+                            <property name="borderLeftWidth">medium</property>
+                            <property name="borderRightColor">black</property>
+                            <property name="borderRightStyle">none</property>
+                            <property name="borderRightWidth">medium</property>
+                            <property name="borderTopColor">black</property>
+                            <property name="borderTopStyle">none</property>
+                            <property name="borderTopWidth">medium</property>
+                            <property name="marginTop">0pt</property>
+                            <property name="marginLeft">0pt</property>
+                            <property name="marginBottom">0pt</property>
+                            <property name="marginRight">0pt</property>
+                            <property name="paddingTop">1pt</property>
+                            <property name="paddingLeft">1pt</property>
+                            <property name="paddingBottom">1pt</property>
+                            <property name="paddingRight">1pt</property>
+                            <property name="letterSpacing">normal</property>
+                            <property name="lineHeight">normal</property>
+                            <property name="orphans">2</property>
+                            <property name="textTransform">none</property>
+                            <property name="whiteSpace">normal</property>
+                            <property name="widows">2</property>
+                            <property name="wordSpacing">normal</property>
+                            <property name="display">block</property>
+                            <property name="pageBreakAfter">auto</property>
+                            <property name="pageBreakBefore">auto</property>
+                            <property name="pageBreakInside">auto</property>
+                            <property name="showIfBlank">false</property>
+                            <property name="canShrink">false</property>
+                            <property name="overflow">hidden</property>
+                            <property name="resultSetColumn">transactionDescription</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+        <label id="1090">
+            <property name="fontFamily">"Arial"</property>
+            <property name="paddingTop">20pt</property>
+            <text-property name="text"> Prepared by:</text-property>
+        </label>
+        <table id="1115">
+            <property name="fontFamily">"Arial"</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">thin</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">thin</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">thin</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">thin</property>
+            <property name="marginTop">5pt</property>
+            <property name="dataSet">global</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">receiptName</property>
+                    <text-property name="displayName">receiptName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["receiptName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">transactionIssueLocation</property>
+                    <text-property name="displayName">transactionIssueLocation</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["transactionIssueLocation"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">transactionNumber</property>
+                    <text-property name="displayName">transactionNumber</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["transactionNumber"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">transactionRealNumber</property>
+                    <text-property name="displayName">transactionRealNumber</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["transactionRealNumber"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">transactionPayerName</property>
+                    <text-property name="displayName">transactionPayerName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["transactionPayerName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">paymentAmount</property>
+                    <text-property name="displayName">paymentAmount</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["paymentAmount"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">paymentAmountStr</property>
+                    <text-property name="displayName">paymentAmountStr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["paymentAmountStr"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">paymentAmountStrWithCurrencySymbol</property>
+                    <text-property name="displayName">paymentAmountStrWithCurrencySymbol</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["paymentAmountStrWithCurrencySymbol"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">transactionReferenceNumber</property>
+                    <text-property name="displayName">transactionReferenceNumber</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["transactionReferenceNumber"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">transactionDateStr</property>
+                    <text-property name="displayName">transactionDateStr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["transactionDateStr"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">bankName</property>
+                    <text-property name="displayName">bankName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["bankName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">bankBranch</property>
+                    <text-property name="displayName">bankBranch</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["bankBranch"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">bankAccount</property>
+                    <text-property name="displayName">bankAccount</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["bankAccount"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">transactionOfficerName</property>
+                    <text-property name="displayName">transactionOfficerName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["transactionOfficerName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">transactionOfficerPosition</property>
+                    <text-property name="displayName">transactionOfficerPosition</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["transactionOfficerPosition"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">paymentAmountStrInWordsLine1</property>
+                    <text-property name="displayName">paymentAmountStrInWordsLine1</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["paymentAmountStrInWordsLine1"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">paymentAmountStrInWordsLine2</property>
+                    <text-property name="displayName">paymentAmountStrInWordsLine2</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["paymentAmountStrInWordsLine2"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">paymentAmountStrInWordsLine3</property>
+                    <text-property name="displayName">paymentAmountStrInWordsLine3</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["paymentAmountStrInWordsLine3"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">localAmount</property>
+                    <text-property name="displayName">localAmount</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["localAmount"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">localAmountStr</property>
+                    <text-property name="displayName">localAmountStr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["localAmountStr"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">localAmountStrWithCurrencySymbol</property>
+                    <text-property name="displayName">localAmountStrWithCurrencySymbol</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["localAmountStrWithCurrencySymbol"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">transactionPaymentExchangeRate</property>
+                    <text-property name="displayName">transactionPaymentExchangeRate</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["transactionPaymentExchangeRate"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">transactionPaymentExchangeRateStr</property>
+                    <text-property name="displayName">transactionPaymentExchangeRateStr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["transactionPaymentExchangeRateStr"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <column id="1134"/>
+            <column id="1135"/>
+            <column id="1136"/>
+            <column id="1137"/>
+            <column id="1138"/>
+            <header>
+                <row id="1116">
+                    <property name="backgroundColor">#E1E1E1</property>
+                    <property name="fontWeight">bold</property>
+                    <cell id="1117">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                    </cell>
+                    <cell id="1118">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1139">
+                            <text-property name="text">Name</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1119">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1140">
+                            <text-property name="text">Position</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1120">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1141">
+                            <text-property name="text">Signature</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1121">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1142">
+                            <text-property name="text">Date</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="1122">
+                    <cell id="1123">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1143">
+                            <property name="fontWeight">bold</property>
+                            <text-property name="text">IDS NA</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1124">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1144">
+                            <property name="resultSetColumn">transactionOfficerName</property>
+                        </data>
+                    </cell>
+                    <cell id="1125">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1145">
+                            <property name="resultSetColumn">transactionOfficerPosition</property>
+                        </data>
+                    </cell>
+                    <cell id="1126">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                    </cell>
+                    <cell id="1127">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1146">
+                            <property name="resultSetColumn">transactionDateStr</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+    </body>
+    <list-property name="images">
+        <structure>
+            <property name="name">IDSNA.png</property>
+            <property name="type">image/png</property>
+            <property name="data">
+                iVBORw0KGgoAAAANSUhEUgAAAIwAAABGCAYAAAAes3zsAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+                YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABCdEVYdENvbW1lbnQAQ1JFQVRPUjogZ2QtanBlZyB2MS4w
+                ICh1c2luZyBJSkcgSlBFRyB2NjIpLCBxdWFsaXR5ID0gMTAwCrt8d6MAADtVSURBVHhe7X13gFXF9f/n
+                le19l4Wl7IIUKdIRO3ZiwV6j2DXGWEgssbdorIma2LFFJWqwG7uiImJQqiAC0tle2b5v3+7b936fz8y9
+                u2+XtcAS8/3jd+C+O+XMmTNnzpw5M3fuXU9zMBi5/8X3MDA3B+G2NvgiQJsnAg//dYDCzHDA4/Gilbgx
+                CGPfCaMwsE8vJ6cDGgPNWLRyAzaWVCAuMQ6ecIQUOmhsC53r6Ij/WJnuwOV7W3pNgSbsPmo3+HxejB3c
+                x0n/MQjzvxfg/x8DYv0oSkVdC9ZvLgT8HhRXVFA2Qfi8fuao5I+DWuAj722hCFJTk5CdnoKM1DQMzesF
+                UdgGXJH9BM87Cp4vlm+ITBl3GDBgDyAYYht4qbYIa/X5eFejnE4wfcB4hPkh4iX68fdH/oAZx+9j86Ng
+                9eZSnHHVE1j61ldAWhJTnFaEWZ4dRq2zdbg0TZ5uSmNY0MYEr1O3C8JVvltGZCW5kNIdXFMHeReKyePl
+                UT7TmhpJlwnBOsaTEL/fWFx20mSccdjeGDt8oEqzeBu8XuKilZEYU42IhRlwgha8SlO25XdtQSWWr92E
+                h1/5FPP+kw+sXEv+mogQC8RTBmpLbBzvwnfbTwqGiKVheDdh3l05CE/44ruFPLXqznYIhgzCAYeMxRlT
+                J2HagePRt1eGTf8vgee7LaWR3Xb7DTxTdkekNUi2aAdMQ2RjFFMntJm46RyB7uzMTH8ET1w3HScePLZD
+                hs49v3QrZtz/Bt6auwJIT7a02MmiFqG18VB4hpx+KCAP82xdAoaYHiGOSZF1krCFy7BbSQe2DeveAaRJ
+                rjqlqQPUQbSNpjkSfn0DsKmUihXBiWccglf/epHFVZtNRW4tbVQfH0sSTGOZb/jwIdjShvNueQYvvrcQ
+                WFfMwUfrlZUCJCcThyUibayWvKhS1S+mKGMrE4bFlpK68mzynPoNvtfB54+Uqo33xgBQSeUvLUfGqP64
+                6vzDMeP0qUhOSrDldjJ4w+KgtQ2RUIvR3ohGdUsInpYg09nBrUzn3RukcEMUEi9Pi9KEzxFmWrAtqF/D
+                IY0GXmZUtMDDshHGJTyTpoujRvQislgUfEe6rctezshSmvDJo0ejjPcI76JrRp3SFRYu644Q3+PSU3qQ
+                A6KZ4eYmRDg9edoYTkuAZ8KuwPDBeO2lL+HZ/UKnBT4OdmtBjH4w7pOSKCJFMVbAh0CwBfETzsOLs+fT
+                elBJ9psIb15vWpR4WzfrAgdipN06sP0uv5INrZmRi2Qlnonj4d0jfNZvaAifMohI7m2UYzPjnNY87DNP
+                HE1oLq3K5LGoDsXghhtnUXlfQMXWejG904EKY8VhBCFl5lxpwv4YKri0nQbXG0JYJl4azbyIpqSwj6ge
+                zgROeYJE2A5EDYVJsE3lfBpkFArjEcaNNSGIpjtqTB7vbaRC+kZxjSB5SfuUb3jjqKRiRXQnTYvLm5Nv
+                01QvcanQhlfFGdaUFKFQjfHw+8kK2yb6UkIxP2IAO4KjPPFARqQTnVpETknHgAh4UN8UROKAU0ifo3lo
+                LjwptFxUyrDaTRMZUVtFuFUX65esmpneyI7nAIwEGW9stvEAFYRhBJjeQJ4aGG/gQGIdaGC67s0qxzwJ
+                iu0z7Vbb2HZvmAqUFg+MHopXZr6Jx/75EaugsgnXjF7xrKtn4Fm0an1k8qhfI23cGNIMyVijNi2LpOlq
+                yZpq3hewM/xNDUhrCaCFWhOiYDKSYnH3HRfhzCP2tjhRsL6gDDNuexYffLgIyRzFEn04JhYNccmIxLBh
+                kiVNtBTDS0uQGGyALxAwumoa2elOaJ8S+WP8E95/wLp1BuHYjjaToC8WQV8M5c40P/lIjoWXihPmCDb8
+                xNHf+G4z9jh0NL5+7jqnvLhinZS3mZhYXtbnnFufwqzHPgUmDTEd7aGCRLRqkCI0aYRTZnSgYlnKz47V
+                AIzLSIMvMZHsh+ALUQWdKUp6bYeceLVSEDiTsmmql9NTK5WgpaaahjaMBi/5V/8k0C9iu7w+DUTWI59p
+                7lf49wd34uipk1lWysuh32UA7Ah4SEgS6QQ3P/0v3H7z+8BuHHE0uWLaS+2+8swpuOfSEx2s7YeSqlqc
+                ecOz+OQrOoPpSWwrBVxRg0N2H4R/3Hshcv/LDls0PPLGF3j65c+w7JvNQG/6HH52khmAFEcsBT5/Capq
+                30VmTGchqyuV0tjUjOS8XwNjRrMcRz/7zcteD1NeiZzqTj14HKbSET1qv92QEscO/S/Aso2FeOSFOXjt
+                o29RQ7dCisMOJf+0nqu34MILfoU7rjgJvVLocLuMq7etDu4QdJaGoztrNpZRgKJq9VvOqmaIUnZ4J/gJ
+                C6dRGA2FpdXYWs85XaskXeLe70N5dSM2bKHjKehcpHsQzs/Bc8BFZSucEHDJ8VOw9KWbcfnZXCGu38Sm
+                +ils+gyaQuTPDR2Ec2Y84GB3gCuwN+ctp6Jlkihx5bQzJ9wcQq+mOnz09B/wzN2/wWmHTOysLF3ksQ1s
+                Z7smDB6Ap246B49ccwL6JLEeDmrTg1KeAb3w5HuLsKWwyuC2w3bQ7w46K4zMPsGnJSWXjB7Ne+1mjFNH
+                pMvKn2g/Bl1NoFZGZlqQYnJKMcaNl3TH6y4hOxfpHoTzc/AccFG9UQwbP4Bw/7WnInVwL2BrHSLya7Q8
+                01zMUfrNhgKD2QkocM2Gny7eQIKUhyEuf4LOa2szjj31IOw7ZqhB3QZ+akrYzna5cPpR+2LKuEGcFpvt
+                EJdfk5SEyPpCBBo4QAUOn/KtegI/yp4xOGZUOGjuEq9HYGkY02kqUDN2Bt3tgzb9M44gdWXeg8CK1WSK
+                4tYiIEJnMTYRBTURfLpovcERGG69LEOcDVuKOGBolcS6syDI5lR0zTlHC+sXg4jTBp9mBPaP4dGksc+0
+                KnTylSEfyizJewA/rDCyJhoRZlSoIpOonx6CpRGhkD2yZOqk/4HC+Nk+nxkAdO9p3YaeNBWo5JQbMTst
+                9AeYV1GNeYupSAIqt51RLM9mdWJWexSMFJ8WJpbz9rB+aQb9lwLaZ3OPT0w2CqwUa7LZDllA13KT17DB
+                deI7CN2XVqpMl9b/zjQlnWHEBHcYpCvt9JyltYRu6lPkFwR1srb9HYFfetwEoKqamsQ201p4HT4DtXXm
+                Lm6FaXmm8jRop5XlJSfNUWyAtihaW7gc/sVA9ZqO4eqJS29nn0d7U2gNsP94d6x4mAPftrRn0K3CWKFQ
+                YH5ma7NMlXaLub1AmpZ4x5RkLtvoXwZUn3M3u74WJg4dbEx4RPtGbKv2eRAfh3Xl1tGXMdIYNWpEZYrJ
+                4oqOfHskJyXqxk7x+gzGLwRSbBvytbTA29iAlNompNTzXsdlfaAePm0AEnYWV92qgRkwEoRumpK01pec
+                jaB7AiKiu/YKRF8RrTB+SSFTSRwe2q0dIT6R5juZy08NEKWrsTExKKuuQYtWQlGiUqmsxAQT0Ha/oUJF
+                CXKaXbaxWDEHVJGpLAqss/9zLv5sk9aebv4paJX+ivOPwptPX4PZj1+OVx79A15+ZAZefvs+7DpyF5Pf
+                0dKeQbcKY/wi49y57qhlyitmewIi1m4X5WCSnqlgZzXn54AGAG9GWTrqTUmIB9JT2NSQfdwjyXD+r+PK
+                I6gteYJWfdpo1AbfuJFclWg7X/sNokP/odIfh8vueIlJVl5ORTbYDmw3k0Tjpy6L2+UyJCxNG+ZynvWN
+                H5GHow8YjSP2G4HD9h2Jw/cajpOP2hOZGWyTAaNeNtgD6FZhLDtstLbfTYRWgNF2C76D9XZaDTEYcZze
+                XxZYn6rsUm16Wgpycri81nM1dYw6nX5jWW0b6hvcBtN3ccpNmzKEuEHKSI9Q1AxmxMfjq/mrMG3GQygu
+                2YpNvKpq61Hf2IymQAtdjDY008cJtoSde8jco69OafRFbLiN6U5Z+pWtvNqoqHoEoX2j7nZwt+0ipexg
+                x0UBB/m2ZuO0mx7Gv2YthGdoLh0ojS4yxpF2zhG745k/nWUNTreq9uOwaHU+fnvHi1i2qtAceTBPrKsb
+                MH5wL/z9htOw/4ThDuYvD8X0VUafcSeqa9lend+RM97UjPTUBHz70nUYkJ3ODmpjs+XjRMzMNeKwq7C+
+                jM5mH66M9NCQS9uIh1NbfglQW4sBe43GxF0yMbBPNlITE5GVkcbO1vMd4plfaZ87Ci0oJbpDbNhiypjF
+                +SJkj1zExSItPRn9s1MxMCeT4kxESnLHE2o9FDZjkQSMMrdTVXjHoXuFuYUK89wiYGh/a3alHY7C/OPW
+                M23dO1DvklVbcCFN9tLVVJjURJIlkZrG/xMKU1RRgzGn3Y1qrX4SEs20HG6mwqTEY+WL17Nj0jhDU0u0
+                smKnaWf3g4VrccSvrgRG78qejGOeViW0xlwsRHQ+RyusRloh85SZZbV6kdyM7CREjTreXXnqHi1c59YB
+                TJDlk5MZHwtk0ir2S8e4/r0wfEgujj54HCaOzGOyzh/pJAFvvNzpbGdAt3ainbThnTHHsbJuFmEH67bT
+                m2jooZvCBEYdqv9jUDt5c5gxvHLKrKEFbNCTYoKHzr89x2PFdvgeu+KSq0+Dp4ADoKbBKc98KYcsR2Yq
+                PLl9gCF5NEcDAe0AjxoKz6hhvOtifDfeR9u4R2FdY5S2K/GEH53HaXA3po2lgg4jvaRklJYH8OEXq/Hg
+                s5/ghMtn4vK/zsby9eSHoK0BNcM6xjtHyt0qjAEZHjmozh4DbVFHJ+8g2OL21xwm+j8E1gGXOLQiVFvJ
+                n3wDWoU2owCOyCWHjhgevv50XHPFqRjcxqmpsYmXlrPENxaF05r2sjSt6zwRfRA9p9KZoPbzMEHl8dKZ
+                IFkipQtPceUrzc3Tvoroab+F9D2xdLJkqXVgq28W6kMePD9rLmbc+iyWr5HSUGHMKldKbvntqd50rzCG
+                KAUnZXEdKpPWs042k19XhtUB286K/wNg28w2OnkhP2ambmtFEv2O5ATrG1g7y44yd6GzAwl3/f4EfPLR
+                XThuykjssUsv5GYlIJVii6Wi+IPN8LKzPep8nWfRAa4gLVa7okgpoi/haBNO+Yybg2q68zJlNMUxTCc6
+                Ino6dGZWapQjfS9Zs3kffYNr730Z+aX2waN031VzI/8eiPuHnd7nlgHDc+zpOo68SFMA5xw1Cf+4+WwH
+                a/thsXF6X8DSVUXW6ZXmV9fTh8miDzMd+0/8Hzq9FXR6T6fTWx+gD5NgxBtpCKBXehKW0+nt1yvVPOv2
+                tUvbYPBSZ8kUd8AHC1dhxeoilJWUoYWd3sRVUYC+YAMVIcwpK0CZWqmzGzXFmTW83RQ03SHfTnelM6gB
+                pSlSya2hCHXOi5q6ZtTV16GaPlJQ9cvaGGA5P/2bhSvxxJMzcMGpBxm64lI7XiagBF07AN0rzM1UmGeX
+                ALvmWBMokNM7jU7vzVwl7SBIYS6kwiyTwphzvmweFWYcnd4Hbzj9f6ow1um9iwrD0Z0YL8NnTrtlcJW0
+                4sVrMKB3OrEobacTu4MwR7oOY3UH2iWua2gwBwH1RoVpu37bpzjT1fxRmo3JA1H3yELI1/X5PDQuVL5A
+                GOVbG+i/VOLrVfl49dPlKKqhosfGsgSnQR+Vp6AEBx4wBs/efo5ZRYm2W09PoPvWuaAajD2T9MS8Td5h
+                YHmzl+Ny3mOCOw+C9B0aaOZ1LsYyyhunqIR4L2LaD1GxM+RA/gDbRlk4jWsjrY14ujNm8/gvPTkVWSmp
+                yOvdG7m88npnIy+bYedS2Ka56bwLl+GBfXpjQK9sDO7bB7sN7ouDdh+G047cG3+76lRcefahyEqiVdG0
+                xf7yaDXXJwtzP/8WJeU1pn7BzpB29wojyqZTnZ6V/Ni5XuMA9xC6Kovi7vU/hHqa9tZqLqmlHNIJ8cOl
+                cVaaD0kJdsrR1CEF0Kgv5OhetbkQawtLeBXj+/xifLe5gBK1KxNzvkeDLaphOpusZm87TpQgxepevt2n
+                dqTPOPVA7KH3rJo41bE+cwY6nv5MaTna5A858EN0tge6VxiBlw1wFUT22QbsbUdrFh2RUHneTaeYBDfx
+                fwd1dVQWHW+IlYWxKyVNx72SkjhDWadXRxq06tAhq3uffQ8XXP8ELuEUe8kds/DbP/0DV974GP3SVoOj
+                ptplrds2TS0a/VYM20K3iQaMmLqApciLfPqM9aKF0bxlyOhHii+/qIOu7eyO+I7ADyuM6GqEiAmxLK7N
+                iCFsO0R+HqiYyLmgeM/43zEw9TorIQc2F1WwfepUisTL1Y9Wh3ROc7MyKCQrJrNCNeWAzxdvwYI5azHn
+                8/W8NuLzT9Zj8UdrOMYcmp3aZSq0MhQpSy4KlCEr5sh3G7DlHSoG2u921MGTlGxPFyjHIPLHrHC70vxh
+                S/ZzYBvWDagO47k7lWreVj3bWByCgt3W302G6Ebxb8ioYQata8P+i6Aq1fFmMFh4+kM6+TqErjbKkkhx
+                WkJ0dqMPppNHpstSZPdKA5dOwADm983kPRNxdC5jXKfXNMc00I30AAzD7dQEomislUvanH3hvR3JzbQI
+                HRx0hHYEulUYj+FEId7VoarY/rfQziVBzOnqCkYRuslQUV3K1jqRAWM221EVUDw6bScDqzWkTf2UNUfD
+                53prMSOV1dr6zeaoPwY527w3bgubZ0J6n0l7IFr66CLodVoDpmlMM/QU6VbUPxNUp53cdAlMmLTdrmhr
+                cg5M6bio6S9e9MGiragF8eFS2X4wrZDuRpM1lbjtNCBnj8Jw2my6mDjmUk47nsFqD7ULXzeBeyeYIo4i
+                2uRoJF5RuDsLjNMpwg6/7sHzP945i5nuXobyicDpyJOZgIlj7PvWnSGCBD07EpuaEjTAqHxBKtjKLWUO
+                DoF5thkdMtkRMPJ2qjFP0Y3smWFMtPYCW1HTJGVRe4TEmyxlXKwzKE2RnQJGYq5r5oJfWqoaDJfKced2
+                i6Vf48A5Hd6psCsW5bvUnXxbj40Iy2QzIOdQL2lZUKpTVye6PYfo+t0jAa98ugx/++sbwKAc5oRYs3Zy
+                6fg2NmO33gnYd4w9gBQN4nfCiDzybjtPI13+Q7XXjwefeMvBIrANRm5OnT0Cl4SRuegqbNvw9OvzsGRj
+                udk/MrvVymxsgmfXgUgwDyJ3HpgagzRlOo/qvjarh2x6OZ0hKxQBG+8zXGrx0Gb2GULuifR2UL6cN4V0
+                xlWv0up0vqXhj2V1TiOlKSbVEYCVgHa59Q6UPdFvwhFbl72ctOj89nBUWid8e6ltDJld1vKt9VizuRgz
+                35yHUy57GBg+RIyw7+3IjYjH6jqceLje6LR8dQARyOtR+49ipzQwrjYRh4MsHBuL2e9/g4df/ATrCspQ
+                xnpatDciURK6Uvq5oHJG0flfY1ivwG6tacT6/DI8+/YCPPrSPFTWNRkLafBiqPAllfj1/qM7fDDHGvUU
+                PFV1DZEHuEQc0K83BduK7Iw03PuvT7B4YQGQnaIetJitIew3diD+eNoByC+pogwiiPd5cOAeozEsr48r
+                E7FroK4xwJXE9+aV2bi4GCq/H4UV9Xjy7SXIL622j+cl6KZm9M9KwelHTMCovGw0BrksdTrFEFUPOsrU
+                GWSohSkkN98Jm1vndFmUUGsbagMtWFdYjeL8Qny8JJ9a7IcnOQnmZXkztVABghwIZaWoWfUc0mLtAHCB
+                w4Qq4ucga8Xgw65BcSUVIjuZU4V939u8RNbQgCP2GYGcAX3YpgykJ8YhKz3dDB6POZTGesSewA2LbSdN
+                Fqz9PIuA6eK/hX1Q3xxADa3flpI6bNpYggWrNqNGL+frxKBrlfUO+sYCvP7073H8YXvZgcB63NVeT8Cz
+                YkNhZOzYC5G5zziEW5sR6/NjayvFojldVsac6lJjIuCMiPQYMd5G4YeQleDDvdedhVMOGWfarMtlaTOV
+                6qr7Xsbbn61AYmqSaUuYlquebdPr5AYMYR2kBpKpfKLfZqTGy1ZqiRpQgGlClgVwUUyWE3HD7XeNfhtV
+                tk6oBWkdm7Wjqwd5qanwaN9FHe0Jcb5nWMXmLsQzb9yKc4+bYgtHgayUPvAj2i++/zWmn3w7sPtoKyt2
+                lHk2JIWro/XhQElOikEcOzuBo94MPdcZcUGJOnyjdAMMKygUc7fp+pXcWqh0QTrYjfJZmoN2GjIfbBIq
+                sUSbftT+B4zCrLsuQF6fTLabMtb0aKj0DDzLNxRFxg05B9h/Eh09MsAONCZNa3rTOKsEprHm8bpCTOSS
+                MzXBi8dvOQenTR3PpqiFdtQrf1NxFS6++1/4YM43QFqqsmi2+aP3keicmSWtaSAvda5GpqyZSRMpFYgK
+                K11ETDLD3aUJTJiXnL52Wk6GFE1xCY+daRrFyz77Y/1NVKLCElx2+gF48K8XO40mKN8BtdPWZH/Puv4J
+                zJo1F8jJZsclmlN3aKPS+EhPxxS0ehIvOlzlKLpVeuKpDSbOy5G1uVzZCAwe7+oXhWUB5WOqDX7eSdPI
+                XnXo6XZVNXbdtR8evXE6Dt5zpEPOnkM2PmcPweuXYmgbOYEC1DShLwGIkfaWsEL9qDKabyQIh1diLHws
+                F/1WRTQ7cmJjYoSrEUDaxNeIU2PNSGC+KeEKQd85cWkbPliunSdd5CtetHgZfi2eR2luXDgGj+VMXOUV
+                duIMe81UyNbRwkRoyiM6w6JdXvos/ZM9uPrK462y2F5SUzqBOyBceO7OC3HppUdhQDL5r61FpLYBkSbS
+                1NEDQRxlqfbr+GQyeU3lPSUR0Ad/5JCmKJ1xpnuI42HYo3xdStflxtV2tS9GikI1aWm1/NeSf1q0OM4Q
+                R3HwPn7LmVSWEVFc7jzwLFmbH5m062nAJFkYNVJDTlVRWOpIIzP9MNw+5Ai0NHFxXsy84zycfeQeTmIH
+                bCyqxG/+9AI+/WCxeTJtFKPdapBOuwVw011w4ko39SpOfPGiMmJD/LkjzojFwTOXw6Ob7EJ0PY4Fjad/
+                0psdEM/ryCmjcNCEwTjmkMkGxY5KhaJOB24DtBrmm2jAmx8vwmfL1uPjr79HQ20AlcFmHVkxvp+5XH5c
+                n1DgtlHpGkDG4rCB7U9olcG7i2c+o0YQLpXGR/cgk4Mgicvn3Yb3x9RJQ3Hy4XugX3b0ZqNtS3cHxXcE
+                PBuKyiO/Pvcv6Dt6KBvmjAoyaS0kf8SzSXKYNg2hj8P5OoUK87szpuKAicOi8uy9rKoOj8/+HF8uW8sO
+                4chR+XbF0N0NMyRTTTDLU6Wr8q7zehRtCwo7YHjjZbKj0g04+MSxRyc5WPVhwbRE5GTGYcLggYinBdh7
+                /DAaQVoCgrpLHOlZs8r/sKh1aKHDlWygT7F4JZ3Q6gasLipBUWWAM0QjGuq1miJ7IVq05may4pRw22l4
+                JH/tNds0Vx6yyOpwLy2pxkwcraQOgPdOT8AILhR6c6EyhPddufgwwHKGgpGLonKgHTn0EDytraHIqk3F
+                tHwJJNxFs38ImGUGONuWk5lK60oz2amxcnfCqKTg9F6PT9othtsVJhq61uXE1fFGYbrmd4WfyhfYfNf/
+                SKBiaOWWwGkwUdNZF5BauZOy4Keod8dBM/3BxkAIAfoVzcZyUyHkmxilFbZbKrp0N5QcORinVdM5k2J4
+                j3f4T+3uW3bqCoGjlzsTqMTd9uJ2QHTxH2n4/1HQmwDarY022a7CbC+Y5asz6HbWFPCTwDpNjRyQrvop
+                wUhfP127oYddY1qlOa4dJC0Stca7C6gyw5EtIwGFZSO34UxhV3i6m0S3aM9gB4nYFnZ+tmLD9mFiNOxo
+                V4uOVRTbfu2lRJ/Yl4VrBwZ1zsnkKjmqC7qCS8GyLpq2k6yCqraOOgzY6jsltce7oG4vbGthRJBtdm7/
+                H3oEbi8JrDTdWLurpc6VsAU7LPBoYgRXKRR1abp1CJTuoG4vdFEYUe0Btf8PHWA6LEq0jky71Y0eK0wX
+                2LbabXRqR4Es0qyFuZ5v5zq6tu0DlRQV3XecSgdE09oZ9H454NSnjUADnTmPHo6aorTO0q/COwcsVdOf
+                ZsqyV6eKewC0MNqK3FmqvXNBItwJbWyH7ujt7Dpc6Ey3+1rcQfpjC/ceARVFj1pUs/XBe16Ph45ZpKW6
+                Gr64ODbAEu9onvYGbNjmdW10B2ZXPMVtqtIVd8sr1DXNxYyuIxpPd4sh6K58B3TgWejId/FdDMtNB8a2
+                9GxuR7nO/HVHoR0YNFaGS2B/YpLFiEZthzCaufRu47jV0rkTWUE3pC04iNH5ztaF/gmStFtO0HLeOPZm
+                38ck7TB4AvkrIwsOPxUDsjKgM+daTmpjyVTLelW1jjWEGHL3mLRVpXr1MMx1gdwDz0pTnplOpN1Mtw/r
+                RNEKXWBSnLKGLPHcuAU7/nTA2W7HKM9gGlwluaPHjdsaFLJgsTvSLT3xKGAay4dZVtt1IYWZ5mfbhaty
+                OoknIko3qcQ1bSOuSzO6ToUFpk6uHhtjY5F6yknY9aJLTLphoEuHvfnpQtz5wGuID5GKHo+YB6GmUgvC
+                t2TVUP4wYgQiBOEqg2CUgZdZvbahmTTOmn4Izjl2fyRrr8nILwp/B8ET3LQk8vUukzAISaCekz8/Gvgv
+                lpnxSKESNSHI9HimcKyQzSbmWhBOAhKZFiKevg9ul+Nqo/L0pxyaSVWsRrdbm+luOBbJLNPA0jAd5zf0
+                REXd4GH5gMGNY66Xv2E0GsVWu8WRVDfAOhRXefHQyktxUVFder0ryDKi417a7oplXY1sj8rE85+UqYXU
+                GhkXvynmnszWhZjnI2ajSU8grgaQlb1+RcGeSrRDTQOsGS2jRqL/rOeRMXF3IZqKTV8bDA82l1Tisjv+
+                iXfe/BrIyrQIBom3duXgzX1sINBuqVmqm4it3lUGW9DemeZvqsN/Xr4JkyeOZJrlsafgaS38LrJswG4Y
+                GD/AdERLcylib5iBwJsfwP/daniz8uA7ZSrCz72FcNNW1CWkIPu3pyI+qxcqPvkcrXO/RFpSGkJ7TEJb
+                brYxwXpLMrhwObC5EElTD0Aotzci9fXs0Tj428Jo3ZAPX3w8EppbibcInuHD4Rs/Am1LV8K7rhRePUpg
+                +1qCW+E5eF+E9UDu84Xw1TairU9fRA4ab87R+Fh3cwOt4mF7IzYzFS0ffgnv4FxgeJ6xHIiJhbehCaF5
+                S+DdbRd4+/RCW4yfMo9F4N8fI6GyGLGTxsOz52Tg8RfRECb9sePRb/qxaC4pRfnMl5ESqEZSUh4aGgsR
+                c8rRaK2rh/eDBYiNTbdPpNkJOjYpqxzmqJYl0oPNQGwEMTdfiYHX3WAl7YAssLpUeG9+9DWOv+xRoHeO
+                ebHe2lRe5pmZFMN2vA1HKYkUgu3TP4Gx5CZV6cSVhfJxyM5fgnlz7sGUvUfbMgbLHdK27PaCp6VwJRVm
+                NPIS+yMcCmNTSwn2JQOV772F/GnHIX3oEOQtX471gwci6I3DEKYnjR+HpvLNFFoW8m+6FRWPP4qRb7yM
+                xP2mUCFqEUnIRM38RRT4Q+hz2rFIP+k0tNYEjMn1VG7G5tfeQ7j3YOSsWYXC2/+MpOlnou89t6Dsz7eh
+                6fEXkJKQg7ZAJarzctDn0QeR2L8/Ki76PcJff4mmQ49A/7/chQTOj4XHn4Rwn0z0e+QRJPTpg+8YTznv
+                Agz49dGIDTcDybSQGzZi1Yxr0f8PVyHzwL3ga6oGMvqipbgKS8eMxoAbf4/cq27DYnZA6jHHYNBzz7O/
+                qhCfMRhbF3yJ8unnIHVTETbS8uzb1oLGLRuw+cjjkbpmPTwJWew3/fErWiAfbR3Nhzot2FyDhimTMWrO
+                J/Dr7yNFgbU/HixZvQnH/+FhFOiDRJlpVBJ2pFEOdqTTl+aAOSPuCxwGhCNl0YAwcV2chhRXuqJSLv09
+                h6XfYv4Hd2PfySMMqoWeKQwV3dFTMsIxQtNtodeRxyKJwq+pLDVOW8DvQfqlFyFh7DgsPuRXWDP1WGy6
+                8x4MuPlmJB59JNqI01BejdeH746V08+lQvRG3KFHY/2lN2Ll+RejetX3qJw1GysOPQE1n3yF+EHDEEiI
+                gz4Yrw+b+nL6sgMS2f42xJCXWnKSevZpyJx2NFLGT0LicayDndLi58SY2QvxtATVw4fB96vDkTpuEmL6
+                DjC8J4zYDZuefQHzD5iGBaP2xMojT0Z4+WqkT5qIjaz/8/0OxxdHTENcbi4SRo1Ba1Kimot6zl2DXp2N
+                yg/fwfJ9D8OCsROQufe+SJ4wGpVUltTzz+TgjUHcLiOQcNRRnHCoJOpPdaC50T7I/2gJoiklEdlXX2GU
+                pf09JYJCkrberX71g4UoWMPWZ6VSWezTbFcHjIVxzgaZj1KqoO4ugtJ5sxaFv266s/tuM0lTiqNwJ9hx
+                ZRFwyrWG0BwbJKMuqYrCjcj9001oHa/5j35BXAJC+x+MprffRuKnc5G1YjWa3v03YrKT4d1lGFpqa5CQ
+                mYmh089G2lFHwxNDj2DJMqSUlcO3YDkiDQ3wF5Uifi0t05ZC8yAt/fxzMPLdWci9+Y/Q5+plylV/qKWJ
+                Tksi0vfaB9/PfBSrn50J76hRAC1NhCsKef2B1nqkTNkdKRMnonjNClowrvQondaqKvSdNg0j7vszRsya
+                ScvyO4SC9HKqa9F7n73Q9/hT0PvEk4wcA5vzaRXUegqiXxZiOSpLn3oa2avXo8+332DZHhPR9vFnVA5g
+                9EOPoOC9N/DlmWci95orEYhLQTjYRCVSB6hf2ImkFQwH0DaF9Rx1gkl3FUrgyvabNVvw6Ovz7aErPYwk
+                jhxwg+nit2sP40pjmw0o3cWRPjhhlTd57eUcPDfaDtskbBdoKjUkDBk23iW35ZnHECytwLC/PQx9uksr
+                BU9MAprra42CaTXVrMM7dAD1/o41i14k7Lkn8s6/AI1f/Qd1s2bRreQqRJ8Ao6cuv0UG2qcDWl66tsWF
+                aPrsP2hZt8mUV2PlxDaH62mdpiBh0mSkpPdCHDsn7dBD4JkwVofZEGlpRsP8T5F58KHI+dVB2DD3CwSq
+                a+AVH34/WktK0LJkBUILl6H1u3VUCtsuffkgkZZmxG8vwYa770RbSQH8OoBFkAILgvklxiGWtcrgAKiv
+                b6UlGk6/itMbK8+mEsf2yoF399H0+eiXaZAZvqkwrQHUZCRhl6dmGlqmR7tAVXUd/vHGF6irZg1m9cK6
+                KXf3DcZOlsSqkFVK+UmuUrgKY8K8RytLtGL9F8BYGIGdmKQWFnyrv0fhbbcic9yeZhR4a+rg/WoBsk48
+                FcHxY1BEnP43XotIM9dQnNf9CUkUdj62XHUVaud8TOtAZ7VvH2eNJFOphtj1j75KrYeXTR/PRcVfH0Pd
+                ex8hRKWM+LT0tdNi3OT94KVpj++dCV9qMnyJKYgdNRptVL42WquaL75EfGIqGmrr0FJYLtIIs7wvOYl5
+                c1F2990ovfZ61D7xDHUzDH96KqppGTeddRYaN63FoPPPM5YjpD9qpTtpiNNBf78fVF80HHc0Bn0wB637
+                jkbC6WcanNbiEmQMyeWs04Ssy35nplLz19W0FKcP0uhvRuaFZyG1b57B7wp6o2HO4tV45fPvzOfGVI49
+                0N7/ChilkKiUZhSAlsdFMHcpBpXbeQBpgHhmWmonRDBBOwiiYVsV3j6gwvgNbfNRGzpc7hGqrOEjUP32
+                OwgUb4Y3KQmpibGofOABNLQFMXHZCkzYuhUDLvgdSp94CIEvF9DP2AOxKcmI5+iuuON+YEAuBtPCNPs4
+                guNi4B84EN7sbNuOlCTEDB6C+PQM2SfO9bH0kzLoh+SYTow/9EDk/P5ilDzzAorpMNeccQ4qZnJ6oV8Q
+                e8apiPTPhYerpJjUNDSv+A4x/ljE0jmPSU83vtSg62/DuPwyjC6tQl5hEQKn/xph+kjxwwYjM9CEtZdc
+                DH92DgY98Be0mVdMgESuxdeeczr6Hn4EJrENE9/4N4I15agpKcbQG27AlnkfouF3F6PsvPNR+u4b6Hcq
+                lSizN5eZLRIi2lq4QM/MQt/rbjb0LNhRHjZ/eFWnQBvxzifLUFdaa45tmp0hK3z2OcOUv3Veha0MN0yQ
+                lRHIgtgT37ac0oxiKc2JGxCeEyQwZii69x0FT0vRysjy/lwtxPdHyBNCCwXq3W84IutL4CmtQ7BfCny9
+                e9HiFMATbENdXjISBw9DTL9sBKg4bQWlSGn2IzS0t+HE+30BFduLwCA6pqksu66Ig8SH8C7Z8NQH4Cuo
+                MudTw7mZ9DQ5pW0ph5f0w3npCBdVI6akBpHeaVyiZyC0uQwxVVzGknBregq8Q/oaX8TPZXdbSYV5tTVM
+                Gr5WLmEHcmW1sQBhrjhC6ZwIY2IoY5/9RMkGtqV/L1O/f0sVLVgQrcMGIIlTQpC+V0xfdvxX33MV2ILg
+                4AHI2Ht3hKvqULF4MXrV0bpOHoam7zYieWsLXV1awAxavF16k1YZvNXqmDC2+urR/6Vn0euE0xzRWjBL
+                XnZoiJboH699hgtveB7o25ejhL3JcrIo6mbbt/KDbKdbiyHaMkF22S4Bm842NDU56K6ojbtugSmv04Nf
+                rcCXH9+LffYYYcuZ8rYuXTsCntaCFZEluWMxENm0LiEqOa1MpA5+s1EWT/E0MT3MWJJxKsOMtVLgWlP5
+                efnMjK/1VYNhxg+aWk48IZbTtpmPNLTyCRvboe0v2RTtRsgvcuOt/MfONLS0OSfnN0Cq2v5jw8lTJKJt
+                Rb0TJPWhAE2d2mi0/7R16DdltaWml0Hs4UnxFMN/rczXxqPXQ2WiOecCmblc5htslU1nOMRwI38lVC9L
+                KT+G8Qb+6g/xaYtfb0aKl2bSU1u1cViNtsN+hWHvvg2/9j9c0HB2DMPagnIcfvHfsGkjl/U5GdbZVW9L
+                oXUnHx3dyLCJdpPuKIYB5SvbxTfAgKyRjNp/FuKTz+7DwftPsFnkWi/JbDtR/XzwBDYtifxnl0nI8yWg
+                lUsx87UR3vVHF9q89tsj9oAVRSiTSW1WV5mXzhk2nak8wzP/OW2TnJStchFm6gUuveSv8ko2+wg2wIsB
+                DSYmhFmHoirrNfhM5V2OqykpwsRVUYW9YaYbE604f1QPM2Ti9ealaJqlKdsgOnqrU5/AN96aypjKSINO
+                uOpgAcZbWC/X2Q6P4lUfepaCR8wn9fW4w2verJSSBdPT0Oe555FzzDHE6TjlK7Gp6sZAAPc++CJuu/YJ
+                YAhXnWHnbUgJS/UZcPixDETddamhvEm51EYpjZ4ZuygGHFqK63UgTnlHHTYRj95wNnJzaM1NX0mC1gLt
+                KHhCzQ2R6nfeRXyvXqYzXf7UKe2UXaYcpq2S88cI22Z1ABMM425h3k1HCl9ECSrj1tEJVNYpJxyXjluP
+                S1JhgaHRNZ8/RtuU9zPqdPHMB5RskkHuyodAvDhKaeoU0FJEkjlNT5gIb6wsMtVK+WZwmRuadTh8xVps
+                LK5BSmoSZWeti6lS9TuktgW3ct4NPhVdUXaAHHkTNtAeMGyHuBpMSo7F5N0GI9v5IoVhV7ybBu84cAo1
+                wIo0Fm3V8r9ds6U0gdK7C7vgstw1XfBjeS64OIIfw/shiC7fHUTT7I7/7uCn+I7OV1jf8/Vxee7epX/G
+                aurOH2OpohmVRkXHuwUhuDVEwQ+WlaLa/hToQaSO0Spu/9p/z8AoTDRDnVlzh5ymg+j0zjGB+yajy6gF
+                ppmphMDkznSjNV2mUr6E/SNQXSjzUopoKc5yirYLzGKbLAdc6kqzE0lnM+xStKBHlXpsuS2oCr3Eb956
+                aIeO0vJ4fGEfB3wURe3Qms9uEFTeTIXkh5f57g7xRFf3zrL6aZAimlMBKte1rBqtJFOHqYAFJCtN86zf
+                VN1RRugCy6nlSyBjIfgh1XJa5hZ3Q3IZBYYDE1Ir29pa0dgcMGmNXE1tKCpGUXmlyTbfdXMY0gcDa+ud
+                LxuQGfNVCJrh5uZmtGp+dat1QHVRDNsyaZhQYyyGabAjC6c3nYhNdi/RcUq0XwXF5ZzapRwdJCzoebag
+                DYUVldhYVIb8YvsXbjU6vWZK6yjRGAyirHKrjZh3qRXwoLhiK8q20qHV4wuuiMqrqtlWfe9OPLO8maLF
+                meQU3X7TyG3ATa2ta0BVTS2bSn9SiihypkVdwCSplFPSTIu8q36FuypYJ3DVxCligw5E0ST4biVEo9iQ
+                OyL1a8+PSLM3FZbh0X/NQb8+Wfjj/S/h5blf4Z259MTnfYv9J40wf9/75qffxp8fewkffL2SQmvEXmOH
+                0BR6UVi6FS+8O5+K1IRhA7msjAIJwP5z2u2CibgpTm57VGE30p7bnq12KOy25MlX3sWwvP5ITtLeczTY
+                2JIVm3DyVfdjdcFmPPLq5yhZW4KDpox3OrejxIbNhZi7aDnGjRxiHmdoANz2xFu49YmXMeer5Vj9bT4O
+                mTIWr8+Zj37ZWUhhfWq/BtPWen1mpMgs5+P1B9UNdObGBTd1wTersGZTAYYMyIHfT2tGfrrte6WZDIdf
+                Ix9lOMldQEkaBjaro/8V74zeOaUd808PP4dCfUWSsGD5ShRW1eLlz740cXfkNzS3YNXmClTVBrBo+WY8
+                f8cM3HnxdPTNycYjsz/D98vX4s37X8Sy2X/FVdOnYc2GjdiqP9pAaGpuxaaiWpRU1HE11opFazfhs4XL
+                0NSi5bOWnQV4fd4CfMsOadLucTiEVz6eh/UF2lO2DC9evRaL123Ed5s3o6quBptoEV54fy6CtHwuvDX3
+                S3a6tRABWrQ1RaX4fOlK9O/fC2kpWgYDdz/1Ir5Zt9mE3dGzZnMJUmKS8dj1F+Gtv11DBXgLqwpLTN7S
+                1evw6EtvmnAKHdxBA/uRI8vTqrUFePwfb2PpC3fjr1eci0Wr1pg/Ojpy6EDkZGdg8bff48V3PzW478xb
+                hgtu/wfWFJQhGAzgpXc/wYZC+4ckGoMtWF9UjiWr7V+x/Zayyy+vwsB+2cjr1wc+PfZwoKSiAm98+oX5
+                a3GCwvJyzP7oc9RzNRYKtVCmLXh//hLUsg7BZ0uWo5UWfmOh/qwy8Oy/P0adPmlvYsATr3yI9/+zyISL
+                q7ZiDa3xA7NeNfGiiiqsXr/RhMurq+EJBoKRuIR98do3T2L66Xcg8N0r8Aw9A0jyYHB2Ek4+bAru/uN0
+                U2Dl+gLc+9wHuOzkqTjvppn49q27TPp364tw08Ov4s+XnYCTf/cA1m/ehH89cz2O38++pyxYt7kMs95e
+                gBHD++G7xatw15NvI3f8UJwyZTKGZsTjoVc/wsa6Fgzw+vHQTWfhgxX52FhWhJIt5bjtkl+jcksJnnvv
+                E8xZuBlZ/fvhgUuPwV9mvoa6xDhsWbYRKz58AG9+sRJLN+bjzbe/wJK37kN1dT0OPf163HPr+Xj65S/w
+                /b/v4mjbHTM/uw8zn3gX100/FidN29fwN+vNz/He3OV46W8zTHz23GWY/doXOGXqeFz35LvYZ9IofLng
+                Oyx78SZc8Oen8NoDlxMrgvqmFkw58x4sX7oIzz1yOc468mAU0Jpe/8i/sGteDoVfiiR/Gxa89Q1uf2AG
+                fnPrk/jL5afh1Y+WmgHYOyUJ0/YdgW9o0Z578xPsMiCLHVSD1HQvzjt0EvrnDURRVQ2uvWAaUmmtvlqd
+                jzNvfAZFxUXYp08KJo4ahv9sKsUmTof+hibMvONi3P70HNS1NaBoSyn9Fx19a8EVJxyAUFIybrrtn5hy
+                2K7YtLoMrzx5Jc685jmcPX0CPp7/Pf5w8mHYTEt7xQMvYewBE1CxfAOee+wq/P2fH+Odh6+AZ/ipWgnG
+                4p3FL+CiK19F86pyI6y4rDREls/CM/ddgyqjpXYOl3XW1NTGedFnnu1bSGKnNbWG0Ld3Fr776H6UL3kB
+                s9/4EkOn/h6ljtUy5o+mWd9mSc1lh981A589fK15Ef7j74twI0dn0xeP4+pLT8RT7y1E8dY6jBzWD3vv
+                PRL3/nMO5uQXY+b9VyGyfjYO23sEvi0ox7lnTMP3r9+DMUP6o4rK8dqnS7DroN649vLj8dtbn0UdLczV
+                l5yBq8840vyF+uqaRizY9DrufmA+lr60lEx1mGKBP8q5zUlPRWVjE+auq8BeE3fBMYfmYUtVE1ZwWk5J
+                znKwPEhh27957WaEN9HKrChAZr9j0D8nEwlJ8UjLyMS8BQWobozHooVPYWS/LNxz+SlI4PK7IL8Upxw1
+                ConpPny5Kh9ZfZLw3tPX4i7K4cFbzsA7D16DAcOGY0NFA/w6COawNvNvL+CSA0aiacGTmPPm/cjm0vmq
+                352Eog8fxNlnn4j3F6/FoVNG4KtnbsR+E8fj86euxhsPXYnkvr1pvfLx2Tt3Yt7Tt+NP152LpctKMPvv
+                F+CNdwox77VvkF/Wgo31Abz9zE1Y/uzNKPlmKabuNQZZGTFYvLEA+x90ALyVdQEctfupKJ/zZ2QyUw/+
+                gk4nl1WUG0fVnRJazRecAnR+QxxZekgYwbotRXj6tbmYNGoQ5i/4FqnZv6LpT8Tl5x6NwYNymW/NunnY
+                SLMr0xtqsX+Au46OsT6E3NIYwKpVm/Hl8nWcxvLRJy0BLYEgaqoD5msdxx42BhkxPsz/+luOsC2oaggi
+                PjaGHdHE8m0I0QHXh6ISiFNZ24DKqnpcdPreiNC/KCm3DmqwNYImXwz2HnIWNr51A4484yDzbKcdqDxb
+                zF//CKOxJYQDT/wjZt9/EcqKK+l/1aK4vBUXTRuK9NQkbK22f5pYsGjJKlqtScbPu+q8Y9F/z4n0Zb6h
+                jMIYOzALrz10Efqnx6LvkOn4au0GFNH6VNY1o5qyrKxqwZCcNOw+sr+Z9pvrm9HYFGB6nXGa6xpqzVen
+                Ak1chNjHUVTIbKwurcYGDpjl367DxvUlWLh8PdYXluP7NRsQy1EdaAqhORiiE17Jewtq6Dg3NDQii7y/
+                T39Ti5ItVIAPVqzEuTc+h3/+9UzceOsFqKysMw57GQerBTulHTBxIiYfdwsev/pIeHulJmDccVNx9DUP
+                IM3DFUBZOcaPzSVaBKkJscjroz/KYCEhzodBfZKRkZyA4UP64JDf3owLbnsM69bn4/JTD8Zee47G8Zec
+                il2OuhTXPPQ89iGdKXSGBbExXvTNiifTschKi0Nmih9eXwSDSe+aM6lkqX7c+fy/8X3BVhx3yJ447uAJ
+                KK+sxPLvCjEiN5f0j0BxaTkenv0J59JmZKcloT+nMu1z9BuUhXiO9CvOPhyNdCwXLtuAtIQUJCfGIDfH
+                vqw+NDcJGYl+7Hfq/jjh+vuwbEuxeejpwpCBvbGutAAnXH0nJp91A64+60j0TU/HjNP2RxxH9/yl3yOF
+                /zIpk4F9dejKWtixY4bj0nuuwKhjL8Np192HQ8YNwIG7j0F6sh+rOD3+6YF/onBrBS679gzsPXIYSssq
+                EQnX4zfH7oP5nJqrKxqRGZ9CBzkFsawolTz3SolFEuvJTkumzOLQpzctjONIXv370xGkwzxtxp/x7Kuf
+                4ld77UZnuhrTfn83sjPicPSU3dCPctEDz5F56YjhIErmLJKXnYjs7DR8smgjpt/wALZW1mDmNWdh8qhc
+                XP+3p/HO+/PYR0EM6p3EvrFHPpBtn7qfdzyn7cpyjBw8yO7DBDkaCotLkDegH9frIVRzJdMrLQ2tHP36
+                Q5UpzhcC9Hi+iaM5mXOhrEMJl5dJ8QnI7Ztt8l3IpwbH+jzIybKmW9OR/l5ikNquDS2zxc9lYqw/FhEu
+                FV94/l18ydWAlyuBBYs34oZzj8TJUycjv6QMGanJNPvxuHXmv1FUU01lCaGSS9jHrj0dY4YN4Oj2opTz
+                dybxYukYapkfw9VE78wMjs4W1tnKKSSJS9Nq8505fe6rmHRzcrLMn9lLlAmj2mlza0tpJVpoXWJo/wfn
+                9SWX9plVXWMjfbAiTNptV1rZIJ1yTquUgVkyO1BEB1UrpkF0UNVZjcRJSUxELa1gxdYaKmw/g1dTV29U
+                LSM5kU5oGbIy06hcSaQZ4CqI8tAjiLY2+CkXvRWhbTJd+ny97lptNbNdZbRAamMClT5Ai11WWY0BXHz4
+                yZOsVJLq5uBJTkpCK+nFc1qbdvH9OOagPTF1zyFsX47hp5l8rssvwJhdh9Ci1ZsvqPp8sYiL9aOAzrX+
+                QMbBZ9+CzD598eq9F0lhun+RTVNIxxcI1ESFjSfCK3ovmMBGqnFaZkoR2CqbzEsdoecv/vb9jg6Q4mi1
+                UdfYghc//AJrNm7GxScdRj9kgIPRAZvZmS+9/xm21jbiijOP4cjTKXvxpbp0RYfFhhWuCfNSSE/K9Dix
+                A9wct32dQQ8yPRS2x9dxLjearvb8wjEdz44MRG/ctdNXORuVH9gVXDlE40eDUsN6bsVp06vnCe2ylzLp
+                SXZ0X6iSjl17W1rgweufzEdun2zsPnq4k6d5btt+URm9J6V9n+LyCtz+5Ou4c8YZyEhJwv8DOxD3Z5ex
+                9VQAAAAASUVORK5CYII=
+</property>
+        </structure>
+    </list-property>
+</report>

@@ -1,0 +1,5 @@
+databaseChangeLog:
+    - include:
+        author: Davlet Panech
+        file: 202008021630_amhs_plugin.sql
+        relativeToChangelogFile: true

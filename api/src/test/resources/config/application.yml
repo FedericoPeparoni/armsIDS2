@@ -1,0 +1,12 @@
+# ABMS API test configuration
+
+# =========================================
+#  NAVDB configuration parameters
+# =========================================
+nav-db:
+    url: "jdbc:postgresql://abms10qa01.idscorporation.ca:5434/navdb"
+    #url: "jdbc:postgresql://aim77qa03.idscorporation.ca:5432/navdb"
+    user: navdb
+    password: aftn
+    schemaName: navdb
+    driverClassName: "org.postgresql.Driver"

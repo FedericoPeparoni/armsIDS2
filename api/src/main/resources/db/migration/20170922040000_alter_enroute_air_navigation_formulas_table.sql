@@ -1,0 +1,18 @@
+alter table navigation_billing_formulas add w_factor_formula varchar(255) not null default 'sqrt(([MTOW] * 907.185) / 20000)';
+alter table navigation_billing_formulas add d_factor_formula varchar(255) not null default '([CrossDist] / 1.852) / 100';
+
+update navigation_billing_formulas set domestic_formula = replace(domestic_formula, 'sqrt(([MTOW] * 907.185) / 20000)', '[WFACTOR]') where domestic_formula like '%sqrt(([MTOW] * 907.185) / 20000)%';
+update navigation_billing_formulas set regional_departure_formula = replace(regional_departure_formula, 'sqrt(([MTOW] * 907.185) / 20000)', '[WFACTOR]') where regional_departure_formula like '%sqrt(([MTOW] * 907.185) / 20000)%';
+update navigation_billing_formulas set regional_arrival_formula = replace(regional_arrival_formula, 'sqrt(([MTOW] * 907.185) / 20000)', '[WFACTOR]') where regional_arrival_formula like '%sqrt(([MTOW] * 907.185) / 20000)%';
+update navigation_billing_formulas set regional_overflight_formula = replace(regional_overflight_formula, 'sqrt(([MTOW] * 907.185) / 20000)', '[WFACTOR]') where regional_overflight_formula like '%sqrt(([MTOW] * 907.185) / 20000)%';
+update navigation_billing_formulas set international_departure_formula = replace(international_departure_formula, 'sqrt(([MTOW] * 907.185) / 20000)', '[WFACTOR]') where international_departure_formula like '%sqrt(([MTOW] * 907.185) / 20000)%';
+update navigation_billing_formulas set international_arrival_formula = replace(international_arrival_formula, 'sqrt(([MTOW] * 907.185) / 20000)', '[WFACTOR]') where international_arrival_formula like '%sqrt(([MTOW] * 907.185) / 20000)%';
+update navigation_billing_formulas set international_overflight_formula = replace(international_overflight_formula, 'sqrt(([MTOW] * 907.185) / 20000)', '[WFACTOR]') where international_overflight_formula like '%sqrt(([MTOW] * 907.185) / 20000)%';
+
+update navigation_billing_formulas set domestic_formula = replace(domestic_formula, '([CrossDist] / 1.854) / 100', '[DFACTOR]') where domestic_formula like '%([CrossDist] / 1.854) / 100%';
+update navigation_billing_formulas set regional_departure_formula = replace(regional_departure_formula, '([CrossDist] / 1.854) / 100', '[DFACTOR]') where regional_departure_formula like '%([CrossDist] / 1.854) / 100%';
+update navigation_billing_formulas set regional_arrival_formula = replace(regional_arrival_formula, '([CrossDist] / 1.854) / 100', '[DFACTOR]') where regional_arrival_formula like '%([CrossDist] / 1.854) / 100%';
+update navigation_billing_formulas set regional_overflight_formula = replace(regional_overflight_formula, '([CrossDist] / 1.854) / 100', '[DFACTOR]') where regional_overflight_formula like '%([CrossDist] / 1.854) / 100%';
+update navigation_billing_formulas set international_departure_formula = replace(international_departure_formula, '([CrossDist] / 1.854) / 100', '[DFACTOR]') where international_departure_formula like '%([CrossDist] / 1.854) / 100%';
+update navigation_billing_formulas set international_arrival_formula = replace(international_arrival_formula, '([CrossDist] / 1.854) / 100', '[DFACTOR]') where international_arrival_formula like '%([CrossDist] / 1.854) / 100%';
+update navigation_billing_formulas set international_overflight_formula = replace(international_overflight_formula, '([CrossDist] / 1.854) / 100', '[DFACTOR]') where international_overflight_formula like '%([CrossDist] / 1.854) / 100%';

@@ -1,0 +1,15 @@
+update atc_movement_logs set flight_type = 'normal' where flight_type = '0';
+update atc_movement_logs set flight_type = 'delta' where flight_type = '1';
+update atc_movement_logs set wake_turbulence = 'L' where wake_turbulence = '0';
+update atc_movement_logs set wake_turbulence = 'M' where wake_turbulence = '1';
+update atc_movement_logs set wake_turbulence = 'H' where wake_turbulence = '2';
+update atc_movement_logs set wake_turbulence = 'J' where wake_turbulence = '3';
+update atc_movement_logs set flight_category = 'sch' where flight_category = '0';
+update atc_movement_logs set flight_category = 'nonsch' where flight_category = '1';
+update tower_movement_logs set flight_category = 'sch' where flight_category = '0';
+update tower_movement_logs set flight_category = 'nonsch' where flight_category = '1';
+update exempt_flight_status set flight_item_type = 'ITEM18-STS' where flight_item_type = '0';
+update exempt_flight_status set flight_item_type = 'ITEM18-RMK' where flight_item_type = '1';
+update exempt_flight_status set flight_item_type = 'ITEM8-TYPE' where flight_item_type = '2';
+update exempt_flight_routes set flight_handling_indicator = 'null' where flight_handling_indicator = '0';
+update exempt_flight_routes set flight_handling_indicator = 'caab-delta' where flight_handling_indicator = '1';

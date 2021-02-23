@@ -1,0 +1,566 @@
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 1.25156445556946E-05, TO_DATE('2018-28-5', 'YYYY-DD-MM'), TO_DATE('2018-3-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 1.25156445556946E-05, TO_DATE('2018-21-5', 'YYYY-DD-MM'), TO_DATE('2018-27-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 1.25156445556946E-05, TO_DATE('2018-14-5', 'YYYY-DD-MM'), TO_DATE('2018-20-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 1.27143055803882E-05, TO_DATE('2018-7-5', 'YYYY-DD-MM'), TO_DATE('2018-13-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 1.43035937779367E-05, TO_DATE('2018-30-4', 'YYYY-DD-MM'), TO_DATE('2018-6-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 1.45108922384865E-05, TO_DATE('2018-23-4', 'YYYY-DD-MM'), TO_DATE('2018-29-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 1.45108922384865E-05, TO_DATE('2018-16-4', 'YYYY-DD-MM'), TO_DATE('2018-22-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 1.49580065707561E-05, TO_DATE('2018-9-4', 'YYYY-DD-MM'), TO_DATE('2018-15-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 1.68277573858079E-05, TO_DATE('2018-2-4', 'YYYY-DD-MM'), TO_DATE('2018-8-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 2.02273043324357E-05, TO_DATE('2018-26-3', 'YYYY-DD-MM'), TO_DATE('2018-1-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 2.02365046777369E-05, TO_DATE('2018-19-3', 'YYYY-DD-MM'), TO_DATE('2018-25-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.00002023650144256, TO_DATE('2018-12-3', 'YYYY-DD-MM'), TO_DATE('2018-18-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 2.27660664148901E-05, TO_DATE('2018-5-3', 'YYYY-DD-MM'), TO_DATE('2018-11-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 2.50312891113892E-05, TO_DATE('2018-26-2', 'YYYY-DD-MM'), TO_DATE('2018-4-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 2.83801476734874E-05, TO_DATE('2018-19-2', 'YYYY-DD-MM'), TO_DATE('2018-25-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 3.45259160157093E-05, TO_DATE('2018-12-2', 'YYYY-DD-MM'), TO_DATE('2018-18-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 4.00500625782228E-05, TO_DATE('2018-5-2', 'YYYY-DD-MM'), TO_DATE('2018-11-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 4.00500625782228E-05, TO_DATE('2018-29-1', 'YYYY-DD-MM'), TO_DATE('2018-4-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.1001001001001, TO_DATE('2018-22-1', 'YYYY-DD-MM'), TO_DATE('2018-28-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.1001001001001, TO_DATE('2018-15-1', 'YYYY-DD-MM'), TO_DATE('2018-21-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.1001001001001, TO_DATE('2018-8-1', 'YYYY-DD-MM'), TO_DATE('2018-14-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.1001001001001, TO_DATE('2018-1-1', 'YYYY-DD-MM'), TO_DATE('2018-7-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.1001001001001, TO_DATE('2017-25-12', 'YYYY-DD-MM'), TO_DATE('2017-31-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-18-12', 'YYYY-DD-MM'), TO_DATE('2017-24-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-11-12', 'YYYY-DD-MM'), TO_DATE('2017-17-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-4-12', 'YYYY-DD-MM'), TO_DATE('2017-10-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-27-11', 'YYYY-DD-MM'), TO_DATE('2017-3-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-20-11', 'YYYY-DD-MM'), TO_DATE('2017-26-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-13-11', 'YYYY-DD-MM'), TO_DATE('2017-19-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-6-11', 'YYYY-DD-MM'), TO_DATE('2017-12-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-30-10', 'YYYY-DD-MM'), TO_DATE('2017-5-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-23-10', 'YYYY-DD-MM'), TO_DATE('2017-29-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-16-10', 'YYYY-DD-MM'), TO_DATE('2017-22-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-9-10', 'YYYY-DD-MM'), TO_DATE('2017-15-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-2-10', 'YYYY-DD-MM'), TO_DATE('2017-8-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-25-9', 'YYYY-DD-MM'), TO_DATE('2017-1-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-18-9', 'YYYY-DD-MM'), TO_DATE('2017-24-9', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-11-9', 'YYYY-DD-MM'), TO_DATE('2017-17-9', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-4-9', 'YYYY-DD-MM'), TO_DATE('2017-10-9', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-28-8', 'YYYY-DD-MM'), TO_DATE('2017-3-9', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-21-8', 'YYYY-DD-MM'), TO_DATE('2017-27-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-14-8', 'YYYY-DD-MM'), TO_DATE('2017-20-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-7-8', 'YYYY-DD-MM'), TO_DATE('2017-13-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-31-7', 'YYYY-DD-MM'), TO_DATE('2017-6-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-24-7', 'YYYY-DD-MM'), TO_DATE('2017-30-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-17-7', 'YYYY-DD-MM'), TO_DATE('2017-23-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-10-7', 'YYYY-DD-MM'), TO_DATE('2017-16-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-3-7', 'YYYY-DD-MM'), TO_DATE('2017-9-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-26-6', 'YYYY-DD-MM'), TO_DATE('2017-2-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-19-6', 'YYYY-DD-MM'), TO_DATE('2017-25-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-12-6', 'YYYY-DD-MM'), TO_DATE('2017-18-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-5-6', 'YYYY-DD-MM'), TO_DATE('2017-11-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-29-5', 'YYYY-DD-MM'), TO_DATE('2017-4-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-22-5', 'YYYY-DD-MM'), TO_DATE('2017-28-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-15-5', 'YYYY-DD-MM'), TO_DATE('2017-21-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-8-5', 'YYYY-DD-MM'), TO_DATE('2017-14-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-1-5', 'YYYY-DD-MM'), TO_DATE('2017-7-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-24-4', 'YYYY-DD-MM'), TO_DATE('2017-30-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-17-4', 'YYYY-DD-MM'), TO_DATE('2017-23-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-10-4', 'YYYY-DD-MM'), TO_DATE('2017-16-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-3-4', 'YYYY-DD-MM'), TO_DATE('2017-9-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-27-3', 'YYYY-DD-MM'), TO_DATE('2017-2-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-20-3', 'YYYY-DD-MM'), TO_DATE('2017-26-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-13-3', 'YYYY-DD-MM'), TO_DATE('2017-19-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-6-3', 'YYYY-DD-MM'), TO_DATE('2017-12-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-27-2', 'YYYY-DD-MM'), TO_DATE('2017-5-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-20-2', 'YYYY-DD-MM'), TO_DATE('2017-26-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-13-2', 'YYYY-DD-MM'), TO_DATE('2017-19-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-6-2', 'YYYY-DD-MM'), TO_DATE('2017-12-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-30-1', 'YYYY-DD-MM'), TO_DATE('2017-5-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-23-1', 'YYYY-DD-MM'), TO_DATE('2017-29-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-16-1', 'YYYY-DD-MM'), TO_DATE('2017-22-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-9-1', 'YYYY-DD-MM'), TO_DATE('2017-15-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2017-2-1', 'YYYY-DD-MM'), TO_DATE('2017-8-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-26-12', 'YYYY-DD-MM'), TO_DATE('2017-1-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-19-12', 'YYYY-DD-MM'), TO_DATE('2016-25-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-12-12', 'YYYY-DD-MM'), TO_DATE('2016-18-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-5-12', 'YYYY-DD-MM'), TO_DATE('2016-11-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-28-11', 'YYYY-DD-MM'), TO_DATE('2016-4-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-21-11', 'YYYY-DD-MM'), TO_DATE('2016-27-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-14-11', 'YYYY-DD-MM'), TO_DATE('2016-20-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-7-11', 'YYYY-DD-MM'), TO_DATE('2016-13-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-31-10', 'YYYY-DD-MM'), TO_DATE('2016-6-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-24-10', 'YYYY-DD-MM'), TO_DATE('2016-30-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-17-10', 'YYYY-DD-MM'), TO_DATE('2016-23-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-10-10', 'YYYY-DD-MM'), TO_DATE('2016-16-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-3-10', 'YYYY-DD-MM'), TO_DATE('2016-9-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-26-9', 'YYYY-DD-MM'), TO_DATE('2016-2-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-19-9', 'YYYY-DD-MM'), TO_DATE('2016-25-9', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-12-9', 'YYYY-DD-MM'), TO_DATE('2016-18-9', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-5-9', 'YYYY-DD-MM'), TO_DATE('2016-11-9', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-29-8', 'YYYY-DD-MM'), TO_DATE('2016-4-9', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-22-8', 'YYYY-DD-MM'), TO_DATE('2016-28-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-15-8', 'YYYY-DD-MM'), TO_DATE('2016-21-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-8-8', 'YYYY-DD-MM'), TO_DATE('2016-14-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-1-8', 'YYYY-DD-MM'), TO_DATE('2016-7-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-25-7', 'YYYY-DD-MM'), TO_DATE('2016-31-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-18-7', 'YYYY-DD-MM'), TO_DATE('2016-24-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-11-7', 'YYYY-DD-MM'), TO_DATE('2016-17-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-4-7', 'YYYY-DD-MM'), TO_DATE('2016-10-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-27-6', 'YYYY-DD-MM'), TO_DATE('2016-3-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-20-6', 'YYYY-DD-MM'), TO_DATE('2016-26-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-13-6', 'YYYY-DD-MM'), TO_DATE('2016-19-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-6-6', 'YYYY-DD-MM'), TO_DATE('2016-12-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-30-5', 'YYYY-DD-MM'), TO_DATE('2016-5-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-23-5', 'YYYY-DD-MM'), TO_DATE('2016-29-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-16-5', 'YYYY-DD-MM'), TO_DATE('2016-22-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-9-5', 'YYYY-DD-MM'), TO_DATE('2016-15-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-2-5', 'YYYY-DD-MM'), TO_DATE('2016-8-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-25-4', 'YYYY-DD-MM'), TO_DATE('2016-1-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-18-4', 'YYYY-DD-MM'), TO_DATE('2016-24-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-11-4', 'YYYY-DD-MM'), TO_DATE('2016-17-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-4-4', 'YYYY-DD-MM'), TO_DATE('2016-10-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-28-3', 'YYYY-DD-MM'), TO_DATE('2016-3-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-21-3', 'YYYY-DD-MM'), TO_DATE('2016-27-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-14-3', 'YYYY-DD-MM'), TO_DATE('2016-20-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-7-3', 'YYYY-DD-MM'), TO_DATE('2016-13-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.100125156445557, TO_DATE('2016-29-2', 'YYYY-DD-MM'), TO_DATE('2016-6-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2016-22-2', 'YYYY-DD-MM'), TO_DATE('2016-28-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2016-15-2', 'YYYY-DD-MM'), TO_DATE('2016-21-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2016-8-2', 'YYYY-DD-MM'), TO_DATE('2016-14-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2016-1-2', 'YYYY-DD-MM'), TO_DATE('2016-7-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2016-25-1', 'YYYY-DD-MM'), TO_DATE('2016-31-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2016-18-1', 'YYYY-DD-MM'), TO_DATE('2016-24-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2016-11-1', 'YYYY-DD-MM'), TO_DATE('2016-17-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2016-4-1', 'YYYY-DD-MM'), TO_DATE('2016-10-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-28-12', 'YYYY-DD-MM'), TO_DATE('2016-3-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-21-12', 'YYYY-DD-MM'), TO_DATE('2015-27-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-14-12', 'YYYY-DD-MM'), TO_DATE('2015-20-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-7-12', 'YYYY-DD-MM'), TO_DATE('2015-13-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-30-11', 'YYYY-DD-MM'), TO_DATE('2015-6-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-23-11', 'YYYY-DD-MM'), TO_DATE('2015-29-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-16-11', 'YYYY-DD-MM'), TO_DATE('2015-22-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-9-11', 'YYYY-DD-MM'), TO_DATE('2015-15-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-2-11', 'YYYY-DD-MM'), TO_DATE('2015-8-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-26-10', 'YYYY-DD-MM'), TO_DATE('2015-1-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-19-10', 'YYYY-DD-MM'), TO_DATE('2015-25-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-12-10', 'YYYY-DD-MM'), TO_DATE('2015-18-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-5-10', 'YYYY-DD-MM'), TO_DATE('2015-11-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-28-9', 'YYYY-DD-MM'), TO_DATE('2015-4-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-21-9', 'YYYY-DD-MM'), TO_DATE('2015-27-9', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-14-9', 'YYYY-DD-MM'), TO_DATE('2015-20-9', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-7-9', 'YYYY-DD-MM'), TO_DATE('2015-13-9', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-31-8', 'YYYY-DD-MM'), TO_DATE('2015-6-9', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-24-8', 'YYYY-DD-MM'), TO_DATE('2015-30-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-17-8', 'YYYY-DD-MM'), TO_DATE('2015-23-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-10-8', 'YYYY-DD-MM'), TO_DATE('2015-16-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-3-8', 'YYYY-DD-MM'), TO_DATE('2015-9-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-27-7', 'YYYY-DD-MM'), TO_DATE('2015-2-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-20-7', 'YYYY-DD-MM'), TO_DATE('2015-26-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-13-7', 'YYYY-DD-MM'), TO_DATE('2015-19-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-6-7', 'YYYY-DD-MM'), TO_DATE('2015-12-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-29-6', 'YYYY-DD-MM'), TO_DATE('2015-5-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-22-6', 'YYYY-DD-MM'), TO_DATE('2015-28-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-15-6', 'YYYY-DD-MM'), TO_DATE('2015-21-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-8-6', 'YYYY-DD-MM'), TO_DATE('2015-14-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-1-6', 'YYYY-DD-MM'), TO_DATE('2015-7-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-25-5', 'YYYY-DD-MM'), TO_DATE('2015-31-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-18-5', 'YYYY-DD-MM'), TO_DATE('2015-24-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-11-5', 'YYYY-DD-MM'), TO_DATE('2015-17-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-4-5', 'YYYY-DD-MM'), TO_DATE('2015-10-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-27-4', 'YYYY-DD-MM'), TO_DATE('2015-3-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-20-4', 'YYYY-DD-MM'), TO_DATE('2015-26-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-13-4', 'YYYY-DD-MM'), TO_DATE('2015-19-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-6-4', 'YYYY-DD-MM'), TO_DATE('2015-12-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-30-3', 'YYYY-DD-MM'), TO_DATE('2015-5-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-23-3', 'YYYY-DD-MM'), TO_DATE('2015-29-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-16-3', 'YYYY-DD-MM'), TO_DATE('2015-22-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-9-3', 'YYYY-DD-MM'), TO_DATE('2015-15-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-2-3', 'YYYY-DD-MM'), TO_DATE('2015-8-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-23-2', 'YYYY-DD-MM'), TO_DATE('2015-1-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-16-2', 'YYYY-DD-MM'), TO_DATE('2015-22-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-9-2', 'YYYY-DD-MM'), TO_DATE('2015-15-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-2-2', 'YYYY-DD-MM'), TO_DATE('2015-8-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-26-1', 'YYYY-DD-MM'), TO_DATE('2015-1-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-19-1', 'YYYY-DD-MM'), TO_DATE('2015-25-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-12-1', 'YYYY-DD-MM'), TO_DATE('2015-18-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2015-5-1', 'YYYY-DD-MM'), TO_DATE('2015-11-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-29-12', 'YYYY-DD-MM'), TO_DATE('2015-4-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-22-12', 'YYYY-DD-MM'), TO_DATE('2014-28-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-15-12', 'YYYY-DD-MM'), TO_DATE('2014-21-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-8-12', 'YYYY-DD-MM'), TO_DATE('2014-14-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-1-12', 'YYYY-DD-MM'), TO_DATE('2014-7-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-24-11', 'YYYY-DD-MM'), TO_DATE('2014-30-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-17-11', 'YYYY-DD-MM'), TO_DATE('2014-23-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-10-11', 'YYYY-DD-MM'), TO_DATE('2014-16-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-3-11', 'YYYY-DD-MM'), TO_DATE('2014-9-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-27-10', 'YYYY-DD-MM'), TO_DATE('2014-2-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-20-10', 'YYYY-DD-MM'), TO_DATE('2014-26-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-13-10', 'YYYY-DD-MM'), TO_DATE('2014-19-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-6-10', 'YYYY-DD-MM'), TO_DATE('2014-12-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-29-9', 'YYYY-DD-MM'), TO_DATE('2014-5-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-22-9', 'YYYY-DD-MM'), TO_DATE('2014-28-9', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-15-9', 'YYYY-DD-MM'), TO_DATE('2014-21-9', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-8-9', 'YYYY-DD-MM'), TO_DATE('2014-14-9', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-1-9', 'YYYY-DD-MM'), TO_DATE('2014-7-9', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-25-8', 'YYYY-DD-MM'), TO_DATE('2014-31-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-18-8', 'YYYY-DD-MM'), TO_DATE('2014-24-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-11-8', 'YYYY-DD-MM'), TO_DATE('2014-17-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-4-8', 'YYYY-DD-MM'), TO_DATE('2014-10-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-28-7', 'YYYY-DD-MM'), TO_DATE('2014-3-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-21-7', 'YYYY-DD-MM'), TO_DATE('2014-27-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-14-7', 'YYYY-DD-MM'), TO_DATE('2014-20-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-7-7', 'YYYY-DD-MM'), TO_DATE('2014-13-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-30-6', 'YYYY-DD-MM'), TO_DATE('2014-6-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-23-6', 'YYYY-DD-MM'), TO_DATE('2014-29-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-16-6', 'YYYY-DD-MM'), TO_DATE('2014-22-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-9-6', 'YYYY-DD-MM'), TO_DATE('2014-15-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-2-6', 'YYYY-DD-MM'), TO_DATE('2014-8-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-26-5', 'YYYY-DD-MM'), TO_DATE('2014-1-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-19-5', 'YYYY-DD-MM'), TO_DATE('2014-25-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-12-5', 'YYYY-DD-MM'), TO_DATE('2014-18-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-5-5', 'YYYY-DD-MM'), TO_DATE('2014-11-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-28-4', 'YYYY-DD-MM'), TO_DATE('2014-4-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-21-4', 'YYYY-DD-MM'), TO_DATE('2014-27-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-14-4', 'YYYY-DD-MM'), TO_DATE('2014-20-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-7-4', 'YYYY-DD-MM'), TO_DATE('2014-13-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-31-3', 'YYYY-DD-MM'), TO_DATE('2014-6-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-24-3', 'YYYY-DD-MM'), TO_DATE('2014-30-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-17-3', 'YYYY-DD-MM'), TO_DATE('2014-23-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-10-3', 'YYYY-DD-MM'), TO_DATE('2014-16-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-3-3', 'YYYY-DD-MM'), TO_DATE('2014-9-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-24-2', 'YYYY-DD-MM'), TO_DATE('2014-2-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-17-2', 'YYYY-DD-MM'), TO_DATE('2014-23-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-10-2', 'YYYY-DD-MM'), TO_DATE('2014-16-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-3-2', 'YYYY-DD-MM'), TO_DATE('2014-9-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-27-1', 'YYYY-DD-MM'), TO_DATE('2014-2-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-20-1', 'YYYY-DD-MM'), TO_DATE('2014-26-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-13-1', 'YYYY-DD-MM'), TO_DATE('2014-19-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2014-6-1', 'YYYY-DD-MM'), TO_DATE('2014-12-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-30-12', 'YYYY-DD-MM'), TO_DATE('2014-5-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-23-12', 'YYYY-DD-MM'), TO_DATE('2013-29-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-16-12', 'YYYY-DD-MM'), TO_DATE('2013-22-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-9-12', 'YYYY-DD-MM'), TO_DATE('2013-15-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-2-12', 'YYYY-DD-MM'), TO_DATE('2013-8-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-25-11', 'YYYY-DD-MM'), TO_DATE('2013-1-12', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-18-11', 'YYYY-DD-MM'), TO_DATE('2013-24-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-11-11', 'YYYY-DD-MM'), TO_DATE('2013-17-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-4-11', 'YYYY-DD-MM'), TO_DATE('2013-10-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-28-10', 'YYYY-DD-MM'), TO_DATE('2013-3-11', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-21-10', 'YYYY-DD-MM'), TO_DATE('2013-27-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-14-10', 'YYYY-DD-MM'), TO_DATE('2013-20-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-7-10', 'YYYY-DD-MM'), TO_DATE('2013-13-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-30-9', 'YYYY-DD-MM'), TO_DATE('2013-6-10', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-23-9', 'YYYY-DD-MM'), TO_DATE('2013-29-9', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-16-9', 'YYYY-DD-MM'), TO_DATE('2013-22-9', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-9-9', 'YYYY-DD-MM'), TO_DATE('2013-15-9', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-2-9', 'YYYY-DD-MM'), TO_DATE('2013-8-9', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-26-8', 'YYYY-DD-MM'), TO_DATE('2013-1-9', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-19-8', 'YYYY-DD-MM'), TO_DATE('2013-25-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-12-8', 'YYYY-DD-MM'), TO_DATE('2013-18-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-5-8', 'YYYY-DD-MM'), TO_DATE('2013-11-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-29-7', 'YYYY-DD-MM'), TO_DATE('2013-4-8', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-22-7', 'YYYY-DD-MM'), TO_DATE('2013-28-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-15-7', 'YYYY-DD-MM'), TO_DATE('2013-21-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-8-7', 'YYYY-DD-MM'), TO_DATE('2013-14-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-1-7', 'YYYY-DD-MM'), TO_DATE('2013-7-7', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-24-6', 'YYYY-DD-MM'), TO_DATE('2013-30-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-17-6', 'YYYY-DD-MM'), TO_DATE('2013-23-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-10-6', 'YYYY-DD-MM'), TO_DATE('2013-16-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-3-6', 'YYYY-DD-MM'), TO_DATE('2013-9-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-27-5', 'YYYY-DD-MM'), TO_DATE('2013-2-6', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-20-5', 'YYYY-DD-MM'), TO_DATE('2013-26-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-13-5', 'YYYY-DD-MM'), TO_DATE('2013-19-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-6-5', 'YYYY-DD-MM'), TO_DATE('2013-12-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-29-4', 'YYYY-DD-MM'), TO_DATE('2013-5-5', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-22-4', 'YYYY-DD-MM'), TO_DATE('2013-28-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-15-4', 'YYYY-DD-MM'), TO_DATE('2013-21-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-8-4', 'YYYY-DD-MM'), TO_DATE('2013-14-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-1-4', 'YYYY-DD-MM'), TO_DATE('2013-7-4', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-25-3', 'YYYY-DD-MM'), TO_DATE('2013-31-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-18-3', 'YYYY-DD-MM'), TO_DATE('2013-24-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-11-3', 'YYYY-DD-MM'), TO_DATE('2013-17-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-4-3', 'YYYY-DD-MM'), TO_DATE('2013-10-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-25-2', 'YYYY-DD-MM'), TO_DATE('2013-3-3', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-18-2', 'YYYY-DD-MM'), TO_DATE('2013-24-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-11-2', 'YYYY-DD-MM'), TO_DATE('2013-17-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-4-2', 'YYYY-DD-MM'), TO_DATE('2013-10-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.158929451216605, TO_DATE('2013-28-1', 'YYYY-DD-MM'), TO_DATE('2013-3-2', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.23285055651283, TO_DATE('2013-21-1', 'YYYY-DD-MM'), TO_DATE('2013-27-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.23285055651283, TO_DATE('2013-14-1', 'YYYY-DD-MM'), TO_DATE('2013-20-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.23285055651283, TO_DATE('2013-7-1', 'YYYY-DD-MM'), TO_DATE('2013-13-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');
+INSERT INTO currency_exchange_rates (currency, exchange_rate, exchange_rate_valid_from_date, exchange_rate_valid_to_date, target_currency, created_by)
+    values (currency_id('VEF'), 0.23285055651283, TO_DATE('2012-31-12', 'YYYY-DD-MM'), TO_DATE('2013-6-1', 'YYYY-DD-MM'), currency_id('USD'), 'system');

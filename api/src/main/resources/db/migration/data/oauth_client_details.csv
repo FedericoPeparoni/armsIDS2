@@ -1,0 +1,3 @@
+client_id;resource_ids;client_secret;scope;authorized_grant_types;web_server_redirect_uri;authorities;access_token_validity;refresh_token_validity;additional_information;autoapprove
+abms_web;abms;abms_web;read,write;password,refresh_token,authorization_code,implicit;;;1800;2000;{};true
+postman;abms;postman;read,write;authorization_code;https://www.getpostman.com/oauth2/callback;;2147483647;2147483647;{};true

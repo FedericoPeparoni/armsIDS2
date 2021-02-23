@@ -1,0 +1,1 @@
+ALTER TABLE route_caches ALTER COLUMN key_string TYPE varchar;

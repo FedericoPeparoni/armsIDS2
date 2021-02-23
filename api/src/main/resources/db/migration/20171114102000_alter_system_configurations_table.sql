@@ -1,0 +1,1 @@
+DELETE FROM system_configurations WHERE item_name = 'Route cache scheduling';

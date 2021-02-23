@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+    <if condition="${LOG_FILE_ENABLED}">
+        <then>
+		    <appender name="FILE"
+		        class="ch.qos.logback.core.rolling.RollingFileAppender">
+		        <encoder>
+		            <pattern>${FILE_LOG_PATTERN}</pattern>
+		        </encoder>
+		        <file>${LOG_FILE}</file>
+		        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+		            <maxIndex>${LOG_FILE_MAX_INDEX}</maxIndex>
+		            <fileNamePattern>${LOG_FILE}.%i.gz</fileNamePattern>
+		        </rollingPolicy>
+		        <triggeringPolicy
+		            class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+		            <MaxFileSize>${LOG_FILE_MAX_SIZE}</MaxFileSize>
+		        </triggeringPolicy>
+		    </appender>
+		</then>
+	</if>
+</included>

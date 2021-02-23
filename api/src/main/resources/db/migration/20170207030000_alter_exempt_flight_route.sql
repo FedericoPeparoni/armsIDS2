@@ -1,0 +1,7 @@
+alter table exempt_flight_routes rename column late_arrival_fees_exempt to late_arrival_fees_are_exempt;
+alter table exempt_flight_routes rename column late_departure_fees_exempt to late_departure_fees_are_exempt;
+alter table exempt_flight_routes rename column approach_fees_exempt to approach_fees_are_exempt;
+alter table exempt_flight_routes rename column aerodrome_fees_exempt to aerodrome_fees_are_exempt;
+alter table exempt_flight_routes rename column adult_passenger_fees_exempt to adult_passenger_fees_are_exempt;
+alter table exempt_flight_routes rename column child_passenger_fees_exempt to child_passenger_fees_are_exempt;
+alter table exempt_flight_routes rename column special_handling_indicator to flight_handling_indicator;

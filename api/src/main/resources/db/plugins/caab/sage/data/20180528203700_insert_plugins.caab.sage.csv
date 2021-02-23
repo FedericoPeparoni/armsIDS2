@@ -1,0 +1,2 @@
+name;description;enabled;key;created_by;visible
+CAAB Sage Integration;Integrate invoices, credit notes, debit notes, and payments with CAAB Sage accounting system.;false;caab.sage;system;false

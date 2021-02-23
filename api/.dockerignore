@@ -1,0 +1,5 @@
+# Ignore everything in the entire tree...
+*
+
+# Except the actual jar file that will be copied into the Docker image
+!target/*.jar

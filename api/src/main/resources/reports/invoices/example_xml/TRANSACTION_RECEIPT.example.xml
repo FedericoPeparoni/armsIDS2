@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<transactionReceipt>
+  <global>
+    <receiptName>Aviation invoice PREVIEW</receiptName>
+
+    <transactionIssueLocation>Head Office</transactionIssueLocation>
+    <transactionNumber>PREVIEW</transactionNumber>
+    <transactionRealNumber>ABC1234</transactionRealNumber>
+    <transactionPayerName>British Airways</transactionPayerName>
+
+    <paymentAmount>123456.00</paymentAmount>
+    <paymentAmountStr>123,456.00</paymentAmountStr>
+    <paymentAmountStrWithCurrencySymbol>£123,456.00</paymentAmountStrWithCurrencySymbol>
+    <paymentAmountStrInWordsLine1>One hundred twenty-three thousand four hundred fifty-six pounds sterling and zero pence</paymentAmountStrInWordsLine1>
+    <paymentAmountStrInWordsLine2></paymentAmountStrInWordsLine2>
+    <paymentAmountStrInWordsLine3></paymentAmountStrInWordsLine3>
+
+    <localAmount>123456.00</localAmount>
+    <localAmountStr>123,456.00</localAmountStr>
+    <localAmountStrWithCurrencySymbol>£123,456.00</localAmountStrWithCurrencySymbol>
+
+    <transactionPaymentExchangeRate>0.097134</transactionPaymentExchangeRate>
+    <transactionPaymentExchangeRateStr>0.097</transactionPaymentExchangeRateStr>
+
+    <transactionReferenceNumber>AAA BBB CCC</transactionReferenceNumber>
+    <transactionDateStr>2017-03-22</transactionDateStr>
+
+    <bankName>Bank Name</bankName>
+    <bankBranch>000123456</bankBranch>
+    <bankAccount>000123456</bankAccount>
+
+    <transactionOfficerName>Firstname Lastname</transactionOfficerName>
+    <transactionOfficerPosition>Manager</transactionOfficerPosition>
+
+	<paymentCurrencyCode>USD</paymentCurrencyCode>
+	<localCurrencyCode>BWP</localCurrencyCode>
+	<isDebit>true</isDebit>
+	<transactionDescription>This is a description of the transaction.</transactionDescription>
+	<kraClerkName>KRA Clerk</kraClerkName>
+	<kraReceiptNumber>KRA Receipt 010101</kraReceiptNumber>
+	<paymentDateStr>2018-01-01</paymentDateStr></global>
+
+  <paymentInfoList>
+    <paymentInfo>
+        <billingLedgerId>111</billingLedgerId>
+        <invoiceNumber>BW000123</invoiceNumber>
+        <invoiceDateStr>2017-03-21</invoiceDateStr>
+
+        <paymentAmount>123456.00</paymentAmount>
+        <paymentAmountStr>123,456.00</paymentAmountStr>
+        <paymentAmountStrWithCurrencySymbol>£123,456.00</paymentAmountStrWithCurrencySymbol>
+
+        <localAmount>456789</localAmount>
+        <localAmountStr>456,789.00</localAmountStr>
+        <localAmountStrWithCurrencySymbol>P456,789.00</localAmountStrWithCurrencySymbol>
+
+        <paymentExchangeRate>0.097134</paymentExchangeRate>
+        <paymentExchangeRateStr>0.097</paymentExchangeRateStr>
+
+    </paymentInfo>
+  </paymentInfoList>
+</transactionReceipt>

@@ -1,0 +1,429 @@
+databaseChangeLog:
+    - changeSet:
+        id: 20180406141000_intial_release_notes
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: tables/20180406141000_create_release_categories.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+            - sqlFile:
+                path: tables/20180406141030_create_release_notes.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+            - sqlFile:
+                path: functions/20180406141100_create_release_category_id.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+            - loadData:
+                file: data/20180406141900_release_categories.csv
+                tableName: release_categories
+                relativeToChangelogFile: true
+    - changeSet:
+        id: 20180406142000_release_notes_1.1.2
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180406142000_release_notes_1.1.2.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180406154500_release_notes_1.1.3
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180406154500_release_notes_1.1.3.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180406155700_release_notes_1.1.4
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180406155700_release_notes_1.1.4.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180406160000_release_notes_1.1.5
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180406160000_release_notes_1.1.5.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180406160500_release_notes_1.1.6
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180406160500_release_notes_1.1.6.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180406161100_release_notes_1.1.7
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180406161100_release_notes_1.1.7.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180406161800_release_notes_1.1.8
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180406161800_release_notes_1.1.8.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180503143300_release_notes_1.1.9
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180503143300_release_notes_1.1.9.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180607172100_release_notes_1.2.0
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180607172100_release_notes_1.2.0.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180712225400_release_notes_1.2.1
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180712225400_release_notes_1.2.1.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180719164200_release_notes_1.2.2
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180719164200_release_notes_1.2.2.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180725221500_release_notes_1.2.3
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180725221500_release_notes_1.2.3.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180731191100_release_notes_1.2.4
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180731191100_release_notes_1.2.4.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180803090800_release_notes_1.2.5.sql
+        author: Jonathan B
+        changes:
+            - sqlFile:
+                path: data/20180803090800_release_notes_1.2.5.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180817201100_release_notes_1.2.6
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180817201100_release_notes_1.2.6.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180824162902_release_notes_1.2.7
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180824162902_release_notes_1.2.7.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180909150900_release_notes_1.2.8
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180909150900_release_notes_1.2.8.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180907195100_release_notes_1.2.9
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180907195100_release_notes_1.2.9.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180914142200_release_notes_1.2.10
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180914142200_release_notes_1.2.10.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180925155500_release_notes_1.2.11
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180925155500_release_notes_1.2.11.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20181010175000_release_notes_1.2.12
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20181010175000_release_notes_1.2.12.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20181029141500_release_notes_1.2.13
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20181029141500_release_notes_1.2.13.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20181213195900_release_notes_1.2.14.sql
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20181213195900_release_notes_1.2.14.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+          id: 20190108163800_release_notes_1.2.15
+          author: Samuel Craymer
+          changes:
+              - sqlFile:
+                    path: data/20190108163800_release_notes_1.2.15.sql
+                    relativeToChangelogFile: true
+                    splitStatements: false
+    - changeSet:
+          id: 20190118225900_release_notes_1.2.16
+          author: Samuel Craymer
+          changes:
+              - sqlFile:
+                    path: data/20190118225900_release_notes_1.2.16.sql
+                    relativeToChangelogFile: true
+                    splitStatements: false
+    - changeSet:
+          id: 20190124174000_release_notes_1.2.17
+          author: Samuel Craymer
+          changes:
+              - sqlFile:
+                    path: data/20190124174000_release_notes_1.2.17.sql
+                    relativeToChangelogFile: true
+                    splitStatements: false
+    - changeSet:
+          id: 20190318204300_release_notes_1.2.18
+          author: Samuel Craymer
+          changes:
+              - sqlFile:
+                    path: data/20190318204300_release_notes_1.2.18.sql
+                    relativeToChangelogFile: true
+                    splitStatements: false
+    - changeSet:
+          id: 20190402204700_release_notes_1.2.19
+          author: Samuel Craymer
+          changes:
+              - sqlFile:
+                    path: data/20190402204700_release_notes_1.2.19.sql
+                    relativeToChangelogFile: true
+                    splitStatements: false
+    - changeSet:
+          id: 20190416191300_release_notes_1.2.20
+          author: Samuel Craymer
+          changes:
+              - sqlFile:
+                    path: data/20190416191300_release_notes_1.2.20.sql
+                    relativeToChangelogFile: true
+                    splitStatements: false
+    - changeSet:
+        id: 20180718192301_release_notes_1.3.0
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180718192301_release_notes_1.3.0.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180718193701_release_notes_1.3.1
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180718193701_release_notes_1.3.1.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180725140600_release_notes_1.3.2
+        author: Helen Eskina
+        changes:
+            - sqlFile:
+                path: data/20180725140600_release_notes_1.3.2.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20180730212500_release_notes_1.3.3
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20180730212500_release_notes_1.3.3.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20181026200900_release_notes_1.3.4
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20181026200900_release_notes_1.3.4.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+        id: 20181221165600_release_notes_1.4.0
+        author: Samuel Craymer
+        changes:
+            - sqlFile:
+                path: data/20181221165600_release_notes_1.4.0.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+          id: 20190115164800_release_notes_1.4.1
+          author: Samuel Craymer
+          changes:
+              - sqlFile:
+                    path: data/20190115164800_release_notes_1.4.1.sql
+                    relativeToChangelogFile: true
+                    splitStatements: false
+    - changeSet:
+          id: 20190206193000_release_notes_1.4.2
+          author: Samuel Craymer
+          changes:
+              - sqlFile:
+                    path: data/20190206193000_release_notes_1.4.2.sql
+                    relativeToChangelogFile: true
+                    splitStatements: false
+    - changeSet:
+          id: 20190207194300_release_notes_1.4.3
+          author: Samuel Craymer
+          changes:
+              - sqlFile:
+                    path: data/20190207194300_release_notes_1.4.3.sql
+                    relativeToChangelogFile: true
+                    splitStatements: false
+    - changeSet:
+          id: 20190208194400_release_notes_1.4.4
+          author: Samuel Craymer
+          changes:
+              - sqlFile:
+                    path: data/20190208194400_release_notes_1.4.4.sql
+                    relativeToChangelogFile: true
+                    splitStatements: false
+    - changeSet:
+          id: 20190211194500_release_notes_1.4.5
+          author: Samuel Craymer
+          changes:
+              - sqlFile:
+                    path: data/20190211194500_release_notes_1.4.5.sql
+                    relativeToChangelogFile: true
+                    splitStatements: false
+    - changeSet:
+          id: 20190212244500_release_notes_1.4.6
+          author: Samuel Craymer
+          changes:
+              - sqlFile:
+                    path: data/20190212244500_release_notes_1.4.6.sql
+                    relativeToChangelogFile: true
+                    splitStatements: false
+    - changeSet:
+          id: 20190228202900_release_notes_1.4.7
+          author: Samuel Craymer
+          changes:
+              - sqlFile:
+                    path: data/20190228202900_release_notes_1.4.7.sql
+                    relativeToChangelogFile: true
+                    splitStatements: false
+    - changeSet:
+          id: 20190503170200_release_notes_1.4.8
+          author: Samuel Craymer
+          changes:
+              - sqlFile:
+                    path: data/20190503170200_release_notes_1.4.8.sql
+                    relativeToChangelogFile: true
+                    splitStatements: false
+    - changeSet:
+          id: 20190510190000_release_notes_1.4.9
+          author: Samuel Craymer
+          changes:
+              - sqlFile:
+                    path: data/20190510190000_release_notes_1.4.9.sql
+                    relativeToChangelogFile: true
+                    splitStatements: false
+    - changeSet:
+          id: 20190606203200_release_notes_1.4.10
+          author: Samuel Craymer
+          changes:
+              - sqlFile:
+                    path: data/20190606203200_release_notes_1.4.10.sql
+                    relativeToChangelogFile: true
+                    splitStatements: false
+    - changeSet:
+          id: 20190712152300_release_notes_1.4.11
+          author: Samuel Craymer
+          changes:
+              - sqlFile:
+                    path: data/20190712152300_release_notes_1.4.11.sql
+                    relativeToChangelogFile: true
+                    splitStatements: false
+    - changeSet:
+          id: 20191004173500_release_notes_1.4.12
+          author: Olga Bila
+          changes:
+          - sqlFile:
+                path: data/20191004173500_release_notes_1.4.12.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+          id: 20191118214500_release_notes_1.4.13
+          author: Olga Bila
+          changes:
+          - sqlFile:
+                path: data/20191118214500_release_notes_1.4.13.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+          id: 20200224180700_release_notes_1.4.14
+          author: Olga Bila
+          changes:
+          - sqlFile:
+                path: data/20200224180700_release_notes_1.4.14.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+          id: 20200309145700_release_notes_1.5.1
+          author: Olga Bila
+          changes:
+          - sqlFile:
+                path: data/20200309145700_release_notes_1.5.1.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+    - changeSet:
+          id: 20200609151400_release_notes_1.5.2
+          author: Olga Bila
+          changes:
+          - sqlFile:
+                path: data/20200609151400_release_notes_1.5.2.sql
+                relativeToChangelogFile: true
+                splitStatements: false

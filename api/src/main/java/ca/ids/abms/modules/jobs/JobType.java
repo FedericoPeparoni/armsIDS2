@@ -1,0 +1,11 @@
+package ca.ids.abms.modules.jobs;
+
+public enum JobType {
+
+    BULK_RECALCULATION,
+    BULK_RECONCILIATION,
+    RESTRICTED_RECALCULATION,
+    RESTRICTED_RECONCILIATION,
+    AVIATION_INVOICES
+
+}

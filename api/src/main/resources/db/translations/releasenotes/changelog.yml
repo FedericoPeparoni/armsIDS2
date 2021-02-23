@@ -1,0 +1,9 @@
+databaseChangeLog:
+    # v1.4 Release Note Translations
+    - include:
+          file: v1.4/changelog.yml
+          relativeToChangelogFile: true
+    # v1.5 Release Note Translations
+    - include:
+          file: v1.5/changelog.yml
+          relativeToChangelogFile: true

@@ -1,0 +1,17 @@
+databaseChangeLog:
+    - include:
+          author: Samuel Craymer
+          file: 20190712154600_changelog_lang_1.4.11.sql
+          relativeToChangelogFile: true
+    - include:
+          author: Olga Bila
+          file: 20191004174400_changelog_lang_1.4.12.sql
+          relativeToChangelogFile: true
+    - include:
+          author: Olga Bila
+          file: 20191118215400_changelog_lang_1.4.13.sql
+          relativeToChangelogFile: true
+    - include:
+          author: Olga Bila
+          file: 20200224180600_changelog_lang_1.4.14.sql
+          relativeToChangelogFile: true

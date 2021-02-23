@@ -1,0 +1,14 @@
+databaseChangeLog:
+    # KCAA ERP Plugin
+    - include:
+        file: erp/changelog.yml
+        relativeToChangelogFile: true
+    # KCAA AAIS Plugin
+    - include:
+        file: aatis/changelog.yml
+        relativeToChangelogFile: true
+    # KCAA EAIP Plugin
+    - include:
+        file: eaip/changelog.yml
+        relativeToChangelogFile: true
+

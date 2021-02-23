@@ -1,0 +1,2604 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.6.0.v201606072122</property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <parameters>
+        <scalar-parameter name="account_id" id="1120">
+            <property name="valueType">static</property>
+            <property name="isRequired">true</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">{23,29}</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="concealValue">false</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="fromdate" id="1258">
+            <text-property name="promptText">From</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">true</property>
+            <property name="dataType">dateTime</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">2019-01-01</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="concealValue">false</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Short Date</property>
+                <property name="pattern">Short Date</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="todate" id="1262">
+            <text-property name="promptText">To</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">dateTime</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">BirtDateTime.now()</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Custom</property>
+                <property name="pattern">yyyy-MM-dd HH:mm:ss</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="878">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledMetadataBidiFormatStr</name>
+                </ex-property>
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledContentBidiFormatStr</name>
+                </ex-property>
+            </list-property>
+            <property name="odaDriverClass">org.postgresql.Driver</property>
+            <property name="odaURL">jdbc:postgresql://abms10dev1/abms</property>
+            <property name="odaUser">abms</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">YWJtcw==</encrypted-property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="accounts" id="1103">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">id</text-property>
+                    <text-property name="heading">id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">name</text-property>
+                    <text-property name="heading">name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">alias</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">alias</text-property>
+                    <text-property name="heading">alias</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">alias</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="nativeName">id</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">name</property>
+                    <property name="nativeName">name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">alias</property>
+                    <property name="nativeName">alias</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select 
+	id,
+	name,
+	alias
+from 
+	accounts
+where 
+	id=?]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <DataSetParameters>
+    <parameter>
+      <design:ParameterDefinition>
+        <design:inOutMode>In</design:inOutMode>
+        <design:attributes>
+          <design:identifier>
+            <design:name></design:name>
+            <design:position>1</design:position>
+          </design:identifier>
+          <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+          <design:precision>0</design:precision>
+          <design:scale>0</design:scale>
+          <design:nullability>Unknown</design:nullability>
+        </design:attributes>
+      </design:ParameterDefinition>
+    </parameter>
+  </DataSetParameters>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>id</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>id</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>id</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>name</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>100</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>name</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>name</design:label>
+            <design:formattingHints>
+              <design:displaySize>100</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>alias</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>100</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>alias</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>alias</design:label>
+            <design:formattingHints>
+              <design:displaySize>100</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="account_flights" id="1584">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">date_of_flight</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">date_of_flight</text-property>
+                    <text-property name="heading">date_of_flight</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">flight_id</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">flight_id</text-property>
+                    <text-property name="heading">flight_id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">aircraft_type</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">aircraft_type</text-property>
+                    <text-property name="heading">aircraft_type</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">dep_time</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">dep_time</text-property>
+                    <text-property name="heading">dep_time</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">item18_reg_num</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">item18_reg_num</text-property>
+                    <text-property name="heading">item18_reg_num</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">actual_dep_ad</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">actual_dep_ad</text-property>
+                    <text-property name="heading">actual_dep_ad</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">actual_dest_ad</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">actual_dest_ad</text-property>
+                    <text-property name="heading">actual_dest_ad</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">billable_crossing_dist</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">billable_crossing_dist</text-property>
+                    <text-property name="heading">billable_crossing_dist</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">actual_mtow</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">actual_mtow</text-property>
+                    <text-property name="heading">actual_mtow</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">total_charges_usd</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">total_charges_usd</text-property>
+                    <text-property name="heading">total_charges_usd</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">status</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">status</text-property>
+                    <text-property name="heading">status</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">item18_rmk</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">item18_rmk</text-property>
+                    <text-property name="heading">item18_rmk</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">account_name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">account_name</text-property>
+                    <text-property name="heading">account_name</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">fromdate_2</property>
+                    <property name="paramName">fromdate</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">dateTime</property>
+                    <property name="nativeDataType">93</property>
+                    <property name="position">1</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">todate_2</property>
+                    <property name="paramName">todate</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">dateTime</property>
+                    <property name="nativeDataType">93</property>
+                    <property name="position">2</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">account_id_2</property>
+                    <property name="paramName">account_id</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">2003</property>
+                    <property name="position">3</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">date_of_flight</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">flight_id</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">aircraft_type</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">dep_time</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">item18_reg_num</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">actual_dep_ad</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">actual_dest_ad</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">billable_crossing_dist</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">actual_mtow</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">total_charges_usd</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">status</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">item18_rmk</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">account_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">date_of_flight</property>
+                    <property name="nativeName">date_of_flight</property>
+                    <property name="dataType">date-time</property>
+                    <property name="nativeDataType">93</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">flight_id</property>
+                    <property name="nativeName">flight_id</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">aircraft_type</property>
+                    <property name="nativeName">aircraft_type</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">dep_time</property>
+                    <property name="nativeName">dep_time</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">item18_reg_num</property>
+                    <property name="nativeName">item18_reg_num</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">actual_dep_ad</property>
+                    <property name="nativeName">actual_dep_ad</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">actual_dest_ad</property>
+                    <property name="nativeName">actual_dest_ad</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">billable_crossing_dist</property>
+                    <property name="nativeName">billable_crossing_dist</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">2</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">actual_mtow</property>
+                    <property name="nativeName">actual_mtow</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">total_charges_usd</property>
+                    <property name="nativeName">total_charges_usd</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">status</property>
+                    <property name="nativeName">status</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">item18_rmk</property>
+                    <property name="nativeName">item18_rmk</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">account_name</property>
+                    <property name="nativeName">account_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select 
+fm.date_of_flight as date_of_flight,
+fm.flight_id as flight_id,
+ fm.aircraft_type as aircraft_type,
+ fm.dep_time as dep_time,
+ fm.item18_reg_num as item18_reg_num,
+ fm.actual_dep_ad as actual_dep_ad,
+ fm.actual_dest_ad as actual_dest_ad,
+ fm.billable_crossing_dist as billable_crossing_dist,
+ fm.actual_mtow as actual_mtow,
+ fm.total_charges_usd as total_charges_usd,
+ fm.status as status,
+ fm.item18_rmk as item18_rmk,
+ a.name as account_name
+ from flight_movements fm
+ LEFT JOIN  accounts a ON a.id = fm.account
+ where  
+  fm.date_of_flight >= ? and fm.date_of_flight <= ? 
+ and account= any(?::int[])
+ order by a.name,fm.date_of_flight;]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>date_of_flight</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>93</design:nativeDataTypeCode>
+            <design:precision>35</design:precision>
+            <design:scale>6</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>date_of_flight</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>date_of_flight</design:label>
+            <design:formattingHints>
+              <design:displaySize>35</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>flight_id</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>flight_id</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>flight_id</design:label>
+            <design:formattingHints>
+              <design:displaySize>10</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>aircraft_type</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>5</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>aircraft_type</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>aircraft_type</design:label>
+            <design:formattingHints>
+              <design:displaySize>5</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>dep_time</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>4</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>dep_time</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>dep_time</design:label>
+            <design:formattingHints>
+              <design:displaySize>4</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>item18_reg_num</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>20</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>item18_reg_num</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>item18_reg_num</design:label>
+            <design:formattingHints>
+              <design:displaySize>20</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>actual_dep_ad</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>2147483647</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>actual_dep_ad</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>actual_dep_ad</design:label>
+            <design:formattingHints>
+              <design:displaySize>2147483647</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>actual_dest_ad</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>2147483647</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>actual_dest_ad</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>actual_dest_ad</design:label>
+            <design:formattingHints>
+              <design:displaySize>2147483647</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>billable_crossing_dist</design:name>
+              <design:position>9</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>2</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>2</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>billable_crossing_dist</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>billable_crossing_dist</design:label>
+            <design:formattingHints>
+              <design:displaySize>12</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>actual_mtow</design:name>
+              <design:position>10</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>17</design:precision>
+            <design:scale>17</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>actual_mtow</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>actual_mtow</design:label>
+            <design:formattingHints>
+              <design:displaySize>25</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>total_charges_usd</design:name>
+              <design:position>11</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>17</design:precision>
+            <design:scale>17</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>total_charges_usd</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>total_charges_usd</design:label>
+            <design:formattingHints>
+              <design:displaySize>25</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>status</design:name>
+              <design:position>12</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>20</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>status</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>status</design:label>
+            <design:formattingHints>
+              <design:displaySize>20</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>item18_rmk</design:name>
+              <design:position>13</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>2147483647</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>item18_rmk</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>item18_rmk</design:label>
+            <design:formattingHints>
+              <design:displaySize>2147483647</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="no_acount_flights" id="1657">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">date_of_flight</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">date_of_flight</text-property>
+                    <text-property name="heading">date_of_flight</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">flight_id</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">flight_id</text-property>
+                    <text-property name="heading">flight_id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">aircraft_type</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">aircraft_type</text-property>
+                    <text-property name="heading">aircraft_type</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">dep_time</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">dep_time</text-property>
+                    <text-property name="heading">dep_time</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">item18_reg_num</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">item18_reg_num</text-property>
+                    <text-property name="heading">item18_reg_num</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">actual_dep_ad</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">actual_dep_ad</text-property>
+                    <text-property name="heading">actual_dep_ad</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">actual_dest_ad</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">actual_dest_ad</text-property>
+                    <text-property name="heading">actual_dest_ad</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">billable_crossing_dist</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">billable_crossing_dist</text-property>
+                    <text-property name="heading">billable_crossing_dist</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">actual_mtow</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">actual_mtow</text-property>
+                    <text-property name="heading">actual_mtow</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">total_charges_usd</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">total_charges_usd</text-property>
+                    <text-property name="heading">total_charges_usd</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">status</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">status</text-property>
+                    <text-property name="heading">status</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">item18_rmk</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">item18_rmk</text-property>
+                    <text-property name="heading">item18_rmk</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">fromdate_1</property>
+                    <property name="paramName">fromdate</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">dateTime</property>
+                    <property name="nativeDataType">93</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">2019-01-01</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">todate_1</property>
+                    <property name="paramName">todate</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">dateTime</property>
+                    <property name="nativeDataType">93</property>
+                    <property name="position">2</property>
+                    <expression name="defaultValue" type="javascript">BirtDateTime.now()</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">date_of_flight</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">flight_id</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">aircraft_type</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">dep_time</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">item18_reg_num</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">actual_dep_ad</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">actual_dest_ad</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">billable_crossing_dist</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">actual_mtow</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">total_charges_usd</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">status</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">item18_rmk</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">date_of_flight</property>
+                    <property name="nativeName">date_of_flight</property>
+                    <property name="dataType">date-time</property>
+                    <property name="nativeDataType">93</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">flight_id</property>
+                    <property name="nativeName">flight_id</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">aircraft_type</property>
+                    <property name="nativeName">aircraft_type</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">dep_time</property>
+                    <property name="nativeName">dep_time</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">item18_reg_num</property>
+                    <property name="nativeName">item18_reg_num</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">actual_dep_ad</property>
+                    <property name="nativeName">actual_dep_ad</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">actual_dest_ad</property>
+                    <property name="nativeName">actual_dest_ad</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">billable_crossing_dist</property>
+                    <property name="nativeName">billable_crossing_dist</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">2</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">actual_mtow</property>
+                    <property name="nativeName">actual_mtow</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">total_charges_usd</property>
+                    <property name="nativeName">total_charges_usd</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">status</property>
+                    <property name="nativeName">status</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">item18_rmk</property>
+                    <property name="nativeName">item18_rmk</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select 
+fm.date_of_flight as date_of_flight,
+fm.flight_id as flight_id,
+ fm.aircraft_type as aircraft_type,
+ fm.dep_time as dep_time,
+ fm.item18_reg_num as item18_reg_num,
+ fm.actual_dep_ad as actual_dep_ad,
+ fm.actual_dest_ad as actual_dest_ad,
+ fm.billable_crossing_dist as billable_crossing_dist,
+ fm.actual_mtow as actual_mtow,
+ fm.total_charges_usd as total_charges_usd,
+ fm.status as status,
+ fm.item18_rmk as item18_rmk
+ from flight_movements fm
+  where fm.account is null
+ and date_of_flight between ? and ? 
+ order by fm.item18_reg_num, fm.date_of_flight;]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>date_of_flight</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>93</design:nativeDataTypeCode>
+            <design:precision>35</design:precision>
+            <design:scale>6</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>date_of_flight</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>date_of_flight</design:label>
+            <design:formattingHints>
+              <design:displaySize>35</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>flight_id</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>flight_id</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>flight_id</design:label>
+            <design:formattingHints>
+              <design:displaySize>10</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>aircraft_type</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>5</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>aircraft_type</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>aircraft_type</design:label>
+            <design:formattingHints>
+              <design:displaySize>5</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>dep_time</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>4</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>dep_time</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>dep_time</design:label>
+            <design:formattingHints>
+              <design:displaySize>4</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>item18_reg_num</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>20</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>item18_reg_num</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>item18_reg_num</design:label>
+            <design:formattingHints>
+              <design:displaySize>20</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>actual_dep_ad</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>2147483647</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>actual_dep_ad</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>actual_dep_ad</design:label>
+            <design:formattingHints>
+              <design:displaySize>2147483647</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>actual_dest_ad</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>2147483647</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>actual_dest_ad</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>actual_dest_ad</design:label>
+            <design:formattingHints>
+              <design:displaySize>2147483647</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>billable_crossing_dist</design:name>
+              <design:position>8</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>2</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>2</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>billable_crossing_dist</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>billable_crossing_dist</design:label>
+            <design:formattingHints>
+              <design:displaySize>12</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>actual_mtow</design:name>
+              <design:position>9</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>17</design:precision>
+            <design:scale>17</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>actual_mtow</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>actual_mtow</design:label>
+            <design:formattingHints>
+              <design:displaySize>25</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>total_charges_usd</design:name>
+              <design:position>10</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>17</design:precision>
+            <design:scale>17</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>total_charges_usd</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>total_charges_usd</design:label>
+            <design:formattingHints>
+              <design:displaySize>25</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>status</design:name>
+              <design:position>11</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>20</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>status</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>status</design:label>
+            <design:formattingHints>
+              <design:displaySize>20</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>item18_rmk</design:name>
+              <design:position>12</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>2147483647</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>item18_rmk</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>item18_rmk</design:label>
+            <design:formattingHints>
+              <design:displaySize>2147483647</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <styles>
+        <style name="report" id="4">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="6">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="MasterPage_Portrait" id="137">
+            <property name="type">us-letter</property>
+            <property name="orientation">landscape</property>
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+            <property name="headerHeight">1in</property>
+            <property name="footerHeight">0.7in</property>
+            <page-header>
+                <grid id="138">
+                    <property name="height">0.7604166666666666in</property>
+                    <property name="width">10.34375in</property>
+                    <column id="139">
+                        <property name="width">1.9in</property>
+                    </column>
+                    <column id="140">
+                        <property name="width">5.8125in</property>
+                    </column>
+                    <row id="141">
+                        <property name="height">0.3854166666666667in</property>
+                        <cell id="142">
+                            <property name="textAlign">right</property>
+                        </cell>
+                        <cell id="144">
+                            <grid id="145">
+                                <property name="height">1in</property>
+                                <property name="width">4.614583333333333in</property>
+                                <column id="146">
+                                    <property name="width">2.75in</property>
+                                </column>
+                                <column id="147">
+                                    <property name="width">1.8645833333333333in</property>
+                                </column>
+                                <row id="148">
+                                    <cell id="149">
+                                        <property name="colSpan">2</property>
+                                        <property name="rowSpan">1</property>
+                                    </cell>
+                                </row>
+                                <row id="151">
+                                    <property name="height">0.5729166666666666in</property>
+                                    <cell id="152"/>
+                                    <cell id="154"/>
+                                </row>
+                            </grid>
+                        </cell>
+                    </row>
+                    <row id="156">
+                        <property name="height">0.375in</property>
+                        <cell id="157">
+                            <property name="colSpan">2</property>
+                            <property name="rowSpan">1</property>
+                            <property name="textAlign">right</property>
+                            <grid id="158">
+                                <property name="height">15pt</property>
+                                <column id="159"/>
+                                <row id="160">
+                                    <cell id="161">
+                                        <property name="borderBottomStyle">solid</property>
+                                        <property name="borderBottomWidth">medium</property>
+                                    </cell>
+                                </row>
+                                <row id="162">
+                                    <cell id="163">
+                                        <property name="borderBottomStyle">solid</property>
+                                        <property name="borderBottomWidth">medium</property>
+                                    </cell>
+                                </row>
+                                <row id="164">
+                                    <cell id="165">
+                                        <property name="borderBottomStyle">solid</property>
+                                        <property name="borderBottomWidth">medium</property>
+                                    </cell>
+                                </row>
+                            </grid>
+                        </cell>
+                    </row>
+                </grid>
+            </page-header>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="58">
+            <property name="height">0.9270833333333334in</property>
+            <property name="width">10.00925925925926in</property>
+            <column id="59">
+                <property name="width">10.00925925925926in</property>
+            </column>
+            <row id="61">
+                <cell id="62">
+                    <property name="colSpan">1</property>
+                    <property name="rowSpan">1</property>
+                    <text id="67">
+                        <property name="backgroundAttachment">scroll</property>
+                        <property name="backgroundPositionX">0%</property>
+                        <property name="backgroundPositionY">0%</property>
+                        <property name="backgroundRepeat">repeat</property>
+                        <property name="fontFamily">"Courier New"</property>
+                        <property name="fontSize">19px</property>
+                        <property name="fontWeight">bold</property>
+                        <property name="fontStyle">normal</property>
+                        <property name="fontVariant">normal</property>
+                        <property name="color">black</property>
+                        <property name="textLineThrough">none</property>
+                        <property name="textOverline">none</property>
+                        <property name="textUnderline">underline</property>
+                        <property name="borderBottomColor">black</property>
+                        <property name="borderBottomStyle">none</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">black</property>
+                        <property name="borderLeftStyle">none</property>
+                        <property name="borderLeftWidth">medium</property>
+                        <property name="borderRightColor">black</property>
+                        <property name="borderRightStyle">none</property>
+                        <property name="borderRightWidth">medium</property>
+                        <property name="borderTopColor">black</property>
+                        <property name="borderTopStyle">none</property>
+                        <property name="borderTopWidth">medium</property>
+                        <property name="marginTop">0pt</property>
+                        <property name="marginLeft">0pt</property>
+                        <property name="marginBottom">0pt</property>
+                        <property name="marginRight">0pt</property>
+                        <property name="paddingTop">1pt</property>
+                        <property name="paddingLeft">1pt</property>
+                        <property name="paddingBottom">1pt</property>
+                        <property name="paddingRight">1pt</property>
+                        <property name="textAlign">center</property>
+                        <property name="textIndent">0em</property>
+                        <property name="letterSpacing">normal</property>
+                        <property name="lineHeight">normal</property>
+                        <property name="orphans">2</property>
+                        <property name="textTransform">none</property>
+                        <property name="whiteSpace">normal</property>
+                        <property name="widows">2</property>
+                        <property name="wordSpacing">normal</property>
+                        <property name="display">block</property>
+                        <property name="pageBreakAfter">auto</property>
+                        <property name="pageBreakBefore">auto</property>
+                        <property name="pageBreakInside">auto</property>
+                        <property name="showIfBlank">false</property>
+                        <property name="canShrink">false</property>
+                        <property name="overflow">hidden</property>
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[ACTUAL FLIGHTS REPORT]]></text-property>
+                    </text>
+                </cell>
+            </row>
+            <row id="64">
+                <property name="height">0.5833333333333334in</property>
+                <cell id="65">
+                    <property name="width">5in</property>
+                    <text-data id="1271">
+                        <property name="backgroundAttachment">scroll</property>
+                        <property name="backgroundPositionX">0%</property>
+                        <property name="backgroundPositionY">0%</property>
+                        <property name="backgroundRepeat">repeat</property>
+                        <property name="fontFamily">"Courier New"</property>
+                        <property name="fontSize">10pt</property>
+                        <property name="fontWeight">normal</property>
+                        <property name="fontStyle">normal</property>
+                        <property name="fontVariant">normal</property>
+                        <property name="textLineThrough">none</property>
+                        <property name="textOverline">none</property>
+                        <property name="textUnderline">none</property>
+                        <property name="borderBottomColor">black</property>
+                        <property name="borderBottomStyle">none</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">black</property>
+                        <property name="borderLeftStyle">none</property>
+                        <property name="borderLeftWidth">medium</property>
+                        <property name="borderRightColor">black</property>
+                        <property name="borderRightStyle">none</property>
+                        <property name="borderRightWidth">medium</property>
+                        <property name="borderTopColor">black</property>
+                        <property name="borderTopStyle">none</property>
+                        <property name="borderTopWidth">medium</property>
+                        <property name="marginTop">0pt</property>
+                        <property name="marginLeft">0pt</property>
+                        <property name="marginBottom">0pt</property>
+                        <property name="marginRight">0pt</property>
+                        <property name="paddingTop">1pt</property>
+                        <property name="paddingLeft">1pt</property>
+                        <property name="paddingBottom">1pt</property>
+                        <property name="paddingRight">1pt</property>
+                        <property name="textAlign">right</property>
+                        <property name="textIndent">0em</property>
+                        <property name="letterSpacing">normal</property>
+                        <property name="lineHeight">normal</property>
+                        <property name="orphans">2</property>
+                        <property name="textTransform">none</property>
+                        <property name="whiteSpace">normal</property>
+                        <property name="widows">2</property>
+                        <property name="wordSpacing">normal</property>
+                        <property name="display">block</property>
+                        <property name="pageBreakAfter">auto</property>
+                        <property name="pageBreakBefore">auto</property>
+                        <property name="pageBreakInside">auto</property>
+                        <property name="showIfBlank">false</property>
+                        <property name="canShrink">false</property>
+                        <property name="overflow">hidden</property>
+                        <expression name="valueExpr">var dt1=Formatter.format(BirtDateTime.now(), "yyyy-MM-dd");&#13;
+var dt2=Formatter.format(params["todate"], "yyyy-MM-dd");&#13;
+var dt3=Formatter.format(params["fromdate"], "yyyy-MM-dd");&#13;
+"Generated: "  + dt1 +  "&lt;br>" +&#13;
+"From: " + dt3 +  "&lt;br>" +&#13;
+"To: " + dt2</expression>
+                        <property name="contentType">html</property>
+                    </text-data>
+                </cell>
+            </row>
+        </grid>
+        <table id="1154">
+            <property name="fontFamily">"Courier New"</property>
+            <property name="numberAlign">left</property>
+            <property name="masterPage">MasterPage_Portrait</property>
+            <property name="width">11in</property>
+            <property name="dataSet">account_flights</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">date_of_flight</property>
+                    <text-property name="displayName">date_of_flight</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["date_of_flight"]</expression>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="name">flight_id</property>
+                    <text-property name="displayName">flight_id</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["flight_id"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">aircraft_type</property>
+                    <text-property name="displayName">aircraft_type</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["aircraft_type"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">dep_time</property>
+                    <text-property name="displayName">dep_time</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["dep_time"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">item18_reg_num</property>
+                    <text-property name="displayName">item18_reg_num</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["item18_reg_num"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">actual_dep_ad</property>
+                    <text-property name="displayName">actual_dep_ad</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["actual_dep_ad"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">actual_dest_ad</property>
+                    <text-property name="displayName">actual_dest_ad</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["actual_dest_ad"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">billable_crossing_dist</property>
+                    <text-property name="displayName">billable_crossing_dist</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["billable_crossing_dist"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">actual_mtow</property>
+                    <text-property name="displayName">actual_mtow</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["actual_mtow"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">total_charges_usd</property>
+                    <text-property name="displayName">total_charges_usd</text-property>
+                    <expression name="expression" type="javascript">if(dataSetRow["total_charges_usd"] == null){&#13;
+0.0}</expression>
+                    <property name="dataType">float</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">status</property>
+                    <text-property name="displayName">status</text-property>
+                    <expression name="expression" type="javascript">if (dataSetRow["status"] == "PAID") {&#13;
+ dataSetRow["total_charges_usd"]&#13;
+ } else {&#13;
+ "0.00"&#13;
+ }</expression>
+                    <property name="dataType">float</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">item18_rmk</property>
+                    <text-property name="displayName">item18_rmk</text-property>
+                    <expression name="expression" type="javascript">if (dataSetRow["total_charges_usd"] > 0 &amp;&amp; &#13;
+dataSetRow["status"] != "PAID") {&#13;
+ "*"&#13;
+ }</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">account_name</property>
+                    <text-property name="displayName">account_name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["account_name"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">Column Binding</property>
+                    <expression name="expression" type="javascript">dataSetRow["account_name"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Aggregation</property>
+                    <text-property name="displayName">total_cost</text-property>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>NewTableGroup1</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">AVE</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["total_charges_usd"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Aggregation_1</property>
+                    <text-property name="displayName">total_paid</text-property>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>NewTableGroup1</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">AVE</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">if (dataSetRow["status"] == "PAID") {&#13;
+ dataSetRow["total_charges_usd"]&#13;
+ } else {&#13;
+ "0.00"&#13;
+ }</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <property name="pageBreakInterval">10000</property>
+            <column id="1167">
+                <property name="textAlign">left</property>
+                <property name="width">1in</property>
+            </column>
+            <column id="1168">
+                <property name="width">0.4in</property>
+            </column>
+            <column id="1222">
+                <property name="width">0.4in</property>
+            </column>
+            <column id="1595">
+                <property name="repeat">1</property>
+                <property name="width">0.4in</property>
+            </column>
+            <column id="1603">
+                <property name="repeat">1</property>
+                <property name="width">0.4in</property>
+            </column>
+            <column id="1609">
+                <property name="repeat">1</property>
+                <property name="width">0.4in</property>
+            </column>
+            <column id="1651">
+                <property name="repeat">1</property>
+                <property name="width">0.3in</property>
+            </column>
+            <column id="1627">
+                <property name="repeat">1</property>
+                <property name="width">0.6in</property>
+            </column>
+            <column id="1633">
+                <property name="repeat">1</property>
+                <property name="width">0.6in</property>
+            </column>
+            <column id="1639">
+                <property name="repeat">1</property>
+                <property name="width">0.8in</property>
+            </column>
+            <column id="1572">
+                <property name="repeat">1</property>
+                <property name="width">0.8in</property>
+            </column>
+            <column id="1205">
+                <property name="width">1.0925925925925926in</property>
+            </column>
+            <group id="1354">
+                <property name="groupName">NewTableGroup1</property>
+                <expression name="keyExpr" type="javascript">row["account_name"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["account_name"]</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">auto</property>
+                <header>
+                    <row id="1398">
+                        <property name="height">0.5520833333333334in</property>
+                        <cell id="1399">
+                            <property name="colSpan">2</property>
+                            <property name="rowSpan">1</property>
+                            <data id="1408">
+                                <property name="backgroundAttachment">scroll</property>
+                                <property name="backgroundPositionX">0%</property>
+                                <property name="backgroundPositionY">0%</property>
+                                <property name="backgroundRepeat">repeat</property>
+                                <property name="fontFamily">sans-serif</property>
+                                <property name="fontSize">10pt</property>
+                                <property name="fontWeight">bold</property>
+                                <property name="fontStyle">normal</property>
+                                <property name="fontVariant">normal</property>
+                                <property name="color">black</property>
+                                <property name="textLineThrough">none</property>
+                                <property name="textOverline">none</property>
+                                <property name="textUnderline">underline</property>
+                                <property name="borderBottomColor">black</property>
+                                <property name="borderBottomStyle">none</property>
+                                <property name="borderBottomWidth">medium</property>
+                                <property name="borderLeftColor">black</property>
+                                <property name="borderLeftStyle">none</property>
+                                <property name="borderLeftWidth">medium</property>
+                                <property name="borderRightColor">black</property>
+                                <property name="borderRightStyle">none</property>
+                                <property name="borderRightWidth">medium</property>
+                                <property name="borderTopColor">black</property>
+                                <property name="borderTopStyle">none</property>
+                                <property name="borderTopWidth">medium</property>
+                                <property name="marginTop">0pt</property>
+                                <property name="marginLeft">0pt</property>
+                                <property name="marginBottom">0pt</property>
+                                <property name="marginRight">0pt</property>
+                                <property name="paddingTop">10pt</property>
+                                <property name="paddingLeft">1pt</property>
+                                <property name="paddingBottom">1pt</property>
+                                <property name="paddingRight">1pt</property>
+                                <property name="textAlign">left</property>
+                                <property name="letterSpacing">normal</property>
+                                <property name="lineHeight">normal</property>
+                                <property name="orphans">2</property>
+                                <property name="textTransform">none</property>
+                                <property name="whiteSpace">normal</property>
+                                <property name="widows">2</property>
+                                <property name="wordSpacing">normal</property>
+                                <property name="display">block</property>
+                                <property name="pageBreakAfter">auto</property>
+                                <property name="pageBreakBefore">auto</property>
+                                <property name="pageBreakInside">auto</property>
+                                <property name="showIfBlank">false</property>
+                                <property name="canShrink">false</property>
+                                <property name="overflow">hidden</property>
+                                <property name="resultSetColumn">Column Binding</property>
+                            </data>
+                        </cell>
+                        <cell id="1402"/>
+                        <cell id="1590"/>
+                        <cell id="1598"/>
+                        <cell id="1604"/>
+                        <cell id="1646"/>
+                        <cell id="1622"/>
+                        <cell id="1628"/>
+                        <cell id="1634"/>
+                        <cell id="1573"/>
+                        <cell id="1403"/>
+                    </row>
+                    <row id="1355">
+                        <cell id="1356"/>
+                        <cell id="1357"/>
+                        <cell id="1359"/>
+                        <cell id="1591"/>
+                        <cell id="1599"/>
+                        <cell id="1605"/>
+                        <cell id="1647"/>
+                        <cell id="1623"/>
+                        <cell id="1629"/>
+                        <cell id="1635"/>
+                        <cell id="1574"/>
+                        <cell id="1360"/>
+                    </row>
+                    <row id="1373">
+                        <cell id="1374">
+                            <text id="1382">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Date]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1375">
+                            <text id="1383">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Flight]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1377">
+                            <text id="1385">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Type]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1592">
+                            <text id="1596">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Reg]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1600">
+                            <text id="1616">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[From]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1606">
+                            <text id="1617">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[To]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1648">
+                            <text id="1652">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[DepTime]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1624">
+                            <text id="1640">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Dist]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1630">
+                            <text id="1641">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[MTOW]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1636">
+                            <text id="1642">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Cost]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1575">
+                            <text id="1576">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Paid]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1378">
+                            <text id="1498">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Remark]]></text-property>
+                            </text>
+                        </cell>
+                    </row>
+                </header>
+                <footer>
+                    <row id="2144">
+                        <cell id="2145"/>
+                        <cell id="2146"/>
+                        <cell id="2147"/>
+                        <cell id="2148"/>
+                        <cell id="2149"/>
+                        <cell id="2150"/>
+                        <cell id="2151"/>
+                        <cell id="2152"/>
+                        <cell id="2153">
+                            <text id="2163">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Total:]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="2154">
+                            <data id="2161">
+                                <structure name="numberFormat">
+                                    <property name="category">Currency</property>
+                                    <property name="pattern">###0.00{RoundingMode=HALF_UP}</property>
+                                </structure>
+                                <property name="resultSetColumn">Aggregation</property>
+                            </data>
+                        </cell>
+                        <cell id="2155">
+                            <data id="2162">
+                                <structure name="numberFormat">
+                                    <property name="category">Currency</property>
+                                    <property name="pattern">###0.00{RoundingMode=HALF_UP}</property>
+                                </structure>
+                                <property name="resultSetColumn">Aggregation_1</property>
+                            </data>
+                        </cell>
+                        <cell id="2156"/>
+                    </row>
+                </footer>
+            </group>
+            <detail>
+                <row id="1159">
+                    <list-property name="visibility">
+                        <structure>
+                            <property name="format">all</property>
+                        </structure>
+                    </list-property>
+                    <cell id="1160">
+                        <text-data id="1257">
+                            <property name="paddingLeft">15px</property>
+                            <expression name="valueExpr">Formatter.format(row["date_of_flight"],"YYYY-MM-dd")</expression>
+                            <property name="contentType">html</property>
+                        </text-data>
+                    </cell>
+                    <cell id="1161">
+                        <data id="1585">
+                            <property name="resultSetColumn">flight_id</property>
+                        </data>
+                    </cell>
+                    <cell id="1219">
+                        <data id="1586">
+                            <property name="resultSetColumn">aircraft_type</property>
+                        </data>
+                    </cell>
+                    <cell id="1593">
+                        <data id="1597">
+                            <property name="resultSetColumn">item18_reg_num</property>
+                        </data>
+                    </cell>
+                    <cell id="1601">
+                        <data id="1619">
+                            <property name="resultSetColumn">actual_dep_ad</property>
+                        </data>
+                    </cell>
+                    <cell id="1607">
+                        <data id="1620">
+                            <property name="resultSetColumn">actual_dest_ad</property>
+                        </data>
+                    </cell>
+                    <cell id="1649">
+                        <data id="1653">
+                            <property name="resultSetColumn">dep_time</property>
+                        </data>
+                    </cell>
+                    <cell id="1625">
+                        <data id="1645">
+                            <structure name="numberFormat">
+                                <property name="category">Fixed</property>
+                                <property name="pattern">###0.00{RoundingMode=HALF_UP}</property>
+                            </structure>
+                            <property name="resultSetColumn">billable_crossing_dist</property>
+                        </data>
+                    </cell>
+                    <cell id="1631">
+                        <data id="1644">
+                            <structure name="numberFormat">
+                                <property name="category">Fixed</property>
+                                <property name="pattern">###0.00{RoundingMode=HALF_UP}</property>
+                            </structure>
+                            <property name="resultSetColumn">actual_mtow</property>
+                        </data>
+                    </cell>
+                    <cell id="1637">
+                        <data id="1643">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">###0.00{RoundingMode=HALF_UP}</property>
+                            </structure>
+                            <property name="resultSetColumn">total_charges_usd</property>
+                        </data>
+                    </cell>
+                    <cell id="1581">
+                        <data id="1589">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">###0.00{RoundingMode=HALF_UP}</property>
+                            </structure>
+                            <property name="resultSetColumn">status</property>
+                        </data>
+                    </cell>
+                    <cell id="1202">
+                        <data id="1587">
+                            <property name="resultSetColumn">item18_rmk</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="1163">
+                    <cell id="1164"/>
+                    <cell id="1165"/>
+                    <cell id="1221"/>
+                    <cell id="1594"/>
+                    <cell id="1602"/>
+                    <cell id="1608"/>
+                    <cell id="1650"/>
+                    <cell id="1626"/>
+                    <cell id="1632"/>
+                    <cell id="1638"/>
+                    <cell id="1583"/>
+                    <cell id="1204"/>
+                </row>
+            </footer>
+        </table>
+        <table id="2015">
+            <property name="fontFamily">"Courier New"</property>
+            <property name="numberAlign">left</property>
+            <property name="masterPage">MasterPage_Portrait</property>
+            <property name="width">11in</property>
+            <property name="dataSet">no_acount_flights</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">date_of_flight</property>
+                    <text-property name="displayName">date_of_flight</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["date_of_flight"]</expression>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="name">flight_id</property>
+                    <text-property name="displayName">flight_id</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["flight_id"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">aircraft_type</property>
+                    <text-property name="displayName">aircraft_type</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["aircraft_type"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">dep_time</property>
+                    <text-property name="displayName">dep_time</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["dep_time"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">item18_reg_num</property>
+                    <text-property name="displayName">item18_reg_num</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["item18_reg_num"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">actual_dep_ad</property>
+                    <text-property name="displayName">actual_dep_ad</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["actual_dep_ad"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">actual_dest_ad</property>
+                    <text-property name="displayName">actual_dest_ad</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["actual_dest_ad"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">billable_crossing_dist</property>
+                    <text-property name="displayName">billable_crossing_dist</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["billable_crossing_dist"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">actual_mtow</property>
+                    <text-property name="displayName">actual_mtow</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["actual_mtow"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">total_charges_usd</property>
+                    <text-property name="displayName">total_charges_usd</text-property>
+                    <expression name="expression" type="javascript">if(dataSetRow["total_charges_usd"] == null){&#13;
+0.0}</expression>
+                    <property name="dataType">float</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">status</property>
+                    <text-property name="displayName">status</text-property>
+                    <expression name="expression" type="javascript">if (dataSetRow["status"] == "PAID") {&#13;
+ dataSetRow["total_charges_usd"]&#13;
+ } else {&#13;
+ 0&#13;
+ }</expression>
+                    <property name="dataType">float</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">item18_rmk</property>
+                    <text-property name="displayName">item18_rmk</text-property>
+                    <expression name="expression" type="javascript">if (dataSetRow["total_charges_usd"] > 0 &amp;&amp; &#13;
+dataSetRow["status"] != "PAID") {&#13;
+ "*"&#13;
+ }</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Column Binding1</property>
+                    <text-property name="displayName">Registration</text-property>
+                    <expression name="expression" type="javascript">if(dataSetRow["item18_reg_num"] == null){&#13;
+"NO Registration"}&#13;
+else {&#13;
+dataSetRow["item18_reg_num"]&#13;
+}</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Aggregation_3</property>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>NewTableGroup2</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">AVE</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["total_charges_usd"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Aggregation_4</property>
+                    <text-property name="displayName">total_paid</text-property>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>NewTableGroup2</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">AVE</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">if (dataSetRow["status"] == "PAID") {&#13;
+ dataSetRow["total_charges_usd"]&#13;
+ } else {&#13;
+ "0.00"&#13;
+ }</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <property name="pageBreakInterval">10000</property>
+            <column id="2106">
+                <property name="width">1in</property>
+            </column>
+            <column id="2107">
+                <property name="width">0.4in</property>
+            </column>
+            <column id="2108">
+                <property name="width">0.4in</property>
+            </column>
+            <column id="2110">
+                <property name="repeat">1</property>
+                <property name="width">0.4in</property>
+            </column>
+            <column id="2111">
+                <property name="repeat">1</property>
+                <property name="width">0.4in</property>
+            </column>
+            <column id="2112">
+                <property name="repeat">1</property>
+                <property name="width">0.4in</property>
+            </column>
+            <column id="2113">
+                <property name="repeat">1</property>
+                <property name="width">0.6in</property>
+            </column>
+            <column id="2114">
+                <property name="repeat">1</property>
+                <property name="width">0.8in</property>
+            </column>
+            <column id="2115">
+                <property name="repeat">1</property>
+                <property name="width">0.8in</property>
+            </column>
+            <column id="2116">
+                <property name="repeat">1</property>
+                <property name="width">0.8in</property>
+            </column>
+            <column id="2117">
+                <property name="width">1in</property>
+            </column>
+            <group id="2016">
+                <property name="groupName">NewTableGroup2</property>
+                <expression name="keyExpr" type="javascript">row["item18_reg_num"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["item18_reg_num"]</expression>
+                </structure>
+                <property name="repeatHeader">true</property>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">auto</property>
+                <header>
+                    <row id="2017">
+                        <property name="height">0.5520833333333334in</property>
+                        <cell id="2018">
+                            <property name="colSpan">2</property>
+                            <property name="rowSpan">1</property>
+                            <data id="2019">
+                                <property name="backgroundAttachment">scroll</property>
+                                <property name="backgroundPositionX">0%</property>
+                                <property name="backgroundPositionY">0%</property>
+                                <property name="backgroundRepeat">repeat</property>
+                                <property name="fontFamily">sans-serif</property>
+                                <property name="fontSize">10pt</property>
+                                <property name="fontWeight">bold</property>
+                                <property name="fontStyle">normal</property>
+                                <property name="fontVariant">normal</property>
+                                <property name="color">black</property>
+                                <property name="textLineThrough">none</property>
+                                <property name="textOverline">none</property>
+                                <property name="textUnderline">underline</property>
+                                <property name="borderBottomColor">black</property>
+                                <property name="borderBottomStyle">none</property>
+                                <property name="borderBottomWidth">medium</property>
+                                <property name="borderLeftColor">black</property>
+                                <property name="borderLeftStyle">none</property>
+                                <property name="borderLeftWidth">medium</property>
+                                <property name="borderRightColor">black</property>
+                                <property name="borderRightStyle">none</property>
+                                <property name="borderRightWidth">medium</property>
+                                <property name="borderTopColor">black</property>
+                                <property name="borderTopStyle">none</property>
+                                <property name="borderTopWidth">medium</property>
+                                <property name="marginTop">0pt</property>
+                                <property name="marginLeft">0pt</property>
+                                <property name="marginBottom">0pt</property>
+                                <property name="marginRight">0pt</property>
+                                <property name="paddingTop">10pt</property>
+                                <property name="paddingLeft">1pt</property>
+                                <property name="paddingBottom">1pt</property>
+                                <property name="paddingRight">1pt</property>
+                                <property name="textAlign">left</property>
+                                <property name="letterSpacing">normal</property>
+                                <property name="lineHeight">normal</property>
+                                <property name="orphans">2</property>
+                                <property name="textTransform">none</property>
+                                <property name="whiteSpace">normal</property>
+                                <property name="widows">2</property>
+                                <property name="wordSpacing">normal</property>
+                                <property name="display">block</property>
+                                <property name="pageBreakAfter">auto</property>
+                                <property name="pageBreakBefore">auto</property>
+                                <property name="pageBreakInside">auto</property>
+                                <property name="showIfBlank">false</property>
+                                <property name="canShrink">false</property>
+                                <property name="overflow">hidden</property>
+                                <property name="resultSetColumn">Column Binding1</property>
+                            </data>
+                        </cell>
+                        <cell id="2020"/>
+                        <cell id="2022"/>
+                        <cell id="2023"/>
+                        <cell id="2024"/>
+                        <cell id="2025"/>
+                        <cell id="2026"/>
+                        <cell id="2027"/>
+                        <cell id="2028"/>
+                        <cell id="2029"/>
+                    </row>
+                    <row id="2030">
+                        <cell id="2031"/>
+                        <cell id="2032"/>
+                        <cell id="2033"/>
+                        <cell id="2035"/>
+                        <cell id="2036"/>
+                        <cell id="2037"/>
+                        <cell id="2038"/>
+                        <cell id="2039"/>
+                        <cell id="2040"/>
+                        <cell id="2041"/>
+                        <cell id="2042"/>
+                    </row>
+                    <row id="2043">
+                        <cell id="2044">
+                            <text id="2045">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Date]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="2046">
+                            <text id="2047">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Flight]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="2048">
+                            <text id="2049">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Type]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="2052">
+                            <text id="2053">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[From]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="2054">
+                            <text id="2055">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[To]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="2056">
+                            <text id="2057">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[DepTime]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="2058">
+                            <text id="2059">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Dist]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="2060">
+                            <text id="2061">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[MTOW]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="2062">
+                            <text id="2063">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Cost]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="2064">
+                            <text id="2065">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Paid]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="2066">
+                            <text id="2067">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Remark]]></text-property>
+                            </text>
+                        </cell>
+                    </row>
+                </header>
+                <footer>
+                    <row id="2164">
+                        <cell id="2165"/>
+                        <cell id="2166"/>
+                        <cell id="2167"/>
+                        <cell id="2168"/>
+                        <cell id="2169"/>
+                        <cell id="2170"/>
+                        <cell id="2171"/>
+                        <cell id="2172">
+                            <text id="2176">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Total:]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="2173">
+                            <data id="2177">
+                                <structure name="numberFormat">
+                                    <property name="category">Currency</property>
+                                    <property name="pattern">###0.00{RoundingMode=HALF_UP}</property>
+                                </structure>
+                                <property name="resultSetColumn">Aggregation_3</property>
+                            </data>
+                        </cell>
+                        <cell id="2174">
+                            <data id="2178">
+                                <structure name="numberFormat">
+                                    <property name="category">Currency</property>
+                                    <property name="pattern">###0.00{RoundingMode=HALF_UP}</property>
+                                </structure>
+                                <property name="resultSetColumn">Aggregation_4</property>
+                            </data>
+                        </cell>
+                        <cell id="2175"/>
+                    </row>
+                </footer>
+            </group>
+            <detail>
+                <row id="2068">
+                    <list-property name="visibility">
+                        <structure>
+                            <property name="format">all</property>
+                        </structure>
+                    </list-property>
+                    <cell id="2069">
+                        <text-data id="2070">
+                            <property name="paddingLeft">15px</property>
+                            <property name="textAlign">left</property>
+                            <expression name="valueExpr">Formatter.format(row["date_of_flight"],"YYYY-MM-dd")</expression>
+                            <property name="contentType">html</property>
+                        </text-data>
+                    </cell>
+                    <cell id="2071">
+                        <data id="2072">
+                            <property name="resultSetColumn">flight_id</property>
+                        </data>
+                    </cell>
+                    <cell id="2073">
+                        <data id="2074">
+                            <property name="resultSetColumn">aircraft_type</property>
+                        </data>
+                    </cell>
+                    <cell id="2077">
+                        <data id="2078">
+                            <property name="resultSetColumn">actual_dep_ad</property>
+                        </data>
+                    </cell>
+                    <cell id="2079">
+                        <data id="2080">
+                            <property name="resultSetColumn">actual_dest_ad</property>
+                        </data>
+                    </cell>
+                    <cell id="2081">
+                        <data id="2082">
+                            <property name="resultSetColumn">dep_time</property>
+                        </data>
+                    </cell>
+                    <cell id="2083">
+                        <data id="2084">
+                            <structure name="numberFormat">
+                                <property name="category">Fixed</property>
+                                <property name="pattern">###0.00{RoundingMode=HALF_UP}</property>
+                            </structure>
+                            <property name="resultSetColumn">billable_crossing_dist</property>
+                        </data>
+                    </cell>
+                    <cell id="2085">
+                        <data id="2086">
+                            <structure name="numberFormat">
+                                <property name="category">Fixed</property>
+                                <property name="pattern">###0.00{RoundingMode=HALF_UP}</property>
+                            </structure>
+                            <property name="resultSetColumn">actual_mtow</property>
+                        </data>
+                    </cell>
+                    <cell id="2087">
+                        <data id="2088">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">###0.00{RoundingMode=HALF_UP}</property>
+                            </structure>
+                            <property name="resultSetColumn">total_charges_usd</property>
+                        </data>
+                    </cell>
+                    <cell id="2089">
+                        <data id="2090">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">###0.00{RoundingMode=HALF_UP}</property>
+                            </structure>
+                            <property name="resultSetColumn">status</property>
+                        </data>
+                    </cell>
+                    <cell id="2091">
+                        <data id="2092">
+                            <property name="resultSetColumn">item18_rmk</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="2093">
+                    <cell id="2094"/>
+                    <cell id="2095"/>
+                    <cell id="2096"/>
+                    <cell id="2098"/>
+                    <cell id="2099"/>
+                    <cell id="2100"/>
+                    <cell id="2101"/>
+                    <cell id="2102"/>
+                    <cell id="2103"/>
+                    <cell id="2104"/>
+                    <cell id="2105"/>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>

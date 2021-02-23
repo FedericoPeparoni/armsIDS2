@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<creditDebitNote>
+    <global>
+        <realTransactionNumber>Head Office001002</realTransactionNumber>
+        <transactionNumber>PREVIEW</transactionNumber>
+        <transactionName>Aviation credit note PREVIEW</transactionName>
+        <transactionIssueLocation>Head Office</transactionIssueLocation>
+        <transactionDateStr>2017-04-18</transactionDateStr>
+        <accountId>6</accountId>
+        <accountName>Air Botswana</accountName>
+        <fromName>admin</fromName>
+        <fromPosition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <billingName>Agnes Khunwana</billingName>
+        <billingAddress>Sir Seretse Khama International Airport, Gaborone, Botswana</billingAddress>
+        <billingContactTel>123456</billingContactTel>
+        <totalAmount>0.66</totalAmount>
+        <totalAmountStr>0.66</totalAmountStr>
+        <totalAmountStrWithCurrencySymbol>P0.66</totalAmountStrWithCurrencySymbol>
+        <creditAmount>66.99</creditAmount>
+        <creditAmountStr>66.99</creditAmountStr>
+        <creditAmountStrWithCurrencySymbol>P66.99</creditAmountStrWithCurrencySymbol>
+        <invoiceCurrencyCode>USD</invoiceCurrencyCode>
+        <invoiceRefNumber>HQ000140</invoiceRefNumber>
+        <invoiceRefDateStr>2017-04-10</invoiceRefDateStr>
+        <totalAmountAnsp></totalAmountAnsp>
+        <totalAmountAnspStr></totalAmountAnspStr>
+        <totalAmountInUSD>15.56</totalAmountInUSD>
+        <accountAlias>T&T-02</accountAlias></global>
+        <totalAmountAlt>0.66</totalAmountAlt>
+        <totalAmountAltStr>0.66</totalAmountAltStr>
+        <totalAmountAltStrWithCurrencySymbol>P0.66</totalAmountAltStrWithCurrencySymbol>
+        <invoiceCurrencyAltCode>EUR</invoiceCurrencyAltCode>
+    <lineItemList>
+        <lineItem>
+            <id xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true">0</id>
+            <dateStr>2017-04-18</dateStr>
+            <flightId>BOT022</flightId>
+            <chargeDescription>Passengers</chargeDescription>
+            <amount>22.33</amount>
+            <amountStr>22.33</amountStr>
+            <amountStrWithCurrencySymbol>P22.33</amountStrWithCurrencySymbol>
+            <amountAnsp></amountAnsp>
+            <amountAnspStr></amountAnspStr>
+            <chargeDescriptionSpanish>Apoyo al Aterizzaje</chargeDescriptionSpanish></lineItem>
+        <lineItem>
+            <id xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true">1</id>
+            <dateStr>2017-04-18</dateStr>
+            <flightId>BOT023</flightId>
+            <chargeDescription>Routing</chargeDescription>
+            <amount>22.33</amount>
+            <amountStr>22.33</amountStr>
+            <amountStrWithCurrencySymbol>P22.33</amountStrWithCurrencySymbol>
+            <amountAnsp></amountAnsp>
+            <amountAnspStr></amountAnspStr>
+            <chargeDescriptionSpanish>Apoyo al Aterizzaje</chargeDescriptionSpanish></lineItem>
+        <lineItem>
+            <id xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true">2</id>
+            <dateStr>2017-04-18</dateStr>
+            <flightId>BOT024</flightId>
+            <chargeDescription>Routing</chargeDescription>
+            <amount>22.33</amount>
+            <amountStr>22.33</amountStr>
+            <amountStrWithCurrencySymbol>P22.33</amountStrWithCurrencySymbol>
+            <amountAnsp></amountAnsp>
+            <amountAnspStr></amountAnspStr>
+            <chargeDescriptionSpanish>Apoyo al Aterizzaje</chargeDescriptionSpanish></lineItem>
+    </lineItemList>
+    <affectedInvoiceList>
+        <affectedInvoice>
+            <id xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true">3</id>
+            <affectedInvoiceNumber>HQ001227</affectedInvoiceNumber>
+            <affectedInvoiceAmount>10.00</affectedInvoiceAmount>
+        </affectedInvoice>
+        <affectedInvoice>
+            <id xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true">4</id>
+            <affectedInvoiceNumber>HQ001228</affectedInvoiceNumber>
+            <affectedInvoiceAmount>12.33</affectedInvoiceAmount>
+        </affectedInvoice>
+        <affectedInvoice>
+            <id xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true">5</id>
+            <affectedInvoiceNumber>HQ001229</affectedInvoiceNumber>
+            <affectedInvoiceAmount>44.00</affectedInvoiceAmount>
+        </affectedInvoice>
+    </affectedInvoiceList>
+</creditDebitNote>

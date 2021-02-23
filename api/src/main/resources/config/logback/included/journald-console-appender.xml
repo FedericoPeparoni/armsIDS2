@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+    <if condition="${LOG_JOURNALD_CONSOLE_ENABLED}">
+        <then>
+            <property name="JOURNALD_CONSOLE_LOG_PATTERN" value="${JOURNALD_CONSOLE_LOG_PATTERN:-%-5p [%t] %logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}" />
+            <appender name="JOURNALD_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+                <encoder>
+                    <pattern>${JOURNALD_CONSOLE_LOG_PATTERN}</pattern>
+                    <charset>utf8</charset>
+                </encoder>
+            </appender>
+        </then>
+    </if>
+</included>

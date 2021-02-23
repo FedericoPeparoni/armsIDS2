@@ -1,0 +1,1 @@
+alter table atc_movement_logs drop constraint atc_movement_logs_flight_id_key;

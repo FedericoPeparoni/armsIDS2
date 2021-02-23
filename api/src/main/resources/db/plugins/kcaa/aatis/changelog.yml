@@ -1,0 +1,50 @@
+databaseChangeLog:
+    - changeSet:
+        id: 20180201153300_insert_plugins.kcaa.aatis
+        author: Samuel Craymer
+        changes:
+            - loadData:
+                file: data/20180413082000_insert_plugins.kcaa.aatis.csv
+                tableName: plugins
+                separator: ;
+                relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20180413110500_create_kcaa_aatis_transactions.kcaa.aatis.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: data/20180522173900_insert_system_configurations.kcaa.aatis.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: data/20180711183500_update_plugins.aatis.kcaa.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Jonathan B
+        file: tables/20180913132400_add_flight_movement_to_aatis.sql
+        relativeToChangelogFile: true
+    - changeSet:
+        id: 20190415144100_rename_kcaa_aatis_transactions.kcaa.aatis.sql
+        author: Davlet Panech
+        # Execute this script only if <kcaa_aatis_transactions> exists, but <kcaa_aatis_permit_numbers> doesn't
+        preConditions:
+            onFail: MARK_RAN
+            and:
+                - sqlCheck:
+                    expectedResult: 1
+                    sql: "select count(*) from pg_tables where lower (schemaname) = lower (current_schema) and lower (tablename) = 'kcaa_aatis_transactions'"
+                - sqlCheck:
+                    expectedResult: 0
+                    sql: "select count(*) from pg_tables where lower (schemaname) = lower (current_schema) and lower (tablename) = 'kcaa_aatis_permit_numbers'"
+        changes:
+            sqlFile:
+                path: tables/20190415144100_rename_kcaa_aatis_transactions.kcaa.aatis.sql
+                relativeToChangelogFile: true
+                splitStatements: false
+                endDelimiter: ""
+                encoding: utf8
+    - include:
+        author: Samuel Craymer
+        file: tables/20190725193200_alter_permit_numbers.kcaa.aatis.sql
+        relativeToChangelogFile: true

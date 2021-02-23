@@ -1,0 +1,50 @@
+databaseChangeLog:
+    - changeSet:
+        id: 20180201153300_insert_plugins.kcaa.erp
+        author: Samuel Craymer
+        changes:
+            - loadData:
+                file: data/20180201153300_insert_plugins.kcaa.erp.csv
+                tableName: plugins
+                separator: ;
+                relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20180418140000_create_kcaa_erp_billing_ledgers.kcaa.erp.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20180418141900_create_kcaa_erp_invoice_line_item.kcaa.erp.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Jonathan B
+        file: tables/20180420120000_create_kcaa_erp_transactions.kcaa.erp.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Jonathan B
+        file: tables/20180420150000_create_kcaa_erp_charges_adjustments.kcaa.erp.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: data/20180509152700_insert_system_configurations.kcaa.erp.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: data/20180509190500_update_plugins.kcaa.erp.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: data/20180522173900_insert_system_configurations.kcaa.erp.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: data/20180528175000_insert_system_configurations.kcaa.erp.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20180529220900_drop_kcaa_erp_tables.kcaa.erp.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: data/20180711183500_update_plugins.erp.kcaa.sql
+        relativeToChangelogFile: true

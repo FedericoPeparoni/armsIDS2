@@ -1,0 +1,248 @@
+country_code,country_name,created_by
+ABW,Aruba,system
+AFG,Afghanistan,system
+AGO,Angola,system
+AIA,Anguilla,system
+ALA,Åland Islands,system
+ALB,Albania,system
+AND,Andorra,system
+ARE,United Arab Emirates,system
+ARG,Argentina,system
+ARM,Armenia,system
+ASM,American Samoa,system
+ATA,Antarctica,system
+ATF,French Southern Territories,system
+ATG,Antigua and Barbuda,system
+AUS,Australia,system
+AUT,Austria,system
+AZE,Azerbaijan,system
+BDI,Burundi,system
+BEL,Belgium,system
+BEN,Benin,system
+BES,Bonaire ,system
+BFA,Burkina Faso,system
+BGD,Bangladesh,system
+BGR,Bulgaria,system
+BHR,Bahrain,system
+BHS,Bahamas,system
+BIH,Bosnia and Herzegovina,system
+BLM,Saint Barthélemy,system
+BLR,Belarus,system
+BLZ,Belize,system
+BMU,Bermuda,system
+BOL,Bolivia,system
+BRA,Brazil,system
+BRB,Barbados,system
+BRN,Brunei Darussalam,system
+BTN,Bhutan,system
+BVT,Bouvet Island,system
+BWA,Botswana,system
+CAF,Central African Republic,system
+CCK,Cocos (Keeling) Islands,system
+CHE,Switzerland,system
+CHL,Chile,system
+CHN,China,system
+CIV,Côte d'Ivoire,system
+CMR,Cameroon,system
+COD,Congo Democratic Republic,system
+COG,Congo Republic,system
+COK,Cook Islands,system
+COL,Colombia,system
+COM,Comoros,system
+CPV,Cabo Verde,system
+CRI,Costa Rica,system
+CUB,Cuba,system
+CUW,Curaçao,system
+CXR,Christmas Island,system
+CYM,Cayman Islands,system
+CYP,Cyprus,system
+CZE,Czechia,system
+DEU,Germany,system
+DJI,Djibouti,system
+DMA,Dominica,system
+DNK,Denmark,system
+DOM,Dominican Republic,system
+DZA,Algeria,system
+ECU,Ecuador,system
+EGY,Egypt,system
+ERI,Eritrea,system
+ESH,Western Sahara,system
+ESP,Spain,system
+EST,Estonia,system
+ETH,Ethiopia,system
+FIN,Finland,system
+FJI,Fiji,system
+FLK,Falkland Islands (Malvinas),system
+FRA,France,system
+FRO,Faroe Islands,system
+FSM,Micronesia,system
+GAB,Gabon,system
+GBR,United Kingdom,system
+GEO,Georgia,system
+GGY,Guernsey,system
+GHA,Ghana,system
+GIB,Gibraltar,system
+GIN,Guinea,system
+GLP,Guadeloupe,system
+GMB,Gambia,system
+GNB,Guinea-Bissau,system
+GNQ,Equatorial Guinea,system
+GRC,Greece,system
+GRD,Grenada,system
+GRL,Greenland,system
+GTM,Guatemala,system
+GUF,French Guiana,system
+GUM,Guam,system
+GUY,Guyana,system
+HKG,Hong Kong,system
+HMD,Heard Island and McDonald Islands,system
+HND,Honduras,system
+HRV,Croatia,system
+HTI,Haiti,system
+HUN,Hungary,system
+IDN,Indonesia,system
+IMN,Isle of Man,system
+IND,India,system
+IOT,British Indian Ocean Territory,system
+IRL,Ireland,system
+IRN,Iran,system
+IRQ,Iraq,system
+ISL,Iceland,system
+ISR,Israel,system
+ITA,Italy,system
+JAM,Jamaica,system
+JEY,Jersey,system
+JOR,Jordan,system
+JPN,Japan,system
+KAZ,Kazakhstan,system
+KEN,Kenya,system
+KGZ,Kyrgyzstan,system
+KHM,Cambodia,system
+KIR,Kiribati,system
+KNA,Saint Kitts and Nevis,system
+KOR,South Korea,system
+KWT,Kuwait,system
+LAO,Lao People's Democratic Republic,system
+LBN,Lebanon,system
+LBR,Liberia,system
+LBY,Libya,system
+LCA,Saint Lucia,system
+LIE,Liechtenstein,system
+LKA,Sri Lanka,system
+LSO,Lesotho,system
+LTU,Lithuania,system
+LUX,Luxembourg,system
+LVA,Latvia,system
+MAC,Macao,system
+MAF,Saint Martin (French part),system
+MAR,Morocco,system
+MCO,Monaco,system
+MDA,Moldova,system
+MDG,Madagascar,system
+MDV,Maldives,system
+MEX,Mexico,system
+MHL,Marshall Islands,system
+MKD,Macedonia,system
+MLI,Mali,system
+MLT,Malta,system
+MMR,Myanmar,system
+MNE,Montenegro,system
+MNG,Mongolia,system
+MNP,Northern Mariana Islands,system
+MOZ,Mozambique,system
+MRT,Mauritania,system
+MSR,Montserrat,system
+MTQ,Martinique,system
+MUS,Mauritius,system
+MWI,Malawi,system
+MYS,Malaysia,system
+MYT,Mayotte,system
+NAM,Namibia,system
+NCL,New Caledonia,system
+NER,Niger,system
+NFK,Norfolk Island,system
+NGA,Nigeria,system
+NIC,Nicaragua,system
+NIU,Niue,system
+NLD,Netherlands,system
+NOR,Norway,system
+NPL,Nepal,system
+NRU,Nauru,system
+NZL,New Zealand,system
+OMN,Oman,system
+PAK,Pakistan,system
+PAN,Panama,system
+PCN,Pitcairn,system
+PER,Peru,system
+PHL,Philippines,system
+PLW,Palau,system
+PNG,Papua New Guinea,system
+POL,Poland,system
+PRI,Puerto Rico,system
+PRK,North Korea,system
+PRT,Portugal,system
+PRY,Paraguay,system
+PSE,Palestine,system
+PYF,French Polynesia,system
+QAT,Qatar,system
+REU,Réunion,system
+ROU,Romania,system
+RUS,Russian Federation,system
+RWA,Rwanda,system
+SAU,Saudi Arabia,system
+SDN,Sudan,system
+SEN,Senegal,system
+SGP,Singapore,system
+SGS,South Georgia and the South Sandwich Islands,system
+SHN,Saint Helena,system
+SJM,Svalbard and Jan Mayen,system
+SLB,Solomon Islands,system
+SLE,Sierra Leone,system
+SLV,El Salvador,system
+SMR,San Marino,system
+SOM,Somalia,system
+SPM,Saint Pierre and Miquelon,system
+SRB,Serbia,system
+SSD,South Sudan,system
+STP,Sao Tome and Principe,system
+SUR,Suriname,system
+SVK,Slovakia,system
+SVN,Slovenia,system
+SWE,Sweden,system
+SWZ,Swaziland,system
+SXM,Sint Maarten (Dutch part),system
+SYC,Seychelles,system
+SYR,Syrian Arab Republic,system
+TCA,Turks and Caicos Islands,system
+TCD,Chad,system
+TGO,Togo,system
+THA,Thailand,system
+TJK,Tajikistan,system
+TKL,Tokelau,system
+TKM,Turkmenistan,system
+TLS,Timor-Leste,system
+TON,Tonga,system
+TTO,Trinidad and Tobago,system
+TUN,Tunisia,system
+TUR,Turkey,system
+TUV,Tuvalu,system
+TWN,Taiwan,system
+TZA,Tanzania,system
+UGA,Uganda,system
+UKR,Ukraine,system
+UMI,United States Minor Outlying Islands,system
+URY,Uruguay,system
+UZB,Uzbekistan,system
+VAT,Holy See (Vatican City State),system
+VCT,Saint Vincent and the Grenadines,system
+VEN,Venezuela,system
+VGB,Virgin Islands British,system
+VIR,Virgin Islands U.S.,system
+VNM,Viet Nam,system
+VUT,Vanuatu,system
+WLF,Wallis and Futuna,system
+WSM,Samoa,system
+YEM,Yemen,system
+ZAF,South Africa,system
+ZMB,Zambia,system
+ZWE,Zimbabwe,system

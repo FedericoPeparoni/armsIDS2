@@ -1,0 +1,1 @@
+update system_configurations set range = '-180,180' where item_name like '%longitude%'

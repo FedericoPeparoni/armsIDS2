@@ -1,0 +1,32 @@
+[Unit]
+Description=Automated Billing Management System - REST API web application
+After=network.target
+After=httpd.service
+After=pghelper.service
+
+[Service]
+Type=simple
+#PIDFile=/var/run/abms/api/api.pid
+ExecStartPre=/usr/libexec/abms/api/systemd.remove-startup-trigger-file.sh
+ExecStart=/usr/libexec/abms/api/systemd.start.sh
+ExecStartPost=/usr/libexec/abms/api/systemd.start.post.sh
+ExecStopPost=/usr/libexec/abms/api/systemd.remove-startup-trigger-file.sh
+TimeoutStartSec=15min
+# Successful termination: 0 and Bash exit codes that indicate termination due to
+# signals:
+#   0 - success
+#   129 - SIGPIPE
+#   130 - SIGINT
+#   141 - SIGPIPE
+#   143 - SIGTERM
+SuccessExitStatus=0 129 130 141 143
+WorkingDirectory=/var/lib/abms/api/cores
+StandardOutput=journal
+SyslogIdentifier=abms-api
+User=abms
+UMask=0022
+#ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target
+

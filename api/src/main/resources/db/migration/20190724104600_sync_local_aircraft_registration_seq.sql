@@ -1,0 +1,1 @@
+SELECT setval('local_aircraft_registries_id_seq', COALESCE((SELECT MAX(id) FROM local_aircraft_registries),1));

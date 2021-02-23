@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<nonAviationInvoice>
+  <global>
+    <realInvoiceNumber>Head Office001002</realInvoiceNumber>
+    <invoiceNumber>PREVIEW</invoiceNumber>
+    <invoiceName>Aviation invoice PREVIEW</invoiceName>
+    <invoiceIssueLocation>Head Office</invoiceIssueLocation>
+    <invoiceDateStr>2017-04-18</invoiceDateStr>
+    <accountId>6</accountId>
+    <accountName>Air Botswana</accountName>
+    <fromName>admin</fromName>
+    <fromPosition>Manager</fromPosition>
+    <billingName>Agnes Khunwana</billingName>
+    <billingAddress>Sir Seretse Khama International Airport, Gaborone, Botswana</billingAddress>
+    <billingContactTel>123456</billingContactTel>
+    <totalAmount>22.33</totalAmount>
+    <totalAmountStr>22.33</totalAmountStr>
+    <totalAmountStrWithCurrencySymbol>P22.33</totalAmountStrWithCurrencySymbol>
+    <creditAmount>0.0</creditAmount>
+    <creditAmountStr>0.00</creditAmountStr>
+    <creditAmountStrWithCurrencySymbol>
+    	P0.00
+    	</creditAmountStrWithCurrencySymbol>
+    <amountDue>22.33</amountDue>
+    <amountDueStr>45</amountDueStr>
+    <amountDueStrWithCurrencySymbol>P22.33</amountDueStrWithCurrencySymbol>
+    <invoiceCurrencyCode>USD</invoiceCurrencyCode>
+    <invoiceCurrencyAnspCode>KES</invoiceCurrencyAnspCode>
+    <invoiceCurrencyUsdCode>USD</invoiceCurrencyUsdCode>
+    <totalAmountAnspStr>45</totalAmountAnspStr>
+    <totalAmountAnsp>45</totalAmountAnsp>
+    <totalAmountUsdStr>45</totalAmountUsdStr>
+    <totalAmountUsd>45</totalAmountUsd>
+    <amountDueAnspStr>1111</amountDueAnspStr>
+    <amountDueAnsp>1111</amountDueAnsp>
+    <amountDueUsdStr>1111</amountDueUsdStr>
+    <amountDueUsd>1111</amountDueUsd>
+    <kraClerkName>clerk</kraClerkName>
+    <kraReceiptNumber>receipt n</kraReceiptNumber>
+    <billingEmail>test@gmail.com</billingEmail>
+    <totalAmountStrInWords>one</totalAmountStrInWords>
+    <totalAmountStrInWordsSpanish>un</totalAmountStrInWordsSpanish>
+    <totalAmountStrInWordsWithCurrencySymbol>one USD</totalAmountStrInWordsWithCurrencySymbol>
+    <totalAmountStrInWordsWithCurrencySymbolSpanish>un USD</totalAmountStrInWordsWithCurrencySymbolSpanish>
+    <amountDueStrInWords>one</amountDueStrInWords>
+    <amountDueStrInWordsSpanish>un</amountDueStrInWordsSpanish>
+    <amountDueStrInWordsWithCurrencySymbol>one USD</amountDueStrInWordsWithCurrencySymbol>
+    <amountDueStrInWordsWithCurrencySymbolSpanish>un USD</amountDueStrInWordsWithCurrencySymbolSpanish>
+    <invoiceCurrencyInWords>US Dollars</invoiceCurrencyInWords>
+    <totalOutstandingAmount>506.00</totalOutstandingAmount>
+    <exchageRate>0.15</exchageRate>
+    <exchageRateUsd>1.0</exchageRateUsd>
+    <invoiceBillingPeriod>April-2017</invoiceBillingPeriod>
+    <invoiceDueDateStr>2017-05-18</invoiceDueDateStr>
+    <totalPenalty>10000</totalPenalty>
+    <totalAccountCredit>17.00</totalAccountCredit>
+    <isCashAccount>true</isCashAccount>
+    <fromPointOfSale>true</fromPointOfSale>
+    <proforma>true</proforma></global>
+  <lineItemList>
+    <lineItem>
+      <id xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+      <dateStr>2017-04-18</dateStr>
+      <aerodromeName>FBSK</aerodromeName>
+      <descr>A secure storage to keep Airline crew's luggage and personal items.</descr>
+      <amount>22.33</amount>
+      <amountStr>22.33</amountStr>
+      <amountStrWithCurrencySymbol>P22.33</amountStrWithCurrencySymbol>
+      <amountAnsp>21</amountAnsp>
+      <amountAnspStr>21</amountAnspStr>
+      <userDescription>Test Details</userDescription></lineItem>
+    <lineItem>
+      <id xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+      <dateStr>2017-04-18</dateStr>
+      <aerodromeName>FBSK</aerodromeName>
+      <descr>Water</descr>
+      <amount>22.33</amount>
+      <amountStr>22.33</amountStr>
+      <amountStrWithCurrencySymbol>P22.33</amountStrWithCurrencySymbol>
+      <amountAnsp>21</amountAnsp>
+      <amountAnspStr>21</amountAnspStr>
+      <userDescription>Test Details2</userDescription></lineItem>
+    <lineItem>
+      <id xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+      <dateStr>2017-04-18</dateStr>
+      <aerodromeName>FBSK</aerodromeName>
+      <descr>Electricity</descr>
+      <amount>22.33</amount>
+      <amountStr>22.33</amountStr>
+      <amountStrWithCurrencySymbol>P22.33</amountStrWithCurrencySymbol>
+      <amountAnsp>21</amountAnsp>
+      <amountAnspStr>21</amountAnspStr>
+      <userDescription></userDescription></lineItem>
+  </lineItemList>
+  <additionalCharges>
+    <additionalCharge>
+        <description>Overdue invoice AAA111 interest</description>
+        <amount>121.0</amount>
+        <amountStr>121.00</amountStr>
+        <amountStrWithCurrencySymbol>P121.00</amountStrWithCurrencySymbol>
+        <amountAnsp>121</amountAnsp>
+        <amountAnspStr>121</amountAnspStr></additionalCharge>
+    <additionalCharge>
+        <description>Overdue invoice BBB222 interest</description>
+        <amount>121.0</amount>
+        <amountStr>121.00</amountStr>
+        <amountStrWithCurrencySymbol>P121.00</amountStrWithCurrencySymbol>
+        <amountAnsp>121</amountAnsp>
+        <amountAnspStr>121</amountAnspStr></additionalCharge>
+  </additionalCharges>
+  <accountCredits>
+    <accountCredit>
+        <description>Account credit (transaction receipt # 000001)</description>
+        <amount>121.0</amount>
+        <amountStr>121.00</amountStr>
+        <amountStrWithCurrencySymbol>P121.00</amountStrWithCurrencySymbol>
+        <amountAnsp>1111</amountAnsp>
+        <amountAnspStr>1111</amountAnspStr>
+	</accountCredit>
+    <accountCredit>
+        <description>Account credit (transaction receipt # 000002)</description>
+        <amount>121.0</amount>
+        <amountStr>121.00</amountStr>
+        <amountStrWithCurrencySymbol>P121.00</amountStrWithCurrencySymbol>
+        <amountAnsp>1111</amountAnsp>
+        <amountAnspStr>1111</amountAnspStr>
+	</accountCredit>
+  </accountCredits>
+  <overduePenaltyInvoices>
+      <overduePenaltyInvoice>
+          <invoiceNumber>Head Office001002</invoiceNumber>
+          <invoiceDateOfIssueStr>2017-04-13</invoiceDateOfIssueStr>
+          <paymentDueDateStr>2017-02-18</paymentDueDateStr>
+          <amountOwing>139.23</amountOwing>
+          <amountOwingStr>139.23</amountOwingStr>
+          <amountOwingStrWithCurrencySymbol>P139.23</amountOwingStrWithCurrencySymbol>
+          <amountOwingAnspStr>121</amountOwingAnspStr>
+          <amountOwingAnsp>121</amountOwingAnsp></overduePenaltyInvoice>
+  </overduePenaltyInvoices>
+  <bankAccountList>
+    <bankAccount>
+        <accountNumber>1002208</accountNumber>
+        <branchCode>290267</branchCode>
+        <currencyCode>BWP</currencyCode>
+    </bankAccount>
+    <bankAccount>
+        <accountNumber>1009981</accountNumber>
+        <branchCode>290667</branchCode>
+        <currencyCode>USD</currencyCode>
+    </bankAccount>
+    <bankAccount>
+        <accountNumber>1006990</accountNumber>
+        <branchCode>290667</branchCode>
+        <currencyCode>ZAR</currencyCode>
+    </bankAccount>
+   </bankAccountList>
+</nonAviationInvoice>

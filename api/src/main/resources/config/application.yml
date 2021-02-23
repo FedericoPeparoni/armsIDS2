@@ -1,0 +1,458 @@
+# ABMS API default configuration
+
+#
+# ==================================================
+#  Overridable properties
+# ==================================================
+
+# WARNING: Think twice before changing the structure of the "app." section!!!
+#
+# The following "app" section must contain _only_ the properties
+# that are likely to be changed by a user (sysadmin, developer, etc)
+# at runtime. These properties will be preserved during upgrades
+# on production servers, so it is important that their names
+# and interpretation remain stable. These properties may be
+# referenced directly from Java code or in subsequent section in this
+# file using the ${...} syntax.
+#
+# The defaults in this file may be overriden with site-specific values in
+# property files in the "overrides" folder when running the application
+# in development environment.
+#
+# The example overrides are in git ("overrides.*.example"), while the "overrides"
+# directory is .gitignore'd, to avoid merge conflicts.
+#
+app:
+
+    # ABMS database connection parameters
+    db:
+        url: jdbc:postgresql://localhost/abms
+        username: abms
+        password: abms
+
+    # NAVDB database connection parameters
+    navdb:
+        url: jdbc:postgresql://localhost/navdb
+        username: navdb
+        # TODO: (dpanech/2017-07-25) the default password in navdb is "navdb", not "aftn"
+        # TODO: change default password to "navdb" after Botswana SAT
+        password: aftn
+        schemaName: navdb
+        driverClassName: "org.postgresql.Driver"
+        # JDBC driver options
+        # FIXME: looks like Spring is ignoring these
+        loginTimeout: 5
+        connectTimeout: 5
+        tcpKeepAlive: true
+        ApplicationName: abms-api
+        search_path: navdb,public
+        # connection pool options
+        testOnBorrow: true
+        testWhileIdle: true
+        validationQuery: select 1;
+        validationQueryTimeout: 5
+        initialSize: 10
+        minIdle: 10
+        maxIdle: 20
+        maxActive: 20
+        minEvictableIdleTimeMillis: 60000
+        connectionProperties: connectTimeout=5;loginTimeout=5;tcpKeepAlive=true;ApplicationName=abms-api
+
+    # Spatia (aimdb) database connection parameters
+    spatiadb:
+        url: jdbc:postgresql://SPATIA_DB_HOST/aim
+        username: ubimex
+        password: aftn
+        schemaName: "ais"
+        queryName: "config/SPATIAQuery.txt"
+        # JDBC driver options
+        # FIXME: looks like Spring is ignoring these
+        loginTimeout: 5
+        connectTimeout: 5
+        tcpKeepAlive: true
+        ApplicationName: abms-api
+        # connection pool options
+        testOnBorrow: true
+        testWhileIdle: true
+        validationQuery: select 1;
+        validationQueryTimeout: 5
+        initialSize: 0
+        minIdle: 0
+        maxIdle: 10
+        maxActive: 10
+        minEvictableIdleTimeMillis: 60000
+        connectionProperties: connectTimeout=5;loginTimeout=5;tcpKeepAlive=true;ApplicationName=abms-api
+        # fpl import options
+        fplImport:
+            bufferCapacity: 100
+
+    # CRONOS (aimdb) database connection parameters
+    cronos2:
+        url: jdbc:postgresql://CRONOS2_DB_HOST/aim
+        username: ubimex
+        password: aftn
+        schemaName: "ais"
+        loginTimeout: 5
+        connectTimeout: 5
+        tcpKeepAlive: true
+        ApplicationName: abms-api
+        # connection pool options
+        testOnBorrow: true
+        testWhileIdle: true
+        validationQuery: select 1;
+        validationQueryTimeout: 5
+        initialSize: 0
+        minIdle: 0
+        maxIdle: 10
+        maxActive: 10
+        minEvictableIdleTimeMillis: 60000
+        connectionProperties: connectTimeout=5;loginTimeout=5;tcpKeepAlive=true;ApplicationName=abms-api
+        # fpl import options
+        fplImport:
+            bufferCapacity: 100
+
+    # Kcaa specific application properties
+    kcaa:
+        overdue-invoice:
+            schedule: "00 00 * * * *" # schedule (CRON expression)
+
+    # CORS headers
+    cors:
+        allowed-origins: null
+
+    jobLocking:
+        timeout:
+            minutes: 10
+
+    # application plugin specific properties
+    plugins:
+
+        # caab plugin specific properties
+        caab:
+            sage:
+                # caab sage database connection properties
+                db:
+                    # JDBC driver options
+                    loginTimeout: 5
+                    connectTimeout: 5
+                    tcpKeepAlive: true
+                    ApplicationName: abms-api
+                    # connection pool options
+                    testOnBorrow: true
+                    testWhileIdle: true
+                    validationQuery: SELECT 1;
+                    validationQueryTimeout: 5
+                    initialSize: 0
+                    minIdle: 0
+                    maxIdle: 10
+                    maxActive: 10
+                    minEvictableIdleTimeMillis: 60000
+                    connectionProperties: connectTimeout=5;loginTimeout=5;tcpKeepAlive=true;ApplicationName=abms-api
+
+        # kcaa plugin specific properties
+        kcaa:
+            aatis:
+                # kcaa aatis database connection properties
+                db:
+                    # JDBC driver options
+                    loginTimeout: 5
+                    connectTimeout: 5
+                    tcpKeepAlive: true
+                    ApplicationName: abms-api
+                    # connection pool options
+                    testOnBorrow: true
+                    testWhileIdle: true
+                    validationQuery: SELECT 1;
+                    validationQueryTimeout: 5
+                    initialSize: 0
+                    minIdle: 0
+                    maxIdle: 10
+                    maxActive: 10
+                    minEvictableIdleTimeMillis: 60000
+                    connectionProperties: connectTimeout=5;loginTimeout=5;tcpKeepAlive=true;ApplicationName=abms-api
+            eaip:
+                # kcaa eaip database connection properties
+                db:
+                    # JDBC driver options
+                    loginTimeout: 5
+                    connectTimeout: 5
+                    tcpKeepAlive: true
+                    ApplicationName: abms-api
+                    # connection pool options
+                    testOnBorrow: true
+                    testWhileIdle: true
+                    validationQuery: SELECT 1;
+                    validationQueryTimeout: 5
+                    initialSize: 0
+                    minIdle: 0
+                    maxIdle: 10
+                    maxActive: 10
+                    minEvictableIdleTimeMillis: 60000
+                    connectionProperties: connectTimeout=5;loginTimeout=5;tcpKeepAlive=true;ApplicationName=abms-api
+            erp:
+                # aircraft registration retrieval interval from erp (minutes)
+                aircraft-registration-retrieval-interval: 5
+                # transaction retrieval interval from erp (minutes)
+                receipt-retrieval-interval: 5
+                # kcaa erp database connection properties
+                db:
+                    # JDBC driver options
+                    loginTimeout: 5
+                    connectTimeout: 5
+                    tcpKeepAlive: true
+                    ApplicationName: abms-api
+                    # connection pool options
+                    testOnBorrow: true
+                    testWhileIdle: true
+                    validationQuery: SELECT 1;
+                    validationQueryTimeout: 5
+                    initialSize: 0
+                    minIdle: 0
+                    maxIdle: 10
+                    maxActive: 10
+                    minEvictableIdleTimeMillis: 60000
+                    connectionProperties: connectTimeout=5;loginTimeout=5;tcpKeepAlive=true;ApplicationName=abms-api
+
+# ==================================================
+# Logging defaults
+# ==================================================
+# These may be overridden in "overrides/logging.properties"
+logging:
+    # log to console?
+    consoleEnabled: true
+    # log to console in journald-friendly (Linux) format?
+    journaldConsoleEnabled: false
+    # log to file?
+    fileEnabled: false
+    fileMaxSize: 10MB
+    fileMaxIndex: 9
+    file: logs/abms.log
+    # default log levels
+    level:
+        root: WARN
+        ca.ids.abms: DEBUG
+        ca.ids.abms.config.aop.LoggingAspect: WARN
+    pattern:
+        level: User[%X{abms-mdc-data}] %5p
+
+# ==================================================
+#  Spring
+# ==================================================
+spring:
+    application:
+        name: abms
+    jpa:
+        database-platform: org.hibernate.spatial.dialect.postgis.PostgisDialect
+#        show-sql: true
+        properties:
+            hibernate:
+#                format_sql: true
+#                use_sql_comments: true
+                implicit_naming_strategy: ca.ids.abms.config.db.CustomImplicitNamingStrategy
+                id.new_generator_mappings: true
+                current_session_context_class: org.springframework.orm.hibernate4.SpringSessionContext
+
+                # Postgresql JDBC driver connection options
+                # See here: https://jdbc.postgresql.org/documentation/94/connect.html#connection-parameters
+                #
+                # FIXME: this is apparently not used, but the options under datasource below are.
+                connection:
+                    connectTimeout: 5
+                    loginTimeout: 5
+                    tcpKeepAlive: true
+                    ApplicationName: abms-api
+
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        url: ${app.db.url}
+        username: ${app.db.username}
+        password: ${app.db.password}
+        # connection pool options
+        test-on-borrow: true
+        test-while-idle: true
+        validation-query: "SELECT 1"
+        validation-query-timeout: 5
+        initial-size: 10
+        min-idle: 10
+        max-idle: 30
+        max-active: 30
+        min-evictable-idle-time-millis: 60000
+        connection-properties: connectTimeout=5;loginTimeout=5;tcpKeepAlive=true;ApplicationName=abms-api
+
+    favicon:
+        enabled: false
+    http:
+        multipart.max-file-size: 20MB
+        multipart.max-request-size: 20MB
+        multipart.enabled: true
+        multipart.file-size-threshold: 0
+        multipart.location: ${java.io.tmpdir}
+    mvc:
+        throw-exception-if-no-handler-found: true
+    resources:
+        add-mappings: false
+    velocity:
+        enabled: false
+
+# ==================================================
+#  Liquibase
+# ==================================================
+liquibase:
+    contexts: dev  # FIXME: unused? maybe remove
+    changeLog: classpath:/db/changelog.yml
+    enabled: true
+
+# ==================================================
+#  ABMS
+# ==================================================
+abms:
+    # If set, create this (empty) file after context refresh -- used by systemd (Linux)
+    # startup scripts
+    startupTriggerFile:
+
+    # Dbqueries service & controller
+    dbqueries:
+        # Location of SQL files. It's better to set this to the (full) file system path, rather than
+        # a classpath location. Classpath resources are hard to debug in Eclipse because you may have
+        # to rebuild/re-deploy your application every time you change an .sql file. In Linux
+        # this should be set to "/etc/abms/api/dbqueries"
+        queryFilesLocation: classpath:/dbqueries
+
+    # CORS
+    cors:
+        allowed-origins: '${app.cors.allowed-origins}'
+        allowed-methods: 'GET, PUT, POST, DELETE, OPTIONS'
+        allowed-headers: 'Access-Control-Allow-Headers, Origin, X-Requested-With, Content-Type, Accept, Authorization, Content-disposition, Access-Control-Expose-Headers'
+        exposed-headers: 'Access-Control-Exposed-Headers, Content-disposition, Content-type'
+        allow-credentials: true
+        max-age: 3600
+
+    # File uploads
+    uploads:
+        allowed-attachments-content-type:
+            certificate-templates:
+                'text/plain' : '.txt'
+                'application/msword' : '.doc'
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document' : '.docx'
+                'application/vnd.ms-excel' : '.xls'
+                'application/excel' : '.xls'
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' : '.xlsx'
+                'application/pdf' : '.pdf'
+            ldp-billing-formulas:
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' : '.xlsx'
+                'application/vnd.ms-excel' : '.xls'
+                'application/excel' : '.xls'
+                'text/csv' : '.csv'
+            billing-ledger-documents:
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' : '.xlsx'
+                'application/vnd.ms-excel' : '.xls'
+                'application/excel' : '.xls'
+                'application/msword' : '.doc'
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document' : '.docx'
+            invoice-templates:
+                'text/xml' : '.xml'
+                'application/xml' : '.rptdesign'
+
+    # Open exchange rates
+    oxr.client:
+         appId: d38c3a7fc4444e33a6fa654f0ccea620
+
+    # Jobs management
+    jobs:
+        # Max waiting time before to cancel a blocked job
+        timeout:
+            minutes: 15
+        # Thread pool configuration
+        core-pool-size: 4
+        max-pool-size: 4
+        queue-capacity: 100
+
+    http:
+        # When running behind an HTTP proxy with a path prefix that differs
+        # from Spring's contextRoot, it needs to be specified here. For example,
+        # as of this writing, on Linux, this app runs with default
+        # spring.contextPath="/", but served at "/abms" by an Apache reverse proxy,
+        # and therefore the app is started with -Dabms.http.proxyContextPath=/abms
+        proxyContextPath:
+
+
+    # Used by FPLObjectProcessor
+    fplObjectProcessor:
+        enabled: true
+        schedule: "0/10 * * * * ?"    # schedule (CRON expression)
+        
+# ==================================================
+#  RouteFinder
+# ==================================================
+route-finder:
+    maxRouteLengthRatio: 1.5
+    maxNotFoundTokenRatio: 0.5
+    maxCourseChangeInDegrees: 90
+    ingestIncorrectFormat: true
+    routeLengthMaxToleranceCoeff: 1.5
+    maxRouteSegmentLength: 100
+
+
+# ==================================================
+#  CSVReader
+# ==================================================
+csv-reader:
+    ignore-first-line: false
+    seperated-char: ","
+    quote-char:  "'"
+    date-pattern: "yyyyMMdd"
+    time-pattern: "HHmm"
+    date-time-pattern: "yyyy-MM-dd HHmm"
+
+# ===================================================
+#  Tomcat
+# ===================================================
+tomcat:
+    connector:
+        max-swallow-size: 262144000
+
+# ===================================================
+#  Swagger Config - API Documentation
+# ===================================================
+swagger:
+    enabled: false
+springfox:
+    # OpenAPI spec URL, see also https://swagger.io/docs/specification/2-0/basic-structure/
+    documentation.swagger.v2.path: /api/spec/v2
+
+# ===================================================
+#  Google reCAPTCHA Config
+# ===================================================
+google:
+    recaptcha:
+        public: ""
+        secret: ""
+
+# ===================================================
+#  Compression
+# ===================================================
+server:
+    compression:
+        enabled: true
+        mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css
+        min-response-size: 10240
+
+# ==================================================
+#  AMHS
+# ==================================================
+amhs:
+    serverShell: /bin/bash -c
+    homeDir: /home/ubimex
+    msgbinDir: ${amhs.homeDir}/msgbin
+    outputDir: ${amhs.msgbinDir}/outgoing
+    inputDir: ${amhs.msgbinDir}/incoming
+    failedDir: ${amhs.msgbinDir}/failed
+    inputScanDelay: 3000
+    maxFailedFileCount: 1000
+    forcePing: false
+    startCmd: ${amhs.homeDir}/bin/agent_start.sh
+    stopCmd: ${amhs.homeDir}/bin/agent_stop.sh
+    statusCmd: ${amhs.homeDir}/bin/agent_status.sh
+    validateHostConfigCmd: ${amhs.homeDir}/libexec/validate_host_config.sh
+    localStatusCmd: ${amhs.homeDir}/bin/agent_status.sh --local
+    localInstallCheckFile: ${amhs.homeDir}/bin/agent_start.sh

@@ -1,0 +1,234 @@
+abbrev,description,code,category
+7360,Tender Documents Security Deposit – (All locations),7360,AIR
+SK1000,International Landing Fees (Sched) - SSKIA,1000-17-1100-26-00,AIR
+MA1000,International Landing Fees (Sched) - Maun,1000-17-1200-27-00,AIR
+FT1000,International Landing Fees (Sched) - Francistown,1000-17-1300-28-00,AIR
+KA1000,International Landing Fees (Sched) - Kasane,1000-17-1400-29-00,AIR
+SP1000,International Landing Fees (Sched) - Selebi/Phikwe,1000-17-1500-30-00,AIR
+GA1000,International Landing Fees (Sched) - Ghanzi,1000-17-1600-31-00,AIR
+SK1010,International Landing Fees (Nonsched) - SSKIA,1010-17-1100-26-00,AIR
+MA1010,International Landing Fees  (Nonsched) - Maun,1010-17-1200-27-00,AIR
+FT1010,International Landing Fees  (Nonsched) - Francistown,1010-17-1300-28-00,AIR
+KA1010,International Landing Fees  (Nonsched) - Kasan,1010-17-1400-29-00,AIR
+SP1010,International Landing Fees  (Nonsched) - Selebi/Phikwe,1010-17-1500-30-00,AIR
+GA1010,International Landing Fees  (Nonsched) - Ghanzi,1010-17-1600-31-00,AIR
+SK1020,Domestic Landing Fees (Sched) - SSKIA,1020-17-1100-26-00,AIR
+MA1020,Domestic Landing Fees (Sched) - Maun,1020-17-1200-27-00,AIR
+FT1020,Domestic Landing Fees (Sched) - Francistown,1020-17-1300-28-00,AIR
+KA1020,Domestic Landing Fees (Sched) - Kasane,1020-17-1400-29-00,AIR
+SP1020,Domestic Landing Fees (Sched) - Selebi/Phikwe,1020-17-1500-30-00,AIR
+GA1020,Domestic Landing Fees (Sched) - Ghanzi,1020-17-1600-31-00,AIR
+SK1030,Domestic Landing Fees (Nonsched) - SSKIA,1030-17-1100-26-00,AIR
+MA1030,Domestic Landing Fees (Nonsched) - Maun,1030-17-1200-27-00,AIR
+FT1030,Domestic Landing Fees (Nonsched) - Francistown,1030-17-1300-28-00,AIR
+KA1030,Domestic Landing Fees (Nonsched) - Kasane,1030-17-1400-29-00,AIR
+SP1030,Domestic Landing Fees (Nonsched) - Selebi/Phikwe,1030-17-1500-30-00,AIR
+GA1030,Domestic Landing Fees (Nonsched) - Ghanzi,1030-17-1600-31-00,AIR
+SK1040,Parking Fees - SSKIA,1040-17-1100-26-00,AIR
+MA1040,Parking Fees - Maun,1040-17-1200-27-00,AIR
+FT1040,Parking Fees - Francistown,1040-17-1300-28-00,AIR
+KA1040,Parking Fees - Kasane,1040-17-1400-29-00,AIR
+SP1040,Parking Fees - Selebi/Phikw,1040-17-1500-30-00,AIR
+GA1040,Parking Fees - Ghanzi,1040-17-1600-31-00,AIR
+HO1100,Enroute Charges (Sched) – HO (IATA Charges),1100-14-1000-08-00,IATA
+SK1100,Enroute Charges (Sched) – SSKIA,1100-14-1100-26-00,AIR
+MA1100,Enroute Charges (Sched) – Maun,1100-14-1200-27-00,AIR
+FT1100,Enroute Charges (Sched) – Francistown,1100-14-1300-28-00,AIR
+KA1100,Enroute Charges(Sched)  - Kasane,1100-14-1400-29-00,AIR
+SP1100,Enroute Charges(Sched)  - Selebi/Phikwe,1100-14-1500-30-00,AIR
+GA1100,Enroute Charges (Sched) – Ghanzi,1100-14-1600-31-00,AIR
+HO1110,Enroute Charges (Nonsched) – HO (IATA Charges),1110-14-1000-08-00,IATA
+SK1110,Enroute Charges (Nonsched) – SSKIA,1110-14-1100-26-00,AIR
+MA1110,Enroute Charges (Nonsched) - Maun,1110-14-1200-27-00,AIR
+FT1110,Enroute Charges (Nonsched) - Francistown,1110-14-1300-28-00,AIR
+KA1110,Enroute Charges (Nonsched) - Kasane,1110-14-1400-29-00,AIR
+SP1110,Enroute Charges (Nonsched) - Selebi/Phikwe,1110-14-1500-30-00,AIR
+GA1110,Enroute Charges (Nonsched) - Ghanzi,1110-14-1600-31-00,AIR
+SK1120,International Passenger Fees - SSKIA,1120-17-1100-26-00,AIR
+MA1120,International Passenger Fees - Maun,1120-17-1200-27-00,AIR
+FT1120,International Passenger Fees - Francistown,1120-17-1300-28-00,AIR
+KA1120,International Passenger Fees - Kasane,1120-17-1400-29-00,AIR
+SP1120,International Passenger Fees - Selebi/Phikwe,1120-17-1500-30-00,AIR
+GA1120,International Passenger Fees - Ghanzi,1120-17-1600-31-00,AIR
+SK1130,Domestic Passenger Fees - SSKIA,1130-17-1100-26-00,AIR
+MA1130,Domestic Passenger Fees - Maun,1130-17-1200-27-00,AIR
+FT1130,Domestic Passenger Fees - Francistown,1130-17-1300-28-00,AIR
+KA1130,Domestic Passenger Fees - Kasane,1130-17-1400-29-00,AIR
+SP1130,Domestic Passenger Fees - Selebi/Phikwe,1130-17-1500-30-00,AIR
+GA1130,Domestic Passenger Fees - Ghanzi,1130-17-1600-31-00,AIR
+Sk1200,Rentals & leases land – SSKIA,1200-17-1100-26-00,RENT
+MA1200,Rentals & leases land – Maun,1200-17-1200-27-00,RENT
+FT1200,Rentals & leases land – Francistown,1200-17-1300-28-00,RENT
+KA1200,Rentals & leases land – Kasane,1200-17-1400-29-00,RENT
+SP1200,Rentals & leases land – Selebi/Phikwe,1200-17-1500-30-00,RENT
+GA1200,Rentals & leases land - Ghanzi,1200-17-1600-31-00,RENT
+SK1220,Rentals & leases hangers - SSKIA,1220-17-1100-26-00,RENT
+MA1220,Rentals & leases hangers - Maun,1220-17-1200-27-00,RENT
+FT1220,Rentals & leases hangers - Francistown,1220-17-1300-28-00,RENT
+KA1220,Rentals & leases hangers - Kasane,1220-17-1400-29-00,RENT
+SP1220,Rentals & leases hangers – Selebi/Phikwe,1220-17-1500-30-00,RENT
+GA1220,Rentals & leases hangers - Ghanzi,1220-17-1600-31-00,RENT
+SK1350,Rentals  & leases cars - SSKIA,1350-17-1100-26-00,AIR
+MA1350,Rentals & leases cars - Maun,1350-17-1200-27-00,AIR
+FT1350,Rentals & leases cars - Francistown,1350-17-1300-28-00,AIR
+KA1350,Rentals & leases cars - Kasane,1350-17-1400-29-00,AIR
+SP1350,Rentals & leases cars - Selebi/Phikwe,1350-17-1500-30-00,AIR
+GA1350,Rentals & leases cars - Ghanzi,1350-17-1600-31-00,AIR
+SK1371,Other income - SSKIA,1371-17-1100-26-00,AIR
+MA1371,Other income - Maun,1371-17-1200-27-00,AIR
+FT1371,Other income - Francistown,1371-17-1300-28-00,AIR
+KA1371,Other income - Kasane,1371-17-1400-29-00,AIR
+SP1371,Other income - Selebi/Phikwe,1371-17-1500-30-00,AIR
+GA1371,Other income - Ghanzi,1371-17-1600-31-00,AIR
+HO1373,Administration Fees on loans,1373-12-1000-01-00,AIR
+HO1374,Tender security deposit - non refundable,1374-13-1000-06-00,AIR
+SK1530,Electricity Charges - SSKIA,1530-17-1100-26-00,UTIL
+MA1530,Electricity Charges - Maun,1530-17-1200-27-00,UTIL
+FT1530,Electricity Charges - Francistown,1530-17-1300-28-00,UTIL
+KA1530,Electricity Charges - Kasane,1530-17-1400-29-00,UTIL
+SP1530,Electricity Charges - Selebi/Phikwe,1530-17-1500-30-00,UTIL
+GH1530,Electricity Charges - Ghanzi,1530-17-1600-31-00,UTIL
+SK1540,Water Charges - SSKIA,1540-17-1100-26-00,UTIL
+MA1540,Water Charges - Maun,1540-17-1200-27-00,UTIL
+FT1540,Water Charges - Francistown,1540-17-1300-28-00,UTIL
+KA1540,Water Charges - Kasane,1540-17-1400-29-00,UTIL
+SP1540,Water Charges - Selebi/Phikwe,1540-17-1500-30-00,UTIL
+GH1540,Water Charges - Ghanzi,1540-17-1600-31-00,UTIL
+HO1550,Sale of Aviation Publication- HO,1550-14-1000-08-00,AIR
+SK1550,Sale of Aviation Publication- SSKIA,1550-14-1100-26-00,AIR
+MA1550,Sale of Aviation Publication- Maun,1550-14-1200-27-00,AIR
+FT1550,Sale of Aviation Publication- Francistown,1550-14-1300-28-00,AIR
+KA1550,Sale of Aviation Publication- Kasane,1550-14-1400-29-00,AIR
+SP1550,Sale of Aviation Publication- Selebi/Phikwe,1550-14-1500-30-00,AIR
+GH1550,Sale of Aviation Publication- Ghanzi,1550-14-1600-31-00,AIR
+HO1560,Telephone Charges - HO,1560-13-1000-19-00,AIR
+SK1560,Telephone Charges - SSKIA,1560-17-1100-26-00,AIR
+MA1560,Telephone Charges - Maun,1560-17-1200-27-00,AIR
+FT1560,Telephone Charges - Francistown,1560-17-1300-28-00,AIR
+KA1560,Telephone Charges - Kasane,1560-17-1400-29-00,AIR
+SP1560,Telephone Charges - Selebi/Phikwe,1560-17-1500-30-00,AIR
+GH1560,Telephone Charges - Ghanzi,1560-17-1600-31-00,AIR
+HO1600,Certificate of Registration - HO,1600-15-1000-10-00,AIR
+SK1600,Certificate of Registration - SSKIA,1600-15-1100-26-00,AIR
+MA1600,Certificate of Registration - Maun,1600-15-1200-27-00,AIR
+FT1600,Certificate of Registration - Francistown,1600-15-1300-28-00,AIR
+KA1600,Certificate of Registration - Kasane,1600-15-1400-29-00,AIR
+SP1600,Certificate of Registration - Selebi/Phikwe,1600-15-1500-30-00,AIR
+GH1600,Certificate of Registration - Ghanzi,1600-15-1600-31-00,AIR
+HO1610,Air Operator Certificate - HO,1610-15-1000-12-00,AIR
+SK1610,Air Operator Certificate - SSKIA,1610-15-1100-26-00,AIR
+MA1610,Air Operator Certificate - Maun,1610-15-1200-27-00,AIR
+FT1610,Air Operator Certificate - Francistown,1610-15-1300-28-00,AIR
+KA1610,Air Operator Certificate - Kasane,1610-15-1400-29-00,AIR
+SP1610,Air Operator Certificate - Selebi/Phikwe,1610-15-1500-30-00,AIR
+GH1610,Air Operator Certificate - Ghanzi,1610-15-1600-31-00,AIR
+HO1620,Certificate of Airworthiness - HO,1620-15-1000-12-00,AIR
+SK1620,Certificate of Airworthiness - SSKIA,1620-15-1100-26-00,AIR
+MA1620,Certificate of Airworthiness - Maun,1620-15-1200-27-00,AIR
+FT1620,Certificate of Airworthiness - Francistown,1620-15-1300-28-00,AIR
+KA1620,Certificate of Airworthiness - Kasane,1620-15-1400-29-00,AIR
+SP1620,Certificate of Airworthiness - Selebi/Phikwe,1620-15-1500-30-00,AIR
+GH1620,Certificate of Airworthiness - Ghanzi,1620-15-1600-31-00,AIR
+HO1630,Approval of Maintenance Org - HO,1630-15-1000-12-00,AIR
+SK1630,Approval of Maintenance Org - SSKIA,1630-15-1100-26-00,AIR
+MA1630,Approval of Maintenance Org - Maun,1630-15-1200-27-00,AIR
+FT1630,Approval of Maintenance Org - Francistown,1630-15-1300-28-00,AIR
+KA1630,Approval of Maintenance Org - Kasane,1630-15-1400-29-00,AIR
+SP1630,Approval of Maintenance Org - Selebi/Phikwe,1630-15-1500-30-00,AIR
+GH1630,Approval of Maintenance Org - Ghanzi,1630-15-1600-31-00,AIR
+HO1640,Aircraft Maint Eng License - HO,1640-15-1000-12-00,AIR
+SK1640,Aircraft Maint Eng License - SSKIA,1640-15-1100-26-00,AIR
+MA1640,Aircraft Maint Eng License - Maun,1640-15-1200-27-00,AIR
+FT1640,Aircraft Maint Eng License - Francistown,1640-15-1300-28-00,AIR
+KA1640,Aircraft Maint Eng License - Kasane,1640-15-1400-29-00,AIR
+SP1640,Aircraft Maint Eng License - Selebi/Phikwe,1640-15-1500-30-00,AIR
+GH1640,Aircraft Maint Eng License - Ghanzi,1640-15-1600-31-00,AIR
+HO1650,Flight Crew License - HO,1650-15-1000-10-00,AIR
+SK1650,Flight Crew License - SSKIA,1650-15-1100-26-00,AIR
+MA1650,Flight Crew License - Maun,1650-15-1200-27-00,AIR
+FT1650,Flight Crew License - Francistown,1650-15-1300-28-00,AIR
+KA1650,Flight Crew License - Kasane,1650-15-1400-29-00,AIR
+SP1650,Flight Crew License - Selebi/Phikwe,1650-15-1500-30-00,AIR
+GH1650,Flight Crew License - Ghanzi,1650-15-1600-31-00,AIR
+HO1651,Pilot licences cover - HO,1651-15-1000-10-00,AIR
+SK1651,Pilot licences cover - SSKIA,1651-15-1100-26-00,AIR
+MA1651,Pilot licences cover - Maun,1651-15-1200-27-00,AIR
+FT1651,Pilot licences cover - Francistown,1651-15-1300-28-00,AIR
+KE1651,Pilot licences cover - Kasane,1651-15-1400-29-00,AIR
+SP1651,Pilot licences cover - Selebi/Phikwe,1651-15-1500-30-00,AIR
+GA1651,Pilot licences cover - Ghanzi,1651-15-1600-31-00,AIR
+HO1660,Air Traffic Control License - HO,1660-15-1000-10-00,AIR
+SK1660,Air Traffic Control License - SSKIA,1660-15-1100-26-00,AIR
+MA1660,Air Traffic Control License - Maun,1660-15-1200-27-00,AIR
+FT1660,Air Traffic Control License - Francistown,1660-15-1300-28-00,AIR
+KA1660,Air Traffic Control License - Kasane,1660-15-1400-29-00,AIR
+SP1660,Air Traffic Control License - Selebi/Phikwe,1660-15-1500-30-00,AIR
+GH1660,Air Traffic Control License - Ghanzi,1660-15-1600-31-00,AIR
+HO1670,Aerodrome Fees - HO,1670-17-1000-18-00,AIR
+SK1670,Aerodrome Fees - SSKI,1670-17-1100-26-00,AIR
+MA1670,Aerodrome Fees - Maun,1670-17-1200-27-00,AIR
+FT1670,Aerodrome Fees - Francistown,1670-17-1300-28-00,AIR
+KA1670,Aerodrome Fees - Kasane,1670-17-1400-29-00,AIR
+SP1670,Aerodrome Fees - Selebi/Phikwe,1670-17-1500-30-00,AIR
+GH1670,Aerodrome Fees - Ghanzi,1670-17-1600-31-00,AIR
+HO1680,Temporary Air Service Permits - HO,1680-16-1000-17-00,AIR
+SK1680,Temporary Air Service Permits - SSKIA,1680-16-1100-26-00,AIR
+MA1680,Temporary Air Service Permits - Maun,1680-16-1200-27-00,AIR
+FT1680,Temporary Air Service Permits - Francistown,1680-16-1300-28-00,AIR
+KA1680,Temporary Air Service Permits - Kasane,1680-16-1400-29-00,AIR
+SP1680,Temporary Air Service Permits - Selebi/Phikwe,1680-16-1500-30-00,AIR
+GH1680,Temporary Air Service Permits - Ghanzi,1680-16-1600-31-00,AIR
+SK1681,Air Transport License - HO,1681-16-1000-17-00,AIR
+SK1681,Air Transport License - SSKIA,1681-16-1100-26-00,AIR
+MA1681,Air Transport License - Maun,1681-16-1200-27-00,AIR
+FT1681,Air Transport License - Francistown,1681-16-1300-28-00,AIR
+KA1681,Air Transport License - Kasane,1681-16-1400-29-00,AIR
+SP1681,Air Transport License - Selebi/Phikwe,1681-16-1500-30-00,AIR
+GH1681,Air Transport License - Ghanzi,1681-16-1600-31-00,AIR
+HO1682,Pilot License - HO,1682-15-1000-10-00,AIR
+SK1682,Pilot License - SSKIA,1682-15-1100-26-00,AIR
+MA1682,Pilot License - Maun,1682-15-1200-27-00,AIR
+FT1682,Pilot License - Francistown,1682-15-1300-28-00,AIR
+KA1682,Pilot License - Kasane,1682-15-1400-29-00,AIR
+SP1682,Pilot License - Selebi/Phikwe,1682-15-1500-30-00,AIR
+GH1682,Pilot License - Ghanzi,1682-15-1600-31-00,AIR
+HO1683,Air Law Exams - HO,1683-15-1000-10-00,AIR
+SK1683,Air Law Exams - SSKIA,1683-15-1100-26-00,AIR
+MA1683,Air Law Exams - Maun,1683-15-1200-27-00,AIR
+FT1683,Air Law Exams - Francistown,1683-15-1300-28-00,AIR
+KA1683,Air Law Exams - Kasane,1683-15-1400-29-00,AIR
+SP1683,Air Law Exams - Selebi/Phikwe,1683-15-1500-30-00,AIR
+GH1683,Air Law Exams - Ghanzi,1683-15-1600-31-00,AIR
+HO1684,Engineers Exams - HO,1684-15-1000-12-00,AIR
+SK1684,Engineers Exams - SSKIA,1684-15-1100-26-00,AIR
+MA1684,Engineers Exams - Maun,1684-15-1200-27-00,AIR
+FT1684,Engineers Exams - Francistown,1684-15-1300-28-00,AIR
+KA1684,Engineers Exams - Kasane,1684-15-1400-29-00,AIR
+SP1684,Engineers Exams - Selebi/Phikwe,1684-15-1500-30-00,AIR
+GH1684,Engineers Exams - Ghanzi,1684-15-1600-31-00,AIR
+SK1686,Empty containers - SSKIA,1686-17-1100-26-00,AIR
+MA1686,Empty containers - Maun,1686-17-1200-27-00,AIR
+FT1686,Empty containers - Francistown,1686-17-1300-28-00,AIR
+KE1686,Empty containers - Kasane,1686-17-1400-29-00,AIR
+SP1686,Empty containers - Selebi/Phikwe,1686-17-1500-30-00,AIR
+GA1686,Empty containers - Ghanzi,1686-17-1600-31-00,AIR
+HO1690,Operation of Air Services - HO,1690-15-1000-10-00,AIR
+SK1690,Operation of Air Services - SSKIA,1690-15-1100-26-00,AIR
+MA1690,Operation of Air Services - Maun,1690-15-1200-27-00,AIR
+FT1690,Operation of Air Services - Francistown,1690-15-1300-28-00,AIR
+KA1690,Operation of Air Services - Kasane,1690-15-1400-29-00,AIR
+SP1690,Operation of Air Services - Selebi/Phikwe,1690-15-1500-30-00,AIR
+GH1690,Operation of Air Services - Ghanzi,1690-15-1600-31-00,AIR
+1735HO,Banking surpluses and shortages - HO,1735-12-1000-01-00,AIR
+1735SK,Banking surpluses and shortages - SSKIA,1735-12-1100-26-00,AIR
+1735MA,Banking surpluses and shortages - Maun,1735-12-1200-27-00,AIR
+1735FT,Banking surpluses and shortages - Francistown,1735-12-1300-28-00,AIR
+1735KE,Banking surpluses and shortages - Kasane,1735-12-1400-29-00,AIR
+1735SP,Banking surpluses and shortages - Selebi/Phikwe,1735-12-1500-30-00,AIR
+1735GA,Banking surpluses and shortages - Ghanzi,1735-12-1600-31-00,AIR
+SK1751,Airport identity cards - SSKIA,1751-17-1100-26-00,AIR
+1751MA,Airport identity cards - Maun,1751-17-1200-27-00,AIR
+1751FT,Airport identity cards - Francistown,1751-17-1300-28-00,AIR
+1751KE,Airport identity cards - Kasane,1751-17-1400-29-00,AIR
+1751SP,Airport identity cards - Selebi/Phikwe,1751-17-1500-30-00,AIR
+1751GA,Airport identity cards - Ghanzi,1751-17-1600-31-00,AIR

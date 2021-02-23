@@ -1,0 +1,21 @@
+databaseChangeLog:
+    # GIS utility functions
+    - include:
+        file: gis-utils/changelog.yml
+        relativeToChangelogFile: true
+    # Database General Migrations
+    - include:
+        file: migration/changelog.yml
+        relativeToChangelogFile: true
+    # Database Release Notes Migrations
+    - include:
+        file: releasenotes/changelog.yml
+        relativeToChangelogFile: true
+    # Database Plugin Migrations
+    - include:
+        file: plugins/changelog.yml
+        relativeToChangelogFile: true
+    # Translations
+    - include:
+        file: translations/changelog.yml
+        relativeToChangelogFile: true

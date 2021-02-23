@@ -1,0 +1,9 @@
+databaseChangeLog:
+- include:
+      author: Olga Bila
+      file: 20200309150100_changelog_lang_1.5.1.sql
+      relativeToChangelogFile: true
+- include:
+      author: Olga Bila
+      file: 20200609152200_changelog_lang_1.5.2.sql
+      relativeToChangelogFile: true

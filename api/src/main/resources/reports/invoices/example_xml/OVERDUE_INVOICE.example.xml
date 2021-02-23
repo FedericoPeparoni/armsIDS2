@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<overdueInvoice>
+    <global>
+        <accountId>6</accountId>
+        <accountName>Air Botswana</accountName>
+        <billingName>Agnes Khunwana</billingName>
+        <billingAddress>Sir Seretse Khama International Airport, Gaborone, Botswana</billingAddress>
+        <billingContactTel>123456</billingContactTel>
+        <totalAmount>66.99</totalAmount>
+        <totalAmountStr>66.99</totalAmountStr>
+        <totalAmountStrWithCurrencySymbol>P66.99</totalAmountStrWithCurrencySymbol>
+        <invoiceCurrencyCode>BWP</invoiceCurrencyCode>
+        <invoiceRefNumber>HQ000140</invoiceRefNumber>
+        <invoiceRefDateStr>2017-04-10</invoiceRefDateStr>
+        <realInvoiceNumber>Head Office001002</realInvoiceNumber>
+        <invoiceNumber>PREVIEW</invoiceNumber>
+        <invoiceName>OVERDUE INVOICE</invoiceName>
+        <invoiceIssueLocation>Head Office</invoiceIssueLocation>
+        <invoiceNumber>HQ000140</invoiceNumber>
+        <invoiceDateStr>2017-04-10</invoiceDateStr>
+        <totalAmountAnsp></totalAmountAnsp>
+        <totalAmountAnspStr></totalAmountAnspStr></global>
+</overdueInvoice>

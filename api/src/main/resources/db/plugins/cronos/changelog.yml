@@ -1,0 +1,10 @@
+databaseChangeLog:
+    - changeSet:
+        id: 20180531121500_insert_plugins.cronos
+        author: Cristian
+        changes:
+            - loadData:
+                file: data\20180531121500_insert_plugins.cronos.csv
+                tableName: plugins
+                separator: ;
+                relativeToChangelogFile: true

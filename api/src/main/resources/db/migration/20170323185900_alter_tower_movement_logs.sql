@@ -1,0 +1,1 @@
+alter table tower_movement_logs drop constraint tower_movement_logs_flight_id_key;

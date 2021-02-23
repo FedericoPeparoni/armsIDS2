@@ -1,0 +1,66 @@
+databaseChangeLog:
+    - changeSet:
+        id: 20180528203700_insert_plugins.caab.sage
+        author: Samuel Craymer
+        changes:
+            - loadData:
+                file: data/20180528203700_insert_plugins.caab.sage.csv
+                tableName: plugins
+                separator: ;
+                relativeToChangelogFile: true
+    - include:
+        author: Jonathan B
+        file: tables/20180528204100_create_caab_sage_bank_codes.caab.sage.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Jonathan B
+        file: tables/20180528204300_create_caab_sage_distribution_codes.caab.sage.sql
+        relativeToChangelogFile: true
+    - changeSet:
+        id: 20180528204500_insert_bank_codes.caab.sage
+        author: Jonathan B
+        changes:
+            - loadData:
+                file: data/20180528204500_insert_bank_codes.caab.sage.csv
+                tableName: caab_sage_bank_codes
+                relativeToChangelogFile: true
+    - changeSet:
+        id: 20180528204600_insert_distribution_codes.caab.sage
+        author: Jonathan B
+        changes:
+            - loadData:
+                file: data/20180528204600_insert_distribution_codes.caab.sage.csv
+                tableName: caab_sage_distribution_codes
+                relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: data/20180528221000_insert_system_configurations.caab.sage.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: data/20180608192300_insert_system_configurations.caab.sage.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20180612221500_alter_caab_sage_bank_codes.caab.sage.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: data/20180612221500_delete_bank_codes.caab.sage.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20180613190800_alter_bank_codes.caab.sage.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: data/20180626195100_insert_system_configurations.caab.sage.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: tables/20180710165500_drop_bank_codes.caab.sage.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Samuel Craymer
+        file: data/20180711191900_update_plugins.sage.caab.sql
+        relativeToChangelogFile: true

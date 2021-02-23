@@ -1,0 +1,3 @@
+login,email,password,name,created_by
+system,system,$2a$06$1FD79qcTjmmenJAqsvLGYeA/Qnse4qjA0sJJ/KKE38EX19muqEoWm,system,system
+admin,admin,$2a$06$/nZ5bY5mBZsexaDREE1CGeOhJ9BzcSM8/nO6NwOr3umWKlVrPfSzi,admin,system

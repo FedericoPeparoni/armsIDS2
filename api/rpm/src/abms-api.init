@@ -1,0 +1,88 @@
+#!/bin/bash
+#
+# abms-api  Startup script for abms-api
+#
+# chkconfig: - 74 26
+# pidfile: /var/run/abms/api.pid
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+NAME=abms-api
+PID_FILE=/var/run/abms/api.pid
+LOCK_FILE=/var/lock/subsys/$NAME
+START_SCRIPT=/usr/libexec/abms/api/initd.start.sh
+POST_START_SCRIPT=/usr/libexec/abms/api/systemd.start.post.sh
+START_OPTS=""
+START_WAIT_TIMEOUT=5m
+WORK_DIR=/var/lib/abms/api/cores
+RETVAL=1
+OWNER="abms"
+RUNUSER=/sbin/runuser
+
+ensure_root() {
+        [ `id -u` = 0 ] || { echo "This program must be run by root!" >&2 ; exit 4 ; }
+}
+
+start() {
+	echo -n $"Starting $NAME: "
+	local pid=`pidofproc -p "$PID_FILE" "$NAME"`
+	if [ -z "$pid" ] ; then
+		rm -f "$PID_FILE"
+		MAINPID="$($RUNUSER -c "cd \"$WORK_DIR\" && exec \"$START_SCRIPT\" $START_OPTS" - "$OWNER")"
+		export MAINPID
+		echo "$MAINPID" >"$PID_FILE"
+		timeout "$START_WAIT_TIMEOUT" "$POST_START_SCRIPT"
+		RETVAL=$?
+		echo
+		[ $RETVAL = 0 ] && touch "$LOCK_FILE" || rm -f "$PID_FILE"
+	else
+		echo -n "(already running)"
+		echo_success
+		echo
+		RETVAL=0
+	fi
+	return $RETVAL
+}
+
+stop() {
+        echo -n $"Stopping $NAME: "
+        local pid=`pidofproc -p "$PID_FILE" "$NAME"`
+        if [ ."$pid" != . ] ; then
+                killproc -p "$PID_FILE" -d 30 "$NAME"
+                RETVAL=$?
+                echo
+                [ $RETVAL = 0 ] && rm -f "$LOCK_FILE" "$PID_FILE"
+        else
+		echo -n "(not running)"
+                echo_success
+                echo
+                RETVAL=0
+        fi
+}
+
+case "$1" in
+	start)
+		ensure_root
+		start
+		;;
+	stop)
+		ensure_root
+		stop
+		;;
+	restart)
+		ensure_root
+		stop
+		start
+		;;
+	status)
+		status -p "$PID_FILE" "$NAME"
+		RETVAL=$?
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart|status}"
+		exit 1
+esac
+
+exit $RETVAL
+

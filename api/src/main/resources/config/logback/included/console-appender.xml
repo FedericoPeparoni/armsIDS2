@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+    <if condition="${LOG_CONSOLE_ENABLED}">
+        <then>
+            <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+        </then>
+    </if>
+</included>
