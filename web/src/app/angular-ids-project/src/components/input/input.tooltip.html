@@ -1,0 +1,11 @@
+<span class="errors">
+    <span ng-messages="errorTooltip" role="alert">
+        <div ng-message="{{ key }}" ng-repeat="(key, value) in errorMessages">
+            <!-- translatable value of error tooltip -->
+            <span translate>{{ ::value }}</span>\
+            <!-- additional dynamic tooltip parameters -->
+            <span ng-if="errorTooltip.patternFormat && key === 'patternFormat'">({{ ::errorTooltip.patternFormat }})</span>
+            <span ng-if="minLength && (key === 'minlength' || key === 'pwcheck-minlength')">({{ ::minLength }})</span>
+        </div>
+    </span>
+</span>

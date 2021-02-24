@@ -1,0 +1,330 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="box-container">
+            <box-header toggle="toggle" page-name="charges-and-formulas.enroute-air-navigation-charge-managment" icon="'flask'"
+                title="{{ 'Enroute Air Navigation Charges' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table back-end-export="true" service="enrouteAirNavigationChargesManagementService"
+                            query-string="filterParameters">
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" 
+                                table-sort="refresh({ page: pagination.number }, sort)">
+                                <thead>
+                                    <tr>
+                                        <th class="text-right text-nowrap">
+                                            <span>{{ 'MTOW Upper Limit' | translate }}&nbsp;({{ mtowUnitOfMeasure | translate }})</span>
+                                        </th>
+                                        <th class="text-nowrap text-capitalize" ng-show="!item.name.includes('OTHER')" ng-repeat="item in categories">
+                                            <span>{{ item.name.toLowerCase() + ' Formula' | translate }}</span>
+                                        </th>
+                                        <th translate class="text-nowrap">W Factor Formula</th>
+                                        <th class="text-nowrap text-capitalize" ng-show="!item.name.includes('OTHER')" ng-repeat="item in categories">
+                                            <span>{{ item.name.toLowerCase() + ' D-Factor Formula' | translate }}</span>
+                                        </th>
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="form.$setUntouched(); edit(item)" ng-repeat="item in list" ng-class="{'highlight': editable.id === item.id}">
+                                        <td class="text-right">{{ item.mtow_category_upper_limit | weightConverter }}</td>
+                                        <td ng-show="!value.flightmovement_category.name.includes('OTHER')"
+                                            ng-repeat="value in item.enroute_air_navigation_charge_formulas">{{ value.formula }}</td>
+                                        <td>{{ item.w_factor_formula }}</td>
+                                        <td ng-show="!value.flightmovement_category.name.includes('OTHER')"
+                                            ng-repeat="value in item.enroute_air_navigation_charge_formulas">{{ value.d_factor_formula }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td translate class="text-left" colspan="16">There are no Enroute Air Navigation Charges data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refresh({ page: pagination.number }, getSortQueryString())"
+                            max-size="::20" items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-12 margin-top-20" ng-show="toggle">
+        <div class="box-container">
+            <box-header ng-show="editable.id === null" icon="'flask'" title="{{ 'Create Formulas' | translate }}"></box-header>
+            <box-header ng-show="editable.id !== null" icon="'flask'" title="{{ 'Edit Formulas' | translate }}"></box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <fieldset ng-disabled="!hasPermission('enroute_charges_modify')">
+
+                        <div class="row">
+                            <div class="col-xs-6 col-xs-offset-3">
+                                <div class="alert text-center infoAlert">
+                                    <span translate>PLEASE DO NOT USE COMMAS FOR THOUSAND SEPARATORS. e.g. 1000000.00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <uib-accordion close-others="oneAtATime">
+                                    <div uib-accordion-group class="panel-default" heading="{{'Parameters' | translate}}" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                                        <table>
+                                            <tr>
+                                                <td class="col-md-1">
+                                                    <button translate type="button" class="btn btn-primary btn-block" id="btn-mtow" ng-click="addToFormula('[MTOW]')">
+                                                        [MTOW]
+                                                    </button>
+                                                </td>
+                                                <td translate>Maximum Take Off Weight</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-1">
+                                                    <button translate type="button" class="btn btn-primary btn-block" id="btn-avgMassFactor" ng-click="addToFormula('[AvgMassFactor]')">
+                                                        [AvgMassFactor]</button>
+                                                </td>
+                                                <td translate>Average Mass Factor</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-1">
+                                                    <button type="button" class="btn btn-primary btn-block" id="btn-crossDist" ng-click="addToFormula('[CrossDist]')">
+                                                        [CrossDist] </button>
+                                                </td>
+                                                <td translate>FIR crossing distance</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-1">
+                                                    <button type="button" class="btn btn-primary btn-block" id="btn-accountDiscount" ng-click="addToFormula('[AccountDiscount]')">
+                                                        [AccountDiscount] </button>
+                                                </td>
+                                                <td translate>Discount percentage for the account</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-1">
+                                                    <button type="button" class="btn btn-primary btn-block" id="btn-entriesNumber" ng-click="addToFormula('[EntriesNumber]')">
+                                                        [EntriesNumber] </button>
+                                                </td>
+                                                <td translate>Number of entry points into FIR</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-1">
+                                                    <button type="button" class="btn btn-primary btn-block" id="btn-firEntryFee" ng-click="addToFormula('[FirEntryFee]')">
+                                                        [FirEntryFee] </button>
+                                                </td>
+                                                <td translate>Cost per FIR entry based on account</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-1">
+                                                    <button type="button" class="btn btn-primary btn-block" id="btn-approachFee" ng-click="addToFormula('[ApproachFee]')">
+                                                        [ApproachFee] </button>
+                                                </td>
+                                                <td translate>Approach fee</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-1">
+                                                    <button type="button" class="btn btn-primary btn-block" id="btn-aerodromeFee" ng-click="addToFormula('[AerodromeFee]')">
+                                                        [AerodromeFee] </button>
+                                                </td>
+                                                <td translate>Aerodrome fee</td>
+                                            </tr>
+                                            <tr ng-show="showDWFactor">
+                                                <td class="col-md-1">
+                                                    <button type="button" class="btn btn-primary btn-block" id="btn-wFactor" ng-click="addToFormula('[WFACTOR]')">
+                                                        [WFACTOR] </button>
+                                                </td>
+                                                <td translate>W Factor Formula</td>
+                                            </tr>
+                                            <tr ng-show="showDWFactor">
+                                                <td class="col-md-1">
+                                                    <button type="button" class="btn btn-primary btn-block" id="btn-dFactor" ng-click="addToFormula('[DFACTOR]')">
+                                                        [DFACTOR] </button>
+                                                </td>
+                                                <td translate>D Factor Formula</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div uib-accordion-group class="panel-default" heading="{{'Operators' | translate}}" is-open="status.open">
+
+                                        <button type="button" class="btn btn-primary" id="btn-addition" ng-click="addToFormula(' + ')">+</button>
+                                        <button type="button" class="btn btn-primary" id="btn-subtraction" ng-click="addToFormula(' - ')">-</button>
+                                        <button type="button" class="btn btn-primary" id="btn-multiplication" ng-click="addToFormula(' * ')">*</button>
+                                        <button type="button" class="btn btn-primary" id="btn-division" ng-click="addToFormula(' / ')">/</button>
+                                        <button type="button" class="btn btn-primary" id="btn-leftBracket" ng-click="addToFormula('(')">(</button>
+                                        <button type="button" class="btn btn-primary" id="btn-rightBracket" ng-click="addToFormula(')')">)</button>
+                                        <button type="button" class="btn btn-primary" id="btn-comma" ng-click="addToFormula(',')">,</button>
+                                        <button type="button" class="btn btn-primary" id="btn-dot" ng-click="addToFormula('.')">.</button>
+                                    </div>
+                                </uib-accordion>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <uib-accordion close-others="oneAtATime">
+                                    <div uib-accordion-group class="panel-default" heading="{{'Math Functions' | translate}}" is-open="status.open">
+                                        <table class="col-md-12">
+                                            <tr>
+                                                <th translate class="col-md-1">Name</th>
+                                                <th translate class="col-md-1">Usage</th>
+                                                <th translate class="col-md-1">Result</th>
+                                                <th>Description</th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <button translate type="button" class="btn btn-primary btn-block" id="btn-sqr" ng-click="addToFormula('sqr')">
+                                                        sqr</button>
+                                                </td>
+                                                <td translate class="col-md-1">sqr(2)</td>
+                                                <td class="col-md-1">4</td>
+                                                <td translate>Returns a specified number raised to the power of 2</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <button translate type="button" class="btn btn-primary btn-block" id="btn-sqrt" ng-click="addToFormula('sqrt')">
+                                                        sqrt</button>
+                                                </td>
+                                                <td translate class="col-md-1">sqrt(4)</td>
+                                                <td class="col-md-1">2</td>
+                                                <td translate>Returns the square root of a number</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <button translate type="button" class="btn btn-primary btn-block" id="btn-abs" ng-click="addToFormula('abs')">
+                                                        abs</button>
+                                                </td>
+                                                <td translate class="col-md-1">abs(-7.25)</td>
+                                                <td class="col-md-1">7.25</td>
+                                                <td translate>Returns the absolute value of a number</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <button translate type="button" class="btn btn-primary btn-block" id="btn-round" ng-click="addToFormula('round')">
+                                                        round</button>
+                                                </td>
+                                                <td translate class="col-md-1">round(3.222,2)</td>
+                                                <td class="col-md-1">3.22</td>
+                                                <td translate>Rounds a value to the nearest integer or specified number of decimal places</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <button translate type="button" class="btn btn-primary btn-block" id="btn-truncate" ng-click="addToFormula('truncate')">
+                                                        truncate</button>
+                                                </td>
+                                                <td translate class="col-md-1">truncate(1.7)</td>
+                                                <td class="col-md-1">1</td>
+                                                <td translate>Calculates the integral part of a number</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <button translate type="button" class="btn btn-primary btn-block" id="btn-pow" ng-click="addToFormula('pow')">
+                                                        pow</button>
+                                                </td>
+                                                <td translate class="col-md-1">pow(3, 2)</td>
+                                                <td class="col-md-1">9</td>
+                                                <td translate>Returns a specified number raised to the specified power</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <button translate type="button" class="btn btn-primary btn-block" id="btn-min" ng-click="addToFormula('min')">
+                                                        min</button>
+                                                </td>
+                                                <td translate class="col-md-1">min(1, 2)</td>
+                                                <td class="col-md-1">1</td>
+                                                <td translate>Returns the smaller of two numbers</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <button translate type="button" class="btn btn-primary btn-block" id="btn-max" ng-click="addToFormula('max')">
+                                                        max</button>
+                                                </td>
+                                                <td translate class="col-md-1">max(1, 2)</td>
+                                                <td class="col-md-1">2</td>
+                                                <td translate>Returns the larger of two numbers</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <button translate type="button" class="btn btn-primary btn-block" id="btn-ceiling" ng-click="addToFormula('ceiling')">
+                                                        ceiling</button>
+                                                </td>
+                                                <td translate class="col-md-1">ceiling(1.5)</td>
+                                                <td class="col-md-1">2</td>
+                                                <td translate>Returns the smaller integer greater than or equal to the specified number</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <button translate type="button" class="btn btn-primary btn-block" id="btn-floor" ng-click="addToFormula('floor')">
+                                                        floor</button>
+                                                </td>
+                                                <td translate class="col-md-1">floor(1.5)</td>
+                                                <td class="col-md-1">1</td>
+                                                <td translate>Returns the largest integer less than or equal to the specified number</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </uib-accordion>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="mtow-category-upper-limit">
+                                    <span>{{ 'MTOW Upper Limit' | translate }}&nbsp;({{ mtowUnitOfMeasure | translate }}) *</span>
+                                </label>
+                                <unit-conversion-input id="mtow-category-upper-limit" name="mtowCategoryUpperLimit" ng-model="editable.mtow_category_upper_limit"
+                                    measurement-type="weight" required />
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="w-factor-formula">W Factor Formula *</label>
+                                <input id="w-factor-formula" name="wFactorFormula" class="form-control"
+                                    type="text" ng-model="editable.w_factor_formula" ng-click="setField()"
+                                    ng-change="isValidate(); setField()" required/>
+                            </div>
+                        </div>
+
+                        <div ng-if="!value.flightmovement_category.name.includes('OTHER')" ng-repeat="value in editable.enroute_air_navigation_charge_formulas">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <label>
+                                        <span class="text-capitalize">{{ value.flightmovement_category.name.toLowerCase() + ' Formula' | translate }} *</span>
+                                    </label>
+                                    <input id='formula' class="form-control" type="text" ng-model="editable.enroute_air_navigation_charge_formulas[$index].formula"
+                                        ng-click="setField($index, 'formula')" ng-change="isValidate(); setField($index, 'formula')" required/>
+                                </div>
+                                <div class="col-xs-12 col-md-6">
+                                    <label>
+                                        <span class="text-capitalize">{{ value.flightmovement_category.name.toLowerCase() + ' D-Factor Formula' | translate }} *</span>
+                                    </label>
+                                    <input class="form-control" type="text" ng-model="editable.enroute_air_navigation_charge_formulas[$index].d_factor_formula"
+                                        ng-click="setField($index, 'd_factor_formula')" ng-change="isValidate(); setField($index, 'd_factor_formula')" required/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+
+                        <div class="row">
+                            <div class="col-xs-12" ng-init="ifValidate = true">
+                                <button type="button" class="btn btn-primary btn-reset" translate ng-click="reset(); form.$setPristine(); form.$setUntouched()">Clear
+                                </button>
+                                <button class="btn btn-primary btn-update" translate ng-show="editable.id !== null" ng-disabled="form.$invalid || ifValidate"
+                                    popup popup-text="Are you sure you want to update this?" popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                    convert-to-tons property="mtow_category_upper_limit" popup-confirm="update(convertedEditable || editable, editable.id); form.$setUntouched()">Update
+                                </button>
+                                <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null" popup popup-text="Are you sure you want to delete this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on delete" popup-confirm="delete(editable.id); form.$setUntouched()">Delete
+                                </button>
+                                <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid || ifValidate" ng-show="editable.id === null"
+                                    convert-to-tons property="mtow_category_upper_limit" conversion-complete="create(convertedEditable || editable); form.$setUntouched();">
+                                    Create
+                                </button>
+                                <button translate class="btn btn-primary btn-validate" ng-disabled="form.$invalid" ng-click="validate()">Validate
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<li ng-class="{ active: SideBarCategory.active, open: SideBarCategory.categoryOpen }"
+    ng-click="SideBarCategory.categoryOpen = !SideBarCategory.categoryOpen">
+    <span>
+        <i class="fa fa-{{ SideBarCategory.icon }}"></i>
+        <span translate>{{SideBarCategory.text}}</span>
+    </span>
+
+    <ul class="dropdown-menu" ng-transclude></ul>
+</li>

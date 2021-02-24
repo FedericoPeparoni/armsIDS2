@@ -1,0 +1,11 @@
+[ng-class="main.about"] {
+
+    .panel-group .panel,
+    .panel-group .panel + .panel {
+        margin-top: 15px;
+    }
+
+    .table-responsive {
+        max-height: initial;
+    }
+}

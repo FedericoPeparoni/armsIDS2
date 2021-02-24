@@ -1,0 +1,302 @@
+<div class="row">
+    <div class="col-xs-12">
+        <button translate class="btn btn-primary" ng-click="createFlightMovement(account)">Create Flight</button>
+
+        <div class="row" ng-if="tempFlightMovementList.length">
+            <div class="col-xs-12">
+                <table class="table table-striped table-bordered table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th translate>Action</th>
+                            <th translate>Flight ID</th>
+                            <th translate>Registration Number</th>
+                            <th translate>Date Of Flight</th>
+                            <th translate>Departure Time</th>
+                            <th translate>Departure Airport</th>
+                            <th translate>Arrival Airport</th>
+                            <th translate>Aircraft Type</th>
+                            <th translate>Flight Type</th>
+                            <th translate>Status</th>
+                            <th ng-if="isAATISEnabled" class="text-nowrap"><span translate>AATIS Permit Number</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in tempFlightMovementList track by $index">
+                            <td>
+                                <button translate class="btn btn-primary" ng-click="editFlightMovement(account, item, $index)">Edit
+                                </button>
+                                <button translate class="btn btn-primary" popup popup-text="Are you sure you want to remove this?" 
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
+                                    popup-confirm="removeFlightMovement($index)">
+                                    Delete
+                                </button>
+                            </td>
+                            <td> {{ item.flight_id }} </td>
+                            <td> {{ item.item18_reg_num }} </td>
+                            <td> {{ item.date_of_flight | dateConverter }}</td>
+                            <td> {{ item.dep_time }}</td>
+                            <td> {{ item.dep_ad }}</td>
+                            <td> {{ item.dest_ad }}</td>
+                            <td> {{ item.aircraft_type }}</td>
+                            <td> {{ item.flight_type }}</td>
+                            <td> {{ item.status | translate }}</td>
+                            <td ng-if="isAATISEnabled">
+                                <external-database-input supported="item.adhoc_charge_required" item="item" pos-aviation="true"
+                                    external-database="AATIS" callback="addAdhocFeeToList" error="error" required="item.adhoc_charge_required" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString"
+                        table-sort="getNonInvoicedFlightMovementsByAccount(account.id, 'aviation', userBillingCenterOnly, editable.flightCategory, flightMovementList.number, getSortQueryString())">
+                        <thead>
+                            <tr>
+                                <th translate>Flight Selection</th>
+                                <th translate sort="flightId">Flight ID</th>
+                                <th translate sort="item18RegNum">Registration Number</th>
+                                <th translate sort="dateOfFlight">Date Of Flight</th>
+                                <th translate sort="depTime">Departure Time</th>
+                                <th translate sort="depAd">Departure Airport</th>
+                                <th translate sort="destAd">Arrival Airport</th>
+                                <th translate sort="aircraftType">Aircraft Type</th>
+                                <th translate sort="flightType">Flight Type</th>
+                                <th translate sort="status">Status</th>
+                                <th ng-if="isAATISEnabled" class="text-nowrap"><span translate>AATIS Permit Number</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="flight in flightMovementList.content">
+                                <td>
+                                    <input id="{{ flight.id }}" type="checkbox" value="{{ flight.id }}" ng-checked="selectedFlights.indexOf(flight.id) > -1"
+                                        ng-click="flightToggleSelection(flight.id)" />
+                                </td>
+                                <td> {{ flight.flight_id }}</td>
+                                <td> {{ flight.item18_reg_num }}</td>
+                                <td> {{ flight.date_of_flight | dateConverter }}</td>
+                                <td> {{ flight.dep_time }}</td>
+                                <td> {{ flight.dep_ad }}</td>
+                                <td> {{ flight.dest_ad }}</td>
+                                <td> {{ flight.aircraft_type }}</td>
+                                <td> {{ flight.flight_type }}</td>
+                                <td> {{ flight.status | translate }}</td>
+                                <td ng-if="isAATISEnabled">
+                                    <external-database-input supported="flight.adhoc_charge_required" item="flight" pos-aviation="true"
+                                        external-database="AATIS" callback="addAdhocFeeToList" error="error" required="selectedFlights.indexOf(flight.id) > -1" />
+                                </td>
+                            </tr>
+                            <tr ng-show="!flightMovementList.content.length">
+                                <td class="text-center" colspan="{{ isAATISEnabled ? 11 : 10 }}" translate>There are no existing flight movements for this account that can be billed</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <ul uib-pagination total-items="flightMovementList.total_elements" ng-change="getNonInvoicedFlightMovementsByAccount(account.id, 'aviation', userBillingCenterOnly, editable.flightCategory, flightMovementList.number, getSortQueryString())"
+                    max-size="::20" items-per-page="flightMovementList.size" ng-model="flightMovementList.number" class="pagination-sm"
+                    boundary-link-numbers="::true">
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <!--CALCULATE INVOICE-->
+                <button translate ng-disabled="!selectedFlights.length && !tempFlightMovementList.length" 
+                    popup popup-enabled="{{ flightsRequiringAdhocFee.length ? true : false }}" 
+                    popup-text="Some flights are missing an adhoc fee. Proceed with invoice generation anyway?" 
+                    popup-confirm="removeError(); previewAviationInvoiceJSON(account.id, selectedFlights, tempFlightMovementList, editable.flightCategory, accountCurrencyCode);"
+                    class="btn btn-primary" type="button">Calculate Invoice
+                </button>
+
+                <!--PREVIEW INVOICE-->
+                <button translate class="btn btn-primary btn-preview" 
+                    ng-disabled="(!selectedFlights.length && !tempFlightMovementList.length)"
+                    popup popup-enabled="{{ flightsRequiringAdhocFee.length ? true : false }}" 
+                    popup-text="Some flights are missing an adhoc fee. Proceed with invoice generation anyway?"
+                    popup-confirm="clickPreview()">
+                    Preview Invoice
+                </button>
+
+                <preview-oauth2 url="reports/aviation-invoice" ng-click="removeError()" request-method="POST"
+                    params="{ flightIdList: selectedFlights.toString(), format: 'pdf', preview: 1, accountId: account.id, text: 'Preview Invoice', flightCategory: editable.flightCategory, invoiceCurrency: accountCurrencyCode }"
+                    disable="(!selectedFlights.length && !tempFlightMovementList.length)"
+                    error="error" class-used="btn btn-primary btn-preview hidden"
+                    callback-success-fn="previewAviationInvoiceJSON(account.id, selectedFlights, tempFlightMovementList, editable.flightCategory, accountCurrencyCode)"
+                    body-params="{ flight_items: tempFlightMovementList, invoice_permits: selectedAdhocFees }"
+                    param-id="preview-button">
+                </preview-oauth2>
+            </div>
+        </div>
+
+        <div class="row" ng-if="aviationInvoices.preview.flight_info_list">
+            <div class="col-xs-12">
+                <table class="table table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <th translate rowspan="2" class="text-center">Date</th>
+                            <th translate rowspan="2">Flight Details</th>
+                            <th translate rowspan="2">Route</th>
+                            <th ng-if="shouldShowCharge('TASP')" translate rowspan="2">{{ taspLabel }} Details</th>
+                            <th translate rowspan="2">Dep</th>
+                            <th translate rowspan="2">Arr</th>
+                            <th translate rowspan="2">PAX</th>
+                            <th translate colspan="{{ approachLabel !== 'ADAP' ? 6 : 5 }}" class="text-center">Charges</th>
+                        </tr>
+                        <tr>
+                            <th translate>Enroute</th>
+                            <th ng-if="shouldShowCharge('TASP')" translate>{{ taspLabel }}</th>
+                            <th translate>{{ approachLabel }}</th>
+                            <th translate ng-if="approachLabel !== 'ADAP'">Aerodrome</th>
+                            <th translate ng-if="shouldShowCharge('parking')">Parking</th>
+                            <th translate ng-if="shouldShowCharge('passenger')">Passenger</th>
+                            <th translate ng-if="shouldShowCharge('extendedHours')">Extended Hours</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in aviationInvoices.preview.flight_info_list">
+                            <td class="text-right">
+                                <span translate>In:</span> {{ item.billing_entry_date_str }}
+                                <br/><span translate>Out:</span> {{ item.billing_exit_date_str }}
+                            </td>
+                            <td>
+                                <span translate>Reg:</span> {{ item.reg_num }}
+                                <br/><span translate>Type:</span> {{ item.aircraft_type }}
+                                <br/><span translate>MTOW:</span> {{ item.mtow | number: 0 }}&nbsp;({{ item.mtow_unit_of_measure | translate }})
+                            </td>
+                            <td>
+                                <span translate>Entry:</span> {{ item.entry_point }}
+                                <br/><span translate>Exit:</span>  {{ item.exit_point }}
+                                <br/><span translate>Dist:</span>  {{ item.cross_dist | number: 2 }}
+                            </td>
+                            <td ng-if="shouldShowCharge('TASP')">
+                                <!-- TASP Details -->
+                                {{ item.aatis_number }}
+                            </td>
+                            <td>
+                                {{ item.departure_time_str }}
+                            </td>
+                            <td>
+                                {{ item.arrival_time_str }}
+                            </td>
+                            <td>
+                                Arr: {{ item.arrival_passenger_count }}
+                                <br/><span translate>Dep:</span>  {{ item.departure_passenger_count }}
+                                <br/><span translate>Transit:</span>  {{ item.transit_passenger_count }}
+                                <br/><span translate>Infant:</span> {{ item.infant_passenger_count }}
+                            </td>
+                            <td class="text-right">
+                                {{ item.enroute_charges_str }}
+                            </td>
+                            <td class="text-right" ng-if="shouldShowCharge('TASP')">
+                                {{ item.tasp_charges_str }}
+                            </td>
+                            <td class="text-right">
+                                {{ approachLabel === 'ADAP' ? item.landing_charges_str : item.approach_charges_str }}
+                            </td>
+                            <td class="text-right" ng-if="approachLabel !== 'ADAP'">
+                                {{ item.aerodrome_charges_str }}
+                            </td>
+                            <td class="text-right" ng-if="shouldShowCharge('parking')">
+                                {{ item.parking_charges_str }}
+                            </td>
+                            <td class="text-right" ng-if="shouldShowCharge('passenger')">
+                                {{ item.passenger_charges_str }}
+                            </td>
+                            <td class="text-right" ng-if="shouldShowCharge('extendedHours')">
+                                {{ item.extended_hours_surcharge_str }}
+                            </td>
+                        </tr>
+                        <tr class="text-right">
+                            <td colspan="{{ !shouldShowCharge('TASP') ? 6 : 7 }}">
+                                <span translate>Totals:</span>
+                            </td>
+                            <td>{{ aviationInvoices.preview.global.enroute_charges_str }}</td>
+                            <td ng-if="shouldShowCharge('TASP')">{{ aviationInvoices.preview.global.tasp_charges_str }}</td>
+                            <td>
+                                {{
+                                    approachLabel === 'ADAP' 
+                                        ? aviationInvoices.preview.global.landing_charges_str 
+                                        : aviationInvoices.preview.global.approach_charges_str 
+                                }}
+                            </td>
+                            <td ng-if="approachLabel !== 'ADAP'">{{ aviationInvoices.preview.global.aerodrome_charges_str }}</td>
+                            <td ng-if="shouldShowCharge('parking')">{{ aviationInvoices.preview.global.parking_charges_str }}</td>
+                            <td ng-if="shouldShowCharge('passenger')">{{ aviationInvoices.preview.global.passenger_charges_str }}</td>
+                            <td ng-if="shouldShowCharge('extendedHours')">{{ aviationInvoices.preview.global.extended_hours_surcharge_str }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="text-right" 
+                    ng-if="aviationInvoices.preview.global.late_departure_arrival_charges_str !== null && (shouldShowCharge('arrival') || shouldShowCharge('departure'))">
+                    <span translate>Late departure/arrival charges:</span> {{ aviationInvoices.preview.global.late_departure_arrival_charges_str }}
+                </div>
+
+                <div class="text-right">
+                    <strong><span translate>Invoice Total:</span></strong> {{ aviationInvoices.preview.global.total_amount_str }} {{ aviationInvoices.preview.global.invoice_currency_code}}
+                </div>
+
+            </div>
+        </div>
+
+        <div ng-show="workflow !== 'credit'">
+          <payment is-valid="aviationPaymentValid" reset="paymentReset" payment="payment" invoice-currency="invoiceCurrency" 
+                  invoice-amount="aviationInvoices.preview.global.total_amount" account-id="account.id">
+            <!-- Payment Directive -->
+          </payment>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <!--GENERATE INVOICE-->
+                <button translate class="btn btn-primary btn-generate" 
+                    ng-disabled="isGenerateDisabled(false, selectedFlights.length > 0 || tempFlightMovementList.length > 0)"
+                    popup popup-enabled="{{ flightsRequiringAdhocFee.length ? true : false }}" 
+                    popup-text="Some flights are missing an adhoc fee. Proceed with invoice generation anyway?" 
+                    popup-confirm="removeError(); aviationInvoices.generating = true; aviationInvoices.preview = null; removePreview(); 
+                        generateAviationInvoice(account.id, selectedFlights, 'pdf', 0, tempFlightMovementList, editable.flightCategory, accountCurrencyCode)">
+                    Generate Invoice
+                </button>
+        
+                <!--GENERATE INVOICE AND PAY-->
+                <button translate class="btn btn-primary btn-generate" 
+                    ng-disabled="isGenerateDisabled(true, selectedFlights.length > 0 || tempFlightMovementList.length > 0, aviationPaymentValid)"
+                    popup popup-enabled="{{ flightsRequiringAdhocFee.length ? true : false }}" 
+                    popup-text="Some flights are missing an adhoc fee. Proceed with invoice generation anyway?"
+                    popup-confirm="clickGenerateAndPay();">
+                    Generate and Pay Invoice
+                </button>
+
+                <download-oauth2 id="generate-pay-button" url="/reports/aviation-invoice" 
+                    params="{text: 'Generate and Pay Invoice', 
+                            accountId: account.id, 
+                            flightIdList: selectedFlights, 
+                            format: 'pdf', 
+                            pay: 1, preview: 0, 
+                            flightCategory: editable.flightCategory, 
+                            invoiceCurrency: accountCurrencyCode}"
+                    disable="isGenerateDisabled(true, selectedFlights.length > 0 || tempFlightMovementList.length > 0, aviationPaymentValid)"
+                    ng-click="removeError(); aviationInvoices.generatePay = true; removePreview();"
+                    class-used="btn btn-primary btn-generate hidden" request-method="POST" error="error" 
+                    callback-success-fn="generateAviationInvoicePaySuccess(); aviationInvoices.preview = null"
+                    callback-error-fn="generateError()" hide-icon="true" 
+                    body-params="{flight_items: tempFlightMovementList, payment: payment, invoice_permits: selectedAdhocFees}">
+                </download-oauth2>
+            </div>
+        </div>
+
+        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+            <!-- Error Handling -->
+        </ng-include>
+    </div>
+</div>
+
+<div id="flight-modal-holder">
+    <!-- Flight Plan Modal -->
+</div>

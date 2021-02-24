@@ -1,0 +1,121 @@
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="box-container">
+            <box-header page-name="billing.non-aviation-billing-engine" icon="'plane'"
+                title="{{ 'Non-Aviation Billing' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <fieldset>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-3">
+                            <label for="billing-period"><span translate>Billing Period</span>&nbsp;*&nbsp;(<span translate>{{ customDate }}</span>)</label>
+                            <p class="input-group">
+                                <input id="billing-period" name="billing-period" type="text" class="form-control"
+                                    ng-change="getLineItems(editable); form.$setUntouched();"
+                                    uib-datepicker-popup="{{ customDate }}"
+                                    ng-model="dateObject" is-open="open"
+                                    datepicker-options="{ startingDay: 1, minMode: 'month' }"
+                                    ng-required="true" close-text="Close"/>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open = !open"><i
+                                        class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </p>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3">
+                            <label translate for="accountId">Account *</label>
+                            <dynamic-service-dropdown ng-model="editable.accountId"
+                                                    id="accountId" name="accountId"
+                                                    dropdown-type="single"
+                                                    service="::accountsService"
+                                                    method="findAllCreditMinimalActiveReturn"
+                                                    is-required="::true"
+                                                    options="item.id as item.name for item in list"
+                                                    ng-change="getLineItems(editable); form.$setUntouched();">
+                            </dynamic-service-dropdown>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3" ng-show="externalChargeCategories && externalChargeCategories.length > 1">
+                            <label for="external-charge-category">
+                                <span translate>External Charge Category</span>
+                                <span>*</span>
+                            </label>
+                            <dynamic-service-dropdown id="external-charge-category" name="externalChargeCategory"
+                                dropdown-type="single" service="::externalChargeCategoryService" method="getNonAviationCategories" is-required="::true"
+                                options="item as (item.name | translate) for item in list track by item.id"
+                                ng-model="editable.externalChargeCategory"
+                                ng-change="getLineItems(editable); form.$setUntouched();">
+                            </dynamic-service-dropdown>
+                        </div>
+                    </div>
+
+                    <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'"><!-- Error Handling --></ng-include>
+                </fieldset>
+
+                <div ng-show="invoiceCreated" class="row">
+                    <div class="col-xs-5">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <p class="feedback">
+                                    <span translate>Successfully created invoice</span>
+                                    <span class="btn btn-xs pull-right" ng-click="invoiceCreated = false">X</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                            <line-items-table line-items="lineItems"
+                                            ng-show="lineItems"
+                                            params="editable"
+                                            is-valid="lineItemsValid"
+                                            is-non-avi="true">
+                            </line-items-table>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="col-xs-12">
+                            <button translate class="btn btn-primary btn-generate-non-aviation"
+                                ng-disabled="!(hasPermission('nonaviation_invoice_generate') && lineItemsValid)"
+                                ng-click="generateNonAviationInvoice('pdf',
+                                                                    0,
+                                                                    editable.accountId,
+                                                                    dateObject.getFullYear(),
+                                                                    dateObject.getMonth() + 1,
+                                                                    lineItems,
+                                                                    editable.kra_clerk_name,
+                                                                    editable.kra_receipt_number);">
+                                Generate Invoice
+                            </button>
+                            <preview-oauth2 url="reports/non-aviation-invoice/monthly"
+                                            params="{
+                                                    text: 'Preview Invoice',
+                                                    format: 'pdf',
+                                                    preview: 1,
+                                                    accountId: editable.accountId,
+                                                    year: dateObject.getFullYear(),
+                                                    month: dateObject.getMonth() + 1,
+                                                    kraClerkName: editable.kra_clerk_name,
+                                                    kraReceiptNumber: editable.kra_receipt_number
+                                                }"
+                                            disable="!hasPermission('nonaviation_invoice_preview') || !lineItemsValid"
+                                            class="btn-preview-non-aviation"
+                                            request-method="POST"
+                                            body-params="lineItems"
+                                            remove-preview="removePreview"
+                                            error="error">
+                            </preview-oauth2>
+
+                            <div ng-if="!isBillingPeriodValid && !invoiceCreated">
+                                <p class="text-danger">*<span translate>Invoice will be generated for a future billing period!</span></p>
+                            </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

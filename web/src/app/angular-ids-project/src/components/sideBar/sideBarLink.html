@@ -1,0 +1,6 @@
+<li ng-class="{'active': SideBarLink.active}" ng-click="SideBarLink.goTo(); $event.stopPropagation();">
+    <span>
+        <i class="fa fa-{{ SideBarLink.icon }}"></i>
+        <span translate>{{ SideBarLink.category }}</span>
+    </span>
+</li>

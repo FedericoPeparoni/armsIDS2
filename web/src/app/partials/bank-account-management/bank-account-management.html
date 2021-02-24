@@ -1,0 +1,136 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+
+        <div class="box-container">
+
+            <box-header page-name="management.banking-account-management" toggle="toggle" icon="'book'"
+                title="{{ 'Bank Accounts' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-keyup="$event.keyCode == 13 && refresh()" ng-model="search" />
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <button translate ng-click="refresh()" class="btn btn-primary pull-right">Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table sort-query-string="getSortQueryString()" 
+                            query-string="filterParameters" back-end-export="true" service="bankAccountManagementService">
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" table-sort="refresh()">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-nowrap" sort="name">Bank Name</th>
+                                        <th translate class="text-nowrap" sort="number">Account Number</th>
+                                        <th translate class="text-nowrap" sort="currency">Currency</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="edit(item);" ng-repeat="item in list" ng-class="{'highlight': editable.id === item.id}">
+                                        <td class="text-nowrap">{{ ::item.name }}</td>
+                                        <td class="text-nowrap">{{ ::item.number }}</td>
+                                        <td class="text-nowrap">{{ ::item.currency.currency_code }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td translate class="text-center" colspan="6">There are no Bank Accounts data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refresh()"
+                            max-size="::20" items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm" boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+
+            <box-header ng-show="editable.id === null" icon="'book'" title="{{ 'Add a Bank Account' | translate }}"></box-header>
+            <box-header ng-show="editable.id !== null" icon="'book'" title="{{ 'Edit a Bank Account' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <form novalidate action="#" name="form" onsubmit="return false">
+
+                    <fieldset ng-disabled="!hasPermission('banking_information_modify')">
+
+                        <div class="row row-responsive">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="name">
+                                    <span translate>Bank Name</span>
+                                    <span>*</span>
+                                </label>
+                                <input id="name" name="name" class="form-control" type="text" ng-model="editable.name" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="number">
+                                    <span translate>Account Number</span>
+                                    <span>*</span>
+                                </label>
+                                <input id="number" name="number" class="form-control" type="text" ng-model="editable.number" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="currency">
+                                    <span translate>Currency</span>
+                                    <span>*</span>
+                                </label>
+                                <dynamic-service-dropdown id="currency" name="currency" dropdown-type="single" query-string="filter=active" is-required="::true"
+                                    options="item as ((item.currency_name | translate) + ' (' + item.currency_code + ')') for item in list.content track by item.currency_code"
+                                    ng-model="editable.currency" service="::currencyManagementService">
+                                </dynamic-service-dropdown>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="external-accounting-system-id">
+                                    <span translate>External Accounting System Identifier</span>
+                                    <span ng-if="requireExternalSystemId">*</span>
+                                </label>
+                                <input id="external-accounting-system-id" name="externalAccountingSystemId" class="form-control" type="text" empty-to-null
+                                    ng-model="editable.external_accounting_system_id" ng-required="requireExternalSystemId" />
+                            </div>
+                        </div>
+
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary btn-reset" translate ng-click="reset(); form.$setUntouched();">
+                                    Clear
+                                </button>
+                                <button class="btn btn-primary btn-update" translate ng-show="editable.id !== null" ng-disabled="form.$invalid"
+                                        popup popup-text="Are you sure you want to update this?"
+                                        popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                        popup-confirm="update(editable, editable.id); form.$setUntouched();">Update
+                                </button>
+                                <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null"
+                                        popup popup-text="Are you sure you want to delete this?"
+                                        popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
+                                        popup-confirm="delete(editable.id); form.$setUntouched()">Delete
+                                </button>
+                                <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid"
+                                        ng-show="editable.id === null" ng-click="create(editable); form.$setUntouched();">Create
+                                </button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

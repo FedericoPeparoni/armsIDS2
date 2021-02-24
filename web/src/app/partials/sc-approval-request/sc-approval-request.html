@@ -1,0 +1,251 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <div class="box-container">
+            <box-header toggle="toggle" icon="'unlock'" title="{{ 'Approval Request' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12 col-md-3">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="search"
+                            empty-to-null ng-keyup="$event.keyCode === 13 && refreshOverride()"/>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <label translate for="object-type">Object Type</label>
+                        <select id="object-type" class="form-control" ng-change="refreshOverride()" ng-model="objectType">
+                            <option translate value=""></option>
+                            <option translate value="account">Account</option>
+                            <option translate value="aircraft registration">Aircraft Registration</option>
+                            <option translate value="flight schedule">Flight Schedule</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <label translate for="account">Account</label>
+                        <dynamic-service-dropdown ng-model="account" id="account" name="account"
+                            dropdown-type="single" service="::accountsService" method="findAllMinimalReturn" allow-empty="true" ng-change="refreshOverride()"
+                            options="item.id as item.name for item in list">
+                        </dynamic-service-dropdown>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <button translate ng-click="refreshOverride()" class="btn btn-primary pull-right">Refresh</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-3">
+                            <label translate for="status">Status</label>
+                            <select id="status" class="form-control" ng-init="status = 'all'" ng-change="refreshOverride()" ng-model="status">
+                                <option translate value="all">All</option>
+                                <option translate value="open">Open</option>
+                                <option translate value="approved">Approved</option>
+                                <option translate value="rejected">Rejected</option>
+                            </select>
+                        </div>
+                    <div class="col-xs-12 col-md-6">
+                        <date-range is-required="false" control="control" format="{{customDate}}"
+                                    ng-click="control.getUTCStartDate() !== null && control.getUTCEndDate() !== null ? refreshOverride() : ''"
+                                    ng-keyup="control.getUTCStartDate() === null && control.getUTCEndDate() === null ? refreshOverride() : '' ">
+                            <!--Datepickers -->
+                        </date-range>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table sort-query-string="getSortQueryString()"
+                            back-end-export="true" service="scApprovalRequestService" query-string="filterParameters">
+                            <table class="table table-striped table-bordered table-hover table-condensed"
+                                sort-query-string="getSortQueryString" table-sort="refreshOverride()">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-center text-nowrap middle">Select</th>
+                                        <th translate class="text-nowrap" sort="status">Status</th>
+                                        <th translate class="text-nowrap" sort="createdAt">Date/Time of Request </th>
+                                        <th translate class="text-nowrap" sort="requestType">Request Type</th>
+                                        <th translate class="text-nowrap" sort="requestDataset">Request Dataset</th>
+                                        <th translate class="text-nowrap" sort="account">Account</th>
+                                        <th translate class="text-nowrap" sort="user">User</th>
+                                        <th translate class="text-nowrap" sort="objectId">Object Id</th>
+                                        <th translate class="text-nowrap" sort="respondersName">Responders Name</th>
+                                        <th translate class="text-nowrap" sort="responseDate">Response Date</th>
+                                        <th translate class="text-nowrap" sort="responseText">Response Text</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="edit(item); form.$setUntouched()" ng-repeat="item in list"
+                                        ng-class="{'highlight': editable.id === item.id}">
+                                        <td class="text-center">
+                                            <input ng-disabled="item.status !== 'open'" ng-click="getSelected()"
+                                                type="checkbox" id="checkbox_{{item.id}}" ng-model="selectedRequests[item.id]"/>
+                                        </td>
+                                        <td class="text-nowrap">{{ item.status | translate }}</td>
+                                        <td class="text-nowrap">{{ item.created_at | dateConverter : 'HHmm' }}</td>
+                                        <td class="text-nowrap">{{ item.request_type | translate }}</td>
+                                        <td class="text-nowrap">{{ item.request_dataset | translate }}</td>
+                                        <td class="text-nowrap">{{ item.account.name }}</td>
+                                        <td class="text-nowrap">{{ item.user.name }}</td>
+                                        <td class="text-nowrap">{{ item.object_id }}</td>
+                                        <td class="text-nowrap">{{ item.responders_name }}</td>
+                                        <td class="text-nowrap">{{ item.response_date | dateConverter : 'HHmm' }}</td>
+                                        <td class="text-nowrap">{{ item.response_text | translate }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td class="text-center" colspan="11" translate>There are no Approval Request</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+
+                        <div ng-show="showErrorOnTableForm">
+                            <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                                <!-- Error Handling -->
+                            </ng-include>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button class="btn btn-primary btn-approve pull-left" translate
+                                    ng-disabled="!selected || !selected.length || !approvalResponse"
+                                    popup popup-text="Are you sure you want to approve this request(s)?"
+                                    popup-confirm="approveSelected(approvalResponse); form.$setUntouched();">Approve
+                                </button>
+                                <div class="col-xs-6">
+                                    <input id="approval-response" name="approvalResponse" class="form-control"
+                                        type="text" ng-model="approvalResponse"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button class="btn btn-primary btn-reject pull-left" translate
+                                    ng-disabled="!selected || !selected.length || !rejectionResponse"
+                                    popup popup-text="Are you sure you want to reject this request(s)?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                    popup-confirm="rejectSelected(rejectionResponse); form.$setUntouched();">Reject
+                                </button>
+                                <div class="col-xs-6">
+                                    <input id="rejection-response" name="rejectionResponse" class="form-control"
+                                        type="text" ng-model="rejectionResponse"/>
+                                </div>
+                            </div>
+                        </div>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refreshOverride()"
+                            max-size="::20" items-per-page="pagination.size"
+                            ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+            <box-header icon="'unlock'" title="{{ 'Approval Request' | translate }}"></box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <label for="account">{{ 'Account' | translate }}</label>
+                            <input id="account" name="account" class="form-control"
+                                type="text" ng-value="editable.account.name" readonly/>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <label for="user">{{ 'User' | translate }}</label>
+                            <input id="user" name="user" class="form-control" type="text"
+                                ng-value="editable.user.name" required readonly/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <label for="created-at">{{ 'Date/Time of Request' | translate }}</label>
+                            <input id="created-at" name="createdAt" class="form-control" type="text"
+                                ng-value="date" required readonly/>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <label for="request-type">{{ 'Request Type' | translate }}</label>
+                            <input id="request-type" name="requestType" class="form-control" type="text"
+                                ng-value="editable.request_type | translate" required readonly/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <label for="request-dataset">{{ 'Request Dataset' | translate }}</label>
+                            <input id="request-dataset" name="requestDataset" class="form-control" type="text"
+                                ng-value="editable.request_dataset | translate" required readonly/>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <label for="status">{{ 'Status' | translate }}</label>
+                            <input id="status" name="status" class="form-control" type="text"
+                                ng-value="editable.status | translate" required readonly/>
+                        </div>
+                    </div>
+                    <div class="row" ng-hide="editable.status === 'open'">
+                        <div class="col-xs-12 col-md-6">
+                            <label for="responders-name">{{ "Responders Name" | translate }}</label>
+                            <input id="responders-name" name="respondersName" class="form-control" type="text"
+                                ng-value="editable.responders_name" readonly/>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <label for="response-date">{{ 'Response Date and Time' | translate }}</label>
+                            <input id="response-date" name="response-date" class="form-control" type="text"
+                                ng-value="responseDate" readonly/>
+                        </div>
+                    </div>
+                    <div class="row" ng-hide="editable.status === 'open'">
+                        <div class="col-xs-12 col-md-12">
+                            <label for="response-text">{{ 'Response Text' | translate }}</label>
+                            <input id="response-text" name="responseText" class="form-control" type="text"
+                                ng-value="editable.response_text" readonly/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <label for="request-text">{{ 'Request' | translate }}:</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6" ng-show="value !== null && key !== 'version' && key !== 'id'" ng-repeat="(key, value) in requestText">
+                            <div class="row col-xs-12">
+                                <label class="text-capitalize">{{ formatNameAndTranslate(key) }}</label>
+                                <input class="form-control" type="text" ng-value="value | translate" readonly/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-show="showErrorOnDataForm">
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+                    </div>
+
+                    <div class="row" ng-show="editable.id !== null && editable.status === 'open'">
+                        <div class="col-xs-12">
+                            <button class="btn btn-primary btn-approve pull-left" translate
+                                ng-disabled="form.$invalid || editable.status !== 'open' || !approvalResponse"
+                                popup popup-text="Are you sure you want to approve this request?"
+                                popup-confirm="approve(editable, approvalResponse); form.$setUntouched();">Approve
+                            </button>
+                            <div class="col-xs-12 col-md-8">
+                                <input id="approval-response" name="approvalResponse" class="form-control"
+                                    type="text" ng-model="approvalResponse"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-show="editable.id !== null && editable.status === 'open'">
+                        <div class="col-xs-12">
+                            <button class="btn btn-primary btn-reject pull-left" translate ng-show="editable.id !== null"
+                                ng-disabled="form.$invalid || editable.status !== 'open' || !rejectionResponse"
+                                popup popup-text="Are you sure you want to reject this request?"
+                                popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                popup-confirm="reject(editable, rejectionResponse); form.$setUntouched();">Reject
+                            </button>
+                            <div class="col-xs-12 col-md-8">
+                                <input id="rejection-response" name="rejectionResponse" class="form-control"
+                                    type="text" ng-model="rejectionResponse"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

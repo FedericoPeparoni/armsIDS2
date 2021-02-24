@@ -1,0 +1,298 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <!-- tower movement logs container -->
+        <div class="box-container">
+            <box-header toggle="toggle" page-name="flight-data.tower-movement-log-management" icon="'tasks'"
+                title="{{ 'Tower Movement Logs' | translate }}"></box-header>
+            <div class="box-content">
+                <!-- tower movement logs data grid filters -->
+                <div class="row">
+                    <div class="col-xs-12 col-md-4">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="search" 
+                        empty-to-null ng-keyup="$event.keyCode === 13 && refreshOverride()" />
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <date-range is-required="false" control="control" format="{{customDate}}" 
+                        ng-click="control.getUTCStartDate() !== null && control.getUTCEndDate() !== null ? refreshOverride() : ''"
+                        ng-keyup="control.getUTCStartDate() === null && control.getUTCEndDate() === null ? refreshOverride() : '' ">
+                        <!--Datepickers -->
+                        </date-range>
+                    </div>
+                    <!-- tower movement logs data grid actions -->
+                    <div class="col-xs-12 col-md-2">
+                        <button translate ng-click="refreshOverride()" class="btn btn-primary pull-right">Refresh</button>
+                    </div>
+                </div>
+                <!-- tower movement logs data grid -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table sort-query-string="getSortQueryString()" query-string="filterParameters"
+                            back-end-export="true" service="towerMovementLogsService">
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" table-sort="refreshOverride()" canned-sort="cannedSort">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-nowrap" sort="dayOfFlight">Day of Flight</th>
+                                        <th translate class="text-nowrap" sort="departureTime">Dep Time</th>
+                                        <th translate class="text-nowrap" sort="dateOfContact">Date of Contact</th>
+                                        <th translate class="text-nowrap" sort="flightId">Flight Id</th>
+                                        <th translate class="text-nowrap" sort="registration">Reg Number</th>
+                                        <th translate class="text-nowrap" sort="aircraftType">A/C Type</th>
+                                        <th translate class="text-nowrap" sort="operatorName">Operator Identifier</th>
+                                        <th translate class="text-nowrap" sort="departureAerodrome">Dep Ad</th>
+                                        <th translate class="text-nowrap" sort="departureContactTime">Dep Contact Time</th>
+                                        <th translate class="text-nowrap" sort="destinationAerodrome">Dest Ad</th>
+                                        <th translate class="text-nowrap" sort="destinationContactTime">Dest Contact Time</th>
+                                        <th translate class="text-nowrap" sort="route">Route</th>
+                                        <th translate class="text-nowrap" sort="flightLevel">Flight Level</th>
+                                        <th translate class="text-nowrap" sort="flightCrew">Flight Crew</th>
+                                        <th translate class="text-nowrap" sort="passengers">Passengers</th>
+                                        <th translate class="text-nowrap" sort="flightCategory">Flight Category</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="edit(item)" ng-repeat="item in list" ng-class="{'highlight': editable.id === item.id}">
+                                        <td class="text-nowrap">{{ item.day_of_flight | dateConverter }}</td>
+                                        <td>{{ item.departure_time }}</td>
+                                        <td class="text-nowrap">{{ item.date_of_contact | dateConverter }}</td>
+                                        <td>{{ item.flight_id }}</td>
+                                        <td>{{ item.registration }}</td>
+                                        <td>{{ item.aircraft_type }}</td>
+                                        <td>{{ item.operator_name }}</td>
+                                        <td>{{ item.departure_aerodrome }}</td>
+                                        <td>{{ item.departure_contact_time }}</td>
+                                        <td>{{ item.destination_aerodrome }}</td>
+                                        <td>{{ item.destination_contact_time }}</td>
+                                        <td class="text-nowrap">{{ item.route }}</td>
+                                        <td>{{ item.flight_level }}</td>
+                                        <td>{{ item.flight_crew }}</td>
+                                        <td>{{ item.passengers }}</td>
+                                        <td>{{ matchCategoryToCategoryListValue(item.flight_category) | translate }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td class="text-center" colspan="16" translate>There are no Tower Movement Logs data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refreshOverride()"
+                            max-size="::20" items-per-page="pagination.size"
+                            ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="crud-second-container" ng-show="toggle">
+        <!-- create/edit tower movement log container -->
+        <div class="box-container">
+            <box-header ng-show="editable.id === null" icon="'tasks'" title="{{ 'Create a Tower Movement Log' | translate }}"></box-header>
+            <box-header ng-show="editable.id !== null" icon="'tasks'" title="{{ 'Edit a Tower Movement Log' | translate }}"></box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <fieldset ng-disabled="!hasPermission('flight_log_modify')">
+                        <!-- tower movement log form fields -->
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="day_of_flight"><span translate>Day of Flight</span>&nbsp;<span translate>({{ ::dateFormat }})</span></label>
+                                <p class="input-group">
+                                    <date-picker id="day_of_flight" name="dayOfFlight" type="text" ng-change="dateChanged('day_of_flight', editable.day_of_flight)"
+                                        ng-pattern="datePickerRegex" show-button-bar="false" class="form-control" uib-datepicker-popup="{{ dateFormat }}"
+                                        ng-model="editable.day_of_flight" ng-blur="resolveAircraftType(editable.registration, editable.day_of_flight || editable.date_of_contact)"
+                                        is-open="towerDayFlight.open" ng-attr-title="{{editable.day_of_flight ? '' : 'Please fill out this field' | translate}}"
+                                        ng-disabled="editable.id !== null"
+                                        close-text="Close">
+                                    </date-picker>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default"
+                                            ng-click="towerDayFlight.open = !towerDayFlight.open"
+                                            ng-disabled="editable.id !== null">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label  for="departure_time"><span translate>Departure Time</span>&nbsp;<span translate>(<span tranlate>HHmm</span>)</span></label>
+                                <input id="departure_time" name="departureTime" class="form-control" type="text" ng-model="editable.departure_time"
+                                    minlength="4" maxlength="4"
+                                    ng-attr-title="{{editable.departure_time < 2359 ? '' : 'Invalid time format' | translate}}"
+                                    ng-pattern="/^([01]\d|2[0-3])?([0-5]\d)$/" ng-disabled="editable.id !== null" only-numbers />
+                            </div>
+                        </div> 
+                        <div class="row">           
+                            <div class="col-xs-12 col-md-6">
+                                <label for="date_of_contact"><span translate>Date of Contact</span> (<span translate>{{ ::dateFormat }}</span>)*</label>
+                                <p class="input-group">
+                                    <date-picker id="date_of_contact" name="dateOfContact" type="text" ng-change="dateChanged('date_of_contact', editable.date_of_contact)"
+                                        ng-pattern="datePickerRegex" show-button-bar="false" class="form-control" uib-datepicker-popup="{{ dateFormat }}"
+                                        ng-model="editable.date_of_contact" ng-blur="resolveAircraftType(editable.registration, editable.day_of_flight || editable.date_of_contact)"
+                                        is-open="towerDateContact.open" ng-attr-title="{{editable.date_of_contact ? '' : 'Please fill out this field' | translate}}"
+                                        ng-disabled="editable.id !== null"
+                                        close-text="Close" required>
+                                    </date-picker>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default"
+                                            ng-click="towerDateContact.open = !towerDateContact.open"
+                                            ng-disabled="editable.id !== null">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="flight_id">Flight Identifier *</label>
+                                <input id="flight_id" name="flightId" class="form-control" type="text" ng-model="editable.flight_id" maxlength="10"
+                                    minlength="2" ng-pattern="/^[a-zA-Z0-9]*$/" ng-trim="false" uppercase-input ng-model-options="{allowInvalid: true}"
+                                    ng-disabled="editable.id !== null"
+                                    required />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="registration">Registration</label>
+                                <input id="registration" name="registration" class="form-control" ng-model="editable.registration" type="text"
+                                    maxlength="7" minlength="2" ng-pattern="/^[a-zA-Z0-9]*$/" ng-trim="false" uppercase-input ng-model-options="{allowInvalid: true}"
+                                    ng-blur="resolveAircraftType(editable.registration, editable.day_of_flight || editable.date_of_contact)" />
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="aircraft_type">Aircraft Type *</label>
+                                <dynamic-service-dropdown name="aircraftType" ng-model="editable.aircraft_type" id="aircraft_type" dropdown-type="single"
+                                    service="::aircraftTypeManagementService" method="findAllMinimalReturn" is-required="::true"
+                                    options="item.aircraft_type as item.aircraft_type for item in list">
+                                </dynamic-service-dropdown>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="operator_name"><span translate>Operator Identifier</span></label>
+                                <input id="operator_name" name="operatorName" class="form-control" type="text" ng-model="editable.operator_name"
+                                    maxlength="100" ng-trim="false" uppercase-input />
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="departure_aerodrome">Departure Aerodrome *</label>
+                                <input id="departure_aerodrome" name="departureAerodrome" type="text" class="form-control" ng-model="editable.departure_aerodrome"
+                                    maxlength="100" ng-trim="false" ng-model-options="{allowInvalid: true}" ng-disabled="editable.id !== null"
+                                    only-letters uppercase-input required />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="departure_contact_time"><span translate>Departure Contact Time</span>&nbsp;(<span tranlate>HHmm</span>)</label>
+                                <input id="departure_contact_time" name="departureContactTime" class="form-control" type="text" ng-model="editable.departure_contact_time"
+                                    minlength="4" maxlength="4"
+                                    ng-attr-title="{{editable.departure_contact_time < 2359 ? '' : 'Invalid time format' | translate}}"
+                                    ng-pattern="/^([01]\d|2[0-3])?([0-5]\d)$/" only-numbers />
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="destination_aerodrome">Destination Aerodrome *</label>
+                                <input id="destination_aerodrome" name="destinationAerodrome" type="text" class="form-control" ng-model="editable.destination_aerodrome"
+                                    maxlength="100" ng-trim="false" ng-model-options="{allowInvalid: true}"
+                                    only-letters uppercase-input required />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="destination_contact_time"><span translate>Destination Contact Time</span>&nbsp;(<span tranlate>HHmm</span>)</label>
+                                <input id="destination_contact_time" name="destinationContactTime" class="form-control" type="text" ng-model="editable.destination_contact_time"
+                                    minlength="4" maxlength="4"
+                                    ng-attr-title="{{editable.destination_contact_time < 2359 ? '' : 'Invalid time format' | translate}}"
+                                    ng-pattern="/^([01]\d|2[0-3])?([0-5]\d)$/" only-numbers />
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="route">Route</label>
+                                <input id="route" class="form-control" name="route" ng-model="editable.route" type="text" uppercase-input />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="flight_level"><span translate>Flight Level</span>&nbsp;<span translate>(<span tranlate>Fnnn</span>)</span></label>
+                                <input id="flight_level" class="form-control" name="flightLevel" type="text" ng-model="editable.flight_level"
+                                    uppercase-input />
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="flight_crew">Flight Crew *</label>
+                                <input id="flight_crew" class="form-control" name="flightCrew" type="number" ng-model="editable.flight_crew" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="passengers">Passengers *</label>
+                                <input id="passengers" class="form-control" name="passengers" type="number" ng-model="editable.passengers" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="flight_category">Flight Category *</label>
+                                <select id="flight_category" name="flightCategory" class="form-control" ng-model="editable.flight_category" ng-options="item.value as (item.name | translate) for item in flightCategories" required>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- tower movement log form errors -->
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'"></ng-include>
+                        <!-- tower movement log form actions -->
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary btn-reset" translate ng-click="reset(); form.$setUntouched();">
+                                    Clear
+                                </button>
+                                <button class="btn btn-primary btn-update" translate ng-show="editable.id !== null" ng-disabled="form.$invalid"
+                                    popup popup-text="Are you sure you want to update this?" popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                    popup-confirm="update(editable, editable.id); form.$setUntouched();">
+                                    Update
+                                </button>
+                                <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null" popup popup-text="Are you sure you want to delete this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
+                                    popup-confirm="delete(editable.id); form.$setUntouched()">
+                                    Delete
+                                </button>
+                                <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid" ng-show="editable.id === null"
+                                    ng-click="create(editable); form.$setUntouched();">
+                                    Create
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <!-- upload tower movement logs container -->
+        <div class="row margin-top-20">
+            <div class="col-xs-12">
+                <div class="box-container">
+                    <box-header icon="'tasks'" title="{{ 'Upload a Tower Movement Log' | translate }}"></box-header>
+                    <div class="box-content">
+                        <form novalidate action="#" name="uploadForm" onsubmit="return false">
+                            <fieldset ng-disabled="!hasPermission('flight_log_modify')">
+                                <!-- tower movement logs upload fields -->
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <ng-include
+                                            src="'app/angular-ids-project/src/helpers/controllers/crud-file-handler/crud-file-handler.template.html'">
+                                        </ng-include>
+                                    </div>
+                                </div>
+                                <!-- tower movement logs upload feedback -->
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <upload-feedback><!-- Upload Feedback --></upload-feedback>
+                                    </div>
+                                </div>
+                                <!-- tower movement logs upload actions -->
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <button translate class="btn btn-primary"
+                                            ng-disabled="!editable.document_filename || !acceptedFileType"
+                                            ng-click="upload('PUT', null, null, 'refreshOverride'); form.$setUntouched(); reset();">Upload
+                                        </button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

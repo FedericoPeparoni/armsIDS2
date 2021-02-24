@@ -1,0 +1,72 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="box-container">
+            <box-header page-name="security.password-change" icon="'user'"
+                title="{{ 'Password Change' | translate }}"></box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <label translate for="email-address">Email Address *</label>
+                            <input id="email-address" name="email" class="form-control" type="email"
+                                ng-model="editable.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]+$"
+                                required/>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <label translate for="userlogin">User Login *</label>
+                            <input id="userlogin" name="login" class="form-control"
+                                type="text" ng-model="login" readonly required/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <label translate for="sms">SMS *</label>
+                            <input id="sms" name="sms" class="form-control"
+                                type="text" ng-model="editable.sms_number" required/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <label for="current-password">
+                                <span translate>Current Password</span>&nbsp;<span ng-show="passwordMinLength > 0">*</span>
+                            </label>
+                            <input id="current-password" name="currentPassword" class="form-control"
+                                type="password" ng-model="editable.old_password" autocomplete="new-password" ng-required="passwordMinLength > 0"/>
+                        </div>
+                    </div>
+
+                    <password name-1="New Password *" name-2="Confirm New Password *" 
+                        error="error" reset-pass="resetPass" required password="editable.new_password">
+                    </password>
+
+                    <div ng-if="passwordMinLength === 0" class="row">
+                        <div class="col-xs-12">
+                            <button translate id="empty-password" class="btn btn-primary"
+                                    ng-class="{ 'active': setZeroLength }"
+                                    ng-click="resetPassword(!setZeroLength)"
+                                    ng-model="setZeroLength">
+                                Set password to zero length password
+                            </button>
+                        </div>
+                    </div>
+
+                    <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                        <!-- Error Handling -->
+                    </ng-include>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button translate class="btn btn-primary" ng-disabled="form.$invalid || editable.new_password === null"
+                                popup popup-text="Are you sure you want to update this?"
+                                popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                popup-confirm="updatePassword(editable); form.$setUntouched();">Update
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

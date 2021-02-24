@@ -1,0 +1,245 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <div class="box-container">
+
+            <box-header toggle="toggle" page-name="operations.aircraft-registration-management" icon="'fighter-jet'" title="{{ 'Aircraft Registrations' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="textFilter" empty-to-null
+                            ng-keyup="$event.keyCode == 13 && refreshOverride()"/>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <button ng-click="refreshOverride()" class="btn btn-primary pull-right" translate>Refresh</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table query-string="filterParameters" back-end-export="true"
+                            sort-query-string="getSortQueryString()" service="aircraftRegistrationService">
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString"
+                                table-sort="refreshOverride()">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-nowrap" sort="registrationNumber">Registration Number</th>
+                                        <th translate class="text-nowrap" sort="registrationStartDate">Start Date</th>
+                                        <th translate class="text-nowrap" sort="registrationExpiryDate">Expiry Date</th>
+                                        <th translate class="text-nowrap" sort="account.name">Account</th>
+                                        <th translate class="text-nowrap" sort="aircraftType.aircraftType">Aircraft Type</th>
+                                        <th class="text-nowrap text-right" sort="mtowOverride"><span>{{ 'MTOW Override' | translate }}&nbsp;({{ mtowUnitOfMeasure | translate }})</span></th>
+                                        <th translate class="text-nowrap" sort="createdBySelfCare">Created By Self-Care</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="setEditable(item)" ng-class="{'highlight': editable.id === item.id}" ng-repeat="item in list">
+                                        <td class="text-nowrap">{{ item.registration_number }}</td>
+                                        <td class="text-nowrap">{{ item.registration_start_date | dateConverter }}</td>
+                                        <td class="text-nowrap">{{ item.registration_expiry_date | dateConverter }}</td>
+                                        <td class="text-nowrap">{{ item.account.name | translate }}</td>
+                                        <td class="text-nowrap">{{ item.aircraft_type.aircraft_type }}</td>
+                                        <td class="text-right">{{ item.mtow_override | weightConverter }}</td>
+                                        <td>{{ item.created_by_self_care }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td class="text-center" translate colspan="7">There are no Aircraft Registration data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refreshOverride()"
+                            max-size="::20" items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm" boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+
+            <box-header ng-show="editable.id === null" icon="'fighter-jet'" title="{{ 'Register an Aircraft' | translate }}"></box-header>
+            <box-header ng-show="editable.id !== null" icon="'fighter-jet'" title="{{ 'Edit an Aircraft' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <form novalidate action="#" name="form" onsubmit="return false">
+
+                    <fieldset ng-disabled="!hasPermission('aircraft_registration_modify')">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="registration-number">Registration Number *</label>
+                                <input id="registration-number" name="registrationNumber" class="form-control text-uppercase"
+                                    type="text" ng-model="editable.registration_number"
+                                    ng-blur="editable.registration_number = editable.registration_number.toUpperCase();
+                                        getAircraftTypeByLatestRegistrationNumber(editable.registration_number);
+                                        getCountryByRegistrationNumberPrefix(editable.registration_number)"
+                                    minlength="2" maxlength="7" ng-pattern="/^[a-zA-Z0-9]*$/" ng-trim="false" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="account">Account *</label>
+                                <dynamic-service-dropdown ng-model="editable.account"
+                                                        id="account" name="account" dropdown-type="single"
+                                                        service="::accountsService"
+                                                        method="findAllActiveMinimalReturn"
+                                                        is-required="::true"
+                                                        options="account as account.name for account in list track by account.id">
+                                </dynamic-service-dropdown>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <date-range control="control" is-required="::true" format="{{customDate}}" start-name="Start Date *" end-name="Expiry Date *">
+                                <!-- Datepickers -->
+                            </date-range>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="aircraft-type">Aircraft Type *</label>
+                                <dynamic-service-dropdown ng-model="editable.aircraft_type"
+                                                          id="aircraft-type"
+                                                          name="aircraftType"
+                                                          dropdown-type="single"
+                                                          service="::aircraftTypeManagementService"
+                                                          is-required="::true"
+                                                          options="item as item.aircraft_type for item in list.content | orderBy: 'aircraft_type' track by item.id"
+                                                          ng-change="convertMtowProperty(editable.aircraft_type)"></dynamic-service-dropdown>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="mtow-override"><span>{{ 'MTOW Override' | translate }}&nbsp;({{ mtowUnitOfMeasure | translate }}) *</span></label>
+                                <unit-conversion-input id="mtow-override" name="mtowOverride" ng-model="editable.mtow_override" measurement-type="weight" required />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="country-of-registration">Country of Registration *</label>
+                                <dynamic-service-dropdown ng-model="editable.country_of_registration"
+                                                            id="country-of-registration" name="countryOfRegistration"
+                                                            dropdown-type="single"
+                                                            service="::countryManagementService"
+                                                            is-required="::true"
+                                                            ng-change="setLocal(editable.country_of_registration)"
+                                                            options="item as (item.country_name | translate) for item in list.content track by item.id"></dynamic-service-dropdown>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="country-override">Override country of registration</label>
+                                <boolean-text ng-disabled="countryMatch" name="countryOverride"  ng-model="editable.country_override" class="form-control" 
+                                    id="country-override" ng-init="editable.country_override = false"></boolean-text>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <date-range control="control_coa" is-required="::false" format="{{customDate}}" start-name="Coa Issue Date" end-name="Coa Expiry Date">
+                                <!-- Datepickers -->
+                            </date-range>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="aircraft-service-date"><span translate>Aircraft Service Date</span> <span translate>({{ ::customDate }})</span></label>
+                                <p class="input-group">
+                                    <date-picker id="aircraft-service-date" name="aircraftServiceDate" type="text"
+                                        ng-pattern="datePickerRegex" show-button-bar="false" class="form-control" uib-datepicker-popup="{{ customDate }}"
+                                        ng-model="editable.aircraft_service_date" is-open="aircraftServiceDate.open"
+                                        ng-attr-title="{{editable.aircraft_service_date ? '' : 'Please fill out this field' | translate}}"
+                                        close-text="Close">
+                                    </date-picker>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default"
+                                            ng-click="aircraftServiceDate.open = !aircraftServiceDate.open">
+                                            <i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
+                                        </button>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="is-local"><span translate>Local</span></label>
+                                <boolean-text name="isLocal" ng-model="editable.is_local" class="form-control" id="is-local" required></boolean-text>
+                            </div>
+                        </div>
+
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary btn-reset" translate ng-click="form.$setUntouched(); reset()">
+                                    Clear
+                                </button>
+                                <button class="btn btn-primary btn-update" translate
+                                        ng-disabled="form.$invalid || editable.account.id === null || editable.aircraft_type.id === null || editable.country_of_registration.id === null || !(editable.country_override || countryMatch)"
+                                        ng-show="editable.id !== null"
+                                        popup popup-text="Are you sure you want to update this?"
+                                        popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                        popup-confirm="update(convertedEditable || editable, control, control_coa); form.$setUntouched();"
+                                        convert-to-tons property="mtow_override">
+                                    Update
+                                </button>
+                                <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null" 
+                                    popup popup-text="Are you sure you want to delete this?" 
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on delete" 
+                                    popup-confirm="delete(editable.id)">Delete
+                                </button>
+                                <button class="btn btn-primary btn-create" translate
+                                        ng-show="editable.id === null"
+                                        ng-disabled="form.$invalid || editable.account.id === null || editable.aircraft_type.id === null || editable.country_of_registration.id === null || !(editable.country_override || countryMatch)"
+                                        convert-to-tons property="mtow_override"
+                                        conversion-complete="create(convertedEditable || editable, control, control_coa); form.$setUntouched();">
+                                    Create
+                                </button>
+
+                            </div>
+                        </div>
+                    </fieldset>
+
+                </form>
+
+            </div>
+        </div>
+
+        <div class="row margin-top-20">
+            <div class="col-xs-12">
+                <div class="box-container">
+                    <box-header icon="'fighter-jet'" title="{{ 'Upload Aircraft Registrations' | translate }}"></box-header>
+                    <div class="box-content">
+                        <form novalidate action="#" name="uploadForm" onsubmit="return false">
+                            <fieldset ng-disabled="!hasPermission('aircraft_registration_modify')">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <ng-include src="'app/angular-ids-project/src/helpers/controllers/crud-file-handler/crud-file-handler.template.html'"></ng-include>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <summary-upload upload-job="uploadJob"></summary-upload>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <button translate class="btn btn-primary"
+                                                ng-click="upload('PUT', null, null, 'refreshOverride')"
+                                                ng-disabled="!editable.document_filename">
+                                                Upload
+                                        </button>
+                                        <upload-file-format format={{pattern}} mtow={{mtowUnitOfMeasure}} template="app/partials/aircraft-registration/aircraft-registration.template.html"></upload-file-format>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

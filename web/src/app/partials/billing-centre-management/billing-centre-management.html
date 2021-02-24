@@ -1,0 +1,192 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+
+        <div class="box-container">
+
+            <box-header page-name="management.billing-centre-management" toggle="toggle" icon="'book'"
+                title="{{ 'Billing Centres' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="textFilter" empty-to-null
+                            ng-keyup="$event.keyCode == 13 && refreshOverride()"/>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <button translate ng-click="refreshOverride()" class="btn btn-primary pull-right">Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table sort-query-string="getSortQueryString()" query-string="filterParameters"
+                            back-end-export="true" service="billingCentreManagementService">
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" 
+                                table-sort="refreshOverride()">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-nowrap" sort="name">Name</th>
+                                        <th translate class="text-nowrap" sort="hq">Headquarters</th>
+                                        <th translate class="text-nowrap" sort="prefixInvoiceNumber">Invoice Prefix</th>
+                                        <th translate class="text-right text-nowrap" sort="invoiceSequenceNumber">Invoice Sequence Number</th>
+                                        <th ng-show="iataInvoiceSeparatedSeqNumber" translate class="text-right text-nowrap" sort="iataInvoiceSequenceNumber">IATA Invoice Sequence Number</th>
+                                        <th translate class="text-nowrap" sort="prefixReceiptNumber">Receipt Prefix</th>
+                                        <th translate class="text-right text-nowrap" sort="receiptSequenceNumber">Receipt Sequence Number</th>
+                                        <th ng-show="receiptSeqNumberByPayMechanism" translate class="text-right text-nowrap" sort="receiptChequeSequenceNumber">Receipt Cheque Sequence Number</th>
+                                        <th ng-show="receiptSeqNumberByPayMechanism" translate class="text-right text-nowrap" sort="receiptWireSequenceNumber">Receipt Wire Sequence Number</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="edit(item);" ng-repeat="item in list" ng-class="{'highlight': editable.id === item.id}">
+                                        <td class="text-nowrap">{{ item.name }}</td>
+                                        <td class="text-nowrap">{{ item.hq | translate }}</td>
+                                        <td class="text-nowrap">{{ item.prefix_invoice_number }}</td>
+                                        <td class="text-right text-nowrap">{{ item.invoice_sequence_number }}</td>
+                                        <td ng-show="iataInvoiceSeparatedSeqNumber" class="text-right text-nowrap">{{ item.iata_invoice_sequence_number }}</td>
+                                        <td class="text-nowrap">{{ item.prefix_receipt_number }}</td>
+                                        <td class="text-right text-nowrap">{{ item.receipt_sequence_number }}</td>
+                                        <td ng-show="receiptSeqNumberByPayMechanism" class="text-right text-nowrap">{{ item.receipt_cheque_sequence_number }}</td>
+                                        <td ng-show="receiptSeqNumberByPayMechanism" class="text-right text-nowrap">{{ item.receipt_wire_sequence_number }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td translate class="text-center" colspan="9">There are no Billing Centres data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refreshOverride()" 
+                            max-size="::20" items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm" boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+
+            <box-header ng-show="editable.id === null" icon="'book'" title="{{ 'Add a Billing Centre' | translate }}"></box-header>
+            <box-header ng-show="editable.id !== null" icon="'book'" title="{{ 'Edit a Billing Centre' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <form novalidate action="#" name="form" onsubmit="return false">
+
+                    <fieldset ng-disabled="!hasPermission('billing_center_modify')">
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="name">Name *</label>
+                                <input id="name" name="name" class="form-control" type="text" ng-model="editable.name" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="hq">Headquarters *</label>
+                                <boolean-text ng-model="editable.hq" id="hq" name="hq" class="form-control text-capitalize"
+                                        ng-change="checkHq(editable)" required></boolean-text>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="prefix-invoice-number">Invoice Prefix</label>
+                                <input id="prefix-invoice-number" name="prefixInvoiceNumber" class="form-control" type="text" ng-model="editable.prefix_invoice_number" ng-pattern="/^[a-zA-Z0-9]+$/" />
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="invoice-sequence-number"><span translate>Invoice Sequence Number</span> *</label>
+                                <input ng-disabled="editable.id !== null" id="invoice-sequence-number" name="invoiceSequenceNumber" class="form-control" type="number" min="0" max="2147483647"
+                                    ng-model="editable.invoice_sequence_number" ng-pattern="/^\d+$/" required/>
+                            </div>
+                        </div>
+                        <div class="row" ng-show="iataInvoiceSeparatedSeqNumber">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="iata_invoice_sequence_number"><span translate>IATA Invoice Sequence Number</span> *</label>
+                                <input ng-disabled="editable.id !== null" id="iata_invoice_sequence_number" name="iataInvoiceSequenceNumber" class="form-control" type="number" min="0" max="2147483647"
+                                    ng-model="editable.iata_invoice_sequence_number" ng-pattern="/^\d+$/" ng-required="iataInvoiceSeparatedSeqNumber"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="prefix-receipt-number">Receipt Prefix</label>
+                                <input id="prefix-receipt-number" name="prefixReceiptNumber" class="form-control" type="text" ng-model="editable.prefix_receipt_number" ng-pattern="/^[a-zA-Z0-9]+$/" />
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="receipt-sequence-number"><span translate>Receipt Sequence Number</span> *</label>
+                                <input ng-disabled="editable.id !== null" id="receipt-sequence-number" name="receiptSequenceNumber" class="form-control" type="number" min="0" max="2147483647"
+                                    ng-model="editable.receipt_sequence_number" ng-pattern="/^\d+$/" required/>
+                            </div>
+                        </div>
+                        <div class="row" ng-show="receiptSeqNumberByPayMechanism">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="receipt_cheque_sequence_number"><span translate>Receipt Cheque Sequence Number</span> *</label>
+                                <input ng-disabled="editable.id !== null" id="receipt_cheque_sequence_number" name="receiptChequeSequenceNumber" class="form-control" type="number" min="0" max="2147483647"
+                                    ng-model="editable.receipt_cheque_sequence_number" ng-pattern="/^\d+$/" ng-required="receiptSeqNumberByPayMechanism"/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="receipt_wire_sequence_number"><span translate>Receipt Wire Sequence Number</span> *</label>
+                                <input ng-disabled="editable.id !== null" id="receipt_wire_sequence_number" name="receiptWireSequenceNumber" class="form-control" type="number" min="0" max="2147483647"
+                                    ng-model="editable.receipt_wire_sequence_number" ng-pattern="/^\d+$/" ng-required="receiptSeqNumberByPayMechanism"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="external-accounting-system-id">
+                                    <span translate>External Accounting System Identifier</span>
+                                    <span ng-if="requireExternalSystemId">*</span>
+                                </label>
+                                <input id="external-accounting-system-id" name="externalAccountingSystemIdentifier" class="form-control"
+                                    ng-model="editable.external_accounting_system_identifier" maxlength="20"
+                                    ng-required="requireExternalSystemId" />
+                            </div>
+                        </div>
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary btn-reset" translate ng-click="reset(); headquarter = false; form.$setUntouched();">
+                                    Clear
+                                </button>
+                                <button class="btn btn-primary btn-update" translate ng-show="editable.id !== null" ng-disabled="form.$invalid"
+                                        popup popup-text="Are you sure you want to update this?"
+                                        popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                        popup-confirm="update(editable, editable.id); form.$setUntouched();"
+                                        update-warning="{{ updateWarning }}">Update
+                                </button>
+                                <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null"
+                                        popup popup-text="Are you sure you want to delete this?"
+                                        popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
+                                        popup-confirm="delete(editable.id); form.$setUntouched()"
+                                        delete-warning="{{ deleteWarning }}">Delete
+                                </button>
+                                <button translate ng-if="!createWarning && !updateWarning" class="btn btn-primary btn-create" ng-disabled="form.$invalid" ng-show="editable.id === null"
+                                        ng-click="create(editable); form.$setUntouched();">Create
+                                </button>
+                                <button translate ng-if="createWarning" class="btn btn-primary btn-create" ng-disabled="form.$invalid" ng-show="editable.id === null"
+                                        popup popup-text="Are you sure you want to create billing centre without designated headquarter?"
+                                        popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                        popup-confirm="create(editable); form.$setUntouched();"
+                                        create-warning="{{ createWarning }}">Create
+                                </button>
+                                <button translate ng-if="updateWarning" class="btn btn-primary btn-create" ng-disabled="form.$invalid" ng-show="editable.id === null"
+                                        popup popup-text="Are you sure you want to create billing centre without designated headquarter?"
+                                        popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                        popup-confirm="create(editable); form.$setUntouched();"
+                                        create-warning="{{ updateWarning }}">Create
+                                </button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

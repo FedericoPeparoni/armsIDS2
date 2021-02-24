@@ -1,0 +1,227 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <div class="box-container">
+
+            <box-header toggle="toggle" page-name="credit-payment" icon="'credit-card'"
+                title="{{ 'Credit Payment' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="textFilter" empty-to-null 
+                        ng-keyup="$event.keyCode == 13 && refreshOverride()"/>
+                    </div>
+                    <div class="col-xs-12 col-md-2 pull-right">
+                        <button translate ng-click="refreshOverride()" class="btn btn-primary pull-right">Refresh</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table sort-query-string="getSortQueryString()" back-end-export="true" 
+                            service="scCreditPaymentService" query-string="filterParameters">
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" 
+                                table-sort="refreshOverride()">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-nowrap" sort="transactionTime">Transaction Time</th>
+                                        <th translate class="text-nowrap" sort="account">Account</th>
+                                        <th translate class="text-nowrap" sort="requestorIp">Requestor IP</th>
+                                        <th translate class="text-nowrap" sort="request">Request</th>
+                                        <th translate class="text-nowrap" sort="response">Response</th>
+                                        <th translate class="text-nowrap" sort="responseStatus">Response Status</th>
+                                        <th translate class="text-nowrap" sort="responseDescription">Response Descrtiption</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="edit(item)" ng-repeat="item in list" ng-class="{'highlight': editable.id === item.id}">
+                                        <td class="text-nowrap">{{ item.transaction_time }}</td>
+                                        <td class="text-nowrap">{{ item.account.name }}</td>
+                                        <td class="text-nowrap">{{ item.requestor_ip }}</td>
+                                        <td class="text-nowrap">{{ item.request }}</td>
+                                        <td class="text-nowrap">{{ item.response }}</td>
+                                        <td class="text-nowrap">{{ item.response_status }}</td>
+                                        <td class="text-nowrap">{{ item.response_description }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td class="text-center" colspan="7" translate>There are no credit payment transactions</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refreshOverride()" 
+                            max-size="::20" items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm" boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+
+            <box-header ng-show="editable.id === null" icon="'credit-card'" title="{{ 'Make a payment' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-xs-12" ng-show="configurationWarning">
+                        <div class="error-handling-container">
+                            <div class="alert alert-dismissible alert-warning alert-icon" role="alert">
+                                <span class="glyphicon glyphicon-exclamation-sign icon" aria-hidden="true"></span>
+                                <strong translate>Credit Payment Configuration</strong>
+                                <p translate>
+                                    Cannot make a credit transaction because one or more credit configurations is invalid.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12" ng-show="paymentSuccessMessage">
+                        <div class="error-handling-container">
+                            <div class="alert alert-dismissible alert-success alert-icon" role="alert">
+                                <button id="error_button" type="button" ng-click="paymentSuccessMessage = null" class="close"
+                                    data-dismiss="alert">×</button>
+                                <span class="glyphicon glyphicon-exclamation-sign icon" aria-hidden="true"></span>
+                                <strong translate>Payment Success</strong>
+                                <p>
+                                    {{ payment['result-text'] }} <br>
+                                    Amount: ${{ payment.amount | abs }} USD <br>
+                                    Confirmation: {{ payment['transaction-id'] }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12" ng-show="paymentDeclinedMessage">
+                        <div class="error-handling-container">
+                            <div class="alert alert-dismissible alert-danger alert-icon" role="alert">
+                                <button id="error_button" type="button" ng-click="paymentDeclinedMessage = null" class="close"
+                                    data-dismiss="alert">×</button>
+                                <span class="glyphicon glyphicon-exclamation-sign icon" aria-hidden="true"></span>
+                                <strong translate>Payment Declined</strong>
+                                <p translate>
+                                    {{ payment['result-text'] }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form novalidate action="#" name="form" onsubmit="return false">
+
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="account">Account *</label>
+                                <dynamic-service-dropdown allow-empty="true" empty-to-null
+                                    ng-model="account_id" id="account" name="account" dropdown-type="single"
+                                    service="::scAccountManagementService" method="getSCWhiteListAccounts"
+                                    required
+                                    disabled="configurationWarning"
+                                    options="account.id as account.name for account in list track by account.id"
+                                    ng-change="sendNonSensitiveDataToCreditGateway(payment_amount, account_id)">
+                                </dynamic-service-dropdown>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="payment-amount">Payment Amount (USD) *</label>
+                                <input ng-disabled="configurationWarning" 
+                                    id="payment-amount" 
+                                    name="paymentAmount" 
+                                    type="number" 
+                                    class="form-control" 
+                                    ng-model="payment_amount"
+                                    ng-model-options="{ debounce: 500 }" 
+                                    ng-change="sendNonSensitiveDataToCreditGateway(payment_amount, account_id)"
+                                    min="1" 
+                                    required/>
+                            </div>
+                        </div>
+
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+                    </fieldset>
+                </form>
+                <br>
+                <form action="{{ trustSrc(formUrl) }}" method="post" name="paymentForm">
+
+                    <!-- 
+                        For tesing, use the following values
+                        4111111111111111
+                        1025 
+                        999 
+                    -->
+               
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            
+                            <label translate for="credit-card-number">Credit Card Number *</label>
+                            <i class="fa fa-cc-discover fa-2x pull-right" aria-hidden="true"></i>
+                            <i class="fa fa-cc-amex fa-2x pull-right" aria-hidden="true"></i>
+                            <i class="fa fa-cc-mastercard fa-2x pull-right" aria-hidden="true"></i>
+                            <i class="fa fa-cc-visa fa-2x pull-right" aria-hidden="true"></i>
+                            <input ng-disabled="!formUrl"
+                                id="credit-card-number" 
+                                name="billing-cc-number" 
+                                class="form-control" 
+                                ng-model="cc"
+                                only-numbers
+                                required/>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <label translate for="expiration-date">Expiration Date *</label>
+                            <input ng-disabled="!formUrl"
+                                placeholder="MMYY"
+                                id="expiration-date" 
+                                name="billing-cc-exp" 
+                                class="form-control"
+                                ng-model="cc_exp"
+                                only-numbers
+                                maxlength="4"
+                                required/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <label translate for="cvv">CVV *</label>
+                            <input ng-disabled="!formUrl" 
+                                id="cvv" 
+                                name="cvv" 
+                                class="form-control"
+                                ng-model="cc_cvv"
+                                only-numbers
+                                maxlength="4"
+                                minlength="3"
+                                required/>
+                        </div>
+                        <div class="col-xs-12 col-md-6" ng-show="formUrl">
+                            <h6><strong>Total: ${{ amountToBePaid }} USD</strong></h6>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <input class="btn btn-primary pull-right" ng-disabled="!formUrl || paymentForm.$invalid" type="submit" value="Submit">
+                        </div>
+                    </div>
+
+                    <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                        <!-- Error Handling -->
+                    </ng-include>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

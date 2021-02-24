@@ -1,0 +1,128 @@
+.error-message {
+  background-color: #e4867d;
+  border: 1px solid rgb(212,63,58);
+  border-radius: 5px;
+  width: 400px;
+  height: 50px;
+  position: absolute;
+  top: calc(50% - 25px);
+  left: calc(50% - 200px);
+  z-index: 99999;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 5px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 40px;
+}
+
+
+// margin-top-50 -> margin-top-5
+// includes padding
+$num: 50;
+@while $num > 5 {
+  .margin-top-#{$num} {
+    margin-top: #{$num}px;
+  }
+
+  .padding-#{$num} {
+    padding: #{$num}px;
+  }
+
+  @media screen and (max-width: 992px) { // anything less than or equal to `md` will have a margin
+    .md-margin-top-#{$num} {
+      margin-top: #{$num}px;
+    }
+  }
+
+  @media screen and (max-width: 1200px) { // anything less than or equal to `lg` will have a margin
+    .lg-margin-top-#{$num} {
+      margin-top: #{$num}px;
+    }
+  }
+
+  $num: $num - 5;
+}
+
+// Where bootstrap fails, we'll add our own classes
+.no-select {
+  user-select: none;
+}
+
+.word-break-break-all {
+  word-break: break-all;
+}
+
+.word-wrap-break-word {
+  word-wrap: break-word;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+
+/* 
+ * Allow dynamic columns in a single bootstrap row that will behave as if their are
+ * multiple rows defined. This is achieved by applying row margin to columns and clearing
+ * left float on applicable nth column in the row.
+ *
+ * Limitation:
+ * - columns must be equal size and be divisible by 12
+ * - all columns are visible or removed from DOM
+ */
+.row-responsive {
+  margin-top: 0;
+
+  > *[class*="col-"] {
+    margin-top: 20px;
+  }
+
+  $row-responsive-sizes: 1 2 3 4 6;
+  @mixin row-responsive-clearfix($media) {
+
+    @each $size in $row-responsive-sizes {
+
+      // must overwrite all clearfix from other media types
+      .col-#{$media}-#{$size}:nth-child(1n) { clear: none; }
+
+      // since rows are divided into 12 columns, we divide 12 by column
+      // size to determine number of columns in a row
+      $clearfix: 12 / $size;
+
+      // clearfix is placed on nth column plus one to signify a new row 
+      .col-#{$media}-#{$size}:nth-child(#{$clearfix}n+1) { clear: left; }
+    }
+  }
+
+  @media (max-width: 767px) {
+    @include row-responsive-clearfix(xs);
+  }
+
+  @media (min-width: 768px) {
+    @include row-responsive-clearfix(sm);
+  }
+
+  @media (min-width: 992px) {
+    @include row-responsive-clearfix(md);
+  }
+
+  @media (min-width: 1200px) {
+    @include row-responsive-clearfix(lg);
+  }
+}
+
+// add icon indenting to bootstrap alerts with .alert-icon class
+// supports both font-awesome and glyphicon
+.alert.alert-icon {
+  padding-left: 35px;
+  position: relative;
+
+  > .icon.fa,
+  > .icon.glyphicon {
+      position: absolute;
+      top: 20px;
+      left: 14px;
+  }
+} 

@@ -1,0 +1,13 @@
+$primary-color: #2196f3;
+
+.uib-datepicker .btn-info.active {
+  background-color: $primary-color;
+}
+
+.uib-datepicker .btn-info.active:hover {
+  background-color: $primary-color;
+}
+
+.uib-datepicker .text-info {
+  color: green;
+}

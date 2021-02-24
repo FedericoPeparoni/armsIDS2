@@ -1,0 +1,75 @@
+<div id="page-sc-login">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-push-0 col-xs-12 col-sm-10 col-sm-push-1 col-md-8 col-md-push-2 col-lg-6 col-lg-push-3">
+                <form ng-show="!recoveryForm" novalidate name="loginForm" onsubmit="return false" class="box-container">
+                    <div class="form-group">
+                        <label for="username" translate>Username</label>
+                        <input ng-model="user.username" type="text" class="form-control" id="username"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" translate>Password</label>
+                        <input ng-model="user.password" type="password" ng-paste="$event.preventDefault();"
+                            class="form-control" id="password"/>
+                    </div>
+                    <div class="form-group text-center">
+                        <button ng-disabled="loginForm.$invalid || !user.username || !user.password || timeoutDelay > 0 || !showButton"
+                            ng-click="submit(user.username, user.password)"
+                            type="submit" class="btn btn-primary"
+                            translate>SIGN IN</button>
+                    </div>
+                    <!-- Recaptcha Widget -->
+                    <recaptcha class="form-group"></recaptcha>
+                    <div class="form-group" ng-show="warning || timeoutDelay > 0">
+                        <uib-alert ng-show="timeoutDelay" type="warning" ng-click="warning = false">
+                            <span translate>A number of failed attempts have occurred. Please wait</span>
+                            <span>{{ timeoutDelay }}</span>
+                            <span translate>seconds to retry</span>
+                        </uib-alert>
+                    </div>
+                    <div class="form-group" ng-show="error">
+                        <uib-alert ng-show="error === 400 || error === 401" translate>Invalid username and/or password. Please try again</uib-alert>
+                        <uib-alert ng-show="error !== 400 && error !== 401">{{ offlineServerError }}</uib-alert>
+                    </div>
+                    <div class="form-group" ng-show="browserWarning">
+                        <div class="alert alert-dismissible alert-danger alert-icon" role="alert">
+                            <button id="browser-warning" type="button" ng-click="browserWarning = false" class="close" data-dismiss="alert">×</button>
+                            <span class="glyphicon glyphicon-exclamation-sign icon" aria-hidden="true"></span>
+                            <span translate>Unsupported browser detected. For the best experience, use:</span><span> Chrome(>52), Firefox(>47), Edge</span>
+                        </div>
+                    </div>
+                    <div>
+                        <button translate type="button" class="btn-link link btn-forgot-password" ng-click="passwordRecoveryForm()">Forgot password?</button>
+                    </div>
+                </form>
+
+                <!-- Recovery password form -->
+                <form ng-show="recoveryForm" novalidate name="loginForm" onsubmit="return false" class="box-container">
+                    <div class="form-group" ng-show="!tempPaswordSent">
+                        <label for="email" translate>Please enter you email</label>
+                        <input ng-model="email" type="text" class="form-control" id="email"
+                            autocomplete="off" />
+                    </div>
+                    <div class="form-group text-center" ng-show="!tempPaswordSent">
+                        <button
+                            ng-click="recoverPassword(email)" type="submit" class="btn btn-primary" ng-disabled="!email"
+                            translate>Next</button>
+                        <button
+                            ng-click="closeRecoveryForm()" type="submit" class="btn btn-primary"
+                            translate>Cancel</button>
+                    </div>
+                    <div class="form-group text-center" ng-show="tempPaswordSent" translate>
+                        The temporary password has been sent to your email. Please update your password when you login.
+                        
+                    </div>
+                    <div class="form-group text-center" ng-show="tempPaswordSent">
+                        <button ng-click="showLogin()" type="submit" class="btn btn-primary" translate>Login</button>
+                    </div>
+                    <div ng-show="error">
+                        <uib-alert ng-show="error" translate>{{ error.error.error_description ? error.error.error_description : error.error.error }}</uib-alert>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

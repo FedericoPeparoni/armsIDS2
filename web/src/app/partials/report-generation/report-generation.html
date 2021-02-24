@@ -1,0 +1,981 @@
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="box-container">
+
+            <box-header page-name="data-analysis-and-statistics.report-generation" icon="'file-text'"
+                title="{{ 'Report Generation' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <label><span translate>Report</span> *</label>
+                            <select id="report" class="form-control" ng-model="editable.report"
+                                    ng-change="setClear(editable)" ng-init="editable.report='accountStatusReport'" required>
+                                <!-- generic base reports -->
+                                <option translate value="accountStatusReport">Account status report</option>
+                                <option translate ng-if="!KCAA" value="accountStatementReport">Account statement report</option>
+                                <option translate ng-if="!KCAA" value="debtorReport">Debtor report</option>
+                                <option translate value="revenueLostToExemptionsReport">Revenue lost to exemptions report</option>
+                                <option translate value="summarisedInvoiceTotalsReport">Summarised invoice totals report</option>
+                                <option translate value="aircraftTypesReport">Aircraft types report</option>
+                                <option translate ng-if="!KCAA" value="passengerReport">Passenger Report</option>
+                                <option translate value="creditAndDebitNotesReport">Credit and Debit Notes Report</option>
+                                <option translate value="aircraftRegistrationReport">Aircraft Registration Report</option>
+                                <option translate value="missingBillingInformationReport">Missing Billing Information Report</option>
+                                <option translate value="aircraftRegistrationTrackingReport">Aircraft Registration Tracking Report</option>
+                                <option translate value="revenueReport">Revenue Report</option>
+
+                                <!-- kcaa customized reports -->
+                                <option translate ng-if="KCAA" value="kcaaDebtorReport">Debtor report</option>
+                                <option translate ng-if="KCAA" value="kcaaAccountStatementReport">Account statement report</option>
+                                <option translate ng-if="KCAA" value="localAircraftRegistryReport">Local Aircraft Registry Report</option>
+                                <option translate ng-if="KCAA" value="kcaaPassengerReport">Passenger Report</option>
+
+                                <!-- ttcaa customized reports -->
+                                <option translate ng-if="TTCAA" value="iataSummarySum">IATA Summary Sum</option>
+                                <option translate ng-if="TTCAA" value="iataSummaryData">IATA Summary Data</option>
+                            </select>
+                        </div>
+
+                        <div class="col-xs-12 col-md-3"
+                                ng-if="editable.report==='accountStatementReport'         ||
+                                    editable.report==='revenueLostToExemptionsReport'     ||
+                                    editable.report==='summarisedInvoiceTotalsReport'     ||
+                                    editable.report==='creditAndDebitNotesReport'         ||
+                                    editable.report==='missingBillingInformationReport'   ||
+                                    editable.report==='aircraftRegistrationTrackingReport'||
+                                    editable.report==='kcaaAccountStatementReport'">
+                            <label translate for="accounts">Accounts *</label>
+                            <multiselect
+                                id="accounts"
+                                name="accounts"
+                                extra-settings="{ displayProp: 'name' }"
+                                options="accountsList"
+                                model="selectedAccounts"
+                                events="{ onSelectionChanged: addAccountToList }">
+                            </multiselect>
+                        </div>
+
+                        <div class="col-xs-12 col-md-3"
+                                ng-if="editable.report ==='kcaaPassengerReport' || editable.report ==='passengerReport'">
+                            <label translate for="accounts">Accounts</label>
+                            <multiselect
+                                id="accounts"
+                                name="accounts"
+                                extra-settings="{ displayProp: 'name' }"
+                                options="accountsListWithCash"
+                                model="selectedAccounts"
+                                events="{ onSelectionChanged: addAccountToList }">
+                            </multiselect>
+                        </div>
+
+                        <div class="col-xs-12 col-md-3" ng-if="editable.report ==='iataSummarySum' || editable.report ==='iataSummaryData'">
+                            <label for="report_month"><span translate>Month</span> *</label>
+                                <p class="input-group">
+                                    <date-picker id="report_month" name="reportMonth" type="text" ng-change="dateChanged('report_month', editable.report_month)"
+                                        ng-pattern="datePickerRegex" show-button-bar="false" class="form-control" uib-datepicker-popup="{{ 'MMMM yyyy' }}"
+                                        ng-model="editable.report_month" is-open="reportMonth.open" datepicker-options="{ minMode: 'month' }" required
+                                        close-text="Close">
+                                    </date-picker>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default"
+                                            ng-click="reportMonth.open = !reportMonth.open">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
+                                </p>
+                        </div>
+
+                        <div class="col-xs-12 col-md-5" ng-show="requiresDatePicker(editable.report)">
+                            <date-range control="control"
+                                        is-required="requiresDatePicker(editable.report)"
+                                        start-end-adjust="true"
+                                        date-options="{ minMode: 'month' }"
+                                        start-name="Start Date *"
+                                        end-name="End Date *"
+                                        format="{{customDate}}">
+                                    <!--Datepickers -->
+                            </date-range>
+                        </div>
+
+                        <div class="col-xs-12 col-md-3"
+                                ng-if="editable.report==='aircraftTypesReport' || editable.report==='aircraftRegistrationReport'">
+                            <input id="all-used-defined" type="checkbox"
+                                ng-init="editable.used_defined = true"
+                                ng-model="editable.used_defined">
+                            <label translate for="all-used-defined">All used and defined</label><br>
+
+                            <input id="all-used-undefined" type="checkbox"
+                                ng-init="editable.used_undefined = true"
+                                ng-model="editable.used_undefined">
+                            <label translate for="all-used-undefined">All used but undefined</label>
+                        </div>
+
+                        <div class="col-xs-12 col-md-2"
+                                ng-if="editable.report==='kcaaDebtorReport'">
+                            <label translate for="overdue-interval">Number of Days Overdue *</label>
+                            <select id="overdue-interval" class="form-control" ng-model="editable.overdue_interval" required>
+                            <option translate value=""></option>
+                            <option translate value="1">0-30</option>
+                            <option translate value="2">30-60</option>
+                            <option translate value="3">60-90 </option>
+                            <option translate value="4">90-120</option>
+                            <option translate value="5">120+</option>
+                            </select>
+                        </div>
+
+                        <div class="col-xs-12 col-md-2"
+                                ng-if="editable.report==='debtorReport' ||
+                                    editable.report==='kcaaDebtorReport'">
+                            <label translate for="invoices">Invoices *</label>
+                            <select id="invoices" class="form-control" ng-model="editable.invoices" required>
+                            <option translate value=""></option>
+                            <option translate value="false">Outstanding</option>
+                            <option translate value="true">Overdue</option>
+                            </select>
+                        </div>
+
+                        <div class="col-xs-12 col-md-2" ng-if="editable.report=='accountStatusReport'">
+                            <label translate>Account Type *</label>
+                            <select id="credit_type" class="form-control" ng-model="editable.credit_type" ng-init="editable.credit_type = 'false'" required>
+                            <option translate value="false">All</option>
+                            <option translate value="true">Credit</option>
+                            </select>
+                        </div>
+
+                        <div ng-if="editable.report=='revenueReport'">
+                            <div class="col-xs-12 col-md-2">
+                                <label for="report-type"> {{ 'Type Of Invoice' | translate }} *</label>
+                                <select id="report-type" class="form-control" ng-model="editable.report_type" required
+                                    ng-init="editable.report_type = 'cash'">
+                                <option translate value="cash">Cash</option>
+                                <option translate value="credit">Credit</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Summarised Invoice Totals Report -->
+                        <div ng-if="editable.report=='summarisedInvoiceTotalsReport'">
+                            <div class="col-xs-12 col-md-2">
+                                <label translate for="summary-interval">Summary Interval *</label>
+                                <select id="summary-interval" class="form-control" ng-model="editable.summary_interval" required>
+                                <option translate value=""></option>
+                                <option translate value="1">Daily</option>
+                                <option translate value="2">Weekly</option>
+                                <option translate value="3">Monthly</option>
+                                <option translate value="4">Quarterly</option>
+                                <option translate value="5">Yearly</option>
+                                </select>
+                            </div>
+
+                            <div class="col-xs-12 col-md-2">
+                                <label translate for="report-currency">Report Currency *</label>
+                                <select id="report-currency" name="reportCurrency" class="form-control" ng-model="editable.report_currency" required
+                                    ng-options="item.currency_code as ((item.currency_name | translate) + ' (' + item.currency_code + ')') 
+                                        for item in currenciesList"></select>
+                            </div>
+
+                            <div class="col-xs-12 col-md-3">
+                                <input id="fiscal-year" type="checkbox" ng-init="editable.fiscal_year = flase" ng-model="editable.fiscal_year"
+                                ng-change="getFiscalYear()">
+                                <label translate for="fiscal-year">Use the fiscal start of the year</label><br>
+                            
+                                <input id="account-new-page" type="checkbox" ng-init="editable.account_new_page = true"
+                                    ng-model="editable.account_new_page">
+                                <label translate for="account-new-page">Begin each statement on new page</label>
+                            </div>
+
+                        </div>
+
+                        <!-- KCAA credit and debit notes -->
+                        <div class="col-xs-12 col-md-2"
+                            ng-if="editable.report==='creditAndDebitNotesReport'">
+                            <input id="credit-notes" type="checkbox"
+                                ng-init="editable.credit_notes = 1"
+                                ng-true-value="1"
+                                ng-false-value="0"
+                                ng-model="editable.credit_notes">
+                            <label translate for="credit-notes">Credit notes</label><br>
+
+                            <input id="debit-notes" type="checkbox"
+                                ng-init="editable.debit_notes = 2"
+                                ng-true-value="2"
+                                ng-false-value="0"
+                                ng-model="editable.debit_notes">
+                            <label translate for="debit-notes">Debit notes</label>
+                        </div>
+
+                        <!-- group by account / new page -->
+                        <div class="col-xs-12 col-md-3"
+                            ng-if="editable.report ==='creditAndDebitNotesReport' || editable.report === 'aircraftRegistrationReport'">
+                            <input id="group-by-account" type="checkbox"
+                                ng-init="editable.group_by_account = true"
+                                ng-model="editable.group_by_account">
+                            <label translate for="group-by-account">Group by account</label><br>
+
+                            <input id="account-new-page" type="checkbox"
+                                ng-init="editable.account_new_page = true"
+                                ng-model="editable.account_new_page">
+                            <label translate for="account-new-page">Begin each statement on new page</label>
+                        </div>
+
+                        <!-- KCAA group by owner / new page per account -->
+                        <div class="col-xs-12 col-md-3"
+                                ng-if="editable.report==='localAircraftRegistryReport'">
+                            <input id="group-by-owner" type="checkbox"
+                                    ng-init="editable.group_by_owner = true"
+                                    ng-model="editable.group_by_owner">
+                            <label translate for="group-by-owner">Group by owner</label><br>
+
+                            <input id="account-new-page" type="checkbox"
+                                    ng-init="editable.account_new_page = true"
+                                    ng-model="editable.account_new_page">
+                            <label translate for="account-new-page">Begin each statement on new page</label>
+                        </div>
+
+                        <!-- KCAA small aircraft / valid coa -->
+                        <div class="col-xs-12 col-md-3"
+                                ng-if="editable.report==='localAircraftRegistryReport'">
+                            <input id="small-aircraft" type="checkbox"
+                                    ng-init="editable.small_aircraft = true"
+                                    ng-model="editable.small_aircraft">
+                            <label translate for="small-aircraft">Under 2,500 kg</label><br>
+
+                            <input id="valid-coa" type="checkbox"
+                                    ng-init="editable.valid_coa = true"
+                                    ng-model="editable.valid_coa">
+                            <label translate for="valid-coa">Valid CoA</label>
+                        </div>
+                    </div>
+                    <!-- Revenue Report -->
+                    <div class="row" ng-if="editable.report=='revenueReport'">
+                        <div class="col-xs-12">
+                            <label for="displayed-columns">{{ 'Displayed Columns' | translate }} *</label><br>
+                        
+                            <div class="col-xs-12 col-md-2">
+                                <input id="exchange-rate-USD" type="checkbox" ng-model="editable.exchange_rate_usd">
+                                <label translate for="exchange-rate-USD">Exchange rate to USD</label>
+                            </div>
+
+                            <div class="col-xs-12 col-md-2">
+                                <input id="amount-USD" type="checkbox" ng-model="editable.amount_usd">
+                                <label translate for="amount-USD">Amount in USD</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="editable.report=='revenueReport'">
+                        <div class="col-xs-12"> 
+                            <div class="col-xs-12 col-md-2">
+                                <input id="exchange-rate-ANSP" type="checkbox" ng-model="editable.exchange_rate_ansp">
+                                <label translate for="exchange-rate-ANSP">Exchange rate to ANSP</label>
+                            </div>
+
+                            <div class="col-xs-12 col-md-2">
+                                <input id="amount-ANSP" type="checkbox" ng-model="editable.amount_ansp">
+                                <label translate for="amount-ANSP">Amount in ANSP</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KCAA select resolution errors -->
+                    <div class="row" ng-if="editable.report==='missingBillingInformationReport' || editable.report==='aircraftRegistrationTrackingReport'">
+                        <div class="col-xs-12 col-md-3"
+                                ng-if="editable.report==='missingBillingInformationReport'">
+                            <label for="types-of-errors"><span translate>Types of Errors</span> *</label>
+                            <multiselect
+                                events="{ onSelectionChanged: formatMissingInfo }"
+                                extra-settings="{ displayProp: 'name', idProp: 'name', externalIdProp: '' }"
+                                options="listOfMissingInfo"
+                                id="types-of-errors"
+                                translated-value="name"
+                                is-required="true"
+                                name="missingInfo"
+                                model="missingInfo">
+                            </multiselect>
+                        </div>
+
+                        <!-- KCAA select resolution errors -->
+                        <div class="col-xs-12 col-md-3"
+                            ng-if="editable.report==='aircraftRegistrationTrackingReport'">
+                            <label translate for="aircraft-registrations">Aircraft Registrations *</label>
+                            <multiselect
+                                events="{ onSelectionChanged: formatAircraftRegistrations }"
+                                extra-settings="{ displayProp: 'name', idProp: 'name', externalIdProp: '' }"
+                                options="listOfAirRegs"
+                                id="aircraft-registrations"
+                                is-required="true"
+                                name="aircraftRegistrations"
+                                model="aircraftRegistrations">
+                            </multiselect>
+                        </div>
+
+                        <!-- KCAA group by account -->
+                        <div class="col-xs-12 col-md-3"
+                            ng-if="editable.report==='missingBillingInformationReport' ||
+                                    editable.report==='aircraftRegistrationTrackingReport'">
+                            <input id="group-by-account" type="checkbox"
+                                    ng-init="editable.report !== 'aircraftRegistrationTrackingReport' ? editable.group_by_account = true : ''"
+                                    ng-model="editable.group_by_account">
+                            <label translate for="group-by-account">Group by account</label><br>
+                            <span ng-if="editable.report==='missingBillingInformationReport'">
+                                <input id="include-null-accounts" type="checkbox"
+                                        ng-init="editable.include_null_accounts = true"
+                                        ng-model="editable.include_null_accounts">
+                                <label translate for="include-null-accounts">Include missing accounts</label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Passenger Report -->
+                    <div class="row" ng-if="editable.report ==='kcaaPassengerReport' || editable.report ==='passengerReport'">
+                        <div class="col-xs-12 col-md-3">
+                            <label translate for="aerodromes">Aerodromes</label>
+                            <multiselect id="aerodromes" name="aerodromes"
+                                extra-settings="{ displayProp: 'aerodrome_name', idProp: 'aerodrome_name', externalIdProp: '' }"
+                                options="aerodromesList"
+                                model="selectedAerodromes"
+                                events="{ onSelectionChanged: addAerodromeToList }">
+                            </multiselect>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <input id="group-by-account" type="checkbox" ng-init="editable.group_by_account = true"
+                                ng-change="editable.group_by_account === true ? editable.group_by_aerodrome = false : ''"
+                                ng-model="editable.group_by_account">
+                            <label translate for="group-by-account">Group by account</label>
+                            <br>
+
+                            <input id="group-by-aerodrome " type="checkbox" ng-init="editable.group_by_aerodrome  = false"
+                                ng-change="editable.group_by_aerodrome === true ? editable.group_by_account = false : ''"
+                                ng-model="editable.group_by_aerodrome ">
+                            <label translate for="group-by-aerodrome ">Group by aerodrome </label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <label translate for="report_format">Report Download Format</label>
+                            <select id="report_format" class="form-control" ng-model="report_format">
+                                <option translate value="pdf">Adobe PDF</option>
+                                <option translate value="docx">Microsoft Word</option>
+                                <option translate value="xlsx">Microsoft Excel</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'"><!-- Error Handling --></ng-include>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button translate type="button" class="btn btn-primary btn-clean" ng-click="setClear(editable); form.$setUntouched();">
+                                Clear
+                            </button>
+
+                            <!--Account status report-->
+                            <download-oauth2 ng-show="editable.report==='accountStatusReport'" url="reports/generic/account_status"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        credit_type: editable.credit_type,
+                                        output_format: report_format,
+                                        page_break: editable.account_new_page }"
+                                disable="editable.credit_type !== 'false' && editable.credit_type !== 'true' || !report_format"
+                                hide-icon="true">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='accountStatusReport'" url="reports/generic/account_status"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ text: 'Preview', 
+                                        credit_type: editable.credit_type, 
+                                        page_break: editable.account_new_page }"
+                                disable="editable.credit_type !== 'false' && editable.credit_type !== 'true'">
+                            </preview-oauth2>
+
+                            <!--Account statement report-->
+                            <download-oauth2 ng-show="editable.report==='accountStatementReport'" url="reports/generic/account_statement_v2"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        output_format: report_format,
+                                        page_break: editable.account_new_page }"
+                                    request-method="POST"
+                                    body-params="{'account_id': accountIdsWithBrackets }"
+                                disable="!selectedAccounts.length || form.$invalid || !report_format"
+                                hide-icon="true">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='accountStatementReport'" url="reports/generic/account_statement_v2"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ page_break: editable.account_new_page,
+                                        text: 'Preview',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()) }"
+                                disable="!selectedAccounts.length || form.$invalid"
+                                request-method="POST"
+                                body-params="{'account_id': accountIdsWithBrackets }">
+                            </preview-oauth2>
+
+                            <!--Debtor report-->
+                            <download-oauth2 ng-show="editable.report==='debtorReport'" url="reports/generic/debtor_report_v2"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        overdue_interval: editable.overdue_interval,
+                                        credit_type: editable.invoices,
+                                        output_format: report_format,
+                                        page_break: editable.account_new_page }"
+                                disable="form.$invalid || !report_format"
+                                hide-icon="true">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='debtorReport'" url="reports/generic/debtor_report_v2"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ page_break: editable.account_new_page, 
+                                        text: 'Preview', 
+                                        overdue_interval: editable.overdue_interval, 
+                                        credit_type: editable.invoices }"
+                                disable="form.$invalid">
+                            </preview-oauth2>
+
+                            <!--Revenue lost to exemptions report-->
+                            <download-oauth2 ng-show="editable.report==='revenueLostToExemptionsReport'" url="reports/generic/revenue_lost_to_exemptions"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        output_format: report_format,
+                                        page_break: editable.account_new_page }"
+                                disable="!selectedAccounts.length || form.$invalid || !report_format"
+                                hide-icon="true"
+                                request-method="POST"
+                                body-params="{'account-id': accountIds}">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='revenueLostToExemptionsReport'" url="reports/generic/revenue_lost_to_exemptions"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ page_break: editable.account_new_page, 
+                                        text: 'Preview', 
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()), 
+                                        todate: returnFilteredDate(control.getUTCEndDate()) }"
+                                disable="!selectedAccounts.length || form.$invalid"
+                                request-method="POST"
+                                body-params="{'account-id': accountIds}">
+                            </preview-oauth2>
+
+                            <!--Summarised invoice totals report-->
+                            <download-oauth2 ng-show="editable.report==='summarisedInvoiceTotalsReport'" url="reports/generic/summarised_invoice_totals_v2"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        grouping: editable.summary_interval,
+                                        output_format: report_format,
+                                        page_break: editable.account_new_page,
+                                        currency: editable.report_currency,
+                                        fiscal_year: editable.fiscal_year,
+                                        fiscal_year_start: fiscalYear,
+                                        generated_by: userName }"
+                                disable="!selectedAccounts.length || form.$invalid || !report_format"
+                                hide-icon="true"
+                                request-method="POST"
+                                body-params="{accountid: accountIdsWithBrackets}">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='summarisedInvoiceTotalsReport'" url="reports/generic/summarised_invoice_totals_v2"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ page_break: editable.account_new_page, 
+                                        text: 'Preview',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()), 
+                                        todate: returnFilteredDate(control.getUTCEndDate()), 
+                                        grouping: editable.summary_interval,
+                                        currency: editable.report_currency,
+                                        fiscal_year: editable.fiscal_year,
+                                        fiscal_year_start: fiscalYear,
+                                        generated_by: userName }"
+                                disable="!selectedAccounts.length || form.$invalid"
+                                request-method="POST"
+                                body-params="{accountid: accountIdsWithBrackets}">
+                            </preview-oauth2>
+
+                            <!--Aircraft types report-->
+                            <download-oauth2 ng-show="editable.report==='aircraftTypesReport'" url="reports/generic/aircraft_types"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        filter_type: getFilterType(editable),
+                                        output_format: report_format,
+                                        page_break: editable.account_new_page }"
+                                disable="!editable.used_defined && !editable.used_undefined || !report_format"
+                                hide-icon="true">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='aircraftTypesReport'" url="reports/generic/aircraft_types"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ page_break: editable.account_new_page, 
+                                        text: 'Preview', 
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()), 
+                                        todate: returnFilteredDate(control.getUTCEndDate()), 
+                                        filter_type: getFilterType(editable) }"
+                                disable="!editable.used_defined && !editable.used_undefined">
+                            </preview-oauth2>
+
+                            <!--Credit and Debit Notes report-->
+                            <download-oauth2 ng-show="editable.report==='creditAndDebitNotesReport' && !KCAA" url="reports/generic/credit_debit_note"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        fromDate: returnFilteredDate(control.getUTCStartDate()),
+                                        toDate: returnFilteredDate(control.getUTCEndDate()),
+                                        group_by_account: editable.group_by_account,
+                                        credit: editable.credit_notes,
+                                        debit: editable.debit_notes,
+                                        page_break: editable.account_new_page,
+                                        output_format: report_format }"
+                                disable="!selectedAccounts.length || form.$invalid || !report_format"
+                                hide-icon="true"
+                                request-method="POST"
+                                body-params="{ account_id: accountIdsWithBrackets }">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='creditAndDebitNotesReport' && !KCAA" url="reports/generic/credit_debit_note"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ text: 'Preview',
+                                        fromDate: returnFilteredDate(control.getUTCStartDate()),
+                                        toDate: returnFilteredDate(control.getUTCEndDate()),
+                                        group_by_account: editable.group_by_account,
+                                        credit: editable.credit_notes,
+                                        debit: editable.debit_notes,
+                                        page_break: editable.account_new_page }"
+                                disable="!selectedAccounts.length || form.$invalid"
+                                request-method="POST"
+                                body-params="{ account_id: accountIdsWithBrackets }">
+                            </preview-oauth2>
+
+                            <!--Aircraft Registration report-->
+                            <download-oauth2 ng-show="editable.report==='aircraftRegistrationReport' && !KCAA" url="reports/generic/aircraft_registration"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate', fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        filter_type: getFilterType(editable),
+                                        group_by_account: editable.group_by_account,
+                                        page_break: editable.account_new_page,
+                                        output_format: report_format }"
+                                disable="form.$invalid || !report_format"
+                                hide-icon="true">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='aircraftRegistrationReport' && !KCAA" url="reports/generic/aircraft_registration"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ text: 'Preview', fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        filter_type: getFilterType(editable),
+                                        group_by_account: editable.group_by_account,
+                                        page_break: editable.account_new_page }"
+                                disable="form.$invalid">
+                            </preview-oauth2>
+
+                            <!--Missing Billing Information Report-->
+                            <download-oauth2 ng-show="editable.report==='missingBillingInformationReport' && !KCAA" url="reports/generic/missing_billing_info"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        group_by_account: editable.group_by_account,
+                                        null_accounts: editable.include_null_accounts,
+                                        output_format: report_format,
+                                        page_break: editable.account_new_page }"
+                                disable="!selectedAccounts.length  || !missingInfo.length || form.$invalid || !report_format"
+                                hide-icon="true"
+                                request-method="POST"
+                                body-params="{account_ids: accountIdsWithBrackets, billing_errors: billingErrors}">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='missingBillingInformationReport' && !KCAA" url="reports/generic/missing_billing_info"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ text: 'Preview',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        group_by_account: editable.group_by_account,
+                                        null_accounts: editable.include_null_accounts,
+                                        page_break: editable.account_new_page }"
+                                disable="!selectedAccounts.length  || !missingInfo.length || form.$invalid"
+                                request-method="POST"
+                                body-params="{account_ids: accountIdsWithBrackets, billing_errors: billingErrors}">
+                            </preview-oauth2>
+
+                            <!--Aircraft Registration Tracking Report-->
+                            <download-oauth2 ng-show="editable.report==='aircraftRegistrationTrackingReport' && !KCAA"
+                                url="reports/generic/registration_tracking"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        group_by_account: editable.group_by_account,
+                                        output_format: report_format,
+                                        page_break: editable.account_new_page }"
+                                request-method="POST"
+                                body-params="{aircraft_regs: aircraftRegs, account_ids: accountIdsWithBrackets}"
+                                disable="form.$invalid || !report_format"
+                                hide-icon="true">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='aircraftRegistrationTrackingReport' && !KCAA"
+                                url="reports/generic/registration_tracking"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ text: 'Preview',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        group_by_account: editable.group_by_account,
+                                        page_break: editable.account_new_page }"
+                                request-method="POST"
+                                body-params="{aircraft_regs: aircraftRegs, account_ids: accountIdsWithBrackets}"
+                                disable="form.$invalid">
+                            </preview-oauth2>
+
+                            <!--Revenue Report-->
+                            <download-oauth2 ng-show="editable.report === 'revenueReport'"
+                                url=reports/generic/revenue_report_{{editable.report_type}}
+                                error="error" 
+                                class-used="btn btn-primary btn-generate" 
+                                params="{ text: 'Generate',
+                                        output_format: report_format,
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        exchangeUSD: editable.exchange_rate_usd,
+                                        amountUSD: editable.amount_usd,
+                                        exchangeANSP: editable.exchange_rate_ansp,
+                                        amountANSP: editable.amount_ansp,
+                                        generated_by: userName }"   
+                                request-method="POST"
+                                disable="form.$invalid || !report_format || !(editable.exchange_rate_usd || editable.amount_usd 
+                                    || editable.exchange_rate_ansp || editable.amount_ansp)" hide-icon="true">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report === 'revenueReport'"
+                                url="reports/generic/revenue_report_{{editable.report_type}}"
+                                error="$parent.error" 
+                                height="'670px'" 
+                                params="{ text: 'Preview',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        exchangeUSD: editable.exchange_rate_usd,
+                                        amountUSD: editable.amount_usd,
+                                        exchangeANSP: editable.exchange_rate_ansp,
+                                        amountANSP: editable.amount_ansp,
+                                        generated_by: userName }" 
+                                request-method="POST"
+                                disable="form.$invalid || !(editable.exchange_rate_usd || editable.amount_usd 
+                                    || editable.exchange_rate_ansp || editable.amount_ansp)">
+                            </preview-oauth2>
+
+                            <!--CAAB Passenger Report-->
+                            <download-oauth2 ng-show="editable.report==='passengerReport'" url="reports/generic/passenger_report"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        group_by_account: editable.group_by_account,
+                                        group_by_aerodrome: editable.group_by_aerodrome,
+                                        output_format: report_format,
+                                        page_break: editable.account_new_page }"
+                                disable="form.$invalid || !report_format"
+                                hide-icon="true"
+                                request-method="POST"
+                                body-params="{account_ids: accountIdsWithBrackets, aerodrome_ids: aerodromeIdsWithBrackets}">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='passengerReport'" url="reports/generic/passenger_report"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ text: 'Preview',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        group_by_account: editable.group_by_account,
+                                        group_by_aerodrome: editable.group_by_aerodrome,
+                                        page_break: editable.account_new_page }"
+                                disable="form.$invalid"
+                                request-method="POST"
+                                body-params="{account_ids: accountIdsWithBrackets, aerodrome_ids: aerodromeIdsWithBrackets}">
+                            </preview-oauth2>
+
+                            <!--KCAA Account statement report-->
+                            <download-oauth2 ng-show="editable.report==='kcaaAccountStatementReport'" url="reports/generic/account_statement_kcaa"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        output_format: report_format,
+                                        page_break: editable.account_new_page }"
+                                disable="!selectedAccounts.length || form.$invalid"
+                                request-method="POST"
+                                body-params="{ 'account_id': accountIdsWithBrackets }"
+                                hide-icon="true">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='kcaaAccountStatementReport'" url="reports/generic/account_statement_kcaa"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ page_break: editable.account_new_page, 
+                                        text: 'Preview', 
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()), 
+                                        todate: returnFilteredDate(control.getUTCEndDate()) }"
+                                disable="!selectedAccounts.length || form.$invalid"
+                                request-method="POST"
+                                body-params="{ 'account_id': accountIdsWithBrackets }">
+                            </preview-oauth2>
+
+                            <!--KCAA Credit and Debit Notes report-->
+                            <download-oauth2 ng-show="editable.report==='creditAndDebitNotesReport' && KCAA" url="reports/generic/credit_debit_note_kcaa_v2"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{text: 'Generate',
+                                        fromDate: returnFilteredDate(control.getUTCStartDate()),
+                                        toDate: returnFilteredDate(control.getUTCEndDate()),
+                                        group_by_account: editable.group_by_account,
+                                        credit: editable.credit_notes,
+                                        debit: editable.debit_notes,
+                                        page_break: editable.account_new_page,
+                                        output_format: report_format }"
+                                disable="!selectedAccounts.length || form.$invalid || !report_format"
+                                hide-icon="true"
+                                request-method="POST"
+                                body-params="{ account_id: accountIdsWithBrackets }">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='creditAndDebitNotesReport' && KCAA" url="reports/generic/credit_debit_note_kcaa_v2"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ text: 'Preview',
+                                        fromDate: returnFilteredDate(control.getUTCStartDate()),
+                                        toDate: returnFilteredDate(control.getUTCEndDate()),
+                                        group_by_account: editable.group_by_account,
+                                        credit: editable.credit_notes,
+                                        debit: editable.debit_notes,
+                                        page_break: editable.account_new_page }"
+                                disable="!selectedAccounts.length || form.$invalid"
+                                request-method="POST"
+                                body-params="{ account_id: accountIdsWithBrackets }">
+                            </preview-oauth2>
+
+                            <!--KCAA Aircraft Registration report-->
+                            <download-oauth2 ng-show="editable.report==='aircraftRegistrationReport' && KCAA" url="reports/generic/aircraft_registration_kcaa"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate', fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        filter_type: getFilterType(editable),
+                                        group_by_account: editable.group_by_account,
+                                        page_break: editable.account_new_page,
+                                        output_format: report_format }"
+                                disable="form.$invalid || !report_format"
+                                hide-icon="true">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='aircraftRegistrationReport' && KCAA" url="reports/generic/aircraft_registration_kcaa"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ text: 'Preview', fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        filter_type: getFilterType(editable),
+                                        group_by_account: editable.group_by_account,
+                                        page_break: editable.account_new_page }"
+                                disable="form.$invalid">
+                            </preview-oauth2>
+
+                            <!--KCAA Local Aircraft Registry-->
+                            <download-oauth2 ng-show="editable.report==='localAircraftRegistryReport'" url="reports/generic/local_aircraft_registry_v4"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate', group_by_owner: editable.group_by_owner,
+                                        page_break: editable.account_new_page,
+                                        small_aircraft: editable.small_aircraft,
+                                        valid_coa: editable.valid_coa,
+                                        output_format: report_format }"
+                                disable="form.$invalid || !report_format"
+                                hide-icon="true">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='localAircraftRegistryReport'" url="reports/generic/local_aircraft_registry_v4"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ text: 'Preview', group_by_owner: editable.group_by_owner,
+                                        page_break: editable.account_new_page,
+                                        small_aircraft: editable.small_aircraft,
+                                        valid_coa: editable.valid_coa }"
+                                disable="form.$invalid">
+                            </preview-oauth2>
+
+                            <!--KCAA Missing Billing Information Report-->
+                            <download-oauth2 ng-show="editable.report==='missingBillingInformationReport' && KCAA" url="reports/generic/missing_billing_info_kcaa_v2"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        group_by_account: editable.group_by_account,
+                                        null_accounts: editable.include_null_accounts,
+                                        output_format: report_format,
+                                        page_break: editable.account_new_page }"
+                                disable="!selectedAccounts.length || !missingInfo.length || form.$invalid || !report_format"
+                                hide-icon="true"
+                                request-method="POST"
+                                body-params="{ account_ids: accountIdsWithBrackets, 
+                                            billing_errors: billingErrors }">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='missingBillingInformationReport' && KCAA" url="reports/generic/missing_billing_info_kcaa_v2"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ text: 'Preview',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        group_by_account: editable.group_by_account,
+                                        null_accounts: editable.include_null_accounts,
+                                        page_break: editable.account_new_page }"
+                                disable="!selectedAccounts.length || !missingInfo.length || form.$invalid"
+                                request-method="POST"
+                                body-params="{account_ids: accountIdsWithBrackets, billing_errors: billingErrors}">
+                            </preview-oauth2>
+
+                            <!--KCAA Aircraft Registration Tracking Report-->
+                            <download-oauth2 ng-show="editable.report==='aircraftRegistrationTrackingReport' && KCAA"
+                                                url="reports/generic/registration_tracking_kcaa"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        group_by_account: editable.group_by_account,
+                                        output_format: report_format,
+                                        page_break: editable.account_new_page }"
+                                request-method="POST"
+                                body-params="{aircraft_regs: aircraftRegs, account_ids: accountIdsWithBrackets}"
+                                disable="form.$invalid || !report_format"
+                                hide-icon="true">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='aircraftRegistrationTrackingReport' && KCAA"
+                                            url="reports/generic/registration_tracking_kcaa"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ text: 'Preview',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        group_by_account: editable.group_by_account,
+                                        page_break: editable.account_new_page }"
+                                request-method="POST"
+                                body-params="{aircraft_regs: aircraftRegs, account_ids: accountIdsWithBrackets}"
+                                disable="form.$invalid">
+                            </preview-oauth2>
+
+                            <!--KCAA Debtor report-->
+                            <download-oauth2 ng-show="editable.report==='kcaaDebtorReport'" url="reports/generic/debtor_report_kcaa"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        overdue_interval: editable.overdue_interval,
+                                        credit_type: editable.invoices,
+                                        output_format: report_format,
+                                        page_break: editable.account_new_page }"
+                                disable="form.$invalid || !report_format"
+                                hide-icon="true">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='kcaaDebtorReport'" url="reports/generic/debtor_report_kcaa"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ page_break: editable.account_new_page,
+                                        text: 'Preview',
+                                        overdue_interval: editable.overdue_interval,
+                                        credit_type: editable.invoices }"
+                                disable="form.$invalid">
+                            </preview-oauth2>
+
+                            <!--KCAA Passenger Report-->
+                            <download-oauth2 ng-show="editable.report==='kcaaPassengerReport'" url="reports/generic/passenger_report_kcaa"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        group_by_account: editable.group_by_account,
+                                        group_by_aerodrome: editable.group_by_aerodrome,
+                                        output_format: report_format,
+                                        page_break: editable.account_new_page }"
+                                disable="form.$invalid || !report_format"
+                                hide-icon="true"
+                                request-method="POST"
+                                body-params="{aerodrome_ids: aerodromeIdsWithBrackets, account_ids: accountIdsWithBrackets}">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='kcaaPassengerReport'" url="reports/generic/passenger_report_kcaa"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ text: 'Preview',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        group_by_account: editable.group_by_account,
+                                        group_by_aerodrome: editable.group_by_aerodrome,
+                                        page_break: editable.account_new_page }"
+                                disable="form.$invalid"
+                                request-method="POST"
+                                body-params="{aerodrome_ids: aerodromeIdsWithBrackets, account_ids: accountIdsWithBrackets}">
+                            </preview-oauth2>
+
+                            <!--TTCAA IATA Summary Sum-->
+                            <download-oauth2 ng-show="editable.report==='iataSummarySum'" url="reports/generic/iata_summary_sum"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        fromdate: returnFilteredDate(editable.report_month),
+                                        todate: returnEndOfMonth(editable.report_month),
+                                        output_format: report_format }"
+                                request-method="POST"
+                                disable="form.$invalid || !report_format"
+                                hide-icon="true">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='iataSummarySum'" url="reports/generic/iata_summary_sum"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ text: 'Preview',
+                                        fromdate: returnFilteredDate(editable.report_month),
+                                        todate: returnEndOfMonth(editable.report_month) }"
+                                disable="form.$invalid"
+                                request-method="POST">
+                            </preview-oauth2>
+
+                            <!--TTCAA IATA Summary Data-->
+                            <download-oauth2 ng-show="editable.report==='iataSummaryData'" url="reports/generic/iata_summary_data"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        fromdate: returnFilteredDate(editable.report_month),
+                                        todate: returnEndOfMonth(editable.report_month),
+                                        output_format: report_format }"
+                                request-method="POST"
+                                disable="form.$invalid || !report_format"
+                                hide-icon="true">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='iataSummaryData'" url="reports/generic/iata_summary_data"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ text: 'Preview',
+                                        fromdate: returnFilteredDate(editable.report_month),
+                                        todate: returnEndOfMonth(editable.report_month) }"
+                                disable="form.$invalid"
+                                request-method="POST">
+                            </preview-oauth2>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    

@@ -1,0 +1,133 @@
+<div class="row">
+    <div class="col-xs-12" ng-class="{ 'col-md-6 col-split-xs-12': toggle }">
+        <!-- plugins -->
+        <div class="box-container">
+            <box-header page-name="management.plugin-management" icon="'plug'"
+                title="{{ 'Plugins' | translate }}" toggle="toggle"></box-header>
+            <div class="box-content">
+                <!-- plugin development and testing warning -->
+                <div ng-if="showHidden">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="alert alert-icon alert-info" role="alert">
+                                <span class="glyphicon glyphicon-info-sign icon" aria-hidden="true"></span>
+                                <h4>
+                                    <span translate>Warning:</span>
+                                    <small translate>Showing development and testing plugins ONLY!</small>
+                                </h4>
+                                <p>
+                                    <span translate>The list shown is for development and testing purposes only. If you are looking for the regular list of plugins, please press the button below.</span>
+                                </p>
+                                <a class="btn btn-warning margin-top-20 btn-sm" href="#/plugins" role="button">
+                                    <span translate>Return to regular list</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- plugin data grid filters and actions -->
+                <div class="row">
+                    <div class="col-xs-12 col-md-8">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-keyup="$event.keyCode == 13 && refresh()" ng-model="search" />
+                    </div>
+                    <div class="col-xs-12 col-md-4 text-right margin-top-20">
+                        <button translate class="btn btn-primary" ng-click="refresh()">
+                            Refresh
+                        </button>
+                    </div>
+                </div>
+                <!-- non-form errors -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+                    </div>
+                </div>
+                <!-- plugin data grid -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive">
+                            <div class="table-responsive" export-table sort-query-string="getSortQueryString()" service="pluginsService"
+                                query-string="filterParameters" back-end-export="true">
+                                <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" table-sort="refresh()">
+                                    <thead>
+                                        <tr>
+                                            <th translate sort="name">Name</th>
+                                            <th translate sort="description">Description</th>
+                                            <th translate sort="enabled">Enabled</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-click="edit(item)" ng-repeat="item in list" ng-class="{'highlight': editable.id === item.id}">
+                                            <td ng-bind-html="::item.name"></td>
+                                            <td ng-bind-html="::item.description"></td>
+                                            <td>{{ ::item.enabled }}</td>
+                                        </tr>
+                                        <tr ng-show="!list.length">
+                                            <td class="text-center" colspan="3" translate>There are no plugins to configure.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refresh()"
+                            max-size="::20" items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="crud-second-container-lg" class="col-xs-12 col-lg-6" ng-show="toggle">
+        <!-- edit plugin -->
+        <div class="box-container">
+            <box-header icon="'plug'" title="{{ 'Edit a Plugin' | translate }}"></box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <fieldset ng-disabled="!hasPermission('manage_plugin_modify')">
+                        <!-- plugin form fields -->
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label translate for="plugin-name">Plugin Name</label>
+                                <input id="plugin-name" class="form-control" type="text" name="name" disabled ng-model="editable.name" />
+                            </div>
+                            <div class="col-xs-12 margin-top-20">
+                                <label translate for="plugin-description">Plugin Description</label>
+                                <textarea id="plugin-description" class="form-control" name="description" disabled ng-model="editable.description">
+                                </textarea>
+                            </div>
+                            <system-configuration-item class="col-xs-12 margin-top-20" item="configuration" plugin-key="editable.key"
+                                ng-repeat="configuration in editable.configurations | orderBy: ['item_name']">
+                            </system-configuration-item>
+                            <div class="col-xs-12 margin-top-20">
+                                <label>
+                                    <input id="plugin-enabled" type="checkbox" ng-model="editable.enabled"
+                                        ng-disabled="editable === null || editable.id === null" />
+                                    <span translate>Enable Plugin</span>
+                                </label>
+                            </div>
+                        </div>
+                        <!-- plugin form actions -->
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary btn-reset" translate ng-click="reset(); form.$setUntouched();">
+                                    Clear
+                                </button>
+                                <button class="btn btn-primary btn-update" translate ng-show="editable.id !== null" ng-disabled="form.$invalid"
+                                    popup popup-text="Are you sure you want to update this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                    popup-confirm="update(editable, editable.id); form.$setUntouched();"
+                                    update-warning="{{ updateWarning }}">Update
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

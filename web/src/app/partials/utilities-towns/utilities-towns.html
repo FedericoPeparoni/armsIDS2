@@ -1,0 +1,157 @@
+<div class="row">
+
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+
+        <div class="box-container">
+
+            <box-header toggle="toggle" page-name="charges-and-formulas.utilities-town-and-village-managment" icon="'tint'"
+                title="{{ 'Utilities Towns and Villages' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="textFilter" empty-to-null
+                            ng-model="textFilter" ng-keyup="$event.keyCode == 13 && refresh()"/>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <button translate ng-click="refresh()"
+                                class="btn btn-primary pull-right">Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table sort-query-string="getSortQueryString()" back-end-export="true" 
+                            service="utilitiesTownsService" query-string="filterParameters">
+                            <table class="table table-striped table-bordered table-hover table-condensed"
+                                sort-query-string="getSortQueryString"
+                                table-sort="refresh()">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-nowrap" sort="townOrVillageName">Town or Village Name</th>
+                                        <th translate class="text-nowrap text-right" sort="waterUtilitySchedule">Water Utility Schedule</th>
+                                        <th translate class="text-nowrap text-right" sort="commercialElectricityUtilitySchedule.scheduleId">
+                                            Commercial Electricity Schedule
+                                        </th>
+                                        <th translate class="text-nowrap text-right" sort="residentialElectricityUtilitySchedule.scheduleId">
+                                            Residential Electricity Schedule
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="edit(item);" ng-repeat="item in list" ng-class="{'highlight': editable.id === item.id}">
+                                        <td>{{ item.town_or_village_name }}</td>
+                                        <td class="text-right text-nowrap">
+                                            <span translate>Schedule:</span>&nbsp;{{ item.water_utility_schedule.schedule_id }} / <span translate>Charge:</span>&nbsp;{{ item.water_utility_schedule.minimum_charge }}
+                                        </td>
+                                        <td class="text-right text-nowrap">
+                                            <span translate>Schedule:</span>&nbsp;{{ item.commercial_electricity_utility_schedule.schedule_id }} / <span translate>Charge:</span>&nbsp;{{ item.commercial_electricity_utility_schedule.minimum_charge }}
+                                        </td>
+                                        <td class="text-right text-nowrap"><span translate>Schedule:</span>&nbsp;{{ item.residential_electricity_utility_schedule.schedule_id }} / <span translate>Charge:</span>&nbsp;{{ item.residential_electricity_utility_schedule.minimum_charge }}
+                                        </td>
+                                        <tr ng-show="!list.length">
+                                            <td class="text-center" colspan="4" translate>There are no Utilities Towns and Villages data</td>
+                                        </tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements"
+                            ng-change="refresh()" max-size="::20"
+                            items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="crud-second-container" ng-show="toggle">
+
+        <div class="box-container">
+
+            <box-header ng-show="editable.id === null" icon="'tint'" title="{{ 'Add Town or Village Utilities Schedules' | translate }}">
+            </box-header>
+            <box-header ng-show="editable.id !== null" icon="'tint'" title="{{ 'Edit Town or Village Utilities Schedules' | translate }}">
+            </box-header>
+
+            <div class="box-content">
+
+                <form novalidate action="#" name="form" onsubmit="return false">
+
+                    <fieldset ng-disabled="!hasPermission('utilities_towns_modify')">
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="town-village-name">Town or Village Name *</label>
+                                <input id="town-village-name" name="townOrVillageName" class="form-control" type="text"
+                                       ng-model="editable.town_or_village_name" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="water-utility-schedule">Water Schedule *</label>
+                                <select class="form-control" name="waterUtilitySchedule" id="water-utility-schedule"
+                                        ng-options="schedule as optionLabel(schedule) for schedule in waterSchedules | orderBy:'schedule.schedule_id' track by optionLabel(schedule)"
+                                        ng-model="editable.water_utility_schedule" required>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="electric-comm-schedule">Commercial Electrity Schedule *</label>
+                                <select class="form-control" name="commercialElectricityUtilitySchedule"
+                                        id="electric-comm-schedule"
+                                        ng-options="schedule as optionLabel(schedule) for schedule in commElectricitySchedules | orderBy:'schedule.schedule_id' track by optionLabel(schedule)"
+                                        ng-model="editable.commercial_electricity_utility_schedule" required>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="electric-res-schedule">Residential Electrity Schedule *</label>
+                                <select class="form-control" name="residentialElectricityUtilitySchedule"
+                                        id="electric-res-schedule"
+                                        ng-options="schedule as optionLabel(schedule) for schedule in resElectricitySchedules | orderBy:'schedule.schedule_id' track by optionLabel(schedule)"
+                                        ng-model="editable.residential_electricity_utility_schedule" required>
+                                </select>
+                            </div>
+                        </div>
+
+                        <ng-include
+                            src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary btn-reset" translate
+                                        ng-click="reset(); form.$setUntouched();">Clear
+                                </button>
+                                <button class="btn btn-primary btn-update" translate ng-show="editable.id !== null" popup
+                                        popup-text="Are you sure you want to update this?"
+                                        popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                        popup-confirm="update(editable, editable.id); form.$setUntouched();">Update
+                                </button>
+                                <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid"
+                                        ng-if="editable.id === null" ng-click="create(editable); form.$setUntouched();">
+                                    Create
+                                </button>
+                                <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null" popup
+                                        popup-text="Are you sure you want to delete this?"
+                                        popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
+                                        popup-confirm="delete(editable.id); form.$setUntouched()">Delete
+                                </button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

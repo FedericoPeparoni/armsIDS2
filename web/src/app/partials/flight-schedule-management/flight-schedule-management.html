@@ -1,0 +1,346 @@
+<div class="row">
+    <div class="col-xs-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <!-- flight schedules -->
+        <div class="box-container">
+            <box-header toggle="toggle" page-name="flight-data.flight-schedule-management" icon="'calendar'"
+                title="{{ 'Flight Schedules' | translate }}"></box-header>
+            <div class="box-content">
+                <!-- flight schedule data grid filters and actions -->
+                <div class="row">
+                    <div class="col-xs-12 col-md-4">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="textFilter" empty-to-null ng-keyup="$event.keyCode == 13 && refreshOverride()"/>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <label translate for="account">Account</label>
+                        <select ng-model="accountId" id="account" name="account" class="form-control"
+                            ng-change="refreshOverride()"
+                            ng-options="item.id as item.name for item in accountsWithFlightSchedules">
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <button translate ng-click="refreshOverride()" class="btn btn-primary pull-right">Refresh</button>
+                    </div>
+                </div>
+                <!-- flight schedule data grid -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table sort-query-string="getSortQueryString()" query-string="filterParameters"
+                            back-end-export="true" service="flightScheduleManagementService">
+                            <table class="table table-striped table-bordered table-hover table-condensed"
+                                sort-query-string="getSortQueryString" table-sort="refreshOverride()"
+                                canned-sort="cannedSort">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-nowrap" sort="activeIndicator">Active</th>
+                                        <th translate class="text-nowrap" sort="flightServiceNumber">Flight Service Number</th>
+                                        <th translate class="text-nowrap" sort="depAd">Dep Ad</th>
+                                        <th translate class="text-nowrap" sort="depTime">Dep Time</th>
+                                        <th translate class="text-nowrap" sort="destAd">Dest Ad</th>
+                                        <th translate class="text-nowrap" sort="destTime">Dest Time</th>
+                                        <th translate class="text-nowrap" sort="dailySchedule">Daily Schedule</th>
+                                        <th translate class="text-nowrap" sort="selfCare">Self-Care</th>
+                                        <th translate class="text-nowrap" sort="startDate">Start Date</th>
+                                        <th translate class="text-nowrap" sort="endDate">End Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="form.$setUntouched(); edit(item);" ng-repeat="item in list" ng-class="{'highlight': editable.id === item.id}">
+                                        <td class="text-nowrap">{{ item.active_indicator | translate }}</td>
+                                        <td class="text-nowrap">{{ item.flight_service_number }}</td>
+                                        <td class="text-nowrap">{{ item.dep_ad }}</td>
+                                        <td class="text-nowrap">{{ item.dep_time }}</td>
+                                        <td class="text-nowrap">{{ item.dest_ad }}</td>
+                                        <td class="text-nowrap">{{ item.dest_time }}</td>
+                                        <td class="text-nowrap">{{ formatDailySchedules(item.daily_schedule, ',') }}</td>
+                                        <td class="text-nowrap">{{ item.self_care | translate }}</td>
+                                        <td class="text-nowrap">{{ item.start_date | dateConverter }}</td>
+                                        <td class="text-nowrap">{{ item.end_date | dateConverter }}</td>
+                                        <tr ng-show="!accountsWithFlightSchedules.length">
+                                            <td class="text-center" colspan="10" translate>There are no Accounts with Flight Schedules data</td>
+                                        </tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refreshOverride()"
+                            max-size="::20" items-per-page="pagination.size"
+                            ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+                <!-- non-form errors -->
+                <ng-include ng-show="!toggle" src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                    <!-- Error Handling -->
+                </ng-include>
+            </div>
+        </div>
+        <!-- missing flight movements for selected flight schedule -->
+        <div class="box-container margin-top-20" ng-show="editable.id">
+            <box-header icon="'plane'" title="{{ 'Missing Flight Movements' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th class="text-nowrap" translate>Flight ID</th>
+                                        <th class="text-nowrap" translate>Day of Flight</th>
+                                        <th class="text-nowrap" translate>Dep Ad</th>
+                                        <th class="text-nowrap" translate>Dep Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-show="editable.missing_flight_movements.length"
+                                        ng-repeat="flightmovement in editable.missing_flight_movements | orderBy:['-date_of_flight','-dep_time'] 
+                                            | limitTo : pagination.size : (editable.missing_flight_movements.number * pagination.size) - pagination.size">
+                                        <td class="text-nowrap">{{ flightmovement.flight_id }}</td>
+                                        <td class="text-nowrap">{{ flightmovement.date_of_flight | dateConverter }}</td>
+                                        <td class="text-nowrap">{{ flightmovement.dep_ad }}</td>
+                                        <td class="text-nowrap">{{ flightmovement.dep_time }}</td>
+                                    </tr>
+                                    <tr ng-show="!editable.missing_flight_movements.length">
+                                        <td class="text-center" colspan="4" translate>There are no missing flight movements</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <ul uib-pagination total-items="editable.missing_flight_movements.length" max-size="::20" items-per-page="pagination.size" 
+                            ng-model="editable.missing_flight_movements.number" class="pagination-sm" boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- unexpected flight movements for selected flight schedule -->
+        <div class="box-container margin-top-20" ng-show="editable.id">
+            <box-header icon="'plane'" title="{{ 'Unexpected Flight Movements' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th class="text-nowrap"><span translate>Flight ID</th>
+                                        <th class="text-nowrap"><span translate>Day of Flight</th>
+                                        <th class="text-nowrap" translate>Dep Ad</th>
+                                        <th class="text-nowrap" translate>Dep Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-show="editable.unexpected_flights.length"
+                                        ng-repeat="flightmovement in editable.unexpected_flights | orderBy:['-date_of_flight','-dep_time'] 
+                                            | limitTo : pagination.size : (editable.unexpected_flights.number * pagination.size) - pagination.size">
+                                        <td class="text-nowrap">{{ flightmovement.flight_id }}</td>
+                                        <td class="text-nowrap">{{ flightmovement.date_of_flight | dateConverter }}</td>
+                                        <td class="text-nowrap">{{ flightmovement.dep_ad }}</td>
+                                        <td class="text-nowrap">{{ flightmovement.dep_time }}</td>
+                                    </tr>
+                                    <tr ng-show="!editable.unexpected_flights.length">
+                                        <td class="text-center" colspan="4" translate>There are no unexpected flight movements</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <ul uib-pagination total-items="editable.unexpected_flights.length" max-size="::20" items-per-page="pagination.size" 
+                            ng-model="editable.unexpected_flights.number" class="pagination-sm" boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="crud-second-container" class="col-xs-12 col-lg-6" ng-show="toggle">
+        <!-- create/edit flight schedule -->
+        <div class="box-container">
+            <box-header icon="'plane'" title="{{ 'Create a Flight Schedule' | translate }}" ng-show="editable.id === null"></box-header>
+            <box-header icon="'plane'" title="{{ 'Edit a Flight Schedule' | translate }}" ng-show="editable.id !== null"></box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <fieldset ng-disabled="!hasPermission('flight_schedule_modify')">
+                        <legend class="sr-only" ng-if="editable.id === null" translate>Create a Flight Schedule</legend>
+                        <legend class="sr-only" ng-if="editable.id !== null" translate>Edit a Flight Schedule</legend>
+                        <!-- create/edit flight schedule fields -->
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="account">Account *</label>
+                                <dynamic-service-dropdown ng-model="editable.account" name="accountId" dropdown-type="single" service="::accountsService"
+                                    method="findAllActiveMinimalReturn" is-required="::true" options="item as item.name for item in list track by item.name">
+                                </dynamic-service-dropdown>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="flight-service-number">Flight Service Number *</label>
+                                <input id="flight-service-number" name="flightServiceNumber" class="form-control" type="text" ng-model="editable.flight_service_number"
+                                    uppercase-input required />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="dep-ad">Departure Aerodrome *</label>
+                                <input id="dep-ad" name="depAd" class="form-control" type="text" ng-model="editable.dep_ad" aerodrome-identifiers minlength="4"
+                                    ng-trim="false" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="destination-aerodrome">Destination Aerodrome *</label>
+                                <input id="destination-aerodrome" name="destAd" class="form-control" type="text" ng-model="editable.dest_ad" aerodrome-identifiers
+                                    minlength="4" ng-trim="false" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="dep-time">Departure Time *</label>
+                                <input id="dep-time" name="depTime" class="form-control" type="text" ng-model="editable.dep_time" minlength="4" maxlength="4"
+                                    ng-attr-title="{{editable.dep_time < 2359 ? '' : 'Invalid time format' | translate}}" ng-pattern="/^(?:2[0-3]|[0-1]?[0-9])?:?[0-5]?[0-9]$/"
+                                    only-numbers required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="dest-time">Destination Time *</label>
+                                <input id="dest-time" name="destTime" class="form-control" type="text" ng-model="editable.dest_time" minlength="4" maxlength="4"
+                                    ng-attr-title="{{editable.dest_time < 2359 ? '' : 'Invalid time format' | translate}}" ng-pattern="/^(?:2[0-3]|[0-1]?[0-9])?:?[0-5]?[0-9]$/"
+                                    only-numbers required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="daily-schedule">Daily Schedule *</label>
+                                <multiselect events="{ onSelectionChanged: addDaysToSchedule }" translated-value="name"
+                                    extra-settings="{ displayProp: 'name', idProp: 'name', externalIdProp: '' }"
+                                    options="listOfDays" id="daily_schedule" is-required="true" name="days" model="days">
+                                </multiselect>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="active">Active *</label>
+                                <select id="active" name="active" class="form-control" ng-model="editable.active_indicator" required>
+                                    <option translate value="active">active</option>
+                                    <option translate value="inactive">inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="start_date"><span translate>Start Date</span>&nbsp;({{ ::dateFormat | translate }})&nbsp;*</label>
+                                <p class="input-group">
+                                    <date-picker id="start_date" name="start_date" type="text" ng-pattern="datePickerRegex"
+                                        show-button-bar="false" class="form-control" uib-datepicker-popup="{{ dateFormat }}"
+                                        ng-model="editable.start_date" is-open="start_date.open"
+                                        close-text="Close" required>
+                                    </date-picker>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="start_date.open = !start_date.open">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="end-date"><span translate>End Date</span>&nbsp;({{ ::dateFormat | translate }})</label>
+                                <p class="input-group">
+                                    <date-picker id="end_date" name="end_date" type="text" ng-pattern="datePickerRegex"
+                                        show-button-bar="false" class="form-control" uib-datepicker-popup="{{ dateFormat }}"
+                                        ng-model="editable.end_date" is-open="end_date.open"
+                                        close-text="Close">
+                                    </date-picker>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="end_date.open = !end_date.open">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="self-care">Created by Self-Care</label>
+                                <input id="self-care" name="selfCare" class="form-control text-capitalize" ng-value="editable.self_care | translate" readonly>
+                            </div>
+                        </div>
+                        <!-- form errors -->
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                        </ng-include>
+                        <!-- create/edit flight schedule actions -->
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary btn-reset" translate ng-click="clearFilters(); form.$setUntouched();"
+                                    >Clear
+                                </button>
+                                <button class="btn btn-primary btn-update" translate ng-show="editable.id !== null"
+                                    ng-disabled="form.$invalid" popup popup-text="Are you sure you want to update this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                    popup-confirm="update(editable, editable.id);">
+                                    Update
+                                </button>
+                                <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null"
+                                    popup popup-text="Are you sure you want to delete this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
+                                    popup-confirm="delete(editable.id); form.$setUntouched();">
+                                    Delete
+                                </button>
+                                <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid || editable.daily_schedule === null || editable.daily_schedule === ''"
+                                    ng-show="editable.id === null" ng-click="create(editable);">
+                                    Create
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <!-- upload flight schedules per account -->
+        <div class="box-container margin-top-20">
+            <box-header icon="'plane'" title="{{ 'Upload a Flight Schedule' | translate }}"></box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="uploadForm" onsubmit="return false">
+                    <fieldset ng-disabled="!hasPermission('flight_schedule_modify')">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <ng-include
+                                    src="'app/angular-ids-project/src/helpers/controllers/crud-file-handler/crud-file-handler.template.html'">
+                                </ng-include>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6 schedule-start-date">
+                                <label translate for="start">Start Date *</label>
+                                <p class="input-group">
+                                    <date-picker ng-init="start = null" id="start" name="start" type="text"
+                                        ng-change="dateChanged('start', start)" ng-pattern="datePickerRegex"
+                                        show-button-bar="false" class="form-control" uib-datepicker-popup="{{ dateFormat }}"
+                                        ng-model="start" is-open="start.open"
+                                        ng-attr-title="{{start ? '' : 'Please fill out this field' | translate}}"
+                                        close-text="Close" required>
+                                    </date-picker>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="start.open = !start.open">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button translate class="btn btn-primary"
+                                    ng-click="preUploadSchedules(start.toISOString(), editable.document)"
+                                    ng-disabled="!editable.document_filename || !start">
+                                    Upload
+                                </button>
+                                <upload-file-format format={{pattern}}
+                                    template="app/partials/flight-schedule-management/flight-schedule-management.template.html">
+                                </upload-file-format>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <summary-upload upload-job="uploadJob"></summary-upload>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

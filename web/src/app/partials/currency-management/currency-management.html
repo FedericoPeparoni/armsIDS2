@@ -1,0 +1,285 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+
+        <div class="box-container">
+
+            <box-header toggle="toggle" page-name="operations.currency-and-exchange-rate-management" icon="'dollar'"
+                title="{{ 'Currencies' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <button translate class="btn btn-small btn-primary pull-left" ng-disabled="!hasPermission('currency_modify')" 
+                            popup popup-text="Are you sure you want to update the exchange rate of currencies?"
+                            popup-local-storage-enable="SystemConfiguration:Require confirmation on update" 
+                            popup-confirm="updateFromWeb()">Update from Web
+                        </button>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <button translate ng-click="refresh()" class="btn btn-primary pull-right">
+                            Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="currency-filter">Currency</label>
+                        <select id="currency-filter" ng-init="currencyFilter = 'active'" class="form-control" ng-change="refresh()"
+                            ng-model="currencyFilter">
+                            <option translate value="all">All</option>
+                            <option translate value="active">Active</option>
+                        </select>
+                    </div>
+
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-search">Filter</label>
+                        <input id="text-search" class="form-control" type="text" ng-model="textSearch" empty-to-null 
+                            ng-keyup="$event.keyCode == 13 && refresh()"/>
+                    </div>
+                </div>
+
+                <div ng-show="!toggle" class="row col-xs-12">
+                    <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                        <!-- Error Handling -->
+                    </ng-include>
+                </div>
+
+                <div class="row">
+                    <div ng-class="{ 'col-xs-12': !exchangeRates, 'col-xs-6': exchangeRates }">
+                        <div class="table-responsive" export-table sort-query-string="getSortQueryString()" back-end-export="true" 
+                            service="currencyManagementService" query-string="filterParameters">
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" 
+                                table-sort="refresh()">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-nowrap" sort="currencyCode">Currency Code</th>
+                                        <th translate class="text-nowrap" sort="currencyName">Currency Name</th>
+                                        <th translate class="text-nowrap" sort="countryCode.countryName">Country Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="edit(item); getExchangeRates(item.id)" ng-repeat="item in list" ng-class="{'highlight': editable.id === item.id}">
+                                        <td class="text-nowrap">{{ item.currency_code }}</td>
+                                        <td class="text-nowrap">{{ item.currency_name | translate }}</td>
+                                        <td class="text-nowrap">{{ item.country_code.country_name | translate }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td class="text-center" colspan="4" translate>There are no Currencies data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refresh()"
+                            max-size="::20" items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+
+                    <div ng-show="editable.id !== null && exchangeRates">
+                        <div class="col-xs-6">
+                            <div class="table-responsive" style="max-height: 25vh; margin-bottom: 10px;">
+                                <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString"  sort-query-string-suffix="sort=id,desc"
+                                    table-sort="getExchangeRates (editable.id, sort)">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-nowrap text-right" sort="exchangeRate" translate>Exchange Rate</th>
+                                            <th translate class="text-nowrap" ng-show="editable.currency_code !== 'USD'" sort="exchangeRateValidFromDate">From</th>
+                                            <th translate class="text-nowrap" ng-show="editable.currency_code !== 'USD'" sort="exchangeRateValidToDate">To</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-click="editExchangeRate(rate)" ng-repeat="rate in exchangeRates" ng-class="{'highlight': exchangeRate.id === rate.id}">
+                                            <td class="text-nowrap text-right">{{ (inverseExchange ? 1 / rate.exchange_rate : rate.exchange_rate) | evenRound: 5 | number: 5 }}</td>
+                                            <td ng-show="editable.currency_code !== 'USD'" class="text-nowrap">{{ rate.exchange_rate_valid_from_date | dateConverter }}</td>
+                                            <td ng-show="editable.currency_code !== 'USD'" class="text-nowrap">{{ rate.exchange_rate_valid_to_date | dateConverter }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+
+            <box-header ng-show="editable.id === null" icon="'dollar'" title="{{ 'Create a Currency' | translate }}">
+            </box-header>
+            <box-header ng-show="editable.id !== null" icon="'dollar'" title="{{ 'Edit a Currency' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <form novalidate action="#" name="form" onsubmit="return false">
+
+                    <fieldset ng-disabled="!hasPermission('currency_modify')">
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="currency-code">Currency Code *</label>
+                                <input id="currency-code" name="currencyCode" class="form-control" type="text" ng-pattern="/^\w{1,3}$/" maxlength="3" ng-model="editable.currency_code"
+                                    required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="currency-name">Currency Name *</label>
+                                <input id="currency-name" name="currencyName" class="form-control" type="text" ng-model="editable.currency_name" maxlength="50"
+                                    required/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="country-code">Country Code *</label>
+                                <dynamic-service-dropdown ng-model="editable.country_code" id="country-code" name="countryCode" dropdown-type="single" service="::countryManagementService"
+                                    is-required="::true" options="country as country.country_code for country in list.content track by country.id"></dynamic-service-dropdown>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label>
+                                    <input name="allowUpdatedFromWeb" type="checkbox" ng-model="editable.allow_updated_from_web" /><span translate>Allow Update From Web</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="decimal-places">Decimal Places *</label>
+                                <input id="decimal-places" name="decimalPlaces" class="form-control" type="number" ng-model="editable.decimal_places" min="0"
+                                    max="4" ng-pattern="/^\d+$/" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="symbol">Symbol *</label>
+                                <input id="symbol" name="symbol" class="form-control" type="text" ng-model="editable.symbol" required/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="target_currency"><span translate>Target Currency</span><span> *</span></label>
+                                <select id="target_currency" name="target_currency" class="form-control"
+                                    ng-model="editable.exchange_rate_target_currency_id"
+                                    ng-options="currency.id as currency.currency_code for currency in getActiveCurrencyList()"
+                                    required>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="external-accounting-system-identifier">
+                                    <span translate>External Accounting System Identifier</span>
+                                    <span ng-if="requireExternalSystemId">*</span>
+                                </label>
+                                <input id="external-accounting-system-identifier" name="externalAccountingSystemIdentifier" class="form-control" type="text"
+                                    ng-model="editable.external_accounting_system_identifier" maxlength="10"
+                                    ng-required="requireExternalSystemId" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="active">Active *</label>
+                                <boolean-text class="form-control" name="active" id="active" ng-model="editable.active"
+                                    ng-disabled="!canDeleteOrDeactivateCurrency()" required>
+                                </boolean-text>
+                            </div>
+                            <div ng-show="currencyInfo || isAnspCurrency" class="col-xs-12 col-md-6">
+                                <p ng-show="isAnspCurrency">
+                                    <strong translate class="text-danger">*ANSP Currency</strong>
+                                </p>
+                                <label translate ng-show="currencyInfo.ref_accounts.length">Used by the following accounts:</label>
+                                <ul>
+                                    <li ng-repeat="accountName in currencyInfo.ref_accounts">{{ accountName }}</li>
+                                    <li ng-show="(currencyInfo.ref_account_total - currencyInfo.ref_accounts.length) > 0"><span translate>... and</span>&nbsp;{{currencyInfo.ref_account_total - currencyInfo.ref_accounts.length}}&nbsp;<span translate>more</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <button translate class="btn btn-primary btn-reset" ng-click="reset(); form.$setUntouched();">Clear
+                                </button>
+                                <button class="btn btn-primary btn-update" translate ng-show="editable.id !== null" ng-disabled="form.$invalid" popup popup-text="Are you sure you want to update this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on update" popup-confirm="update(editable, editable.id); form.$setUntouched();">
+                                    Update
+                                </button>
+                                <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null" popup popup-text="Are you sure you want to delete this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on delete" ng-disabled="!canDeleteOrDeactivateCurrency()"
+                                    popup-confirm="delete(editable.id); form.$setUntouched()">Delete
+                                </button>
+                                <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid" ng-show="editable.id === null" ng-click="create(editable); form.$setUntouched();">
+                                    Create
+                                </button>
+                            </div>
+                        </div>
+
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+
+                    </fieldset>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div ng-show="editable.id !== null && toggle && editable.currency_code !== 'USD'" class="col-xs-12 col-md-6 pull-right margin-top-20">
+        <div class="box-container">
+            <form novalidate action="#" name="form2" onsubmit="return false">
+                <fieldset ng-disabled="!hasPermission('currency_modify')">
+
+                    <box-header ng-show="exchangeRate.id === null" icon="'dollar'" title="{{ 'Add an Exchange Rate' | translate }}"></box-header>
+                    <box-header ng-show="exchangeRate.id !== null" icon="'dollar'" title="{{ 'Update an Exchange Rate' | translate }}"></box-header>
+
+                    <div class="box-content">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="exchange-rate">{{ 'Exchange Rate' | translate }} *</label>
+                                <input id="exchange-rate" name="exchangeRateToUsd" class="form-control" min="0" step="0.01" type="number" ng-model="exchangeRate.exchange_rate"
+                                    required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="exchange-rate-target-currency"><span translate>Target Currency</span><span> *</span></label>
+                                <input id="exchange-rate-target-currency" class="form-control" ng-model="exchangeRate.target_currency.currency_code" disabled />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <date-range is-required="::true" control="control" start-name="Start Date *" end-name="End Date *" format="{{customDate}}">
+                                <!--Datepickers -->
+                            </date-range>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button translate class="btn btn-primary btn-rate-reset" ng-click="resetExchangeRate(); form2.$setUntouched();">Clear
+                                </button>
+                                <button translate class="btn btn-primary btn-rate-create" ng-show="exchangeRate.id === null" 
+                                    ng-click="addExchangeRate(editable.id, exchangeRate, control.getUTCStartDate(), control.getUTCEndDate()); form2.$setUntouched()"
+                                    ng-disabled="form2.$invalid">Create
+                                </button>
+                                <button translate class="btn btn-primary btn-rate-update" ng-show="exchangeRate.id !== null" ng-disabled="form2.$invalid" 
+                                    popup popup-text="Are you sure you want to update this exchange rate?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on update" 
+                                    popup-confirm="updateExchangeRate(exchangeRate, control.getUTCStartDate(), control.getUTCEndDate()); form2.$setUntouched();">
+                                    Update
+                                </button>
+                                <button translate class="btn btn-primary btn-rate-delete" ng-show="exchangeRate.id !== null" 
+                                    popup popup-text="Are you sure you want to delete this exchange rate?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on update" 
+                                    popup-confirm="deleteExchangeRate(exchangeRate); form2.$setUntouched();">Delete
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+

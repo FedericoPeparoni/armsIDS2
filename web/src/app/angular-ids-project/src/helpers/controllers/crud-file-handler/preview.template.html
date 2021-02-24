@@ -1,0 +1,26 @@
+<div class="box-container">
+    <box-header icon="'cloud'" title="{{ 'Preview Air Navigation Charges File' | translate }}"></box-header>
+    <div class="box-content">
+        <div class="row">
+            <div class="col-xs-12 table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr ng-repeat="i in text.headers">
+                        <th translate class="text-center" ng-repeat="j in i" colspan="{{j.width}}">{{j.title | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="i in text.data">
+                        <td class="text-center" ng-repeat="j in i track by $index">{{j}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        <div class="row margin-top-20">
+            <div class="col-xs-12">
+                <button translate type="button" class="btn btn-primary" ng-click="close()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,229 @@
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="box-container">
+            <box-header icon="'exchange'" title="{{ 'Transactions' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12 col-md-3">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="textFilter"
+                            empty-to-null ng-keyup="$event.keyCode == 13 && refreshList()"/>
+                    </div>
+
+                    <div class="col-xs-6 col-md-3">
+                        <label translate for="account-filter">Account</label>
+                        <dynamic-service-dropdown
+                            ng-model="accountFilter"
+                            id="account-filter"
+                            dropdown-type="single"
+                            allow-empty="true"
+                            service="::scAccountManagementService"
+                            is-required="false"
+                            method="getSCAccounts"
+                            options="item.id as (item.name | translate) for item in list"
+                            ng-change="refreshList()">
+                        </dynamic-service-dropdown>
+                    </div>
+
+                    <div class="col-xs-12 col-md-4">
+                        <date-range is-required="false" control="control" format="{{ customDate }}"
+                                    ng-click="control.getUTCStartDate() !== null && control.getUTCEndDate() !== null ? refreshList() : ''"
+                                    ng-keyup="control.getUTCStartDate() === null && control.getUTCEndDate() === null ? refreshList() : ''">
+                            <!--Datepickers -->
+                        </date-range>
+                    </div>
+
+                    <div class="col-xs-12 col-md-2">
+                        <button translate ng-click="refreshList()"
+                            class="btn btn-primary pull-right">Refresh</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div id="transactions" class="table-responsive" export-table sort-query-string="getSortQueryString()" query-string="filterParameters"
+                            back-end-export="true" service="scTransactionsService">
+                            <table class="table table-striped table-bordered table-hover table-condensed"
+                                sort-query-string="getSortQueryString" table-sort="refreshList()">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-nowrap">Receipt</th>
+                                        <th translate class="text-nowrap" sort="receiptNumber">Number</th>
+                                        <th translate class="text-nowrap" sort="account.name">Account</th>
+                                        <th translate class="text-nowrap" sort="transactionDateTime">Date/Time</th>
+                                        <th translate class="text-nowrap" sort="description">Description</th>
+                                        <th translate class="text-nowrap" sort="transactionType.name">Type</th>
+                                        <th translate class="text-nowrap text-right" sort="amount">Amount</th>
+                                        <th translate class="text-nowrap" sort="currency.currencyCode">Currency</th>
+                                        <th translate class="text-nowrap text-right" sort="exchangeRateToUsd">Exchange USD</th>
+                                        <th translate class="text-nowrap text-right" sort="exchangeRateToAnsp">Exchange ANSP</th>
+                                        <th translate class="text-nowrap text-right" sort="balance">Balance</th>
+                                        <th translate class="text-nowrap text-right" sort="paymentReferenceNumber">Payment Reference Number</th>
+                                        <th translate class="text-nowrap text-right" sort="paymentMechanism">Payment Mechanism</th>
+                                        <th translate class="text-nowrap" sort="exported">Exported</th>
+                                        <th translate class="text-nowrap text-center">Approval Document</th>
+                                        <th translate class="text-nowrap text-center">Supporting Document</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="edit(item); editable.amount = (editable.amount | abs); 
+                                        editable.payment_amount = (editable.payment_amount | abs); 
+                                        getInvoicesByTransactionId(item.id)"
+                                        ng-repeat="item in list"
+                                        ng-class="{'highlight': editable.id === item.id}">
+                                        <td class="text-center ">
+                                            <div ng-if="item.has_receipt_document">
+                                                <download-oauth2 url="reports/transaction-receipt?transactionId={{item.id}}"
+                                                    error="error">
+                                                </download-oauth2>
+                                            </div>
+                                        </td>
+                                        <td class="text-nowrap">{{ item.receipt_number }}</td>
+                                        <td class="text-nowrap">{{ item.account.name }}</td>
+                                        <td class="text-nowrap">{{ item.transaction_date_time | dateConverter: 'HH:mm' }}</td>
+                                        <td class="text-nowrap">{{ item.description }}</td>
+                                        <td class="text-capitalize">{{ item.transaction_type.name | translate }}</td>
+                                        <td class="text-right">{{ item.amount | abs | number : 2 }}</td>
+                                        <td>{{ item.currency.currency_code }}</td>
+                                        <td class="text-right">{{ (inverseExchange ? 1 / item.exchange_rate : item.exchange_rate) | evenRound: 5 | number: 5 }}</td>
+                                        <td class="text-right">{{ (inverseExchange ? item.exchange_rate_to_ansp : 1 / item.exchange_rate_to_ansp) | evenRound: 5 | number: 5 }}</td>
+                                        <td class="text-right">{{ item.balance | number : 2 }}</td>
+                                        <td>{{ item.payment_reference_number }}</td>
+                                        <td class="text-nowrap">{{ item.payment_mechanism | translate }}</td>
+                                        <td>{{ item.exported | translate }}</td>
+                                        <td class="text-center">
+                                            <download-oauth2 ng-show="item.has_approval_document" url="transactions/{{ item.id }}/download/approval"
+                                                class-used="btn btn-primary btn-generate btn-sm">
+                                            </download-oauth2>
+                                        </td>
+                                        <td class="text-center">
+                                            <download-oauth2 ng-show="item.has_supporting_document" url="transactions/{{ item.id }}/download/supporting"
+                                                class-used="btn btn-primary btn-generate btn-sm">
+                                            </download-oauth2>
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td class="text-center" colspan="16" translate>There are no Transactions data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refreshList()"
+                            max-size="::20" items-per-page="pagination.size"
+                            ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-show="editable.id && listOfInvoices" class="box-container margin-top-20">
+            <box-header icon="'book'" title="Transaction Payments"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div ng-if="!listOfInvoices.content.length || !listOfInvoices.content">
+                            <span translate>There are no Transaction Payments related to this transaction</span>
+                        </div>
+                        <div ng-if="listOfInvoices.content.length">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th translate class="text-nowrap">Amount</th>
+                                            <th translate class="text-nowrap">Invoice Number</th>
+                                            <th translate class="text-nowrap">Currency</th>
+                                            <th translate class="text-nowrap">Exchange USD</th>
+                                            <th translate class="text-nowrap">Exchange ANSP</th>
+                                            <th translate class="text-nowrap">Account Credit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in listOfInvoices.content">
+                                            <td class="text-nowrap text-right">{{ item.amount | abs | number: 2 }}</td>
+                                            <td class="text-nowrap">{{ item.billing_ledger.invoice_number }}</td>
+                                            <td class="text-nowrap text-right">{{ item.currency.currency_code }}</td>
+                                            <td class="text-nowrap text-right">{{ (inverseExchange ? 1 / item.exchange_rate : item.exchange_rate) | evenRound: 5 | number: 5 }}</td>
+                                            <td class="text-nowrap text-right">{{ (inverseExchange ? item.exchange_rate_to_ansp : 1 / item.exchange_rate_to_ansp) | evenRound: 5 | number: 5 }}</td>
+                                            <td class="text-nowrap">{{ item.is_account_credit | translate }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <ul uib-pagination total-items="listOfInvoices.total_elements" 
+                            ng-change="refresh({ filter: filter, page: listOfInvoices.number }, getSortQueryString())"
+                            max-size="::20" items-per-page="listOfInvoices.size"
+                            ng-model="listOfInvoices.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-show="editable.id && listOfInvoices" class="box-container margin-top-20">
+            <box-header icon="'book'" title="Invoices"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div translate ng-if="!listOfInvoices.content.length || !listOfInvoices.content">
+                            There are no Invoices related to this transaction
+                        </div>
+                        <div ng-if="listOfInvoices.content.length">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th translate class="text-nowrap">Actions</th>
+                                            <th translate class="text-nowrap">Account</th>
+                                            <th translate class="text-nowrap">Invoice Number</th>
+                                            <th translate class="text-nowrap">Invoice Date</th>
+                                            <th translate class="text-nowrap">Invoice Type</th>
+                                            <th translate class="text-nowrap">Status</th>
+                                            <th translate class="text-nowrap">Payment Due Date</th>
+                                            <th translate class="text-nowrap">Created By</th>
+                                            <th translate class="text-nowrap">Invoice Amount</th>
+                                            <th translate class="text-nowrap">Invoice Currency</th>
+                                            <th translate class="text-nowrap">Exchange USD</th>
+                                            <th translate class="text-nowrap">Invoice Date of Issue</th>
+                                            <th translate class="text-nowrap">Exported</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in listOfInvoices.content">
+                                            <td class="text-center">
+                                                <download-oauth2 url="/billing-ledgers/{{item.billing_ledger.id}}/download?"
+                                                    error="error">
+                                                </download-oauth2>
+                                            </td>
+                                            <td class="text-nowrap">{{ item.billing_ledger.account.name }}</td>
+                                            <td class="text-nowrap">{{ item.billing_ledger.invoice_number }}</td>
+                                            <td class="text-nowrap">{{ item.billing_ledger.invoice_period_or_date | dateConverter}}</td>
+                                            <td class="text-nowrap">{{ item.billing_ledger.invoice_type.replace('-', '_').toUpperCase() | translate }}</td>
+                                            <td class="text-nowrap">{{ item.billing_ledger.invoice_state_type.toUpperCase() | translate }}</td>
+                                            <td class="text-nowrap">{{ item.billing_ledger.payment_due_date | dateConverter }}</td>
+                                            <td class="text-nowrap">{{ item.billing_ledger.user.name }}</td>
+                                            <td class="text-nowrap text-right">{{ item.billing_ledger.invoice_amount | number: 2 }}</td>
+                                            <td class="text-nowrap">{{ item.billing_ledger.invoice_currency.currency_code }}</td>
+                                            <td class="text-nowrap text-right">{{ (inverseExchange ? 1 / item.billing_ledger.invoice_exchange : item.billing_ledger.invoice_exchange) | evenRound: 5 | number: 5 }}</td>
+                                            <td class="text-nowrap">{{ item.billing_ledger.invoice_date_of_issue | dateConverter }}</td>
+                                            <td class="text-nowrap">{{ item.billing_ledger.exported | translate }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <ul uib-pagination total-items="listOfInvoices.total_elements"
+                            ng-change="refresh({ filter: filter, page: listOfInvoices.number }, getSortQueryString())"
+                            max-size="::20" items-per-page="listOfInvoices.size" ng-model="listOfInvoices.number"
+                            class="pagination-sm" boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

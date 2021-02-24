@@ -1,0 +1,142 @@
+<div class="row">
+  <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+      <div class="box-container">
+
+          <box-header toggle="toggle" page-name="management.country-management" icon="'flag'"
+            title="{{ 'Countries' | translate }}"></box-header>
+          <div class="box-content">
+
+              <div class="row">
+                  <div class="col-xs-12 col-md-6">
+                    <label translate for="text-filter">Filter</label>
+                    <input id="text-filter" class="form-control" type="text" ng-model="textFilter" empty-to-null ng-keyup="$event.keyCode == 13 && refresh()"/>
+                  </div>
+                  <div class="col-xs-12 col-md-2 pull-right">
+                      <button translate ng-click="refresh()" class="btn btn-primary pull-right">Refresh</button>
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="col-xs-12">
+                      <div class="table-responsive" export-table query-string="filterParameters" back-end-export="true" 
+                        sort-query-string="getSortQueryString()" service="countryManagementService">
+                          <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" 
+                            table-sort="refresh()">
+                              <thead>
+                                  <tr>
+                                      <th translate sort="countryCode" class="text-nowrap">Country Code</th>
+                                      <th translate sort="countryName" class="text-nowrap">Country Name</th>
+                                      <th translate class="text-nowrap">Aircraft Registration Prefixes</th>
+                                      <th translate class="text-nowrap">Aerodrome Prefixes</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr ng-click="edit(item)" ng-repeat="item in list" ng-class="{'highlight': editable.id === item.id}">
+                                      <td class="text-nowrap">{{ item.country_code }}</td>
+                                      <td class="text-nowrap" >{{ item.country_name | translate }}</td>
+                                      <td class="text-nowrap">{{ prefixArrayToString(item.aircraft_registration_prefixes, "aircraft_registration_prefix") }}</td>
+                                      <td class="text-nowrap">{{ prefixArrayToString(item.aerodrome_prefixes, "aerodrome_prefix") }}</td>
+                                  </tr>
+                                  <tr ng-show="!list.length">
+                                      <td translate class="text-center" colspan="4">There is no Countries data</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                      <pagination-display></pagination-display>
+                      <ul uib-pagination total-items="pagination.total_elements"
+                          ng-change="refresh()"
+                          max-size="::20" items-per-page="pagination.size"
+                          ng-model="pagination.number" class="pagination-sm"
+                          boundary-link-numbers="::true">
+                      </ul>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+  </div>
+
+  <div id="crud-second-container" ng-show="toggle">
+      <div class="box-container">
+
+          <box-header ng-show="editable.id === null" icon="'flag'" title="{{ 'Add a Country' | translate }}"></box-header>
+          <box-header ng-show="editable.id !== null" icon="'flag'" title="{{ 'Edit a Country' | translate }}"></box-header>
+
+          <div class="box-content">
+              <form novalidate action="#" name="form" onsubmit="return false">
+                  <fieldset >
+<!-- add permission here -->
+                    <div class="row">
+                        <div class="col-xs-12 col-md-{{ isLocaleEnglish() ? '6' : '4' }}">
+                            <label translate for="country-code">Country Code *</label>
+                            <input id="country-code" name="countryCode" class="form-control" type="text" ng-model="editable.country_code"
+                                maxlength="3" only-letters uppercase-input required/>
+                        </div>
+                        <div class="col-xs-12 col-md-{{ isLocaleEnglish() ? '6' : '4' }}">
+                            <label for="country-name"><span translate>Country Name</span> (EN) *</label>
+                            <input id="country-name" name="countryName" class="form-control" type="text"
+                                ng-model="editable.country_name" required/>
+                        </div>
+                        <div class="col-xs-12 col-md-4" ng-if="!isLocaleEnglish()">
+                            <label translate for="country-name">Country Name</label>
+                            <input id="" name="" disabled ng-disabled class="form-control disabled" type="text"
+                                ng-model="editable.country_name | translate" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <label translate for="aircraft-registration-prefixes">Aircraft Registration Prefixes *</label>
+                            <input id="aircraft-registration-prefixes" name="aircraftRegistrationPrefixes" class="form-control" type="text" ng-model="editable.aircraft_registration_prefixes_input"
+                                ng-pattern="/^(([A-Za-z0-9]{1,2})((,(\W)?[A-Za-z0-9]{1,2})+)?)$/" 
+                                uppercase-input required/>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <label translate for="aerodrome-prefixes">Aerodrome Prefixes *</label>
+                            <input id="aaerodrome-prefixes" name="aerodromePrefixes" class="form-control" type="text" ng-model="editable.aerodrome_prefixes_input"
+                                ng-pattern="/^(([A-Za-z]{1,2})((,(\W)?[A-Za-z]{1,2})+)?)$/" uppercase-input required/>
+                        </div>
+                    </div>
+
+                      <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                          <!-- Error Handling -->
+                      </ng-include>
+
+                      <div class="row">
+                          <div class="col-xs-12">
+                              <button type="button" class="btn btn-primary btn-reset" translate
+                                      ng-click="reset(); form.$setUntouched();">
+                                  Clear
+                              </button>
+                              <button class="btn btn-primary btn-update" translate
+                                      ng-show="editable.id !== null"
+                                      ng-disabled="form.$invalid"
+                                      popup popup-text="Are you sure you want to update this?"
+                                      popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                      popup-confirm="update(editable, editable.id); form.$setUntouched();">
+                                  Update
+                              </button>
+                              <button class="btn btn-primary btn-delete" translate
+                                      ng-show="editable.id !== null"
+                                      popup popup-text="Are you sure you want to delete this?"
+                                      popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
+                                      popup-confirm="delete(editable.id); form.$setUntouched()">
+                                      Delete
+                              </button>
+                              <button class="btn btn-primary btn-create" translate
+                                      ng-disabled="form.$invalid"
+                                      ng-show="editable.id === null"
+                                      ng-click="create(editable); form.$setUntouched();">
+                                      Create
+                              </button>
+                          </div>
+                      </div>
+
+                  </fieldset>
+
+              </form>
+
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+[class="main.currency-management"] {
+  .date-range .datepicker {
+    @extend .col-xs-6; // make the datepicker fit
+  }
+}

@@ -1,0 +1,19 @@
+[ng-class="main.invoices"] {
+    .middle {
+      vertical-align: middle;
+    }
+
+    .export-dropdown.dropdown {
+      display: inline-block;
+    }
+
+    input[type="checkbox"] {
+      position: inherit;
+    }
+
+    input[type="checkbox"]:checked:before {
+      position: relative;
+      margin-bottom: -13px;
+      margin-right: -9px;
+    }
+}

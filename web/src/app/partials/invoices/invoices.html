@@ -1,0 +1,427 @@
+<div class="row">
+    <div class="col-xs-12">
+        <!-- invoices container -->
+        <div class="box-container">
+            <box-header page-name="billing.invoice-management" icon="'book'"
+                title="{{ 'Invoices' | translate }}"></box-header>
+            <div class="box-content">
+                <!-- invoices approval errors -->
+                <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                    <!-- Error Handling -->
+                </ng-include>
+                <!-- invoices export messages -->
+                <div class="row" ng-show="exportSuccess">
+                    <div class="col-xs-12">
+                        <div class="alert alert-dismissible alert-icon alert-success" role="alert">
+                            <button type="button" ng-click="exportSuccess = false" class="close" data-dismiss="alert">×</button>
+                            <span class="glyphicon glyphicon-ok-sign icon" aria-hidden="true"></span>
+                            <strong translate>Response:</strong>
+                            <span translate>Successfully completed batch export!</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- invoices data grid filters and actions -->
+                <div class="row">
+                    <div class="col-xs-12 col-md-6 col-lg-3">
+                        <label translate for="account-filter">Account</label>
+                        <dynamic-service-dropdown
+                            ng-model="accountFilter"
+                            id="account-filter"
+                            dropdown-type="single"
+                            allow-empty="true"
+                            service="::accountsService"
+                            is-required="false"
+                            method="findAllMinimalReturn"
+                            options="item.id as item.name for item in list"
+                            ng-change="refreshList()">
+                        </dynamic-service-dropdown>
+                    </div>
+                   <div class="col-xs-12 col-md-6 col-lg-2">
+                        <label translate for="status-filter">Invoice Status</label>
+                        <select id="status-filter" class="form-control" ng-model="statusFilter" ng-change="refreshList()">
+                            <option translate value=""></option>
+                             <option ng-show="manualApproval && (hasPermission('invoices_approve') || hasPermission('invoices_publish'))" translate value="unapproved">Unapproved Invoices</option>
+                            <option ng-show="manualPublishing && (hasPermission('invoices_approve') || hasPermission('invoices_publish'))" translate value="unpublished">Unpublished Invoices</option>
+                            <option translate value="unpaid">Unpaid Invoices</option>
+                            <option translate value="overdue">Overdue Invoices</option>
+                            <option translate value="paid">Paid Invoices</option>
+                            <option translate value="void">Void Invoices</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-md-6 col-lg-2">
+                        <label translate for="user-filter">User</label>
+                        <select id="user-filter" class="form-control" empty-to-null ng-model="userFilter" ng-change="refreshList()"
+                            ng-options="item.id as item.name for item in usersList">
+                            <option translate value=""></option>
+                        </select>
+                    </div>
+                    <!-- invoice data grid actions -->
+                    <div class="col-xs-12 col-lg-5">
+                        <form action="#" name="formAction" onsubmit="return false" novalidate>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <fieldset class="pull-right">
+                                        <legend class="sr-only" translate>Invoice action</legend>
+                                        <div class="dropdown export-dropdown" ng-class="{'open': toggleExportDropdown}" ng-init="toggleExportDropdown = false" ng-if="exportSupport">
+                                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                                                ng-click="toggleExportDropdown = !toggleExportDropdown" ng-disabled="exportInProcess">
+                                                <span translate>Export</span>
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="button">
+                                                <li>
+                                                    <a ng-click="exportAllInvoices(); toggleExportDropdown = false;">
+                                                        All non-exported
+                                                    </a>
+                                                </li>
+                                                <li ng-class="{ 'disabled': !isSelectedItems(selectedItems) }">
+                                                    <a ng-click="!isSelectedItems(selectedItems) || exportSelectedInvoices(selectedItems); toggleExportDropdown = false;">
+                                                        Selected only
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <button translate class="btn btn-primary"
+                                            ng-if="manualApproval"
+                                            ng-disabled="editable.invoice_state_type !== 'NEW' || !hasPermission('invoices_approve')"
+                                            popup popup-text="Are you sure you want to approve this invoice?"
+                                            popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                            popup-confirm="updateState(editable.id, 'approved')">
+                                            Approve
+                                        </button>
+                                        <button translate class="btn btn-primary"
+                                            ng-if="manualPublishing"
+                                            ng-disabled="editable.invoice_state_type !== 'APPROVED' || !hasPermission('invoices_publish')"
+                                            popup popup-text="Are you sure you want to publish this invoice?"
+                                            popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                            popup-confirm="updateState(editable.id, 'published')">
+                                            Publish
+                                        </button>
+                                        <button translate class="btn btn-primary"
+                                            ng-disabled="!enableVoid(editable) || !hasPermission('invoices_void')"
+                                            popup popup-text="Are you sure you want to void this invoice?"
+                                            popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                            popup-confirm="voidInvoice(editable)">
+                                            Void
+                                        </button>
+                                        <button translate class="btn btn-primary"
+                                            ng-disabled="editable.invoice_state_type !== 'PUBLISHED' || !hasPermission('transaction_modify')"
+                                            popup popup-text="Are you sure you want to pay this invoice?"
+                                            popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                            popup-confirm="payInvoice(editable)">
+                                            Pay
+                                        </button>
+                                        <button translate ng-click="refreshList();"
+                                            class="btn btn-primary">Refresh
+                                        </button>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- invoices data grid filters -->
+                <div class="row">
+                    <!-- invoice data grid filters -->
+                    <div class="col-xs-12 col-md-6 col-lg-3">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" empty-to-null
+                            ng-model="invoiceTextFilter"
+                            ng-keyup="$event.keyCode == 13 && refreshList()"/>
+                    </div>
+                    <div class="col-xs-12 col-md-6 col-lg-2">
+                        <label translate for="flight-id">Flight Id/Registration Number</label>
+                        <input id="flight-id" class="form-control" type="text" empty-to-null
+                            ng-model="flightIdOrRegistration" uppercase-input
+                            ng-keyup="$event.keyCode == 13 && refreshList()"/>
+                    </div>
+
+                    <div class="col-xs-12 col-md-6 col-lg-4">
+                        <date-range is-required="false" control="control" format="{{customDate}}"
+                                    ng-click="control.getUTCStartDate() !== null && control.getUTCEndDate() !== null ? refreshList() : ''"
+                                    ng-keyup="control.getUTCStartDate() === null && control.getUTCEndDate() === null ? refreshList() : ''">
+                            <!--Datepickers -->
+                        </date-range>
+                    </div>
+                    <div class="col-xs-12 col-md-6 col-lg-2">
+                        <label translate for="billing-centre">Billing Centre</label>
+                        <dynamic-service-dropdown
+                            ng-model="billingCentreFilter"
+                            id="billing-centre"
+                            dropdown-type="single"
+                            allow-empty="true"
+                            service="::billingCentreManagementService"
+                            is-required="false"
+                            method="findAllMinimalReturn"
+                            options="item.id as item.name for item in list"
+                            ng-change="refreshList()">
+                        </dynamic-service-dropdown>
+                    </div>
+                </div>
+                <!-- invoices data grid export filters -->
+                <div class="row" ng-show="exportSupport">
+                    <div class="col-xs-12 form-group-inline">
+                        <div class="checkbox">
+                            <label>
+                                <input id="exported-filter" type="checkbox"
+                                    ng-model="exportedFilter"
+                                    ng-change="refreshList()" /> <span translate>Show only non-exported invoices</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- invoices data grid -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div id="invoices" class="table-responsive" export-table sort-query-string="getSortQueryString()" query-string="filterParameters"
+                            back-end-export="true" service="invoicesService">
+                            <table class="table table-striped table-bordered table-hover table-condensed" 
+                                sort-query-string="getSortQueryString" table-sort="refreshList()" grid-pages="10">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-center" ng-if="exportSupport">Select</th>
+                                        <th translate class="text-center">Actions</th>
+                                        <th translate sort="account.name">Account</th>
+                                        <th translate sort="invoiceNumber">Invoice Number</th>
+                                        <th translate sort="invoicePeriodOrDate">Invoice Date</th>
+                                        <th translate class="text-nowrap" sort="invoiceType">Invoice Type</th>
+                                        <th translate sort="invoiceStateType">Status</th>
+                                        <th translate sort="paymentDueDate">Payment Due Date</th>
+                                        <th translate class="text-nowrap" sort="user.name">Created By</th>
+                                        <th translate sort="invoiceAmount" class="text-right">Invoice Amount</th>
+                                        <th translate sort="invoiceCurrency.currencyCode">Invoice Currency</th>
+                                        <th translate class="text-right" sort="invoiceExchangeToUsd">Exchange USD</th>
+                                        <th translate sort="invoiceDateOfIssue">Invoice Date of Issue</th>
+                                        <th translate sort="billingCentre.name">Billing Centre</th>
+                                        <th translate sort="proforma" ng-if="showProforma">Proforma</th>
+                                        <th translate sort="pointOfSale">Point Of Sale</th>
+                                        <th translate sort="exported" ng-if="exportSupport">Exported</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="edit(item, 'INVOICE')"
+                                        ng-class="{'highlight': editable.id === item.id}"
+                                        ng-init="setExportSupportType(item.invoice_type)"
+                                        ng-repeat="item in list">
+                                        <td class="text-center" ng-if="exportSupport">
+                                            <input type="checkbox" title="{{ 'select for export' | translate }}"
+                                                ng-model="selectedItems[item.id]"
+                                                ng-disabled="!isExportSupport(item)" />
+                                        </td>
+                                        <td class="text-center">
+                                            <download-oauth2 url="/billing-ledgers/{{item.id}}/download?" error="error" title="{{ 'download' | translate }}"></download-oauth2>
+                                        </td>
+                                        <td ng-click="openAccount(item.account.id, (hasPermission('account_view') || hasPermission('account_modify')))" 
+                                            ng-class="{'underline': hasPermission('account_view') || hasPermission('account_modify')}">{{ item.account.name }}</td>
+                                        <td class="text-nowrap">{{ item.invoice_number }}</td>
+                                        <td class="text-nowrap">{{ item.invoice_period_or_date | dateConverter}}</td>
+                                        <td class="text-nowrap">{{ item.invoice_type.replace('-', '_').toUpperCase() | translate }}</td>
+                                        <td class="text-nowrap">{{ item.invoice_state_type | translate }}</td>
+                                        <td class="text-nowrap">{{ item.payment_due_date | dateConverter }}</td>
+                                        <td class="text-nowrap">{{ item.user }}</td>
+                                        <td class="text-right">{{ item.invoice_amount | number: 2 }}</td>
+                                        <td>{{ item.invoice_currency.currency_code }}</td>
+                                        <td class="text-right">{{ (inverseExchange ? 1 / item.invoice_exchange : item.invoice_exchange) | evenRound: 5 | number: 5}}</td>
+                                        <td class="text-nowrap">{{ item.invoice_date_of_issue | dateConverter }}</td>
+                                        <td class="text-nowrap">{{ item.billing_center.name }}</td>
+                                        <td ng-if="showProforma">{{ item.proforma | translate }}</td>
+                                        <td class="text-nowrap">{{ item.point_of_sale | translate }}</td>
+                                        <td ng-if="exportSupport">{{ item.exported | translate }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td class="text-center" colspan="17" translate>There are no Invoices data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements"
+                            ng-change="refreshList()"
+                            max-size="::20" items-per-page="pagination.size"
+                            ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- invoice line items container -->
+        <div ng-show="editable.id && lineItems && editable.invoice_type === 'non-aviation'" class="box-container margin-top-20">
+            <box-header icon="'book'" title="{{ 'Invoice Line Items' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- invoice line items data grid message -->
+                        <div ng-if="!lineItems.length">
+                            <span translate>There are no Line Items related to this invoice</span>
+                        </div>
+                        <!-- invoice line items data grid -->
+                        <div ng-if="lineItems.length">
+                            <div id="line-items" class="table-responsive" export-table box-header="1" back-end-export="true" service="invoicesService"
+                                endpoint-param="/getLineItemsByInvoiceId/{{editable.id}}">
+                                <table class="table table-striped table-bordered table-hover table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th translate class="text-nowrap" sort="amount">Amount</th>
+                                            <th translate class="text-nowrap" sort="serviceChargeCatalogue.category">Category</th>
+                                            <th translate class="text-nowrap" sort="serviceChargeCatalogue.chargeClass">Charge Class</th>
+                                            <th translate class="text-nowrap" sort="serviceChargeCatalogue.description">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in lineItems | limitTo : pagination.size : (lineItems.number * pagination.size) - pagination.size">
+                                            <td class="text-nowrap text-right">{{ item.amount | number: 2 }}</td>
+                                            <td class="text-nowrap">{{ item.service_charge_catalogue.category }}</td>
+                                            <td class="text-nowrap">{{ item.service_charge_catalogue.charge_class }}</td>
+                                            <td class="text-nowrap">{{ item.service_charge_catalogue.description }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <ul uib-pagination total-items="lineItems.length" max-size="::20" items-per-page="pagination.size"
+                                ng-model="lineItems.number" class="pagination-sm" boundary-link-numbers="::true">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- invoice transaction payments container -->
+        <div ng-show="editable.id && listTransactionPayments" class="box-container margin-top-20">
+            <box-header icon="'exchange'" title="{{ 'Transaction Payments' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- invoice transaction payments data grid message -->
+                        <div ng-if="!listTransactionPayments.length">
+                            <span translate>There are no Transaction Payments related to this invoice</span>
+                        </div>
+                        <!-- invoice transaction payments data grid -->
+                        <div ng-if="listTransactionPayments.length">
+                            <div id="transaction-payments" class="table-responsive" export-table box-header="2" back-end-export="true" 
+                            service="transactionsService" endpoint-param="/getTransactionPaymentsByBillingLedgerId/{{editable.id}}">
+                                <table class="table table-striped table-bordered table-hover table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th translate class="text-nowrap" sort="billingLedger.invoiceNumber">Invoice Number</th>
+                                            <th translate class="text-nowrap" sort="amount">Amount</th>
+                                            <th translate class="text-nowrap" sort="currency.currencyCode">Currency</th>
+                                            <th translate class="text-nowrap" sort="exchangeRate">Exchange USD</th>
+                                            <th translate class="text-nowrap" sort="exchangeRateToAnsp">Exchange ANSP</th>
+                                            <th translate class="text-nowrap" sort="isAccountCredit">Account Credit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in listTransactionPayments | limitTo : pagination.size : (listTransactionPayments.number * pagination.size) - pagination.size">
+                                            <td class="text-nowrap">{{ item.billing_ledger.invoice_number }}</td>
+                                            <td class="text-nowrap text-right">{{ item.amount | abs| number: 2 }}</td>
+                                            <td class="text-nowrap text-right">{{ item.currency.currency_code }}</td>
+                                            <td class="text-nowrap text-right">{{ (inverseExchange ? 1 / item.exchange_rate : item.exchange_rate) | evenRound: 5 | number: 5}}</td>
+                                            <td class="text-nowrap text-right">{{ (inverseExchange ? item.exchange_rate_to_ansp : 1 / item.exchange_rate_to_ansp) | evenRound: 5 | number: 5 }}</td>
+                                            <td class="text-nowrap" translate>{{ item.is_account_credit }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <ul uib-pagination total-items="listTransactionPayments.length" max-size="::20" items-per-page="pagination.size"
+                                ng-model="listTransactionPayments.number" class="pagination-sm" boundary-link-numbers="::true">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- invoice transactions container -->
+        <div ng-show="editable.id && listTransactions" class="box-container margin-top-20">
+            <box-header icon="'exchange'" title="{{ 'Transactions' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- invoice transactions data grid message -->
+                        <div ng-if="!listTransactions.length">
+                            <span translate>There are no Transactions related to this invoice</span>
+                        </div>
+                        <!-- invoice transactions data grid -->
+                        <div ng-if="listTransactions.length">
+                            <div id="transaction" class="table-responsive" export-table box-header="3" service="transactionsService"
+                            endpoint-param="/getTransactionByBillingLedgerId/{{editable.id}}" back-end-export="true">
+                                <table class="table table-striped table-bordered table-hover table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th translate class="text-nowrap">Receipt</th>
+                                            <th translate class="text-nowrap" sort="account.name">Account</th>
+                                            <th translate class="text-nowrap" sort="transactionDateTime">Date/Time</th>
+                                            <th translate class="text-nowrap" sort="description">Description</th>
+                                            <th translate class="text-nowrap" sort="transactionType.name">Type</th>
+                                            <th translate class="text-nowrap text-right" sort="amount">Amount</th>
+                                            <th translate class="text-nowrap" sort="currency.currencyCode">Currency</th>
+                                            <th translate class="text-nowrap text-right" sort="exchangeRate">Exchange USD</th>
+                                            <th translate class="text-nowrap text-right" sort="exchangeRateToAnsp">Exchange ANSP</th>
+                                            <th translate class="text-nowrap text-right" sort="balance">Balance</th>
+                                            <th translate class="text-nowrap text-right" sort="paymentReferenceNumber">Payment Reference Number</th>
+                                            <th translate class="text-nowrap text-right" sort="paymentMechanism">Payment Mechanism</th>
+                                            <th translate class="text-nowrap" sort="exported">Exported</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in listTransactions | limitTo : pagination.size : (listTransactions.numberTransactions * pagination.size) - pagination.size">
+                                            <td class="text-center">
+                                                <download-oauth2 url="/reports/transaction-receipt?transactionId={{item.id}}"
+                                                    error="error">
+                                                </download-oauth2>
+                                            </td>
+                                            <td class="text-nowrap">{{item.account.name}}</td>
+                                            <td class="text-nowrap">{{ item.transaction_date_time | dateConverter: 'HH:mm' }}</td>
+                                            <td class="word-break-break-all">{{ item.description }}</td>
+                                            <td translate>{{ item.transaction_type.name }}</td>
+                                            <td class="text-right">{{ item.amount }}</td>
+                                            <td>{{ item.currency.currency_code }}</td>
+                                            <td class="text-right">{{ (inverseExchange ? 1 / item.exchange_rate : item.exchange_rate) | evenRound: 5 | number: 5 }}</td>
+                                            <td class="text-right">{{ (inverseExchange ? item.exchange_rate_to_ansp : 1 / item.exchange_rate_to_ansp) | evenRound: 5 | number: 5 }}</td>
+                                            <td class="text-right">{{ item.balance | number : 2 }}</td>
+                                            <td>{{ item.payment_reference_number }}</td>
+                                            <td translate>{{ item.payment_mechanism }}</td>
+                                            <td translate>{{ item.exported }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <ul uib-pagination total-items="listTransactions.length" max-size="::20" items-per-page="pagination.size"
+                                ng-model="listTransactions.numberTransactions" class="pagination-sm" boundary-link-numbers="::true">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- invoice flight movements container -->
+        <div ng-show="editable.id && listFlightMovements && editable.invoice_type !== 'non-aviation'" class="box-container margin-top-20">
+            <box-header icon="'plane'" title="{{ 'Flight Movements' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <!-- invoice flight movements data grid message -->
+                    <div class="col-xs-12">
+                        <div ng-if="!listFlightMovements.content.length">
+                            <span translate>There are no Flight Movements related to this invoice</span>
+                        </div>
+                    </div>
+                    <!-- invoice flight movements data grid -->
+                    <div ng-if="listFlightMovements.content.length">
+                        <flight-movement-table export-table-box-header="4" export-table-endpoint="'/invoices/{{ editable.id }}'">
+                            <!-- Flight Movement Table -->
+                        </flight-movement-table>
+                    </div>
+                    <!-- invoice flight movements data grid pagination -->
+                    <div ng-show="listFlightMovements.content.length" class="col-xs-12">
+                        <ul uib-pagination total-items="listFlightMovements.total_elements"
+                            ng-change="getFlightMovementsByInvoiceId(editable.id, listFlightMovements.number, listFlightMovements.size)"
+                            max-size="::20" items-per-page="listFlightMovements.size"
+                            ng-model="listFlightMovements.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

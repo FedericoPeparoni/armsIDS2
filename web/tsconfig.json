@@ -1,0 +1,14 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "lib": ["es5", "dom"],
+    "experimentalDecorators": true,
+    "types": []
+  },
+  "files": [
+    "src/app/index.module.ts",
+    "typings/index.d.ts"
+  ]
+}

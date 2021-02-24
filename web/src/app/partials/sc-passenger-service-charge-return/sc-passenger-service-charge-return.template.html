@@ -1,0 +1,34 @@
+<div class="confirm-popup padding-20">
+    <div class="row">
+        <div class="col-xs-12">
+            <span class="text-center">
+                <h5>{{ 'Passenger Service Charge Return File' | translate }}</h5>
+            </span>
+            <ul>
+                <li>{{ 'Format' | translate }}: {{ format }}</li>
+                <li>{{ 'Top' | translate }} 6 {{ 'rows are ignored' | translate }}</li>
+                <li>{{ 'No column header' | translate }}</li>
+            </ul>
+            <span>{{ 'Columns' | translate }}:</span>
+            <ul>
+                <li>#1 - {{ 'Account Name' | translate }}</li>
+                <li>#2 - {{ 'Day of Flight' | translate }} ({{ 'dd/MM/yyyy' | translate }})</li>
+                <li>#3 - {{ 'Flight Identifier' | translate }}</li>
+                <li>#4 - {{ 'empty' | translate }}</li>
+                <li>#5 - {{ 'Transit Passengers' | translate }}</li>
+                <li>#6 - {{ 'Joining Passengers' | translate }}</li>
+                <li>#7 - {{ 'Children' | translate }}</li>
+                <li>#8 - {{ 'Chargeable International Passengers' | translate }}</li>
+                <li>#9 - {{ 'Chargeable Domestic Passengers' | translate }}</li>
+            </ul>
+            <span>
+                <strong>{{ 'NOTE' | translate }}:</strong> {{ 'If you are creating a file in Excel, the first row must contain non-blank data otherwise Excel will remove any completely empty rows or columns' | translate }}</span>
+        </div>
+    </div>
+
+    <div class="row margin-top-20">
+        <div class="text-center">
+            <button translate type="button" class="btn btn-primary" ng-click="confirm()">Close</button>
+        </div>
+    </div>
+</div>

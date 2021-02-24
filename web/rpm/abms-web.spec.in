@@ -1,0 +1,99 @@
+%global         spec_version       1
+%global         web_content_dir    %_localstatedir/www/html/abms
+%global         httpd_conf_dir     %_sysconfdir/httpd
+
+# Check whether we are using SystemD (EL7+) or not
+%if 0%{?_unitdir:1}
+%define have_systemd 1
+%else
+%define have_systemd 0
+%endif
+
+Summary:	ABMS - User interface
+Name:		@@RPM_NAME@@
+Epoch:		0
+Version:	@@RPM_VERSION@@
+Release:	%{spec_version}@@RPM_RELEASE_SUFFIX@@
+License:	Proprietary
+Group:		IDS
+
+Requires(pre):  httpd
+Requires(post):	httpd
+Requires:	httpd
+
+BuildArch: 	noarch
+Source0:        %{name}-%{version}.tar.gz
+Source1:        abms-basemap.httpd.conf
+
+%description
+ABMS - User interface
+
+# -------------------------------------------------------------------------------
+# PREP
+# -------------------------------------------------------------------------------
+%prep
+%setup
+
+# -------------------------------------------------------------------------------
+# BUILD
+# -------------------------------------------------------------------------------
+%build
+
+# -------------------------------------------------------------------------------
+# INSTALL
+# -------------------------------------------------------------------------------
+%install
+set -e
+[ "$RPM_BUILD_ROOT" != / ] && %{__rm} -rf "$RPM_BUILD_ROOT"
+
+%__install -d "$RPM_BUILD_ROOT"%web_content_dir
+%__install -d "$RPM_BUILD_ROOT"%web_content_dir/web
+%__cp -r * "$RPM_BUILD_ROOT"%web_content_dir/web
+%__ln_s web "$RPM_BUILD_ROOT"%web_content_dir/selfcare
+
+find "$RPM_BUILD_ROOT"%web_content_dir/web -type d -exec chmod 0755 '{}' +
+find "$RPM_BUILD_ROOT"%web_content_dir/web -type f -exec chmod 0644 '{}' +
+
+%__install -d "$RPM_BUILD_ROOT"%_sysconfdir/httpd/conf.d
+%__install %{SOURCE1} "$RPM_BUILD_ROOT"%_sysconfdir/httpd/conf.d/abms-basemap.conf
+
+# -------------------------------------------------------------------------------
+# CLEAN
+# -------------------------------------------------------------------------------
+%clean
+[ "%{buildroot}" != / ] && %{__rm} -rf "%{buildroot}"
+
+# -------------------------------------------------------------------------------
+# POST
+# -------------------------------------------------------------------------------
+%post
+mkdir -p %web_content_dir/basemap
+# SystemD
+%if %have_systemd
+	systemctl reload httpd >/dev/null 2>&1 || :
+# SysV
+%else
+	service httpd reload >/dev/null 2>&1 || :
+%endif
+
+# -------------------------------------------------------------------------------
+# POSTUN
+# -------------------------------------------------------------------------------
+%postun
+# SystemD
+%if %have_systemd
+	systemctl reload httpd >/dev/null 2>&1 || :
+# SysV
+%else
+	service httpd reload >/dev/null 2>&1 || :
+%endif
+
+# -------------------------------------------------------------------------------
+# FILES
+# -------------------------------------------------------------------------------
+%files
+%attr(-,    root, root) %dir %web_content_dir
+%attr(-,    root, root) %web_content_dir/web
+%attr(-,    root, root) %web_content_dir/selfcare
+%attr(0644, root, root) %config(noreplace) %_sysconfdir/httpd/conf.d/*
+

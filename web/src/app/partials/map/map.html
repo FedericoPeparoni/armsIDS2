@@ -1,0 +1,64 @@
+<div class="map">
+    <div id="cesiumContainer" class="map cesiumContainer"><!-- Cesium is initialized in here --></div>
+</div>
+
+<div class="cesium-navigation-help cesium-navigation-help-visible" ng-show="showDetails">
+    <div id="cesium-layers-container" class="cesium-navigation-help cesium-navigation-help-visible">
+
+        <button ng-click="showSettingsTab = false" type="button"
+                ng-class="!showSettingsTab ? 'cesium-navigation-button-selected' : 'cesium-navigation-button-unselected'"
+                class="cesium-navigation-button cesium-navigation-button-left cesium-navigation-button-selected">
+            <i class="fa fa-list-ul" aria-hidden="true"></i>
+            <span>Layers</span>
+        </button>
+
+        <button ng-click="showSettingsTab = true" type="button"
+                ng-class="showSettingsTab ? 'cesium-navigation-button-selected' : 'cesium-navigation-button-unselected'"
+                class="cesium-navigation-button cesium-navigation-button-right cesium-navigation-button-unselected pull-right">
+            <i class="fa fa-cog" aria-hidden="true"></i>
+            <span>Settings</span>
+        </button>
+
+        <div ng-show="!showSettingsTab"
+             class="cesium-click-navigation-help cesium-navigation-help-instructions cesium-click-navigation-help-visible cesium-layers">
+            <table class="layer-control-table" id="wfsLayerTable">
+                <tbody>
+                    <tr ng-repeat="layer in layers" ng-show="layer.layerName === aerodromesLayerName || flightMovementLoaded">
+                        <td class="text-white">{{ layer.displayName }}</td>
+                        <td class="legend"><div ng-style="{'background-color': layer.cssValue }"></div></td>
+                        <td class="input-box"><input type="checkbox" ng-model="layer.show"
+                                                          ng-checked="layer.show"
+                                                           /></td>
+                        <td class="input-range"><input ng-attr-title="{{ layer.alpha }}" type="range" ng-model="layer.alpha" min="0" max="1"
+                                                          step="0.01"
+                                                          ng-change="changeLayerAlpha(layer)" /></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="layer-control-table" id="wmsLayerTable">
+                <tbody>
+                    <tr ng-repeat="layer in imgLayers">
+                        <td class="text-white">{{ layer.displayName }}</td>
+                        <td class="input-box"><input type="checkbox" ng-model="layer.show"
+                                                          ng-checked="layer.show"
+                                                           /></td>
+                        <td class="input-range"><input ng-attr-title="{{ layer.alpha }}" type="range" ng-model="layer.alpha" min="0" max="1"
+                                                          step="0.01"
+                                                          ng-change="changeImageryLayerAlpha(layer)" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div ng-show="showSettingsTab"
+             class="cesium-click-navigation-help cesium-navigation-help-instructions cesium-click-navigation-help-visible cesium-information">
+            <!-- <table>
+                <tbody>
+                <tr >
+                    
+                </tr>
+                </tbody>
+            </table> -->
+        </div>
+    </div>
+</div>

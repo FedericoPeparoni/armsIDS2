@@ -1,0 +1,554 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <div class="box-container">
+
+            <box-header toggle="toggle" page-name="operations.account-management" icon="'users'" title="{{ 'Accounts' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <button ng-click="refreshOverride()"
+                            class="btn btn-primary pull-right" translate>
+                            Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-3">
+                        <label translate for="accounts-filter">Accounts</label>
+                        <select id="accounts-filter" ng-init="filter = 'true'" empty-to-null class="form-control" ng-change="refreshOverride()"
+                            ng-model="filter">
+                            <option translate value="">All</option>
+                            <option translate value="true">Active</option>
+                            <option translate value="false">Not Active</option>
+                        </select>
+                    </div>
+
+                    <div class="col-xs-12 col-md-3">
+                        <label translate for="accounts-type">Accounts Type</label>
+                        <select id="accounts-type" class="form-control" empty-to-null ng-init="accountTypeFilter = 'false'" ng-change="refreshOverride()"
+                            ng-model="accountTypeFilter">
+                            <option translate value="">All</option>
+                            <option translate value="true">Cash Accounts</option>
+                            <option translate value="false">Credit Accounts</option>
+                        </select>
+                    </div>
+
+                    <div class="col-xs-12 col-md-3">
+                        <label translate for="filter">Invoice</label>
+                        <select id="filter" class="form-control" empty-to-null ng-model="accountFilter" ng-change="refreshOverride()">
+                            <option translate value="">All</option>
+                            <option translate value="outstanding">Outstanding Invoices</option>
+                            <option translate value="overdue">Overdue Invoices</option>
+                            <option translate value="credit-limit">Credit Facilities</option>
+                        </select>
+                    </div>
+
+                    <div class="col-xs-12 col-md-3">
+                        <label translate for="nationality-filter">Nationality</label>
+                        <select id="nationality-filter" empty-to-null class="form-control"
+                            ng-change="refreshOverride()"
+                            ng-model="nationality">
+                            <option translate value="">All</option>
+                            <option translate value="NA">National</option>
+                            <option translate value="FO">Foreign</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="textFilter" empty-to-null 
+                            ng-keyup="$event.keyCode == 13 && refreshOverride()"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-3">
+                        <input id="self-care-accounts" type="checkbox" ng-init="selfCareAccounts = 'false'" ng-model="selfCareAccounts"
+                        ng-change="refreshOverride()">
+                        <label translate for="self-care-accounts">Self-care portal accounts</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table sort-query-string="getSortQueryString()" service="accountsService"
+                            query-string="filterParameters" back-end-export="true">
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" 
+                                table-sort="refreshOverride()">
+                                <thead>
+                                    <tr>
+                                        <th class="text-nowrap" translate sort="name">Account Name</th>
+                                        <th class="text-nowrap" translate sort="icaoCode">ICAO Code</th>
+                                        <th class="text-nowrap" translate sort="iataCode">IATA Code</th>
+                                        <th class="text-nowrap" translate sort="aviationBillingContactPersonName">Contact Name</th>
+                                        <th class="text-nowrap" translate sort="nationality">Nationality</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="form.$setUntouched(); editOverride(item); getAllNotifications(); checkCreditLimit();" ng-class="{'highlight': editable.id === item.id}"
+                                        ng-repeat="item in list">
+                                        <td> {{ item.name | translate }}</td>
+                                        <td> {{ item.icao_code }}</td>
+                                        <td> {{ item.iata_code }}</td>
+                                        <td> {{ item.aviation_billing_contact_person_name }}</td>
+                                        <td> {{ item.nationality }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td translate class="text-center" colspan="5">There are no Accounts data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" 
+                            ng-change="refreshOverride()"
+                            max-size="::20" items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-container margin-top-20" ng-show="editable.id">
+
+            <box-header icon="'users'" title="{{ 'External Accounting System Identifiers' | translate }}"></box-header>
+
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th translate>External System Identifier</th>
+                                        <th translate>External Charge Category</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="formExternal.$setUntouched(); editExternal(item);" ng-class="{'highlight': editableExternal.id === item.id}"
+                                        ng-repeat="item in listExternal">
+                                        <td> {{ item.external_system_identifier }}</td>
+                                        <td> {{ item.external_charge_category.name }}</td>
+                                    </tr>
+                                    <tr ng-show="!listExternal.length">
+                                        <td translate class="text-center" colspan="4">There are no external sytem identifiers</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+
+            <box-header ng-show="editable.id === null" icon="'users'" title="{{ 'Create an Account' | translate }}"></box-header>
+            <box-header ng-show="editable.id !== null" icon="'users'" title="{{ 'Edit an Account' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <form novalidate action="#" name="form" onsubmit="return false">
+
+                    <fieldset ng-disabled="!hasPermission('account_modify')">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="name">Account Name *</label>
+                                <input id="name" name="name" class="form-control" type="text" ng-model="editable.name" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="alias">Account Alias</label>
+                                <input id="alias" name="alias" class="form-control" type="text" ng-model="editable.alias" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="aviation-billing-contact-person-name">Aviation Billing Contact Person Name
+                                </label>
+                                <input id="aviation-billing-contact-person-name" name="aviationBillingContactPersonName" class="form-control" type="text"
+                                    ng-model="editable.aviation_billing_contact_person_name" />
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="aviation-billing-person-phone-number">Aviation Billing Phone Number</label>
+                                <input id="aviation-billing-person-phone-number" name="aviationBillingPhoneNumber" class="form-control" type="text" ng-model="editable.aviation_billing_phone_number"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="aviation-billing-mailing-address">Aviation Billing Mailing Address</label>
+                                <input id="aviation-billing-mailing-address" name="aviationBillingMailingAddress" class="form-control" type="text" ng-model="editable.aviation_billing_mailing_address"
+                                />
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="aviation-billing-person-email">Aviation Billing Email Address</label>
+                                <input id="aviation-billing-person-email" name="aviationBillingEmailAddress" class="form-control" type="email" ng-model="editable.aviation_billing_email_address"
+                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]+$" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="aviation-billing-sms-number">Aviation Billing SMS Number</label>
+                                <input id="aviation-billing-sms-number" name="aviationBillingSmsNumber" class="form-control" type="text" ng-model="editable.aviation_billing_sms_number"
+                                />
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="nationality"><span translate>Nationality</span> *</label>
+                                <select id="nationality-filter" class="form-control" ng-model="editable.nationality" required>
+                                    <option translate value="NA">National</option>
+                                    <option translate value="FO">Foreign</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <button translate class="btn" ng-click="getAviationInfo()">Use aviation billing contact for non-aviation
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="non-aviation-billing-contact-person-name">Non-Aviation Billing Contact Person Name</label>
+                                <input id="non-aviation-billing-contact-person-name" name="nonAviationBillingContactPersonName" class="form-control" type="text"
+                                    ng-model="editable.non_aviation_billing_contact_person_name" />
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="non-aviation-billing-person-phone-number">Non-Aviation Billing Phone Number
+                                </label>
+                                <input id="non-aviation-billing-person-phone-number" name="nonAviationBillingPhoneNumber" class="form-control" type="text"
+                                    ng-model="editable.non_aviation_billing_phone_number" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="non-aviation-billing-mailing-address">Non-Aviation Billing Mailing Address
+                                </label>
+                                <input id="non-aviation-billing-mailing-address" name="nonAviationBillingMailingAddress" class="form-control" type="text"
+                                    ng-model="editable.non_aviation_billing_mailing_address" />
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="non-aviation-billing-person-email">Non-Aviation Billing Email Address
+                                </label>
+                                <input id="non-aviation-billing-person-email" name="nonAviationBillingEmailAddress" class="form-control"
+                                    type="email" ng-model="editable.non_aviation_billing_email_address"
+                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]+$" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="non-aviation-billing-sms-number">Non-Aviation Billing SMS Number</label>
+                                <input id="non-aviation-billing-sms-number" name="nonAviationBillingSmsNumber" class="form-control" type="text"
+                                    ng-model="editable.non_aviation_billing_sms_number"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="self-care-account"><span translate>Self-Care Account</span> *</label>
+                                <boolean-text id="self-care-account" class="form-control" name="selfCareAccount"
+                                ng-model="editable.is_self_care" required ng-disabled="true"></boolean-text >
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="approved-flight-school-indicator">Approved Flight School *</label>
+                                <boolean-text  class="form-control" name="approvedFlightSchoolIndicator" id="approved-flight-school-indicator" ng-model="editable.approved_flight_school_indicator"
+                                    required></boolean-text >
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="iata-code">IATA Code</label>
+                                <input id="iata-code" name="iataCode" class="form-control" type="text" maxlength="2" ng-pattern="/^[a-zA-Z0-9]*$/" ng-trim="false"
+                                    ng-model="editable.iata_code" uppercase-input empty-to-null 
+                                    ng-blur="editable.iata_code ? editable.iata_member = true : editable.iata_member = false"/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="icao-code">ICAO Code</label>
+                                <input id="icao-code" name="icaoCode" class="form-control" type="text" maxlength="3" ng-pattern="/^[a-zA-Z0-9]*$/" ng-trim="false"
+                                    ng-model="editable.icao_code" uppercase-input empty-to-null ng-blur="setAccountType()"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="opr-identifier">OPR Identifier</label>
+                                <input id="opr-identifier" name="oprIdentifier" class="form-control" type="text" ng-model="editable.opr_identifier"
+                                    uppercase-input empty-to-null />
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="payment-terms">Payment Terms (days) *</label>
+                                <input id="payment-terms" name="paymentTerms" class="form-control" type="number" step="1" min="0" pattern="\d+" ng-model="editable.payment_terms"
+                                    required/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="account-type">Account Type *</label>
+                                <dynamic-service-dropdown ng-model="editable.account_type" id="account-type" name="accountType"
+                                                          class="text-capitalize"
+                                                          dropdown-type="single" service="::typesService"
+                                                          is-required="::true"
+                                                          options="item as (item.name | translate) for item in list track by item.id"></dynamic-service-dropdown>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="percentage-of-passenger-fee-payable">Percentage of Passenger Fee Payable
+                                </label>
+                                <input id="percentage-of-passenger-fee-payable" name="percentageOfPassengerFeePayable" class="form-control" type="number"
+                                    min="0" ng-model="editable.percentage_of_passenger_fee_payable" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="invoice-delivery-format">Invoice Delivery Format *</label>
+                                <select id="invoice-delivery-format" name="invoiceDeliveryFormat" type="text" class="form-control" ng-model="editable.invoice_delivery_format"
+                                    required>
+                                    <option translate value="docx">docx</option>
+                                    <option translate value="xlsx">xlsx</option>
+                                    <option translate value="pdf">pdf</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="invoice-delivery-method">Invoice Delivery Method *</label>
+                                <select id="invoice-delivery-method" name="invoiceDeliveryMethod" ng-model="editable.invoice_delivery_method" class="form-control"
+                                    required>
+                                    <option translate value="email">Email</option>
+                                    <option translate value="paper">Paper</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="invoice-currency">Invoice Currency *</label>
+                                <dynamic-service-dropdown ng-model="editable.invoice_currency" id="invoice-currency" query-string="filter=active" name="invoiceCurrency"
+                                    dropdown-type="single" service="::currencyManagementService" is-required="::true" 
+                                    options="item as ((item.currency_name | translate) + ' (' + item.currency_code + ')') for item in list.content track by item.currency_code"></dynamic-service-dropdown>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="monthly-overdue-penalty-rate">Monthly Overdue Penalty Rate (%) *</label>
+                                <input id="monthly-overdue-penalty-rate" name="monthlyOverduePenaltyRate" class="form-control" min="0" type="number" ng-model="editable.monthly_overdue_penalty_rate"
+                                    required/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="blacklisted-indicator">Blacklisted Indicator</label>
+                                <boolean-text  id="blacklisted-indicator" class="form-control" name="blackListedIndicator" ng-model="editable.black_listed_indicator"
+                                    ng-disabled="true"></boolean-text >
+                            </div>
+
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="blacklisted-override">Blacklisted Override *</label>
+                                <boolean-text  id="blacklisted-override" class="form-control" name="blackListedOverride" ng-model="editable.black_listed_override"
+                                     required></boolean-text >
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="cash-account">Cash Account</label>
+                                <boolean-text  id="cash-account" class="form-control" name="cash_account" ng-model="editable.cash_account"
+                                    ng-change="checkCreditLimit()"
+                                    required></boolean-text >
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="credit-limit"><span translate>Credit Limit</span>&nbsp;({{ ::anspCurrency }})&nbsp;*</label>
+                                <input id="credit-limit" name="creditLimit" class="form-control" type="number"
+                                    min="{{minCreditLimit}}" max="{{maxCreditLimit}}" ng-readonly="editable.cash_account"
+                                    ng-model="editable.credit_limit" required/>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6" ng-if="shouldShowCharge('parking')">
+                                <label translate for="aircraft-parking-exemption">Aircraft Parking Exemption *</label>
+                                <input id="aircraft-parking-exemption" name="aircraftParkingExemption" type="number" min="0" step="1" pattern="\d+" class="form-control"
+                                    ng-model="editable.aircraft_parking_exemption" required/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="iata-member">IATA Member *</label>
+                                <boolean-text  class="form-control" name="iataMember" id="iata-member" ng-model="editable.iata_member"
+                                    required></boolean-text >
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="separate-pax-invoice">Separate PAX Invoice *</label>
+                                <boolean-text  class="form-control" name="separatePaxInvoice" id="separate-pax-invoice" ng-model="editable.separate_pax_invoice"
+                                    required></boolean-text >
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="active">Active *</label>
+                                <boolean-text  class="form-control" name="active" id="active" ng-model="editable.active"
+                                    required></boolean-text >
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="account_users">Self-Care Account Users</label>
+                                <multiselect id="account_users" name="account_users" translated-value='name' 
+                                    extra-settings="{ displayProp: 'name', idProp: 'id', externalIdProp: '', scrollableHeight: auto }"
+                                    options="selfCareUserList" model="editable.account_users">
+                                </multiselect>
+                            </div>
+                        </div>
+
+                        <div class="row" ng-show="whitelistingEnabled">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="whitelist_last_activity">Whitelist Last Activity</label>
+                                <input id="whitelist-last-activity" name="whitelistLastActivity" type="text" class="form-control"
+                                    ng-value="whitelistLastActivityDateTime" readonly/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="whitelist_state">Whitelist State</label>
+                                <input id="whitelist-state" name="whitelistState" type="text" class="form-control"
+                                    ng-value="whitelistState" readonly/>
+                            </div>
+                        </div>
+
+                        <div class="row" ng-show="whitelistingEnabled">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="whitelist_inactivity_notice_sent">Whitelist Inactivity Notice Sent</label>
+                                <boolean-text  id="whitelistInactivityNoticeSent" class="form-control" name="whitelist-inactivity-notice-sent" 
+                                    ng-model="editable.whitelist_inactivity_notice_sent_flag" ng-disabled="true"></boolean-text >
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="whitelist_expiry_notice_sent">Whitelist Expiry Notice Sent</label>
+                                <boolean-text  id="whitelistExpiryNoticeSent" class="form-control" name="whitelist-expiry-notice-sent" 
+                                    ng-model="editable.whitelist_expiry_notice_sent_flag" ng-disabled="true"></boolean-text >
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label translate ng-click="notifications.open = !notifications.open" for="list-of-events-account-notified">List of events account is to be notified</label>
+                                <div>
+                                    <ul ng-init="notifications.open = true" ng-show="notifications.open" style="list-style-type:none">
+                                        <li ng-repeat="item in notificationsList">
+                                            <div class="col-md-6 col-xs-12"> {{ item.name | translate }} </div>
+                                            <div class="col-md-6 col-xs-12">
+                                                <multiselect id="notifications" name="notifications" translated-value='name' search="false" extra-settings="{ displayProp: 'name', idProp: 'name', externalIdProp: '', scrollableHeight: auto }"
+                                                    options="notificationsTypeList" model="item.model" events="{ onSelectionChanged: addNotificationsToList }">
+                                                </multiselect>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label translate for="notes">Notes</label>
+                                <textarea id="notes" class="form-control" name="notes" ng-model="editable.notes"></textarea>
+                            </div>
+                        </div>
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button translate type="button" ng-disabled="false" class="btn btn-primary btn-reset" 
+                                    ng-click="reset(); getAllNotifications(); form.$setUntouched();">Clear
+                                </button>
+                                <button class="btn btn-primary btn-update" translate ng-disabled="form.$invalid" 
+                                    ng-show="editable.id !== null" popup popup-text="Are you sure you want to update this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on update" 
+                                    popup-confirm="update(editable, editable.id); setEmpty(); form.$setUntouched();">Update
+                                </button>
+                                <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null" 
+                                    popup popup-text="Are you sure you want to delete this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
+                                    popup-confirm="delete(editable.id); setEmpty();">Delete
+                                </button>
+                                <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid" 
+                                    ng-show="editable.id === null" ng-click="create(editable); setEmpty(); form.$setUntouched();">Create
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                </form>
+
+            </div>
+        </div>
+
+        <div class="box-container margin-top-20" ng-show="editable.id !== null && listExternal !== null">
+
+            <box-header ng-show="editableExternal.id === null" icon="'users'" title="{{ 'Create an External Accounting System Identifier' | translate }}"></box-header>
+            <box-header ng-show="editableExternal.id !== null" icon="'users'" title="{{ 'Edit an External Accounting System Identifier' | translate }}"></box-header>
+            
+            <div class="box-content">
+                <form novalidate action="#" name="formExternal" onsubmit="return false">
+                    <fieldset ng-disabled="!hasPermission('account_modify')">
+                        <legend class="sr-only" ng-if="editableExternal.id === null" translate>Create an External Accounting System Identifier</legend>
+                        <legend class="sr-only" ng-if="editableExternal.id !== null" translate>Edit an External Accounting System Identifier</legend>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="external-system-identifier">
+                                    <span translate>External System Identifier</span>
+                                    <span>*</span>
+                                </label>
+                                <input id="external-system-identifier" name="externalSystemIdentifier" class="form-control" type="text" maxlength="25"
+                                    ng-model="editableExternal.external_system_identifier" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="external-charge-category">
+                                    <span translate>External Charge Category</span>
+                                    <span>*</span>
+                                </label>
+                                <dynamic-service-dropdown id="external-charge-category" name="externalChargeCategory"
+                                    dropdown-type="single" service="::externalChargeCategoryService" is-required="::true"
+                                    options="item as (item.name | translate) for item in list track by item.id"
+                                    ng-model="editableExternal.external_charge_category">
+                                </dynamic-service-dropdown>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button translate type="button" ng-disabled="false" class="btn btn-primary btn-reset" 
+                                    ng-click="resetExternal(); formExternal.$setUntouched();">Clear
+                                </button>
+                                <button class="btn btn-primary btn-update" translate ng-disabled="formExternal.$invalid" 
+                                    ng-show="editableExternal.id !== null" popup popup-text="Are you sure you want to update this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on update" 
+                                    popup-confirm="updateExternal(editableExternal, editableExternal.id); formExternal.$setUntouched();">Update
+                                </button>
+                                <button class="btn btn-primary btn-delete" translate ng-show="editableExternal.id !== null" 
+                                    popup popup-text="Are you sure you want to delete this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on delete" 
+                                    popup-confirm="deleteExternal(editableExternal.id)">Delete
+                                </button>
+                                <button class="btn btn-primary btn-create" translate ng-disabled="formExternal.$invalid" 
+                                    ng-show="editableExternal.id === null" 
+                                    ng-click="createExternal(editableExternal); formExternal.$setUntouched();">Create
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

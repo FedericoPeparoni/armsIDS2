@@ -1,0 +1,218 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <div class="box-container">
+            <box-header toggle="toggle" page-name="management.interest-rates-management" icon="'percent'"
+                title="{{ 'Interest Rates' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="search"
+                            empty-to-null ng-keyup="$event.keyCode === 13 && refresh()"/>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <button translate ng-click="refresh()"
+                            class="btn btn-primary pull-right">Refresh</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table sort-query-string="getSortQueryString()"
+                            query-string="filterParameters" back-end-export="true"service="interestRatesService">
+                            <table class="table table-striped table-bordered table-hover table-condensed"
+                                sort-query-string="getSortQueryString" table-sort="refresh()">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-nowrap" sort="startDate">Start Date</th>
+                                        <th translate class="text-nowrap" sort="endDate">End Date</th>
+                                        <th translate class="text-nowrap" sort="defaultInterestSpecification">Default Interest Specification</th>
+                                        <th translate class="text-nowrap" sort="defaultInterestApplication">Default Interest Application</th>
+                                        <th translate class="text-nowrap text-right" sort="defaultForeignInterestSpecifiedPercentage">Default Foreign Interest Percentage</th>
+                                        <th translate class="text-nowrap text-right" sort="defaultNationalInterestSpecifiedPercentage">Default National Interest Percentage</th>
+                                        <th translate class="text-nowrap text-right" sort="defaultInterestGracePeriod">Default Interest Grace Period</th>
+                                        <th translate class="text-nowrap text-right" sort="punitiveInterestGracePeriod">Punitive Interest Grace Period</th>
+                                        <th translate class="text-nowrap" sort="punitiveInterestSpecification">Punitive Interest Specification</th>
+                                        <th translate class="text-nowrap" sort="punitiveInterestApplication">Punitive Interest Application</th>
+                                        <th translate class="text-nowrap text-right" sort="punitiveInterestSpecifiedPercentage">Punitive Interest Percentage</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="edit(item)" ng-repeat="item in list" ng-class="{'highlight': editable.id === item.id}">
+                                        <td translate class="text-nowrap">{{ item.start_date | dateConverter }}</td>
+                                        <td translate class="text-nowrap">{{ item.end_date | dateConverter }}</td>
+                                        <td translate class="text-nowrap">{{ item.default_interest_specification }}</td>
+                                        <td translate class="text-nowrap">{{ item.default_interest_application }}</td>
+                                        <td translate class="text-nowrap text-right">{{ item.default_foreign_interest_specified_percentage }}</td>
+                                        <td translate class="text-nowrap text-right">{{ item.default_national_interest_specified_percentage }}</td>
+                                        <td translate class="text-nowrap text-right">{{ item.default_interest_grace_period }}</td>
+                                        <td translate class="text-nowrap text-right">{{ item.punitive_interest_grace_period }}</td>
+                                        <td translate class="text-nowrap">{{ item.punitive_interest_specification }}</td>
+                                        <td translate class="text-nowrap">{{ item.punitive_interest_application }}</td>
+                                        <td translate class="text-nowrap text-right">{{ item.punitive_interest_specified_percentage }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td class="text-center" colspan="11" translate>There are no Interest Rates data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements"
+                            max-size="::20" items-per-page="pagination.size" ng-change="refresh()"
+                            ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+            <box-header ng-show="editable.id === null" icon="'percent'" title="{{ 'Create an Interest Rate' | translate }}"></box-header>
+            <box-header ng-show="editable.id !== null" icon="'percent'" title="{{ 'Edit an Interest Rate' | translate }}"></box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <fieldset ng-disabled="!hasPermission('interest_rate_modify')">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="default-interest-specification">{{ 'Default Interest Specification' | translate }} *</label>
+                                <select id="default-interest-specification" name="defaultInterestSpecification" class="form-control" 
+                                    ng-model="editable.default_interest_specification" required>
+                                    <option translate value="YEARLY">Yearly</option>
+                                    <option translate value="MONTHLY">Monthly</option>
+                                    <option translate value="DAILY">Daily</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="default-interest-application">{{ 'Default Interest Application' | translate }} *</label>
+                                <select id="default-interest-application" name="defaultInterestApplication" class="form-control" 
+                                    ng-model="editable.default_interest_application" required>
+                                    <option translate value="MONTHLY">Monthly</option>
+                                    <option translate value="DAILY">Daily</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="default-foreign-interest-specified-percentage">{{ 'Default Foreign Interest Percentage' | translate }} *</label>
+                                <input id="default-foreign-interest-specified-percentage" name="defaultForeignInterestSpecifiedPercentage" class="form-control" type="number" 
+                                    ng-model="editable.default_foreign_interest_specified_percentage" min="0" step="0.01" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="default-national-interest-specified-percentage">{{ 'Default National Interest Percentage' | translate }} *</label>
+                                <input id="default-national-interest-specified-percentage" name="defaultNationalInterestSpecifiedPercentage" class="form-control" type="number" 
+                                    ng-model="editable.default_national_interest_specified_percentage" min="0" step="0.01" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="default-interest-grace-period">{{ 'Default Interest Grace Period' | translate }} *</label>
+                                <input id="default-interest-grace-period" name="defaultInterestGracePeriod" class="form-control" pattern="\d+"
+                                    type="number" ng-model="editable.default_interest_grace_period" min="0" step="1" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="punitive-interest-grace-period">{{ 'Punitive Interest Grace Period' | translate }} *</label>
+                                <input id="punitive-interest-grace-period" name="punitiveInterestGracePeriod" class="form-control" pattern="\d+"
+                                    type="number" ng-model="editable.punitive_interest_grace_period" min="{{editable.default_interest_grace_period + 1}}" 
+                                    step="1" required />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="punitive-interest-specification">{{ 'Punitive Interest Specification' | translate }} *</label>
+                                <select id="punitive-interest-specification" name="punitiveInterestSpecification" class="form-control"
+                                    ng-model="editable.punitive_interest_specification" required>
+                                    <option translate value="YEARLY">Yearly</option>
+                                    <option translate value="MONTHLY">Monthly</option>
+                                    <option translate value="DAILY">Daily</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="punitive-interest-application">{{ 'Punitive Interest Application' | translate }} *</label>
+                                <select id="punitive-interest-application" name="punitiveInterestApplication" class="form-control" 
+                                    ng-model="editable.punitive_interest_application" required>
+                                    <option translate value="MONTHLY">Monthly</option>
+                                    <option translate value="DAILY">Daily</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="punitive-interest-specified-percentage">{{ 'Punitive Interest Percentage' | translate }} *</label>
+                                <input id="punitive-interest-specified-percentage" name="punitiveInterestSpecifiedPercentage" class="form-control" type="number" 
+                                    ng-model="editable.punitive_interest_specified_percentage" min="0" step="0.01" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="start-date">{{ 'Start Date' | translate }} * ({{ customDate | translate }})</label>
+                                <p class="input-group">
+                                    <date-picker id="start-date" name="startDate" type="text"
+                                        ng-pattern="datePickerRegex" show-button-bar="false" class="form-control" uib-datepicker-popup="{{ customDate }}"
+                                        ng-model="editable.start_date" is-open="startDate.open"
+                                        ng-blur="editable.end_date = null"
+                                        ng-attr-title="{{ editable.start_date ? '' : 'Please fill out this field' | translate }}"
+                                        close-text="Close" required>
+                                    </date-picker>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default"
+                                            ng-click="startDate.open = !startDate.open">
+                                            <i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
+                                        </button>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="end-date">{{ 'End Date' | translate }} * ({{ customDate | translate }})</label>
+                                <p class="input-group">
+                                    <date-picker id="end-date" name="endDate" type="text"
+                                        ng-pattern="datePickerRegex" show-button-bar="false" class="form-control" uib-datepicker-popup="{{ customDate }}"
+                                        ng-model="editable.end_date" is-open="endDate.open"
+                                        ng-attr-title="{{ editable.end_date ? '' : 'Please fill out this field' | translate }}"
+                                        close-text="Close" ng-disabled="true">
+                                    </date-picker>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default"
+                                            ng-click="endDate.open = !endDate.open">
+                                            <i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
+                                        </button>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary btn-reset" translate
+                                    ng-click="reset(); form.$setUntouched();">Clear
+                                </button>
+                                <button class="btn btn-primary btn-update" translate ng-show="editable.id !== null"
+                                    ng-disabled="form.$invalid" popup popup-text="Are you sure you want to update this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                    popup-confirm="update(editable, editable.id); form.$setUntouched();">
+                                    Update
+                                </button>
+                                <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null"
+                                    popup popup-text="Are you sure you want to delete this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
+                                    popup-confirm="delete(editable.id); form.$setUntouched();">
+                                    Delete
+                                </button>
+                                <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid"
+                                    ng-show="editable.id === null"
+                                    ng-click="create(editable); form.$setUntouched();">
+                                    Create
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    

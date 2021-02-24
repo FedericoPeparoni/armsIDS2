@@ -1,0 +1,20 @@
+<label for="document_filename">
+    <span ng-show="pattern">{{ fileUploadLabel | translate }} ({{pattern}})</span>
+    <span ng-show="!pattern">{{ fileUploadLabel | translate }}</span>
+    <span ng-if="fileUploadRequired">*</span>
+</label>
+<div class="input-group">
+    <input id="document_filename" class="form-control" ng-model="editable.document_filename" type="text" ng-disabled="fileUploadDisabled" />
+    <span class="input-group-btn">
+        <button type="button" class="btn btn-default" ngf-select="parse($file);" ngf-accept="'{{ pattern }}'" ngf-multiple="{{ multiple }}"
+            ng-click="file_expiry.open = !file_expiry.open" ng-disabled="fileUploadDisabled">
+            <i class="fa fa-upload"></i>
+        </button>
+    </span>
+</div>
+<!-- check 'acceptedFileType' explicitly for false because value is undefined or null on page load -->
+<p ng-if="editable.document_filename && acceptedFileType === false" class="text-danger">
+    <span translate>Invalid file type: File must be a</span>
+    <span>{{pattern}}</span>
+    <span translate>file.</span>
+</p>

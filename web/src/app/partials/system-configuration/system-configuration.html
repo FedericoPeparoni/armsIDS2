@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+
+        <div class="box-container">
+
+            <box-header page-name="management.system-configuration-management" icon="'cog'"
+                title="{{ 'System Configuration' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <form novalidate name="form" action="#" onsubmit="return false">
+
+                    <div class="row">
+
+                        <div class="col-xs-12 col-md-6">
+                            <label translate for="text-filter">Filter</label>
+                            <input id="text-filter" class="form-control" type="text" ng-model="textFilter"/>
+                        </div>
+
+                    </div>
+
+                    <fieldset ng-disabled="!hasPermission('sys_config_modify')">
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <button class="btn btn-primary btn-update" translate
+                                        type="button"
+                                        unit-converter
+                                        unit-to-convert="distance"
+                                        popup
+                                        popup-text="Are you sure you want to update this?"
+                                        popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                        popup-confirm="updateAndReloadLang(convertedList || list);">Update Record
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <ng-include
+                            src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+
+                        <div ng-repeat="item in list | orderBy: ['item_class.name', 'item_name'] | filter: { item_class: { name: '!whitelist' } } as filteredList">
+
+                            <div
+                                ng-show="shouldBeFilteredCategory(textFilter, filteredList, item.item_class.id, filteredList[$index - 1].item_class.id !== item.item_class.id)"
+                                class="row">
+                                <div class="col-xs-12">
+                                    <h5 translate class="text-uppercase">{{ item.item_class.name }}</h5>
+                                </div>
+                            </div>
+
+                            <div class="row" ng-show="shouldBeFilteredItem(textFilter, item.item_name) && item.item_name !== 'Route caching retention'">
+                                <system-configuration-item class="col-xs-6" item="item" crossing="crossing" list="filteredList">
+                                </system-configuration-item>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

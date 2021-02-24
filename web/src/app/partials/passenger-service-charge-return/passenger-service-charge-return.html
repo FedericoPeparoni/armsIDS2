@@ -1,0 +1,339 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <div class="box-container">
+            <box-header toggle="toggle" page-name="flight-data.passenger-service-charge-return-management" icon="'retweet'"
+                title="{{ 'Passenger Service Charge Return' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12 col-md-5">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="search" empty-to-null 
+                        ng-keyup="$event.keyCode == 13 && refresh()"/>
+                    </div>
+                    <div class="col-xs-10 col-md-5">
+                        <label translate for="charge-returns">Service Charge Returns</label>
+                        <select id="charge-returns" ng-init="chargeReturnFilter = 'false'" class="form-control" 
+                            ng-change="refresh()" ng-model="chargeReturnFilter">
+                            <option translate value="false">All</option>
+                            <option translate value="true">Orphan</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-md-2">
+                        <button translate ng-click="refresh()" class="btn btn-primary pull-right">Refresh</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table sort-query-string="getSortQueryString()" query-string="filterParameters"
+                            back-end-export="true" service="passengerServiceChargeReturnService">
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" 
+                                table-sort="refresh()" canned-sort="cannedSort">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-nowrap text-center">Action</th>
+                                        <th translate class="text-nowrap" sort="flightId">Flight Id</th>
+                                        <th translate class="text-nowrap" sort="account">Account</th>
+                                        <th translate class="text-nowrap" sort="dayOfFlight">Day of Flight</th>
+                                        <th translate class="text-nowrap" sort="departureTime">Dep Time</th>
+                                        <th translate class="text-nowrap text-right" sort="joiningPassengers">Join Pass</th>
+                                        <th translate class="text-nowrap text-right" sort="transitPassengers">Trans Pass</th>
+                                        <th translate class="text-nowrap text-right" sort="chargeableItlPassengers">Charge Int Pass</th>
+                                        <th translate class="text-nowrap text-right" sort="chargeableDomesticPassengers">Charge Dom Pass</th>
+                                        <th translate class="text-nowrap text-right" sort="children">Children</th>
+                                        <th translate class="text-nowrap text-right" sort="createdBySelfCare">Created By Self-Care</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="edit(item)" ng-repeat="item in list" ng-class="{'highlight': editable.id === item.id}">
+                                        <td class="text-center ">
+                                            <download-oauth2 ng-show="item.has_image"
+                                                url="passenger-service-charge-return/{{ item.id }}/image">
+                                            </download-oauth2>
+                                        </td>
+                                        <td class="text-nowrap">{{ item.flight_id }}</td>
+                                        <td class="text-nowrap">{{ item.account.name }}</td>
+                                        <td class="text-nowrap">{{ item.day_of_flight | dateConverter }}</td>
+                                        <td class="text-nowrap">{{ item.departure_time }}</td>
+                                        <td class="text-right">{{ item.joining_passengers }}</td>
+                                        <td class="text-right">{{ item.transit_passengers }}</td>
+                                        <td class="text-right">{{ item.chargeable_itl_passengers }}</td>
+                                        <td class="text-right">{{ item.chargeable_domestic_passengers }}</td>
+                                        <td class="text-right">{{ item.children }}</td>
+                                        <td class="text-right">{{ item.created_by_self_care }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td class="text-center" colspan="11" translate>There are no Passenger Service Charge Return data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refresh()"
+                            max-size="::20" items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box-container">
+                    <box-header ng-show="editable.id === null" icon="'retweet'" title="{{ 'Create a Passenger Service Charge Return' | translate }}">
+                    </box-header>
+                    <box-header ng-show="editable.id !== null" icon="'retweet'" title="{{ 'Edit a Passenger Service Charge Return' | translate }}">
+                    </box-header>
+                    <div class="box-content">
+                        <form novalidate action="#" name="form" onsubmit="return false">
+                            <fieldset ng-disabled="!hasPermission('flight_log_modify')">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <label for="flight-id">{{ 'Flight Identifier' | translate }} *</label>
+                                        <input id="flight-id" name="flightId" class="form-control" type="text" ng-model="editable.flight_id" maxlength="10"
+                                            minlength="2" ng-pattern="/^[a-zA-Z0-9]*$/" ng-trim="false" uppercase-input required/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6">
+                                        <label translate for="account">Account</label>
+                                        <dynamic-service-dropdown allow-empty="true" empty-to-null
+                                            ng-model="editable.account" id="account" name="account" dropdown-type="single"
+                                            service="::scAccountManagementService" method="getSCActiveAccounts"
+                                            options="account as account.name for account in list track by account.id">
+                                        </dynamic-service-dropdown>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <label for="day-of-flight">{{ 'Day of Flight' | translate }} ({{ dateFormat | translate }}) *</label>
+                                        <p class="input-group">
+                                            <date-picker id="day-of-flight" type="text" name="dayOfFlight" pad-hours="true" show-button-bar="false" class="form-control"
+                                                uib-datepicker-popup="{{ dateFormat }}" ng-model="editable.day_of_flight" is-open="expiry.open"
+                                                close-text="Close" ng-attr-title="{{editable.day_of_flight ? '' : 'Please fill out this field' | translate}}"
+                                                required>
+                                            </date-picker>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" ng-click="expiry.open = !expiry.open">
+                                                    <i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
+                                                </button>
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6">
+                                        <label for="departure_time">{{ 'Departure Time' | translate }} ({{ 'HHmm' | translate}})</label>
+                                        <input id="departure_time" class="form-control" name="departureTime" type="text"
+                                            minlength="4" maxlength="4" ng-model="editable.departure_time"
+                                            ng-attr-title="{{editable.departure_time < 2359 ? '' : 'Invalid time format' | translate}}"
+                                            ng-pattern="/^(?:2[0-3]|[0-1]?[0-9])?:?[0-5]?[0-9]$/" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <label for="joining-passengers">{{ 'Joining Passengers' | translate }}</label>
+                                        <input id="joining-passengers" name="joiningPassengers" class="form-control" min="0" type="number" 
+                                            ng-model="editable.joining_passengers" pattern="\d+"/>
+                                    </div>
+
+                                    <div class="col-xs-12 col-md-6">
+                                        <label for="transit-passengers">{{ 'Transit Passengers' | translate }}</label>
+                                        <input id="transit-passengers" name="transitPassengers" class="form-control" min="0" type="number" 
+                                            ng-model="editable.transit_passengers" pattern="\d+"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <label for="chargeable-international">{{ 'Chargeable International Passengers' | translate }}</label>
+                                        <input id="chargeable-international" name="chargeableItlPassengers" class="form-control" min="0" type="number" 
+                                            ng-model="editable.chargeable_itl_passengers" pattern="\d+"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6">
+                                        <label for="chargeable-domestic">{{ 'Chargeable Domestic Passengers' | translate }}</label>
+                                        <input id="chargeable-domestic" name="chargeableDomesticPassengers" class="form-control" min="0" type="number" 
+                                            ng-model="editable.chargeable_domestic_passengers" pattern="\d+"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <label for="children">{{ 'Children' | translate }}</label>
+                                        <input id="children" name="children" class="form-control" type="number" min="0" 
+                                            ng-model="editable.children" pattern="\d+"/>
+                                    </div>
+                                </div>
+                                <div ng-show="extendedPassengerInformation">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-6">
+                                            <label for="arriving-pax-domestic-airport">{{ 'Arriving Passengers At Domestic Airport' | translate }}</label>
+                                            <input id="arriving-pax-domestic-airport" name="arrivingPaxDomesticAirport" class="form-control" min="0" max="999" 
+                                                type="number" ng-model="editable.arriving_pax_domestic_airport" pattern="\d+"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6">
+                                            <label for="landing-pax-domestic-airport">{{ 'Landing Passengers At Domestic Airport' | translate }}</label>
+                                            <input id="landing-pax-domestic-airport" name="landingPaxDomesticAirport" class="form-control" min="0" max="999" 
+                                                type="number" ng-model="editable.landing_pax_domestic_airport" pattern="\d+"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-6">
+                                            <label for="transfer-pax-domestic-airport">{{ 'Transfer Passengers At Domestic Airport' | translate }}</label>
+                                            <input id="transfer-pax-domestic-airport" name="transferPaxDomesticAirport" class="form-control" min="0" max="999" 
+                                                type="number" ng-model="editable.transfer_pax_domestic_airport" pattern="\d+"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6">
+                                            <label for="departing-pax-domestic-airport">{{ 'Departing Passengers From Domestic Airport' | translate }}</label>
+                                            <input id="departing-pax-domestic-airport" name="departingPaxDomesticAirport" class="form-control" min="0" max="999" 
+                                                type="number" ng-model="editable.departing_pax_domestic_airport" pattern="\d+"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-6">
+                                            <label for="arriving-child-domestic-airport">{{ 'Arriving Children At Domestic Airport' | translate }}</label>
+                                            <input id="arriving-child-domestic-airport" name="arrivingChildDomesticAirport" class="form-control" min="0" max="999" 
+                                                type="number" ng-model="editable.arriving_child_domestic_airport" pattern="\d+"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6">
+                                            <label for="landing-child-domestic-airport">{{ 'Landing Children At Domestic Airport' | translate }}</label>
+                                            <input id="landing-child-domestic-airport" name="landingChildDomesticAirport" class="form-control" min="0" max="999" 
+                                                type="number" ng-model="editable.landing_child_domestic_airport" pattern="\d+"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-6">
+                                            <label for="transfer-child-domestic-airport">{{ 'Transfer Children At Domestic Airport' | translate }}</label>
+                                            <input id="transfer-child-domestic-airport" name="transferChildDomesticAirport" class="form-control" min="0" max="999" 
+                                                type="number" ng-model="editable.transfer_child_domestic_airport" pattern="\d+"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6">
+                                            <label for="departing-child-domestic-airport">{{ 'Departing Children From Domestic Airport' | translate }}</label>
+                                            <input id="departing-child-domestic-airport" name="departingChildDomesticAirport" class="form-control" min="0" max="999" 
+                                                type="number" ng-model="editable.departing_child_domestic_airport" pattern="\d+"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-6">
+                                            <label for="exempt-arriving-pax-domestic-airport">{{ 'Exempt Arriving Passengers At Domestic Airport' | translate }}</label>
+                                            <input id="exempt-arriving-pax-domestic-airport" name="exemptArrivingPaxDomesticAirport" class="form-control" min="0" max="999" 
+                                                type="number" ng-model="editable.exempt_arriving_pax_domestic_airport" pattern="\d+"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6">
+                                            <label for="exempt-landing-pax-domestic-airport">{{ 'Exempt Landing Passengers At Domestic Airport' | translate }}</label>
+                                            <input id="exempt-landing-pax-domestic-airport" name="exemptLandingPaxDomesticAirport" class="form-control" min="0" max="999" 
+                                                type="number" ng-model="editable.exempt_landing_pax_domestic_airport" pattern="\d+"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-6">
+                                            <label for="exempt-transfer-pax-domestic-airport">{{ 'Exempt Transfer Passengers At Domestic Airport' | translate }}</label>
+                                            <input id="exempt-transfer-pax-domestic-airport" name="exemptTransferPaxDomesticAirport" class="form-control" min="0" max="999" 
+                                                type="number" ng-model="editable.exempt_transfer_pax_domestic_airport" pattern="\d+"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6">
+                                            <label for="exempt-departing-pax-domestic-airport">{{ 'Exempt Departing Passengers From Domestic Airport' | translate }}</label>
+                                            <input id="exempt-departing-pax-domestic-airport" name="exemptDepartingPaxDomesticAirport" class="form-control" min="0" max="999" 
+                                                type="number" ng-model="editable.exempt_departing_pax_domestic_airport" pattern="\d+"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-show="extendedCargoInformation">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-6">
+                                            <label for="loaded-goods">{{ 'Loaded Goods' | translate }} ({{ cargoDisplayUnits | translate }})</label>
+                                            <unit-conversion-input id="loaded-goods" name="loadedGoods" ng-model="editable.loaded_goods" measurement-type="cargo"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6">
+                                            <label for="discharged-goods">{{ 'Discharged Goods' | translate }} ({{ cargoDisplayUnits | translate }})</label>
+                                            <unit-conversion-input id="discharged-goods" name="dischargedGoods" ng-model="editable.discharged_goods" measurement-type="cargo"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-6">
+                                            <label for="loaded-mail">{{ 'Loaded Mail' | translate }} ({{ cargoDisplayUnits | translate }})</label>
+                                            <unit-conversion-input id="loaded-mail" name="loadedMail" ng-model="editable.loaded_mail" measurement-type="cargo"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6">
+                                            <label for="discharged-mail">{{ 'Discharged Mail' | translate }} ({{ cargoDisplayUnits | translate }})</label>
+                                            <unit-conversion-input id="discharged-mail" name="dischargedMail" ng-model="editable.discharged_mail" measurement-type="cargo"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <p class="input-group">
+                                            <label for="document_filename2">{{ 'Image File' | translate}} (*.jpg, *.gif, *.png, *.pdf)</label>
+                                            <input id="document_filename2" name="document_filename2" class="form-control" type="text" readonly 
+                                                ng-model="editable.document_filename2"/>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" ngf-select="parse($file, 'document_filename2');" 
+                                                    ngf-accept="'.jpg,.gif,.png,.pdf'" ngf-multiple="false" ng-click="image_expiry.open = !image_expiry.open">
+                                                    <i class="fa fa-upload"></i>
+                                                </button>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'"></ng-include>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <button type="button" class="btn btn-primary btn-reset" translate ng-click="reset(); form.$setUntouched();">Clear
+                                        </button>
+                                        <button class="btn btn-primary btn-update" translate ng-show="editable.id !== null" ng-disabled="form.$invalid" 
+                                            convert-to-tons properties="loaded_goods,discharged_goods,loaded_mail,discharged_mail"
+                                            popup popup-text="Are you sure you want to update this?"
+                                            popup-local-storage-enable="SystemConfiguration:Require confirmation on update" 
+                                            popup-confirm="uploadNew(convertedEditable || editable, editable.id); form.$setUntouched();">
+                                            Update
+                                        </button>
+                                        <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null" 
+                                            popup popup-text="Are you sure you want to delete this?"
+                                            popup-local-storage-enable="SystemConfiguration:Require confirmation on delete" 
+                                            popup-confirm="delete(editable.id); form.$setUntouched()">
+                                            Delete
+                                        </button>
+                                        <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid" ng-show="editable.id === null"
+                                            convert-to-tons properties="loaded_goods,discharged_goods,loaded_mail,discharged_mail"
+                                            conversion-complete="uploadNew(convertedEditable || editable); form.$setUntouched(); reset();">
+                                            Create
+                                        </button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <div class="row margin-top-20" ng-show="editable.id === null">
+                    <div class="col-xs-12">
+                        <div class="box-container">
+                            <form novalidate action="#" name="uploadForm" onsubmit="return false">
+                                <fieldset ng-disabled="!hasPermission('flight_log_modify')">
+                                    <box-header icon="'retweet'" title="{{ 'Upload a Passenger Service Charge Return' | translate }}">
+                                    </box-header>
+                                    <div class="box-content">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <ng-include
+                                                    src="'app/angular-ids-project/src/helpers/controllers/crud-file-handler/crud-file-handler.template.html'">
+                                                </ng-include>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <summary-upload upload-job="uploadJob"></summary-upload>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <button translate class="btn btn-primary" ng-disabled="!editable.document_filename"
+                                                    ng-click="upload('PUT', null, null, 'list', {search: search, size: pageSize}); form.$setUntouched(); reset();">Upload
+                                                </button>
+                                                <upload-file-format format={{pattern}} template="app/partials/passenger-service-charge-return/passenger-service-charge-return.template.html"></upload-file-format>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

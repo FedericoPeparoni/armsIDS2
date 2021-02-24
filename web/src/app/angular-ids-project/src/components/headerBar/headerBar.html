@@ -1,0 +1,52 @@
+<div id="header-bar">
+    <a ng-click="toggleSideBar()" class="hamburger-menu visible-xs-inline" href="#" onclick="return false">
+        <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+    </a>
+    <a ui-sref="main.home">
+        <img class="ids-logo" alt="IDS" src="assets/images/ids_logo_corp-trans.png" />
+    </a>
+    <h1>ARMS</h1>
+    <a ui-sref="main.home">
+        <img class="logo" alt="#" src="assets/images/logo.png" />
+    </a>
+    <div ng-class="{'open': openDropdown}" class="dropdown pull-right hidden-xs">
+        <button ng-click="openDropdown = !openDropdown" class="btn btn-default dropdown-toggle" type="button" id="header-drop-menu"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span>{{ user.login }}</span>
+            <span class="caret"></span>
+        </button>
+        <ul ng-mouseleave="openDropdown = false" class="dropdown-menu" aria-labelledby="header-drop-menu">
+            <li class="text-center" ng-show="user.login">
+                <div class="btn-group" ng-click="onButtonGroupClick($event)">
+                    <button ng-click="changeMode('map-mode')" class="btn btn-default" ng-class="{ 'active' : mode == 'map-mode' }">
+                        <i class="fa fa-globe"></i>
+                    </button>
+                    <button ng-click="changeMode('split-mode')" class="btn btn-default" ng-class="{ 'active' : mode == 'split-mode' }">
+                        <i class="fa fa-clone"></i>
+                    </button>
+                    <button ng-click="changeMode('content-mode')" class="btn btn-default" ng-class="{ 'active' : mode == 'content-mode' }">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                </div>
+            </li>
+            <span ng-show="language.enabled">
+                <li role="separator" class="divider"></li>
+                <li class="text-center">
+                    <div class="btn-group" ng-click="onButtonGroupClick($event)">
+                        <button ng-class="{ 'active' : language.selected.code === lang.code }" ng-repeat="lang in language.supported" ng-click="changeLanguage(lang)"
+                            class="btn btn-default">
+                            {{lang.code}}
+                        </button>
+                    </div>
+                </li>
+            </span>
+            <li role="separator" class="divider"></li>
+            <li ng-show="user.login">
+                <a href ng-click="logout()">
+                    <i class="fa fa-sign-out"></i>
+                    <span translate class="bg-scope">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<h4 translate>Flight Movement</h4>
+
+<form name="flightForm">
+    <flight-movement-form disabled="{ account: true }" flight-movement="editable" manual="manual" show-passenger-counts="showPassengerCounts" show-deletion-reason="false"
+        show-radar-route="false" show-flight-notes="false">
+        <!-- Flight Movement Component -->
+    </flight-movement-form>
+</form>
+
+<ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+    <!-- Error Handling -->
+</ng-include>
+
+<button ng-if="index === null" ng-disabled="flightForm.$invalid || flightMovementButtonDisabled" class="btn btn-primary" ng-click="addFlightMovement(editable);">
+    <span translate>Add Flight Movement</span>
+</button>
+
+<button ng-if="index !== null" ng-disabled="flightForm.$invalid || flightMovementButtonDisabled" class="btn btn-primary" 
+    popup popup-text="Are you sure you want to update this?"
+    popup-local-storage-enable="SystemConfiguration:Require confirmation on update" popup-confirm="updateFlightMovement(editable, index);">
+    <span translate>Update Flight Movement</span>
+</button>
+<button class="btn btn-primary" ng-click="$close()">
+    <span translate>Close/Cancel</span>
+</button>

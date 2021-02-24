@@ -1,0 +1,133 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <div class="box-container">
+            <box-header toggle="toggle" page-name="charges-and-formulas.recurring-charge-managment" icon="'google-wallet'"
+                title="{{ 'Recurring Charges' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <button translate ng-click="refresh()" class="btn btn-primary pull-right">Refresh
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-4">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="textFilter" empty-to-null 
+                        ng-keyup="$event.keyCode == 13 && refresh()"/>
+                    </div>
+
+                    <div class="col-xs-12 col-md-4">
+                        <label translate for="search-by-account">Account</label>
+                        <dynamic-service-dropdown ng-model="accountFilter" allow-empty="true" ng-change="refresh()"
+                            id="search-by-account" name="account" dropdown-type="single" service="::accountsService" method="findAllCreditMinimalReturn" 
+                            options="item.id as item.name for item in list"></dynamic-service-dropdown>
+                    </div>
+
+                    <div class="col-xs-12 col-md-4">
+                        <label translate for="filter">Operational Status</label>
+                        <select id="filter" ng-init="filter = 'all'" class="form-control" ng-model="statusFilter" ng-change="refresh()">
+                            <option translate value="all">All</option>
+                            <option translate value="near_end_date">Near end date</option>
+                            <option translate value="out_of_date">Out of date</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table sort-query-string="getSortQueryString()" 
+                            back-end-export="true" service="recurringChargesService" query-string="filterParameters">
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" table-sort="refresh()">
+                                <thead>
+                                    <tr>
+                                        <th translate sort="serviceChargeCatalogue.id">Service Charge Catalogue</th>
+                                        <th translate sort="account.id">Account</th>
+                                        <th translate sort="startDate">Start Date</th>
+                                        <th translate sort="endDate">Expected End Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="edit(item)" ng-repeat="item in list" ng-class="{'highlight': editable.id === item.id}">
+                                        <td translate>{{ item.service_charge_catalogue.description }}</td>
+                                        <td>{{ item.account.name }}</td>
+                                        <td>{{ item.start_date | dateConverter }}</td>
+                                        <td>{{ item.end_date | dateConverter }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td class="text-center" colspan="4" translate>There are no Recurring Charges data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refresh()"
+                            max-size="::20" items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+
+            <box-header ng-show="editable.id === null" icon="'google-wallet'" title="{{ 'Create a Recurring Charge' | translate }}"></box-header>
+            <box-header ng-show="editable.id !== null" icon="'google-wallet'" title="{{ 'Edit a Recurring Charge' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <form novalidate action="#" name="form" onsubmit="return false">
+
+                    <fieldset ng-disabled="!hasPermission('charges_modify')">
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="service-charge-catalogue">Service Charge Catalogue *</label>
+                                <select id="service-charge-catalogue" class="form-control" ng-model="editable.service_charge_catalogue.id" name="serviceChargeCatalogue"
+                                    ng-options="item.id as (item.description | translate) for item in catalogueServiceChargeListFiltered" required></select>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="account">Account *</label>
+                                <dynamic-service-dropdown ng-model="editable.account.id" id="account" method="findAllCreditMinimalActiveReturn" 
+                                    name="account" dropdown-type="single" service="::accountsService"
+                                    is-required="::true" options="item.id as item.name for item in list">
+                                </dynamic-service-dropdown>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <date-range control="control" is-required="::true" start-name="Start Date *" end-name="End Date *" format="{{customDate}}">
+                                <!-- Datepickers -->
+                            </date-range>
+                        </div>
+
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary btn-reset" translate ng-click="reset(); form.$setUntouched();">
+                                    Clear
+                                </button>
+                                <button class="btn btn-primary btn-update" translate ng-show="editable.id !== null" ng-disabled="form.$invalid" popup popup-text="Are you sure you want to update this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on update" popup-confirm="update(editable, control.getUTCStartDate(), control.getUTCEndDate()); form.$setUntouched();">
+                                    Update
+                                </button>
+                                <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null" popup popup-text="Are you sure you want to delete this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on delete" popup-confirm="delete(editable.id); form.$setUntouched()">Delete
+                                </button>
+                                <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid" ng-show="editable.id === null" ng-click="create(editable, control.getUTCStartDate(), control.getUTCEndDate()); form.$setUntouched();">
+                                    Create
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

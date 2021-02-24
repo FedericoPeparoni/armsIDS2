@@ -1,0 +1,123 @@
+<div class="row" id="line-item-selections">
+    <span ng-if="!serviceChargeList.length" translate>There are no service charges</span>
+    <ng-form ng-if="serviceChargeList.length" name="chargeItemForm">
+        <div class="col-xs-12 col-md-3">
+            <label translate for="category-list">Category</label>
+            <select class="form-control line-item-selection" name="categoryList" id="category-list" ng-model="chargeItemForm.category"
+                ng-options="item as item for item in chargeProps.categories" ng-change="getTypes(chargeItemForm.category)" required>
+            </select>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <label translate for="type-list">Type</label>
+            <select class="form-control line-item-selection" name="typeList" id="type-list" ng-model="chargeItemForm.type" ng-options="item as item for item in chargeProps.types"
+                ng-change="getDescriptions(chargeItemForm.type)" required>
+            </select>
+        </div>
+        <div class="col-xs-11 col-md-3">
+            <label translate for="type-list">Description</label>
+            <select class="form-control line-item-selection" name="descriptionList" id="description-list" ng-model="chargeItemForm.description"
+                ng-options="item as item for item in chargeProps.descriptions" ng-change="addChargeItem(chargeItemForm.description)"
+                required>
+            </select>
+        </div>
+        <div class="col-xs-12 col-md-1">
+            <button translate ng-click="clearChargeItemForm(chargeItemForm)" class="btn btn-primary clear-button">
+                Clear
+            </button>
+        </div>
+    </ng-form>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+
+        <line-items-table line-items="lineItems" params="{ accountId: account.id, month: null, year: null, currencyCode: accountCurrencyCode }" is-valid="lineItemsValid"
+            is-non-avi="false">
+        </line-items-table>
+
+        <div class="row">
+            <div class="col-xs-12">
+
+                <button translate ng-click="removeError(); previewNonAviationInvoiceJSON(account.id, lineItems, accountCurrencyCode)" 
+                    ng-disabled="!lineItems.length || !lineItemsValid"
+                    class="btn btn-primary">
+                    Calculate Invoice
+                </button>
+
+                <preview-oauth2 url="reports/non-aviation-invoice/pos" ng-click="removeError()"
+                    params="{ text: 'Preview Invoice', 
+                            format: 'pdf', 
+                            preview: 1, 
+                            accountId: account.id, 
+                            invoiceCurrency: accountCurrencyCode, 
+                            proforma: typeOfSaleSelection === 'general-proforma' }"
+                    request-method="POST" disable="!lineItems.length || !lineItemsValid"
+                    class="btn-preview-iata"
+                    error="error"
+                    body-params="{ line_items: lineItems }"
+                    body-params-fn="nonAviationInvoicePayload"
+                    callback-success-fn="previewNonAviationInvoiceJSON(account.id, lineItems, accountCurrencyCode)">
+                </preview-oauth2>
+
+                <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                    <!-- Error Handling -->
+                </ng-include>
+
+            </div>
+        </div>
+
+        <div ng-show="nonAviationInvoices.preview && nonAviationInvoices.totalCurrency" class="row">
+            <div class="col-xs-12 col-md-4">
+                <table class="table table-striped table-bordered table-hover table-condensed">
+                    <tr>
+                        <th translate>Total</th>
+                        <th translate>Currency</th>
+                    </tr>
+                    <tr>
+                        <td class="text-right">{{ nonAviationInvoices.preview | number: 2 }}</td>
+                        <td>{{ nonAviationInvoices.totalCurrency }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div ng-show="workflow !== 'credit'">
+          <payment is-valid="generalPaymentValid" reset="paymentReset" payment="payment" account-id="account.id"
+            invoice-currency="invoiceCurrency" items="lineItems" invoice-amount="nonAviationInvoices.preview">
+            <!-- Payment Directive -->
+          </payment>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+
+                <!--GENERATE INVOICE-->
+                <button translate class="btn btn-primary btn-generate" 
+                    ng-disabled="isGenerateDisabled(false, lineItems.length > 0 && lineItemsValid)"
+                    ng-click="removeError(); nonAviationInvoices.generating = true; nonAviationInvoices.preview = null; removePreview(); 
+                        generateNonAviationInvoice(account.id, 0, 'pdf', lineItems, accountCurrencyCode)">
+                Generate Invoice
+                </button>
+
+                <!--GENERATE INVOICE AND PAY-->
+                <download-oauth2 url="/reports/non-aviation-invoice/pos" 
+                    params="{ text: 'Generate and Pay Invoice', 
+                            accountId: account.id, 
+                            preview: 0, 
+                            format: 'pdf', 
+                            pay: 1, 
+                            invoiceCurrency: accountCurrencyCode, 
+                            proforma: typeOfSaleSelection === 'general-proforma' }"
+                    disable="isGenerateDisabled(true, lineItems.length > 0 && lineItemsValid, generalPaymentValid)"
+                    ng-click="removeError(); nonAviationInvoices.generatePay = true; removePreview();"
+                    class-used="btn btn-primary btn-generate" request-method="POST" error="error" 
+                    callback-success-fn="generateNonAviationInvoicePaySuccess(); nonAviationInvoices.preview = null;"
+                    callback-error-fn="generateNonAviError()" hide-icon="true"
+                    body-params="{ line_items: lineItems, payment: payment }"
+                    body-params-fn="nonAviationInvoicePayload">
+                </download-oauth2>
+
+            </div>
+        </div>
+
+    </div>
+</div>

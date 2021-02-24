@@ -1,0 +1,14 @@
+@media print {
+
+    [ng-class="main.about"] {
+        
+        .box-container {
+            border: none !important;
+        }
+
+        .panel-collapse {
+            display: block !important;
+            height: initial !important;
+        }
+    }
+}

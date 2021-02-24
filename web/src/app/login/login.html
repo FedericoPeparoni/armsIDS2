@@ -1,0 +1,89 @@
+<div id="page-login" class="translate-cloak" translate-cloak>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-push-0 col-xs-12 col-sm-8 col-sm-push-2 col-md-6 col-md-push-3 col-lg-4 col-lg-push-4">
+                <form ng-show="!recoveryForm" novalidate name="loginForm" onsubmit="return false" class="box-container">
+                    <div class="row">
+                        <div class="form-group logo-holder col-xs-9">
+                            <img class="ids-logo" alt="IDS" src="assets/images/ids_logo_corp-trans.png" />
+                            <h1>ARMS</h1>
+                            <img class="logo" alt="#" src="assets/images/logo.png" />
+                        </div>
+                        <div class="col-xs-3">
+                            <span ng-show="language.enabled">
+                                <label translate for="language">Languages</label>
+                                <select id="language" class="form-control" ng-model="language.selected" 
+                                    ng-change="setFrontendLanguage(language.selected)" 
+                                    ng-options="language as language.label for language in language.supported">
+                                </select>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label translate for="username">Username</label>
+                        <input ng-model="user.username" type="text" class="form-control" id="username" autocomplete="off" />
+                    </div>
+                    <div class="form-group">
+                        <label translate for="password">Password</label>
+                        <input ng-model="user.password" type="password" ng-paste="$event.preventDefault();" class="form-control" id="password" />
+                    </div>
+                    <div class="form-group text-center">
+                        <button ng-disabled="loginForm.$invalid || user.username == '' ||  timeoutDelay > 0" ng-click="submit(user.username, user.password || '')"
+                            type="submit" class="btn btn-primary" translate>SIGN IN</button>
+                    </div>
+                    <div ng-show="warning || timeoutDelay > 0" class="form-group">
+                        <uib-alert ng-show="timeoutDelay" type="warning" ng-click="warning = false">
+                            <span translate>A number of failed attempts have occurred. Please wait</span>
+                            <span>{{ timeoutDelay }}</span>
+                            <span translate>seconds to retry</span>
+                        </uib-alert>
+                    </div>
+                    <div ng-show="error" class="form-group">
+                        <uib-alert ng-show="error === 400 || error === 401" translate>Invalid username and/or password. Please try again</uib-alert>
+                        <uib-alert ng-show="error !== 400 && error !== 401">{{ offlineServerError }}</uib-alert>
+                    </div>                    
+                    <div>
+                        <button type="button" class="btn-link link btn-forgot-password" translate
+                            ng-click="passwordRecoveryForm()">
+                            Forgot password?
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Recovery password form -->
+                <form ng-show="recoveryForm" novalidate name="loginForm" onsubmit="return false" class="box-container">
+                    <div class="row">
+                        <div class="form-group logo-holder col-xs-12">
+                            <img class="ids-logo" alt="IDS" src="assets/images/ids_logo_corp-trans.png" />
+                            <h1>ARMS</h1>
+                            <img class="logo" alt="#" src="assets/images/logo.png" />
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="!tempPaswordSent">
+                        <label for="email" translate>Please enter your email</label>
+                        <input ng-model="email" type="text" class="form-control" id="email"
+                            autocomplete="off" />
+                    </div>
+                    <div class="form-group text-center" ng-show="!tempPaswordSent">
+                        <button
+                            ng-click="recoverPassword(email)" type="submit" class="btn btn-primary" ng-disabled="!email"
+                            translate>Next</button>
+                        <button
+                            ng-click="closeRecoveryForm()" type="submit" class="btn btn-primary"
+                            translate>Cancel</button>
+                    </div>
+                    <div class="form-group text-center" ng-show="tempPaswordSent" translate>
+                        The temporary password has been sent to your email.
+                        Please update your password when you login.
+                    </div>
+                    <div class="form-group text-center" ng-show="tempPaswordSent">
+                        <button ng-click="showLogin()" type="submit" class="btn btn-primary" translate>Login</button>
+                    </div>
+                    <div ng-show="error">
+                        <uib-alert translate>{{ errorDescription }}</uib-alert>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<div ng-class="{'open': toggleDropdown}" class="dropdown">
+    <div ng-show="formats.length > 1" ng-click="toggleDropdown = !toggleDropdown" class="dropdown-toggle" title="{{ 'Download Data' | translate }}"
+        id="download-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <a class="savePNG"><i class="fa fa-download fa-lg"></i></a>
+    </div>
+    <ul ng-click="toggleDropdown = false" class="dropdown-menu" aria-labelledby="download-button">
+        <li>
+            <a ng-show="formats.indexOf('csv') !== -1" ng-click="exportCsv('csv'); toggleDropdown = false; $event.stopPropagation()">CSV</a>
+            <a ng-show="formats.indexOf('pdf') !== -1" ng-click="exportPdf(); toggleDropdown = false; $event.stopPropagation()">PDF</a>
+            <a ng-show="formats.indexOf('xls') !== -1" ng-click="exportCsv('xls'); toggleDropdown = false; $event.stopPropagation()">XLS</a>
+        </li>
+    </ul>
+
+    <!-- Calling the method that creates csv file on the frontend -->
+    <div ng-show="formats.length === 1 && formats.includes('csv') && !backEndExport" ng-click="exportCsv('csv'); $event.stopPropagation()" 
+        title="{{ 'Download Data' | translate }}" id="download-button" aria-haspopup="true" aria-expanded="true">
+        <a class="savePNG"><i class="fa fa-download fa-lg"></i></a>
+    </div>
+
+    <!-- Calling the method that creates csv file on the backend -->
+    <div ng-show="formats.length === 1 && formats.includes('csv') && backEndExport" ng-click="getCsvFromBackend(); $event.stopPropagation()" 
+        title="{{ 'Download Data' | translate }}" id="download-button" aria-haspopup="true" aria-expanded="true">
+        <a class="savePNG"><i class="fa fa-download fa-lg"></i></a>
+    </div>
+
+    <div ng-show="formats.length === 1 && formats.includes('pdf')" ng-click="exportPdf(); $event.stopPropagation()" 
+        title="{{ 'Download Data' | translate }}" id="download-button" aria-haspopup="true" aria-expanded="true">
+        <a class="savePNG"><i class="fa fa-download fa-lg"></i></a>
+    </div>
+
+    <div ng-show="formats.length === 1 && formats.includes('xls')" ng-click="exportCsv('xls'); $event.stopPropagation()" 
+        title="{{ 'Download Data' | translate }}" id="download-button" aria-haspopup="true" aria-expanded="true">
+        <a class="savePNG"><i class="fa fa-download fa-lg"></i></a>
+    </div>
+</div>

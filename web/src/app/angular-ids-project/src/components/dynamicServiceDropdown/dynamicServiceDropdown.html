@@ -1,0 +1,10 @@
+<div class="dynamic-service-dropdown">
+    <div ng-if="dropdownType === 'single'">
+        <select ng-class="class" ng-disabled="disabled" class="form-control" ng-model="ngModel.$viewValue" ng-options="{{ ngOptions }}"
+            ng-required="isRequired">
+            <option translate ng-if="allowEmpty" value=""></option>
+        </select>
+    </div>
+    <div ng-if="dropdownType === 'multiple'">
+    </div>
+</div>

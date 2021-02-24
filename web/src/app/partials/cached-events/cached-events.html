@@ -1,0 +1,178 @@
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="box-container">
+
+            <box-header page-name="management.cached-event-management" icon="'cog'"
+                title="{{ 'Cached Events' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-keyup="$event.keyCode == 13 && refresh()" ng-model="search" />
+                    </div>
+                    <div class="col-xs-12 col-md-6 text-right margin-top-20">
+                        <button translate class="btn btn-primary" ng-click="refresh()">
+                            Refresh
+                        </button>
+                        <button translate class="btn btn-primary" ng-click="retry(editable.id)" ng-disabled="editable === null || editable.id === null || retryInProgress"
+                            ng-if="hasPermission('manage_cached_event_modify')">
+                            Retry
+                        </button>
+                        <button translate class="btn btn-primary" ng-disabled="editable === null || editable.id === null || retryInProgress" popup popup-text="Are you sure you want to delete this?"
+                            popup-local-storage-enable="SystemConfiguration:Require confirmation on delete" popup-confirm="delete(editable.id);"
+                            ng-if="hasPermission('manage_cached_event_modify')">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div ng-show="message" class="error-handling-container">
+                            <div class="alert alert-dismissible alert-icon" ng-class="{ 'alert-success': !message.thrown, 'alert-warning': message.thrown }"
+                                role="alert">
+                                <button type="button" ng-click="message = null" class="close" data-dismiss="alert">×</button>
+                                <span ng-if="!message.thrown" class="glyphicon glyphicon-ok-sign icon" aria-hidden="true"></span>
+                                <span ng-if="message.thrown" class="glyphicon glyphicon-warning-sign icon" aria-hidden="true"></span>
+                                <strong translate>Response:</strong>
+                                <span ng-if="message.title"><span>{{message.title | translate}}</span></span>
+                                <span ng-if="!message.title && message.thrown"><span translate>Retry failed for unknown reason...</span></span>
+                                <span ng-if="!message.title && !message.thrown"><span translate>Successfully completed retry attempt!</span></span>
+                                <p ng-if="message.description">
+                                    <strong translate>Description:</strong> {{ message.description | translate }}
+                                </p>
+                            </div>
+                        </div>
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <span id="cached-events-status" class="text-muted" ng-if="nextRetryCycle">
+                            <i class="fa fa-cog"></i>
+                            <span translate>System will retry all cached events on</span>&nbsp;<span>{{ nextRetryCycle | dateConverter: '\' HH:mm' }}</span>
+                        </span>
+                        <div class="table-responsive">
+                            <div class="table-responsive" export-table sort-query-string="getSortQueryString()" service="cachedEventsService"
+                                query-string="filterParameters" back-end-export="true">
+                                <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" 
+                                    table-sort="refresh()">
+                                    <thead>
+                                        <tr>
+                                            <th translate sort="metadata.type">Type</th>
+                                            <th translate sort="metadata.resource">Resource</th>
+                                            <th translate sort="metadata.action">Action</th>
+                                            <th translate sort="retryCount">Attempts</th>
+                                            <th translate>Last Attempt</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-click="edit(item)" ng-repeat="item in list" ng-class="{'highlight': editable.id === item.id, 'text-danger': !item.retry}">
+                                            <td ng-bind-html="::(commaSeperate(item.metadata, 'type') || 'OTHER') | highlight:highlightSearch"></td>
+                                            <td ng-bind-html="::(commaSeperate(item.metadata, 'resource') || item.target) | highlight:highlightSearch"></td>
+                                            <td ng-bind-html="::(commaSeperate(item.metadata, 'action') || item.method_name) | highlight:highlightSearch"></td>
+                                            <td>{{ ::item.retry_count }}</td>
+                                            <td>{{ ::item.last_attempt | dateConverter: '\'at\' HH:mm' }}</td>
+                                        </tr>
+                                        <tr ng-show="!list.length">
+                                            <td translate class="text-center" colspan="5">There are no cached events pending.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refresh()"
+                            max-size="::20" items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row" ng-show="editable !== null && editable.id !== null">
+    <div class="col-xs-12">
+        <div class="box-container margin-top-20">
+
+            <box-header icon="'cogs'" title="{{ 'Cached Event Result(s)' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div ng-if="!editable.results.length || editable.results === undefined">
+                            <span translate>There are no results related to the selected cached event.</span>
+                        </div>
+                        <div ng-if="editable.results.length">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th translate>Response</th>
+                                            <th translate>Message</th>
+                                            <th translate>Date / Time</th>
+                                            <th translate>User</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in editable.results | orderBy:'-created_at' | limitTo : 5 : (editable.results.number * 5) - 5">
+                                            <td ng-bind-html="::item.clazz | highlight:highlightSearch"></td>
+                                            <td ng-bind-html="::item.result | highlight:highlightSearch"></td>
+                                            <td>{{ ::item.created_at | dateConverter: '/ HH:mm:ss' }}</td>
+                                            <td>{{ ::item.created_by }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <ul uib-pagination total-items="editable.results.length" max-size="::20" ng-model="editable.results.number" items-per-page="::5"
+                            class="pagination-sm" boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-show="editable.metadata !== null && editable.metadata.length > 0">
+    <div class="col-xs-12">
+        <div class="box-container margin-top-20 cached-event-metadata-container">
+
+                <box-header icon="'clipboard'" title="{{ 'Cached Event Statement(s)' | translate }}"></box-header>
+    
+                <div class="box-content">
+                    <div class="row">
+                        <div class="col-xs-12 cached-event-metadata" ng-repeat="item in editable.metadata" ng-init="item.view = false">
+                            <figure>
+                                <figcaption>
+                                    <span ng-show="editable.metadata.length > 1">{{ ::$index + 1 }}:</span>
+                                    {{ ::item.type }} {{ ::item.action }}
+                                    <span ng-show="item.resource">on
+                                        <code>{{ ::item.resource }}</code>
+                                    </span>
+                                    <span class="text-muted pull-right md-pull-left">
+                                        <a href="" ng-click="item.view = !item.view">{{ item.view ? 'Hide' : 'Show' }}</a> |
+                                        <a copy-to-clipboard="'statement-' + ($index + 1)">Copy to Clipboard</a>
+                                    </span>
+                                </figcaption>
+                                <pre id="statement-{{ ::$index + 1 }}" class="pre-scrollable pre-wordwrap" ng-show="item.view-statement"><code ng-bind-html="::item.statement | highlight:highlightSearch"></code></pre>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>

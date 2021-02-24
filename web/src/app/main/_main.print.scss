@@ -1,0 +1,64 @@
+@media print {
+
+    html {
+        height: initial !important;
+        overflow: initial !important;
+    }
+
+    body {
+        height: initial !important;
+        overflow: initial !important;
+    }
+
+    #page-main {
+        position: initial !important;
+        height: initial !important;
+        width: initial !important;
+    }
+
+    #header-bar {
+        .hamburger-menu,
+        .dropdown {
+            display: none !important;
+        }
+    }
+
+    #main {
+        height: initial !important;
+        width: initial !important;
+
+        #side-bar {
+            display: none !important;
+        }
+
+        #page-split {
+            width: initial !important;
+            height: initial !important;
+            float: initial !important;
+
+            #content {
+                width: initial !important;
+                float: initial !important;
+                height: initial !important;
+                overflow: initial !important;
+                display: block !important;
+            }
+        }
+    }
+
+    footer {
+        position: relative !important;
+
+        .footer-bg {
+            display: none !important;
+        }
+    }
+
+    a[href]:after {
+        content: none !important;
+    }
+
+    .table-responsive {
+        overflow-x: initial !important;
+    }
+}

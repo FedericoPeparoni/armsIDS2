@@ -1,0 +1,13 @@
+<div class="feedback" ng-show="uploadJob">
+    <u>Upload result</u>
+    <span class="btn btn-sm pull-right" ng-click="uploadJob = null">X</span> <br>
+    <p>
+        Total Records: {{ uploadJob.total }} <br>
+        Records Added/Updated: {{ uploadJob.successfully_processed }} <br>
+        Records Rejected: {{ uploadJob.rejected }}
+    </p>
+    <p>
+        Flight Movements Added: {{ uploadJob.fpl_added }} <br>
+        Flight Movements Updated: {{ uploadJob.fpl_updated }}
+    </p>
+</div>

@@ -1,0 +1,46 @@
+[table-sort] {
+
+  th[sort] {
+    cursor: pointer;
+    @extend .no-select;
+  }
+
+  &.table-sort-disabled th[sort] {
+    cursor: not-allowed;
+  }
+
+  .arrow-up, .arrow-down {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    display: inline-block;
+  }
+
+  .arrow-up {
+    border-bottom: 5px solid #666;
+  }
+
+  .arrow-down {
+    border-top: 5px solid #666;
+  }
+
+  th::after {
+    content: " ";
+    display: none;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    margin: 0 3px;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  th.sort-desc::after {
+    @extend .arrow-down;
+  }
+
+  th.sort-asc::after {
+    @extend .arrow-up;
+  }
+}

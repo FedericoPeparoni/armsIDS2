@@ -1,0 +1,223 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+
+        <div class="box-container">
+
+            <box-header page-name="data-analysis-and-statistics.system-summary" icon="'bar-chart'"
+                title="{{ 'System Summary' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <button translate class="btn btn-primary btn-refresh pull-right" ng-click="refresh()">Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                    <!-- Error Handling -->
+                </ng-include>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th colspan="6" translate>Flight Movements</th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-repeat="item in list | limitTo: 1 : 0">
+                                    <tr ng-repeat="category in item">
+                                        <td class="col-md-2 text-capitalize">{{ formatName((category.category_name | translate)) }}</td>
+                                        <td class="col-md-2 text-right">{{ category.flight_movement_vo.total }}</td>
+                                        <td translate class="col-md-2">Resolved</td>
+                                        <td class="col-md-2 text-right">{{ category.flight_movement_vo.val }}</td>
+                                        <td translate class="col-md-2">Percent Resolved</td>
+                                        <td class="col-md-2 text-nowrap text-right">{{ category.flight_movement_vo.percent | number: 2 }}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="system-summary" colspan="2">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2">{{ data.flight_movement_inside.name | translate }}</td>
+                                        <td class="col-md-2 text-right">{{ data.flight_movement_inside.total }}</td>
+                                        <td translate class="col-md-2">Percent of All Flights</td>
+                                        <td class="col-md-2 text-nowrap text-right">{{ data.flight_movement_inside.percent | number: 2 }}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2">{{ data.flight_movement_outside.name | translate }}</td>
+                                        <td class="col-md-2 text-right">{{ data.flight_movement_outside.total }}</td>
+                                        <td translate class="col-md-2">Percent of All Flights</td>
+                                        <td class="col-md-2 text-nowrap text-right">{{ data.flight_movement_outside.percent | number: 2 }}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2">{{ data.flight_movement_all.name | translate }}</td>
+                                        <td class="col-md-2 text-right">{{ data.flight_movement_all.total }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" ng-if="shouldShowCharge('parking')">
+                    <div class="col-xs-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th colspan="6" translate>Movements with Parking Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in list | limitTo: 3 : 4 ">
+                                        <td class="col-md-2 text-capitalize">{{ formatName((item.name | translate)) }}</td>
+                                        <td class="col-md-2 text-right">{{ item.total }}</td>
+                                        <td translate class="col-md-2">Parking</td>
+                                        <td class="col-md-2 text-right">{{ item.val }}</td>
+                                        <td translate class="col-md-2">Percent Parking</td>
+                                        <td class="col-md-2 text-right">{{ item.percent | number: 2 }}%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th colspan="6" translate>Aircraft Types Resolved</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in list | limitTo: 1 : 7">
+                                        <td class="col-md-2">{{ item.name | translate }}</td>
+                                        <td class="col-md-2 text-right">{{ item.total }}</td>
+                                        <td translate class="col-md-2">Resolved</td>
+                                        <td class="col-md-2 text-right">{{ item.val }}</td>
+                                        <td translate class="col-md-2">Percent Resolved</td>
+                                        <td class="col-md-2 text-right">{{ item.percent | number: 2 }}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2 text-capitalize">{{ formatName((data.flight_movement_unknown_aircraft_type.name | translate)) }}</td>
+                                        <td class="col-md-2 text-right">{{ data.flight_movement_unknown_aircraft_type.total }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" translate>Blacklistings</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in list | limitTo: 2 : 9">
+                                        <td class="col-md-2">{{ item.name | translate }}</td>
+                                        <td class="col-md-2 text-right">{{ item.total }}</td>
+                                        <td translate class="col-md-2">Percent Blacklisted</td>
+                                        <td class="col-md-2 text-right">{{ item.percent | number: 2 }}%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2" translate>Active Accounts</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in list | limitTo: 2 : 11">
+                                                <td class="col-md-2">{{ item.name | translate }}</td>
+                                                <td class="col-md-2 text-right">{{ item.total }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th translate class="col-md-2">{{ data.flight_movement_rejected.name | translate }}</th>
+                                                <td class="col-md-2 text-right"> {{ data.flight_movement_rejected.total }}</td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th translate class="col-md-2">{{ data.outstanding_bill.name | translate }}</th>
+                                                <td class="col-md-2 text-right"> {{ data.outstanding_bill.total }}</td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th translate class="col-md-2">{{ data.overdue_bill.name | translate }}</th>
+                                                <td class="col-md-2 text-right"> {{ data.overdue_bill.total }}</td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th translate class="col-md-2">{{ data.flight_movement_latest.name | translate }}</th>
+                                                <td class="col-md-2 text-right"> {{ data.flight_movement_latest.date | dateConverter }}</td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

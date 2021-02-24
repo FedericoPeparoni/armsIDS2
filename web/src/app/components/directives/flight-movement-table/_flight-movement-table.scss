@@ -1,0 +1,23 @@
+// duplicate and missing table row styles
+.fm-table.show-duplicate-missing {
+
+    tr.marked-duplicate {
+        background-color: #ff98004f;
+    }
+
+    tr.marked-missing-before-this {
+        background-color: #ff009926;
+    }
+}
+
+.fm-table {
+    input[type="checkbox"] {
+        position: inherit;
+    }
+
+    input[type="checkbox"]:checked:before {
+        position: relative;
+        margin-bottom: -13px;
+        margin-right: -9px;
+    }
+}

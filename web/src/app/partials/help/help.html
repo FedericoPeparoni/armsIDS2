@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <div class="box-container">
+
+            <box-header icon="'book'" title="{{ 'User Manual' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <object id="user-manual" data="{{ ::url }}" type="application/pdf" alt="User Manual">
+                            <p>
+                                <span translate>Your web browser doesn't have a PDF plugin. Instead you can click</span>
+                                <a translate ng-href="url">here</a><span translate>to download the PDF file.</span>
+                            </p>
+                        </object>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

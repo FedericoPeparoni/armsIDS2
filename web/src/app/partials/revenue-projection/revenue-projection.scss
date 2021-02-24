@@ -1,0 +1,24 @@
+.no-top {
+  margin-top: 0px !important;
+}
+
+.center-number {
+  text-align: center;
+}
+
+.revenue-projection label {
+  margin-bottom: 0px;
+  margin-top: 3px;
+}
+
+.revenue-projection input[type="number"], .revenue-projection input[type="text"], .revenue-projection select {
+  width: 100%;
+}
+
+.revenue-projection button[id^="btn-"] {
+  margin-bottom: 4px;
+}
+
+.error-box {
+  background-color: rgb(255, 0, 0);
+}

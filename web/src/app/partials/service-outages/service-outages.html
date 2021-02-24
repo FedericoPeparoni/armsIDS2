@@ -1,0 +1,305 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <div class="box-container">
+            <box-header toggle="toggle" page-name="exemptions.aerodrome-service-outage-management" icon="'adjust'"
+                title="{{ 'Aerodrome Service Outages' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12 col-md-3">
+                        <label translate for="service-type">Service Type</label>
+                        <select id="service-type" empty-to-null class="form-control" ng-change="refresh()"
+                            ng-model="serviceType" ng-options="item.service_name as (item.service_name | translate) for item in aerodromeServiceTypes">
+                            <option translate value="">All</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <label translate for="aerodrome-status">Aerodrome Status</label>
+                        <select id="aerodrome-status" class="form-control" ng-change="refresh()"
+                            ng-model="aerodromeStatus" ng-init="aerodromeStatus = 'all'">
+                            <option translate value="all">All With Services</option>
+                            <option translate value="withOutagesOnly">All With Service Outages</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <label translate for="aerodrome-name">Aerodrome Name</label>
+                        <select id="aerodrome-name" empty-to-null class="form-control" ng-change="refresh()"
+                            ng-model="aerodromeName" ng-options="item.aerodrome_name as item.aerodrome_name for item in aerodromeWithServices">
+                            <option translate value=""></option>
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <button translate ng-click="refresh()"
+                            class="btn btn-primary pull-right">Refresh</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-3">
+                        <label for="start-date-filter"><span translate>Start Date</span>&nbsp;<span translate>({{ ::customDate }})</span></label>
+                        <p class="input-group">
+                            <date-picker id="start-date-filter" name="startDateFilter" type="text" ng-pattern="datePickerRegex" show-button-bar="false"
+                                class="form-control" uib-datepicker-popup="{{ customDate }}" ng-model="startDateFilter" is-open="startDateFilter.open"
+                                close-text="Close" ng-change="clearTime('start', startDateFilter); refresh()">
+                            </date-picker>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="startDateFilter.open = !startDateFilter.open">
+                                    <i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
+                                </button>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <label for="start-time-filter"><span translate>Start Time</span>&nbsp;(<span tranlate>HHmm</span>)</label>
+                        <input id="start-time-filter" name="startTimeFilter" class="form-control" type="text" ng-model="startTimeFilter" minlength="4"
+                            maxlength="4" ng-attr-title="{{startTimeFilter < 2359 ? '' : 'Invalid time format' | translate}}"
+                            ng-pattern="/^(?:2[0-3]|[0-1]?[0-9])?:?[0-5]?[0-9]$/" only-numbers ng-disabled="!startDateFilter" ng-change="refresh()"/>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <label for="end-date-filter"><span translate>End Date</span>&nbsp;<span translate>({{ ::customDate }})</span></label>
+                        <p class="input-group">
+                            <date-picker id="end-date-filter" name="endDateFilter" type="text" ng-pattern="datePickerRegex" show-button-bar="false"
+                                class="form-control" uib-datepicker-popup="{{ customDate }}" ng-model="endDateFilter" is-open="endDateFilter.open"
+                                close-text="Close" ng-change="clearTime('end', endDateFilter); refresh()">
+                            </date-picker>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="endDateFilter.open = !endDateFilter.open">
+                                    <i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
+                                </button>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <label for="end-time-filter"><span translate>End Time</span>&nbsp;(<span tranlate>HHmm</span>)</label>
+                        <input id="end-time-filter" name="endTimeFilter" class="form-control" type="text" ng-model="endTimeFilter" minlength="4"
+                            maxlength="4" ng-attr-title="{{endTimeFilter < 2359 ? '' : 'Invalid time format' | translate}}"
+                            ng-pattern="/^(?:2[0-3]|[0-1]?[0-9])?:?[0-5]?[0-9]$/" only-numbers ng-disabled="!endDateFilter" ng-change="refresh()"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="search"
+                            empty-to-null ng-keyup="$event.keyCode === 13 && refresh()"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div ng-class="{ 'col-xs-12': !outages, 'col-xs-4': outages }">
+                        <div class="table-responsive" export-table sort-query-string="getMapSortQueryString()" query-string="filterParameters"
+                            back-end-export="true" service="serviceOutagesService">
+                            <table class="table table-striped table-bordered table-hover table-condensed"
+                                sort-query-string="getMapSortQueryString" table-sort="refresh()">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-nowrap" sort="aerodrome">Aerodrome</th>
+                                        <th translate class="text-nowrap" sort="aerodromeServiceType">Aerodrome Service Type</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="showOutages(item); form.$setUntouched()" 
+                                        ng-repeat="item in list"
+                                        ng-class="{'highlight': editable.id === item.id}">
+                                        <td class="text-nowrap">{{ item.aerodrome }}</td>
+                                        <td translate class="text-nowrap">{{ item.aerodrome_service_type }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td class="text-center" colspan="2" translate>There are no Aerodrome Services data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements"
+                            max-size="::20" items-per-page="pagination.size" ng-change="refresh()"
+                            ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                    <div ng-show="outages">
+                        <div class="col-xs-8">
+                            <div class="table-responsive" style="max-height: 25vh; margin-bottom: 10px;">
+                                <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" 
+                                    table-sort="refresh()">
+                                    <thead>
+                                        <tr>
+                                            <th translate class="text-nowrap" sort="startDateTime">Start Date/Time</th>
+                                            <th translate class="text-nowrap" sort="endDateTime">End Date/Time</th>
+                                            <th translate class="text-nowrap" sort="approachDiscountType">Approach Discount Type</th>
+                                            <th translate class="text-nowrap text-right" sort="approachDiscountAmount">Approach Discount Amount</th>
+                                            <th translate class="text-nowrap" sort="aerodromeDiscountType">Aerodrome Discount Type</th>
+                                            <th translate class="text-nowrap text-right" sort="aerodromeDiscountAmount">Aerodrome Discount Amount</th>
+                                            <th translate class="text-nowrap" sort="flightNotes">Flight Notes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-click="editOutages(item)" ng-repeat="item in outages" ng-class="{'highlight': editable.id === item.id}">
+                                            <td class="text-nowrap">{{ item.start_date_time | dateConverter: 'HH:mm' }}</td>
+                                            <td class="text-nowrap">{{ item.end_date_time | dateConverter: 'HH:mm' }}</td>
+                                            <td class="text-nowrap">{{ item.approach_discount_type | translate }}</td>
+                                            <td class="text-nowrap text-right">{{ item.approach_discount_amount }}</td>
+                                            <td class="text-nowrap">{{ item.aerodrome_discount_type | translate }}</td>
+                                            <td class="text-nowrap text-right">{{ item.aerodrome_discount_amount }}</td>
+                                            <td class="text-nowrap">{{ item.flight_notes }}</td>
+                                        </tr>
+                                        <tr ng-show="!outages.length">
+                                            <td colspan="7" translate>There are no Aerodrome Services Outages data</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+            <box-header ng-show="editable.id === null" icon="'adjust'" title="{{ 'Create an Aerodrome Service Outage' | translate }}"></box-header>
+            <box-header ng-show="editable.id !== null" icon="'adjust'" title="{{ 'Edit an Aerodrome Service Outage' | translate }}"></box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <fieldset ng-disabled="!hasPermission('aerodrome_service_outage_modify')">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="aerodrome">{{ 'Aerodrome' | translate }} *</label>
+                                <select id="aerodrome" name="aerodrome" class="form-control" 
+                                    ng-options="item.aerodrome_name as item.aerodrome_name for item in aerodromeWithServices"
+                                    ng-model="editable.aerodrome" ng-disabled="editable.id"
+                                    ng-change="getAerodromeServiceTypes(editable.aerodrome)" required>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="aerodrome-service-type">{{ 'Aerodrome Service Type' | translate }} *</label>
+                                <select id="aerodrome-service-type" name="aerodromeServiceType" class="form-control" 
+                                    ng-options="item.service_name as item.service_name for item in aerodromeServiceTypes" 
+                                    ng-disabled="!editable.aerodrome || editable.id"
+                                    ng-model="editable.aerodrome_service_type" 
+                                    ng-change="setDefaultData(editable.aerodrome_service_type)"required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="start-date"><span translate>Start Date</span> *&nbsp;<span translate>({{ ::customDate }})</span></label>
+                                <p class="input-group">
+                                    <date-picker id="start-date" name="startDate" type="text"
+                                        ng-pattern="datePickerRegex" show-button-bar="false" class="form-control" uib-datepicker-popup="{{ customDate }}"
+                                        ng-model="start_date" is-open="startDate.open"
+                                        ng-attr-title="{{start_date ? '' : 'Please fill out this field' | translate}}"
+                                        close-text="Close" required>
+                                    </date-picker>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default"
+                                            ng-click="startDate.open = !startDate.open">
+                                            <i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
+                                        </button>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="start_time"><span translate>Start Time</span>&nbsp;(<span tranlate>HHmm</span>) *</label>
+                                <input id="start_time" name="startTime" class="form-control" type="text" ng-model="start_time"
+                                    minlength="4" maxlength="4" ng-attr-title="{{start_time < 2359 ? '' : 'Invalid time format' | translate}}"
+                                    ng-pattern="/^(?:2[0-3]|[0-1]?[0-9])?:?[0-5]?[0-9]$/" only-numbers required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="end-date"><span translate>End Date</span> *&nbsp;<span translate>({{ ::customDate }})</span></label>
+                                <p class="input-group">
+                                    <date-picker id="end-date" name="endDate" type="text"
+                                        ng-pattern="datePickerRegex" show-button-bar="false" class="form-control" uib-datepicker-popup="{{ customDate }}"
+                                        ng-model="end_date" is-open="endDate.open"
+                                        ng-attr-title="{{end_date ? '' : 'Please fill out this field' | translate}}"
+                                        close-text="Close" required>
+                                    </date-picker>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default"
+                                            ng-click="endDate.open = !endDate.open">
+                                            <i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
+                                        </button>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="end_time"><span translate>End Time</span>&nbsp;(<span tranlate>HHmm</span>) *</label>
+                                <input id="end_time" name="endTime" class="form-control" type="text" ng-model="end_time"
+                                    minlength="4" maxlength="4" ng-attr-title="{{end_time < 2359 ? '' : 'Invalid time format' | translate}}"
+                                    ng-pattern="/^(?:2[0-3]|[0-1]?[0-9])?:?[0-5]?[0-9]$/" only-numbers required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="approach-discount-type">{{ 'Approach Discount Type' | translate }} *</label>
+                                <select id="approach-discount-type" name="approachDiscountType" class="form-control" 
+                                    ng-model="editable.approach_discount_type"required>
+                                    <option translate value="fixed">Fixed Amount</option>
+                                    <option translate value="percentage">Percentage</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="approach-discount-amount">{{ 'Approach Discount Amount' | translate }} *</label>
+                                <input id="approach-discount-amount" name="approachDiscountAmount" class="form-control" type="number" 
+                                    ng-model="editable.approach_discount_amount"
+                                    min="0" step="0.01" max="{{editable.approach_discount_type === 'percentage' ? '100' : ''}}" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="aerodrome-discount-type">{{ 'Aerodrome Discount Type' | translate }} *</label>
+                                <select id="aerodrome-discount-type" name="aerodromeDiscountType" class="form-control" 
+                                    ng-model="editable.aerodrome_discount_type"required>
+                                    <option translate value="fixed">Fixed Amount</option>
+                                    <option translate value="percentage">Percentage</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="aerodrome-discount-amount">{{ 'Aerodrome Discount Amount' | translate }} *</label>
+                                <input id="aerodrome-discount-amount" name="aerodromeDiscountAmount" class="form-control" type="number" 
+                                    ng-model="editable.aerodrome_discount_amount"
+                                    min="0" step="0.01" max="{{editable.aerodrome_discount_type === 'percentage' ? '100' : ''}}" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label for="flight-notes">{{ 'Flight Notes' | translate }} *</label>
+                                <textarea id="flight-notes" name="flightNotes" class="form-control" type="text"
+                                    ng-model="editable.flight_notes" required
+                                    ng-attr-title="{{editable.flight_notes ? '' : 'Please indicate which fees have discount and why' | translate}}">
+                                </textarea>
+                            </div>
+                        </div>
+                       
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary btn-reset" translate
+                                    ng-click="reset(); form.$setUntouched();">Clear
+                                </button>
+                                <button class="btn btn-primary btn-update" translate ng-show="editable.id !== null"
+                                    ng-disabled="form.$invalid" popup popup-text="Are you sure you want to update this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                    popup-confirm="update(editable, editable.id, start_date, start_time, end_date, end_time); form.$setUntouched();">
+                                    Update
+                                </button>
+                                <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null"
+                                    popup popup-text="Are you sure you want to delete this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
+                                    popup-confirm="delete(editable.id); form.$setUntouched();">
+                                    Delete
+                                </button>
+                                <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid"
+                                    ng-show="editable.id === null"
+                                    ng-click="create(editable, start_date, start_time, end_date, end_time); form.$setUntouched();">
+                                    Create
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+export class ConfigService {
+
+  /** @ngInject */
+
+  // start config injection
+  private config: Object = {};
+  // ** DO NOT CHANGE ANYTHING ABOUT THE PREVIOUS LINE ** //
+
+  public get(key: string): any {
+    return this.config[key];
+  }
+
+  public list(): Object {
+    return this.config;
+  }
+}

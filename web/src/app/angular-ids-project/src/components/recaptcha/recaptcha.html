@@ -1,0 +1,7 @@
+<div class="margin-top-20" ng-if="requireCaptcha && loginFromBilling !== false">
+    <div vc-recaptcha key="publicKey"
+        on-success="setResponse(response)"
+        on-expire="recaptchaExpire()"
+        on-create="onWidgetCreate(widgetId)">
+    </div>
+</div>

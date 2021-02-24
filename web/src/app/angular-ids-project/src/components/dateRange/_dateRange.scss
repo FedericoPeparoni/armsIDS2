@@ -1,0 +1,17 @@
+@import '../../../../../../bower_components/bootswatch-dist/css/bootstrap';
+
+.date-range {
+
+  > div.col {
+    @extend .col-xs-12;
+    @extend .col-sm-6;
+  }
+
+  &.with-timepickers { // if has timepickers
+
+    > div.col {
+      @extend .col-xs-12;
+      @extend .col-sm-6;
+    }
+  }
+}

@@ -1,0 +1,5 @@
+[ng-class="main.air-traffic-data"] {
+ .chart-div-height {
+     height: 390px; // used to prevent sidebar shifting when regenerating chart
+ }
+}

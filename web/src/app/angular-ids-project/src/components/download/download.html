@@ -1,0 +1,12 @@
+<div ng-class="{'open': toggleDropdown}" class="dropdown">
+    <button ng-click="toggleDropdown = !toggleDropdown" class="btn btn-primary dropdown-toggle" type="button" id="download-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <span ng-transclude><!-- text --></span>
+        <span class="caret"></span>
+    </button>
+    <ul ng-click="toggleDropdown = false" class="dropdown-menu" aria-labelledby="download-button">
+        <li  ng-repeat="type in types">
+            <a ng-show="notImplementedTypes.indexOf(type) !== -1" not-implemented target="_blank" href="{{ url }}&format={{ type }}">{{type.toUpperCase()}}</a>
+            <a ng-show="notImplementedTypes.indexOf(type) === -1" target="_blank" href="{{ url }}&format={{ type }}">{{type.toUpperCase()}}</a>
+        </li>
+    </ul>
+</div>

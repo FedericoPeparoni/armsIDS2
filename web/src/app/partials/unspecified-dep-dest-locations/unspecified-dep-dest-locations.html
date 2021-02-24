@@ -1,0 +1,178 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <div class="box-container">
+            <box-header toggle="toggle" page-name="operations.unspecified-departure-and-destination-location-management" icon="'map-pin'"
+                title="{{ 'Unspecified Departure and Destination Locations' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="textFilter"
+                            ng-keyup="$event.keyCode == 13 && refresh()" />
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <button translate ng-click="refresh()"
+                                class="btn btn-primary pull-right">Refresh
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table query-string="filterParameters"
+                            sort-query-string="getSortQueryString()" back-end-export="true" service="unspecifiedDepDestLocationsService">
+                            <table class="table table-striped table-bordered table-hover table-condensed"
+                                sort-query-string="getSortQueryString"
+                                table-sort="refresh()">
+                                <thead>
+                                <tr>
+                                    <th translate class="text-nowrap" sort="textIdentifier">Text Identifier</th>
+                                    <th translate class="text-nowrap" sort="name">Name</th>
+                                    <th translate class="text-nowrap" sort="maintained">Maintained</th>
+                                    <th translate class="text-nowrap" sort="aerodromeIdentifier">Ad Name</th>
+                                    <th translate class="text-nowrap" sort="countryCode">Country Code</th>
+                                    <th translate class="text-nowrap" sort="status">Status</th>
+                                    <th translate class="text-nowrap text-right" sort="latitude">Latitude</th>
+                                    <th translate class="text-nowrap text-right" sort="longitude">Longitude</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-click="edit(item)" ng-repeat="item in list" ng-class="{'highlight': editable.id === item.id}">
+                                    <td>{{ item.text_identifier }}</td>
+                                    <td>{{ item.name }}</td>
+                                    <td>{{ item.maintained | translate }}</td>
+                                    <td>{{ item.aerodrome_identifier }}</td>
+                                    <td>{{ item.country_code.country_code }}</td>
+                                    <td class="text-nowrap">{{ item.status ? item.status.toUpperCase() : item.status | translate }}</td>
+                                    <td class="text-right text-nowrap">{{ item.latitude | latitudeConverter }}</td>
+                                    <td class="text-right text-nowrap">{{ item.longitude | longitudeConverter }}</td>
+                                </tr>
+                                <tr ng-show="!list.length">
+                                    <td class="text-center" colspan="8" translate>There are no Unspecified Departure and Destination Locations data</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements"
+                            ng-change="refresh()" max-size="::20"
+                            items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+            <box-header ng-show="editable.id === null" icon="'map-pin'" title="{{ 'Create an Unspecified Departure or Destination' | translate }}">
+            </box-header>
+            <box-header ng-show="editable.id !== null" icon="'map-pin'" title="{{ 'Edit an Unspecified Departure or Destination' | translate }}">
+            </box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <fieldset ng-disabled="!hasPermission('zzzz_locations_modify')">
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="text_identifier">Text Identifier *</label>
+                                <input id="text-identifier" name="textIdentifier" class="form-control" ng-model="editable.text_identifier"
+                                    uppercase-input type="text" required />
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="name">Name *</label>
+                                <input id="name" name="name" class="form-control" ng-model="editable.name" type="text" required/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="aerodrome_identifier">Aerodrome Identifier</label>
+                                <dynamic-service-dropdown ng-model="editable.aerodrome_identifier"
+                                                          id="aerodrome_identifier"
+                                                          name="aerodromeIdentifier"
+                                                          dropdown-type="single"
+                                                          service="::aerodromesService"
+                                                          is-required="::false"
+                                                          allow-empty="true"
+                                                          options="item.aerodrome_name as item.aerodrome_name for item in list.content"></dynamic-service-dropdown>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="aerodrome_identifier"><span translate>Country</span> *</label>
+                                <dynamic-service-dropdown ng-model="editable.country_code" id="country-code" name="countryCode" dropdown-type="single" 
+                                    service="::countryManagementService" selected={{country}} object="editable" field="country_code" selected-value="defaultCounty"
+                                    model="country_code"
+                                    options="country as country.country_name for country in list.content track by country.country_name" is-required="true">
+                                </dynamic-service-dropdown>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="maintained">Maintained *</label>
+                                <boolean-text id="maintained" name="maintained" class="form-control"
+                                        ng-model="editable.maintained"
+                                        required>
+                                </boolean-text>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="status">Status</label>
+                                <input translate id="status" name="status" class="form-control" ng-value="editable.status.toUpperCase() | translate" readonly/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="latitude">Latitude ({{ ::getLatLabel() }}) *</label>
+                                <input id="latitude" name="latitude" class="form-control" ng-model="editable.latitude" type="text"
+                                       ng-pattern="latitudeRegex" input-format="DD.ddddd or DD°MM′SS″L or DD MM SSL" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="longitude">Longitude ({{ ::getLonLabel() }}) *</label>
+                                <input id="longitude" name="longitude" class="form-control" ng-model="editable.longitude" type="text"
+                                       ng-pattern="longitudeRegex" input-format="DD.ddddd or DDD°MM′SS″L or DDD MM SSL" required/>
+                            </div>
+                        </div>
+
+                        <ng-include
+                            src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling --></ng-include>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button translate type="button" class="btn btn-primary"
+                                        ng-click="reset(); form.$setUntouched();">Clear
+                                </button>
+                                <button translate class="btn btn-primary"
+                                        ng-show="editable.id !== null"
+                                        ng-disabled="form.$invalid"
+                                        convert-coordinates
+                                        latitude="latitude"
+                                        longitude="longitude"
+                                        popup popup-text="Are you sure you want to update this?"
+                                        popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                        popup-confirm="update(convertedEditable || editable, editable.id); form.$setUntouched();">Update
+                                </button>
+                                <button translate class="btn btn-primary"
+                                        ng-show="editable.id !== null"
+                                        popup
+                                        popup-text="Are you sure you want to delete this?"
+                                        popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
+                                        popup-confirm="delete(editable.id); form.$setUntouched()">Delete
+                                </button>
+                                <button translate class="btn btn-primary"
+                                        ng-disabled="form.$invalid"
+                                        ng-show="editable.id === null"
+                                        convert-coordinates
+                                        latitude="latitude"
+                                        longitude="longitude"
+                                        conversion-complete="create(convertedEditable || editable); form.$setUntouched();">Create
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

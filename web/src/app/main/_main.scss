@@ -1,0 +1,378 @@
+@import '../angular-ids-project/src/helpers/_variables';
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+#main {
+  background-color: #f3f3f3;
+  position: relative;
+  width: 100%;
+  height: calc(100% - #{$headerHeight} - #{$footerHeight});
+}
+
+#page-main {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+#content {
+  position: absolute;
+  display: table-cell;
+  float: left;
+  height: 100%;
+  top: 0;
+  padding: 20px;
+  width: calc(100% - #{$sidebarWidth});
+  left: $sidebarWidth;
+  overflow-y: scroll;
+}
+
+// this allows for tables with fixed headers
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table tbody > tr.highlight {
+  outline: 2px solid #79addd;
+  border-left: 3px solid #79addd;
+}
+
+.table-responsive {
+  max-height: 600px;
+  border-top: 1px solid rgb(222, 223, 224);
+  border-bottom: 1px solid rgb(222, 223, 224);
+
+  .table.table {
+    margin-bottom: 0;
+  }
+}
+
+.box-container {
+  border: 1px solid rgb(222, 223, 224);
+
+  .box-content {
+    padding: 0 20px 20px;
+
+    .row {
+      @extend .margin-top-20;
+    }
+
+    select.select-multiple {
+      height: 37px;
+
+      &.active {
+        height: 92px;
+      }
+    }
+  }
+}
+
+// the ng-invalid-invalid is for the purpose of error handling by the `input` directive
+.ng-invalid.ng-touched.ng-dirty:not(form),
+.ng-invalid-api-response:not(form),
+.ng-invalid-api-response-exists:not(form) {
+  border: 1px solid rgba(255,0,0,0.52) !important;
+  box-shadow: 0px 1px 1px 0px rgba(255,0,0,0.52);
+  padding-left: 5px;
+  // input-group-btn:last-child > .btn in bootstrap.css is z-index: 2
+  z-index: 3;
+}
+
+.label-error {
+  color: #FF0000 !important;
+
+  span {
+    color: #FF0000 !important;
+  }
+}
+
+.label-float-right {
+  float: right;
+}
+
+.input-error {
+  float: right;
+  margin-right: 6px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+  color: red;
+}
+
+p.input-group {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+// more opacity for disabled buttons
+.btn[disabled] {
+  opacity: 0.3;
+}
+
+// select, input override styles to match bootswatch paper when attribute is not used
+// matching bootswatch paper selectors for proper override without use of !important
+[contenteditable].form-control:disabled,
+input.form-control:disabled,
+input[type=text]:disabled, [type=text].form-control:disabled,
+input[type=password]:disabled, [type=password].form-control:disabled,
+input[type=email]:disabled, [type=email].form-control:disabled,
+input[type=number]:disabled, [type=number].form-control:disabled,
+input[type=tel]:disabled, [type=tel].form-control:disabled,
+textarea:disabled, textarea.form-control:disabled,
+select:disabled, select.form-control:disabled {
+  box-shadow: none;
+  border-bottom: 1px dotted #ddd;
+  background-color: #eeeeee;
+}
+
+// Multi-select dropdown bower component override styles to match bootswatch paper
+.multiselect-parent.btn-group {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  border-bottom: 1px solid #DDD;
+
+  button {
+    border: 0;
+    width: 100%;
+    box-shadow: none;
+    height: 36px;
+
+    &:hover {
+      background: none;
+    }
+  }
+
+  .caret {
+    position: absolute;
+    top: 16px;
+    right: 4px;
+  }
+
+  ul.dropdown-menu {
+    width: 100%;
+
+    li {
+      cursor: pointer;
+    }
+  }
+}
+
+// due to boxes having a gradient, we override the default ng multiselect white background and remove it
+.dropdown-toggle {
+  background: none;
+}
+
+
+#page-split {
+  position: relative;
+  width: calc(100% - #{$sidebarWidth});
+  height: 100%;
+  float: right;
+
+  #crud-first-container {
+    @extend .col-xs-12;
+    @extend .col-md-6;
+  }
+
+  #crud-second-container {
+    @extend .col-xs-12;
+    @extend .col-md-6;
+    @extend .md-margin-top-20;
+  }
+
+  #crud-third-container {
+    @extend .col-xs-12;
+    @extend .col-md-6;
+    @extend .md-margin-top-20;
+  }
+
+  // additional style for content too wide for medium views
+  #crud-first-container-lg {
+    @extend .col-xs-12;
+    @extend .col-lg-6;
+  }
+
+  #crud-second-container-lg {
+    @extend .col-xs-12;
+    @extend .col-lg-6;
+    @extend .lg-margin-top-20;
+  }
+
+  #crud-third-container-lg {
+    @extend .col-xs-12;
+    @extend .col-lg-6;
+    @extend .lg-margin-top-20;
+  }
+
+  #content, #content-map {
+    position: relative;
+    height: 100%;
+  }
+
+  #content { // by default is the entire width
+    @extend .col-xs-12;
+    left: 0;
+  }
+
+  #content-map { // by default has width of 0
+    display: none;
+    padding: 0 !important;
+  }
+
+  &.content-mode { // forms only
+    #crud-third-container,
+    #crud-third-container-lg {
+      @extend .col-split-xs-12;
+      @extend .margin-top-20;
+    }
+  }
+
+  &.split-mode { // split mode, 50/50
+    #content, #content-map {
+      @extend .col-xs-6;
+      display: block;
+
+      .map {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    #crud-first-container,
+    #crud-first-container-lg {
+      @extend .col-split-xs-12;
+    }
+
+    #crud-second-container,
+    #crud-second-container-lg {
+      @extend .col-split-xs-12;
+      @extend .margin-top-20;
+    }
+
+   #crud-third-container,
+   #crud-third-container-lg {
+      @extend .col-split-xs-12;
+      @extend .margin-top-20;
+    }
+
+    // Creates a number of additional bootstrap styles to allow switching of width when in split mode
+    // col-split-xs-12 -> col-split-xs-1
+    $num: 12;
+    @while $num > 0 {
+
+      .col-split-xs-#{$num} {
+        @extend .col-xs-#{$num};
+      }
+
+      .col-split-sm-#{$num} {
+        @extend .col-sm-#{$num};
+      }
+
+      .col-split-md-#{$num} {
+        @extend .col-md-#{$num};
+      }
+
+      .col-split-lg-#{$num} {
+        @extend .col-lg-#{$num};
+      }
+
+      $num: $num - 1;
+    }
+
+  }
+
+  // only show map
+  &.map-mode {
+    #content {
+      display: none;
+    }
+
+    #content-map {
+      @extend .col-xs-12;
+      display: block;
+    }
+  }
+
+}
+
+.feedback {
+  -webkit-box-shadow: 1px 4px 12px -3px rgba(0, 0, 0, 0.29);
+  -moz-box-shadow: 1px 4px 12px -3px rgba(0, 0, 0, 0.29);
+  box-shadow: 1px 4px 12px -3px rgba(0, 0, 0, 0.29);
+  border: 1px solid lightgrey;
+  padding: 10px;
+  width: 318px;
+}
+
+.wideFeedback {
+  @extend .feedback;
+  max-height: 300px;
+  width: 729px;
+  overflow-y: scroll;
+}
+
+.notification {
+  @extend .feedback;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  &.notification-responsive {
+    height: auto;
+    width: auto;
+    display: inline-block;
+  }
+}
+
+.alert.alert-info,
+.infoAlert {
+  background-color: #2196f3;
+  font-weight: bold;
+}
+
+.alert h4 small {
+  color: inherit;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.sortable li {
+  cursor: move;
+}
+.sortable-ghost {
+  background-color: #e2f0f8;
+}
+
+.pre-wordwrap {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+#searchicon:after {
+  content: "\f002";
+  font-family: FontAwesome;
+  position: absolute;
+  font-size: 13px;
+  color: #666666;
+  left: 35px;
+}
+
+#search {
+  padding-right: 5px;
+  padding-left: 20px;
+}
+
+.disabled-captcha div[vc-recaptcha] > div {
+  z-index: 1000;
+  background-color: lightgrey;
+  opacity: 0.6;
+  pointer-events: none;
+}

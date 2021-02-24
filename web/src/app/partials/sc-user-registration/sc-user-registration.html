@@ -1,0 +1,97 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="box-container">
+            <box-header icon="'user'" title="User Registration"></box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <label translate for="userlogin">User Login *</label>
+                            <input id="userlogine" name="login" class="form-control" type="text" minlength="4" ng-model="editable.login" required/>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <label translate for="username">User Name *</label>
+                            <input id="username" name="name" class="form-control" type="text" maxlength="100" ng-model="editable.name" required/>
+                        </div>
+                    </div>
+                    <password reset-pass="resetPass" error="true" required="true" password="editable.password"></password>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <label translate for="email-address">Email Address *</label>
+                            <input id="email-address" name="email" class="form-control" type="email" ng-model="editable.email" 
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]+$" required/>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <label translate for="sms_number">SMS Number</label>
+                            <input id="sms_number" name="sms_number" class="form-control" type="text" ng-model="editable.sms_number" 
+                                ng-change="!editable.sms_number ? editable.sms_number = null : editable.sms_number"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <label translate for="contact-information">Contact Information *</label>
+                            <input id="contact-information" name="contactInformation" class="form-control" type="text" ng-model="editable.contact_information"
+                                required/>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <label translate for="job-title">Job Title</label>
+                            <input id="job-title" name="jobTitle" class="form-control" type="text" ng-model="editable.job_title" />
+                        </div>
+                    </div>
+
+                    <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                        <!-- Error Handling -->
+                    </ng-include>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button translate type="button" ng-disabled="processing === true" class="btn btn-primary btn-reset" 
+                                ng-click="resetPassword(); reset(); form.$setUntouched();">
+                                Clear
+                            </button>
+                            <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid || !showButton || processing === true" 
+                                ng-click="createOverride(editable); form.$setUntouched();">
+                                Create
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Recaptcha Widget -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <recaptcha ng-class="{'disabled-captcha': form.$invalid}"></recaptcha>
+                    </div>
+                </div>
+
+                <div class="row" ng-show="userCreated && requireEmail">
+                    <div class="col-xs-6">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <p class="wideFeedback">
+                                    <span translate>User has been created, please verify it within 24 hours by clicking the activation
+                                        link that has been send to your email</span>
+                                    <span class="btn btn-xs pull-right" ng-click="userCreated = false">X</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" ng-show="userCreated && !requireEmail">
+                    <div class="col-xs-6">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <p class="wideFeedback">
+                                    <span translate>User has been created</span>
+                                    <span class="btn btn-xs pull-right" ng-click="userCreated = false">X</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

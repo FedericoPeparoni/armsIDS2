@@ -1,0 +1,150 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box-container">
+      <box-header page-name="management.transaction-workflow-management" icon="'exchange'"
+        title="{{ 'Transaction Approval Workflow Steps' | translate }}"></box-header>
+      <div class="box-content">
+        <div class="row">
+          <div class="col-xs-3">
+            <label translate for="steps">Number of Steps</label>
+            <select ng-disabled="!hasPermission('approval_workflow_modify')" id="steps" name="steps" class="form-control" 
+              ng-model="newSteps" ng-options="l as l for l in [2,3,4,5,6,7,8,9]">
+            </select>
+          </div>
+          <div class="col-xs-3">
+            <button ng-disabled="!hasPermission('approval_workflow_modify')"
+              translate class="btn btn-primary" property="upper_limit" popup
+              popup-text="Are you sure? This will delete any existing Transaction Workflow Steps."
+              popup-confirm="createNewWorkflow(newSteps);">
+              Create
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" style="margin-top: 20px;">
+  <div class="col-xs-12">
+    <div class="box-container">
+      <box-header ng-if="!createNew" icon="'exchange'" title="{{ 'Edit Existing Transaction Approval Workflow Steps' | translate }}"></box-header>
+      <box-header ng-if="createNew" icon="'exchange'" title="{{ 'Create New Transaction Approval Workflow Steps' | translate }}"></box-header>
+      <div class="box-content">
+        <div class="row">
+          <div class="col-xs-8">
+            <button ng-disabled="list.length > 8 || !hasPermission('approval_workflow_modify')" translate class="btn btn-primary" ng-click="addNewLevel();">
+              Add Level
+            </button>
+            <button ng-disabled="list.length < 3 || !hasPermission('approval_workflow_modify')" translate class="btn btn-primary" ng-click="removeExistingLevel();">
+              Remove Level
+            </button>
+            <button ng-disabled="!hasPermission('approval_workflow_modify')" translate class="btn btn-primary" ng-click="refreshAll();">
+              Reload Levels
+            </button>
+          </div>
+          <div class="col-xs-4">
+            <label translate for="aircraft-type">Require Approval Document</label>
+            <select id="approval_document_level" name="approval_document_level" class="form-control" ng-model="approval_document_level"
+              ng-options="item as item.approval_name for item in list track by item.level"
+              ng-disabled="!hasPermission('approval_workflow_modify')"
+              ng-change="updateApprovalDocumentLevel(approval_document_level)">
+              <option value="" translate>None Required</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="table-responsive">
+              <form novalidate action="#" name="form" onsubmit="return false">
+                <fieldset ng-disabled="!hasPermission('approval_workflow_modify')">
+                  <div class="table-responsive" export-table sort-query-string="getSortQueryString()" service="transactionsWorkflowService" 
+                    query-string="filterParameters" back-end-export="true">
+                    <table class="table table-striped table-bordered table-hover table-condensed">
+                      <thead>
+                        <tr>
+                          <th translate class="text-center text-nowrap">Level</th>
+                          <th translate class="text-center text-nowrap">Status Type</th>
+                          <th translate class="text-center text-nowrap">Approval Name</th>
+                          <th translate class="text-center text-nowrap">Approval Group</th>
+                          <th translate class="text-center text-nowrap">Threshold Amount</th>
+                          <th translate class="text-center text-nowrap">Threshold Currency</th>
+                          <th translate class="text-center text-nowrap">Approval Under</th>
+                          <th translate class="text-center text-nowrap">Approval Equal Or Over</th>
+                          <th translate class="text-center text-nowrap">Rejected</th>
+                          <th translate class="text-center text-nowrap">Delete Rejected</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-repeat="item in list track by $index" ng-class="{'highlight--danger': erroredLevel.includes(item.level) }">
+                          <td class="text-center">{{ item.level }}</td>
+                          <td class="text-center">{{ item.status_type | translate }}</td>
+                          <td class="text-justify">
+                            <input id="approval_name" name="approval_name" class="form-control" ng-model="item.approval_name" type="text" />
+                          </td>
+                          <td class="text-justify">
+                            <select id="approval_group" name="approval_group" class="form-control" ng-model="item.approval_group.id" 
+                              ng-options="role.id as role.name for role in roles" ng-change="updateItemData(roles, 'approval_group', item.approval_group.id, $index);">
+                            </select>
+                          </td>
+                          <td class="text-right">
+                            <input ng-if="$index < steps-1" id="threshold_amount" name="threshold_amount" class="form-control" ng-model="item.threshold_amount"
+                              type="number" min="0" />
+                          </td>
+                          <td class="text-justify">
+                            <select ng-if="$index < steps-1" id="threshold_currency" name="threshold_currency" class="form-control" ng-model="item.threshold_currency.id"
+                              ng-options="c.id as ((c.currency_name | translate) + ' (' + c.currency_code + ')') for c in fullCurrencyList | filter:{active:true}"
+                              ng-change="updateItemData(fullCurrencyList, 'threshold_currency', item.threshold_currency.id, $index);">
+                            </select>
+                          </td>
+                          <td class="text-justify">
+                            <select ng-if="$index < steps-1 && list[$index].threshold_amount >= 0" style="width: 75%;" id="approval_under_level" name="approval_under_level"
+                              class="form-control" ng-model="item.approval_under_level" ng-options="l.level as l.approval_name for l in list | hideLower: $index"
+                              ng-change="updateItemApproval('approval_under_level', item.approval_under_level, $index);">
+                            </select>
+                          </td>
+                          <td class="text-justify">
+                            <select ng-if="$index < steps-1 && list[$index].threshold_amount >= 0" id="approval_over_level" name="approval_over_level"
+                              class="form-control" ng-model="item.approval_over_level" ng-options="l.level as l.approval_name for l in list | hideLower: $index"
+                              ng-change="updateItemApproval('approval_over_level', item.approval_over_level, $index);">
+                            </select>
+                          </td>
+                          <td class="text-justify">
+                            <select id="rejected_level" name="rejected_level" class="form-control" ng-model="item.rejected_level"
+                              ng-options="l.level as l.approval_name for l in list | hideHigher: $index"
+                              ng-change="updateItemApproval('rejected_level', item.rejected_level, $index);" ng-disabled="item.delete === true">
+                            </select>
+                          </td>
+                          <td class="text-center">
+                            <input type="checkbox" id="delete" name="delete" ng-model="item.delete" ng-change="item.rejected_level = null">
+                          </td>
+                        </tr>
+                        <tr ng-show="!list.length">
+                          <td class="text-center" colspan="10" translate>There are no Transaction Approval Workflow Steps</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <button ng-if="createNew" ng-disabled="!list.length || !hasPermission('approval_workflow_modify')" 
+              translate class="btn btn-primary" ng-click="createWorkflowItems();">Save</button>
+            <button ng-if="!createNew" ng-disabled="!hasPermission('approval_workflow_modify')" 
+              translate class="btn btn-primary" ng-click="updateWorkflowItems();">Save</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+              <!-- Error Handling -->
+            </ng-include>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

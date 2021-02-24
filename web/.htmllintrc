@@ -1,0 +1,23 @@
+{
+  "attr-name-style": "none",
+  "attr-no-dup": true,
+  "attr-no-unsafe-char": false,
+  "attr-req-value": false,
+  "attr-quote-style": "double",
+  "class-no-dup": true,
+  "focusable-tabindex-style": true,
+  "fig-req-figcaption": true,
+  "id-class-style": "dash",
+  "id-no-dup": true,
+  "img-req-alt": true,
+  "img-req-src": true,
+  "indent-style": "spaces",
+  "indent-width-cont": true,
+  "label-req-for": false,
+  "line-end-style": "lf",
+  "tag-bans": ["style", "b"],
+  "tag-close": true,
+  "tag-name-lowercase": true,
+  "tag-name-match": true,
+  "tag-self-close": "never"
+}

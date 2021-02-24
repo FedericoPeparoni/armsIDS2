@@ -1,0 +1,150 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <div class="box-container">
+            <box-header toggle="toggle" page-name="operations.nominal-route-management" icon="'road'"
+                title="{{ 'Nominal Routes' | translate }}"></box-header>
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="textFilter" empty-to-null
+                            ng-keyup="$event.keyCode == 13 && refresh()"/>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <button translate ng-click="refresh()"
+                            class="btn btn-primary pull-right">Refresh</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table query-string="filterParameters"
+                            sort-query-string="getSortQueryString()" back-end-export="true" service="nominalRoutesService">
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString"
+                                table-sort="refresh()">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-nowrap" sort="type">Type</th>
+                                        <th translate class="text-nowrap" sort="pointa">Point A</th>
+                                        <th translate class="text-nowrap" sort="pointb">Point B</th>
+                                        <th translate class="text-nowrap" sort="biDirectional">Bidirectional Route</th>
+                                        <th translate class="text-nowrap" sort="status">Status</th>
+                                        <th translate class="text-nowrap text-right" sort="nominalDistance">Nominal Distance</th>
+                                        <th translate class="text-nowrap text-right" sort="nominalRouteFloor">Nominal Route Floor</th>
+                                        <th translate class="text-nowrap text-right" sort="nominalRouteCeiling">Nominal Route Ceiling</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="edit(item)" ng-repeat="item in list" ng-class="{'highlight': editable.id === item.id}">
+                                        <td translate>{{ item.type }}</td>
+                                        <td>{{ item.pointa }}</td>
+                                        <td>{{ item.pointb }}</td>
+                                        <td class="text-nowrap">{{ item.bi_directional | translate }}</td>
+                                        <td>{{ (item.status.toUpperCase() | translate).toLowerCase() }}</td>
+                                        <td class="text-right">{{ item.nominal_distance | number: 2 }}</td>
+                                        <td class="text-right">{{ item.nominal_route_floor | number: 2 }}</td>
+                                        <td class="text-right">{{ item.nominal_route_ceiling | number: 2 }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td class="text-center" colspan="8" translate>There are no Nominal Routes data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <pagination-display></pagination-display>
+
+                        <ul uib-pagination total-items="pagination.total_elements"
+                            ng-change="refresh()"
+                            max-size="::20" items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+            <box-header ng-show="editable.id === null" icon="'road'" title="{{ 'Create a Nominal Route' | translate }}"></box-header>
+            <box-header ng-show="editable.id !== null" icon="'road'" title="{{ 'Edit a Nominal Route' | translate }}"></box-header>
+            <div class="box-content">
+                <form action="#" name="form" onsubmit="return false">
+                    <fieldset ng-disabled="!hasPermission('nominal_route_modify')">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="type">Type *</label>
+                                <select id="type" name="type" class="form-control" ng-model="editable.type" ng-options="item.name as (item.name | translate) for item in routeTypes" required>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="nominal_distance">Nominal Distance *</label>
+                                <input id="nominal_distance"  name="nominalDistance" class="form-control" type="number" step="0.01" min="0" ng-model="editable.nominal_distance" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="pointa">Point A *</label>
+                                <input id="pointa" name="pointa" class="form-control" type="text" ng-model="editable.pointa" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="pointb">Point B *</label>
+                                <input id="pointb" name="pointb" class="form-control" type="text" ng-model="editable.pointb" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="bi-directional">{{'Bidirectional Route' | translate}} *</label>
+                                <boolean-text id="bi-directional" name="biDirectional" class="form-control" 
+                                    ng-model="editable.bi_directional" required>
+                                </boolean-text>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="nominal-route-floor">{{'Nominal Route Floor' | translate}} *</label>
+                                <input id="nominal-route-floor" name="nominalRouteFloor" class="form-control" 
+                                    type="number" step="0.01" min="0" max="999" ng-model="editable.nominal_route_floor" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="nominal-route-ceiling">{{'Nominal Route Ceiling' | translate}} *</label>
+                                <input id="nominal-route-ceiling"  name="nominalRouteCeiling" class="form-control" type="number" 
+                                    step="0.01" min="0" max="999" ng-model="editable.nominal_route_ceiling" required/>
+                            </div>
+                        </div>
+
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary btn-reset" translate ng-click="reset(); form.$setUntouched();">
+                                    Clear
+                                </button>
+                                <button class="btn btn-primary btn-update" translate ng-show="editable.id !== null"
+                                    ng-disabled="form.$invalid" popup popup-text="Are you sure you want to update this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                    popup-confirm="update(editable, editable.id); form.$setUntouched();">
+                                    Update
+                                </button>
+                                <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null"
+                                    popup popup-text="Are you sure you want to delete this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
+                                    popup-confirm="delete(editable.id); form.$setUntouched()">
+                                    Delete
+                                </button>
+                                <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid"
+                                    ng-show="editable.id === null"
+                                    ng-click="create(editable); form.$setUntouched();">
+                                    Create
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

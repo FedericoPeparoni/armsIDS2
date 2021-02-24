@@ -1,0 +1,154 @@
+<div class="col-xs-12">
+    <div class="table-responsive fm-table" ng-class="{ 'show-duplicate-missing': showDuplicateMissing }"
+        export-table service="flightMovementManagementService"
+        box-header="flightMovementTableCtrl.exportTableOptions.boxHeader" back-end-export="true"
+        query-string="filterParameters" sort-query-string="getSortQueryString()" endpoint-param={{flightMovementTableCtrl.exportTableOptions.endpoint}}>
+
+        <table class="table table-fixed table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString"
+                table-sort="refreshOverride()" disable-sort="listFlightMovements || showDuplicateMissing ? true : false" canned-sort="cannedSort">
+            <thead>
+                <tr>
+                    <th ng-if="!listFlightMovements" class="text-center text-nowrap middle "><span translate>Select</span></th>
+                    <th translate class="text-center text-nowrap middle ">Action</th>
+                    <th translate class="text-center text-nowrap middle" sort="dateOfFlight">Day of Flight</th>
+                    <th translate class="text-center text-nowrap middle" sort="depTime">Dep Time</th>
+                    <th translate class="text-center text-nowrap middle" sort="{{ showActualDepDestAd ? 'actualDepAd' : 'depAd' }}">Dep Ad</th>
+                    <th translate class="text-center text-nowrap middle" sort="{{ showActualDepDestAd ? 'actualDestAd' : 'destAd' }}">Dest Ad</th>
+                    <th translate class="text-center text-nowrap middle" sort="flightId">Flight Id</th>
+                    <th translate class="text-center text-nowrap middle" sort="item18RegNum">Reg Number</th>
+                    <th translate class="text-center text-nowrap middle" sort="account.name">Account Name</th>
+                    <th translate class="text-center text-nowrap middle" sort="status">Status</th>
+                    <th translate class="text-center text-nowrap middle" sort="aircraftType">A/C Type</th>
+                    <th translate class="text-center text-nowrap middle" sort="wakeTurb">WTC</th>
+                    <th class="text-center text-nowrap middle" sort="actualMtow">
+                        <span>{{ 'MTOW' | translate }}&nbsp;({{ flightMovementTableCtrl.mtowUnitOfMeasure  | translate }})</span></th>
+                    <th translate class="text-center text-nowrap middle" sort="flightCategoryType">Type</th>
+                    <th translate class="text-center text-nowrap middle" sort="flightCategoryNationality">Nationality</th>
+                    <th translate class="text-center text-nowrap middle" sort="flightCategoryScope">Scope</th>
+                    <th translate class="text-center text-nowrap middle" sort="cruisingSpeedOrMachNumber">Speed</th>
+                    <th translate class="text-center text-nowrap middle" sort="flightRules">Flight Rules</th>
+                    <th translate class="text-center text-nowrap middle" sort="flightCategoryScope">Flight Type</th>
+                    <th translate class="text-center text-nowrap middle" sort="flightmovementCategoryName">Category Name</th>
+                    <th translate class="text-center text-nowrap middle">Blacklisted</th>
+                    <th translate class="text-center text-nowrap middle" sort="enrouteChargesBasis">Enroute Basis</th>
+                    <th translate class="text-center text-nowrap middle" sort="billableEntryPoint">Entry Point</th>
+                    <th translate class="text-center text-nowrap middle" sort="billableExitPoint">Exit Point</th>
+                    <th translate class="text-center text-nowrap middle" sort="entryTime">Entry Time</th>
+                    <th translate class="text-center text-nowrap middle" sort="exitTime">Exit Time</th>
+                    <th translate class="text-center text-nowrap middle" sort="flightLevel">Flight Level</th>
+                    <th class="text-center text-nowrap middle" sort="billableCrossingDist">
+                        {{ 'Billable Cros Dist'  | translate }} &nbsp;({{ flightMovementTableCtrl.distanceUnitOfMeasure | translate }})</th>
+                    <th translate class="text-center text-nowrap middle" sort="enrouteCharges">Enroute Charges</th>
+                    <th translate class="text-center text-nowrap middle">Enroute Charges Currency</th>
+                    <th translate class="text-center text-nowrap middle" sort="approachCharges">
+                        {{ flightMovementTableCtrl.approachLabel }}
+                    </th>
+                    <th translate class="text-center text-nowrap middle">
+                        {{ flightMovementTableCtrl.approachLabel + ' Currency' }}
+                    </th>
+                    <th translate class="text-center text-nowrap middle" sort="aerodromeCharges" ng-show="::!flightMovementTableCtrl.isADAP">Aerodrome</th>
+                    <th translate class="text-center text-nowrap middle" ng-show="::!flightMovementTableCtrl.isADAP">Aerodrome Currency</th>
+                    <th class="text-center text-nowrap middle" sort="domesticPassengerCharges">
+                        <span>{{ 'Dom PAX' | translate }}&nbsp;({{ flightMovementTableCtrl.domCurrencyInHeader | translate }})</span></th>
+                    <th class="text-center text-nowrap middle" sort="internationalPassengerCharges">
+                        <span>{{ 'Intl PAX' | translate }}&nbsp;({{ flightMovementTableCtrl.intlCurrencyInHeader | translate }})</span></th>
+                    <th translate class="text-center text-nowrap middle" sort="lateArrivalCharges" ng-if="shouldShowCharge('arrival')">Late Arr</th>
+                    <th translate class="text-center text-nowrap middle" ng-if="shouldShowCharge('arrival')">Late Arr Currency</th>
+                    <th translate class="text-center text-nowrap middle" sort="lateDepartureCharges" ng-if="shouldShowCharge('departure')">Late Dep</th>
+                    <th translate class="text-center text-nowrap middle" ng-if="shouldShowCharge('departure')">Late Dep Currency</th>
+                    <th translate class="text-center text-nowrap middle" sort="extendedHoursSurcharge" ng-if="shouldShowCharge('extendedHours')">Extended Hours</th>
+                    <th translate class="text-center text-nowrap middle" ng-if="shouldShowCharge('extendedHours')">Extended Hours Currency</th>
+                    <th class="text-center text-nowrap middle" sort="parkingCharges" ng-if="shouldShowCharge('parking')">
+                        <span>{{ 'Parking' | translate }}&nbsp;({{ flightMovementTableCtrl.anspCurrency | translate }})</span></th>
+                    <th class="text-center text-nowrap middle" sort="prepaidAmount">
+                        <span translate>Prepaid</span>
+                    </th>
+                    <th class="text-center text-nowrap middle" sort="fplCrossingDistance">
+                        <span>{{ 'Sched Dist' | translate }}&nbsp;({{ flightMovementTableCtrl.distanceUnitOfMeasure | translate }})</span></th>
+                    <th class="text-center text-nowrap middle" sort="radarCrossingDistance">
+                        <span>{{ 'Radar Dist' | translate }}&nbsp;({{ flightMovementTableCtrl.distanceUnitOfMeasure | translate }})</span></th>
+                    <th class="text-center text-nowrap middle" sort="nominalCrossingDistance">
+                        <span>{{ 'Nominal Dist' | translate }}&nbsp;({{ flightMovementTableCtrl.distanceUnitOfMeasure | translate }})</span></th>
+                    <th class="text-center text-nowrap middle" sort="atcCrossingDistance">
+                        <span>{{ 'ATC Dist' | translate }}&nbsp;({{ flightMovementTableCtrl.distanceUnitOfMeasure | translate }})</span></th>
+                    <th class="text-center text-nowrap middle" sort="towerCrossingDistance">
+                        <span>{{ 'Tower Dist' | translate }}&nbsp;({{ flightMovementTableCtrl.distanceUnitOfMeasure | translate }})</span></th>
+                    <th class="text-center text-nowrap middle" sort="userCrossingDistance">
+                        <span>{{ 'User Dist' | translate }}&nbsp;({{ flightMovementTableCtrl.distanceUnitOfMeasure | translate }})</span></th>
+                    <th translate class="text-center text-nowrap middle">Resolution Errors</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-click="edit(item); markManualInputs(item);"
+                    ng-repeat="item in {true: listFlightMovements.content, false: list}[listFlightMovements !== undefined] | filter: textFilter"
+                    ng-class="{
+                        'highlight': editable.id === item.id,
+                        'marked-duplicate': item.marked_as_duplicate,
+                        'marked-missing-before-this': item.marked_as_missing_before_this,
+                        'marked-first-missing': item.marked_as_first_missing,
+                        'marked-last-missing': item.marked_as_last_missing }">
+                    <td ng-if="!listFlightMovements" class="text-center">
+                        <input ng-click="countSelected()" type="checkbox" id="checkbox_{{item.id}}" ng-model="selectedFlightMovements[item.id]" ng-checked="selectedFlightMovements[item.id]" />
+                    </td>
+                    <td class="text-center ">
+                        <button ng-click="showFlightMovementOnMap(item)" class="btn btn-primary btn-sm">
+                            <i class="fa fa-map-pin"></i>
+                        </button>
+                    </td>
+                    <td class="middle text-nowrap">{{ item.date_of_flight | dateConverter }}</td>
+                    <td class="middle">{{ item.dep_time }}</td>
+                    <td class="middle">{{ showActualDepAd ? item.actual_dep_ad : item.dep_ad }}</td>
+                    <td class="middle">{{ showActualDestAd ? item.actual_dest_ad : item.dest_ad }}</td>
+                    <td class="middle">{{ item.flight_id }}</td>
+                    <td class="middle">{{ item.item18_reg_num }}</td>
+                    <td class="middle text-nowrap">{{ item.associated_account }}</td>
+                    <td class="middle">{{ item.status | translate }}</td>
+                    <td class="middle text-center">{{ item.aircraft_type }}</td>
+                    <td class="middle text-center">{{ item.wake_turb | translate }}</td>
+                    <td class="text-right middle">{{ item.actual_mtow | weightConverter }}</td>
+                    <td class="middle text-center">{{ item.flight_category_type  | translate}}</td>
+                    <td class="middle text-center">{{ item.flight_category_nationality | translate}}</td>
+                    <td class="middle text-center">{{ item.flight_category_scope | translate}}</td>
+                    <td class="middle text-center">{{ item.cruising_speed_or_mach_number }}</td>
+                    <td class="middle text-center">{{ item.flight_rules }}</td>
+                    <td class="middle text-center">{{ item.flight_type }}</td>
+                    <td class="middle text-nowrap text-center text-capitalize">{{ (item.flightmovement_category_name | translate).toLowerCase() }}</td>
+                    <td class="middle text-center">{{ item.associated_account_black_listed_indicator && !item.associated_account_black_listed_override ? ('Yes'| translate) : ('No' | translate) }}</td>
+                    <td class="middle text-nowrap text-capitalize">{{ item.enroute_charges_basis | translate }}</td>
+                    <td class="middle text-nowrap">{{ item.billable_entry_point }}</td>
+                    <td class="middle text-nowrap">{{ item.billable_exit_point }}</td>
+                    <td class="middle text-nowrap">{{ item.entry_time | dateConverter: 'HH:mm' }}</td>
+                    <td class="middle text-nowrap">{{ item.exit_time | dateConverter: 'HH:mm' }}</td>
+                    <td class="middle text-nowrap">{{ item.flight_level }}</td>
+                    <td class="text-right middle">{{ item.billable_crossing_dist | distanceConverter | number: 2 }}</td>
+                    <td class="text-right middle">{{ item.enroute_charges | number: 2 }}</td>
+                    <td class="text-right middle">{{item.enroute_charges != null ? item.enroute_result_currency.currency_code : '' }}</td>
+                    <td class="text-right middle">{{ item.approach_charges | number: 2 }}</td>
+                    <td class="text-right middle">{{ item.approach_charges != null ? item.approach_charges_currency.currency_code : '' }}</td>
+                    <td class="text-right middle" ng-if="::!flightMovementTableCtrl.isADAP">{{ item.aerodrome_charges | number: 2 }}</td>
+                    <td class="text-right middle" ng-if="::!flightMovementTableCtrl.isADAP">{{ item.aerodrome_charges != null ? item.aerodrome_charges_currency.currency_code : '' }}</td>
+                    <td class="text-right middle">{{ item.domestic_passenger_charges | number: 2 }}</td>
+                    <td class="text-right middle">{{ item.international_passenger_charges | number: 2 }}</td>
+                    <td class="text-right middle" ng-if="shouldShowCharge('arrival')">{{ item.late_arrival_charges | number: 2 }}</td>
+                    <td class="text-right middle" ng-if="shouldShowCharge('arrival')">{{ item.late_arrival_charges != null ? item.late_arrival_departure_charges_currency.currency_code : '' }}</td>
+                    <td class="text-right middle" ng-if="shouldShowCharge('departure')">{{ item.late_departure_charges | number: 2 }}</td>
+                    <td class="text-right middle" ng-if="shouldShowCharge('departure')">{{ item.late_departure_charges != null ? item.late_arrival_departure_charges_currency.currency_code : '' }}</td>
+                    <td class="text-right middle" ng-if="shouldShowCharge('extendedHours')">{{ item.extended_hours_surcharge | number: 2 }}</td>
+                    <td class="text-right middle" ng-if="shouldShowCharge('extendedHours')">{{ item.extended_hours_surcharge != null ? item.extended_hours_surcharge_currency.currency_code : '' }}</td>
+                    <td class="text-right middle" ng-if="shouldShowCharge('parking')">{{ item.parking_charges | number: 2 }}</td>
+                    <td class="text-right middle">{{ item.prepaid_amount | number: 2 }}</td>
+                    <td class="text-right middle">{{ item.fpl_crossing_distance | distanceConverter | number: 2 }}</td>
+                    <td class="text-right middle">{{ item.radar_crossing_distance | distanceConverter | number: 2 }}</td>
+                    <td class="text-right middle">{{ item.nominal_crossing_distance | distanceConverter | number: 2 }}</td>
+                    <td class="text-right middle">{{ item.atc_crossing_distance | distanceConverter | number: 2 }}</td>
+                    <td class="text-right middle">{{ item.tower_crossing_distance | distanceConverter | number: 2 }}</td>
+                    <td class="text-right middle">{{ item.user_crossing_distance | distanceConverter | number: 2 }}</td>
+                    <td class="text-right middle">{{ translateResolutionErrors(item.resolution_errors_set) }}</td>
+                </tr>
+                <tr ng-show="!list.length">
+                    <td colspan="44" translate>There are no Flight Movements data</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

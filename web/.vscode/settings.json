@@ -1,0 +1,9 @@
+{
+    "files.eol": "\n",
+    "sonarlint.connectedMode.project": {
+        "serverId": "sonar.idscorporation.ca",
+        "projectKey": "ca.ids.abms:web"
+    },
+    "typescript.tsdk": "./node_modules/typescript/lib",
+    "vsicons.presets.angular": true
+}

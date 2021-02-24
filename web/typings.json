@@ -1,0 +1,22 @@
+{
+  "name": "abmsWeb",
+  "version": false,
+  "globalDependencies": {
+    "angular": "github:DefinitelyTyped/DefinitelyTyped/angularjs/angular.d.ts#bb051830df88f5a55dcf06b7fe85bf6b62cc97f2",
+    "angular-cookies": "github:DefinitelyTyped/DefinitelyTyped/angularjs/angular-cookies.d.ts#bb051830df88f5a55dcf06b7fe85bf6b62cc97f2",
+    "angular-mocks": "github:DefinitelyTyped/DefinitelyTyped/angularjs/angular-mocks.d.ts#bb051830df88f5a55dcf06b7fe85bf6b62cc97f2",
+    "angular-sanitize": "github:DefinitelyTyped/DefinitelyTyped/angularjs/angular-sanitize.d.ts#bb051830df88f5a55dcf06b7fe85bf6b62cc97f2",
+    "angular-translate": "github:DefinitelyTyped/DefinitelyTyped/angular-translate/angular-translate.d.ts#bb051830df88f5a55dcf06b7fe85bf6b62cc97f2",
+    "angular-ui-router": "github:DefinitelyTyped/DefinitelyTyped/angular-ui-router/angular-ui-router.d.ts#bb051830df88f5a55dcf06b7fe85bf6b62cc97f2",
+    "es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504",
+    "jasmine": "github:DefinitelyTyped/DefinitelyTyped/jasmine/jasmine.d.ts#bb051830df88f5a55dcf06b7fe85bf6b62cc97f2",
+    "jquery": "github:DefinitelyTyped/DefinitelyTyped/jquery/jquery.d.ts#bb051830df88f5a55dcf06b7fe85bf6b62cc97f2",
+    "jspdf": "registry:dt/jspdf#1.1.135+20160921164505",
+    "karma-jasmine": "github:DefinitelyTyped/DefinitelyTyped/karma-jasmine/karma-jasmine.d.ts#bb051830df88f5a55dcf06b7fe85bf6b62cc97f2",
+    "moment": "github:DefinitelyTyped/DefinitelyTyped/moment/moment.d.ts#bb051830df88f5a55dcf06b7fe85bf6b62cc97f2",
+    "moment-node": "github:DefinitelyTyped/DefinitelyTyped/moment/moment-node.d.ts#bb051830df88f5a55dcf06b7fe85bf6b62cc97f2",
+    "restangular": "registry:dt/restangular#1.5.0+20160921174330",
+    "ui-bootstrap": "github:DefinitelyTyped/DefinitelyTyped/angular-ui-bootstrap/angular-ui-bootstrap.d.ts#bb051830df88f5a55dcf06b7fe85bf6b62cc97f2",
+    "xlsx": "registry:dt/xlsx#0.0.0+20161114235008"
+  }
+}

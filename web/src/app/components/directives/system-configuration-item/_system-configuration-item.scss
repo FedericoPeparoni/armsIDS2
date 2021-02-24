@@ -1,0 +1,18 @@
+.form-group.system-configuration-item-group {
+    margin-bottom: 0;
+
+    button.btn-item-verify {
+        overflow: hidden;
+
+        > .fa.ng-hide {
+            display: inline-block !important;
+            opacity: 0;
+            width: 0;
+        }
+
+        > .fa {
+            transition: width 200ms ease-in-out 400ms, opacity 200ms ease-in-out 400ms;
+            width: 13px;
+        }
+    }
+}

@@ -1,0 +1,117 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <div class="box-container">
+            <box-header toggle="toggle" page-name="charges-and-formulas.air-navigation-charges-schedule-managment" icon="'cloud'"
+                title="{{ 'Air Navigation Charges Schedules' | translate }}">
+            </box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="textFilter" empty-to-null 
+                            ng-keyup="$event.keyCode == 13 && refreshOverride()"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table sort-query-string="getSortQueryString()" query-string="filterParameters"
+                            service="airNavigationChargesService" back-end-export="true">
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" 
+                                table-sort="refreshOverride()">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-nowrap text-center ">Actions</th>
+                                        <th translate class="text-nowrap" sort="chargesType">Schedule</th>
+                                        <th translate class="text-nowrap" sort="aerodromeCategoryName">Aerodrome Category</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="form.$setUntouched(); edit(item); editable.index = $index" 
+                                        ng-repeat="item in list" ng-class="{'highlight': editable.index === $index}"
+                                        ng-hide="!shouldShowCharge('parking') && item.charges_type.includes('parking')">
+                                        <td class="text-center ">
+                                            <download-oauth2 title="{{ 'Download air charges spreadsheet' | translate }}" 
+                                                url="/air-navigation-charges-schedules/{{item.id}}/{{item.charges_type}}/download?"
+                                                error="$parent.error">
+                                            </download-oauth2>
+                                            <button title="{{ 'Preview air charges spreadsheet' | translate }}" 
+                                                ng-click="preview([item.id, item.charges_type])" class="btn btn-sm btn-primary">
+                                                <i class="fa fa-file-text-o"></i>
+                                            </button>
+                                        </td>
+                                        <td translate class="word-wrap-break-word"> {{ item.charges_type }}</td>
+                                        <td translate class="word-wrap-break-word"> {{ item.aerodrome_category_name }}</td>
+                                        <tr ng-show="!list.length">
+                                            <td translate class="text-center" colspan="3">There are no Air Navigation Charges Schedules data</td>
+                                        </tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refreshOverride()"
+                            max-size="::20" items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+
+                    <div ng-show="!toggle" class="row col-xs-12">
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+            <box-header icon="'cloud'" title="{{ 'Upload an Air Navigation Charge File' | translate }}"></box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <fieldset ng-disabled="!hasPermission('charges_schedule_modify')">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="charges_type">Schedule *</label>
+                                <select id="charges_type" class="form-control" ng-model="editable.charges_type" ng-options="item.value as (item.name | translate) for item in chargeTypes"
+                                    required>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="aerodrome_category_id">Aerodrome Category *</label>
+                                <select id="aerodrome_category_id" class="form-control" ng-model="editable.aerodrome_category_id" ng-options="item.id as (item.category_name | translate) for item in aerodromeCategoryList"
+                                    required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <ng-include src="'app/angular-ids-project/src/helpers/controllers/crud-file-handler/crud-file-handler.template.html'"></ng-include>
+                            </div>
+                        </div>
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'"></ng-include>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary btn-reset" translate ng-click="reset(); form.$setUntouched();">
+                                    Clear
+                                </button>
+                                <button class="btn btn-primary btn-create" translate ng-disabled="!editable.charges_type || !editable.aerodrome_category_id || !editable.document_filename || !editable.document"
+                                    ng-show="editable.id === null" ng-click="upload('PUT', [editable.aerodrome_category_id, editable.charges_type]); form.$setUntouched(); reset();">
+                                    Create
+                                </button>
+                                <button class="btn btn-primary btn-update" translate ng-disabled="!editable.charges_type || !editable.aerodrome_category_id || !editable.document_filename || !editable.document"
+                                    ng-show="editable.id !== null" ng-click="upload('PUT', [editable.aerodrome_category_id, editable.charges_type]); form.$setUntouched(); reset();">
+                                    Update
+                                </button>
+                                <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null" popup popup-text="Are you sure you want to delete this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on delete" popup-confirm="deleteFile([ editable.id + '/' + editable.charges_type ]); form.$setUntouched();">
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

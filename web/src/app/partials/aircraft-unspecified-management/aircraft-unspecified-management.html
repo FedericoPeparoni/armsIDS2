@@ -1,0 +1,113 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <div class="box-container">
+            <box-header toggle="toggle" page-name="operations.unspecified-aircraft-type-management" icon="'paper-plane-o'" title="{{ 'Unspecified Aircraft Types' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="textFilter"
+                        ng-keyup="$event.keyCode == 13 && refresh()" />
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <button translate ng-click="refresh()" class="btn btn-primary pull-right">Refresh</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" query-string="filterParameters"
+                            sort-query-string="getSortQueryString()" export-table sorted="false" back-end-export="true"
+                            service="aircraftUnspecifiedManagementService">
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" 
+                                table-sort="refresh()">
+                                <thead>
+                                    <tr>
+                                        <th translate sort="textIdentifier">Text Identifier</th>
+                                        <th translate sort="name">Name</th>
+                                        <th translate sort="aircraftType">Aircraft Type</th>
+                                        <th class="text-right" sort="mtow"><span>{{ 'MTOW' | translate }}&nbsp;({{ mtowUnitOfMeasure | translate }})</span></th>
+                                        <th translate sort="status">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="edit(item)" ng-repeat="item in list" ng-class="{'highlight': editable.id === item.id}">
+                                        <td>{{ item.text_identifier }}</td>
+                                        <td>{{ item.name }}</td>
+                                        <td>{{ item.aircraft_type }}</td>
+                                        <td class="text-right">{{ item.mtow | weightConverter }}</td>
+                                        <td>{{ item.status ? item.status.toUpperCase() : item.status | translate }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td translate class="text-center" colspan="5">There are no Unspecified Aircraft Types data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refresh()"
+                            max-size="::20" items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+            <box-header ng-show="editable.id === null" icon="'paper-plane-o'" title="{{ 'Create Unspecified Aircraft Type' | translate }}"></box-header>
+            <box-header ng-show="editable.id !== null" icon="'paper-plane-o'" title="{{ 'Edit Unspecified Aircraft Type' | translate }}"></box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <fieldset ng-disabled="!hasPermission('zzzz_aircraft_type_modify')">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="text_identifier">Text Identifier *</label>
+                                <input id="text_identifier" name="textIdentifier" class="form-control" type="text" ng-model="editable.text_identifier"
+                                    required uppercase-input />
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="name">Name *</label>
+                                <input id="name" name="name" class="form-control" type="text" ng-model="editable.name" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="aircraft_type">Aircraft Type</label>
+                                <input id="aircraft_type" name="aircraftType" class="form-control" type="text" minlength="2" maxlength="4" ng-model="editable.aircraft_type"
+                                    ng-pattern="/^[a-zA-Z0-9]*$/" ng-trim="false" uppercase-input />
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="mtow"><span>{{ 'MTOW' | translate }}&nbsp;({{ mtowUnitOfMeasure | translate }}) *</span></label>
+                                <unit-conversion-input id="mtow" name="mtow" ng-model="editable.mtow" measurement-type="weight" required />
+                            </div>
+                        </div>
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'"></ng-include>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button translate type="button" class="btn btn-primary" ng-click="reset(); form.$setUntouched();">
+                                    Clear
+                                </button>
+                                <button translate class="btn btn-primary" ng-show="editable.id !== null" ng-disabled="form.$invalid" popup popup-text="Are you sure you want to update this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on update" popup-confirm="update(convertedEditable || editable, editable.id); form.$setUntouched();"
+                                    convert convert-to-tons property="mtow">
+                                    Update
+                                </button>
+                                <button translate class="btn btn-primary" ng-show="editable.id !== null" popup popup-text="Are you sure you want to delete this?" popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
+                                    popup-confirm="delete(editable.id); form.$setUntouched()">Delete
+                                </button>
+                                <button translate class="btn btn-primary" ng-disabled="form.$invalid" ng-show="editable.id === null" convert-to-tons property="mtow"
+                                    conversion-complete="create(convertedEditable || editable); form.$setUntouched();">
+                                    Create
+                                </button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

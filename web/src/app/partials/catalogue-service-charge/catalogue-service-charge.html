@@ -1,0 +1,205 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <div class="box-container">
+            <box-header toggle="toggle" page-name="charges-and-formulas.service-charge-catalogue-managment" icon="'retweet'"
+                title="{{ 'Service Charge Catalogue' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" empty-to-null
+                            ng-model="textFilter" ng-keyup="$event.keyCode == 13 && refresh()"/>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <button translate ng-click="refresh()" class="btn btn-primary pull-right">Refresh
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table sort-query-string="getSortQueryString()" back-end-export="true"
+                            service="catalogueServiceChargeService" query-string="filterParameters">
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" 
+                                table-sort="refresh()">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-nowrap" sort="chargeClass">Charge Class</th>
+                                        <th translate class="text-nowrap" sort="category">Category</th>
+                                        <th translate class="text-nowrap" sort="type">Type</th>
+                                        <th translate class="text-nowrap" sort="subType">Subtype</th>
+                                        <th translate class="text-nowrap" sort="description">Description</th>
+                                        <th translate class="text-nowrap" sort="currency">Currency</th>
+                                        <th translate class="text-nowrap text-right" sort="minimumAmount">Min Amount</th>
+                                        <th translate class="text-nowrap text-right" sort="maximumAmount">Max Amount</th>
+                                        <th translate class="text-nowrap text-right" sort="amount">Actual Amount</th>
+                                        <th translate class="text-nowrap" sort="basisCharge">Basis for Charge</th>
+                                        <th translate class="text-nowrap" sort="basisCharge">Invoice Category</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="edit(item)" ng-repeat="item in list" ng-class="{'highlight': editable.id === item.id}">
+                                        <td translate class="text-nowrap">{{ item.charge_class }}</td>
+                                        <td class="text-nowrap">{{ item.category }}</td>
+                                        <td class="text-nowrap">{{ item.type }}</td>
+                                        <td class="text-nowrap">{{ item.subtype }}</td>
+                                        <td class="text-nowrap">{{ item.description }}</td>
+                                        <td class="text-nowrap">{{ item.currency.currency_code }}</td>
+                                        <td class="text-nowrap text-right">{{ item.minimum_amount | number: 2 }}</td>
+                                        <td class="text-nowrap text-right">{{ item.maximum_amount | number: 2 }}</td>
+                                        <td class="text-nowrap text-right">{{ item.amount | number: 2 }}</td>
+                                        <td class="text-nowrap">{{ item.charge_basis | translate }}</td>
+                                        <td class="text-nowrap">{{ item.invoice_category | translate }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td class="text-center" colspan="11" translate>There are no Service Charge Catalogue data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refresh()" max-size="::20" items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm" boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+            <box-header ng-show="editable.id === null" icon="'retweet'" title="{{ 'Create Service Charge Catalogue' | translate }}"></box-header>
+            <box-header ng-show="editable.id !== null" icon="'retweet'" title="{{ 'Edit Service Charge Catalogue' | translate }}"></box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <fieldset ng-disabled="!hasPermission('service_charge_modify')">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="charge_class">Charge Class *</label>
+                                <input id="charge_class" name="chargeClass" class="form-control" type="text" ng-model="editable.charge_class" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="category">Category *</label>
+                                <input id="category" name="category" class="form-control" type="text" ng-model="editable.category" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="type">Type *</label>
+                                <input id="type" name="type" class="form-control" type="text" ng-model="editable.type" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="subtype">Subtype *</label>
+                                <input id="subtype" name="subtype" class="form-control" type="text" ng-model="editable.subtype" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="description">Description *</label>
+                                <input id="description" name="description" class="form-control" type="text" ng-model="editable.description" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="currency">
+                                    <span translate>Currency *</span>
+                                </label>
+                                <select class="form-control"
+                                        id="currency"
+                                        name="externalDatabaseForCharge"
+                                        ng-model="editable.currency"
+                                        ng-options="item as ((item.currency_name | translate) + ' (' + item.currency_code + ')') for item in currencies.content track by item.currency_code"
+                                        required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="minimum_amount">Minimum Amount *</label>
+                                <input id="minimum_amount" name="minimumAmount" class="form-control" type="number" min="0" ng-model="editable.minimum_amount" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="maximum_amount">Maximum Amount *</label>
+                                <input id="maximum_amount" name="maximumAmount" class="form-control" type="number" min="0" ng-model="editable.maximum_amount" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="amount">Actual Amount</label>
+                                <span ng-show="editable.charge_basis === 'fixed' || editable.charge_basis === 'unit' || editable.charge_basis === 'percentage'"> *</span></label>
+                                <input ng-disabled="editable.charge_basis === 'water' || editable.charge_basis === 'residential-electric' || editable.charge_basis === 'commercial-electric' || editable.charge_basis === 'user' || editable.charge_basis === 'discount' || editable.charge_basis === 'external-database'"
+                                        ng-required="editable.charge_basis === 'fixed' || editable.charge_basis === 'unit' || editable.charge_basis === 'percentage'"
+                                        id="amount" name="amount" class="form-control" type="number" min="0" ng-model="editable.amount" />
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="charge_basis">Basis For Charge *</label>
+                                <select class="form-control" id="charge_basis" name="chargeBasis" ng-model="editable.charge_basis" ng-options="t.value as (t.name.toLowerCase() | translate) for t in basisList"
+                                        ng-change="editable.charge_basis === 'water'|| editable.charge_basis === 'residential-electric' || editable.charge_basis === 'commercial-electric' || editable.charge_basis === 'user' || editable.charge_basis === 'discount' ? editable.amount = null : ''" required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="invoice_category">Invoice Category *</label>
+                                <select class="form-control" id="invoice_category" name="invoiceCategory" ng-model="editable.invoice_category" ng-options="t.value as (t.name.toLowerCase() | translate) for t in categoryList" required>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="external-accounting-system-id">
+                                    <span translate>External Accounting System Identifier</span>
+                                    <span ng-if="requireExternalSystemId">*</span>
+                                </label>
+                                <input class="form-control" name="externalAccountingSystemIdentifier" id="external-accounting-system-id"
+                                    ng-model="editable.external_accounting_system_identifier" maxlength="20"
+                                    ng-required="requireExternalSystemId" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="external-charge-category">
+                                    <span translate>External Charge Category</span>
+                                    <span>*</span>
+                                </label>
+                                <dynamic-service-dropdown id="external-charge-category" name="externalChargeCategory"
+                                    dropdown-type="single" service="::externalChargeCategoryService" is-required="::true"
+                                    options="item as (item.name | translate) for item in list track by item.id"
+                                    ng-model="editable.external_charge_category">
+                                </dynamic-service-dropdown>
+                            </div>
+                            <div class="col-xs-12 col-md-6" ng-if="editable.charge_basis === 'external-database'">
+                                <label translate for="external_database_for_charge">External database for charge *</label>
+                                <select class="form-control" id="external_database_for_charge"
+                                name="externalDatabaseForCharge" ng-model="editable.external_database_for_charge" ng-options="t.value as (t.name | translate) for t in externalDatabaseList"
+                                    required>
+                                </select>
+                            </div>
+                        </div>
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'"></ng-include>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div>
+                                    <button translate class="btn btn-primary btn-reset"
+                                        ng-click="reset(); form.$setUntouched();" type="button">
+                                        Clear
+                                    </button>
+                                    <button class="btn btn-primary btn-update" translate ng-show="editable.id !== null"
+                                        ng-disabled="form.$invalid" popup popup-text="Are you sure you want to update this?"
+                                        popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                        popup-confirm="update(editable, editable.id); form.$setUntouched();">
+                                        Update
+                                    </button>
+                                    <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null"
+                                        popup popup-text="Are you sure you want to delete this?"
+                                        popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
+                                        popup-confirm="delete(editable.id); form.$setUntouched()">
+                                        Delete
+                                    </button>
+                                    <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid" ng-show="editable.id === null"
+                                        ng-click="create(editable); form.$setUntouched();">
+                                        Create
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

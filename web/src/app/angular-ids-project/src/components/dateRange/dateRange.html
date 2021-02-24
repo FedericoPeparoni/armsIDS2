@@ -1,0 +1,24 @@
+<div class="date-range" ng-form name="dateRangeForm">
+    
+    <!-- Start datepicker -->
+    <div class="col datepicker">
+            <label for="end-date"><span translate>{{startName}}</span>&nbsp;(<span translate>{{format}}</span>)</label>
+        <p class="input-group">
+            <date-picker id="start-date" type="text" ng-change="dateChanged('start', start.date)" ng-pattern="datePickerRegex" show-button-bar="false" class="form-control" datepicker-options="dateOptions" uib-datepicker-popup="{{ format || dateFormat }}" ng-model="start.date" is-open="start.open" ng-required="isRequired" close-text="Close" ng-attr-title="{{start.date ? '' : 'Please fill out this field' | translate}}"></date-picker>
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="start.open = !start.open"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+        </p>
+    </div>
+
+    <!-- End datepicker -->
+    <div class="col datepicker">
+            <label for="end-date"><span translate>{{endName}}</span>&nbsp;(<span translate>{{format}}</span>)</label>
+        <p class="input-group">
+            <date-picker name="end" id="end-date" type="text" ng-change="dateChanged('end', end.date)" pad-hours="true"  ng-pattern="datePickerRegex" show-button-bar="false" class="form-control" datepicker-options="dateOptions" uib-datepicker-popup="{{ format || dateFormat }}" ng-model="end.date" is-open="end.open" ng-required="isRequired" close-text="Close" ng-attr-title="{{end.date ? '' : 'Please fill out this field' | translate}}"></date-picker>
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="end.open = !open.end"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+        </p>
+    </div>
+</div>

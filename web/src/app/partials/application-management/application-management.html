@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="box-container">
+
+            <box-header page-name="management.application-management" icon="'cog'" title="{{ 'Application Management' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-xs-3">
+                        <label translate for="caching-retention">Route Caching Retention</label>
+                        <input id="caching-retention" type="number" pattern="[0-9]+" class="form-control" ng-model="numberToRetain" max="{{ (item.range.split('-')[1] === 'maxint' ? 2147483647 : item.range.split('-')[1]) }}"
+                            min="{{ item.range.split('-')[0] }}" />
+                    </div>
+                    <div class="col-xs-3">
+                        <label translate for="current-entries">Current Cache Entries</label>
+                        <input id="current-entries" type="text" ng-model="currentEntries" size="7" class="form-control" readonly/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5">
+                        <button translate ng-disabled="!hasPermission('route_cache_modify')" class="btn btn-primary" popup popup-text="Are you sure you want to update the retention number?"
+                            popup-local-storage-enable="SystemConfiguration:Require confirmation on update" popup-confirm="updateNumberToRetain(numberToRetain)">Update</button>
+                        <button translate ng-disabled="!hasPermission('route_cache_modify')" class="btn btn-primary" popup popup-text="Are you sure you want to clear the current cache?"
+                            popup-local-storage-enable="SystemConfiguration:Require confirmation on update" popup-confirm="clearCache()">Clear Cache</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

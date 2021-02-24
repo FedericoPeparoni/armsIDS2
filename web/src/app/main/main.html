@@ -1,0 +1,47 @@
+<div id="page-main">
+    <header-bar>
+        <!-- Header -->
+    </header-bar>
+    <div id="main">
+        <side-bar id="side-bar" ng-if="!forcePasswordChange">
+
+            <div class="row">
+                <div style="position:relative">
+                    <div id="searchicon"></div>
+                </div>
+                <input name="search" id="search" type="text" ng-model="sidebarSearchTextFilter" placeholder="{{'search' | translate}}" 
+                    ng-keyup="keyUp(sidebarSearchTextFilter)" ng-mouseover="class='search'"/>
+                <button class="btn-xs" ng-click="sidebarSearchTextFilter = ''; clear()"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i></button>
+            </div>
+
+            <side-bar-category icon="val.icon" text="val.title" links="val.links" category-open="sidebarProps[key].open"
+                ng-if="::hasPermissionInArray(val.permissions)"
+                ng-repeat="(key, val) in sideBar | filter: { links: { filterableText: sidebarSearchTextFilter } }">
+
+                <side-bar-link icon="valV.icon" url="valV.url"
+                    ng-repeat="(keyV, valV) in val.links | filter: { filterableText: sidebarSearchTextFilter }"
+                    ng-show="sidebarProps[key].open"
+                    ng-if="::hasPermissionInArray(valV.permissions)" category="{{valV.category}}">
+                    {{valV.category}}
+                 </side-bar-link>
+
+            </side-bar-category>
+
+            <!-- The following are only displayed on smaller screens -->
+            <side-bar-link url="'logout'" class="visible-xs" icon="'sign-out'">Log Out</side-bar-link>
+        </side-bar>
+
+        <div id="page-split" ng-class="contentMode">
+            <div ng-class="{{page}}" id="content" ui-view>
+                <!-- Page content render in here -->
+            </div>
+            <div class="page-map" id="content-map" ui-view="map">
+                <!-- Map will be loaded into here -->
+            </div>
+        </div>
+
+    </div>
+    <footer>
+        <!-- Footer -->
+    </footer>
+</div>

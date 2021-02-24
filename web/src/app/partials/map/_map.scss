@@ -1,0 +1,80 @@
+.map {
+  height: 100%;
+}
+
+canvas {
+  display: block;
+  height: 100vh;
+  height: 100%;
+}
+
+.icon-ruler{
+  top: 4px;
+  position: relative;
+}
+
+.cesium-navigation-help {
+
+  .text-white {
+    color: #FFF;
+  }
+
+  .cesium-navigation-button-icon {
+    height: 25px;
+    width: 25px;
+  }
+
+  .cesium-layers, .cesium-information {
+    padding: 10px;
+  }
+
+  #cesium-layers-container { // cesium ID
+    top: 7px;
+    right: 6px;
+    width: 300px;
+  }
+
+  #wmsLayerTable{
+    margin-top: 10px;
+    border-top: 1px solid white;
+    
+    tbody{
+      display: block;
+      padding-top: 10px;
+    }
+  }
+  .layer-control-table tbody {
+    overflow: hidden;
+
+    tr {
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    
+    
+    td {
+      &.text-white{
+        width: 50%;
+        padding-right: 5px;
+      }
+
+      &.legend{
+        div{
+          height: 10px !important;
+          width: 10px !important;
+        }
+      }
+
+      &.input-box{
+        padding: 0 5px;
+      }
+
+      &.input-range {
+        min-width: 30px;
+      }
+    }
+  }
+}
+
+
+

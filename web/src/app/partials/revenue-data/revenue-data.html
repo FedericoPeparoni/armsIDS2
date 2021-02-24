@@ -1,0 +1,260 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box-container">
+            <box-header page-name="data-analysis-and-statistics.analysis-and-statistics-revenue" icon="'line-chart'"
+                title="{{ 'Data Analysis and Statistics - Revenue' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-6 col-md-2">
+                        <select id="report" class="form-control" ng-model="template" ng-change="selectTemplate(template)"
+                            ng-options="item for item in templatesList">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="col-xs-6 col-md-1" ng-if="!template">
+                        <button translate class="btn btn-sm btn-primary btn-save-template" popup
+                            popup-text="Save Template as" save-as="true"
+                            popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                            popup-confirm="saveTemplate(inputText); form.$setUntouched()">
+                            Save Template
+                        </button>
+                    </div>
+                    <div class="col-xs-6 col-md-4" ng-if="template">
+                        <button translate class="btn btn-sm btn-primary btn-delete-template" popup
+                            popup-text="Are you sure you want to delete this template?"
+                            popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                            popup-confirm="deleteTemplate(template); form.$setUntouched()">
+                            Delete Template
+                        </button>
+                        <button translate class="btn btn-sm btn-primary btn-update-template" popup
+                            popup-text="Are you sure you want to update this template?"
+                            popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                            popup-confirm="updateTemplate(template); form.$setUntouched()">
+                            Update Template
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="row">
+                            <date-range is-required="::true" control="control" start-end-adjust="true"
+                                date-options="{ minMode: 'month' }" start-name="Start Date *"
+                                end-name="End Date *" format="{{customDate}}">
+                                <!--Datepickers -->
+                            </date-range>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <label translate for="analysis-type">Analysis Type</label>
+                                <select id="analysis-type" class="form-control" name="analysisType" ng-model="editable.analysis_type">
+                                    <option value=""></option>
+                                    <option translate value="payment">Payment</option>
+                                    <option translate value="invoice">Invoice</option>
+                                </select>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <label translate for="billing-centre">Billing Centre</label>
+                                <multiselect id="billing-centre" name="billingCentresList" extra-settings="{ displayProp: 'name', idProp: 'name', externalIdProp: '' }"
+                                    options="billingCentresList" model="billingCentresModel"
+                                    events="{ onSelectionChanged: addBillingCentreToList }">
+                                </multiselect>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <label translate for="account">Account</label>
+                                <multiselect id="account" name="accountsList"
+                                    extra-settings="{ displayProp: 'name', idProp: 'name', externalIdProp: '' }"
+                                    options="accountsList" model="accountsModel"
+                                    events="{ onSelectionChanged: addAccountToList }">
+                                </multiselect>
+                            </div>
+                            <div class="col-xs-3">
+                                <label translate for="aerodrome">Aerodrome</label>
+                                <multiselect id="aerodrome" name="aerodromesList"
+                                    extra-settings="{ displayProp: 'aerodrome_name', idProp: 'aerodrome_name', externalIdProp: '' }"
+                                    options="aerodromesList" model="aerodromesModel"
+                                    events="{ onSelectionChanged: addAerodromeToList }">
+                                </multiselect>
+                            </div>
+                            <div class="col-xs-3" ng-if="KCAA">
+                                <label translate for="payment-mode">Payment Mode</label>
+                                <select id="payment-mode" class="form-control" name="paymentMode"
+                                        ng-model="editable.payment_mode">
+                                    <option value=""></option>
+                                    <option translate value="cash">Cash</option>
+                                    <option translate value="credit">Credit</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <label translate for="charge-class">Charge Class</label>
+                                <select class="form-control" name="chargeClass" id="charge-class" ng-model="editable.charge_class"
+                                    ng-options="item as item for item in chargeClasses" ng-change="getCategories(editable.charge_class)">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="col-xs-3" ng-show="editable.charge_class">
+                                <label translate for="charge-category">Charge Category</label>
+                                <select class="form-control" name="chargeCategory" id="charge-category" ng-model="editable.charge_category"
+                                    ng-options="item as item for item in chargeCategories"  ng-change="getTypes(editable.charge_class, editable.charge_category)">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="col-xs-3" ng-show="editable.charge_category">
+                                <label translate for="charge-type">Charge Type</label>
+                                <select class="form-control" name="chargeType" id="charge-type" ng-model="editable.charge_type"
+                                    ng-options="item as item for item in chargeTypes">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 margin-top-20">
+        <div class="box-container">
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-3">
+                                <label translate for="temporal-group">Temporal Group *</label>
+                                <select id="temporal-group" class="form-control" name="temporalGroup" ng-model="editable.temporal_group"
+                                    ng-change="editable.fiscal_year = false"
+                                    required>
+                                    <option translate value=""></option>
+                                    <option translate value="year">Year</option>
+                                    <option translate value="quarter">Quarter</option>
+                                    <option translate value="month">Month</option>
+                                    <option translate value="week">Week</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label translate for="group-by">Group By</label>
+                                <multiselect id="group-by" name="groupByValues" translated-value="name"
+                                    extra-settings="{ displayProp: 'name', idProp: 'name', externalIdProp: '', selectionLimit: 1 }"
+                                    options="groupByValues" model="groupByModel"
+                                    events="{ onSelectionChanged: addGroupToList }">
+                                </multiselect>
+                            </div>
+                            <div class="col-xs-12 col-md-2">
+                                <label translate for="sort">Sort By *</label>
+                                <ol id="my-sort" class="sortable" ng-model="editable.sort">
+                                    <li ng-repeat="item in sortList track by item.id" data-index="{{$index}}">
+                                        {{item.name | translate}}
+                                    </li>
+                                </ol>
+                            </div>
+                            <div ng-show="editable.temporal_group === 'year' || editable.temporal_group === 'quarter'"
+                                class="col-xs-12 col-md-3">
+                                <input id="is-fiscal-year" type="checkbox" name="isFiscalYear" ng-model="editable.fiscal_year">
+                                <label translate for="is-fiscal-year">Group by Fiscal Year</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 margin-top-20">
+        <div class="box-container">
+            <form novalidate action="#" name="form" onsubmit="return false">
+                <div class="box-content">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-3">
+                                    <label translate for="display-value">Values *</label>
+                                    <select id="display-value" class="form-control"
+                                        ng-model="display_value" ng-options="display.value as display.name | translate for display in displayValues"
+                                        required>
+                                    </select>
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <label translate for="chart-type">Chart Type *</label>
+                                    <select id="chart-type" name="chart-type" class="form-control" ng-model="chartType"
+                                        required>
+                                        <option translate value="bar">Bar</option>
+                                        <option translate value="line">Line</option>
+                                        <option translate value="pie">Pie</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <input id="display-values" type="checkbox" ng-init="display_values = true"
+                                        ng-model="display_values">
+                                    <label translate for="display-values">Display values</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <button class="btn btn-primary btn-generate" ng-disabled="form.$invalid || !control.getUTCStartDate || !control.getUTCEndDate()"
+                                        ng-click="datapoints = []; generate(editable, control.getUTCStartDate(), control.getUTCEndDate(), groupBy, chartType); form.$setUntouched()">
+                                        <span translate>Generate</span>
+                                    </button>
+                                    <button class="btn btn-primary" ng-disabled="!datapoints.length">
+                                        <div export-table chart-json="csvData" filename="Revenue_Data" error="error" format="csv" button="true">
+                                            <span translate>Export CSV</span>
+                                        </div>
+                                    </button>
+                                    <export-pdf element="svg" filename="Revenue_Data" error="error" disable="!datapoints.length" orientation="landscape"
+                                        text="Export PDF">
+                                    </export-pdf>
+                                </div>
+                            </div>
+
+                            <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                                <!-- Error Handling -->
+                            </ng-include>
+
+                            <div class="row" ng-show="noData">
+                                <div class="col-xs-6 col-xs-offset-3">
+                                    <div class="alert text-center infoAlert">
+                                        <span translate>NO DATA FOR THESE SELECTIONS</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div ng-if="datapoints.length > 0 && !noData" class="col-xs-12 margin-top-20">
+        <div class="box-container">
+            <div class="box-content">
+                <div class="row">
+                    <c3chart bindto-id="chart" id="chart" chart-data="datapoints"
+                        chart-columns="datacolumns" chart-x="datax" labels-format-function="labelFormat">
+                        <chart-bar ratio="0.75" />
+                        <chart-axes values-x="x" />
+                        <chart-legend show-legend="true" legend-position="right"/>
+
+                        <chart-axis>
+                            <chart-axis-x axis-position="outer-right" axis-label="Revenue Data" axis-type="category"/>
+                            <chart-axis-y axis-position="outer-right" axis-label="{{ ylabel }}" />
+                        </chart-axis>
+                    </c3chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,263 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box-container">
+            <box-header icon="'file-text'" title="{{ 'Report Generation' | translate }}"></box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <label for="report">{{'Report' | translate}} *</label>
+                            <select id="report" class="form-control" ng-model="editable.report" 
+                                ng-init="editable.report='prepayment'" required>
+                                <option translate value="prepayment">Prepayment</option>
+                                <option translate value="actualFlight">Actual flight report</option>
+                                <option translate value="transaction">Transaction report</option>
+                                <option translate ng-if="hasPermission('self_care_admin')" value="accountBalance">Account balance report</option>
+                                <option translate ng-if="hasPermission('self_care_admin')" value="newRregistrations">New registrations report</option>
+                                <option translate ng-if="hasPermission('self_care_admin')" value="declinedFlights">Declined flights report</option>
+                            </select>
+                        </div>
+
+
+                        <div class="col-xs-12 col-md-3" ng-if="editable.report !='accountBalance' && editable.report !='newRregistrations' 
+                            && editable.report !='declinedFlights'">
+                            <label for="accounts">{{'Accounts' | translate}} *</label>
+                            <multiselect
+                                id="accounts"
+                                name="accounts"
+                                extra-settings="{ displayProp: 'name' }"
+                                options="accountsList"
+                                model="selectedAccounts"
+                                events="{ onSelectionChanged: addAccountToList }">
+                            </multiselect>
+                        </div>
+                        <div class="col-xs-12 col-md-2" ng-if="editable.report =='accountBalance'">
+                            <label>{{'Account Status' | translate}} *</label>
+                            <select id="account-status" class="form-control" ng-model="editable.account_status" ng-init="editable.account_status = ''">
+                                <option translate value="">All</option>
+                                <option translate value="ACTIVE">Active</option>
+                                <option translate value="ACTIVE,INACTIVE">Unexpired</option>
+                                <option translate value="INACTIVE ">Inactive </option>
+                                <option translate value="EXPIRED">Expired </option>
+                            </select>
+                        </div>
+                        <div class="col-xs-12 col-md-5">
+                            <date-range control="control"
+                                        start-name="Start Date *"
+                                        end-name="End Date *"
+                                        format="{{ customDate }}"
+                                        is-required="true">
+                                    <!--Datepickers -->
+                            </date-range>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3" ng-if="editable.report =='declinedFlights'">
+                            <input id="group-by-account" type="checkbox" ng-init="editable.group_by_account = false" ng-model="editable.group_by_account">
+                            <label translate for="group-by-account">{{'Group by account' | translate}}</label>
+                        </div>
+                    </div>
+                    <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'"><!-- Error Handling --></ng-include>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button translate type="button" class="btn btn-primary btn-clean" ng-click="setClear(editable); form.$setUntouched();">
+                                Clear
+                            </button>
+                            <!-- Prepayment Report -->
+                            <download-oauth2 
+                                ng-if="editable.report ==='prepayment'"
+                                url="reports/generic/sc_prepayment_report"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        csvExport: true,
+                                        report: editable.report,
+                                        output_format: 'xlsx',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()) }"
+                                disable="form.$invalid || !selectedAccounts.length"
+                                hide-icon="true"
+                                request-method="POST"
+                                body-params="{ account_id: accountIdsWithBrackets }">
+                            </download-oauth2>
+                            <preview-oauth2 
+                                ng-if="editable.report ==='prepayment'"
+                                url="reports/generic/sc_prepayment_report"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ text: 'Preview',
+                                        report: editable.report,
+                                        output_format: 'pdf',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()) }"
+                                request-method="POST"
+                                body-params="{ account_id: accountIdsWithBrackets }"
+                                disable="form.$invalid || !selectedAccounts.length">
+                            </preview-oauth2>
+
+                            <!-- Actual flight Report -->
+                            <download-oauth2 
+                                ng-if="editable.report ==='actualFlight'"
+                                url="reports/generic/sc_actual_flight_report"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        csvExport: true,
+                                        report: editable.report,
+                                        output_format: 'xlsx',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()) }"
+                                disable="form.$invalid || !selectedAccounts.length"
+                                hide-icon="true"
+                                request-method="POST"
+                                body-params="{ account_id: accountIdsWithBrackets }">
+                            </download-oauth2>
+                            <preview-oauth2 
+                                ng-if="editable.report ==='actualFlight'"
+                                url="reports/generic/sc_actual_flight_report"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ text: 'Preview',
+                                        report: editable.report,
+                                        output_format: 'pdf',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()) }"
+                                request-method="POST"
+                                body-params="{ account_id: accountIdsWithBrackets }"
+                                disable="form.$invalid || !selectedAccounts.length">
+                            </preview-oauth2>
+
+                            <!-- Transaction Report -->
+                            <download-oauth2 
+                                ng-if="editable.report ==='transaction'"
+                                url="reports/generic/sc_transaction_report"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        csvExport: true,
+                                        report: editable.report,
+                                        output_format: 'xlsx',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()) }"
+                                disable="form.$invalid || !selectedAccounts.length"
+                                hide-icon="true"
+                                request-method="POST"
+                                body-params="{ account_id: accountIdsWithBrackets }">
+                            </download-oauth2>
+                            <preview-oauth2 
+                                ng-if="editable.report ==='transaction'"
+                                url="reports/generic/sc_transaction_report"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ text: 'Preview',
+                                        report: editable.report,
+                                        output_format: 'pdf',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()) }"
+                                request-method="POST"
+                                body-params="{ account_id: accountIdsWithBrackets }"
+                                disable="form.$invalid || !selectedAccounts.length">
+                            </preview-oauth2>
+
+                            <!-- Account Balance Report -->
+                            <download-oauth2 
+                                ng-if="editable.report ==='accountBalance'"
+                                url="reports/generic/sc_account_balance_report"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        csvExport: true,
+                                        report: editable.report,
+                                        output_format: 'xlsx',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()) }"
+                                disable="form.$invalid"
+                                hide-icon="true"
+                                request-method="POST"
+                                body-params="{ account_state: returnFilteredActiveStatus(editable.account_status) }">
+                            </download-oauth2>
+                            <preview-oauth2 
+                                ng-if="editable.report ==='accountBalance'"
+                                url="reports/generic/sc_account_balance_report"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ text: 'Preview',
+                                        report: editable.report,
+                                        output_format: 'pdf',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()) }"
+                                request-method="POST"
+                                body-params="{ account_state: returnFilteredActiveStatus(editable.account_status) }"
+                                disable="form.$invalid">
+                            </preview-oauth2>
+
+                            <!-- New Registrations Report -->
+                            <download-oauth2 
+                                ng-if="editable.report ==='newRregistrations'"
+                                url="reports/generic/sc_new_registrations_report"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        csvExport: true,
+                                        report: editable.report,
+                                        output_format: 'xlsx',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()) }"
+                                disable="form.$invalid"
+                                hide-icon="true"
+                                request-method="POST">
+                            </download-oauth2>
+                            <preview-oauth2 
+                                ng-if="editable.report ==='newRregistrations'"
+                                url="reports/generic/sc_new_registrations_report"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ text: 'Preview',
+                                        report: editable.report,
+                                        output_format: 'pdf',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()) }"
+                                request-method="POST"
+                                disable="form.$invalid">
+                            </preview-oauth2>
+
+                            <!-- Declined Flight Report -->
+                            <download-oauth2 
+                                ng-if="editable.report ==='declinedFlights'"
+                                url="reports/generic/sc_declined_flight_report"
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
+                                params="{ text: 'Generate',
+                                        csvExport: true,
+                                        report: editable.report,
+                                        output_format: 'xlsx',
+                                        group_by_account: editable.group_by_account,
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()) }"
+                                disable="form.$invalid"
+                                hide-icon="true"
+                                request-method="POST">
+                            </download-oauth2>
+                            <preview-oauth2 
+                                ng-if="editable.report ==='declinedFlights'"
+                                url="reports/generic/sc_declined_flight_report"
+                                error="$parent.error"
+                                height="'670px'"
+                                params="{ text: 'Preview',
+                                        report: editable.report,
+                                        output_format: 'pdf',
+                                        group_by_account: editable.group_by_account,
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()) }"
+                                request-method="POST"
+                                disable="form.$invalid">
+                            </preview-oauth2>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    

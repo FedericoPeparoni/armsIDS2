@@ -1,0 +1,79 @@
+<form name="form">
+    <div class="row row-responsive">
+        <div class="col-xs-12 col-md-3">
+            <label translate for="currency">Invoice Currency *</label>
+            <input id="currency" name="currency" class="form-control" type="text" ng-model="paymentCurrency" required disabled/>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <label for="amount"><span translate>Invoice Amount</span> *</label>
+            <input id="amount" name="amount" class="form-control" type="text"
+                ng-value="payment.amount | number: 2" required disabled/>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <label translate for="payment-currency">Payment Currency *</label>
+            <select id="payment-currency" name="paymentCurrency" class="form-control"
+            ng-model="payment.payment_currency"
+                ng-model-options="{ debounce: 400 }"
+                ng-options="item as (item.currency_name + ' (' + item.currency_code + ')') for item in fullCurrencyList | filter:{active:true} track by item.currency_code"
+                ng-change="updateExchangeRate(payment.payment_currency, payment.currency)"
+                required >
+            </select>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <label translate for="payment-amount">Payment Amount *</label>
+            <input id="payment-amount" name="paymentAmount" class="form-control" type="text" 
+            ng-value="payment.payment_amount | number: 2"
+            required disabled/>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <label translate for="payment-exchange-rate">Exchange Rate</label>
+            <input id="payment-exchange-rate" name="paymentExchangeRate" class="form-control" type="text"
+                ng-model="paymentExchangeRate" required disabled/>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <label translate for="description">Description *</label>
+            <input id="description" name="description" class="form-control" type="text" ng-model="payment.description"
+            required/>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <label translate for="payment-mechanism">Payment Mechanism *</label>
+            <dynamic-service-dropdown id="payment-mechanism" name="paymentMechanism" ng-model="payment.payment_mechanism"
+                options="(item | translate) for item in list | filter:listFilter" is-required="true" list-filter="filterPaymentMechanism"
+                dropdown-type="single" service="::transactionsService" method="getPaymentMechanismList" ng-change="onPaymentMechanismChange(payment)">
+            </dynamic-service-dropdown>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <label translate for="payment-reference-number">Payment Reference Number *</label>
+            <input id="payment-reference-number" name="payment-reference-number" class="form-control text-capitalize" type="text"
+                ng-model="payment.payment_reference_number"
+                ng-disabled="payment.payment_mechanism === 'cash' || payment.payment_mechanism === 'adjustment'" required/>
+        </div>
+        <div class="col-xs-12 col-md-3" ng-show="activeOrg.isKcaa && (workflow === 'cash' || (workflow === 'mixed' && cashAccount))">
+            <label translate for="kra_clerk_name">KRA Clerk's Name<span ng-show="payment.payment_mechanism === 'cash'"> *</span></label>
+            <input id="kra_clerk_name" name="kra_clerk_name" class="form-control" type="text" ng-model="payment.kra_clerk_name"
+                ng-required="activeOrg.isKcaa && (workflow === 'cash' || (workflow === 'mixed' && cashAccount))"/>
+        </div>
+        <div class="col-xs-12 col-md-3" ng-show="activeOrg.isKcaa && (workflow === 'cash' || (workflow === 'mixed' && cashAccount))">
+            <label translate for="kra_receipt_number">KRA Receipt Number<span ng-show="payment.payment_mechanism === 'cash'"> *</span></label>
+            <input id="kra_receipt_number" name="kra_receipt_number" class="form-control" type="text" ng-model="payment.kra_receipt_number"
+                ng-required="activeOrg.isKcaa && (workflow === 'cash' || (workflow === 'mixed' && cashAccount))"/>
+        </div>
+        <div class="col-xs-12 col-md-3" ng-if="isBankAccountSupported">
+            <label for="bank-account">
+                <span translate>Bank Account</span>
+                <span ng-show="isPaymentMechanism('wire', 'cheque')">*</span>
+            </label>
+            <dynamic-service-dropdown
+                id="bank-account" name="bankAccount" dropdown-type="single" allow-empty="true" empty-to-null
+                service="::bankAccountManagementService" method="getList"
+                options="item as $parent.$parent.getBankAccountLabel(item.name, item.number) for item in list track by item.id"
+                ng-model="payment.bank_account" is-required="isPaymentMechanism('wire', 'cheque')"
+                disabled="!isPaymentMechanism('wire', 'cheque')" ng-change="setPaymentBankAccount(payment.bank_account)">
+            </dynamic-service-dropdown>
+        </div>
+    </div>
+    <ng-include
+        src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+        <!-- Error Handling -->
+    </ng-include>
+</form>

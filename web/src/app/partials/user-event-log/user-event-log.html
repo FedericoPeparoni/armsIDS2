@@ -1,0 +1,129 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <div class="box-container">
+            <box-header toggle="toggle" page-name="security.user-event-log" icon="'server'"
+                title="{{ 'User Event Log' | translate }}"></box-header>
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="search" empty-to-null 
+                        ng-keyup="$event.keyCode == 13 && refreshOverride()"/>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <button translate ng-click="refreshOverride()" class="btn btn-primary pull-right">Refresh</button>
+                    </div>
+                </div>
+                
+                <fieldset ng-disabled="!hasPermission('user_event_modify')">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="table-responsive" export-table query-string="filterParameters" 
+                                back-end-export="true" service="userEventLogService">
+                                <table class="table table-striped table-bordered table-hover" sort-query-string="getSortQueryString" 
+                                table-sort="refreshOverride()">
+                                    <thead>
+                                        <tr>
+                                            <th translate class="text-nowrap" sort="userName">User Name</th>
+                                            <th translate class="text-nowrap" sort="dateTime">Date / Time</th>
+                                            <th translate class="text-nowrap" sort="ipAddress">IP Address</th>
+                                            <th translate class="text-nowrap" sort="eventType">Event Type</th>
+                                            <th translate class="text-nowrap" sort="recordPrimaryKey">Record Primary Key</th>
+                                            <th translate class="text-nowrap" sort="uniqueRecordId">Dataset Name</th>
+                                            <!-- To be implemented at a later date -->
+                                            <!-- <th translate class="text-nowrap" sort="modifiedColumnNamesValues">Modified Column Names and Values</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-click="edit(item)" ng-repeat="item in list">
+                                            <td class="text-capitalize">{{ item.user_name }}</td>
+                                            <td class="text-nowrap">{{ item.date_time | dateConverter: 'HH:mm' }}</td>
+                                            <td>{{ item.ip_address }}</td>
+                                            <td class="text-capitalize text-nowrap">{{ item.event_type | translate }}</td>
+                                            <td>{{ item.record_primary_key }}</td>
+                                            <td class="text-capitalize text-nowrap">{{ item.unique_record_id | translate }}</td>
+                                            <!-- <td>{{ item.modified_column_names_values }}</td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                        <!-- Error Handling -->
+                    </ng-include>
+                    <pagination-display></pagination-display>
+                    <ul uib-pagination total-items="pagination.total_elements" ng-change="refreshOverride()" max-size="::20" items-per-page="pagination.size"
+                        ng-model="pagination.number" class="pagination-sm" boundary-link-numbers="::true">
+                    </ul>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+
+            <box-header icon="'server'" title="{{ 'Edit a User Event Log' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <form novalidate action="#" name="form" onsubmit="return false">
+
+                    <fieldset ng-disabled="!hasPermission('avg_mtow_factor_modify')">
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="user">User</label>
+                                <input id="user" name="user" class="form-control" type="text" ng-model="editable.user_name" readonly/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                    <label for="end-date"><span translate>Date / Time</span>&nbsp;(<span translate>{{ customDate }}</span> <span tranlate>HHmm</span>)</label>
+                                <input id="date-time" name="dateTime" class="form-control" type="text" ng-value="editable.date_time | dateConverter: 'HH:mm'" readonly/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="ip-address">IP Address</label>
+                                <input id="ip-address" name="IpAddress" class="form-control" type="text" ng-model="editable.ip_address" readonly/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="event-type">Event Type</label>
+                                <input id="event-type" name="eventType" class="form-control text-capitalize" type="text" ng-value="editable.event_type | translate" readonly/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="record-primary-key">Record Primary Key</label>
+                                <input id="record-primary-key" name="recordPrimaryKey" class="form-control" type="text" ng-model="editable.record_primary_key"
+                                    readonly/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="unique-record-id">Dataset Name</label>
+                                <input id="unique-record-id" name="uniqueRecordId" class="form-control" type="text" ng-value="editable.unique_record_id | translate"
+                                    readonly/>
+                            </div>
+                        </div>
+
+                        <!-- For future user story -->
+                        <!-- <div class="row">
+                            <div class="col-xs-12">
+                                <label translate for="modified-column-names-values">Modified Column Names and Values</label>
+                                <input id="modified-column-names-values" name="modifiedColumnNamesValues" class="form-control"
+                                       type="text"
+                                       ng-model="editable.modified_column_names_values"/>
+                            </div>
+                        </div> -->
+
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

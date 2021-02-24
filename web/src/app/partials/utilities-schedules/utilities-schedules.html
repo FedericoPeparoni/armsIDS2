@@ -1,0 +1,213 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <div class="box-container">
+            <box-header toggle="toggle" page-name="charges-and-formulas.utilities-schedule-managment" icon="'flash'"
+                title="{{ 'Utilities Schedules' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="schedule-filter">Utility Type</label>
+                        <select id="schedule-filter" ng-init="filter = ''" class="form-control" ng-change="refresh(); reset()"
+                            ng-model="filter" ng-options="item.value as (item.name | translate) for item in scheduleTypes">
+                            <option translate value="">All</option>
+                        </select>
+                        </div>
+                    <div class="col-xs-6 col-md-5">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="textFilter" empty-to-null
+                        ng-model="textFilter" ng-keyup="$event.keyCode == 13 && refresh()"/>
+                    </div>
+                    <div class="col-xs-6 col-md-1">
+                        <button translate ng-click="refresh()" class="btn btn-primary pull-right">Refresh
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table sort-query-string="getSortQueryString()" back-end-export="true" 
+                            service="utilitiesSchedulesService" query-string="filterParameters">
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" 
+                                table-sort="refresh()">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-nowrap text-right" sort="scheduleId">Schedule Identifier</th>
+                                        <th translate class="text-nowrap" sort="scheduleType">Schedule Type</th>
+                                        <th translate class="text-nowrap text-right" sort="minimumCharge">Minimum Charge</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="edit(item); resetRange(item);" ng-repeat="item in list" ng-class="{'highlight': editable.schedule_id === item.schedule_id}">
+                                        <td class="text-right">{{ item.schedule_id }}</td>
+                                        <td >{{ ::getScheduleTypeName(item.schedule_type ) | translate}}</td>
+                                        <td class="text-right">{{ item.minimum_charge }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td class="text-center" colspan="3" translate>There are no Utilities Schedules data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refresh()"
+                            max-size="::20" items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm" boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-container margin-top-20" ng-show="editable.schedule_id !== null">
+            <box-header icon="'flash'">Associated Data</box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label translate for="schedule-filter">Schedule Range Brackets</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label translate for="text-filter">Towns and Villages</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div ng-show="ranges.length > 0 && editable.schedule_id !== null">
+                            <table class="table table-striped table-bordered table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th translate>Top Range</th>
+                                        <th translate class="text-right">Unit Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="editRange(range);" ng-repeat="range in ranges | orderBy: 'unit_price'" ng-class="{'highlight': editableRangeBracket.id === range.id}">
+                                        <td>{{ range.range_top_end }}</td>
+                                        <td class="text-right">{{ range.unit_price }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div translate ng-show="!ranges.length && editable.schedule_id !== null">
+                            No associated schedule brackets
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div ng-show="editable.utilities_water_towns_and_village.length > 0 && editable.schedule_id !== null">
+                            <table class="table table-striped table-bordered table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th translate>Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="town in editable.utilities_water_towns_and_village | orderBy: 'town_or_village_name'">
+                                        <td>{{ town.town_or_village_name }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div translate ng-show="!editable.utilities_water_towns_and_village.length && editable.schedule_id !== null">
+                            No associated towns and villages
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+            <box-header ng-show="editable.schedule_id === null" icon="'flash'" title="{{ 'Create Utilities Schedule' | translate }}"></box-header>
+            <box-header ng-show="editable.schedule_id !== null" icon="'flash'" title="{{ 'Edit Utilities Schedule' | translate }}"></box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <fieldset ng-disabled="!hasPermission('utilities_schedule_modify')">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label translate for="schedule_id">Schedule Identifier</label>
+                                <input id="schedule_id" name="scheduleId" class="form-control" type="number" ng-model="editable.schedule_id" readonly/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label translate for="schedule_type">Schedule Type *</label>
+                                <select id="schedule_type" name="scheduleType" class="form-control"
+                                    ng-model="editable.schedule_type"
+                                    ng-options="item.value as (item.name | translate) for item in scheduleTypes" required>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label translate for="minimum-charge">Minimum Charge *</label>
+                                <input id="minimum-charge" name="minimumCharge" min="0" step="0.01" class="form-control" type="number" ng-model="editable.minimum_charge" required/>
+                            </div>
+                        </div>
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'"></ng-include>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary btn-reset" translate ng-click="reset(); form.$setUntouched();">
+                                    Clear
+                                </button>
+                                <button class="btn btn-primary btn-update" translate ng-show="editable.schedule_id !== null"
+                                    ng-disabled="form.$invalid" popup popup-text="Are you sure you want to update this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                    popup-confirm="update(editable, editable.schedule_id); form.$setUntouched();">
+                                    Update
+                                </button>
+                                <button class="btn btn-primary btn-delete" translate ng-show="editable.schedule_id !== null"
+                                    popup popup-text="Are you sure you want to delete this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
+                                    popup-confirm="delete(editable.schedule_id); form.$setUntouched()">
+                                    Delete
+                                </button>
+                                <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid"
+                                    ng-click="create(editable); form.$setUntouched();"
+                                    ng-show="editable.schedule_id === null">
+                                    Create
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div class="box-container margin-top-20" ng-show="editable.schedule_id !== null" >
+            <box-header icon="'flash'">Create Range Bracket</box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form2" onsubmit="return false">
+                    <fieldset ng-disabled="!hasPermission('utilities_schedule_modify')">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="range_top_end">Top Range *</label>
+                                <input id="range_top_end" name="rangeTopEnd" class="form-control" min="0" step="0.01" type="number" ng-model="editableRangeBracket.range_top_end" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="unit_price">Unit Price *</label>
+                                <input id="unit_price" name="unitPrice" class="form-control" min="0" step="0.01" type="number" ng-model="editableRangeBracket.unit_price" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button translate type="button" class="btn btn-primary btn-resetbracket" ng-click="resetRange(); form2.$setUntouched();">
+                                    Clear
+                                </button>
+                                <button translate class="btn btn-primary btn-updatebracket" ng-show="editableRangeBracket.id !== null && editableRangeBracket.range_top_end !== null"
+                                    ng-disabled="form2.$invalid" popup popup-text="Are you sure you want to update this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                    popup-confirm="updateRange(editableRangeBracket); form2.$setUntouched();">
+                                    Update
+                                </button>
+                                <button translate class="btn btn-primary btn-deletebracket" ng-show="editableRangeBracket.id !== null && editableRangeBracket.range_top_end !== null"
+                                    popup popup-text="Are you sure you want to delete this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
+                                    popup-confirm="deleteRange(editableRangeBracket.id); form2.$setUntouched()">
+                                    Delete
+                                </button>
+                                <button translate class="btn btn-primary btn-createbracket" ng-disabled="form2.$invalid"
+                                    ng-click="createRange(editable.schedule_id, editableRangeBracket); form2.$setUntouched();"
+                                    ng-show="editableRangeBracket.id === null">
+                                    Create
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

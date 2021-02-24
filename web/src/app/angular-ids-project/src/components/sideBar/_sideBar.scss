@@ -1,0 +1,129 @@
+#side-bar {
+  width: $sidebarWidth;
+  color: #FFF;
+  background: #000 url('../assets/images/dark_fish_skin.png');
+  z-index: 555;
+  position: absolute;
+  float: left;
+  display: table-cell;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  @include user-select();
+
+  > ul {
+    list-style-type: none;
+    padding-left: 0;
+    padding-top: 20px;
+    position: relative;
+
+    i { // icons
+      min-width: 16px;
+      text-align: center;
+      margin-right: 2px;
+    }
+
+    li {
+      display: block;
+      position: relative;
+
+      > span {
+        padding-left: 20px;
+        display: block;
+      }
+    }
+
+    li.dropdown.slide-up .dropdown-menu {
+      display: none;
+    }
+
+    li:hover, a:hover, a:focus, a:active, li:active, li:focus {
+      text-decoration: none;
+    }
+
+    li {
+      line-height: 40px;
+      min-height: 40px;
+      cursor: pointer;
+      outline: none !important;
+
+
+      &.active:not(.open) {
+        border-right: 4px solid #2196f3;
+      }
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+
+      ul.dropdown-menu {
+        display: block;
+        position: relative;
+        background: rgba(0, 0, 0, 0.3);
+        border: 0;
+        box-shadow: none;
+        width: 100%;
+        padding: 0;
+
+        li {
+          padding-left: 21px;
+        }
+
+        a:hover {
+          background-color: transparent;
+        }
+      }
+    }
+
+    li a, li a:hover {
+      color: #F0F0F0;
+      font-size: 13px;
+    }
+  }
+
+  input {
+    background: rgb(255, 255, 255);
+    box-shadow: none;
+    margin-left: 30px;
+    width: 230px;
+    font-size: 13px;
+    color: rgb(0, 0, 0);
+    font-family: 'FontAwesome', 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  button {
+    background: rgba(0, 0, 0, 0.001);
+    border: rgba(0, 0, 0, 0.001);
+  }
+}
+
+@media (max-height: 700px) {
+  #side-bar {
+    overflow-y: scroll;
+  }
+}
+
+@media (max-width: 768px) {
+  #side-bar {
+    width: 0;
+    display: none;
+    position: relative;
+
+    &.show {
+      width: 100%;
+      display: block;
+      overflow-y: scroll;
+    }
+  }
+
+  #page-split {
+    width: 100%;
+    clear: both;
+    left: 0;
+  }
+
+  #content {
+    width: 100%;
+    left: 0;
+  }
+}

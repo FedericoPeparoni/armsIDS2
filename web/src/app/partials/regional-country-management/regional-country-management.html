@@ -1,0 +1,104 @@
+<div class="row">
+
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+
+        <div class="box-container">
+
+            <box-header toggle="toggle" page-name="management.regional-country-management" icon="'flag'"
+                title="{{ 'Regional Countries' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="textFilter" empty-to-null
+                            ng-keyup="$event.keyCode == 13 && refreshOverride()"/>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <button translate ng-click="refreshOverride()" class="btn btn-primary pull-right">Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table sort-query-string="getSortQueryString()" 
+                            service="regionalCountryManagementService" query-string="filterParameters" back-end-export="true">
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" 
+                                table-sort="refreshOverride()">
+                                <thead>
+                                    <tr>
+                                        <th translate sort="country.countryName">Country Name</th>
+                                        <th translate sort="country.countryCode">Country Code</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in regionalCountryList.content">
+                                        <td translate>{{ item.country.country_name }}</td>
+                                        <td>{{ item.country.country_code }}</td>
+                                    </tr>
+                                    <tr ng-show="!regionalCountryList.content.length">
+                                        <td class="text-center" colspan="2" translate>There are no Regional Countries data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refreshOverride()" 
+                        max-size="::20" items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm" boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="crud-second-container" ng-show="toggle">
+
+        <div class="box-container">
+
+            <box-header icon="'flag'" title="{{ 'Add a Country' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <form novalidate action="#" name="form" onsubmit="return false">
+
+                    <fieldset ng-disabled="!hasPermission('regional_countries_modify')">
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="countries">Country Name</label>
+                                <multiselect
+                                  id="countries"
+                                  name="countryList"
+                                  options="countryList"
+                                  model="editableCountryList.content"
+                                  translated-value='country_name'
+                                  extra-settings="{ externalIdProp: '', displayProp: 'country_name' }" >
+                                </multiselect>
+                            </div>
+                        </div>
+
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button class="btn btn-primary btn-update" translate popup popup-text="Are you sure you want to update this?"
+                                popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                popup-confirm="update(editableCountryList.content); form.$setUntouched()">Update
+                                </button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

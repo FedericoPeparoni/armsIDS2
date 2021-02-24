@@ -1,0 +1,294 @@
+<!-- Form for entering a new flight movement -->
+<div ng-show="toggle" class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="box-container">
+
+            <box-header page-name="flight-data.flight-movement-management.data-entry-form" icon="'plane'"
+                title="{{ editable.id !== null ? 'Edit a Flight Movement' : 'Create a Flight Movement' | translate }}"></box-header>
+
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <fieldset ng-disabled="(!hasPermission('flight_movement_modify') && !hasPermission('flight_movement_key_modify')) || editable.status === 'INVOICED' || editable.status === 'PAID'">
+                        <flight-movement-form flight-movement="editable" manual="manual" should-show-charge="shouldShowCharge" distance-unit-of-measure="distanceUnitOfMeasure">
+                            <!-- Flight Movement Component -->
+                        </flight-movement-form>
+                    </fieldset>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <button type="button" class="btn btn-primary btn-reset" translate ng-click="reset(); form.$setUntouched();">Clear</button>
+
+                            <!-- Update -->
+                            <button class="btn btn-primary btn-update" translate 
+                                ng-show="editable.id !== null && (hasPermission('flight_movement_modify') || hasPermission('flight_movement_key_modify'))"
+                                ng-disabled="form.$invalid || editable.status === 'INVOICED' || editable.status === 'PAID' || editable.status === 'DELETED' || editable.status === 'DECLINED'"
+                                unit-converter unit-to-convert="user_crossing_distance" popup popup-text="Are you sure you want to update this?"
+                                popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                popup-confirm="updateOverride(convertedEditable || editable, editable.id); form.$setUntouched();">Update
+                            </button>
+                            <!-- Delete -->
+                            <button ng-if="!editable.deletion_reason" class="btn btn-primary btn-delete"
+                                translate ng-show="editable.id !== null && (hasPermission('flight_movement_modify') || hasPermission('flight_movement_key_modify')) && editable.status !== 'DELETED'"
+                                ng-disabled="editable.status === 'INVOICED' || editable.status === 'PAID' || editable.status === 'CANCELED' || editable.status === 'DECLINED'"
+                                ng-click="showWarning('Deletion', 'deleting')">Delete
+                            </button>
+                            <button ng-if="editable.deletion_reason" class="btn btn-primary btn-delete"
+                                translate ng-show="editable.id !== null && (hasPermission('flight_movement_modify') || hasPermission('flight_movement_key_modify')) && editable.status !== 'DELETED'"
+                                popup popup-text="Are you sure you want to delete this flight?" 
+                                ng-disabled="editable.status === 'INVOICED' || editable.status === 'PAID' || editable.status === 'DELETED' || editable.status === 'CANCELED' || editable.status === 'DECLINED'"
+                                popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
+                                popup-confirm="deleteOverride(editable.id, editable.deletion_reason); form.$setUntouched()">Delete
+                            </button>
+                            <!-- Undelete -->
+                            <button ng-if="editable.status === 'DELETED' && !editable.undeletion_reason" class="btn btn-primary btn-undelete"
+                                translate ng-disabled="editable.id === null || (!hasPermission('flight_movement_modify') && !hasPermission('flight_movement_key_modify'))"
+                                ng-click="showWarning('Undeletion', 'undeleting')">Undelete
+                            </button>
+                            <button ng-if="editable.status === 'DELETED' && editable.undeletion_reason" class="btn btn-primary btn-undelete"
+                                translate ng-disabled="editable.id === null || (!hasPermission('flight_movement_modify') && !hasPermission('flight_movement_key_modify'))"
+                                popup popup-text="Are you sure you want to undelete this flight?"
+                                popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                popup-confirm="updateOverride(convertedEditable || editable, editable.id, editable.undeletion_reason); form.$setUntouched();">Undelete
+                            </button>
+                            <!-- Create -->
+                            <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid || editable.status === 'INVOICED' || editable.status === 'PAID'"
+                                ng-show="editable.id === null && (hasPermission('flight_movement_modify') || hasPermission('flight_movement_key_modify'))" unit-converter
+                                unit-to-convert="user_crossing_distance" conversion-complete="create(convertedEditable || editable); form.$setUntouched();">Create
+                            </button>
+                        </div>
+                    </div>
+                    <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                        <!-- Error Handling -->
+                    </ng-include>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- form for filtering/soring options -->
+<div class="row" ng-class="{'margin-top-20': toggle}">
+    <div class="col-xs-12 col-md-12">
+        <div class="box-container">
+            <box-header page-name="flight-data.flight-movement-management" class="margin-bottom-0" toggle="toggle" icon="'plane'"
+                title="{{ 'Flight Movements' | translate }}"></box-header>
+            <div class="box-content">
+                <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'" ng-show="!toggle && !showErrorOnlyOnForm">
+                    <!-- Error Handling -->
+                </ng-include>
+                <div class="row margin-top-5">
+                    <div class="col-xs-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="search" ng-keyup="$event.keyCode == 13 && refreshOverride()"/>
+                    </div>
+                    <div class="col-xs-6 text-right margin-top-15">
+                        <button translate ng-click="refreshOverride(); resetSelectedFlightMovements();" class="btn btn-primary spaced-buttons">Refresh</button>
+                        <button translate ng-show="reconcileJob.job_execution_status !== 'STARTED' && reconcileJob.job_execution_status !== 'QUEUED'"
+                            ng-disabled="numberOfSelectedMovements === 0 || notAllowedRecalculate || (!hasPermission('flight_movement_modify') && !hasPermission('flight_movement_key_modify'))"
+                            ng-click="executeReconciliation()" class="btn btn-primary btn-reconcile spaced-buttons">
+                            Recalculate
+                        </button>
+                        <button translate ng-show="reconcileJob.job_execution_status === 'STARTED' || reconcileJob.job_execution_status === 'QUEUED'"
+                            ng-click="cancelReconciliation()" class="btn btn-default spaced-buttons">
+                            Cancel Recalculate
+                        </button>
+                        <button translate class="btn btn-primary btn-generate spaced-buttons" 
+                            ng-disabled="numberOfSelectedMovements === 0 || !isAllowedInvoice || (!hasPermission('flight_movement_modify') && !hasPermission('flight_movement_key_modify'))"
+                            ng-click="generateInvoice(accountId, checkboxesSelected());">
+                            Generate Invoice
+                        </button>
+                        <button translate class="btn btn-primary spaced-buttons"
+                            ng-if="markZeroFlightCostsAsPaid === 'Manually'"
+                            ng-disabled="numberOfSelectedMovements === 0 || (!hasPermission('flight_movement_modify') && !hasPermission('flight_movement_key_modify'))"
+                            ng-click="markAsPaid(checkboxesSelected());">
+                            Mark as PAID
+                        </button>
+                        <button translate ng-click="open(); addFlightMovementToPlan()" ng-disabled="numberOfSelectedMovements !== 1"
+                            class="btn btn-primary btn-fpl spaced-buttons">
+                            Flight Plan
+                        </button>
+                        <button translate ng-click="resetFilters()"class="btn btn-primary btn-fpl spaced-buttons">
+                            Reset
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row margin-top-5">
+                    <div class="col-xs-12 col-sm-12 col-md-3">
+                        <label translate for="invoice-status-filter">Invoice Status</label>
+                        <select id="invoice-status-filter" class="form-control" ng-model="invoiceStatusFilter" empty-to-null ng-change="refreshOverride()"
+                            ng-disabled="showDuplicateMissing">
+                            <option translate value=""></option>
+                            <option translate value="ENROUTE_PENDING">Enroute Pending</option>
+                            <option translate value="ENROUTE_INVOICED">Enroute Invoiced</option>
+                            <option translate value="ENROUTE_PAID">Enroute Paid</option>
+                            <option translate value="PASSENGER_PENDING">Passenger Pending</option>
+                            <option translate value="PASSENGER_INVOICED">Passenger Invoiced</option>
+                            <option translate value="PASSENGER_PAID">Passenger Paid</option>
+                            <option translate value="OTHER_PENDING">Other Pending</option>
+                            <option translate value="OTHER_INVOICED">Other Invoiced</option>
+                            <option translate value="OTHER_PAID">Other Paid</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-3">
+                        <label translate for="account-type-filter">Account Type</label>
+                        <select id="account-type-filter" class="form-control" ng-model="accountTypeFilter" empty-to-null ng-change="refreshOverride()">
+                            <option translate value=""></option>
+                            <option translate value="true">IATA</option>
+                            <option translate value="false">Non-IATA</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <label translate for="flight-category-filter">Flight Movement Category</label>
+                        <dynamic-service-dropdown class="text-capitalize" ng-model="flightCategoryFilter" empty-to-null allow-empty="true" 
+                            id="flight-type-filter" name="flightCategoryFilter"
+                            ng-change="refreshOverride()" dropdown-type="single" service="::flightMovementCategoryService"
+                            options="item.id as (item.name | translate).toLowerCase() for item in list" disabled="showDuplicateMissing">
+                        </dynamic-service-dropdown>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-3">
+                        <label translate for="flight-movement-status-filter">Flight Movement Status</label>
+                        <select id="flight-movement-status-filter" empty-to-null class="form-control" ng-model="flightMovementStatusFilter" ng-change="refreshOverride()"
+                            ng-disabled="showDuplicateMissing">
+                            <option translate value=""></option>
+                            <option translate value="ACTIVE">Active (Pending/Incomplete)</option>
+                            <option translate value="INVPAID">Invoiced (Invoiced/Paid)</option>
+                            <option translate value="REJECTED">Rejected (Cancelled/Deleted)</option>
+                            <option translate value="INCOMPLETE">Incomplete</option>
+                            <option translate value="PENDING">Pending (Complete)</option>
+                            <option translate value="INVOICED">Invoiced</option>
+                            <option translate value="PAID">Paid</option>
+                            <option translate value="CANCELED">Cancelled</option>
+                            <option translate value="DELETED">Deleted</option>
+                            <option translate value="DECLINED">Declined</option>
+                            <option translate value="OTHER">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row margin-top-5">
+                    <div class="col-xs-12 col-sm-12 col-md-3">
+                        <label translate for="incomplete-flight-movement-reason">Incomplete Flight Reason</label>
+                        <select id="incomplete-flight-movement-reason" class="form-control" ng-change="refreshOverride()" empty-to-null ng-model="incompleteFlightReason"
+                            ng-disabled="showDuplicateMissing">
+                            <option value=""></option>
+                            <option translate value="ALL">All (Flight Rejection List)</option>
+                            <option ng-repeat="item in incompleteReasons | orderBy:'name | translate' track by item.id" value="{{ item.value }}">
+                                {{ item.name | translate }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-3">
+                        <label translate for="canned-sort">Sort Options</label>
+                        <select id="canned-sort" class="form-control" ng-model="cannedSort" ng-change="refreshOverride(false, cannedSort)"
+                            ng-disabled="showDuplicateMissing">
+                            <option translate value=""></option>
+                            <option translate value="sort=dateOfFlight,asc&sort=depTime,asc&sort=account.name,asc&sort=item18RegNum,asc">Date</option>
+                            <option translate value="sort=item18RegNum,asc&sort=dateOfFlight,asc&sort=depTime,asc">Aircraft</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6">
+                        <date-range class="datepicker" is-required="false" control="control" ng-click="control.getUTCStartDate() !== null && control.getUTCEndDate() !== null ? refreshOverride() : ''"
+                            ng-keyup="control.getUTCStartDate() === null && control.getUTCEndDate() === null ? refreshOverride() : '' " format="{{customDate}}">
+                            <!--Datepickers -->
+                        </date-range>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-2 form-group-inline" style="margin-left: 15px;">
+                        <div class="checkbox">
+                            <label>
+                                <input id="select-all-flights" type="checkbox" ng-model="allFlightsSelected" ng-change="toggleAllFlights()" checked="allFlightsSelected" />
+                                <span translate>Select all flights</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-3 form-group-inline">
+                        <div class="checkbox">
+                            <label>
+                                <input id="locate-duplicate-missing-flights" type="checkbox" ng-model="showDuplicateMissing"
+                                    ng-change="locateDuplicateMissingFlights(showDuplicateMissing)" />
+                                <span translate>Locate duplicate/missing flights</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-3 form-group-inline">
+                        <div class="checkbox">
+                            <label>
+                                <input id="show-actual-dep-dest-ad" type="checkbox" ng-model="showActualDepDestAd" ng-disabled="showDuplicateMissing"/>
+                                <span translate>Show actual departure/destination</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <div class="notification">
+                            <span>{{ notification_text | translate }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notication Panels -->
+                <div ng-show="invoiceCreated || markedAsPaid || (reconcileJob && (reconcileJob.start_time || reconcileJob.job_execution_status === 'QUEUED'))" class="row notifications-container">
+                    <div class="col-xs-12">
+
+                        <!-- Reconciliation Notification -->
+                        <div class="notification notification-responsive notification-reconcile-job" ng-show="reconcileJob && (reconcileJob.start_time || reconcileJob.job_execution_status === 'QUEUED')">
+                            <u translate>Recalculation</u>
+                            <span class="btn btn-sm btn-close pull-right" ng-click="reconcileJob = null">X</span>
+                            <br>
+                            <span translate>Flight ID:</span><span>&nbsp;{{ reconcileJob.job_parameters }}</span>
+                            <br>
+                            <span translate>Started:</span><span>&nbsp;{{ reconcileJob.start_time | dateConverter: 'HH:mm' }}</span>
+                            <br>
+                            <span translate>Status:</span><span>&nbsp;{{ reconcileJob.job_execution_status | translate }}</span>
+                            <br>
+                            <span translate>Processed:</span><span>&nbsp;{{ reconcileJob.total_steps }}</span>
+                            <br>
+                            <span translate>Updated:</span><span>&nbsp;{{ reconcileJob.steps_completed + reconcileJob.steps_aborted }}</span>
+                            <br>
+                            <span translate>ETC:</span><span>&nbsp;{{ reconcileJob.etc_time | dateConverter: 'HH:mm' }}</span>
+                            <span ng-show="reconcileJob.seconds_left">&nbsp;({{ reconcileJob.seconds_left }})</span>
+                            <br>
+                            <span translate>Rate:</span><span>&nbsp;{{ reconcileJob.rate }}</span>
+                            <br>
+                            <br>
+                            <uib-progressbar max="reconcileJob.total_steps" value="reconcileJob.steps_completed + reconcileJob.steps_aborted"
+                                ng-show="reconcileJob.job_execution_status !== 'STARTING'" style="height: 10px">
+                            </uib-progressbar>
+                        </div>
+
+                        <!-- Invoice Generation Notification -->
+                        <div class="notification notification-responsive" ng-show="invoiceCreated === true">
+                            <span translated>Successfully created invoice</span>
+                            <span class="btn btn-xs btn-close pull-right" ng-click="invoiceCreated = false">X</span>
+                        </div>
+
+                        <!-- Mark As Paid Notification -->
+                        <div class="notification notification-responsive" ng-show="markedAsPaid === true">
+                            <span translated>Successfully marked PENDING zero cost flights as PAID</span>
+                            <span class="btn btn-xs btn-close pull-right" ng-click="markedAsPaid = false">X</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <flight-movement-table>
+                        <!-- Flight Movement Table -->
+                    </flight-movement-table>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refreshOverride()" max-size="::20" items-per-page="pagination.size"
+                            ng-model="pagination.number" class="pagination-sm" boundary-link-numbers="::true"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="flight-plan-modal-holder">
+    <!-- Flight Plan Modal -->
+</div>

@@ -1,0 +1,5 @@
+.c3 {
+  .c3-grid, .c3-tooltip-container { // force the chart legend to not be displayed, I tried the actual c3 way and it did not work
+    display: none !important;
+  }
+}

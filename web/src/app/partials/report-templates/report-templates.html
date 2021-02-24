@@ -1,0 +1,117 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <div class="box-container">
+            <box-header page-name="templates.report-templates" toggle="toggle" icon="'book'"
+                title="{{ 'Report Templates' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="textFilter" 
+                            ng-keyup="$event.keyCode == 13 && refreshOverride()"/>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <button translate ng-click="refreshOverride()" class="btn btn-primary pull-right">Refresh</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table sort-query-string="getSortQueryString" 
+                        service="reportTemplatesService" query-string="filterParameters" back-end-export="true">
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" 
+                            table-sort="refreshOverride()">
+                                <thead>
+                                    <tr>
+                                        <th translate sort="reportName">Report Name</th>
+                                        <th translate sort="sqlQuery">SQL Query</th>
+                                        <th translate sort="parameters">Parameters</th>
+                                        <th translate sort="templateDocument">Template Document</th>
+                                        <th translate>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="edit(item)" ng-repeat="item in list" ng-class="{'highlight': editable.id === item.id}">
+                                        <td>{{ item.report_name }}</td>
+                                        <td>{{ item.sql_query }}</td>
+                                        <td>{{ item.parameters }}</td>
+                                        <td>{{ item.template_document }}</td>
+                                        <td class="text-center ">
+                                            <download-oauth2
+                                                url="report-templates/{{item.id}}/download"
+                                                error="error">
+                                            </download-oauth2>
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td class="text-center" colspan="5" translate>There are no Report Templates</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements"
+                            ng-change="refreshOverride()" max-size="::20"
+                            items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+            <box-header icon="'book'" title="{{ 'Upload a Report Template' | translate }}"></box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <fieldset ng-disabled="!hasPermission('report_template_modify')">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="report_name">Report Name *</label>
+                                <input type="text" name="reportName" class="form-control" id="report_name" ng-model="editable.report_name" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="sql_query">SQL Query *</label>
+                                <input type="text" name="sqlQuery" class="form-control" id="sql_query" ng-model="editable.sql_query" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="parameters">Parameters *</label>
+                                <input type="text" name="parameters" class="form-control" id="parameters" ng-model="editable.parameters" required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <ng-include src="'app/angular-ids-project/src/helpers/controllers/crud-file-handler/crud-file-handler.template.html'"></ng-include>
+                            </div>
+                        </div>
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'"></ng-include>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary btn-reset" translate ng-click="reset(); form.$setUntouched();">
+                                    Clear
+                                </button>
+                                <button class="btn btn-primary btn-update" translate ng-show="editable.id !== null"
+                                    ng-disabled="form.$invalid" popup popup-text="Are you sure you want to update this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                    popup-confirm="update(editable, editable.id); form.$setUntouched();">
+                                    Update
+                                </button>
+                                <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null"
+                                    popup popup-text="Are you sure you want to delete this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
+                                    popup-confirm="deleteFile([editable.id]); form.$setUntouched()">
+                                    Delete
+                                </button>
+                                <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid"
+                                    ng-click="upload('PUT', null, editable); form.$setUntouched();"
+                                    ng-show="editable.id === null">
+                                    Create
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div ng-show="error && error.data && (error.data.error || error.data.error_description || error.data.form_errors.length)" class="error-handling-container">
+    <div class="alert alert-dismissible alert-danger alert-icon" role="alert">
+        <button id="error_button" type="button" ng-click="error = null" class="close" data-dismiss="alert">×</button>
+        <span class="glyphicon glyphicon-exclamation-sign icon" aria-hidden="true"></span>
+        <span ng-show="error.data.error || error.data.error_description">
+            <strong translate>Error:</strong> <span translate>{{ error.data.error ? error.data.error : 'Unknown error' }}</span>
+            <p ng-show="error.data.error_description || error.data.message">
+                <strong translate>Description:</strong>
+                <span translate>{{ error.data.error_description ? error.data.error_description : error.data.message ? error.data.message : 'Unknown error' }}</span>
+            </p>
+        </span>
+        <p ng-if="error.data.form_errors || error.data.field_errors.length">
+            <strong ng-hide="error.data.hide_subtitle">{{'Field errors' | translate}}:</strong>
+            <p ng-repeat="item in error.data.form_errors">
+                <span translate>{{ item.field }}</span>: <span translate>{{ item.message }}</span>
+            </p>
+            <p ng-repeat="item in error.data.field_errors">
+                <span translate>{{ item.field }}</span>: <span translate>{{ item.message || 'Missing or duplicate value' }}</span>
+            </p>
+        </p>
+    </div>
+</div>

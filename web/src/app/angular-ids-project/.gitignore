@@ -1,0 +1,14 @@
+node_modules/
+bower_components/
+coverage/
+.sass-cache/
+.idea/
+.tmp/
+dist/
+
+typings/
+npm-debug.log
+
+# ignore config.service.ts which is generated
+src/app/components/services/config/config.service.ts
+/.env

@@ -1,0 +1,49 @@
+// ex. rotate(45deg)
+@mixin transform($trans) {
+  -webkit-transform: $trans;
+  -moz-transform: $trans;
+  -ms-transform: $trans;
+  -o-transform: $trans;
+  transform: $trans;
+}
+
+// ex. 0.2s
+@mixin transition($secs) {
+  -webkit-transition: $secs;
+  -moz-transition: $secs;
+  -ms-transition: $secs;
+  -o-transition: $secs;
+  transition: $secs;
+}
+
+// ex. 2px
+@mixin border-radius($rad) {
+  -webkit-border-radius: $rad;
+  -moz-border-radius: $rad;
+  -ms-border-radius: $rad;
+  -o-border-radius: $rad;
+  border-radius: $rad;
+}
+
+@mixin animation($animate) {
+  -webkit-animation: $animate;
+  -moz-animation: $animate;
+  -ms-animation: $animate;
+  -o-animation: $animate;
+  animation: $animate;
+}
+
+@mixin box-shadow($shadow) {
+  -webkit-box-shadow: $shadow;
+  -moz-box-shadow: $shadow;
+  box-shadow: $shadow;
+}
+
+@mixin user-select($select: none) {
+  -webkit-user-select: $select; /* Chrome/Safari */
+  -moz-user-select: $select; /* Firefox */
+  -ms-user-select: $select; /* IE10+ */
+  /* Rules below not implemented in browsers yet */
+  -o-user-select: $select;
+  user-select: $select;
+}

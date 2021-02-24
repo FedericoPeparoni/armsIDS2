@@ -1,0 +1,103 @@
+# vim: ts=4 sts=4 sw=4 et
+image: docker-reg.idscorporation.ca/idsna/ci-box:node
+
+cache:
+    paths:
+        - bower_components/
+        - node_modules/
+        - typings/
+
+stages:
+    - test
+    - sonar
+    - compile-for-rpm
+    - rpm-build
+    - rpm-push
+
+test:
+    stage: test
+    script:
+        - rm -f .env
+        - cp .env.example .env
+        - export PHANTOMJS_BIN=$(which phantomjs)
+        - unset $(sed -nr 's,^([A-Z][^=]*)=.*,\1,gp' .env* | sort -u) ; npm run ci-test
+
+sonar:preview:
+    stage: sonar
+    only:
+        - branches
+    except:
+        - master
+        - /^develop(-.*)?$/
+    script:
+        # install IDS ssl cert into the docker image; see here for more info: https://git.idscorporation.ca/ids/ids-adminscripts
+        - bash -c "source <(curl -fsSL http://ubidev04.idscorporation.ca/pub/ssl/idsna-ssl-setup.sh)"
+        # run sonar preview with quality gates using current branch compared to latest analysis
+        - npm run sonar-scanner -- -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_LOGIN -Dsonar.analysis.mode=preview -Dsonar.gitlab.project_id=$CI_PROJECT_PATH -Dsonar.gitlab.commit_sha=$(git log --pretty=format:%H origin/$SONAR_BRANCH..$CI_COMMIT_SHA | tr '\n' ',') -Dsonar.gitlab.ref_name=$CI_COMMIT_REF_NAME
+
+sonar:analyse:
+    stage: sonar
+    only:
+        # Community edition of sonarqube only supports one branch
+        #
+        # Run this job only when current branch equals to the value of
+        # $SONAR_BRANCH variable defined in "abms" group settings in GitLab
+        variables:
+            - $CI_COMMIT_REF_NAME == $SONAR_BRANCH
+    script:
+        # install IDS ssl cert into the docker image; see here for more info: https://git.idscorporation.ca/ids/ids-adminscripts
+        - bash -c "source <(curl -fsSL http://ubidev04.idscorporation.ca/pub/ssl/idsna-ssl-setup.sh)"
+        # run sonar analysis with quality gates using current develop branch
+        - npm run sonar-scanner -- -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_LOGIN
+
+compile-for-rpm:
+    stage: compile-for-rpm
+    script:
+        - rm -f .env
+        - cp .env.example.linux .env
+        - cat .env
+        - unset $(sed -nr 's,^([A-Z][^=]*)=.*,\1,gp' .env* | sort -u) ; npm run ci-build
+        - cat src/app/angular-ids-project/src/components/services/config/config.service.ts
+    artifacts:
+        paths:
+            - dist
+
+# For feature branches build the RPM without compression (faster), and discard it
+rpm-build:
+    # This image is maintaned in abms/docker-abms-devel project in GitLab and is a
+    # minimal CentOS 7 image with tools required for creating and deploying RPM packages
+    image: docker-reg.idscorporation.ca/abms/centos-builder:generic
+    stage: rpm-build
+    except:
+        # develop branches are handled in a separate job below
+        - /^develop(-.*)?$/
+    script:
+        - cd rpm && COMPRESS=0 ./build.sh
+
+# For develop-* branches build RPM with full compression and save the RPM for "rpm-push" stage
+rpm-build:develop:
+    # This image is maintaned in abms/docker-abms-devel project in GitLab and is a
+    # minimal CentOS 7 image with tools required for creating and deploying RPM packages
+    image: docker-reg.idscorporation.ca/abms/centos-builder:generic
+    stage: rpm-build
+    only:
+        - /^develop(-.*)?$/
+    script:
+        - export PACKAGE_QUALIFIER=$(echo "$CI_COMMIT_REF_NAME" | perl -n -e '/^develop-\d[\d.]+-(.+)$/ and print ".".$1' ; )
+        - cd rpm && COMPRESS=1 ./build.sh
+    artifacts:
+        paths:
+            - rpm/RPMS/*.rpm
+
+# Deploy RPMs to ubidev04 or some such
+rpm-push:develop:
+    # This image is maintaned in abms/docker-abms-devel project in GitLab and is a
+    # minimal CentOS 7 image with tools required for creating and deploying RPM packages
+    image: docker-reg.idscorporation.ca/abms/centos-builder:generic
+    stage: rpm-push
+    only:
+        - /^develop(-.*)?$/
+    script:
+        # This will deploy the RPMs to a directory on ubidev04 that matches the name of the branch,
+        # such as "develop" or "develop-1.2"
+        deploy_rpms.sh rpm/RPMS/*.rpm

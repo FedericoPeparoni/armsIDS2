@@ -1,0 +1,194 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <div class="box-container">
+
+            <box-header toggle="toggle" page-name="security.users" icon="'user'" title="{{ 'Users' | translate }}"></box-header>
+
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12 col-md-4">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="textFilter" empty-to-null 
+                            ng-keyup="$event.keyCode == 13 && refresh()"/>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <label translate for="users-filter">Users</label>
+                        <select id="users-filter" ng-init="userType = 'false'" class="form-control" ng-change="refresh()"
+                            ng-model="userType">
+                            <option translate value="">All</option>
+                            <option translate value="false">Internal users</option>
+                            <option translate value="true">Web portal users</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <button translate ng-click="refresh()"
+                            class="btn btn-primary pull-right">Refresh
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table sort-query-string="getSortQueryString()" service="usersService"
+                            query-string="filterParameters" back-end-export="true">
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" table-sort="refresh()">
+                                <thead>
+                                    <tr>
+                                        <th translate sort="name">User Name</th>
+                                        <th translate sort="login">User Login</th>
+                                        <th translate sort="jobTitle">Job Title</th>
+                                        <th translate sort="email">Email Address</th>
+                                        <th translate sort="userRoles.id">Groups</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="resetPassword(); form.$setUntouched(); edit(item);" ng-class="{'highlight': editable.id === item.id}" 
+                                        ng-repeat="item in list">
+                                        <td class="text-nowrap">{{ item.name }}</td>
+                                        <td class="text-nowrap">{{ item.login }}</td>
+                                        <td class="text-nowrap">{{ item.job_title }}</td>
+                                        <td class="text-nowrap">{{ item.email }}</td>
+                                        <td class="text-nowrap">
+                                            <span ng-repeat="(key, val) in item.roles">{{ val.name }}{{ key != item.roles.length - 1 ? ',' : '' }}</span>
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td class="text-center" colspan="5" translate>There are no Users data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refresh()"
+                            max-size="::20" items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+
+            <box-header ng-show="editable.id === null" icon="'user'" title="{{ 'Create a User' | translate }}"></box-header>
+            <box-header ng-show="editable.id !== null" icon="'user'" title="{{ 'Edit a User' | translate }}"></box-header>
+
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <fieldset ng-disabled="!hasPermission('user_modify')">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="email-address">Email Address *</label>
+                                <input id="email-address" name="email" class="form-control" type="email" ng-model="editable.email" 
+                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]+$"
+                                    required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="userlogin">User Login *</label>
+                                <input ng-disabled="editable.id" id="userlogine" name="login" class="form-control" type="text" minlength="4" 
+                                    ng-model="editable.login" required/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label translate for="username">User Name *</label>
+                                <input id="username" name="name" class="form-control" type="text" maxlength="100" ng-model="editable.name" required/>
+                            </div>
+                        </div>
+
+                        <password error="error" reset-pass="resetPass" required="editable.id === null && minLength > 0" password="editable.password"></password>
+
+                        <div ng-if="minLength === 0 && editable.is_selfcare_user === false" class="row">
+                            <div class="col-xs-12">
+                                <button translate id="empty-password" class="btn btn-primary"
+                                        ng-class="{ 'active': setZeroLength }"
+                                        ng-click="resetPassword(!setZeroLength)"
+                                        ng-model="setZeroLength">
+                                    Set password to zero length password
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="contact-information">Contact Information *</label>
+                                <input id="contact-information" name="contactInformation" class="form-control" type="text" ng-model="editable.contact_information"
+                                    required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="sms-number"><span translate>SMS Number</span>&nbsp;<span ng-if="editable.is_selfcare_user === false">*</label>
+                                <input id="sms-number" name="smsNumber" class="form-control" type="text" ng-model="editable.sms_number" 
+                                    ng-required="editable.is_selfcare_user === false" empty-to-null/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="roles">Groups</label>
+                                <multiselect id="roles" name="roles" options="editable.is_selfcare_user === false ? rolesListForNotSelfCare : rolesList"
+                                    model="editable.roles" extra-settings="{ displayProp: 'name' }"
+                                    disabled="editable.is_selfcare_user">
+                                </multiselect>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="billing-centre"><span translate>Billing Centre</span>&nbsp;<span ng-if="editable.is_selfcare_user === false">*</span></label>
+                                <dynamic-service-dropdown ng-model="editable.billing_center" id="billing-centre" name="billingCenter" dropdown-type="single"
+                                    service="::billingCentreManagementService" is-required="editable.is_selfcare_user === false"
+                                    options="centre as centre.name for centre in list.content track by centre.id"
+                                    disabled="editable.is_selfcare_user">
+                                </dynamic-service-dropdown>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label translate for="job-title">Job Title</label>
+                                <input id="job-title" name="jobTitle" class="form-control" type="text" ng-model="editable.job_title" maxlength="100" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="selfcare-user"><span translate>Self-Care User</span> *</label>
+                                <boolean-text  id="selfcare-user"
+                                        name="selfcareUser" class="form-control"
+                                        ng-model="editable.is_selfcare_user" ng-disabled="editable.id !== null" ng-change="checkSelfCareUser()"
+                                        required>
+                                </boolean-text >
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="force-password-change">Force Password Change</label>
+                                <boolean-text  id="force-password-change" name="forcePasswordChange"
+                                        class="form-control"
+                                        ng-model="editable.force_password_change"
+                                        required>
+                                </boolean-text >
+                            </div>
+                        </div>
+
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button translate type="button" class="btn btn-primary" ng-click="reset(); form.$setUntouched();">
+                                    Clear
+                                </button>
+
+                                <button translate class="btn btn-primary" ng-disabled="form.$invalid || editable.password === null" ng-show="editable.id !== null"
+                                    popup popup-text="Are you sure you want to update this?" popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                    popup-confirm="update(editable, editable.id); form.$setUntouched();">Update
+                                </button>
+                                <button translate class="btn btn-primary" ng-show="editable.id !== null" popup popup-text="Are you sure you want to delete this?" 
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
+                                    popup-confirm="delete(editable.id)">Delete
+                                </button>
+                                <button translate class="btn btn-primary" ng-disabled="form.$invalid || editable.password === null || editable.password === undefined" 
+                                    ng-show="editable.id === null" ng-click="create(editable); form.$setUntouched();">Create
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

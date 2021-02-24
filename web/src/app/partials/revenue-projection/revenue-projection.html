@@ -1,0 +1,480 @@
+<div class="row revenue-projection">
+    <div class="col-xs-9">
+        <div class="box-container">
+            <box-header icon="'dollar'" title="{{ 'Revenue Projection' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <h6 class="underline" translate>Enroute Formulas</h6>
+                    </div>
+                    <div class="col-xs-9" style="background-color: red;" ng-show="noFormulas === true">
+                        <div>
+                            <h6 translate>No existing formulas can be found for the provided MTOW upper limit</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-top">
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="upper_limit_enabled" name="upper_limit_enabled" type="checkbox" ng-model="enabled.upper_limit_enabled" ng-click="changeStatus('upper_limit');"
+                                ng-focus="setFocusInput(null)" disabled/>
+                            <label translate>Enroute MTOW</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="upper_limit" name="upper_limit" ng-model="editable.upper_limit" ng-hide="!enabled.upper_limit_enabled" type="number"
+                                class="center-number" min="0" max="640000" ng-focus="setFocusInput(null)" style="width: 75%;"
+                                ng-blur="getFormulas();" />
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="w_factor_formula_enabled" name="w_factor_formula_enabled" type="checkbox" ng-model="enabled.w_factor_formula_enabled"
+                                ng-click="changeStatus('w_factor_formula');" ng-focus="setFocusInput('w_factor_formula')" />
+                            <label translate>W Factor</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="w_factor_formula" name="w_factor_formula" ng-model="editable.w_factor_formula" ng-hide="!enabled.w_factor_formula_enabled"
+                                type="text" ng-focus="setFocusInput('w_factor_formula')" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-top">
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="domestic_formula_enabled" name="domestic_formula_enabled" type="checkbox" ng-model="enabled.domestic_formula_enabled"
+                                ng-click="changeStatus('domestic_formula');" ng-focus="setFocusInput('domestic_formula')" />
+                            <label translate>Domestic</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="domestic_formula" name="domestic_formula" ng-hide="!enabled.domestic_formula_enabled" ng-model="editable.domestic_formula"
+                                type="text" ng-focus="setFocusInput('domestic_formula')" />
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="domestic_d_factor_formula_enabled" name="domestic_d_factor_formula_enabled" type="checkbox" ng-model="enabled.domestic_d_factor_formula_enabled"
+                                ng-click="changeStatus('domestic_d_factor_formula');" ng-focus="setFocusInput('domestic_d_factor_formula')"
+                            />
+                            <label translate>Domestic (D)</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="domestic_d_factor_formula" name="domestic_d_factor_formula" ng-hide="!enabled.domestic_d_factor_formula_enabled"
+                                ng-model="editable.domestic_d_factor_formula" type="text" ng-focus="setFocusInput('domestic_d_factor_formula')"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-top">
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="regional_arrival_formula_enabled" name="regional_arrival_formula_enabled" type="checkbox" ng-model="enabled.regional_arrival_formula_enabled"
+                                ng-click="changeStatus('regional_arrival_formula');" ng-focus="setFocusInput('regional_arrival_formula')"
+                            />
+                            <label translate>Regional Arrival</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="regional_arrival_formula" name="regional_arrival_formula" ng-hide="!enabled.regional_arrival_formula_enabled"
+                                ng-model="editable.regional_arrival_formula" type="text" ng-focus="setFocusInput('regional_arrival_formula')"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="reg_arr_d_factor_formula_enabled" name="reg_arr_d_factor_formula_enabled" type="checkbox" ng-model="enabled.reg_arr_d_factor_formula_enabled"
+                                ng-click="changeStatus('reg_arr_d_factor_formula');" ng-focus="setFocusInput('reg_arr_d_factor_formula')"
+                            />
+                            <label translate>Regional Arrival (D)</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="reg_arr_d_factor_formula" name="reg_arr_d_factor_formula" ng-hide="!enabled.reg_arr_d_factor_formula_enabled"
+                                ng-model="editable.reg_arr_d_factor_formula" type="text" ng-focus="setFocusInput('reg_arr_d_factor_formula')"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-top">
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="regional_departure_formula_enabled" name="regional_departure_formula_enabled" type="checkbox" ng-model="enabled.regional_departure_formula_enabled"
+                                ng-click="changeStatus('regional_departure_formula');" ng-focus="setFocusInput('regional_departure_formula')"
+                            />
+                            <label translate>Regional Departure</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="regional_departure_formula" name="regional_departure_formula" ng-model="editable.regional_departure_formula" ng-hide="!enabled.regional_departure_formula_enabled"
+                                type="text" ng-focus="setFocusInput('regional_departure_formula')" />
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="reg_dep_d_factor_formula_enabled" name="reg_dep_d_factor_formula_enabled" type="checkbox" ng-model="enabled.reg_dep_d_factor_formula_enabled"
+                                ng-click="changeStatus('reg_dep_d_factor_formula');" ng-focus="setFocusInput('reg_dep_d_factor_formula')"
+                            />
+                            <label translate>Regional Departure (D)</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="reg_dep_d_factor_formula" name="reg_dep_d_factor_formula" ng-model="editable.reg_dep_d_factor_formula" ng-hide="!enabled.reg_dep_d_factor_formula_enabled"
+                                type="text" ng-focus="setFocusInput('reg_dep_d_factor_formula')" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-top">
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="regional_overflight_formula_enabled" name="regional_overflight_formula_enabled" type="checkbox" ng-model="enabled.regional_overflight_formula_enabled"
+                                ng-click="changeStatus('regional_overflight_formula');" ng-focus="setFocusInput('regional_overflight_formula')"
+                            />
+                            <label translate>Regional Overflight</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="regional_overflight_formula" name="regional_overflight_formula" ng-model="editable.regional_overflight_formula"
+                                ng-hide="!enabled.regional_overflight_formula_enabled" type="text" ng-focus="setFocusInput('regional_overflight_formula')"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="reg_ovr_d_factor_formula_enabled" name="reg_ovr_d_factor_formula_enabled" type="checkbox" ng-model="enabled.reg_ovr_d_factor_formula_enabled"
+                                ng-click="changeStatus('reg_ovr_d_factor_formula');" ng-focus="setFocusInput('reg_ovr_d_factor_formula')"
+                            />
+                            <label translate>Regional Overflight (D)</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="reg_ovr_d_factor_formula" name="reg_ovr_d_factor_formula" ng-hide="!enabled.reg_ovr_d_factor_formula_enabled"
+                                ng-model="editable.reg_ovr_d_factor_formula" type="text" ng-focus="setFocusInput('reg_ovr_d_factor_formula')"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-top">
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="international_arrival_formula_enabled" name="international_arrival_formula_enabled" type="checkbox" ng-model="enabled.international_arrival_formula_enabled"
+                                ng-click="changeStatus('international_arrival_formula');" ng-focus="setFocusInput('international_arrival_formula')"
+                            />
+                            <label translate>International Arrival</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="international_arrival_formula" name="international_arrival_formula" ng-model="editable.international_arrival_formula"
+                                ng-hide="!enabled.international_arrival_formula_enabled" type="text" ng-focus="setFocusInput('international_arrival_formula')"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="int_arr_d_factor_formula_enabled" name="int_arr_d_factor_formula_enabled" type="checkbox" ng-model="enabled.int_arr_d_factor_formula_enabled"
+                                ng-click="changeStatus('int_arr_d_factor_formula');" ng-focus="setFocusInput('int_arr_d_factor_formula')"
+                            />
+                            <label translate>International Arrival (D)</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="int_arr_d_factor_formula" name="int_arr_d_factor_formula" ng-hide="!enabled.int_arr_d_factor_formula_enabled"
+                                ng-model="editable.int_arr_d_factor_formula" type="text" ng-focus="setFocusInput('int_arr_d_factor_formula')"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-top">
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="international_departure_formula_enabled" name="international_departure_formula_enabled" type="checkbox" ng-model="enabled.international_departure_formula_enabled"
+                                ng-click="changeStatus('international_departure_formula');" ng-focus="setFocusInput('international_departure_formula')"
+                            />
+                            <label translate>International Departure</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="international_departure_formula" name="international_departure_formula" ng-hide="!enabled.international_departure_formula_enabled"
+                                ng-model="editable.international_departure_formula" type="text" ng-focus="setFocusInput('international_departure_formula')"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="int_dep_d_factor_formula_enabled" name="int_dep_d_factor_formula_enabled" type="checkbox" ng-model="enabled.int_dep_d_factor_formula_enabled"
+                                ng-click="changeStatus('int_dep_d_factor_formula');" ng-focus="setFocusInput('int_dep_d_factor_formula')"
+                            />
+                            <label translate>International Departure (D)</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="int_dep_d_factor_formula" name="int_dep_d_factor_formula" ng-model="editable.int_dep_d_factor_formula" ng-hide="!enabled.int_dep_d_factor_formula_enabled"
+                                type="text" ng-focus="setFocusInput('int_dep_d_factor_formula')" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-top">
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="international_overflight_formula_enabled" name="international_overflight_formula_enabled" type="checkbox" ng-model="enabled.international_overflight_formula_enabled"
+                                ng-click="changeStatus('international_overflight_formula');" ng-focus="setFocusInput('international_overflight_formula')"
+                            />
+                            <label translate>International Overflight</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="international_overflight_formula" name="international_overflight_formula" ng-hide="!enabled.international_overflight_formula_enabled"
+                                ng-model="editable.international_overflight_formula" type="text" ng-focus="setFocusInput('international_overflight_formula')"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="int_ovr_d_factor_formula_enabled" name="int_ovr_d_factor_formula_enabled" type="checkbox" ng-model="enabled.int_ovr_d_factor_formula_enabled"
+                                ng-click="changeStatus('int_ovr_d_factor_formula');" ng-focus="setFocusInput('int_ovr_d_factor_formula')"
+                            />
+                            <label translate>International Overflight (D)</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="int_ovr_d_factor_formula" name="int_ovr_d_factor_formula" ng-hide="!enabled.int_ovr_d_factor_formula_enabled"
+                                ng-model="editable.int_ovr_d_factor_formula" type="text" ng-focus="setFocusInput('int_ovr_d_factor_formula')"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <h6 class="underline" translate>Charge-based Projections</h6>
+                    </div>
+                    <div class="col-xs-6">
+                        <h6 class="underline" translate>Volume-based Projections</h6>
+                    </div>
+                </div>
+                <div class="row no-top">
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input i d="charges_aerodrome_enabled" name="charges_aerodrome_enabled" type="checkbox" ng-model="enabled.charges_aerodrome_enabled"
+                                ng-click="changeStatus('charges_aerodrome');" ng-focus="setFocusInput(null)" />
+                            <label translate>Aerodrome Charges (%)</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="charges_aerodrome" name="charges_aerodrome" ng-model="editable.charges_aerodrome" ng-hide="!enabled.charges_aerodrome_enabled"
+                                type="number" class="center-number" min="-500" max="500" style="width: 40%;" ng-focus="setFocusInput(null)"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="charges_vol_flights_enabled" name="charges_vol_flights_enabled" type="checkbox" ng-model="enabled.charges_vol_flights_enabled"
+                                ng-click="changeStatus('charges_vol_flights');" ng-focus="setFocusInput(null)" />
+                            <label translate>Total Flights (%)</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="charges_vol_flights" name="charges_vol_flights" ng-hide="!enabled.charges_vol_flights_enabled" ng-model="editable.charges_vol_flights"
+                                type="number" class="center-number" min="-500" max="500" style="width: 40%;" ng-focus="setFocusInput(null)"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-top">
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="charges_approach_enabled" name="charges_approach_enabled" type="checkbox" ng-model="enabled.charges_approach_enabled"
+                                ng-click="changeStatus('charges_approach');" ng-focus="setFocusInput(null)" />
+                            <label translate>Approach Charges (%)</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="charges_approach" name="charges_approach" ng-model="editable.charges_approach" ng-hide="!enabled.charges_approach_enabled"
+                                type="number" class="center-number" min="-500" max="500" style="width: 40%;" ng-focus="setFocusInput(null)"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="charges_vol_passengers_enabled" name="charges_vol_passengers_enabled" type="checkbox" ng-model="enabled.charges_vol_passengers_enabled"
+                                ng-click="changeStatus('charges_vol_passengers');" ng-focus="setFocusInput(null)" />
+                            <label translate>Total Passengers (%)</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="charges_vol_passengers" name="charges_vol_passengers" ng-model="editable.charges_vol_passengers" ng-hide="!enabled.charges_vol_passengers_enabled"
+                                type="number" class="center-number" min="-500" max="500" style="width: 40%;" ng-focus="setFocusInput(null)"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-top">
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="charges_late_arrival_enabled" name="charges_late_arrival_enabled" type="checkbox" ng-model="enabled.charges_late_arrival_enabled"
+                                ng-click="changeStatus('charges_late_arrival');" ng-focus="setFocusInput(null)" />
+                            <label translate>Late Arrival Charges (%)</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="charges_late_arrival" name="charges_late_arrival" ng-model="editable.charges_late_arrival" ng-hide="!enabled.charges_late_arrival_enabled"
+                                type="number" class="center-number" min="-500" max="500" style="width: 40%;" ng-focus="setFocusInput(null)"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-top">
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="charges_late_departure_enabled" name="charges_late_departure_enabled" type="checkbox" ng-model="enabled.charges_late_departure_enabled"
+                                ng-click="changeStatus('charges_late_departure', enabled.charges_late_departure_enabled);" ng-focus="setFocusInput(null)"
+                            />
+                            <label translate>Late Departure Charges (%)</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="charges_late_departure" name="charges_late_departure" ng-model="editable.charges_late_departure" ng-hide="!enabled.charges_late_departure_enabled"
+                                type="number" class="center-number" min="-500" max="500" style="width: 40%;" ng-focus="setFocusInput(null)"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-top">
+                    <div class="form-group col-xs-6 no-bottom">
+                        <div class="col-sm-5">
+                            <input id="charges_passenger_enabled" name="charges_passenger_enabled" type="checkbox" ng-model="enabled.charges_passenger_enabled"
+                                ng-click="changeStatus('charges_passenger');" ng-focus="setFocusInput(null)" />
+                            <label translate>Passenger Charges (%)</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="charges_passenger" name="charges_passenger" ng-model="editable.charges_passenger" ng-hide="!enabled.charges_passenger_enabled"
+                                type="number" class="center-number" min="-500" max="500" style="width: 40%;" ng-focus="setFocusInput(null)"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <h6 class="underline" translate>Revenue Projection Settings</h6>
+                    </div>
+                </div>
+                <div class="row no-top">
+                    <div class="col-sm-4">
+                        <label translate>Projection Period *</label>
+                        <select ng-focus="setFocusInput(null)" id="time_period" name="time_period" class="form-control" ng-model="editable.time_period"
+                            required>
+                            <option translate value="MONTH">Month</option>
+                            <option translate value="QUARTER">Quarter</option>
+                            <option translate value="YEAR">Year</option>
+                            <option translate value="DECADE">Decade</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <label translate>Include Only Selected Parameters?</label>
+                        <select ng-focus="setFocusInput(null)" id="modified_only" name="modified_only" class="form-control" ng-model="editable.modified_only"
+                            ng-change="setMonthlyDates()" required>
+                            <option translate value="yes">Yes</option>
+                            <option translate value="no">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button title="{{ 'Reset form to current settings' | translate }}" type="button" class="btn btn-primary" translate ng-click="reset(); clearForm(); getFormulas();"
+                            ng-disabled="processing === true">Reset</button>
+                        <button title="{{ 'Clear all form settings' | translate }}" type="button" class="btn btn-primary" translate ng-click="reset(); clearForm();"
+                            ng-disabled="processing === true">Clear</button>
+                        <button title="{{ 'Generate PDF of projections' | translate }}" type="button" class="btn btn-primary" translate ng-click="doGenerate('PDF');"
+                            ng-disabled="form.$invalid || !canGenerate || editable.upper_limit <= 0 || processing === true">PDF</button>
+                        <button title="{{ 'Generate XLSX of projection' | translate }}" type="button" class="btn btn-primary" translate ng-click="doGenerate('XLSX');"
+                            ng-disabled="form.$invalid || !canGenerate || editable.upper_limit <= 0 || processing === true">XLSX</button>
+                        <button title="{{ 'Validate enroute formulas' | translate }}" type="button" class="btn btn-primary" translate ng-click="validate();"
+                            ng-disabled="form.$invalid || !canGenerate || editable.upper_limit <= 0 || processing === true">Validate</button>
+                    </div>
+                </div>
+                <div ng-show="validated">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h6 class="underline" translate>Validation Results</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left" translate>Formula Name</th>
+                                        <th class="text-center" translate>Result</th>
+                                        <th class="text-left" translate>Issues</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in data_results" ng-show="item.formula">
+                                        <td class="text-nowrap text-left">{{ item.name | translate }}</td>
+                                        <td class="text-nowrap text-center">
+                                            <i class="fa fa-check-circle" ng-show="item.formula_valid"></i>
+                                            <i class="fa fa-times-circle" ng-show="!item.formula_valid"></i>
+                                        </td>
+                                        <td class="text-nowrap text-left" ng-bind-html="getTrustedHtml(item.issue)"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-3" style="padding: 0px;">
+        <div class="box-container">
+            <box-header icon="'dollar'" title="{{ 'Formula Toolbox' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <uib-accordion close-others="false">
+                            <div uib-accordion-group class="panel-default" heading="{{'Operators' | translate}}" is-open="true">
+                                <button ng-click="addToFormula('+', 'op')" ng-disabled="!formula || processing" title="{{ 'Addition' | translate}}" type="button"
+                                    class="btn btn-primary" id="btn-addition">+</button>
+                                <button ng-click="addToFormula('-', 'op')" ng-disabled="!formula || processing" title="{{ 'Subtraction' | translate}}" type="button"
+                                    class="btn btn-primary" id="btn-subtraction">-</button>
+                                <button ng-click="addToFormula('*', 'op')" ng-disabled="!formula || processing" title="{{ 'Multiplication' | translate}}"
+                                    type="button" class="btn btn-primary" id="btn-multiplication">*</button>
+                                <button ng-click="addToFormula('/', 'op')" ng-disabled="!formula || processing" title="{{ 'Division' | translate}}" type="button"
+                                    class="btn btn-primary" id="btn-division">/</button>
+                                <button ng-click="addToFormula('(', 'op')" ng-disabled="!formula || processing" title="{{ 'Left Bracket' | translate}}" type="button"
+                                    class="btn btn-primary" id="btn-leftBracket">(</button>
+                                <button ng-click="addToFormula(')', 'op')" ng-disabled="!formula || processing" title="{{ 'Right Bracket' | translate}}"
+                                    type="button" class="btn btn-primary" id="btn-rightBracket">)</button>
+                                <button ng-click="addToFormula('&Sqrt;( )')" ng-disabled="!formula || processing" title="{{ 'Square Root' | translate}}"
+                                    type="button" class="btn btn-primary" id="btn-sqrt">&Sqrt;</button>
+                            </div>
+                            <div uib-accordion-group class="panel-default" heading="{{'Parameters' | translate}}" is-open="true">
+                                <button ng-click="addToFormula('[MTOW]', 'param')" ng-disabled="!formula || processing" title="{{ 'Maximum Take-off Weight' | translate}}"
+                                    type="button" class="btn btn-primary" id="btn-mtow">[MTOW]</button>
+                                <button ng-click="addToFormula('[AvgMassFactor]', 'param')" ng-disabled="!formula || processing" title="{{ 'Average Mass Factor' | translate}}"
+                                    type="button" class="btn btn-primary" id="btn-amf">[AvgMassFactor]</button>
+                                <button ng-click="addToFormula('[CrossDist]', 'param')" ng-disabled="!formula || processing" title="{{ 'FIR Crossing Distance' | translate}}"
+                                    type="button" class="btn btn-primary" id="btn-xdst">[CrossDist]</button>
+                                <button ng-click="addToFormula('[AccountDiscount]', 'param')" ng-disabled="!formula || processing" title="{{ 'Discount Percentage' | translate}}"
+                                    type="button" class="btn btn-primary" id="btn-dsct">[AccountDiscount]</button>
+                                <button ng-click="addToFormula('[EntriesNumber]', 'param')" ng-disabled="!formula || processing" title="{{ 'Number of FIR Entry Points' | translate}}"
+                                    type="button" class="btn btn-primary" id="btn-pnts">[EntriesNumber]</button>
+                                <button ng-click="addToFormula('[FirEntryFee]', 'param')" ng-disabled="!formula || processing" title="{{ 'Cost per FIR Entry' | translate}}"
+                                    type="button" class="btn btn-primary" id="btn-ceny">[FirEntryFee]</button>
+                            </div>
+                            <div uib-accordion-group class="panel-default" heading="{{'Functions' | translate}}" is-open="true">
+                                <button ng-click="addToFormula('sqr(#)', 'func')" ng-disabled="!formula || processing" title="{{ 'Return Square of Number' | translate}}"
+                                    type="button" class="btn btn-primary" id="btn-sqr">[SQR]</button>
+                                <button ng-click="addToFormula('abs(#)', 'func')" ng-disabled="!formula || processing" title="{{ 'Return Absolute Value' | translate}}"
+                                    type="button" class="btn btn-primary" id="btn-d">[ABS]</button>
+                                <button ng-click="addToFormula('round(#)', 'func')" ng-disabled="!formula || processing" title="{{ 'Round to Nearest Integer' | translate}}"
+                                    type="button" class="btn btn-primary" id="btn-d">[ROUND]</button>
+                                <button ng-click="addToFormula('trunc(#)', 'func')" ng-disabled="!formula || processing" title="{{ 'Return Integral Number' | translate}}"
+                                    type="button" class="btn btn-primary" id="btn-d">[TRUNC]</button>
+                                <button ng-click="addToFormula('pow(#,#)', 'func')" ng-disabled="!formula || processing" title="{{ 'Raise Number to Power' | translate}}"
+                                    type="button" class="btn btn-primary" id="btn-d">[POW]</button>
+                                <button ng-click="addToFormula('min(#,#)', 'func')" ng-disabled="!formula || processing" title="{{ 'Return Smaller of Two Numbers' | translate}}"
+                                    type="button" class="btn btn-primary" id="btn-d">[MIN]</button>
+                                <button ng-click="addToFormula('max(#,#)', 'func')" ng-disabled="!formula || processing" title="{{ 'Return Larger of Two Numbers' | translate}}"
+                                    type="button" class="btn btn-primary" id="btn-d">[MAX]</button>
+                                <button ng-click="addToFormula('ceil(#)', 'func')" ng-disabled="!formula || processing" title="{{ 'Return Smallest Integer Greater than Number' | translate}}"
+                                    type="button" class="btn btn-primary" id="btn-d">[CEILING]</button>
+                                <button ng-click="addToFormula('floor(#)', 'func')" ng-disabled="!formula || processing" title="{{ 'Return Largest Integer Smaller than Number' | translate}}"
+                                    type="button" class="btn btn-primary" id="btn-d">[FLOOR]</button>
+                            </div>
+                        </uib-accordion>
+                    </div>
+                </div>
+                <div class="row" ng-show="formulaError">
+                    <div class="col-xs-12">
+                        <div class="alert alert-dismissible alert-danger alert-icon">
+                            <button type="button" ng-click="formulaError = null" class="close">×</button>
+                            <span class="glyphicon glyphicon-exclamation-sign icon" aria-hidden="true"></span>
+                            <span>{{ formulaError }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    

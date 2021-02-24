@@ -1,0 +1,183 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <div class="box-container">
+            <box-header toggle="toggle" page-name="exemptions.exempt-account-management" icon="'users'" title="{{ 'Exempt Accounts' | translate }}"></box-header>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="textFilter" empty-to-null
+                        ng-keyup="$event.keyCode == 13 && refresh()"/>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <button translate ng-click="refresh()" class="btn btn-primary pull-right">Refresh</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive"
+                            export-table sort-query-string="getSortQueryString()" back-end-export="true" service="accountExemptManagementService"
+                            query-string="filterParameters">
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" 
+                                table-sort="refresh()">
+                                <thead>
+                                    <tr>
+                                    <th class="text-nowrap" sort="accountName">{{'Account' | translate}}</th>
+                                    <th class="text-nowrap" sort="enroute">{{'Enroute Fees Exempt' | translate}}&nbsp;(%)</th>
+                                    <th class="text-nowrap" sort="approachFeesExempt">{{'Approach Fees Exempt' | translate}}&nbsp;(%)</th>
+                                    <th class="text-nowrap" sort="aerodromeFeesExempt">{{'Aerodrome Fees Exempt' | translate}}&nbsp;(%)</th>
+                                    <th class="text-nowrap" sort="lateArrival" ng-if="shouldShowCharge('arrival')">{{'Late Arrival Fees Exempt' | translate}}&nbsp;(%)</th>
+                                    <th class="text-nowrap" sort="lateDeparture" ng-if="shouldShowCharge('departure')">{{'Late Departure Fees Exempt' | translate}}&nbsp;(%)</th>
+                                    <th class="text-nowrap" sort="parking" ng-if="shouldShowCharge('parking')">{{'Parking Fees Exempt' | translate}}&nbsp;(%)</th>
+                                    <th class="text-nowrap" sort="internationalPax">{{'International PAX Fees Exempt' | translate}}&nbsp;(%)</th>
+                                    <th class="text-nowrap" sort="domesticPax">{{'Domestic PAX Fees Exempt' | translate}}&nbsp;(%)</th>
+                                    <th class="text-nowrap" sort="extendedHours" ng-if="shouldShowCharge('extendedHours')">{{'Extended Hours Fees Exempt' | translate}}&nbsp;(%)</th>
+                                    <th class="text-nowrap" sort="flightNotes">{{'Flight Notes' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-click="edit(item); form.$setUntouched(); preview(item);" ng-repeat="item in list" 
+                                    ng-class="{'highlight': editable.id === item.id}">
+                                    <td class="text-nowrap">{{ item.account_name }}</td>
+                                    <td class="text-nowrap">{{ item.enroute | number: 2 }}</td>
+                                    <td class="text-nowrap">{{ item.approach_fees_exempt | number: 2 }}</td>
+                                    <td class="text-nowrap">{{ item.aerodrome_fees_exempt | number: 2 }}</td>
+                                    <td class="text-nowrap" ng-if="shouldShowCharge('arrival')">{{ item.late_arrival | number: 2 }}</td>
+                                    <td class="text-nowrap" ng-if="shouldShowCharge('departure')">{{ item.late_departure | number: 2 }}</td>
+                                    <td class="text-nowrap" ng-if="shouldShowCharge('parking')">{{ item.parking | number: 2 }}</td>
+                                    <td class="text-nowrap">{{ item.international_pax | number: 2 }}</td>
+                                    <td class="text-nowrap">{{ item.domestic_pax | number: 2 }}</td>
+                                    <td class="text-nowrap" ng-if="shouldShowCharge('extendedHours')">{{ item.extended_hours | number: 2 }}</td>
+                                    <td class="text-nowrap">{{ item.flight_notes }}</td>
+                                </tr>
+                                <tr ng-show="!list.length">
+                                    <td class="text-center" colspan="11" translate>There are no Exempt Accounts data</td>
+                                </tr>
+                            </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refresh()" max-size="::20" items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm" boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+            <box-header ng-show="editable.id === null" icon="'users'" title="{{ 'Create an Exempt Account' | translate }}"></box-header>
+            <box-header ng-show="editable.id !== null" icon="'users'" title="{{ 'Edit an Exempt Account' | translate }}"></box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <fieldset ng-disabled="!hasPermission('exempt_account_modify')">
+                        <div class="row">
+                            <div class="col-xs-6 col-md-6">
+                                <label for="account">{{'Account' | translate}} *</label>
+                                <dynamic-service-dropdown
+                                    ng-model="editable.account_id"
+                                    id="account" name="accountId"
+                                    dropdown-type="single"
+                                    service="::accountsService"
+                                    method="findAllCreditMinimalActiveReturn"
+                                    is-required="::true"
+                                    options="item.id as (item.name | translate) for item in list">
+                                </dynamic-service-dropdown>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="enroute">{{'Enroute Fees Exempt' | translate}} * (%)</label>
+                                <input id="enroute" name="enroute" class="form-control" ng-model="editable.enroute"
+                                    type="number" max="100" min="0" step="1" required>
+                                </input>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="approach_fees_exempt">{{'Approach Fees Exempt' | translate}} * (%)</label>
+                                <input id="approach_fees_exempt" name="approachFeesExempt" class="form-control" 
+                                    ng-model="editable.approach_fees_exempt" type="number" max="100" min="0" step="1" required>
+                                </input>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="aerodrome_fees_exempt">{{'Aerodrome Fees Exempt' | translate}} * (%)</label>
+                                <input id="aerodrome_fees_exempt" name="aerodromeFeesExempt" class="form-control"
+                                    ng-model="editable.aerodrome_fees_exempt" type="number" max="100" min="0" step="1" required>
+                                </input>
+                            </div>
+                            <div class="col-xs-12 col-md-6" ng-if="shouldShowCharge('arrival')">
+                                <label for="late-arrival">{{'Late Arrival Fees Exempt' | translate}} * (%)</label>
+                                <input id="late-arrival" name="lateArrival" class="form-control" ng-model="editable.late_arrival"
+                                    type="number" max="100" min="0" step="1" required>
+                                </input>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6" ng-if="shouldShowCharge('departure')">
+                                <label for="late-departure">{{'Late Departure Fees Exempt' | translate}} * (%)</label>
+                                <input id="late-departure" name="lateDeparture" class="form-control" ng-model="editable.late_departure"
+                                    type="number" max="100" min="0" step="1" required>
+                                </input>
+                            </div>
+                            <div class="col-xs-12 col-md-6" ng-if="shouldShowCharge('parking')">
+                                <label for="parking">{{'Parking Fees Exempt' | translate}} * (%)</label>
+                                <input id="parking" name="parking" class="form-control" ng-model="editable.parking"
+                                    type="number" max="100" min="0" step="1" required>
+                                </input>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="international-pax">{{'International PAX Fees Exempt' | translate}} * (%)</label>
+                                <input id="international-pax" name="internationalPax" class="form-control"
+                                    ng-model="editable.international_pax" type="number" max="100" min="0" step="1" required>
+                                </input>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="domestic-pax">{{'Domestic PAX Fees Exempt' | translate}} * (%)</label>
+                                <input id="domestic-pax" name="domesticPax" class="form-control" ng-model="editable.domestic_pax"
+                                    type="number" max="100" min="0" step="1" required>
+                                </input>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6" ng-if="shouldShowCharge('extendedHours')">
+                                <label for="extended-hours">{{'Extended Hours Fees Exempt' | translate}} * (%)</label>
+                                <input id="extended-hours" name="extendedHours" class="form-control" ng-model="editable.extended_hours"
+                                    type="number" max="100" min="0" step="1" required>
+                                </input >
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label for="message">{{'Flight Notes' | translate}} *</label>
+                                <textarea id="message" name="flightNotes"
+                                          class="form-control" type="text"
+                                          ng-model="editable.flight_notes"
+                                          ng-attr-title="{{editable.flight_notes ? '' : 'Please indicate which fees are exempt and why' | translate}}"
+                                          required>
+                                </textarea>
+                            </div>
+                        </div>
+
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'"></ng-include>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary btn-reset" translate ng-click="reset(); form.$setUntouched();">Clear
+                                </button>
+                                <button class="btn btn-primary btn-update" translate ng-show="editable.id !== null" ng-disabled="form.$invalid" popup popup-text="Are you sure you want to update this?" popup-local-storage-enable="SystemConfiguration:Require confirmation on update" popup-confirm="update(editable, editable.id); form.$setUntouched();">Update
+                                </button>
+                                <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null" popup popup-text="Are you sure you want to delete this?" popup-local-storage-enable="SystemConfiguration:Require confirmation on delete" popup-confirm="delete(editable.id); form.$setUntouched();">Delete
+                                </button>
+                                <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid" ng-show="editable.id === null" ng-click="create(editable); form.$setUntouched();">Create
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

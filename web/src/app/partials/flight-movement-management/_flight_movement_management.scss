@@ -1,0 +1,146 @@
+[ng-class="main.flight-movement-management"] {
+
+  .spaced-buttons {
+    margin-bottom: 5px;
+  }
+
+  .datepicker:first-child {
+    padding-left: 0px;
+  }
+
+  .datepicker:last-child {
+    padding-right: 0px;
+  }
+
+  @media (max-width: 767px) {
+    .datepicker:first-child {
+      padding-right: 0;
+    }
+
+    .datepicker:last-child {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  // used for flight plan modal
+  #flight-plan-modal-holder {
+
+    $primary: #e57373;
+    $border: 1px solid lightgray;
+    @mixin numOfChars($num) {
+      background: url("../assets/images/sq.gif");
+      background-repeat: repeat-x;
+      height: 20px;
+      background-size: 20px;
+      border: none;
+      font-family: monospace;
+      font-size: 16px;
+      letter-spacing: 11px;
+      width: #{ $num * 20 + px };
+      padding-left: 5px;
+    }
+
+    @for $i from 1 through 10 {
+      .num-of-chars-#{$i} {
+        @include numOfChars($i);
+      }
+    }
+
+    // Modal
+    .modal-header {
+      background: $primary;
+    }
+
+    .modal-body {
+      border: 5px solid $primary;
+    }
+
+    .modal-backdrop {
+      display: none;
+    }
+
+    .app-modal-window .modal-dialog {
+      width: 1500px;
+    }
+
+    // Modal Table
+    .fp-table {
+      max-height: 280px;
+    }
+
+    .table-row {
+      height: 281px;
+    }
+
+    .totals {
+      margin-top: 10px;
+    }
+
+    // Modal Form
+    .fpl {
+      margin-top: 0px;
+    }
+
+    .slash {
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 0;
+    }
+
+    #other-information,
+    #fpRoute {
+      border: $border;
+      text-align: justify;
+      word-wrap: break-word;
+      font-family: monospace;
+      font-size: 14px;
+    }
+
+    #equipment {
+      height: 20px;
+      border: $border;
+    }
+
+    .span1 {
+      display: block;
+      margin-bottom: -4px;
+    }
+
+    .span2 {
+      border-bottom: $border;
+    }
+
+    .highlight {
+      outline: 2px solid #87CEFA;
+    }
+
+  }
+
+  .middle {
+    vertical-align: middle;
+  }
+
+  .fm-table {
+    max-height: 500px;
+  }
+
+  .form-group-inline > * {
+    display: inline-block;
+    margin-right: 20px;
+  }
+
+  .notifications-container .notification {
+    margin-bottom: 20px;
+    vertical-align: top;
+
+    > .btn-close.pull-right {
+      margin-left: 10px;
+    }
+
+    &.notification-reconcile-job {
+      // min-width to match previous .feedback style
+      min-width: 318px;
+    }
+  }
+}

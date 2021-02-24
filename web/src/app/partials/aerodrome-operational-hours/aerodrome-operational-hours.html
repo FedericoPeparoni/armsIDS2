@@ -1,0 +1,291 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <div class="box-container">
+            <box-header toggle="toggle" icon="'hourglass'"
+                title="{{ 'Aerodrome Operational Hours' | translate }}"></box-header>
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="search" empty-to-null
+                            ng-keyup="$event.keyCode === 13 && refresh()" />
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <button translate ng-click="refresh()" class="btn btn-primary pull-right">Refresh</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table sort-query-string="getSortQueryString()"
+                            query-string="filterParameters" back-end-export="true" service="aerodromeOperationalHoursService">
+                            <table class="table table-striped table-bordered table-hover table-condensed"
+                                sort-query-string="getSortQueryString" table-sort="refresh()">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-nowrap" sort="aerodrome">Aerodrome</th>
+                                        <th translate class="text-nowrap" sort="operationalHoursMonday">Operational Hours Monday</th>
+                                        <th translate class="text-nowrap" sort="operationalHoursTuesday">Operational Hours Tuesday</th>
+                                        <th translate class="text-nowrap" sort="operationalHoursWednesday">Operational Hours Wednesday</th>
+                                        <th translate class="text-nowrap" sort="operationalHoursThursday">Operational Hours Thursday</th>
+                                        <th translate class="text-nowrap" sort="operationalHoursFriday">Operational Hours Friday</th>
+                                        <th translate class="text-nowrap" sort="operationalHoursSaturday">Operational Hours Saturday</th>
+                                        <th translate class="text-nowrap" sort="operationalHoursSunday">Operational Hours Sunday</th>
+                                        <th translate class="text-nowrap" sort="holidayDatesHolidays1">Holiday Dates Holidays A</th>
+                                        <th translate class="text-nowrap" sort="operationalHoursHolidays1">Operational Hours Holidays A</th>
+                                        <th translate class="text-nowrap" sort="holidayDatesHolidays2">Holiday Dates Holidays B</th>
+                                        <th translate class="text-nowrap" sort="operationalHoursHolidays2">Operational Hours Holidays B</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="edit(item)" ng-repeat="item in list"
+                                        ng-class="{'highlight': editable.id === item.id}">
+                                        <td class="text-nowrap">{{ item.aerodrome.aerodrome_name }}</td>
+                                        <td>{{ item.operational_hours_monday }}</td>
+                                        <td>{{ item.operational_hours_tuesday }}</td>
+                                        <td>{{ item.operational_hours_wednesday }}</td>
+                                        <td>{{ item.operational_hours_thursday }}</td>
+                                        <td>{{ item.operational_hours_friday }}</td>
+                                        <td>{{ item.operational_hours_saturday }}</td>
+                                        <td>{{ item.operational_hours_sunday }}</td>
+                                        <td>{{ item.holiday_dates_holidays1 }}</td>
+                                        <td>{{ item.operational_hours_holidays1 }}</td>
+                                        <td>{{ item.holiday_dates_holidays2 }}</td>
+                                        <td>{{ item.operational_hours_holidays2 }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td class="text-center" colspan="12" translate>There are no Aerodrome Operational Hours data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" max-size="::20"
+                            items-per-page="pagination.size" ng-change="refresh()" ng-model="pagination.number"
+                            class="pagination-sm" boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+            <box-header ng-show="editable.id === null" icon="'hourglass'" title="{{ 'Create an Aerodrome Operational Hours' | translate }}"></box-header>
+            <box-header ng-show="editable.id !== null" icon="'hourglass'" title="{{ 'Edit an Aerodrome Operational Hours' | translate }}"></box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <fieldset ng-disabled="!hasPermission('aerodrome_operational_hours_modify')">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="aerodrome">{{ 'Aerodrome' | translate }} *</label>
+                                <dynamic-service-dropdown ng-model="editable.aerodrome" id="aerodrome" name="aerodrome"
+                                    dropdown-type="single" service="::aerodromesService" is-required="::true"
+                                    options="item as item.aerodrome_name for item in list.content track by item.id">
+                                </dynamic-service-dropdown>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="copy-from-aerodrome">{{ 'Copy From Aerodrome' | translate }}</label>
+                                <select id="copy-from-aerodrome" name="copyFromAerodrome" class="form-control"
+                                    ng-model="copyFromAerodrome" ng-change="copyDataFromAerodrome(copyFromAerodrome)"
+                                    ng-options="item.aerodrome_name as item.aerodrome_name for item in copyFromAerodromeList">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="operational-hours-monday">{{ 'Operational Hours Monday' | translate }}
+                                    ({{ 'HHmm' | translate }}-{{ 'HHmm' | translate }}, {{ 'UTC' | translate }})</label>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <input id="operational-hours-monday" name="operationalHoursMonday" class="form-control"
+                                    type="text" ng-model="editable.operational_hours_monday" autocomplete="off"
+                                    ng-blur="timeValidate(editable.operational_hours_monday, 'operationalHoursMonday', 'operational_hours_monday')"
+                                    ng-attr-title="{{ showTimeErrorMessage['operationalHoursMonday'] ? (timeFormatErrorMessage | translate) : '' || 
+                                        timeIsAlreadyExist['operationalHoursMonday'] ? (timeIsAlreadyExistErrorMessage | translate) : '' ||
+                                        fromTimeIsAfterEndHours['operationalHoursMonday'] ? (timeStartEndErrorMessage | translate) : '' }}" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="operational-hours-tuesday">{{ 'Operational Hours Tuesday' | translate }}
+                                    ({{ 'HHmm' | translate }}-{{ 'HHmm' | translate }}, {{ 'UTC' | translate }})</label>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <input id="operational-hours-tuesday" name="operationalHoursTuesday"
+                                    class="form-control" type="text" ng-model="editable.operational_hours_tuesday"
+                                    autocomplete="off"
+                                    ng-blur="timeValidate(editable.operational_hours_tuesday, 'operationalHoursTuesday', 'operational_hours_tuesday')"
+                                    ng-attr-title="{{ showTimeErrorMessage['operationalHoursTuesday'] ? (timeFormatErrorMessage | translate) : '' || 
+                                        timeIsAlreadyExist['operationalHoursTuesday'] ? (timeIsAlreadyExistErrorMessage | translate) : '' ||
+                                        fromTimeIsAfterEndHours['operationalHoursTuesday'] ? (timeStartEndErrorMessage | translate) : '' }}" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="operational-hours-wednesday">{{ 'Operational Hours Wednesday' | translate }}
+                                    ({{ 'HHmm' | translate }}-{{ 'HHmm' | translate }}, {{ 'UTC' | translate }})</label>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <input id="operational-hours-wednesday" name="operationalHoursWednesday"
+                                    class="form-control" type="text" ng-model="editable.operational_hours_wednesday"
+                                    autocomplete="off"
+                                    ng-blur="timeValidate(editable.operational_hours_wednesday, 'operationalHoursWednesday', 'operational_hours_wednesday')"
+                                    ng-attr-title="{{ showTimeErrorMessage['operationalHoursWednesday'] ? (timeFormatErrorMessage | translate) : '' || 
+                                        timeIsAlreadyExist['operationalHoursWednesday'] ? (timeIsAlreadyExistErrorMessage | translate) : '' ||
+                                        fromTimeIsAfterEndHours['operationalHoursWednesday'] ? (timeStartEndErrorMessage | translate) : '' }}" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="operational-hours-thursday">{{ 'Operational Hours Thursday' | translate }}
+                                    ({{ 'HHmm' | translate }}-{{ 'HHmm' | translate }}, {{ 'UTC' | translate }})</label>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <input id="operational-hours-thursday" name="operationalHoursThursday"
+                                    class="form-control" type="text" ng-model="editable.operational_hours_thursday"
+                                    autocomplete="off"
+                                    ng-blur="timeValidate(editable.operational_hours_thursday, 'operationalHoursThursday', 'operational_hours_thursday')"
+                                    ng-attr-title="{{ showTimeErrorMessage['operationalHoursThursday'] ? (timeFormatErrorMessage | translate) : '' || 
+                                        timeIsAlreadyExist['operationalHoursThursday'] ? (timeIsAlreadyExistErrorMessage | translate) : '' ||
+                                        fromTimeIsAfterEndHours['operationalHoursThursday'] ? (timeStartEndErrorMessage | translate) : '' }}" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="operational-hours-friday">{{ 'Operational Hours Friday' | translate }}
+                                    ({{ 'HHmm' | translate }}-{{ 'HHmm' | translate }}, {{ 'UTC' | translate }})</label>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <input id="operational-hours-friday" name="operationalHoursFriday" class="form-control"
+                                    type="text" ng-model="editable.operational_hours_friday" autocomplete="off"
+                                    ng-blur="timeValidate(editable.operational_hours_friday, 'operationalHoursFriday', 'operational_hours_friday')"
+                                    ng-attr-title="{{ showTimeErrorMessage['operationalHoursFriday'] ? (timeFormatErrorMessage | translate) : '' || 
+                                        timeIsAlreadyExist['operationalHoursFriday'] ? (timeIsAlreadyExistErrorMessage | translate) : '' ||
+                                        fromTimeIsAfterEndHours['operationalHoursFriday'] ? (timeStartEndErrorMessage | translate) : '' }}" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="operational-hours-saturday">{{ 'Operational Hours Saturday' | translate }}
+                                    ({{ 'HHmm' | translate }}-{{ 'HHmm' | translate }}, {{ 'UTC' | translate }})</label>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <input id="operational-hours-saturday" name="operationalHoursSaturday"
+                                    class="form-control" type="text" ng-model="editable.operational_hours_saturday"
+                                    autocomplete="off"
+                                    ng-blur="timeValidate(editable.operational_hours_saturday, 'operationalHoursSaturday', 'operational_hours_saturday')"
+                                    ng-attr-title="{{ showTimeErrorMessage['operationalHoursSaturday'] ? (timeFormatErrorMessage | translate) : '' || 
+                                        timeIsAlreadyExist['operationalHoursSaturday'] ? (timeIsAlreadyExistErrorMessage | translate) : '' ||
+                                        fromTimeIsAfterEndHours['operationalHoursSaturday'] ? (timeStartEndErrorMessage | translate) : '' }}" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="operational-hours-sunday">{{ 'Operational Hours Sunday' | translate }}
+                                    ({{ 'HHmm' | translate }}-{{ 'HHmm' | translate }}, {{ 'UTC' | translate }})</label>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <input id="operational-hours-sunday" name="operationalHoursSunday" class="form-control"
+                                    type="text" ng-model="editable.operational_hours_sunday" autocomplete="off"
+                                    ng-blur="timeValidate(editable.operational_hours_sunday, 'operationalHoursSunday', 'operational_hours_sunday')"
+                                    ng-attr-title="{{ showTimeErrorMessage['operationalHoursSunday'] ? (timeFormatErrorMessage | translate) : '' || 
+                                        timeIsAlreadyExist['operationalHoursSunday'] ? (timeIsAlreadyExistErrorMessage | translate) : '' ||
+                                        fromTimeIsAfterEndHours['operationalHoursSunday'] ? (timeStartEndErrorMessage | translate) : '' }}" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="holiday-dates-holidays1">{{ 'Holiday Dates - Holidays A' | translate }}
+                                    ({{ 'mm/dd' | translate }})</label>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <input id="holiday-dates-holidays1" name="holidayDatesHolidays1" class="form-control"
+                                    type="text" ng-model="editable.holiday_dates_holidays1" autocomplete="off"
+                                    ng-blur="dateValidate(editable.holiday_dates_holidays1, 'holidayDatesHolidays1', 'holiday_dates_holidays1')"
+                                    ng-attr-title="{{ showDateErrorMessage['holidayDatesHolidays1'] ? (dateFormatErrorMessage | translate) : '' || 
+                                        dateIsAlreadyExist['holidayDatesHolidays1'] ? (dateIsAlreadyExistErrorMessage | translate) : '' }}" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label
+                                    for="operational-hours-holidays1">{{ 'Operational Hours Holidays A' | translate }}
+                                    ({{ 'HHmm' | translate }}-{{ 'HHmm' | translate }}, {{ 'UTC' | translate }})</label>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <input id="operational-hours-holidays1" name="operationalHoursHolidays1"
+                                    class="form-control" type="text" ng-model="editable.operational_hours_holidays1"
+                                    autocomplete="off"
+                                    ng-blur="timeValidate(editable.operational_hours_holidays1, 'operationalHoursHolidays1', 'operational_hours_holidays1')"
+                                    ng-attr-title="{{ showTimeErrorMessage['operationalHoursHolidays1'] ? (timeFormatErrorMessage | translate) : '' || 
+                                        timeIsAlreadyExist['operationalHoursHolidays1'] ? (timeIsAlreadyExistErrorMessage | translate) : '' ||
+                                        fromTimeIsAfterEndHours['operationalHoursHolidays1'] ? (timeStartEndErrorMessage | translate) : '' }}" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="holiday-dates-holidays2">{{ 'Holiday Dates - Holidays B' | translate }}
+                                    ({{ 'mm/dd' | translate }})</label>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <input id="holiday-dates-holidays2" name="holidayDatesHolidays2" class="form-control"
+                                    type="text" ng-model="editable.holiday_dates_holidays2" autocomplete="off"
+                                    ng-blur="dateValidate(editable.holiday_dates_holidays2, 'holidayDatesHolidays2', 'holiday_dates_holidays2')"
+                                    ng-attr-title="{{ showDateErrorMessage['holidayDatesHolidays2'] ? (dateFormatErrorMessage | translate) : '' || 
+                                        dateIsAlreadyExist['holidayDatesHolidays2'] ? (dateIsAlreadyExistErrorMessage | translate) : '' }}" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label
+                                    for="operational-hours-holidays2">{{ 'Operational Hours Holidays B' | translate }}
+                                    ({{ 'HHmm' | translate }}-{{ 'HHmm' | translate }}, {{ 'UTC' | translate }})</label>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <input id="operational-hours-holidays2" name="operationalHoursHolidays2"
+                                    class="form-control" type="text" ng-model="editable.operational_hours_holidays2"
+                                    autocomplete="off"
+                                    ng-blur="timeValidate(editable.operational_hours_holidays2, 'operationalHoursHolidays2', operational_hours_holidays2)"
+                                    ng-attr-title="{{ showTimeErrorMessage['operationalHoursHolidays2'] ? (timeFormatErrorMessage | translate) : '' || 
+                                        timeIsAlreadyExist['operationalHoursHolidays2'] ? (timeIsAlreadyExistErrorMessage | translate) : '' ||
+                                        fromTimeIsAfterEndHours['operationalHoursHolidays2'] ? (timeStartEndErrorMessage | translate) : '' }}" />
+                            </div>
+                        </div>
+
+                        <ng-include
+                            src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary btn-reset" translate
+                                    ng-click="reset(); form.$setUntouched();">Clear
+                                </button>
+                                <button class="btn btn-primary btn-update" translate ng-show="editable.id !== null"
+                                    ng-disabled="form.$invalid" popup popup-text="Are you sure you want to update this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                    popup-confirm="update(editable, editable.id); form.$setUntouched();">
+                                    Update
+                                </button>
+                                <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null"
+                                    popup popup-text="Are you sure you want to delete this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
+                                    popup-confirm="delete(editable.id); form.$setUntouched();">
+                                    Delete
+                                </button>
+                                <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid"
+                                    ng-show="editable.id === null" ng-click="create(editable); form.$setUntouched();">
+                                    Create
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<div class="box-header">
+    <h4>
+        <i class="fa fa-{{::icon}}"></i>
+        <span translate>{{title}}</span>
+        <a ng-if="pageUrl" title="{{ 'Open Manual' | translate }}" target="_blank" ng-href="{{pageUrl}}"><i class="fa fa-info-circle pull-right"></i></a>
+        <input ng-show="::toggle !== null" class="pull-right" id="form-toggle" type="checkbox" ng-model="toggle">
+        <label ng-show="::toggle !== null" class="pull-right" for="form-toggle" translate>Show Form</label>
+        <div ng-hide="suppressDownload" class="pull-right export-button"><!-- Export Table Button --></div>
+        <div ng-show="showClose" ng-click="closeFunc()" class="btn btn-sm btn-primary btn-header-close pull-right">X</div>
+    </h4>
+</div>

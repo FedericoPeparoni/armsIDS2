@@ -1,0 +1,132 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+
+        <div class="box-container">
+
+            <box-header toggle="toggle" page-name="operations.aircraft-type-management" icon="'fighter-jet'" title="{{ 'Aircraft Types' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="textFilter" empty-to-null
+                        ng-keyup="$event.keyCode == 13 && refreshOverride()"/>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <button translate ng-click="refreshOverride()" class="btn btn-primary pull-right">Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table query-string="filterParameters" back-end-export="true"
+                            sort-query-string="getSortQueryString()" service="aircraftTypeManagementService">
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString"
+                                table-sort="refreshOverride()">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-nowrap" sort="aircraftType">Aircraft Type</th>
+                                        <th translate class="text-nowrap" sort="aircraftName">Aircraft Name</th>
+                                        <th translate class="text-nowrap" sort="manufacturer">Aircraft Manufacturer</th>
+                                        <th class="text-nowrap text-right" sort="maximumTakeoffWeight">
+                                            <span>{{ 'MTOW Override' | translate }}&nbsp;({{ mtowUnitOfMeasure | translate }})</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="edit(item)" ng-repeat="item in list" ng-class="{'highlight': editable.id === item.id}">
+                                        <td>{{ item.aircraft_type }}</td>
+                                        <td>{{ item.aircraft_name }}</td>
+                                        <td>{{ item.manufacturer }}</td>
+                                        <td class="text-right">{{ item.maximum_takeoff_weight | weightConverter }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td class="text-center" colspan="4" translate>There are no Aircraft Types data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <pagination-display></pagination-display>
+
+                        <ul uib-pagination total-items="pagination.total_elements"
+                            ng-change="refreshOverride()"
+                            max-size="::20" items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+            <box-header ng-show="editable.id === null" icon="'fighter-jet'" title="{{ 'Create an Aircraft Type' | translate }}">
+            </box-header>
+            <box-header ng-show="editable.id !== null" icon="'fighter-jet'" title="{{ 'Edit an Aircraft Type' | translate }}"></box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+
+                    <fieldset ng-disabled="!hasPermission('aircraft_type_modify')">
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="aircraft-type">Aircraft Type *</label>
+                                <input id="aircraft-type" class="form-control" type="text" ng-pattern="/^[a-zA-Z0-9]*$/" ng-trim="false" maxlength="4"
+                                    minlength="2" name="aircraftType" ng-model="editable.aircraft_type" uppercase-input required />
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="aircraft-name">Aircraft Name *</label>
+                                <input id="aircraft-name" name="aircraftName" class="form-control" type="text" ng-model="editable.aircraft_name" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="aircraft-manufacturer">Aircraft Manufacturer *</label>
+                                <input id="aircraft-manufacturer" name="aircraftManufacturer" class="form-control" type="text" ng-model="editable.manufacturer"
+                                    required/>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label translate for="wake-turbulence">Wake Turbulence *</label>
+                                <dynamic-service-dropdown ng-model="editable.wake_turbulence_category" id="wake-turbulence" name="wakeTurbulence" dropdown-type="single"
+                                    service="::wakeTurbulenceCategoryService" is-required="::true" options="item as (item.name | translate) for item in list.content track by item.id">
+                                </dynamic-service-dropdown>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="mtow">
+                                    <span>{{ 'MTOW' | translate }}&nbsp;({{ mtowUnitOfMeasure | translate }}) *</span>
+                                </label>
+                                <unit-conversion-input id="mtow" name="maximumTakeoffWeight" ng-model="editable.maximum_takeoff_weight" measurement-type="weight"
+                                    required />
+                            </div>
+                        </div>
+                        <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'"></ng-include>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary btn-reset" translate ng-click="reset(); form.$setUntouched();">
+                                    Clear
+                                </button>
+                                <button class="btn btn-primary btn-update" translate ng-show="editable.id !== null" ng-disabled="form.$invalid" convert-to-tons
+                                    property="maximum_takeoff_weight" popup popup-text="Are you sure you want to update this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on update" popup-confirm="update(convertedEditable || editable, editable.id); form.$setUntouched();">Update
+                                </button>
+                                <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null" popup popup-text="Are you sure you want to delete this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on delete" popup-confirm="delete(editable.id); form.$setUntouched()">Delete
+                                </button>
+                                <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid" ng-show="editable.id === null" convert-to-tons
+                                    property="maximum_takeoff_weight" conversion-complete="create(convertedEditable || editable); form.$setUntouched();">Create
+                                </button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

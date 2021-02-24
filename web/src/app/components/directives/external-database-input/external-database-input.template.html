@@ -1,0 +1,9 @@
+<form name="form">
+  <div class="error-container">
+    <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+      <!-- Error Handling -->
+    </ng-include>
+  </div>
+  <input name="permitNumber" callback="addAdhocFeeToList" ng-model="permitNumber" ng-blur="queryExternalDatabase()" class="form-control text-left" 
+    ng-required="required" ng-disabled="!supported" ng-style="!supported && { 'background-color': 'lightgray' }" />
+</form>

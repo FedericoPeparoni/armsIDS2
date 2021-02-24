@@ -1,0 +1,149 @@
+<div class="form-group system-configuration-item-group"
+    ng-class="{ 'has-error': validationError || verifyResult === false, 'has-success': !validationError && verifyResult && !verifyInProgress }">
+
+    <label translate ng-attr-for="{{ 'item-' + item.id }}"
+        ng-class="{ 'text-danger': validationError || verifyResult === false, 'text-success': !validationError && verifyResult && !verifyInProgress }">
+        {{ (item.item_name | translate) + ' ' + (item.display_units | translate) }}
+    </label>
+
+
+    <input type="checkbox"
+            ng-attr-id="{{ 'item-' + item.id }}"
+            ng-if="item.data_type.name === 'boolean'"
+            ng-click="item.current_value === 't' ? item.current_value = 'f' : item.current_value = 't'"
+            ng-checked="item.current_value === 't'"
+            ng-model="item.current_value"
+    />
+
+    <div ng-if="item.data_type.name !== 'boolean'" ng-class="{ 'input-group': item.system_validation_type }">
+
+        <p class="input-group" ng-if="item.data_type.name === 'date'">
+            <date-picker name="dataTypeDate" type="text"
+                ng-pattern="datePickerRegex" 
+                show-button-bar="false" 
+                class="form-control" 
+                uib-datepicker-popup="{{ customDate }}"
+                ng-model="item.current_value" 
+                is-open="dataTypeDate.open"
+                close-text="Close">
+            </date-picker>
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default"
+                    ng-click="dataTypeDate.open = !dataTypeDate.open">
+                    <i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
+                </button>
+            </span>
+        </p>
+    
+        <input type="string"
+            ng-attr-id="{{ 'item-' + item.id }}"
+            ng-if="item.data_type.name === 'timestamp'"
+            pattern="\d{4}-[0-1]\d-[0-3]\d\s[0-2]\d:[0-5]\d:[0-5]\d"
+            class="form-control"
+            ng-model="item.current_value"
+        />
+
+        <input type="number"
+            ng-attr-id="{{ 'item-' + item.id }}"
+            ng-if="item.data_type.name === 'float' || item.data_type.name === 'int'"
+            ng-pattern="item.data_type.name === 'float' ? '^-?[0-9]+([\.,][0-9]+)?' : '^-?[0-9]+'"
+            class="form-control"
+            ng-model="item.current_value"
+            max="{{ (item.range.split(',')[1] === 'maxint' ? 2147483647 : item.range.split(',')[1]) }}"
+            min="{{ item.range.split(',')[0] }}"
+        />
+
+        <div ng-if="item.data_type.name === 'string' || item.data_type.name === 'filename'">
+
+            <div ng-if="item.range !== null && item.item_name !== 'Crossing distance precedence' && !item.item_name.includes('Language')">
+                <select class="form-control" ng-model="item.current_value"
+                    ng-attr-id="{{ 'item-' + item.id }}"
+                    ng-options="k as v | translate for (k,v) in mapRange(item)"></select>
+            </div>
+
+
+            <div ng-if="item.range === null && item.item_name !== 'ANSP currency' && item.item_name !== 'Country code'">
+                <input type="text"
+                        class="form-control"
+                        ng-attr-id="{{ 'item-' + item.id }}"
+                        ng-model="item.current_value"
+                        maxlength="100"/>
+            </div>
+
+            <div ng-if="item.item_name === 'Country code'">
+                <dynamic-service-dropdown 
+                    ng-attr-id="{{ 'item-' + item.id }}"
+                    ng-model="item.current_value" 
+                    dropdown-type="single" 
+                    service="::countryManagementService" 
+                    options="country.country_code as ((country.country_code) + ' - ' + (country.country_name | translate)) for country in list.content">
+                </dynamic-service-dropdown>
+            </div>
+
+            <div ng-if="item.item_name === 'ANSP currency'">
+                <dynamic-service-dropdown
+                    ng-attr-id="{{ 'item-' + item.id }}"
+                    ng-model="item.current_value"
+                    dropdown-type="single"
+                    service="::currencyManagementService"
+                    options="item.currency_code as ((item.currency_name | translate) + ' (' + item.currency_code + ')') for item in list.content">
+                </dynamic-service-dropdown>
+            </div>
+
+            <div ng-if="item.item_name === 'Crossing distance precedence'">
+                <multiselect
+                    class="col-xs-9"
+                    name="crossing-distance-precedence"
+                    extra-settings="{ displayProp: 'label' }"
+                    options="CDPRange"
+                    model="CDPModel"
+                    translated-value='label'
+                    events="{ onSelectionChanged: addCDPToList }">
+                </multiselect>
+
+                <div class="col-xs-3">
+                    <ol>
+                        <li ng-repeat="item in CDP">{{ item | translate }}</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div ng-if="item.item_name.includes('Language')">
+
+                <select ng-if="item.item_name && item.item_name.toLowerCase().includes('selection')" class="form-control"
+                    ng-attr-id="{{ 'item-' + item.id }}"
+                    ng-model="item.current_value"
+                    ng-options="k as v for (k, v) in languageMap(item)"></select>
+
+                <div ng-if="item.item_name.toLowerCase().includes('supported')">
+                    <div class="col-xs-12"
+                        ng-attr-id="{{ 'item-' + item.id }}"
+                        ng-dropdown-multiselect
+                        name="language-options"
+                        options="languageOptions"
+                        selected-model="supportedLanguages"
+                        events="{onSelectionChanged: updateSupportedLanguages}">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <span class="input-group-btn" ng-if="item.system_validation_type">
+            <button ng-if="item.system_validation_type === 'CONNECTION_URL'" ng-if="" ng-click="itemValidation(item)" class="btn btn-item-verify"
+                ng-class="verifyResult !== null && !verifyInProgress ? (verifyResult === true ? 'btn-success' : 'btn-danger') : 'btn-primary'"
+                ng-disabled="!item.current_value || verifyInProgress">
+                <span translate>Verify</span>
+                <span class="fa"
+                ng-class="{ 'fa-spinner fa-spin': verifyInProgress, 'fa-close': verifyResult === false && !verifyInProgress, 'fa-check': verifyResult && !verifyInProgress }"
+                ng-show="verifyInProgress || verifyResult || verifyResult === false"></span>
+            </button>
+        </span>
+
+    </div>
+
+    <p class="help-block" translate ng-show="validationError">{{ validationError.error }}</p>
+
+</div>

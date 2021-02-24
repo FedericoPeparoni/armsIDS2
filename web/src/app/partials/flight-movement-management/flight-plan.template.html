@@ -1,0 +1,222 @@
+<modal-movable>
+    <div class="modal-header">
+        <h5 class="modal-title text-center" id="modal-title" translate>Flight Plan</h5>
+    </div>
+    <div class="modal-body" id="modal-body">
+
+        <div class="row">
+            <div class="col-xs-7">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <label translate>3 MESSAGE TYPE</label>
+                        <h4 class="fpl">&lt;=(FPL</h4>
+                    </div>
+                    <div class="col-xs-3">
+                        <label translate for="registration-number">7 REGISTRATION NUMBER</label>
+                        <br>
+                        <span>&#x2015;</span>
+                        <input class="num-of-chars-7" maxlength="7" id="registration-number" type="text" ng-model="$parent.editable.item18_reg_num"
+                            readonly>
+                    </div>
+                    <div class="col-xs-2">
+                        <label translate for="flight-rules">8 FLIGHT RULES</label>
+                        <br>
+                        <span>&#x2015;</span>
+                        <input class="num-of-chars-1" maxlength="1" id="flight-rules" type="text" ng-model="$parent.editable.flight_rules" readonly>
+                    </div>
+                    <div class="col-xs-3">
+                        <label translate for="type-of-flight">TYPE OF FLIGHT</label>
+                        <br>
+                        <span>&#x2015;</span>
+                        <input class="num-of-chars-1" maxlength="1" id="type-of-flight" type="text" ng-model="$parent.editable.flight_type">
+                    </div>
+                    <div class="col-xs-1">
+                        <h4 class="fpl">&lt;=</h4>
+                    </div>
+                </div>
+
+                <!--Row 2-->
+                <div class="row">
+                    <div class="col-xs-2">
+                        <!-- As of 14/12/17, number is not used in ABMS. Col is kept to maintain spacing -->
+                        <label translate for="number">9 NUMBER</label>
+                        <br>
+                        <span ng-if="$parent.editable.number">
+                            <span>&#x2015;</span>
+                            <input class="num-of-chars-2" maxlength="2" id="number" type="text" readonly>
+                        </span>
+                    </div>
+                    <div class="col-xs-3">
+                        <label translate for="type-of-aircraft">TYPE OF AIRCRAFT</label>
+                        <br>
+                        <input class="num-of-chars-4" maxlength="4" id="type-of-aircraft" type="text" ng-model="$parent.editable.aircraft_type" readonly>
+                    </div>
+                    <div class="col-xs-3">
+                        <label translate for="wake-turbulence-cat">WAKE TURBULENCE CAT.</label>
+                        <br>
+                        <span class="slash">&#47;&nbsp;</span>
+                        <input class="num-of-chars-1" maxlength="1" id="wake-turbulence-cat" type="text" ng-model="$parent.editable.wake_turb" readonly>
+                    </div>
+                    <div class="col-xs-3">
+                        <!-- As of 14/12/17, equipment is not used in ABMS. Col is kept to maintain spacing -->
+                        <span ng-if="$parent.editable.equipment">
+                            <label translate for="equipment">10 EQUIPMENT</label>
+                            <br>
+                            <nobr>
+                                <span>&#x2015;</span>
+                                <input id="equipment" type="text" readonly ng-model="$parent.editable.equipment">
+                            </nobr>
+                        </span>
+                    </div>
+                    <div class="col-xs-1">
+                        <h4 class="fpl">&lt;=</h4>
+                    </div>
+                </div>
+
+                <!--Row 3-->
+                <div class="row">
+                    <div class="col-xs-3 col-xs-offset-1">
+                        <label translate for="departure-aerodrome">13 DEPARTURE AERODROME</label>
+                        <br>
+                        <input class="num-of-chars-4" maxlength="4" id="departure-aerodrome" type="text" ng-model="$parent.editable.dep_ad" readonly>
+                    </div>
+                    <div class="col-xs-3">
+                        <label translate for="time">TIME</label>
+                        <br>
+                        <input class="num-of-chars-6" maxlength="6" id="time" type="text" ng-model="$parent.editable.dep_time" readonly>
+                    </div>
+                    <div class="col-xs-4">
+                    </div>
+                    <div class="col-xs-1">
+                        <br>
+                        <h4 class="fpl">&lt;=</h4>
+                    </div>
+                </div>
+
+                <!--Row 4-->
+                <div class="row">
+                    <div class="col-xs-3">
+                        <label translate for="cruising-speed">15 CRUISING SPEED</label>
+                        <br>
+                        <span>&#x2015;</span>
+                        <input class="num-of-chars-5" maxlength="5" id="cruising-speed-or-mach-number" type="text" readonly ng-model="$parent.editable.cruising_speed_or_mach_number">
+                    </div>
+                    <div class="col-xs-2">
+                        <label translate for="level">LEVEL</label>
+                        <br>
+                        <input class="num-of-chars-5" maxlength="5" id="level" type="text" readonly ng-model="$parent.editable.flight_level">
+                    </div>
+                    <div class="col-xs-6">
+                        <label translate for="fpRoute">ROUTE</label>
+                        <br>
+                        <p id="fpRoute">
+                            <span class="span1">
+                                <span class="span2">
+                                    {{ $parent.dynamicRoute || '\r\n' }}
+                                </span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
+                <!--Row 5-->
+                <div class="row">
+                    <div class="col-xs-3 col-xs-offset-1">
+                        <label translate for="destination-aerodrome">16 DESTINATION AERODROME</label>
+                        <br>
+                        <input class="num-of-chars-4" maxlength="4" id="destination-aerodrome" type="text" ng-model="$parent.editable.dest_ad" readonly>
+                    </div>
+                    <div class="col-xs-2">
+                        <!-- As of 14/12/17, alternative aerodrome is not used in ABMS. Col is kept to maintain spacing -->
+                        <span ng-if="$parent.editable.hr_min">
+                            <label translate for="hr-min">HR MIN</label>
+                            <br>
+                            <input class="num-of-chars-4" maxlength="4" id="hr-min" type="text" readonly>
+                        </span>
+                    </div>
+                    <div class="col-xs-2">
+                        <!-- As of 14/12/17, alternative aerodrome is not used in ABMS. Col is kept to maintain spacing -->
+                        <span ng-if="$parent.editable.altn_ad">
+                            <label translate for="altn-aerodrome">ALTN AERODROME</label>
+                            <br>
+                            <input class="num-of-chars-4" maxlength="4" id="altn-aerodrome" type="text" readonly ng-model="$parent.editable.altn_ad">
+                        </span>
+                    </div>
+                    <div class="col-xs-3">
+                        <!-- As of 14/12/17, alternative aerodrome 2 is not used in ABMS. Col is kept to maintain spacing -->
+                        <span ng-if="$parent.editable.altn_ad_2">
+                            <label translate for="second-altn-aerodrome">2ND ALTN AERODROME</label>
+                            <br>
+                            <input class="num-of-chars-4" maxlength="4" id="second-altn-aerodrome" type="text" readonly ng-model="$parent.editable.altn_ad_2"
+                            />
+                        </span>
+                    </div>
+                    <div class="col-xs-1">
+                        <br>
+                        <h4 class="fpl">&lt;=</h4>
+                    </div>
+                </div>
+
+                <!--Row 6-->
+                <div class="row">
+                    <div class="col-xs-11">
+                        <label translate for="other-information">18 OTHER INFORMATION</label>
+                        <p id="other-information">
+                            <span class="span1">
+                                <span class="span2">
+                                    {{ $parent.editable.item18_rmk || '\r\n' }}
+                                </span>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-xs-1">
+                        <br>
+                        <h4 class="fpl">&lt;=</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-5">
+                <div class="row table-row">
+                    <div class="col-xs-12 table-responsive fp-table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th translate>From</th>
+                                    <th translate>To</th>
+                                    <th class="text-right">
+                                        <span>{{ 'Distance' | translate }}&nbsp;({{ $parent.distanceUnitOfMeasure | translate }}) *</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-click="editable.distanceToPay = segment.segment_length; editable.segment_clicked = segment.id" ng-init="editable.distanceToPay = totalDistance"
+                                    ng-repeat="segment in specificRouteSegments" ng-class="{'highlight': segment.id === editable.segment_clicked}">
+                                    <td>{{ segment.segment_start_label }}</td>
+                                    <td>{{ segment.destination }}</td>
+                                    <td class="text-right">{{ segment.segment_length | distanceConverter | number : '2'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="totals">
+                            <span>{{ 'Total distance' | translate }}&nbsp;({{ $parent.distanceUnitOfMeasure | translate }})</span>
+                            <span class="pull-right">{{ totalDistance | distanceConverter | number : '2' }}</span>
+                            <br>
+                            <span>{{ 'Total distance to pay' | translate }}&nbsp;({{ $parent.distanceUnitOfMeasure | translate }})</span>
+                            <span class="pull-right">{{ editable.distanceToPay | distanceConverter | number : '2' }}</span>
+                            <br>
+                            <span>{{ 'Total to pay for Flight (USD)' | translate }}&nbsp;{{ totalCost | number : '2' }}</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</modal-movable>

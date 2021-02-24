@@ -1,0 +1,27 @@
+<div class="confirm-popup padding-20">
+    <div class="row">
+        <div class="col-xs-12">
+            <span class="text-center"><h5>{{ 'Flight Schedule File' | translate }}</h5></span>
+            <ul>
+                <li>{{ 'Format' | translate }}: {{ format }}</li>
+                <li>{{ 'No column header' | translate }}</li>
+            </ul>
+            <span>{{ 'Columns' | translate }}:</span>
+            <ul>
+                <li>#1 - {{ 'Flight Service Number' | translate }}</li>
+                <li>#2 - {{ 'Departure Aerodrome' | translate }} ({{ 'ICAO code' | translate }})</li>
+                <li>#3 - {{ 'Departure Time' | translate }} (HHmm)</li>
+                <li>#4 - {{ 'Destination Aerodrome' | translate }} ({{ 'ICAO code' | translate }})</li>
+                <li>#5 - {{ 'Destination Time' | translate }} (HHmm)</li>
+                <li>#6 - {{ 'Daily Schedule' | translate }} ({{ 'day of the week, i.e. MONDAY or TUESDAY/WEDNESDAY' | translate }})</li>
+            </ul>
+            <span><strong>{{ 'NOTE' | translate }}:</strong> {{ 'You can create a flight schedule only for one account per file' | translate }}</span>
+        </div>
+    </div>
+
+    <div class="row margin-top-20">
+        <div class="text-center">
+            <button translate type="button" class="btn btn-primary" ng-click="confirm()">Close</button>
+        </div>
+    </div>
+</div>

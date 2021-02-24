@@ -1,0 +1,146 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="box-container">
+            <box-header icon="'calculator'" title="Flight Cost Calculation"></box-header>
+            <div class="box-content">
+
+                <form novalidate action="#" name="form" onsubmit="return false">
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-4">
+                            <label for="aircraft-type"><span translate>Aircraft Type</span> *</label>
+                            <dynamic-service-dropdown ng-model="editable.aircraft_type"
+                                dropdown-type="single"
+                                service="::aircraftTypeManagementService"
+                                options="item.aircraft_type as item.aircraft_type for item in list.content" required></dynamic-service-dropdown>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <label for="registration-number"><span translate>Registration Number</span></label>
+                            <input id="registration-number" name="registration-number" maxlength="20" ng-pattern="/^[a-zA-Z0-9]*$/" class="form-control"
+                                type="text" ng-model="editable.registration_number" uppercase-input />
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <label for="speed"><span translate>Speed</span> (Knnnn/Nnnnn/Mnnn)
+                                <span ng-show="editable.dep_aerodrome === editable.dest_aerodrome && editable.dep_aerodrome !== null">*</span></label>
+                            <input id="speed" name="speed" maxlength="5" minlength="4" ng-pattern="/^([kK][0-9]{4})|([mM][0-9]{3})|([nN][0-9]{4})$/"
+                                class="form-control" type="text" ng-model="editable.speed" ng-required="editable.dep_aerodrome && editable.dest_aerodrome && editable.dep_aerodrome === editable.dest_aerodrome ? true : false"
+                                uppercase-input />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-4">
+                            <label for="estimated-elapsed-time"><span translate>Estimated Elapsed Time </span> (<span tranlate>HHmm</span>)
+                                <span ng-show="editable.dep_aerodrome === editable.dest_aerodrome && editable.dep_aerodrome !== null">*</span></label>
+                            <input id="estimated-elapsed-time" name="estimated-elapsed-time" class="form-control" type="text" minlength="4" maxlength="4"
+                                ng-pattern="/^(?:2[0-3]|[0-1]?[0-9])?:?[0-5]?[0-9]$/" only-numbers ng-model="editable.estimated_elapsed_time"
+                                ng-required="editable.dep_aerodrome && editable.dest_aerodrome && editable.dep_aerodrome === editable.dest_aerodrome ? true : false"/>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <label for="dep-aerodrome"><span translate>Departure_Aerodrome</span> *</label>
+                            <input id="dep-aerodrome" name="dep-aerodrome" class="form-control" maxlength="4" only-letters type="text" ng-model="editable.dep_aerodrome"
+                                uppercase-input required />
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <label for="dest-aerodrome"><span translate>Destination_Aerodrome</span> *</label>
+                            <input id="dest-aerodrome" name="dest-aerodrome" class="form-control" maxlength="4" only-letters type="text" ng-model="editable.dest_aerodrome"
+                                uppercase-input />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label for="route"><span translate>Route</span> *</label>
+                            <input id="route" name="route" class="form-control" type="text" ng-model="editable.route" uppercase-input required />
+                        </div>
+                    </div>
+
+                    <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                        <!-- Error Handling -->
+                    </ng-include>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button translate type="button" ng-disabled="false" class="btn btn-primary btn-reset"
+                                ng-click="reset(); form.$setUntouched();">Clear
+                            </button>
+                            <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid || !showButton"
+                                ng-click="calculate(editable); form.$setUntouched();">Calculate
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Recaptcha Widget -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <recaptcha ng-class="{'disabled-captcha': form.$invalid}"></recaptcha>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-12 margin-top-20" ng-show="cost">
+        <div class="box-container">
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <span class="btn btn-xs pull-right" ng-click="cost = false">X</span>
+                        <h5><span class="col-md-4" translate>Flight Summary</span></h5>
+                        <br/>
+                        <span class="col-md-2" translate>Aircraft Type</span><span>{{ cost.aircraft_type }}</span>
+                        <br/>
+                        <span ng-if="cost.item18_reg_num">
+                            <span class="col-md-2" translate>Registration Number</span><span>{{ cost.item18_reg_num }}</span>
+                            <br/>
+                        </span>
+                        <span ng-if="cost.cruising_speed_or_mach_number">
+                            <span class="col-md-2" translate>Speed</span><span>{{ cost.cruising_speed_or_mach_number }}</span>
+                            <br/>
+                        </span>
+                        <span ng-if="cost.estimated_elapsed_time">
+                            <span class="col-md-2" translate>Estimated Elapsed Time</span><span>{{ cost.estimated_elapsed_time }}</span>
+                            <br/>
+                        </span>
+                        <span class="col-md-2" translate>Departure Aerodrome</span><span>{{ cost.dep_ad }}</span>
+                        <br/>
+                        <span class="col-md-2" translate>Destination Aerodrome</span><span>{{ cost.dest_ad }}</span>
+                        <br/>
+                        <span class="col-md-2" translate>Route</span><span>{{ cost.fpl_route }}</span>
+                        <br/><br/>
+                    </div>
+                    <div class="col-xs-12" ng-show="!noBillableRoute">
+                        <h5><span class="col-md-3" translate>Cost Calculation</span></h5>
+                        <br/>
+                        <span class="col-md-2">{{ 'Actual distance' | translate }}&nbsp;({{ distanceUnitOfMeasure | translate }})</span>
+                        <span>{{ cost.fpl_crossing_distance | distanceConverter | number : '2' }}</span>
+                        <br>
+                        <span class="col-md-2">{{ 'Total distance to pay' | translate }}&nbsp;({{ distanceUnitOfMeasure | translate }})</span>
+                        <span>{{ cost.billable_crossing_dist | distanceConverter | number : '2' }}</span>
+                        <br>
+                        <span class="col-md-2">{{ 'MTOW' | translate }}&nbsp;({{ mtowUnitsOfMeasure | translate }})</span>
+                        <span>{{ cost.actual_mtow | weightConverter }}</span>
+                        <br>
+                        <span class="col-md-2">{{ 'ADAP charges' | translate }} ({{ 'USD' | translate }})</span>
+                        <span>{{ adapCharges | number : '2' }}</span>
+                        <br>
+                        <span class="col-md-2">{{ 'Enroute charges' | translate }} ({{ 'USD' | translate }})</span>
+                        <span>{{ cost.enroute_charges | number : '2' }}</span>
+                        <br>
+                        <span class="col-md-2">{{ 'Total flight cost' | translate }} ({{ 'USD' | translate }})</span>
+                        <span>{{ totalCostUSD | number : '2' }}</span>
+                        <br>
+                        <span ng-if="totalCostAnsp">
+                            <span class="col-md-2">{{ 'Total flight cost' | translate }}&nbsp;({{ anspCurrency }})</span>
+                            <span>{{ totalCostAnsp | number : '2' }}</span>
+                        </span>
+                    </div>
+                    <div class="col-xs-12" ng-show="noBillableRoute">
+                        <h5><span class="col-md-3" translate>No billable route</span></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

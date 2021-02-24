@@ -1,0 +1,13 @@
+<button id="{{ paramId }}" ng-click="getPreview()" ng-disabled="disable" class="{{ classUsed }}">
+    <span translate>{{params.text}}</span>
+</button>
+<div class="row" ng-hide="hide">
+    <div class="col-sm-12 preview-oauth2-container">
+        <button class="btn btn-xs preview-oauth2-close" style="right: 16px; top: 4px; position: absolute;" ng-show="showButton" ng-click="hide = true">
+            <i class="fa fa-close"></i>
+        </button>
+        <div ng-bind-html="preview">
+            <!-- iframe renders in here -->
+        </div>
+    </div>
+</div>

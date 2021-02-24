@@ -1,0 +1,28 @@
+<div class="confirm-popup padding-20">
+    <div class="row">
+        <div class="col-xs-12">
+            <span class="text-center"><h5>{{ 'Local Aircraft Registry File' | translate }}</h5></span>
+            <ul>
+                <li>{{ 'Format' | translate }}: {{ format }}</li>
+                <li>{{ 'Top' | translate }} 17 {{ 'rows are ignored' | translate }}</li>
+                <li>{{ 'No column header' | translate }}</li>
+            </ul>
+            <span>{{ 'Columns' | translate }}:</span>
+            <ul>
+                <li>#4  - {{ 'Registration Number' | translate }}</li>
+                <li>#12 - {{ 'Owner Name' | translate }}</li>
+                <li>#15 - {{ 'Analysis Type' | translate }} ({{ 'full aircraft type name' | translate }})</li>
+                <li>#19 - {{ 'MTOW' | translate }} (kg)</li>
+                <li>#26 - {{ 'CoA Date of Renewal' | translate }} ({{ 'dd-MM-yyyy' | translate }})</li>
+                <li>#27 - {{ 'CoA Date of Expiry' | translate }} ({{ 'dd-MM-yyyy' | translate }})</li>
+            </ul>
+            <span><strong>{{ 'NOTE' | translate }}:</strong> {{ 'If you are creating a file in Excel, the first row must contain non-blank data otherwise Excel will remove any completely empty rows or columns' | translate }}</span>
+        </div>
+    </div>
+
+    <div class="row margin-top-20">
+        <div class="text-center">
+            <button translate type="button" class="btn btn-primary" ng-click="confirm()">Close</button>
+        </div>
+    </div>
+</div>

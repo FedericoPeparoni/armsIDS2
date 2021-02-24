@@ -1,0 +1,173 @@
+<!-- vim: set ts=4 sts=4 sw=4 et: -->
+<div class="row">
+    <div class="col-xs-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+        <div class="box-container">
+            <box-header toggle="toggle" page-name="management.amhs-accounts" icon="'link'"
+                title="{{ 'AMHS Accounts' | translate }}">
+            </box-header>
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text" ng-model="textFilter" empty-to-null
+                            ng-keyup="$event.keyCode == 13 && refreshOverride()"/>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <button translate ng-click="refreshOverride()" class="btn btn-primary pull-right">Refresh</button>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table sort-query-string="getSortQueryString()" back-end-export="true" 
+                            service="amhsAccountsService" query-string="filterParameters">
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" 
+                                table-sort="refreshOverride()">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-nowrap">Active</th>
+                                        <th translate sort="addr,id" class="text-nowrap">Address</th>
+                                        <th translate sort="descr,id" class="text">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="edit(item)" ng-repeat="item in list" ng-class="{'highlight': editable.id === item.id}">
+                                        <td class="text-nowrap">{{ item.active }}</td>
+                                        <td class="text-nowrap">{{ item.addr }}</td>
+                                        <td class="text">{{ item.descr }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td class="text-center" colspan="23" translate>There are no AMHS accounts</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refreshOverride()"
+                            max-size="::20" items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm" boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Form -->
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+            <box-header ng-show="editable.id === null" icon="'link'" title="{{ 'Create an account' | translate }}"></box-header>
+            <box-header ng-show="editable.id !== null" icon="'link'" title="{{ 'Edit an account' | translate }}"></box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <!-- active -->
+                            <div class="row">
+                                <div class="col-xs-2">
+                                    <input id="active" ng-model="editable.active" type="checkbox">
+                                    <label translate for="active">
+                                            Active
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- descr -->
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <label for="descr">
+                                        <span translate>Description</span>
+                                    </label>
+                                    <textarea ng-model="editable.descr" 
+                                            id="descr" 
+                                            name="descr" 
+                                            class="form-control">
+                                    </textarea>
+                                </div>
+                            </div>
+
+                            <!-- addr -->
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <label for="addr">
+                                        <span translate>Address</span>
+                                    </label>
+                                    <input id="addr" class="form-control" type="text"
+                                           ng-model="editable.addr" name="addr" required/>
+                                </div>
+                            </div>
+
+                            <!-- passwd -->
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <label for="passwd">
+                                        <span translate>Password</span>
+                                    </label>
+                                    <input id="addr" class="form-control" type="password"
+                                           ng-model="editable.passwd" name="passwd" required/>
+                                </div>
+                            </div>
+                            
+                            <!-- allow_mta_conn-->
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <input id="allow-mta-conn" name="allowMtaConn" ng-model="editable.allow_mta_conn" type="checkbox">
+                                    <label translate for="allow-mta-conn">
+                                            Allow MTA connections
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- svc_hold_for_delivery -->
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <input id="svc-hold-for-delivery" name="allowMtaConn" ng-model="editable.svc_hold_for_delivery" type="checkbox">
+                                    <label translate for="svc_hold_for_delivery">
+                                            Svc Hold for Delivery
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                        <!-- Error Handling -->
+                    </ng-include>
+                    <!-- Buttons -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button type="button" class="btn btn-primary btn-reset" translate ng-click="reset(); form.$setUntouched();">
+                                Clear
+                            </button>
+                            <button class="btn btn-primary btn-update" translate
+                                    ng-show="editable.id !== null"
+                                    ng-disabled="form.$invalid || !valid"
+                                    convert-to-tons property="upper_limit"
+                                    popup popup-text="Are you sure you want to update this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                    popup-confirm="update(editable, editable.id); form.$setUntouched();">
+                                    Update
+                            </button>
+                            <button class="btn btn-primary btn-delete" translate
+                                    ng-show="editable.id !== null"
+                                    popup popup-text="Are you sure you want to delete this?" 
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on delete" 
+                                    popup-confirm="delete(editable.id); form.$setUntouched()">
+                                    Delete
+                            </button>
+                            <button class="btn btn-primary btn-create" translate
+                                    ng-disabled="form.$invalid || !valid"
+                                    ng-show="editable.id === null"
+                                    ng-click="create(editable); form.$setUntouched();">
+                                    Create
+                            </button>
+                        </div>
+                    </div>
+                    <!-- End Form -->
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,73 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box-container">
+            <box-header page-name="billing.passenger-revenue-reconciliation-kcaa" icon="'plane'"
+                title="{{ 'Passenger Revenue Reconciliation' | translate }}"></box-header>
+            <div class="box-content">
+                <form novalidate action="#" name="form" onsubmit="return false">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="row">
+                                    <date-range is-required="::true"
+                                                control="control"
+                                                start-name="Start Date *"
+                                                end-name="End Date *"
+                                                format="{{customDate}}"
+                                                start-end-adjust="true"
+                                                date-options="{ minMode: 'month' }">
+                                    </date-range>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-3">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <label translate for="dom_pay">Domestic Payment</label><label>&nbsp;({{domPaxCurrency}}) *</label>
+                                        <input id="dom_pay" name="dom_pay" class="form-control" min="0" type="number" ng-model="dom_pay"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-3">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <label translate for="itl_pay">International Payment</label><label>&nbsp;({{intlPaxCurrency}}) *</label>
+                                        <input id="itl_pay" name="itl_pay" class="form-control" min="0" type="number" ng-model="itl_pay"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button ng-disabled="!dom_pay || dom_pay < 0 || !itl_pay || itl_pay < 0 || !control.getUTCStartDate() || !control.getUTCEndDate()"
+                                        ng-click="executePSCR(control.getUTCStartDate(), control.getUTCEndDate())"
+                                        class="btn btn-primary btn-reconcile"><span translate>Reconcile</span>
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+                <div class="row">
+                    <div ng-show="reconcilePSCRJob" class="col-xs-12 top-10" aria-hidden="false">
+                        <p class="wideFeedback ng-binding">
+                            <u><span translate>Reconciliation</span></u>
+                            <span class="btn btn-sm pull-right" ng-click="reconcilePSCRJob = null" role="button" tabindex="0">X</span>
+                            <br><span translate>Unmatched Flight Movements:</span> {{reconcileResponse.count_fm}}
+                            <br><span translate>Unmatched Passenger Service Charges:</span> {{reconcileResponse.count_pscr}}
+                            <br><span translate>Domestic Passenger Fees Collected:</span> {{reconcileResponse.total_dom_collected}}% <span ng-show="reconcileResponse.total_dom_fees"><span translate>of total Domestic Passenger Fees</span> {{reconcileResponse.total_dom_fees}} <span translate>({{domPaxCurrency}})</span></span>
+                            <br ng-show="reconcileResponse.dom_warning">
+                            <span class="text-danger" ng-show="reconcileResponse.dom_warning" translate>Warning: Less than 98% of domestic fees collected</span>
+                            <br><span translate>International Passenger Fees Collected:</span> {{reconcileResponse.total_itl_collected}}% <span ng-show="reconcileResponse.total_itl_fees"><span translate>of total International Passenger Fees</span> {{reconcileResponse.total_itl_fees}} <span translate>({{intlPaxCurrency}})</span></span>
+                            <br ng-show="reconcileResponse.itl_warning">
+                            <span class="text-danger" ng-show="reconcileResponse.itl_warning" translate>Warning: Less than 98% of international fees collected</span>
+                        </p>
+                    </div>
+                </div>
+
+                <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                    <!-- Error Handling -->
+                </ng-include>
+
+            </div>
+        </div>
+    </div>
+</div>

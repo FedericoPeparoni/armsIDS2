@@ -1,0 +1,21 @@
+footer {
+  position: fixed;
+  height: $footerHeight;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  z-index: 888;
+
+  .footer-bg {
+    height: 100%;
+    width: 100%;
+    background: #222;
+    opacity: 0.85;
+    position: absolute;
+  }
+
+  .footer-content {
+    position: relative;
+    z-index: 555;
+  }
+}

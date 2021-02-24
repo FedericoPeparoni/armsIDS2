@@ -1,0 +1,31 @@
+.box-container {
+  background-image: linear-gradient(to bottom, #ffffff 50%, #f8f8f8 100%);
+}
+
+.box-container .box-header {
+    h4 {
+      font-size: 16px;
+
+      i {
+        padding-left: 10px;
+      }
+
+      label {
+        font-size: 13px;
+        line-height:20px;
+        margin-right: 5px;
+      }
+    }
+    border-bottom: 1px solid #E4E4E4;
+    margin-bottom: 20px;
+}
+
+.fa-info-circle {
+  color: #444444;
+  margin-right:20px;
+}
+
+.btn-header-close {
+  margin-top: -6px;
+  margin-right: 6px;
+}
