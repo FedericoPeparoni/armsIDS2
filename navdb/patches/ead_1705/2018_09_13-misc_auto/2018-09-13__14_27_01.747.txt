@@ -1,0 +1,525 @@
+==========  2018-09-13 14:27:01.747  ==============================================================
+
+==========  LOG OF PATCHING 'jdbc:postgresql://abms12dev1/navdb' DATABASE  ======================
+
+-- 01 ====  WAYPOINT insertion  =====================================================================================================================
+
+NOTICE:     'AKETE' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 130900
+
+NOTICE:     'UTUMA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 130901
+
+NOTICE:     'APNOP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 90924
+
+-- 02 ====  'UL776' AIRWAY update  ====  Source: ATFM SYSTEM CUSTOMIZATIONS AF.pdf  =================================================================
+
+NOTICE:     'KORTO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 116987
+
+NOTICE:     'VIBSI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 130902
+
+NOTICE:     'GEECE' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 116984
+
+WARNING:    No Airways with 'ANU, ROMKI, AXITA, KAISO, IBERT' sequence of point designators have been found in the DB.
+            So 'KORTO, VIBSI, GEECE' Point(s) HAVE NOT BEEN CONNECTED to 'UL776' Airway.
+
+-- 03 ====  'UL452' AIRWAY insertion  ====  Source: ATFM SYSTEM CUSTOMIZATIONS AF.pdf  ==============================================================
+
+NOTICE:     The following 'UL452' airway record (PK = 12943) already exists in the DB: 'MINDA ITLUV ANADA'
+
+            So NONE of the existing 'UL452' Airways has been changed in the DB.
+
+-- 04 ====  'UL462' AIRWAY update  ====  Source: ATFM SYSTEM CUSTOMIZATIONS AF.pdf  =================================================================
+
+NOTICE:     'LUTCH' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 130904
+
+NOTICE:     'ETBIG' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 130905
+
+NOTICE:     'ANU' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 2772
+
+WARNING:    No Airways with 'ANU, LAMKN' sequence of point designators have been found in the DB.
+            So 'LUTCH, ETBIG, ANU' Point(s) HAVE NOT BEEN CONNECTED to 'UL462' Airway.
+
+-- 05 ====  'UL576' AIRWAY insertion  ====  Source: ATFM SYSTEM CUSTOMIZATIONS AF.pdf  ==============================================================
+
+NOTICE:     The following 'UL576' airway record (PK = 12944) already exists in the DB: 'TRAPP PIPUV ROVBA LESUD CITRS'
+
+            So NONE of the existing 'UL576' Airways has been changed in the DB.
+
+-- 06 ====  'UB540' AIRWAY update  ====  Source: ICAO ICARD 5LNC  ====  Comment: Story 75781  =======================================================
+
+NOTICE:     'VFA' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 3841
+
+WARNING:    No Airways with 'VLI, FA, AXIKO' sequence of point designators have been found in the DB.
+            So 'VFA' Point(s) HAVE NOT BEEN CONNECTED to 'UB540' Airway.
+
+-- 07 ====  'G653' AIRWAY update  ====  Source: ICAO ICARD 5LNC  ====  Comment: Story 75860  ========================================================
+
+NOTICE:     'UTRUK' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 102237
+
+WARNING:    No Airways with 'JSV, HBV, NESEK' sequence of point designators have been found in the DB.
+            So 'UTRUK' Point(s) HAVE NOT BEEN CONNECTED to 'G653' Airway.
+
+-- 08 ====  'UA409' AIRWAY update  ====  Source: ICAO ICARD 5LNC  ====  Comment: Story 75861  =======================================================
+
+NOTICE:     'SOBTO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 106372
+
+NOTICE:     'XALEM' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 101877
+
+NOTICE:     'MELAM' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 106057
+
+WARNING:    No Airways with 'MA, SOBTO, MELAM' sequence of point designators have been found in the DB.
+            So 'SOBTO, XALEM, MELAM' Point(s) HAVE NOT BEEN CONNECTED to 'UA409' Airway.
+
+-- 09 ====  'UM214' AIRWAY update  ====  Source: ICAO ICARD 5LNC  ====  Comment: Story 75844  =======================================================
+
+NOTICE:     'ETMIT' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 125402
+
+NOTICE:     'EXIRO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 90947
+
+NOTICE:     'OKLAP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 104253
+
+NOTICE:     'UDKOL' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 106568
+
+NOTICE:     'UDBAR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 8608
+
+NOTICE:     'UTROV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 8609
+
+NOTICE:     'XOTON' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 8610
+
+NOTICE:     'XOSIV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 8700
+
+NOTICE:     'AVOMI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 60064
+
+NOTICE:     'IXATA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 8701
+
+NOTICE:     'ITLOR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 8702
+
+NOTICE:     'ETOXO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 8703
+
+NOTICE:     'AKMEX' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 100197
+
+NOTICE:     'AMROV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 100203
+
+NOTICE:     'ANOTO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 100205
+
+NOTICE:     'APOSO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 100206
+
+NOTICE:     'MBY' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1018
+
+NOTICE:     'BIMAP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 100214
+
+NOTICE:     'NEGTO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 106066
+
+NOTICE:     'RAPOL' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 106362
+
+NOTICE:     'BIKIP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 100213
+
+NOTICE:     'LINUT' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 105729
+
+NOTICE:     'KELAB' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 103278
+
+NOTICE:     'IVDIG' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 102979
+
+NOTICE:     'GUROT' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 102966
+
+NOTICE:     'ERKAR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 100567
+
+NOTICE:     'DEPAK' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 100550
+
+NOTICE:     'MOSOS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 106063
+
+NOTICE:     'KEDOT' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 103277
+
+NOTICE:     'OPDAK' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 105028
+
+NOTICE:     'IBOSO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 56708
+
+NOTICE:     'IPANI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 2790
+
+NOTICE:     'MISRU' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 8585
+
+NOTICE:     'OVMEG' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 8529
+
+NOTICE:     'ERESA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 2513
+
+NOTICE:     'NAPEN' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 8528
+
+NOTICE:     'ABOXO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 56264
+
+NOTICE:     'PODGA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 116966
+
+NOTICE:     'ILDOR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 118875
+
+NOTICE:     'GARIN' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 10014
+
+NOTICE:     'ELGAN' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 53868
+
+NOTICE:     'SEB' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1270
+
+WARNING:    No Airways with 'OPDAK, IBOSO, IPANI, MISRU, OVMEG, ERESA, NAPEN, ABOXO, PODGA, ILDOR, GARIN, ELGAN, SEB, EXIRO, OKLAP, UDKOL, UDBAR, UTROV, XOTON, XOSIV, AVOMI, IXATA, ITLOR, ETOXO, AKMEX, AMROV, ANOTO, APOSO, MBY, BIMAP, NEGTO, RAPOL, BIKIP, LINUT, KELAB, IVDIG, GUROT, ERKAR, DEPAK, MOSOS, KEDOT' sequence of point designators have been found in the DB.
+            So 'ETMIT, EXIRO, OKLAP, UDKOL, UDBAR, UTROV, XOTON, XOSIV, AVOMI, IXATA, ITLOR, ETOXO, AKMEX, AMROV, ANOTO, APOSO, MBY, BIMAP, NEGTO, RAPOL, BIKIP, LINUT, KELAB, IVDIG, GUROT, ERKAR, DEPAK, MOSOS, KEDOT, OPDAK, IBOSO, IPANI, MISRU, OVMEG, ERESA, NAPEN, ABOXO, PODGA, ILDOR, GARIN, ELGAN, SEB' Point(s) HAVE NOT BEEN CONNECTED to 'UM214' Airway.
+
+-- 10 ====  'UM315' AIRWAY update  ====  Source: ICAO ICARD 5LNC  ====  Comment: Story 91182  =======================================================
+
+UPDATE:     'USUBI' Waypoint (PK = 8198) HAS BEEN MOVED from '16 30 12 S 032 32 00 E' location to '16 30 18 S 032 32 00 E' location.
+
+-- -------  START OF Segment Geometry updates affected by moving 'USUBI' Waypoint (PK = 8198) in the DB  --------------------------------------------
+
+UPDATE:     'AVOSI - USUBI' segmnt record (PK = 2375) HAS BEEN UPDATED.
+
+UPDATE:     'USUBI - UBTIM' segmnt record (PK = 14374) HAS BEEN UPDATED.
+-- -------  END OF Segment Geometry updates affected by moving 'USUBI' Waypoint (PK = 8198) in the DB  -----------------------------------------------
+
+-- -------  START OF Airway and Airway Segment Geometry updates affected by moving 'USUBI' Waypoint (PK = 8198) in the DB  --------------------------
+
+UPDATE:     'AVOSI - USUBI' airwayseg record (PK = 3132) HAS BEEN UPDATED.
+
+UPDATE:     'UR409' airway record (PK = 11112) HAS BEEN UPDATED.
+
+UPDATE:     'UM315' airway record (PK = 12355) HAS BEEN UPDATED.
+
+UPDATE:     'USUBI - UBTIM' airwayseg record (PK = 17821) HAS BEEN UPDATED.
+
+UPDATE:     'M315' airway record (PK = 12939) HAS BEEN UPDATED.
+-- -------  END OF Airway and Airway Segment Geometry updates affected by moving 'USUBI' Waypoint (PK = 8198) in the DB  -----------------------------
+
+NOTICE:     'UBTIM' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 125897
+
+UPDATE:     'ESPOP' Waypoint (PK = 125349) HAS BEEN MOVED from '15 00 00 S 033 16 00 E' location to '15 00 01 S 033 16 02 E' location.
+
+-- -------  START OF Segment Geometry updates affected by moving 'ESPOP' Waypoint (PK = 125349) in the DB  ------------------------------------------
+
+UPDATE:     'ESPOP - DVL50' segmnt record (PK = 31422) HAS BEEN UPDATED.
+
+UPDATE:     'UBTIM - ESPOP' segmnt record (PK = 31332) HAS BEEN UPDATED.
+-- -------  END OF Segment Geometry updates affected by moving 'ESPOP' Waypoint (PK = 125349) in the DB  ---------------------------------------------
+
+-- -------  START OF Airway and Airway Segment Geometry updates affected by moving 'ESPOP' Waypoint (PK = 125349) in the DB  ------------------------
+
+UPDATE:     'UBTIM - ESPOP' airwayseg record (PK = 38011) HAS BEEN UPDATED.
+
+UPDATE:     'ESPOP - DVL50' airwayseg record (PK = 38129) HAS BEEN UPDATED.
+
+UPDATE:     'UM315' airway record (PK = 12355) HAS BEEN UPDATED.
+
+UPDATE:     'UBTIM - ESPOP' airwayseg record (PK = 38012) HAS BEEN UPDATED.
+
+UPDATE:     'ESPOP - DVL50' airwayseg record (PK = 38128) HAS BEEN UPDATED.
+
+UPDATE:     'M315' airway record (PK = 12939) HAS BEEN UPDATED.
+-- -------  END OF Airway and Airway Segment Geometry updates affected by moving 'ESPOP' Waypoint (PK = 125349) in the DB  ---------------------------
+
+INSERTION:  'DVL20' Waypoint HAS BEEN INSERTED with PK = 130909
+
+NOTICE:     'DVL' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 628
+
+INSERTION:  'DVL18' Waypoint HAS BEEN INSERTED with PK = 130910
+
+UPDATE:     'IMKAL' Waypoint (PK = 2684) HAS BEEN MOVED from '11 23 30 S 034 25 45 E' location to '11 23 36 S 034 25 45 E' location.
+
+-- -------  START OF Segment Geometry updates affected by moving 'IMKAL' Waypoint (PK = 2684) in the DB  --------------------------------------------
+
+UPDATE:     'DVL50 - IMKAL' segmnt record (PK = 2458) HAS BEEN UPDATED.
+-- -------  END OF Segment Geometry updates affected by moving 'IMKAL' Waypoint (PK = 2684) in the DB  -----------------------------------------------
+
+-- -------  START OF Airway and Airway Segment Geometry updates affected by moving 'IMKAL' Waypoint (PK = 2684) in the DB  --------------------------
+
+UPDATE:     'DVL50 - IMKAL' airwayseg record (PK = 3236) HAS BEEN UPDATED.
+
+UPDATE:     'M315' airway record (PK = 12939) HAS BEEN UPDATED.
+
+UPDATE:     'DVL50 - IMKAL' airwayseg record (PK = 3237) HAS BEEN UPDATED.
+
+UPDATE:     'UM315' airway record (PK = 12355) HAS BEEN UPDATED.
+-- -------  END OF Airway and Airway Segment Geometry updates affected by moving 'IMKAL' Waypoint (PK = 2684) in the DB  -----------------------------
+
+NOTICE:     'UTINA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 4680
+
+NOTICE:     'UMTAP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 70660
+
+NOTICE:     'UVKAT' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 4681
+
+NOTICE:     'EPMAB' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 62747
+
+NOTICE:     'DO' NDB HAS NOT BEEN INSERTED as it already exists in the same location with PK = 2376
+
+NOTICE:     'ITNOV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 5128
+
+NOTICE:     'ITSOK' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 4668
+
+NOTICE:     'AVETA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 5992
+
+NOTICE:     'ETMOV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 62748
+
+NOTICE:     'LOSIN' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 11351
+
+NOTICE:     'EVATO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 50891
+
+NOTICE:     'NAVEX' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 118360
+
+DELETION:   'UTINA - UMTAP' segmnt record (PK = 538) HAS BEEN DELETED.
+
+UPDATE:     'UTINA - UMTAP' airwayseg record (PK = 798) HAS BEEN UPDATED to 'USUBI - UBTIM'.
+
+DELETION:   'UMTAP - UVKAT' segmnt record (PK = 19924) HAS BEEN DELETED.
+
+UPDATE:     'UMTAP - UVKAT' airwayseg record (PK = 24344) HAS BEEN UPDATED to 'UBTIM - ESPOP'.
+
+UPDATE:     'UVKAT - EPMAB' segmnt record (PK = 2457) HAS BEEN UPDATED to 'ESPOP - DVL20'.
+
+UPDATE:     'UVKAT - EPMAB' airwayseg record (PK = 3235) HAS BEEN UPDATED to 'ESPOP - DVL20'.
+
+UPDATE:     'EPMAB - DO' segmnt record (PK = 7186) HAS BEEN UPDATED to 'DVL20 - DVL'.
+
+UPDATE:     'EPMAB - DO' airwayseg record (PK = 9420) HAS BEEN UPDATED to 'DVL20 - DVL'.
+
+UPDATE:     'DO - ITNOV' segmnt record (PK = 30403) HAS BEEN UPDATED to 'DVL - DVL18'.
+
+UPDATE:     'DO - ITNOV' airwayseg record (PK = 36929) HAS BEEN UPDATED to 'DVL - DVL18'.
+
+UPDATE:     'ITNOV - ITSOK' segmnt record (PK = 2281) HAS BEEN UPDATED to 'DVL18 - IMKAL'.
+
+UPDATE:     'ITNOV - ITSOK' airwayseg record (PK = 3007) HAS BEEN UPDATED to 'DVL18 - IMKAL'.
+
+UPDATE:     'ITSOK - AVETA' segmnt record (PK = 3211) HAS BEEN UPDATED to 'IMKAL - UTINA'.
+
+UPDATE:     'ITSOK - AVETA' airwayseg record (PK = 4343) HAS BEEN UPDATED to 'IMKAL - UTINA'.
+
+UPDATE:     'AVETA - ETMOV' segmnt record (PK = 2456) HAS BEEN UPDATED to 'UTINA - UMTAP'.
+
+UPDATE:     'AVETA - ETMOV' airwayseg record (PK = 3234) HAS BEEN UPDATED to 'UTINA - UMTAP'.
+
+UPDATE:     'ETMOV - LOSIN' segmnt record (PK = 7191) HAS BEEN UPDATED to 'UMTAP - UVKAT'.
+
+UPDATE:     'ETMOV - LOSIN' airwayseg record (PK = 9426) HAS BEEN UPDATED to 'UMTAP - UVKAT'.
+
+UPDATE:     'LOSIN - EVATO' segmnt record (PK = 16013) HAS BEEN UPDATED to 'UVKAT - EPMAB'.
+
+UPDATE:     'LOSIN - EVATO' airwayseg record (PK = 19857) HAS BEEN UPDATED to 'UVKAT - EPMAB'.
+
+INSERTION:  'EPMAB - DO' segmnt record HAS BEEN INSERTED with PK = 71401
+
+UPDATE:     'EVATO - NAVEX' airwayseg record (PK = 8229) HAS BEEN UPDATED to 'EPMAB - DO'.
+
+INSERTION:  'DO - ITNOV' segmnt record HAS BEEN INSERTED with PK = 71402
+
+UPDATE:     'USUBI - UBTIM' airwayseg record (PK = 17820) HAS BEEN UPDATED to 'DO - ITNOV'.
+
+INSERTION:  'ITNOV - ITSOK' segmnt record HAS BEEN INSERTED with PK = 71403
+
+UPDATE:     'UBTIM - ESPOP' airwayseg record (PK = 38011) HAS BEEN UPDATED to 'ITNOV - ITSOK'.
+
+INSERTION:  'ITSOK - AVETA' segmnt record HAS BEEN INSERTED with PK = 71404
+
+UPDATE:     'ESPOP - DVL50' airwayseg record (PK = 38129) HAS BEEN UPDATED to 'ITSOK - AVETA'.
+
+UPDATE:     'DVL50 - DVL' segmnt record (PK = 2454) HAS BEEN UPDATED to 'AVETA - ETMOV'.
+
+UPDATE:     'DVL50 - DVL' airwayseg record (PK = 3232) HAS BEEN UPDATED to 'AVETA - ETMOV'.
+
+UPDATE:     'DVL - DVL50' segmnt record (PK = 16964) HAS BEEN UPDATED to 'ETMOV - LOSIN'.
+
+UPDATE:     'DVL - DVL50' airwayseg record (PK = 20949) HAS BEEN UPDATED to 'ETMOV - LOSIN'.
+
+INSERTION:  'LOSIN - EVATO' segmnt record HAS BEEN INSERTED with PK = 71405
+
+UPDATE:     'DVL50 - IMKAL' airwayseg record (PK = 3237) HAS BEEN UPDATED to 'LOSIN - EVATO'.
+
+UPDATE:     'EVATO - NAVEX' segmnt record (PK = 6228) HAS BEEN UPDATED.
+
+INSERTION:  'EVATO - NAVEX' airwayseg record HAS BEEN INSERTED with PK = 85471
+
+UPDATE:     Target point sequence 'UTINA, UMTAP, UVKAT, EPMAB, DO, ITNOV, ITSOK, AVETA, ETMOV, LOSIN, EVATO, NAVEX, UBTIM, ESPOP, DVL50, DVL, DVL50, IMKAL' has been substituted by the new 'USUBI, UBTIM, ESPOP, DVL20, DVL, DVL18, IMKAL, UTINA, UMTAP, UVKAT, EPMAB, DO, ITNOV, ITSOK, AVETA, ETMOV, LOSIN, EVATO, NAVEX' sequence for 'UM315' Airway with PK = 12355
+
+-- 11 ====  'UP312' AIRWAY update  ====  Source: ICAO ICARD 5LNC  ====  Comment: Story 91182  =======================================================
+
+NOTICE:     'MAKIR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 125788
+
+NOTICE:     'ETUMA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 125636
+
+NOTICE:     'TEVAS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 124324
+
+NOTICE:     'APKOL' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 4654
+
+NOTICE:     'IBROP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 62994
+
+NOTICE:     'MB' NDB HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1343
+
+NOTICE:     'SINGI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 4679
+
+NOTICE:     'NESOX' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 5129
+
+NOTICE:     'OKDAS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 5130
+
+NOTICE:     'EPTIK' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 70845
+
+NOTICE:     'NIDEX' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 5993
+
+NOTICE:     'ITMEN' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 62750
+
+NOTICE:     'IBKOB' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 62749
+
+NOTICE:     'LOSIN' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 11351
+
+NOTICE:     'EPTAN' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 62993
+
+NOTICE:     'EVATO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 50891
+
+NOTICE:     'NAVEX' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 118360
+
+NOTICE:     'WAJIR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 117513
+
+NOTICE:     'OKNAV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 118377
+
+NOTICE:     'MAV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 329
+
+NOTICE:     'PAKER' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 6364
+
+NOTICE:     'DATEG' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 6365
+
+NOTICE:     'AMBOD' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 6366
+
+NOTICE:     'ULDIB' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 6954
+
+NOTICE:     'RIN' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 41
+
+DELETION:   'APKOL - IBROP' segmnt record (PK = 318) HAS BEEN DELETED.
+
+UPDATE:     'APKOL - IBROP' airwayseg record (PK = 450) HAS BEEN UPDATED to 'MAKIR - ETUMA'.
+
+DELETION:   'IBROP - MB' segmnt record (PK = 7184) HAS BEEN DELETED.
+
+UPDATE:     'IBROP - MB' airwayseg record (PK = 9418) HAS BEEN UPDATED to 'ETUMA - TEVAS'.
+
+UPDATE:     'MB - SINGI' segmnt record (PK = 21045) HAS BEEN UPDATED to 'TEVAS - APKOL'.
+
+UPDATE:     'MB - SINGI' airwayseg record (PK = 25693) HAS BEEN UPDATED to 'TEVAS - APKOL'.
+
+UPDATE:     'SINGI - OKDAS' segmnt record (PK = 2282) HAS BEEN UPDATED to 'APKOL - IBROP'.
+
+UPDATE:     'SINGI - OKDAS' airwayseg record (PK = 3008) HAS BEEN UPDATED to 'APKOL - IBROP'.
+
+UPDATE:     'OKDAS - NIDEX' segmnt record (PK = 2371) HAS BEEN UPDATED to 'IBROP - MB'.
+
+UPDATE:     'OKDAS - NIDEX' airwayseg record (PK = 3127) HAS BEEN UPDATED to 'IBROP - MB'.
+
+UPDATE:     'NIDEX - ITMEN' segmnt record (PK = 2377) HAS BEEN UPDATED to 'MB - SINGI'.
+
+UPDATE:     'NIDEX - ITMEN' airwayseg record (PK = 3134) HAS BEEN UPDATED to 'MB - SINGI'.
+
+UPDATE:     'ITMEN - IBKOB' segmnt record (PK = 7163) HAS BEEN UPDATED to 'SINGI - NESOX'.
+
+UPDATE:     'ITMEN - IBKOB' airwayseg record (PK = 9392) HAS BEEN UPDATED to 'SINGI - NESOX'.
+
+UPDATE:     'IBKOB - LOSIN' segmnt record (PK = 7169) HAS BEEN UPDATED to 'NESOX - OKDAS'.
+
+UPDATE:     'IBKOB - LOSIN' airwayseg record (PK = 9398) HAS BEEN UPDATED to 'NESOX - OKDAS'.
+
+UPDATE:     'LOSIN - EPTAN' segmnt record (PK = 16014) HAS BEEN UPDATED to 'OKDAS - EPTIK'.
+
+UPDATE:     'LOSIN - EPTAN' airwayseg record (PK = 19858) HAS BEEN UPDATED to 'OKDAS - EPTIK'.
+
+UPDATE:     'EPTAN - EVATO' segmnt record (PK = 7187) HAS BEEN UPDATED to 'EPTIK - NIDEX'.
+
+UPDATE:     'EPTAN - EVATO' airwayseg record (PK = 9421) HAS BEEN UPDATED to 'EPTIK - NIDEX'.
+
+INSERTION:  'NIDEX - ITMEN' segmnt record HAS BEEN INSERTED with PK = 71406
+
+UPDATE:     'EVATO - NAVEX' airwayseg record (PK = 8228) HAS BEEN UPDATED to 'NIDEX - ITMEN'.
+
+UPDATE:     'NAVEX - WAJIR' segmnt record (PK = 26327) HAS BEEN UPDATED to 'ITMEN - IBKOB'.
+
+UPDATE:     'NAVEX - WAJIR' airwayseg record (PK = 32260) HAS BEEN UPDATED to 'ITMEN - IBKOB'.
+
+UPDATE:     'WAJIR - OKNAV' segmnt record (PK = 29391) HAS BEEN UPDATED to 'IBKOB - LOSIN'.
+
+UPDATE:     'WAJIR - OKNAV' airwayseg record (PK = 35732) HAS BEEN UPDATED to 'IBKOB - LOSIN'.
+
+UPDATE:     'OKNAV - MAV' segmnt record (PK = 26311) HAS BEEN UPDATED to 'LOSIN - EPTAN'.
+
+UPDATE:     'OKNAV - MAV' airwayseg record (PK = 32243) HAS BEEN UPDATED to 'LOSIN - EPTAN'.
+
+INSERTION:  'EPTAN - EVATO' segmnt record HAS BEEN INSERTED with PK = 71407
+
+UPDATE:     'PAKER - DATEG' airwayseg record (PK = 16130) HAS BEEN UPDATED to 'EPTAN - EVATO'.
+
+NOTICE:     'EVATO - NAVEX' segmnt record has NOT BEEN INSERTED as it already exists with PK = 6228
+
+UPDATE:     'DATEG - AMBOD' airwayseg record (PK = 16134) HAS BEEN UPDATED to 'EVATO - NAVEX'.
+
+INSERTION:  'NAVEX - WAJIR' segmnt record HAS BEEN INSERTED with PK = 71408
+
+UPDATE:     'AMBOD - ULDIB' airwayseg record (PK = 16135) HAS BEEN UPDATED to 'NAVEX - WAJIR'.
+
+INSERTION:  'WAJIR - OKNAV' segmnt record HAS BEEN INSERTED with PK = 71409
+
+UPDATE:     'ULDIB - RIN' airwayseg record (PK = 5003) HAS BEEN UPDATED to 'WAJIR - OKNAV'.
+
+INSERTION:  'OKNAV - MAV' segmnt record HAS BEEN INSERTED with PK = 71410
+
+UPDATE:     'MAKIR - ETUMA' airwayseg record (PK = 38336) HAS BEEN UPDATED to 'OKNAV - MAV'.
+
+INSERTION:  'MAV - PAKER' segmnt record HAS BEEN INSERTED with PK = 71411
+
+UPDATE:     'ETUMA - TEVAS' airwayseg record (PK = 38043) HAS BEEN UPDATED to 'MAV - PAKER'.
+
+UPDATE:     'PAKER - DATEG' segmnt record (PK = 13092) HAS BEEN UPDATED.
+
+INSERTION:  'PAKER - DATEG' airwayseg record HAS BEEN INSERTED with PK = 85472
+
+UPDATE:     'DATEG - AMBOD' segmnt record (PK = 13094) HAS BEEN UPDATED.
+
+INSERTION:  'DATEG - AMBOD' airwayseg record HAS BEEN INSERTED with PK = 85473
+
+UPDATE:     'AMBOD - ULDIB' segmnt record (PK = 13095) HAS BEEN UPDATED.
+
+INSERTION:  'AMBOD - ULDIB' airwayseg record HAS BEEN INSERTED with PK = 85474
+
+UPDATE:     'ULDIB - RIN' segmnt record (PK = 3698) HAS BEEN UPDATED.
+
+INSERTION:  'ULDIB - RIN' airwayseg record HAS BEEN INSERTED with PK = 85475
+
+UPDATE:     Target point sequence 'APKOL, IBROP, MB, SINGI, OKDAS, NIDEX, ITMEN, IBKOB, LOSIN, EPTAN, EVATO, NAVEX, WAJIR, OKNAV, MAV, DATEG, AMBOD, ULDIB, RIN, ETUMA, TEVAS' has been substituted by the new 'MAKIR, ETUMA, TEVAS, APKOL, IBROP, MB, SINGI, NESOX, OKDAS, EPTIK, NIDEX, ITMEN, IBKOB, LOSIN, EPTAN, EVATO, NAVEX, WAJIR, OKNAV, MAV, PAKER, DATEG, AMBOD, ULDIB, RIN' sequence for 'UP312' Airway with PK = 11016
+
+-- 12 ====  ADHP insertion  ====  Source: ICAO ICARD 5LNC  ====  Comment: Story 70290  ==============================================================
+
+NOTICE:     'FAMK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 34956
+
+NOTICE:     'FANG' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 34957
+
+NOTICE:     'FBTP' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 34958
+
+NOTICE:     'FVBL' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 34959
+
+NOTICE:     'FVEM' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 34960
+
+NOTICE:     'FVTL' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 34961
+
+NOTICE:     'FYBG' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 34962
+
+NOTICE:     'FYDC' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 34963
+
+NOTICE:     'FYLR' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 34964
+
+NOTICE:     'FYLS' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 34965
+
+NOTICE:     'FYND' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 34966
+
+NOTICE:     'SPJC' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 8372
+
+-- 13 ====  'UT916' AIRWAY update  ====  Source: ICAO ICARD 5LNC  ====  Comment: Nov. 09, 2017  =====================================================
+
+NOTICE:     'BONAL' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 4331
+
+NOTICE:     'XOSIV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 8700
+
+NOTICE:     'VLS' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 567
+
+INSERTION:  'BONAL - XOSIV' segmnt record HAS BEEN INSERTED with PK = 71412
+
+INSERTION:  'BONAL - XOSIV' airwayseg record HAS BEEN INSERTED with PK = 85476
+
+INSERTION:  'XOSIV - VLS' segmnt record HAS BEEN INSERTED with PK = 71413
+
+INSERTION:  'XOSIV - VLS' airwayseg record HAS BEEN INSERTED with PK = 85477
+
+UPDATE:     Target point sequence 'BONAL' has been substituted by the new 'BONAL, XOSIV, VLS' sequence for 'UT916' Airway with PK = 10550

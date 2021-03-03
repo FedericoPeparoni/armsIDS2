@@ -1,0 +1,5 @@
+[centos7-idsna]
+name=centos7-idsna
+baseurl=http://ubidev04.idscorporation.ca/pub/repos/centos/7.1611/os/x86_64
+gpgcheck=0
+enabled=1

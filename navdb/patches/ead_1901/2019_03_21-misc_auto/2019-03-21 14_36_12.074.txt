@@ -1,0 +1,113 @@
+==========  2019-03-21 14:36:12.074  ==============================================================
+
+==========  LOG OF PATCHING 'jdbc:postgresql://abms14dev1/navdb' DATABASE  ======================
+
+-- 01 ====  WAYPOINT insertion  ====  Comment: Missing waypoints for Botswana  ======================================================================
+
+INSERTION:  'AKETE' Waypoint HAS BEEN INSERTED with PK = 139573
+
+INSERTION:  'UTUMA' Waypoint HAS BEEN INSERTED with PK = 139574
+
+-- 02 ====  ADHP insertion  ====  Source: ICAO ICARD 5LNC  ====  Comment: TFS 70290  ================================================================
+
+INSERTION:  'FAMK' Airport HAS BEEN INSERTED with PK = 37767
+
+INSERTION:  'FANG' Airport HAS BEEN INSERTED with PK = 37768
+
+INSERTION:  'FBTP' Airport HAS BEEN INSERTED with PK = 37769
+
+INSERTION:  'FVBL' Airport HAS BEEN INSERTED with PK = 37770
+
+INSERTION:  'FVEM' Airport HAS BEEN INSERTED with PK = 37771
+
+INSERTION:  'FVTL' Airport HAS BEEN INSERTED with PK = 37772
+
+INSERTION:  'FYBG' Airport HAS BEEN INSERTED with PK = 37773
+
+INSERTION:  'FYDC' Airport HAS BEEN INSERTED with PK = 37774
+
+INSERTION:  'FYLR' Airport HAS BEEN INSERTED with PK = 37775
+
+INSERTION:  'FYLS' Airport HAS BEEN INSERTED with PK = 37776
+
+INSERTION:  'FYND' Airport HAS BEEN INSERTED with PK = 37777
+
+-- 03 ====  ADHP insertion  ====  Source: WIKIPEDIA  ====  Comment: Observed by k.gubbins while analyzing KCAA data  ================================
+
+INSERTION:  'HTBB' Airport HAS BEEN INSERTED with PK = 37778
+
+INSERTION:  'FZJB' Airport HAS BEEN INSERTED with PK = 37779
+
+INSERTION:  'HCMD' Airport HAS BEEN INSERTED with PK = 37780
+
+INSERTION:  'HTZW' Airport HAS BEEN INSERTED with PK = 37781
+
+INSERTION:  'HCIX' Airport HAS BEEN INSERTED with PK = 37782
+
+-- 04 ====  ADHP insertion  ====  Source: WIKIPEDIA  ====  Comment: Observed by d.panech while analyzing KCAA data  =================================
+
+INSERTION:  'FZJC' Airport HAS BEEN INSERTED with PK = 37783
+
+INSERTION:  'HCMG' Airport HAS BEEN INSERTED with PK = 37784
+
+INSERTION:  'HCMP' Airport HAS BEEN INSERTED with PK = 37785
+
+INSERTION:  'HKNN' Airport HAS BEEN INSERTED with PK = 37786
+
+-- 05 ====  ADHP insertion  ====  Source: w.reiche@idscorporation.com  ====  Comment: TFS 101774  ===================================================
+
+INSERTION:  'FACR' Airport HAS BEEN INSERTED with PK = 37787
+
+INSERTION:  'FAKW' Airport HAS BEEN INSERTED with PK = 37788
+
+INSERTION:  'FCMK' Airport HAS BEEN INSERTED with PK = 37789
+
+INSERTION:  'FCMZ' Airport HAS BEEN INSERTED with PK = 37790
+
+INSERTION:  'FLLS' Airport HAS BEEN INSERTED with PK = 37791
+
+INSERTION:  'FLND' Airport HAS BEEN INSERTED with PK = 37792
+
+INSERTION:  'FYKS' Airport HAS BEEN INSERTED with PK = 37793
+
+INSERTION:  'FZBJ' Airport HAS BEEN INSERTED with PK = 37794
+
+INSERTION:  'HAHM' Airport HAS BEEN INSERTED with PK = 37795
+
+INSERTION:  'HCAD' Airport HAS BEEN INSERTED with PK = 37796
+
+INSERTION:  'HCAW' Airport HAS BEEN INSERTED with PK = 37797
+
+INSERTION:  'HCBB' Airport HAS BEEN INSERTED with PK = 37798
+
+INSERTION:  'HCMC' Airport HAS BEEN INSERTED with PK = 37799
+
+INSERTION:  'HCMO' Airport HAS BEEN INSERTED with PK = 37800
+
+INSERTION:  'HCMW' Airport HAS BEEN INSERTED with PK = 37801
+
+INSERTION:  'HKNY' Airport HAS BEEN INSERTED with PK = 37802
+
+INSERTION:  'HKWE' Airport HAS BEEN INSERTED with PK = 37803
+
+INSERTION:  'HSBR' Airport HAS BEEN INSERTED with PK = 37804
+
+INSERTION:  'HSKP' Airport HAS BEEN INSERTED with PK = 37805
+
+INSERTION:  'HSMR' Airport HAS BEEN INSERTED with PK = 37806
+
+INSERTION:  'HSYE' Airport HAS BEEN INSERTED with PK = 37807
+
+INSERTION:  'HKBK' Airport HAS BEEN INSERTED with PK = 37808
+
+INSERTION:  'HKSC' Airport HAS BEEN INSERTED with PK = 37809
+
+INSERTION:  'HKWQ' Airport HAS BEEN INSERTED with PK = 37810
+
+INSERTION:  'HKYT' Airport HAS BEEN INSERTED with PK = 37811
+
+INSERTION:  'HKBA' Airport HAS BEEN INSERTED with PK = 37812
+
+INSERTION:  'HKMY' Airport HAS BEEN INSERTED with PK = 37813
+
+INSERTION:  'HKMK' Airport HAS BEEN INSERTED with PK = 37814

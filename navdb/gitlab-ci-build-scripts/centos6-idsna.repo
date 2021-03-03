@@ -1,0 +1,5 @@
+[centos6-idsna]
+name=centos6-idsna
+baseurl=http://ubidev04.idscorporation.ca/pub/repos/centos/6.6/os/x86_64
+gpgcheck=0
+enabled=1

@@ -1,0 +1,15 @@
+/.reloc/
+/aclocal.m4
+/autom4te.cache/
+/build-aux/
+/config.log
+/config.status
+/configure
+/configure.ac
+/navdb-[0-9]*.tar.*
+/rpm/WORK/
+/rpm/RPMS/
+/gitlab-ci-build-scripts/STAGE/
+Makefile
+Makefile.in
+.*.swp

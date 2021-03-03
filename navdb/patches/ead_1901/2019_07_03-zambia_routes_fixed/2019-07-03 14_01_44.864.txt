@@ -1,0 +1,1172 @@
+==========  2019-07-03 14:01:44.864  ==============================================================
+
+==========  LOG OF PATCHING 'jdbc:postgresql://abms10dev1/navdb' DATABASE  ======================
+
+-- 01 ====  WAYPOINT insertion  ====  Comment: Missing waypoints for Botswana  ======================================================================
+
+NOTICE:     'AKETE' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 139573
+
+NOTICE:     'UTUMA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 139574
+
+-- 02 ====  ADHP insertion  ====  Source: ICAO ICARD 5LNC  ====  Comment: TFS 70290  ================================================================
+
+NOTICE:     'FAMK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37767
+
+NOTICE:     'FANG' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37768
+
+NOTICE:     'FBTP' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37769
+
+NOTICE:     'FVBL' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37770
+
+NOTICE:     'FVEM' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37771
+
+NOTICE:     'FVTL' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37772
+
+NOTICE:     'FYBG' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37773
+
+NOTICE:     'FYDC' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37774
+
+NOTICE:     'FYLR' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37775
+
+NOTICE:     'FYLS' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37776
+
+NOTICE:     'FYND' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37777
+
+-- 03 ====  ADHP insertion  ====  Source: WIKIPEDIA  ====  Comment: Observed by k.gubbins while analyzing KCAA data  ================================
+
+NOTICE:     'HTBB' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37778
+
+NOTICE:     'FZJB' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37779
+
+NOTICE:     'HCMD' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37780
+
+NOTICE:     'HTZW' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37781
+
+NOTICE:     'HCIX' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37782
+
+-- 04 ====  ADHP insertion  ====  Source: WIKIPEDIA  ====  Comment: Observed by d.panech while analyzing KCAA data  =================================
+
+NOTICE:     'FZJC' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37783
+
+NOTICE:     'HCMG' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37784
+
+NOTICE:     'HCMP' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37785
+
+NOTICE:     'HKNN' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37786
+
+-- 05 ====  ADHP insertion  ====  Source: w.reiche@idscorporation.com  ====  Comment: TFS 101774  ===================================================
+
+NOTICE:     'FACR' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37787
+
+NOTICE:     'FAKW' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37788
+
+NOTICE:     'FCMK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37789
+
+NOTICE:     'FCMZ' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37790
+
+NOTICE:     'FLLS' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37791
+
+NOTICE:     'FLND' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37792
+
+NOTICE:     'FYKS' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37793
+
+NOTICE:     'FZBJ' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37794
+
+NOTICE:     'HAHM' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37795
+
+NOTICE:     'HCAD' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37796
+
+NOTICE:     'HCAW' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37797
+
+NOTICE:     'HCBB' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37798
+
+NOTICE:     'HCMC' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37799
+
+NOTICE:     'HCMO' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37800
+
+NOTICE:     'HCMW' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37801
+
+NOTICE:     'HKNY' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37802
+
+NOTICE:     'HKWE' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37803
+
+NOTICE:     'HSBR' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37804
+
+NOTICE:     'HSKP' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37805
+
+NOTICE:     'HSMR' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37806
+
+NOTICE:     'HSYE' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37807
+
+NOTICE:     'HKBK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37808
+
+NOTICE:     'HKSC' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37809
+
+NOTICE:     'HKWQ' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37810
+
+NOTICE:     'HKYT' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37811
+
+NOTICE:     'HKBA' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37812
+
+NOTICE:     'HKMY' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37813
+
+NOTICE:     'HKMK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37814
+
+NOTICE:     'HC0001' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37815
+
+NOTICE:     'HC0002' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37816
+
+NOTICE:     'HC0003' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37817
+
+NOTICE:     'HKYD' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37818
+
+-- 06 ====  ADHP insertion  ====  Source: w.reiche@idscorporation.com  ====  Comment: TFS 105875 South Sudan  =======================================
+
+NOTICE:     'HJJJ' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37819
+
+NOTICE:     'HJMK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37820
+
+NOTICE:     'HJRB' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37821
+
+NOTICE:     'HJWW' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37822
+
+NOTICE:     'HJAR' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37823
+
+NOTICE:     'HJAJ' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37824
+
+NOTICE:     'HJAK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37825
+
+NOTICE:     'HJAW' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37826
+
+NOTICE:     'HJAY' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37827
+
+NOTICE:     'HJBR' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37828
+
+NOTICE:     'HJBK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37829
+
+NOTICE:     'HJDK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37830
+
+NOTICE:     'HJDP' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37831
+
+NOTICE:     'HJBB' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37832
+
+NOTICE:     'HJKP' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37833
+
+NOTICE:     'HJLK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37834
+
+NOTICE:     'HJLW' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37835
+
+NOTICE:     'HJMD' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37836
+
+NOTICE:     'HJMG' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37837
+
+NOTICE:     'HJMI' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37838
+
+NOTICE:     'HJMV' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37839
+
+NOTICE:     'HJNM' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37840
+
+NOTICE:     'HJNZ' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37841
+
+NOTICE:     'HJPH' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37842
+
+NOTICE:     'HJPG' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37843
+
+NOTICE:     'HJPA' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37844
+
+NOTICE:     'HJPB' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37845
+
+NOTICE:     'HJPR' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37846
+
+NOTICE:     'HJPU' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37847
+
+NOTICE:     'HJRG' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37848
+
+NOTICE:     'HJRK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37849
+
+NOTICE:     'HJTN' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37850
+
+NOTICE:     'HJTR' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37851
+
+NOTICE:     'HJTB' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37852
+
+NOTICE:     'HJTU' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37853
+
+NOTICE:     'HJWT' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37854
+
+NOTICE:     'HJYB' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37855
+
+NOTICE:     'HJYE' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37856
+
+NOTICE:     'HJYL' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37857
+
+NOTICE:     'HJYU' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37858
+
+NOTICE:     'HJBT' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37859
+
+NOTICE:     'HJDF' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37860
+
+NOTICE:     'HJPJ' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37861
+
+NOTICE:     'HJPO' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37862
+
+-- 07 ====  'UL432' AIRWAY update  ====  Source: ICAO ICARD 5LNC  ====  Comment: TFS 107785  ========================================================
+
+NOTICE:     'NN' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 539
+
+NOTICE:     'ESPOK' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 119632
+
+NOTICE:     'ANVUS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 118785
+
+NOTICE:     'ETKAV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1657
+
+NOTICE:     'KENOT' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 93767
+
+NOTICE:     'EVEXI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 91274
+
+NOTICE:     'KMI' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 720
+
+NOTICE:     'GUBUD' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 93465
+
+NOTICE:     'TUPIR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 128429
+
+NOTICE:     'BJA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 139575
+
+NOTICE:     'GAVDA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 102946
+
+NOTICE:     'KNM' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 761
+
+NOTICE:     'ALSAR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 156
+
+NOTICE:     'OKTEX' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 127241
+
+NOTICE:     'MANDY' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 127237
+
+NOTICE:     'IMVIP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 127236
+
+NOTICE:     'NN' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 539
+
+NOTICE:     'NABRO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 127239
+
+NOTICE:     'PATAR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 41334
+
+NOTICE:     'LOV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1144
+
+NOTICE:     'EKBUL' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 41416
+
+WARNING:    No Airways with 'BJA, GAVDA, KNM, ALSAR, OKTEX, MANDY, NN, IMVIP, NABRO, PATAR, LOV, EKBUL, EVEXI, KMI, GUBUD, TUPIR, ANVUS, ETKAV' sequence of point designators have been found in the DB.
+            So 'ESPOK, ANVUS, ETKAV, KENOT, EVEXI, KMI, GUBUD, TUPIR, BJA, GAVDA, KNM, ALSAR, OKTEX, MANDY, IMVIP, NN, NABRO, PATAR, LOV, EKBUL' Point(s) HAVE NOT BEEN CONNECTED to 'UL432' Airway.
+
+-- 08 ====  ADHP insertion  ====  Source: w.reiche@idscorporation.com  ====  Comment: TFS 114451 Namibia  ===========================================
+
+NOTICE:     'FYIM' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37863
+
+NOTICE:     'FYUS' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37864
+
+-- 09 ====  'UM731' AIRWAY update  ====  Source: ICAO ICARD 5LNC  ====  Comment: Zambia enter/exit problems  ========================================
+
+NOTICE:     'RUDAS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 119975
+
+NOTICE:     'APMET' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 125829
+
+NOTICE:     'EVESA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 125819
+
+NOTICE:     'EXIMI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 125828
+
+NOTICE:     'UTVEX' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 106294
+
+NOTICE:     'TEXES' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 117543
+
+NOTICE:     'GADVI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 117547
+
+NOTICE:     'UTRAN' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 125827
+
+NOTICE:     'ETLON' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 125826
+
+NOTICE:     'NEREX' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 125825
+
+NOTICE:     'IMLAM' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 125824
+
+NOTICE:     'IMDIP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 117546
+
+NOTICE:     'NERIB' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 117545
+
+NOTICE:     'EPMAG' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 125823
+
+NOTICE:     'AVONI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 2741
+
+NOTICE:     'ABMG' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 50968
+
+NOTICE:     'APKUS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 2629
+
+NOTICE:     'EPNUL' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 102980
+
+NOTICE:     'EXIGO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 68344
+
+INSERTION:  'VSA' VOR HAS BEEN INSERTED with PK = 3842
+
+NOTICE:     'DURNA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 128846
+
+NOTICE:     'KIVDO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 49868
+
+NOTICE:     'BUSIV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 47033
+
+NOTICE:     'KAPNA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 46684
+
+NOTICE:     'IKVOS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 93469
+
+NOTICE:     'ENKAK' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 91268
+
+NOTICE:     'ILDIV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 128420
+
+NOTICE:     'MBA' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 713
+
+UPDATE:     'BAMAV' Waypoint (PK = 131600) HAS BEEN MOVED from '00 35 36 N 018 08 24 E' location to '00 35 39 N 018 08 25 E' location.
+
+-- -------  START OF Segment Geometry updates affected by moving 'BAMAV' Waypoint (PK = 131600) in the DB  ------------------------------------------
+
+UPDATE:     'BAMAV - BIDAS' segmnt record (PK = 69331) HAS BEEN UPDATED.
+
+UPDATE:     'BAMAV - BATVU' segmnt record (PK = 14819) HAS BEEN UPDATED.
+
+UPDATE:     'OKSAS - BAMAV' segmnt record (PK = 14815) HAS BEEN UPDATED.
+
+UPDATE:     'NUVIS - BAMAV' segmnt record (PK = 18375) HAS BEEN UPDATED.
+-- -------  END OF Segment Geometry updates affected by moving 'BAMAV' Waypoint (PK = 131600) in the DB  ---------------------------------------------
+
+-- -------  START OF Airway and Airway Segment Geometry updates affected by moving 'BAMAV' Waypoint (PK = 131600) in the DB  ------------------------
+
+UPDATE:     'NUVIS - BAMAV' airwayseg record (PK = 20959) HAS BEEN UPDATED.
+
+UPDATE:     'BAMAV - BIDAS' airwayseg record (PK = 83069) HAS BEEN UPDATED.
+
+UPDATE:     'UQ580' airway record (PK = 3957) HAS BEEN UPDATED.
+
+UPDATE:     'OKSAS - BAMAV' airwayseg record (PK = 17001) HAS BEEN UPDATED.
+
+UPDATE:     'BAMAV - BATVU' airwayseg record (PK = 17005) HAS BEEN UPDATED.
+
+UPDATE:     'UT143' airway record (PK = 2468) HAS BEEN UPDATED.
+-- -------  END OF Airway and Airway Segment Geometry updates affected by moving 'BAMAV' Waypoint (PK = 131600) in the DB  ---------------------------
+
+NOTICE:     'EMSAT' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 4921
+
+NOTICE:     'EBAKO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 110287
+
+NOTICE:     'USKAV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 852
+
+NOTICE:     'OPGAM' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 851
+
+NOTICE:     'KISDU' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 4182
+
+NOTICE:     'VOTUR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 850
+
+NOTICE:     'ERNEV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 849
+
+NOTICE:     'AMLOS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 848
+
+NOTICE:     'ENERO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 56188
+
+NOTICE:     'EDGUM' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 846
+
+NOTICE:     'USLOV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 845
+
+NOTICE:     'VOSLI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 844
+
+NOTICE:     'FL' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 47
+
+NOTICE:     'USPOK' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 843
+
+NOTICE:     'BUNLU' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 86601
+
+NOTICE:     'EBNOS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 106230
+
+NOTICE:     'DIR' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 10
+
+NOTICE:     'DEKIL' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 46895
+
+NOTICE:     'TAZIT' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 43835
+
+NOTICE:     'ORBEL' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 43753
+
+NOTICE:     'DERJE' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 43832
+
+NOTICE:     'NAFUS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 43007
+
+NOTICE:     'NALUT' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 43836
+
+NOTICE:     'FARES' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 701
+
+NOTICE:     'JBA' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 53
+
+NOTICE:     'BAMGI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1710
+
+NOTICE:     'TUC' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 72
+
+NOTICE:     'TANIT' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 86538
+
+NOTICE:     'OSMAR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 120326
+
+NOTICE:     'PELOS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 126996
+
+NOTICE:     'MAGOP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 41181
+
+NOTICE:     'NENAK' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 41180
+
+NOTICE:     'BATIV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 41179
+
+NOTICE:     'TINOT' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 3696
+
+NOTICE:     'DIVKO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 3279
+
+NOTICE:     'FJR' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 572
+
+NOTICE:     'AMLIR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 3890
+
+NOTICE:     'RUDAS - APMET' segmnt record has NOT BEEN INSERTED as it already exists with PK = 40402
+
+UPDATE:     'PELOS - MAGOP' airwayseg record (PK = 29292) HAS BEEN UPDATED to 'RUDAS - APMET'.
+
+DELETION:   'MAGOP - NENAK' segmnt record (PK = 25703) HAS BEEN DELETED.
+
+UPDATE:     'MAGOP - NENAK' airwayseg record (PK = 29291) HAS BEEN UPDATED to 'APMET - EVESA'.
+
+DELETION:   'NENAK - BATIV' segmnt record (PK = 25702) HAS BEEN DELETED.
+
+UPDATE:     'NENAK - BATIV' airwayseg record (PK = 29290) HAS BEEN UPDATED to 'EVESA - EXIMI'.
+
+DELETION:   'BATIV - TINOT' segmnt record (PK = 25701) HAS BEEN DELETED.
+
+UPDATE:     'BATIV - TINOT' airwayseg record (PK = 29289) HAS BEEN UPDATED to 'EXIMI - UTVEX'.
+
+NOTICE:     'UTVEX - TEXES' segmnt record has NOT BEEN INSERTED as it already exists with PK = 42099
+
+UPDATE:     'TINOT - DIVKO' airwayseg record (PK = 51417) HAS BEEN UPDATED to 'UTVEX - TEXES'.
+
+DELETION:   'DIVKO - FJR' segmnt record (PK = 25700) HAS BEEN DELETED.
+
+UPDATE:     'DIVKO - FJR' airwayseg record (PK = 29288) HAS BEEN UPDATED to 'TEXES - GADVI'.
+
+DELETION:   'FJR - AMLIR' segmnt record (PK = 53489) HAS BEEN DELETED.
+
+UPDATE:     'FJR - AMLIR' airwayseg record (PK = 62433) HAS BEEN UPDATED to 'GADVI - UTRAN'.
+
+NOTICE:     'UTRAN - ETLON' segmnt record has NOT BEEN INSERTED as it already exists with PK = 3943
+
+UPDATE:     'RUDAS - APMET' airwayseg record (PK = 46917) HAS BEEN UPDATED to 'UTRAN - ETLON'.
+
+NOTICE:     'ETLON - NEREX' segmnt record has NOT BEEN INSERTED as it already exists with PK = 42101
+
+UPDATE:     'APMET - EVESA' airwayseg record (PK = 75097) HAS BEEN UPDATED to 'ETLON - NEREX'.
+
+NOTICE:     'NEREX - IMLAM' segmnt record has NOT BEEN INSERTED as it already exists with PK = 42102
+
+UPDATE:     'EVESA - EXIMI' airwayseg record (PK = 75098) HAS BEEN UPDATED to 'NEREX - IMLAM'.
+
+NOTICE:     'IMLAM - IMDIP' segmnt record has NOT BEEN INSERTED as it already exists with PK = 42103
+
+UPDATE:     'EXIMI - UTVEX' airwayseg record (PK = 48977) HAS BEEN UPDATED to 'IMLAM - IMDIP'.
+
+NOTICE:     'IMDIP - NERIB' segmnt record has NOT BEEN INSERTED as it already exists with PK = 42104
+
+UPDATE:     'UTVEX - TEXES' airwayseg record (PK = 48978) HAS BEEN UPDATED to 'IMDIP - NERIB'.
+
+NOTICE:     'NERIB - EPMAG' segmnt record has NOT BEEN INSERTED as it already exists with PK = 42105
+
+UPDATE:     'TEXES - GADVI' airwayseg record (PK = 48979) HAS BEEN UPDATED to 'NERIB - EPMAG'.
+
+NOTICE:     'EPMAG - AVONI' segmnt record has NOT BEEN INSERTED as it already exists with PK = 2355
+
+UPDATE:     'GADVI - UTRAN' airwayseg record (PK = 46918) HAS BEEN UPDATED to 'EPMAG - AVONI'.
+
+NOTICE:     'AVONI - ABMG' segmnt record has NOT BEEN INSERTED as it already exists with PK = 17171
+
+UPDATE:     'UTRAN - ETLON' airwayseg record (PK = 4352) HAS BEEN UPDATED to 'AVONI - ABMG'.
+
+NOTICE:     'ABMG - APKUS' segmnt record has NOT BEEN INSERTED as it already exists with PK = 16747
+
+UPDATE:     'ETLON - NEREX' airwayseg record (PK = 48980) HAS BEEN UPDATED to 'ABMG - APKUS'.
+
+NOTICE:     'APKUS - EPNUL' segmnt record has NOT BEEN INSERTED as it already exists with PK = 2356
+
+UPDATE:     'NEREX - IMLAM' airwayseg record (PK = 48981) HAS BEEN UPDATED to 'APKUS - EPNUL'.
+
+NOTICE:     'EPNUL - EXIGO' segmnt record has NOT BEEN INSERTED as it already exists with PK = 14779
+
+UPDATE:     'IMLAM - IMDIP' airwayseg record (PK = 48982) HAS BEEN UPDATED to 'EPNUL - EXIGO'.
+
+INSERTION:  'EXIGO - VSA' segmnt record HAS BEEN INSERTED with PK = 74179
+
+UPDATE:     'IMDIP - NERIB' airwayseg record (PK = 48983) HAS BEEN UPDATED to 'EXIGO - VSA'.
+
+INSERTION:  'VSA - DURNA' segmnt record HAS BEEN INSERTED with PK = 74180
+
+UPDATE:     'NERIB - EPMAG' airwayseg record (PK = 48984) HAS BEEN UPDATED to 'VSA - DURNA'.
+
+NOTICE:     'DURNA - KIVDO' segmnt record has NOT BEEN INSERTED as it already exists with PK = 16435
+
+UPDATE:     'EPMAG - AVONI' airwayseg record (PK = 2581) HAS BEEN UPDATED to 'DURNA - KIVDO'.
+
+NOTICE:     'KIVDO - BUSIV' segmnt record has NOT BEEN INSERTED as it already exists with PK = 14503
+
+UPDATE:     'AVONI - ABMG' airwayseg record (PK = 19586) HAS BEEN UPDATED to 'KIVDO - BUSIV'.
+
+NOTICE:     'BUSIV - KAPNA' segmnt record has NOT BEEN INSERTED as it already exists with PK = 14504
+
+UPDATE:     'ABMG - APKUS' airwayseg record (PK = 19072) HAS BEEN UPDATED to 'BUSIV - KAPNA'.
+
+NOTICE:     'KAPNA - IKVOS' segmnt record has NOT BEEN INSERTED as it already exists with PK = 14642
+
+UPDATE:     'APKUS - EPNUL' airwayseg record (PK = 2582) HAS BEEN UPDATED to 'KAPNA - IKVOS'.
+
+NOTICE:     'IKVOS - ENKAK' segmnt record has NOT BEEN INSERTED as it already exists with PK = 14505
+
+UPDATE:     'EPNUL - EXIGO' airwayseg record (PK = 16965) HAS BEEN UPDATED to 'IKVOS - ENKAK'.
+
+DELETION:   'EXIGO - VSA' segmnt record (PK = 14512) HAS BEEN DELETED.
+
+UPDATE:     'EXIGO - VSA' airwayseg record (PK = 16673) HAS BEEN UPDATED to 'ENKAK - ILDIV'.
+
+DELETION:   'VSA - DURNA' segmnt record (PK = 15935) HAS BEEN DELETED.
+
+UPDATE:     'VSA - DURNA' airwayseg record (PK = 18200) HAS BEEN UPDATED to 'ILDIV - MBA'.
+
+INSERTION:  'MBA - BAMAV' segmnt record HAS BEEN INSERTED with PK = 74181
+
+UPDATE:     'DURNA - KIVDO' airwayseg record (PK = 18729) HAS BEEN UPDATED to 'MBA - BAMAV'.
+
+INSERTION:  'BAMAV - EMSAT' segmnt record HAS BEEN INSERTED with PK = 74182
+
+UPDATE:     'KIVDO - BUSIV' airwayseg record (PK = 16664) HAS BEEN UPDATED to 'BAMAV - EMSAT'.
+
+NOTICE:     'EMSAT - EBAKO' segmnt record has NOT BEEN INSERTED as it already exists with PK = 63365
+
+UPDATE:     'BUSIV - KAPNA' airwayseg record (PK = 16665) HAS BEEN UPDATED to 'EMSAT - EBAKO'.
+
+NOTICE:     'EBAKO - USKAV' segmnt record has NOT BEEN INSERTED as it already exists with PK = 63366
+
+UPDATE:     'KAPNA - IKVOS' airwayseg record (PK = 16816) HAS BEEN UPDATED to 'EBAKO - USKAV'.
+
+NOTICE:     'USKAV - OPGAM' segmnt record has NOT BEEN INSERTED as it already exists with PK = 1757
+
+UPDATE:     'IKVOS - ENKAK' airwayseg record (PK = 16666) HAS BEEN UPDATED to 'USKAV - OPGAM'.
+
+NOTICE:     'OPGAM - KISDU' segmnt record has NOT BEEN INSERTED as it already exists with PK = 1758
+
+UPDATE:     'ENKAK - ILDIV' airwayseg record (PK = 82944) HAS BEEN UPDATED to 'OPGAM - KISDU'.
+
+NOTICE:     'KISDU - VOTUR' segmnt record has NOT BEEN INSERTED as it already exists with PK = 1759
+
+UPDATE:     'ILDIV - MBA' airwayseg record (PK = 82966) HAS BEEN UPDATED to 'KISDU - VOTUR'.
+
+DELETION:   'MBA - EMSAT' segmnt record (PK = 2152) HAS BEEN DELETED.
+
+UPDATE:     'MBA - EMSAT' airwayseg record (PK = 2342) HAS BEEN UPDATED to 'VOTUR - ERNEV'.
+
+NOTICE:     'ERNEV - AMLOS' segmnt record has NOT BEEN INSERTED as it already exists with PK = 1761
+
+UPDATE:     'EMSAT - EBAKO' airwayseg record (PK = 74805) HAS BEEN UPDATED to 'ERNEV - AMLOS'.
+
+NOTICE:     'AMLOS - ENERO' segmnt record has NOT BEEN INSERTED as it already exists with PK = 20798
+
+UPDATE:     'EBAKO - USKAV' airwayseg record (PK = 74806) HAS BEEN UPDATED to 'AMLOS - ENERO'.
+
+NOTICE:     'ENERO - EDGUM' segmnt record has NOT BEEN INSERTED as it already exists with PK = 20076
+
+UPDATE:     'USKAV - OPGAM' airwayseg record (PK = 1907) HAS BEEN UPDATED to 'ENERO - EDGUM'.
+
+NOTICE:     'EDGUM - USLOV' segmnt record has NOT BEEN INSERTED as it already exists with PK = 1762
+
+UPDATE:     'OPGAM - KISDU' airwayseg record (PK = 1908) HAS BEEN UPDATED to 'EDGUM - USLOV'.
+
+NOTICE:     'USLOV - VOSLI' segmnt record has NOT BEEN INSERTED as it already exists with PK = 1837
+
+UPDATE:     'KISDU - VOTUR' airwayseg record (PK = 1909) HAS BEEN UPDATED to 'USLOV - VOSLI'.
+
+NOTICE:     'VOSLI - FL' segmnt record has NOT BEEN INSERTED as it already exists with PK = 1756
+
+UPDATE:     'VOTUR - ERNEV' airwayseg record (PK = 1910) HAS BEEN UPDATED to 'VOSLI - FL'.
+
+NOTICE:     'FL - USPOK' segmnt record has NOT BEEN INSERTED as it already exists with PK = 1851
+
+UPDATE:     'ERNEV - AMLOS' airwayseg record (PK = 1911) HAS BEEN UPDATED to 'FL - USPOK'.
+
+NOTICE:     'USPOK - BUNLU' segmnt record has NOT BEEN INSERTED as it already exists with PK = 2677
+
+UPDATE:     'AMLOS - ENERO' airwayseg record (PK = 23708) HAS BEEN UPDATED to 'USPOK - BUNLU'.
+
+NOTICE:     'BUNLU - EBNOS' segmnt record has NOT BEEN INSERTED as it already exists with PK = 18563
+
+UPDATE:     'ENERO - EDGUM' airwayseg record (PK = 22870) HAS BEEN UPDATED to 'BUNLU - EBNOS'.
+
+NOTICE:     'EBNOS - DIR' segmnt record has NOT BEEN INSERTED as it already exists with PK = 18564
+
+UPDATE:     'EDGUM - USLOV' airwayseg record (PK = 1912) HAS BEEN UPDATED to 'EBNOS - DIR'.
+
+NOTICE:     'DIR - DEKIL' segmnt record has NOT BEEN INSERTED as it already exists with PK = 1988
+
+UPDATE:     'USLOV - VOSLI' airwayseg record (PK = 2000) HAS BEEN UPDATED to 'DIR - DEKIL'.
+
+NOTICE:     'DEKIL - TAZIT' segmnt record has NOT BEEN INSERTED as it already exists with PK = 24350
+
+UPDATE:     'VOSLI - FL' airwayseg record (PK = 1906) HAS BEEN UPDATED to 'DEKIL - TAZIT'.
+
+NOTICE:     'TAZIT - ORBEL' segmnt record has NOT BEEN INSERTED as it already exists with PK = 24351
+
+UPDATE:     'FL - USPOK' airwayseg record (PK = 2017) HAS BEEN UPDATED to 'TAZIT - ORBEL'.
+
+NOTICE:     'ORBEL - DERJE' segmnt record has NOT BEEN INSERTED as it already exists with PK = 24352
+
+UPDATE:     'USPOK - BUNLU' airwayseg record (PK = 2938) HAS BEEN UPDATED to 'ORBEL - DERJE'.
+
+NOTICE:     'DERJE - NAFUS' segmnt record has NOT BEEN INSERTED as it already exists with PK = 24442
+
+UPDATE:     'BUNLU - EBNOS' airwayseg record (PK = 23594) HAS BEEN UPDATED to 'DERJE - NAFUS'.
+
+NOTICE:     'NAFUS - NALUT' segmnt record has NOT BEEN INSERTED as it already exists with PK = 24443
+
+UPDATE:     'EBNOS - DIR' airwayseg record (PK = 22871) HAS BEEN UPDATED to 'NAFUS - NALUT'.
+
+NOTICE:     'NALUT - FARES' segmnt record has NOT BEEN INSERTED as it already exists with PK = 24444
+
+UPDATE:     'DIR - DEKIL' airwayseg record (PK = 15894) HAS BEEN UPDATED to 'NALUT - FARES'.
+
+NOTICE:     'FARES - JBA' segmnt record has NOT BEEN INSERTED as it already exists with PK = 49914
+
+UPDATE:     'DEKIL - TAZIT' airwayseg record (PK = 27838) HAS BEEN UPDATED to 'FARES - JBA'.
+
+NOTICE:     'JBA - BAMGI' segmnt record has NOT BEEN INSERTED as it already exists with PK = 51711
+
+UPDATE:     'TAZIT - ORBEL' airwayseg record (PK = 27839) HAS BEEN UPDATED to 'JBA - BAMGI'.
+
+NOTICE:     'BAMGI - TUC' segmnt record has NOT BEEN INSERTED as it already exists with PK = 51712
+
+UPDATE:     'ORBEL - DERJE' airwayseg record (PK = 27840) HAS BEEN UPDATED to 'BAMGI - TUC'.
+
+NOTICE:     'TUC - TANIT' segmnt record has NOT BEEN INSERTED as it already exists with PK = 51714
+
+UPDATE:     'DERJE - NAFUS' airwayseg record (PK = 27935) HAS BEEN UPDATED to 'TUC - TANIT'.
+
+NOTICE:     'TANIT - OSMAR' segmnt record has NOT BEEN INSERTED as it already exists with PK = 47507
+
+UPDATE:     'NAFUS - NALUT' airwayseg record (PK = 27936) HAS BEEN UPDATED to 'TANIT - OSMAR'.
+
+INSERTION:  'OSMAR - PELOS' segmnt record HAS BEEN INSERTED with PK = 74183
+
+UPDATE:     'NALUT - FARES' airwayseg record (PK = 27937) HAS BEEN UPDATED to 'OSMAR - PELOS'.
+
+NOTICE:     'PELOS - MAGOP' segmnt record has NOT BEEN INSERTED as it already exists with PK = 24612
+
+UPDATE:     'FARES - JBA' airwayseg record (PK = 60333) HAS BEEN UPDATED to 'PELOS - MAGOP'.
+
+INSERTION:  'MAGOP - NENAK' segmnt record HAS BEEN INSERTED with PK = 74184
+
+UPDATE:     'JBA - BAMGI' airwayseg record (PK = 60337) HAS BEEN UPDATED to 'MAGOP - NENAK'.
+
+INSERTION:  'NENAK - BATIV' segmnt record HAS BEEN INSERTED with PK = 74185
+
+UPDATE:     'BAMGI - TUC' airwayseg record (PK = 60338) HAS BEEN UPDATED to 'NENAK - BATIV'.
+
+INSERTION:  'BATIV - TINOT' segmnt record HAS BEEN INSERTED with PK = 74186
+
+UPDATE:     'TUC - TANIT' airwayseg record (PK = 60340) HAS BEEN UPDATED to 'BATIV - TINOT'.
+
+NOTICE:     'TINOT - DIVKO' segmnt record has NOT BEEN INSERTED as it already exists with PK = 24809
+
+UPDATE:     'TANIT - OSMAR' airwayseg record (PK = 60344) HAS BEEN UPDATED to 'TINOT - DIVKO'.
+
+INSERTION:  'DIVKO - FJR' segmnt record HAS BEEN INSERTED with PK = 74187
+
+INSERTION:  'DIVKO - FJR' airwayseg record HAS BEEN INSERTED with PK = 89050
+
+INSERTION:  'FJR - AMLIR' segmnt record HAS BEEN INSERTED with PK = 74188
+
+INSERTION:  'FJR - AMLIR' airwayseg record HAS BEEN INSERTED with PK = 89051
+
+UPDATE:     Target point sequence 'PELOS, MAGOP, NENAK, BATIV, TINOT, DIVKO, FJR, AMLIR, APMET, EVESA, EXIMI, UTVEX, TEXES, GADVI, UTRAN, ETLON, NEREX, IMLAM, IMDIP, NERIB, EPMAG, AVONI, ABMG, APKUS, EPNUL, EXIGO, VSA, DURNA, KIVDO, BUSIV, KAPNA, IKVOS, ENKAK, ILDIV, MBA, EMSAT, EBAKO, USKAV, OPGAM, KISDU, VOTUR, ERNEV, AMLOS, ENERO, EDGUM, USLOV, VOSLI, FL, USPOK, BUNLU, EBNOS, DIR, DEKIL, TAZIT, ORBEL, DERJE, NAFUS, NALUT, FARES, JBA, BAMGI, TUC, TANIT, OSMAR' has been substituted by the new 'RUDAS, APMET, EVESA, EXIMI, UTVEX, TEXES, GADVI, UTRAN, ETLON, NEREX, IMLAM, IMDIP, NERIB, EPMAG, AVONI, ABMG, APKUS, EPNUL, EXIGO, VSA, DURNA, KIVDO, BUSIV, KAPNA, IKVOS, ENKAK, ILDIV, MBA, BAMAV, EMSAT, EBAKO, USKAV, OPGAM, KISDU, VOTUR, ERNEV, AMLOS, ENERO, EDGUM, USLOV, VOSLI, FL, USPOK, BUNLU, EBNOS, DIR, DEKIL, TAZIT, ORBEL, DERJE, NAFUS, NALUT, FARES, JBA, BAMGI, TUC, TANIT, OSMAR, PELOS, MAGOP, NENAK, BATIV, TINOT, DIVKO, FJR, AMLIR' sequence for 'UM731' Airway with PK = 13058
+
+-- 10 ====  'UM315' AIRWAY update  ====  Source: ICAO ICARD 5LNC  ====  Comment: Zambia enter/exit problems  ========================================
+
+NOTICE:     'USUBI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 2634
+
+NOTICE:     'UBTIM' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 120793
+
+NOTICE:     'ESPOP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 119633
+
+NOTICE:     'FW017' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 133252
+
+NOTICE:     'DVL' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 235
+
+NOTICE:     'FW013' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 133248
+
+NOTICE:     'IMKAL' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 86422
+
+NOTICE:     'UTINA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 181
+
+NOTICE:     'UMTAP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 59615
+
+NOTICE:     'UVKAT' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 182
+
+NOTICE:     'EPMAB' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 52706
+
+NOTICE:     'DO' NDB HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1672
+
+NOTICE:     'OKMAS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 88119
+
+NOTICE:     'ITNOV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 88116
+
+NOTICE:     'ITSOK' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 171
+
+NOTICE:     'AVETA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 633
+
+NOTICE:     'ETMOV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 133058
+
+NOTICE:     'LOSIN' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 5336
+
+NOTICE:     'EVATO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 42108
+
+NOTICE:     'NV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1402
+
+DELETION:   'UTINA - UMTAP' segmnt record (PK = 49668) HAS BEEN DELETED.
+
+UPDATE:     'UTINA - UMTAP' airwayseg record (PK = 57668) HAS BEEN UPDATED to 'USUBI - UBTIM'.
+
+DELETION:   'UMTAP - UVKAT' segmnt record (PK = 66028) HAS BEEN DELETED.
+
+UPDATE:     'UMTAP - UVKAT' airwayseg record (PK = 78679) HAS BEEN UPDATED to 'UBTIM - ESPOP'.
+
+DELETION:   'UVKAT - EPMAB' segmnt record (PK = 66029) HAS BEEN DELETED.
+
+UPDATE:     'UVKAT - EPMAB' airwayseg record (PK = 78680) HAS BEEN UPDATED to 'ESPOP - FW017'.
+
+DELETION:   'EPMAB - DO' segmnt record (PK = 66030) HAS BEEN DELETED.
+
+UPDATE:     'EPMAB - DO' airwayseg record (PK = 78681) HAS BEEN UPDATED to 'FW017 - DVL'.
+
+DELETION:   'DO - OKMAS' segmnt record (PK = 69805) HAS BEEN DELETED.
+
+UPDATE:     'DO - OKMAS' airwayseg record (PK = 83615) HAS BEEN UPDATED to 'DVL - FW013'.
+
+DELETION:   'OKMAS - ITNOV' segmnt record (PK = 69806) HAS BEEN DELETED.
+
+UPDATE:     'OKMAS - ITNOV' airwayseg record (PK = 83616) HAS BEEN UPDATED to 'FW013 - IMKAL'.
+
+UPDATE:     'ITNOV - ITSOK' segmnt record (PK = 66031) HAS BEEN UPDATED to 'IMKAL - UTINA'.
+
+UPDATE:     'ITNOV - ITSOK' airwayseg record (PK = 78682) HAS BEEN UPDATED to 'IMKAL - UTINA'.
+
+UPDATE:     'ITSOK - AVETA' segmnt record (PK = 66032) HAS BEEN UPDATED to 'UTINA - UMTAP'.
+
+UPDATE:     'ITSOK - AVETA' airwayseg record (PK = 78683) HAS BEEN UPDATED to 'UTINA - UMTAP'.
+
+UPDATE:     'AVETA - ETMOV' segmnt record (PK = 66115) HAS BEEN UPDATED to 'UMTAP - UVKAT'.
+
+UPDATE:     'AVETA - ETMOV' airwayseg record (PK = 78798) HAS BEEN UPDATED to 'UMTAP - UVKAT'.
+
+UPDATE:     'ETMOV - LOSIN' segmnt record (PK = 66116) HAS BEEN UPDATED to 'UVKAT - EPMAB'.
+
+UPDATE:     'ETMOV - LOSIN' airwayseg record (PK = 78799) HAS BEEN UPDATED to 'UVKAT - EPMAB'.
+
+UPDATE:     'LOSIN - EVATO' segmnt record (PK = 66117) HAS BEEN UPDATED to 'EPMAB - DO'.
+
+UPDATE:     'LOSIN - EVATO' airwayseg record (PK = 78800) HAS BEEN UPDATED to 'EPMAB - DO'.
+
+INSERTION:  'DO - OKMAS' segmnt record HAS BEEN INSERTED with PK = 74189
+
+UPDATE:     'EVATO - NV' airwayseg record (PK = 57100) HAS BEEN UPDATED to 'DO - OKMAS'.
+
+INSERTION:  'OKMAS - ITNOV' segmnt record HAS BEEN INSERTED with PK = 74190
+
+UPDATE:     'USUBI - UBTIM' airwayseg record (PK = 71370) HAS BEEN UPDATED to 'OKMAS - ITNOV'.
+
+INSERTION:  'ITNOV - ITSOK' segmnt record HAS BEEN INSERTED with PK = 74191
+
+UPDATE:     'UBTIM - ESPOP' airwayseg record (PK = 71371) HAS BEEN UPDATED to 'ITNOV - ITSOK'.
+
+INSERTION:  'ITSOK - AVETA' segmnt record HAS BEEN INSERTED with PK = 74192
+
+UPDATE:     'ESPOP - FW017' airwayseg record (PK = 78414) HAS BEEN UPDATED to 'ITSOK - AVETA'.
+
+INSERTION:  'AVETA - ETMOV' segmnt record HAS BEEN INSERTED with PK = 74193
+
+UPDATE:     'FW017 - DVL' airwayseg record (PK = 78415) HAS BEEN UPDATED to 'AVETA - ETMOV'.
+
+INSERTION:  'ETMOV - LOSIN' segmnt record HAS BEEN INSERTED with PK = 74194
+
+UPDATE:     'DVL - FW013' airwayseg record (PK = 78416) HAS BEEN UPDATED to 'ETMOV - LOSIN'.
+
+INSERTION:  'LOSIN - EVATO' segmnt record HAS BEEN INSERTED with PK = 74195
+
+UPDATE:     'FW013 - IMKAL' airwayseg record (PK = 78417) HAS BEEN UPDATED to 'LOSIN - EVATO'.
+
+UPDATE:     'EVATO - NV' segmnt record (PK = 49219) HAS BEEN UPDATED.
+
+INSERTION:  'EVATO - NV' airwayseg record HAS BEEN INSERTED with PK = 89052
+
+UPDATE:     Target point sequence 'UTINA, UMTAP, UVKAT, EPMAB, DO, OKMAS, ITNOV, ITSOK, AVETA, ETMOV, LOSIN, EVATO, NV, UBTIM, ESPOP, FW017, DVL, FW013, IMKAL' has been substituted by the new 'USUBI, UBTIM, ESPOP, FW017, DVL, FW013, IMKAL, UTINA, UMTAP, UVKAT, EPMAB, DO, OKMAS, ITNOV, ITSOK, AVETA, ETMOV, LOSIN, EVATO, NV' sequence for 'UM315' Airway with PK = 8985
+
+-- 11 ====  'UA405' AIRWAY update  ====  Source: ICAO ICARD 5LNC  ====  Comment: Zambia enter/exit problems  ========================================
+
+NOTICE:     'ETOBO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 59223
+
+NOTICE:     'APKID' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 87018
+
+NOTICE:     'ITGAD' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 86563
+
+NOTICE:     'OKDOG' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 86190
+
+NOTICE:     'RIV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 386
+
+NOTICE:     'CTV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 377
+
+NOTICE:     'CSV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1064
+
+NOTICE:     'SLV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 23
+
+NOTICE:     'VWV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 27
+
+NOTICE:     'EGRUP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 461
+
+NOTICE:     'KYV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 622
+
+NOTICE:     'APDUR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1419
+
+NOTICE:     'EKBEX' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1418
+
+NOTICE:     'GAV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 379
+
+NOTICE:     'UTRUK' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 92783
+
+NOTICE:     'GABNA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 86319
+
+NOTICE:     'GWV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1059
+
+NOTICE:     'UTULI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1535
+
+NOTICE:     'VMV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1406
+
+NOTICE:     'VHA' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1478
+
+NOTICE:     'MAKIR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 120502
+
+NOTICE:     'TEVAS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 117323
+
+NOTICE:     'UDPIX' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 86345
+
+NOTICE:     'VMF01' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 50948
+
+NOTICE:     'ETOLI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 50855
+
+NOTICE:     'APKOL' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 157
+
+DELETION:   'TEVAS - UDPIX' segmnt record (PK = 28751) HAS BEEN DELETED.
+
+UPDATE:     'TEVAS - UDPIX' airwayseg record (PK = 32935) HAS BEEN UPDATED to 'ETOBO - APKID'.
+
+DELETION:   'UDPIX - VMF01' segmnt record (PK = 16951) HAS BEEN DELETED.
+
+UPDATE:     'UDPIX - VMF01' airwayseg record (PK = 19302) HAS BEEN UPDATED to 'APKID - ITGAD'.
+
+DELETION:   'VMF01 - ETOLI' segmnt record (PK = 16952) HAS BEEN DELETED.
+
+UPDATE:     'VMF01 - ETOLI' airwayseg record (PK = 19303) HAS BEEN UPDATED to 'ITGAD - OKDOG'.
+
+DELETION:   'ETOLI - APKOL' segmnt record (PK = 17172) HAS BEEN DELETED.
+
+UPDATE:     'ETOLI - APKOL' airwayseg record (PK = 19587) HAS BEEN UPDATED to 'OKDOG - RIV'.
+
+NOTICE:     'RIV - CTV' segmnt record has NOT BEEN INSERTED as it already exists with PK = 1464
+
+UPDATE:     'ETOBO - APKID' airwayseg record (PK = 64152) HAS BEEN UPDATED to 'RIV - CTV'.
+
+NOTICE:     'CTV - CSV' segmnt record has NOT BEEN INSERTED as it already exists with PK = 26504
+
+UPDATE:     'APKID - ITGAD' airwayseg record (PK = 64151) HAS BEEN UPDATED to 'CTV - CSV'.
+
+NOTICE:     'CSV - SLV' segmnt record has NOT BEEN INSERTED as it already exists with PK = 26503
+
+UPDATE:     'ITGAD - OKDOG' airwayseg record (PK = 64150) HAS BEEN UPDATED to 'CSV - SLV'.
+
+NOTICE:     'SLV - VWV' segmnt record has NOT BEEN INSERTED as it already exists with PK = 1463
+
+UPDATE:     'OKDOG - RIV' airwayseg record (PK = 64149) HAS BEEN UPDATED to 'SLV - VWV'.
+
+NOTICE:     'VWV - EGRUP' segmnt record has NOT BEEN INSERTED as it already exists with PK = 1462
+
+UPDATE:     'RIV - CTV' airwayseg record (PK = 64148) HAS BEEN UPDATED to 'VWV - EGRUP'.
+
+NOTICE:     'EGRUP - KYV' segmnt record has NOT BEEN INSERTED as it already exists with PK = 2136
+
+UPDATE:     'CTV - CSV' airwayseg record (PK = 64147) HAS BEEN UPDATED to 'EGRUP - KYV'.
+
+NOTICE:     'KYV - APDUR' segmnt record has NOT BEEN INSERTED as it already exists with PK = 2137
+
+UPDATE:     'CSV - SLV' airwayseg record (PK = 64146) HAS BEEN UPDATED to 'KYV - APDUR'.
+
+NOTICE:     'APDUR - EKBEX' segmnt record has NOT BEEN INSERTED as it already exists with PK = 2138
+
+UPDATE:     'SLV - VWV' airwayseg record (PK = 64145) HAS BEEN UPDATED to 'APDUR - EKBEX'.
+
+NOTICE:     'EKBEX - GAV' segmnt record has NOT BEEN INSERTED as it already exists with PK = 2140
+
+UPDATE:     'VWV - EGRUP' airwayseg record (PK = 64144) HAS BEEN UPDATED to 'EKBEX - GAV'.
+
+NOTICE:     'GAV - UTRUK' segmnt record has NOT BEEN INSERTED as it already exists with PK = 52105
+
+UPDATE:     'EGRUP - KYV' airwayseg record (PK = 64143) HAS BEEN UPDATED to 'GAV - UTRUK'.
+
+NOTICE:     'UTRUK - GABNA' segmnt record has NOT BEEN INSERTED as it already exists with PK = 52106
+
+UPDATE:     'KYV - APDUR' airwayseg record (PK = 64142) HAS BEEN UPDATED to 'UTRUK - GABNA'.
+
+NOTICE:     'GABNA - GWV' segmnt record has NOT BEEN INSERTED as it already exists with PK = 29599
+
+UPDATE:     'APDUR - EKBEX' airwayseg record (PK = 64141) HAS BEEN UPDATED to 'GABNA - GWV'.
+
+NOTICE:     'GWV - UTULI' segmnt record has NOT BEEN INSERTED as it already exists with PK = 67756
+
+UPDATE:     'EKBEX - GAV' airwayseg record (PK = 64140) HAS BEEN UPDATED to 'GWV - UTULI'.
+
+NOTICE:     'UTULI - VMV' segmnt record has NOT BEEN INSERTED as it already exists with PK = 67757
+
+UPDATE:     'GAV - UTRUK' airwayseg record (PK = 60841) HAS BEEN UPDATED to 'UTULI - VMV'.
+
+NOTICE:     'VMV - VHA' segmnt record has NOT BEEN INSERTED as it already exists with PK = 29692
+
+UPDATE:     'UTRUK - GABNA' airwayseg record (PK = 60842) HAS BEEN UPDATED to 'VMV - VHA'.
+
+NOTICE:     'VHA - MAKIR' segmnt record has NOT BEEN INSERTED as it already exists with PK = 28750
+
+UPDATE:     'GABNA - GWV' airwayseg record (PK = 64139) HAS BEEN UPDATED to 'VHA - MAKIR'.
+
+INSERTION:  'MAKIR - TEVAS' segmnt record HAS BEEN INSERTED with PK = 74196
+
+UPDATE:     'GWV - UTULI' airwayseg record (PK = 81090) HAS BEEN UPDATED to 'MAKIR - TEVAS'.
+
+INSERTION:  'TEVAS - UDPIX' segmnt record HAS BEEN INSERTED with PK = 74197
+
+UPDATE:     'UTULI - VMV' airwayseg record (PK = 81091) HAS BEEN UPDATED to 'TEVAS - UDPIX'.
+
+INSERTION:  'UDPIX - VMF01' segmnt record HAS BEEN INSERTED with PK = 74198
+
+UPDATE:     'VMV - VHA' airwayseg record (PK = 34045) HAS BEEN UPDATED to 'UDPIX - VMF01'.
+
+INSERTION:  'VMF01 - ETOLI' segmnt record HAS BEEN INSERTED with PK = 74199
+
+UPDATE:     'VHA - MAKIR' airwayseg record (PK = 32934) HAS BEEN UPDATED to 'VMF01 - ETOLI'.
+
+INSERTION:  'ETOLI - APKOL' segmnt record HAS BEEN INSERTED with PK = 74200
+
+INSERTION:  'ETOLI - APKOL' airwayseg record HAS BEEN INSERTED with PK = 89053
+
+UPDATE:     Target point sequence 'TEVAS, UDPIX, VMF01, ETOLI, APKOL, APKID, ITGAD, OKDOG, RIV, CTV, CSV, SLV, VWV, EGRUP, KYV, APDUR, EKBEX, GAV, UTRUK, GABNA, GWV, UTULI, VMV, VHA, MAKIR' has been substituted by the new 'ETOBO, APKID, ITGAD, OKDOG, RIV, CTV, CSV, SLV, VWV, EGRUP, KYV, APDUR, EKBEX, GAV, UTRUK, GABNA, GWV, UTULI, VMV, VHA, MAKIR, TEVAS, UDPIX, VMF01, ETOLI, APKOL' sequence for 'UA405' Airway with PK = 5753
+
+-- 12 ====  UP312 AIRWAY update  ====  Source: ICAO ICARD 5LNC  ====  Comment: Zambia enter/exit problems  ==========================================
+
+NOTICE:     'MAKIR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 120502
+
+NOTICE:     'ETUMA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 120239
+
+NOTICE:     'TEVAS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 117323
+
+NOTICE:     'APKOL' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 157
+
+NOTICE:     'IBROP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 52901
+
+NOTICE:     'MB' NDB HAS NOT BEEN INSERTED as it already exists in the same location with PK = 2509
+
+NOTICE:     'SINGI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 180
+
+NOTICE:     'OKDAS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 88118
+
+NOTICE:     'EPTIK' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 59788
+
+NOTICE:     'NIDEX' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 634
+
+NOTICE:     'ITMEN' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 52707
+
+NOTICE:     'IBKOB' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 133060
+
+NOTICE:     'LOSIN' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 5336
+
+NOTICE:     'EPTAN' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 52900
+
+NOTICE:     'EVATO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 42108
+
+NOTICE:     'NV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1402
+
+NOTICE:     'EPSIB' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 129725
+
+NOTICE:     'GEVAV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 129991
+
+NOTICE:     'WAV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1403
+
+NOTICE:     'OKNAV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 107988
+
+NOTICE:     'MAV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 347
+
+NOTICE:     'TIMAD' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 129046
+
+NOTICE:     'DATEG' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 969
+
+NOTICE:     'AMBOD' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 970
+
+NOTICE:     'ULDIB' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1515
+
+NOTICE:     'RIN' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 101
+
+NOTICE:     'MAKIR - ETUMA' segmnt record has NOT BEEN INSERTED as it already exists with PK = 60747
+
+UPDATE:     'TIMAD - DATEG' airwayseg record (PK = 2029) HAS BEEN UPDATED to 'MAKIR - ETUMA'.
+
+NOTICE:     'ETUMA - TEVAS' segmnt record has NOT BEEN INSERTED as it already exists with PK = 60748
+
+UPDATE:     'DATEG - AMBOD' airwayseg record (PK = 2047) HAS BEEN UPDATED to 'ETUMA - TEVAS'.
+
+INSERTION:  'TEVAS - APKOL' segmnt record HAS BEEN INSERTED with PK = 74201
+
+UPDATE:     'AMBOD - ULDIB' airwayseg record (PK = 2048) HAS BEEN UPDATED to 'TEVAS - APKOL'.
+
+NOTICE:     'APKOL - IBROP' segmnt record has NOT BEEN INSERTED as it already exists with PK = 65837
+
+UPDATE:     'ULDIB - RIN' airwayseg record (PK = 2049) HAS BEEN UPDATED to 'APKOL - IBROP'.
+
+NOTICE:     'IBROP - MB' segmnt record has NOT BEEN INSERTED as it already exists with PK = 65838
+
+UPDATE:     'MAKIR - ETUMA' airwayseg record (PK = 71381) HAS BEEN UPDATED to 'IBROP - MB'.
+
+NOTICE:     'MB - SINGI' segmnt record has NOT BEEN INSERTED as it already exists with PK = 65839
+
+UPDATE:     'ETUMA - TEVAS' airwayseg record (PK = 71382) HAS BEEN UPDATED to 'MB - SINGI'.
+
+NOTICE:     'SINGI - OKDAS' segmnt record has NOT BEEN INSERTED as it already exists with PK = 65840
+
+UPDATE:     'APKOL - IBROP' airwayseg record (PK = 78471) HAS BEEN UPDATED to 'SINGI - OKDAS'.
+
+NOTICE:     'OKDAS - EPTIK' segmnt record has NOT BEEN INSERTED as it already exists with PK = 69807
+
+UPDATE:     'IBROP - MB' airwayseg record (PK = 78472) HAS BEEN UPDATED to 'OKDAS - EPTIK'.
+
+NOTICE:     'EPTIK - NIDEX' segmnt record has NOT BEEN INSERTED as it already exists with PK = 69808
+
+UPDATE:     'MB - SINGI' airwayseg record (PK = 78473) HAS BEEN UPDATED to 'EPTIK - NIDEX'.
+
+NOTICE:     'NIDEX - ITMEN' segmnt record has NOT BEEN INSERTED as it already exists with PK = 65841
+
+UPDATE:     'SINGI - OKDAS' airwayseg record (PK = 78474) HAS BEEN UPDATED to 'NIDEX - ITMEN'.
+
+NOTICE:     'ITMEN - IBKOB' segmnt record has NOT BEEN INSERTED as it already exists with PK = 65842
+
+UPDATE:     'OKDAS - EPTIK' airwayseg record (PK = 83617) HAS BEEN UPDATED to 'ITMEN - IBKOB'.
+
+NOTICE:     'IBKOB - LOSIN' segmnt record has NOT BEEN INSERTED as it already exists with PK = 49669
+
+UPDATE:     'EPTIK - NIDEX' airwayseg record (PK = 83618) HAS BEEN UPDATED to 'IBKOB - LOSIN'.
+
+NOTICE:     'LOSIN - EPTAN' segmnt record has NOT BEEN INSERTED as it already exists with PK = 69809
+
+UPDATE:     'NIDEX - ITMEN' airwayseg record (PK = 78475) HAS BEEN UPDATED to 'LOSIN - EPTAN'.
+
+NOTICE:     'EPTAN - EVATO' segmnt record has NOT BEEN INSERTED as it already exists with PK = 69810
+
+UPDATE:     'ITMEN - IBKOB' airwayseg record (PK = 78476) HAS BEEN UPDATED to 'EPTAN - EVATO'.
+
+NOTICE:     'EVATO - NV' segmnt record has NOT BEEN INSERTED as it already exists with PK = 49219
+
+UPDATE:     'IBKOB - LOSIN' airwayseg record (PK = 57669) HAS BEEN UPDATED to 'EVATO - NV'.
+
+NOTICE:     'NV - EPSIB' segmnt record has NOT BEEN INSERTED as it already exists with PK = 70023
+
+UPDATE:     'LOSIN - EPTAN' airwayseg record (PK = 83619) HAS BEEN UPDATED to 'NV - EPSIB'.
+
+NOTICE:     'EPSIB - GEVAV' segmnt record has NOT BEEN INSERTED as it already exists with PK = 70178
+
+UPDATE:     'EPTAN - EVATO' airwayseg record (PK = 83620) HAS BEEN UPDATED to 'EPSIB - GEVAV'.
+
+NOTICE:     'GEVAV - WAV' segmnt record has NOT BEEN INSERTED as it already exists with PK = 70179
+
+UPDATE:     'EVATO - NV' airwayseg record (PK = 57758) HAS BEEN UPDATED to 'GEVAV - WAV'.
+
+NOTICE:     'WAV - OKNAV' segmnt record has NOT BEEN INSERTED as it already exists with PK = 49739
+
+UPDATE:     'NV - EPSIB' airwayseg record (PK = 83880) HAS BEEN UPDATED to 'WAV - OKNAV'.
+
+NOTICE:     'OKNAV - MAV' segmnt record has NOT BEEN INSERTED as it already exists with PK = 65323
+
+UPDATE:     'EPSIB - GEVAV' airwayseg record (PK = 84055) HAS BEEN UPDATED to 'OKNAV - MAV'.
+
+INSERTION:  'MAV - TIMAD' segmnt record HAS BEEN INSERTED with PK = 74202
+
+UPDATE:     'GEVAV - WAV' airwayseg record (PK = 84056) HAS BEEN UPDATED to 'MAV - TIMAD'.
+
+NOTICE:     'TIMAD - DATEG' segmnt record has NOT BEEN INSERTED as it already exists with PK = 1863
+
+UPDATE:     'WAV - OKNAV' airwayseg record (PK = 57759) HAS BEEN UPDATED to 'TIMAD - DATEG'.
+
+NOTICE:     'DATEG - AMBOD' segmnt record has NOT BEEN INSERTED as it already exists with PK = 1876
+
+UPDATE:     'OKNAV - MAV' airwayseg record (PK = 77766) HAS BEEN UPDATED to 'DATEG - AMBOD'.
+
+UPDATE:     'AMBOD - ULDIB' segmnt record (PK = 1880) HAS BEEN UPDATED.
+
+INSERTION:  'AMBOD - ULDIB' airwayseg record HAS BEEN INSERTED with PK = 89054
+
+UPDATE:     'ULDIB - RIN' segmnt record (PK = 1881) HAS BEEN UPDATED.
+
+INSERTION:  'ULDIB - RIN' airwayseg record HAS BEEN INSERTED with PK = 89055
+
+UPDATE:     Target point sequence 'TIMAD, DATEG, AMBOD, ULDIB, RIN, ETUMA, TEVAS, IBROP, MB, SINGI, OKDAS, EPTIK, NIDEX, ITMEN, IBKOB, LOSIN, EPTAN, EVATO, NV, EPSIB, GEVAV, WAV, OKNAV, MAV' has been substituted by the new 'MAKIR, ETUMA, TEVAS, APKOL, IBROP, MB, SINGI, OKDAS, EPTIK, NIDEX, ITMEN, IBKOB, LOSIN, EPTAN, EVATO, NV, EPSIB, GEVAV, WAV, OKNAV, MAV, TIMAD, DATEG, AMBOD, ULDIB, RIN' sequence for 'UP312' Airway with PK = 7392
+
+-- 13 ====  UR782 AIRWAY update  ====  Source: ICAO ICARD 5LNC  ====  Comment: Zambia enter/exit problems  ==========================================
+
+NOTICE:     'VLS' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 180
+
+NOTICE:     'IBNOP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 106716
+
+NOTICE:     'NESAK' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 86257
+
+NOTICE:     'IXALU' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 51028
+
+NOTICE:     'LABON' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 86438
+
+NOTICE:     'BERIL' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 116322
+
+NOTICE:     'TIKAR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 5247
+
+NOTICE:     'MIRON' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 47807
+
+NOTICE:     'PRA' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1345
+
+NOTICE:     'VLS - IBNOP' segmnt record has NOT BEEN INSERTED as it already exists with PK = 28304
+
+UPDATE:     'BERIL - TIKAR' airwayseg record (PK = 3068) HAS BEEN UPDATED to 'VLS - IBNOP'.
+
+NOTICE:     'IBNOP - NESAK' segmnt record has NOT BEEN INSERTED as it already exists with PK = 17164
+
+UPDATE:     'TIKAR - MIRON' airwayseg record (PK = 3089) HAS BEEN UPDATED to 'IBNOP - NESAK'.
+
+NOTICE:     'NESAK - IXALU' segmnt record has NOT BEEN INSERTED as it already exists with PK = 17165
+
+UPDATE:     'MIRON - PRA' airwayseg record (PK = 3069) HAS BEEN UPDATED to 'NESAK - IXALU'.
+
+NOTICE:     'IXALU - LABON' segmnt record has NOT BEEN INSERTED as it already exists with PK = 17166
+
+UPDATE:     'VLS - IBNOP' airwayseg record (PK = 32402) HAS BEEN UPDATED to 'IXALU - LABON'.
+
+INSERTION:  'LABON - BERIL' segmnt record HAS BEEN INSERTED with PK = 74203
+
+UPDATE:     'IBNOP - NESAK' airwayseg record (PK = 19694) HAS BEEN UPDATED to 'LABON - BERIL'.
+
+NOTICE:     'BERIL - TIKAR' segmnt record has NOT BEEN INSERTED as it already exists with PK = 2806
+
+UPDATE:     'NESAK - IXALU' airwayseg record (PK = 32391) HAS BEEN UPDATED to 'BERIL - TIKAR'.
+
+NOTICE:     'TIKAR - MIRON' segmnt record has NOT BEEN INSERTED as it already exists with PK = 2818
+
+UPDATE:     'IXALU - LABON' airwayseg record (PK = 32392) HAS BEEN UPDATED to 'TIKAR - MIRON'.
+
+UPDATE:     'MIRON - PRA' segmnt record (PK = 2807) HAS BEEN UPDATED.
+
+INSERTION:  'MIRON - PRA' airwayseg record HAS BEEN INSERTED with PK = 89056
+
+UPDATE:     Target point sequence 'BERIL, TIKAR, MIRON, PRA, IBNOP, NESAK, IXALU, LABON' has been substituted by the new 'VLS, IBNOP, NESAK, IXALU, LABON, BERIL, TIKAR, MIRON, PRA' sequence for 'UR782' Airway with PK = 12257

@@ -1,0 +1,41 @@
+AC_PREREQ([2.59])
+AC_INIT([@@PACKAGE_NAME@@], [@@PACKAGE_VERSION@@])
+AC_PREFIX_DEFAULT([/usr])
+AC_CONFIG_AUX_DIR([build-aux])
+AM_INIT_AUTOMAKE([1.9 tar-pax -Wall -Wno-portability -Werror foreign])
+
+AC_ARG_ENABLE([load-data], AS_HELP_STRING(
+	      [--disable-load-data], [do not install the SQL load data file]),
+	      [],[enable_load_data=yes])
+AM_CONDITIONAL([LOAD_DATA],[test x"$enable_load_data" = x"yes"])
+
+m4_define([REQUIRE_PROGS],[
+  AC_CHECK_PROGS([$1], [$2])
+  test x"[$]$1" = x && AC_MSG_FAILURE([$3])
+])
+
+# Check for prerequisites
+REQUIRE_PROGS([XARGS], [xargs], [This package requires "xargs"!])
+REQUIRE_PROGS([FIND], [find], [This package requires "find"!])
+REQUIRE_PROGS([PERL], [perl], [This package requires perl!])
+REQUIRE_PROGS([PROVE], [prove], [This package requires "prove"!])
+AC_PROG_LN_S
+
+AC_SUBST([AERO_DATA_FILE],    [@@AERO_DATA_FILE@@])
+AC_SUBST([pkgstatedir],       ['$(localstatedir)/lib/$(PACKAGE)'])
+AC_SUBST([pkgdatadir],        ['$(datadir)/$(PACKAGE)'])
+AC_SUBST([sqldir],            ['$(pkgdatadir)/sql'])
+AC_SUBST([perlmoddir],        ['$(pkgdatadir)/lib'])
+AC_SUBST([bashcompletiondir], ['$(sysconfdir)/bash_completion.d'])
+AC_SUBST([confdir],           ['$(sysconfdir)/navdb'])
+
+AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([lib/Local/Makefile])
+AC_CONFIG_FILES([lib/Local/Cmdline/Makefile])
+AC_CONFIG_FILES([sql/Makefile])
+AC_CONFIG_FILES([sql/data/Makefile])
+AC_CONFIG_FILES([t/Makefile])
+AC_CONFIG_FILES([conf/Makefile])
+
+AC_OUTPUT
+

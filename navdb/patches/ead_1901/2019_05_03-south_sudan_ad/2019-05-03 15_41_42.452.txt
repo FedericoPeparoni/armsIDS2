@@ -1,0 +1,211 @@
+==========  2019-05-03 15:41:42.452  ==============================================================
+
+==========  LOG OF PATCHING 'jdbc:postgresql://armsdev01/navdb_patch' DATABASE  ======================
+
+-- 01 ====  WAYPOINT insertion  ====  Comment: Missing waypoints for Botswana  ======================================================================
+
+NOTICE:     'AKETE' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 139573
+
+NOTICE:     'UTUMA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 139574
+
+-- 02 ====  ADHP insertion  ====  Source: ICAO ICARD 5LNC  ====  Comment: TFS 70290  ================================================================
+
+NOTICE:     'FAMK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37767
+
+NOTICE:     'FANG' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37768
+
+NOTICE:     'FBTP' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37769
+
+NOTICE:     'FVBL' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37770
+
+NOTICE:     'FVEM' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37771
+
+NOTICE:     'FVTL' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37772
+
+NOTICE:     'FYBG' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37773
+
+NOTICE:     'FYDC' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37774
+
+NOTICE:     'FYLR' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37775
+
+NOTICE:     'FYLS' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37776
+
+NOTICE:     'FYND' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37777
+
+-- 03 ====  ADHP insertion  ====  Source: WIKIPEDIA  ====  Comment: Observed by k.gubbins while analyzing KCAA data  ================================
+
+NOTICE:     'HTBB' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37778
+
+NOTICE:     'FZJB' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37779
+
+NOTICE:     'HCMD' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37780
+
+NOTICE:     'HTZW' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37781
+
+NOTICE:     'HCIX' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37782
+
+-- 04 ====  ADHP insertion  ====  Source: WIKIPEDIA  ====  Comment: Observed by d.panech while analyzing KCAA data  =================================
+
+NOTICE:     'FZJC' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37783
+
+NOTICE:     'HCMG' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37784
+
+NOTICE:     'HCMP' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37785
+
+NOTICE:     'HKNN' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37786
+
+-- 05 ====  ADHP insertion  ====  Source: w.reiche@idscorporation.com  ====  Comment: TFS 101774  ===================================================
+
+NOTICE:     'FACR' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37787
+
+NOTICE:     'FAKW' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37788
+
+NOTICE:     'FCMK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37789
+
+NOTICE:     'FCMZ' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37790
+
+NOTICE:     'FLLS' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37791
+
+NOTICE:     'FLND' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37792
+
+NOTICE:     'FYKS' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37793
+
+NOTICE:     'FZBJ' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37794
+
+NOTICE:     'HAHM' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37795
+
+NOTICE:     'HCAD' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37796
+
+NOTICE:     'HCAW' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37797
+
+NOTICE:     'HCBB' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37798
+
+NOTICE:     'HCMC' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37799
+
+NOTICE:     'HCMO' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37800
+
+NOTICE:     'HCMW' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37801
+
+NOTICE:     'HKNY' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37802
+
+NOTICE:     'HKWE' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37803
+
+NOTICE:     'HSBR' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37804
+
+NOTICE:     'HSKP' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37805
+
+NOTICE:     'HSMR' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37806
+
+NOTICE:     'HSYE' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37807
+
+NOTICE:     'HKBK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37808
+
+NOTICE:     'HKSC' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37809
+
+NOTICE:     'HKWQ' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37810
+
+NOTICE:     'HKYT' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37811
+
+NOTICE:     'HKBA' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37812
+
+NOTICE:     'HKMY' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37813
+
+NOTICE:     'HKMK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37814
+
+NOTICE:     'HC0001' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37815
+
+NOTICE:     'HC0002' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37816
+
+NOTICE:     'HC0003' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37817
+
+NOTICE:     'HKYD' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37818
+
+-- 06 ====  ADHP insertion  ====  Source: w.reiche@idscorporation.com  ====  Comment: TFS 105875 South Sudan  =======================================
+
+INSERTION:  'HJJJ' Airport HAS BEEN INSERTED with PK = 37819
+
+INSERTION:  'HJMK' Airport HAS BEEN INSERTED with PK = 37820
+
+INSERTION:  'HJRB' Airport HAS BEEN INSERTED with PK = 37821
+
+INSERTION:  'HJWW' Airport HAS BEEN INSERTED with PK = 37822
+
+INSERTION:  'HJAR' Airport HAS BEEN INSERTED with PK = 37823
+
+INSERTION:  'HJAJ' Airport HAS BEEN INSERTED with PK = 37824
+
+INSERTION:  'HJAK' Airport HAS BEEN INSERTED with PK = 37825
+
+INSERTION:  'HJAW' Airport HAS BEEN INSERTED with PK = 37826
+
+INSERTION:  'HJAY' Airport HAS BEEN INSERTED with PK = 37827
+
+INSERTION:  'HJBR' Airport HAS BEEN INSERTED with PK = 37828
+
+INSERTION:  'HJBK' Airport HAS BEEN INSERTED with PK = 37829
+
+INSERTION:  'HJDK' Airport HAS BEEN INSERTED with PK = 37830
+
+INSERTION:  'HJDP' Airport HAS BEEN INSERTED with PK = 37831
+
+INSERTION:  'HJBB' Airport HAS BEEN INSERTED with PK = 37832
+
+INSERTION:  'HJKP' Airport HAS BEEN INSERTED with PK = 37833
+
+INSERTION:  'HJLK' Airport HAS BEEN INSERTED with PK = 37834
+
+INSERTION:  'HJLW' Airport HAS BEEN INSERTED with PK = 37835
+
+INSERTION:  'HJMD' Airport HAS BEEN INSERTED with PK = 37836
+
+INSERTION:  'HJMG' Airport HAS BEEN INSERTED with PK = 37837
+
+INSERTION:  'HJMI' Airport HAS BEEN INSERTED with PK = 37838
+
+INSERTION:  'HJMV' Airport HAS BEEN INSERTED with PK = 37839
+
+INSERTION:  'HJNM' Airport HAS BEEN INSERTED with PK = 37840
+
+INSERTION:  'HJNZ' Airport HAS BEEN INSERTED with PK = 37841
+
+INSERTION:  'HJPH' Airport HAS BEEN INSERTED with PK = 37842
+
+INSERTION:  'HJPG' Airport HAS BEEN INSERTED with PK = 37843
+
+INSERTION:  'HJPA' Airport HAS BEEN INSERTED with PK = 37844
+
+INSERTION:  'HJPB' Airport HAS BEEN INSERTED with PK = 37845
+
+INSERTION:  'HJPR' Airport HAS BEEN INSERTED with PK = 37846
+
+INSERTION:  'HJPU' Airport HAS BEEN INSERTED with PK = 37847
+
+INSERTION:  'HJRG' Airport HAS BEEN INSERTED with PK = 37848
+
+INSERTION:  'HJRK' Airport HAS BEEN INSERTED with PK = 37849
+
+INSERTION:  'HJTN' Airport HAS BEEN INSERTED with PK = 37850
+
+INSERTION:  'HJTR' Airport HAS BEEN INSERTED with PK = 37851
+
+INSERTION:  'HJTB' Airport HAS BEEN INSERTED with PK = 37852
+
+INSERTION:  'HJTU' Airport HAS BEEN INSERTED with PK = 37853
+
+INSERTION:  'HJWT' Airport HAS BEEN INSERTED with PK = 37854
+
+INSERTION:  'HJYB' Airport HAS BEEN INSERTED with PK = 37855
+
+INSERTION:  'HJYE' Airport HAS BEEN INSERTED with PK = 37856
+
+INSERTION:  'HJYL' Airport HAS BEEN INSERTED with PK = 37857
+
+INSERTION:  'HJYU' Airport HAS BEEN INSERTED with PK = 37858
+
+INSERTION:  'HJBT' Airport HAS BEEN INSERTED with PK = 37859
+
+INSERTION:  'HJDF' Airport HAS BEEN INSERTED with PK = 37860
+
+INSERTION:  'HJPJ' Airport HAS BEEN INSERTED with PK = 37861
+
+INSERTION:  'HJPO' Airport HAS BEEN INSERTED with PK = 37862

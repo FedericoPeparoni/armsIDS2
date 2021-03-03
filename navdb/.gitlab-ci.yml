@@ -1,0 +1,71 @@
+# vim: ts=4 sts=4 sw=4 et
+
+image: centos:7.3.1611
+
+stages:
+    - compile
+    - deploy
+
+compile:el6:
+    stage: compile
+    image: centos:6.6
+    except:
+        - tags
+    script:
+        - cd gitlab-ci-build-scripts
+        - ./install-deps.sh
+        - ./build.sh
+
+compile-tag:el6:
+    stage: compile
+    image: centos:6.6
+    only:
+        - /^v[0-9][0-9.]+$/
+    script:
+        - cd gitlab-ci-build-scripts
+        - ./install-deps.sh
+        - ./build.sh
+    artifacts:
+        expire_in: 6h
+        paths:
+            - gitlab-ci-build-scripts/STAGE
+
+compile:el7:
+    stage: compile
+    image: centos:7.3.1611
+    except:
+        - tags
+    script:
+        - cd gitlab-ci-build-scripts
+        - ./install-deps.sh
+        - BUILD_DATA_RPM=0 ./build.sh
+
+compile-tag:el7:
+    stage: compile
+    image: centos:7.3.1611
+    only:
+        - /^v[0-9][0-9.]+$/
+    script:
+        - cd gitlab-ci-build-scripts
+        - ./install-deps.sh
+        - BUILD_DATA_RPM=0 ./build.sh
+    artifacts:
+        expire_in: 6h
+        paths:
+            - gitlab-ci-build-scripts/STAGE
+
+deploy-tag:
+    stage: deploy
+    image: centos:7.3.1611
+    only:
+        - /^v[0-9][0-9.]+$/
+    dependencies:
+        - compile-tag:el6
+        - compile-tag:el7
+    script:
+        - cd gitlab-ci-build-scripts
+        - ln STAGE/rpms/el6/*/navdb-data-*.rpm STAGE/rpms/el7/*/
+        - ./install-deps.sh
+        - ./deploy.sh
+
+

@@ -1,0 +1,57 @@
+#
+# Spec file for navdb-data package. We keep it separate from navdb.spec
+# because we want to disable RPM compression for navdb-data, but keep
+# it enabled for the main navdb package. This is because the data package
+# contains a large file that is already compressed, so (re-)compressing
+# it is pointless and slow.
+#
+# This package contains only /usr/share/navdb/sql/data/SOME_FILE.sql.xz,
+# i.e., the script that loads aeronautical features into tables.
+#
+
+%global _pkgdatadir        %_datadir/navdb
+%global _binary_payload    w0.gzdio
+
+Summary:   Initial data for navdb database
+Name:      @@PACKAGE_NAME@@-data
+Version:   @@PACKAGE_VERSION@@
+Epoch:     @@RPM_EPOCH@@
+Release:   @@RPM_SPEC_VERSION@@
+License:   Proprietary
+Group:     Applications/IDS
+BuildArch: noarch
+
+Source0:   @@PACKAGE_NAME@@-@@PACKAGE_VERSION@@.tar.gz
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
+
+Obsoletes: navdb-data-201705.patch1
+Requires: navdb-datamodel >= @@DATAFILE_MIN_DATAMODEL_VERSION@@
+Conflicts: @@PACKAGE_NAME@@ < 2:2.2
+
+%description
+Initial data for navdb database
+
+%prep 
+%setup -n @@PACKAGE_NAME@@-@@PACKAGE_VERSION@@
+
+%build
+:
+
+%install
+set -e
+[ "%{buildroot}" != / ] && %{__rm} -rf %{buildroot}
+pwd
+ls
+. ./package.conf
+[ -n "$AERO_DATA_URL" ]
+f=`basename "$AERO_DATA_URL"`
+%__install -d "$RPM_BUILD_ROOT"%_pkgdatadir/sql/data
+%__install "sql/data/$f" "$RPM_BUILD_ROOT"%_pkgdatadir/sql/data/
+
+%clean
+%{__rm} -rf %{buildroot}
+
+%files
+%attr(0755, root, root) %dir %_pkgdatadir/sql/data
+%attr(0644, root, root) %_pkgdatadir/sql/data/*
+

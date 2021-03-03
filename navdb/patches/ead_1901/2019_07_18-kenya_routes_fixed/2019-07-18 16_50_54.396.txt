@@ -1,0 +1,691 @@
+==========  2019-07-18 16:50:54.396  ==============================================================
+
+==========  LOG OF PATCHING 'jdbc:postgresql://abms10dev1/navdb' DATABASE  ======================
+
+-- 01 ====  WAYPOINT insertion  ====  Comment: Missing waypoints for Botswana  ======================================================================
+
+NOTICE:     'AKETE' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 139573
+
+NOTICE:     'UTUMA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 139574
+
+-- 02 ====  ADHP insertion  ====  Source: ICAO ICARD 5LNC  ====  Comment: TFS 70290  ================================================================
+
+NOTICE:     'FAMK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37767
+
+NOTICE:     'FANG' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37768
+
+NOTICE:     'FBTP' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37769
+
+NOTICE:     'FVBL' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37770
+
+NOTICE:     'FVEM' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37771
+
+NOTICE:     'FVTL' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37772
+
+NOTICE:     'FYBG' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37773
+
+NOTICE:     'FYDC' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37774
+
+NOTICE:     'FYLR' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37775
+
+NOTICE:     'FYLS' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37776
+
+NOTICE:     'FYND' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37777
+
+-- 03 ====  ADHP insertion  ====  Source: WIKIPEDIA  ====  Comment: Observed by k.gubbins while analyzing KCAA data  ================================
+
+NOTICE:     'HTBB' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37778
+
+NOTICE:     'FZJB' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37779
+
+NOTICE:     'HCMD' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37780
+
+NOTICE:     'HTZW' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37781
+
+NOTICE:     'HCIX' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37782
+
+-- 04 ====  ADHP insertion  ====  Source: WIKIPEDIA  ====  Comment: Observed by d.panech while analyzing KCAA data  =================================
+
+NOTICE:     'FZJC' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37783
+
+NOTICE:     'HCMG' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37784
+
+NOTICE:     'HCMP' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37785
+
+NOTICE:     'HKNN' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37786
+
+-- 05 ====  ADHP insertion  ====  Source: w.reiche@idscorporation.com  ====  Comment: TFS 101774  ===================================================
+
+NOTICE:     'FACR' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37787
+
+NOTICE:     'FAKW' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37788
+
+NOTICE:     'FCMK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37789
+
+NOTICE:     'FCMZ' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37790
+
+NOTICE:     'FLLS' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37791
+
+NOTICE:     'FLND' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37792
+
+NOTICE:     'FYKS' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37793
+
+NOTICE:     'FZBJ' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37794
+
+NOTICE:     'HAHM' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37795
+
+NOTICE:     'HCAD' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37796
+
+NOTICE:     'HCAW' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37797
+
+NOTICE:     'HCBB' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37798
+
+NOTICE:     'HCMC' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37799
+
+NOTICE:     'HCMO' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37800
+
+NOTICE:     'HCMW' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37801
+
+NOTICE:     'HKNY' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37802
+
+NOTICE:     'HKWE' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37803
+
+NOTICE:     'HSBR' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37804
+
+NOTICE:     'HSKP' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37805
+
+NOTICE:     'HSMR' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37806
+
+NOTICE:     'HSYE' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37807
+
+NOTICE:     'HKBK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37808
+
+NOTICE:     'HKSC' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37809
+
+NOTICE:     'HKWQ' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37810
+
+NOTICE:     'HKYT' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37811
+
+NOTICE:     'HKBA' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37812
+
+NOTICE:     'HKMY' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37813
+
+NOTICE:     'HKMK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37814
+
+NOTICE:     'HC0001' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37815
+
+NOTICE:     'HC0002' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37816
+
+NOTICE:     'HC0003' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37817
+
+NOTICE:     'HKYD' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37818
+
+-- 06 ====  ADHP insertion  ====  Source: w.reiche@idscorporation.com  ====  Comment: TFS 105875 South Sudan  =======================================
+
+NOTICE:     'HJJJ' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37819
+
+NOTICE:     'HJMK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37820
+
+NOTICE:     'HJRB' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37821
+
+NOTICE:     'HJWW' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37822
+
+NOTICE:     'HJAR' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37823
+
+NOTICE:     'HJAJ' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37824
+
+NOTICE:     'HJAK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37825
+
+NOTICE:     'HJAW' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37826
+
+NOTICE:     'HJAY' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37827
+
+NOTICE:     'HJBR' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37828
+
+NOTICE:     'HJBK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37829
+
+NOTICE:     'HJDK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37830
+
+NOTICE:     'HJDP' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37831
+
+NOTICE:     'HJBB' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37832
+
+NOTICE:     'HJKP' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37833
+
+NOTICE:     'HJLK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37834
+
+NOTICE:     'HJLW' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37835
+
+NOTICE:     'HJMD' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37836
+
+NOTICE:     'HJMG' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37837
+
+NOTICE:     'HJMI' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37838
+
+NOTICE:     'HJMV' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37839
+
+NOTICE:     'HJNM' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37840
+
+NOTICE:     'HJNZ' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37841
+
+NOTICE:     'HJPH' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37842
+
+NOTICE:     'HJPG' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37843
+
+NOTICE:     'HJPA' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37844
+
+NOTICE:     'HJPB' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37845
+
+NOTICE:     'HJPR' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37846
+
+NOTICE:     'HJPU' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37847
+
+NOTICE:     'HJRG' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37848
+
+NOTICE:     'HJRK' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37849
+
+NOTICE:     'HJTN' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37850
+
+NOTICE:     'HJTR' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37851
+
+NOTICE:     'HJTB' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37852
+
+NOTICE:     'HJTU' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37853
+
+NOTICE:     'HJWT' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37854
+
+NOTICE:     'HJYB' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37855
+
+NOTICE:     'HJYE' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37856
+
+NOTICE:     'HJYL' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37857
+
+NOTICE:     'HJYU' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37858
+
+NOTICE:     'HJBT' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37859
+
+NOTICE:     'HJDF' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37860
+
+NOTICE:     'HJPJ' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37861
+
+NOTICE:     'HJPO' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37862
+
+-- 07 ====  'UL432' AIRWAY update  ====  Source: ICAO ICARD 5LNC  ====  Comment: TFS 107785  ========================================================
+
+NOTICE:     'NN' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 539
+
+NOTICE:     'ESPOK' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 119632
+
+NOTICE:     'ANVUS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 118785
+
+NOTICE:     'ETKAV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1657
+
+NOTICE:     'KENOT' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 93767
+
+NOTICE:     'EVEXI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 91274
+
+NOTICE:     'KMI' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 720
+
+NOTICE:     'GUBUD' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 93465
+
+NOTICE:     'TUPIR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 128429
+
+NOTICE:     'BJA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 139575
+
+NOTICE:     'GAVDA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 102946
+
+NOTICE:     'KNM' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 761
+
+NOTICE:     'ALSAR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 156
+
+NOTICE:     'OKTEX' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 127241
+
+NOTICE:     'MANDY' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 127237
+
+NOTICE:     'IMVIP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 127236
+
+NOTICE:     'NN' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 539
+
+NOTICE:     'NABRO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 127239
+
+NOTICE:     'PATAR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 41334
+
+NOTICE:     'LOV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1144
+
+NOTICE:     'EKBUL' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 41416
+
+WARNING:    No Airways with 'BJA, GAVDA, KNM, ALSAR, OKTEX, MANDY, NN, IMVIP, NABRO, PATAR, LOV, EKBUL, EVEXI, KMI, GUBUD, TUPIR, ANVUS, ETKAV' sequence of point designators have been found in the DB.
+            So 'ESPOK, ANVUS, ETKAV, KENOT, EVEXI, KMI, GUBUD, TUPIR, BJA, GAVDA, KNM, ALSAR, OKTEX, MANDY, IMVIP, NN, NABRO, PATAR, LOV, EKBUL' Point(s) HAVE NOT BEEN CONNECTED to 'UL432' Airway.
+
+-- 08 ====  ADHP insertion  ====  Source: w.reiche@idscorporation.com  ====  Comment: TFS 114451 Namibia  ===========================================
+
+NOTICE:     'FYIM' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37863
+
+NOTICE:     'FYUS' Airport HAS NOT BEEN INSERTED as it already exists in the same location with PK = 37864
+
+-- 09 ====  'UM731' AIRWAY update  ====  Source: ICAO ICARD 5LNC  ====  Comment: Zambia enter/exit problems  ========================================
+
+NOTICE:     'RUDAS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 119975
+
+NOTICE:     'APMET' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 125829
+
+NOTICE:     'EVESA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 125819
+
+NOTICE:     'EXIMI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 125828
+
+NOTICE:     'UTVEX' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 106294
+
+NOTICE:     'TEXES' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 117543
+
+NOTICE:     'GADVI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 117547
+
+NOTICE:     'UTRAN' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 125827
+
+NOTICE:     'ETLON' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 125826
+
+NOTICE:     'NEREX' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 125825
+
+NOTICE:     'IMLAM' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 125824
+
+NOTICE:     'IMDIP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 117546
+
+NOTICE:     'NERIB' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 117545
+
+NOTICE:     'EPMAG' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 125823
+
+NOTICE:     'AVONI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 2741
+
+NOTICE:     'ABMG' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 50968
+
+NOTICE:     'APKUS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 2629
+
+NOTICE:     'EPNUL' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 102980
+
+NOTICE:     'EXIGO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 68344
+
+NOTICE:     'VSA' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 3842
+
+NOTICE:     'DURNA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 128846
+
+NOTICE:     'KIVDO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 49868
+
+NOTICE:     'BUSIV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 47033
+
+NOTICE:     'KAPNA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 46684
+
+NOTICE:     'IKVOS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 93469
+
+NOTICE:     'ENKAK' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 91268
+
+NOTICE:     'ILDIV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 128420
+
+NOTICE:     'MBA' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 713
+
+NOTICE:     'BAMAV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 131600
+
+NOTICE:     'EMSAT' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 4921
+
+NOTICE:     'EBAKO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 110287
+
+NOTICE:     'USKAV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 852
+
+NOTICE:     'OPGAM' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 851
+
+NOTICE:     'KISDU' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 4182
+
+NOTICE:     'VOTUR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 850
+
+NOTICE:     'ERNEV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 849
+
+NOTICE:     'AMLOS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 848
+
+NOTICE:     'ENERO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 56188
+
+NOTICE:     'EDGUM' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 846
+
+NOTICE:     'USLOV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 845
+
+NOTICE:     'VOSLI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 844
+
+NOTICE:     'FL' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 47
+
+NOTICE:     'USPOK' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 843
+
+NOTICE:     'BUNLU' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 86601
+
+NOTICE:     'EBNOS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 106230
+
+NOTICE:     'DIR' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 10
+
+NOTICE:     'DEKIL' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 46895
+
+NOTICE:     'TAZIT' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 43835
+
+NOTICE:     'ORBEL' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 43753
+
+NOTICE:     'DERJE' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 43832
+
+NOTICE:     'NAFUS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 43007
+
+NOTICE:     'NALUT' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 43836
+
+NOTICE:     'FARES' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 701
+
+NOTICE:     'JBA' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 53
+
+NOTICE:     'BAMGI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1710
+
+NOTICE:     'TUC' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 72
+
+NOTICE:     'TANIT' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 86538
+
+NOTICE:     'OSMAR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 120326
+
+NOTICE:     'PELOS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 126996
+
+NOTICE:     'MAGOP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 41181
+
+NOTICE:     'NENAK' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 41180
+
+NOTICE:     'BATIV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 41179
+
+NOTICE:     'TINOT' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 3696
+
+NOTICE:     'DIVKO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 3279
+
+NOTICE:     'FJR' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 572
+
+NOTICE:     'AMLIR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 3890
+
+WARNING:    No Airways with 'PELOS, MAGOP, NENAK, BATIV, TINOT, DIVKO, FJR, AMLIR, APMET, EVESA, EXIMI, UTVEX, TEXES, GADVI, UTRAN, ETLON, NEREX, IMLAM, IMDIP, NERIB, EPMAG, AVONI, ABMG, APKUS, EPNUL, EXIGO, VSA, DURNA, KIVDO, BUSIV, KAPNA, IKVOS, ENKAK, ILDIV, MBA, EMSAT, EBAKO, USKAV, OPGAM, KISDU, VOTUR, ERNEV, AMLOS, ENERO, EDGUM, USLOV, VOSLI, FL, USPOK, BUNLU, EBNOS, DIR, DEKIL, TAZIT, ORBEL, DERJE, NAFUS, NALUT, FARES, JBA, BAMGI, TUC, TANIT, OSMAR' sequence of point designators have been found in the DB.
+            So 'RUDAS, APMET, EVESA, EXIMI, UTVEX, TEXES, GADVI, UTRAN, ETLON, NEREX, IMLAM, IMDIP, NERIB, EPMAG, AVONI, ABMG, APKUS, EPNUL, EXIGO, VSA, DURNA, KIVDO, BUSIV, KAPNA, IKVOS, ENKAK, ILDIV, MBA, BAMAV, EMSAT, EBAKO, USKAV, OPGAM, KISDU, VOTUR, ERNEV, AMLOS, ENERO, EDGUM, USLOV, VOSLI, FL, USPOK, BUNLU, EBNOS, DIR, DEKIL, TAZIT, ORBEL, DERJE, NAFUS, NALUT, FARES, JBA, BAMGI, TUC, TANIT, OSMAR, PELOS, MAGOP, NENAK, BATIV, TINOT, DIVKO, FJR, AMLIR' Point(s) HAVE NOT BEEN CONNECTED to 'UM731' Airway.
+
+-- 10 ====  'UM315' AIRWAY update  ====  Source: ICAO ICARD 5LNC  ====  Comment: Zambia enter/exit problems  ========================================
+
+NOTICE:     'USUBI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 2634
+
+NOTICE:     'UBTIM' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 120793
+
+NOTICE:     'ESPOP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 119633
+
+NOTICE:     'FW017' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 133252
+
+NOTICE:     'DVL' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 235
+
+NOTICE:     'FW013' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 133248
+
+NOTICE:     'IMKAL' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 86422
+
+NOTICE:     'UTINA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 181
+
+NOTICE:     'UMTAP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 59615
+
+NOTICE:     'UVKAT' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 182
+
+NOTICE:     'EPMAB' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 52706
+
+NOTICE:     'DO' NDB HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1672
+
+NOTICE:     'OKMAS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 88119
+
+NOTICE:     'ITNOV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 88116
+
+NOTICE:     'ITSOK' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 171
+
+NOTICE:     'AVETA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 633
+
+NOTICE:     'ETMOV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 133058
+
+NOTICE:     'LOSIN' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 5336
+
+NOTICE:     'EVATO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 42108
+
+NOTICE:     'NV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1402
+
+WARNING:    No Airways with 'UTINA, UMTAP, UVKAT, EPMAB, DO, OKMAS, ITNOV, ITSOK, AVETA, ETMOV, LOSIN, EVATO, NV, UBTIM, ESPOP, FW017, DVL, FW013, IMKAL' sequence of point designators have been found in the DB.
+            So 'USUBI, UBTIM, ESPOP, FW017, DVL, FW013, IMKAL, UTINA, UMTAP, UVKAT, EPMAB, DO, OKMAS, ITNOV, ITSOK, AVETA, ETMOV, LOSIN, EVATO, NV' Point(s) HAVE NOT BEEN CONNECTED to 'UM315' Airway.
+
+-- 11 ====  'UA405' AIRWAY update  ====  Source: ICAO ICARD 5LNC  ====  Comment: Zambia enter/exit problems  ========================================
+
+NOTICE:     'ETOBO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 59223
+
+NOTICE:     'APKID' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 87018
+
+NOTICE:     'ITGAD' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 86563
+
+NOTICE:     'OKDOG' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 86190
+
+NOTICE:     'RIV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 386
+
+NOTICE:     'CTV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 377
+
+NOTICE:     'CSV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1064
+
+NOTICE:     'SLV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 23
+
+NOTICE:     'VWV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 27
+
+NOTICE:     'EGRUP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 461
+
+NOTICE:     'KYV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 622
+
+NOTICE:     'APDUR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1419
+
+NOTICE:     'EKBEX' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1418
+
+NOTICE:     'GAV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 379
+
+NOTICE:     'UTRUK' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 92783
+
+NOTICE:     'GABNA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 86319
+
+NOTICE:     'GWV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1059
+
+NOTICE:     'UTULI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1535
+
+NOTICE:     'VMV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1406
+
+NOTICE:     'VHA' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1478
+
+NOTICE:     'MAKIR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 120502
+
+NOTICE:     'TEVAS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 117323
+
+NOTICE:     'UDPIX' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 86345
+
+NOTICE:     'VMF01' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 50948
+
+NOTICE:     'ETOLI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 50855
+
+NOTICE:     'APKOL' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 157
+
+WARNING:    No Airways with 'TEVAS, UDPIX, VMF01, ETOLI, APKOL, APKID, ITGAD, OKDOG, RIV, CTV, CSV, SLV, VWV, EGRUP, KYV, APDUR, EKBEX, GAV, UTRUK, GABNA, GWV, UTULI, VMV, VHA, MAKIR' sequence of point designators have been found in the DB.
+            So 'ETOBO, APKID, ITGAD, OKDOG, RIV, CTV, CSV, SLV, VWV, EGRUP, KYV, APDUR, EKBEX, GAV, UTRUK, GABNA, GWV, UTULI, VMV, VHA, MAKIR, TEVAS, UDPIX, VMF01, ETOLI, APKOL' Point(s) HAVE NOT BEEN CONNECTED to 'UA405' Airway.
+
+-- 12 ====  UP312 AIRWAY update  ====  Source: ICAO ICARD 5LNC  ====  Comment: Zambia enter/exit problems  ==========================================
+
+NOTICE:     'MAKIR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 120502
+
+NOTICE:     'ETUMA' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 120239
+
+NOTICE:     'TEVAS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 117323
+
+NOTICE:     'APKOL' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 157
+
+NOTICE:     'IBROP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 52901
+
+NOTICE:     'MB' NDB HAS NOT BEEN INSERTED as it already exists in the same location with PK = 2509
+
+NOTICE:     'SINGI' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 180
+
+NOTICE:     'OKDAS' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 88118
+
+NOTICE:     'EPTIK' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 59788
+
+NOTICE:     'NIDEX' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 634
+
+NOTICE:     'ITMEN' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 52707
+
+NOTICE:     'IBKOB' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 133060
+
+NOTICE:     'LOSIN' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 5336
+
+NOTICE:     'EPTAN' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 52900
+
+NOTICE:     'EVATO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 42108
+
+NOTICE:     'NV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1402
+
+NOTICE:     'EPSIB' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 129725
+
+NOTICE:     'GEVAV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 129991
+
+NOTICE:     'WAV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1403
+
+NOTICE:     'OKNAV' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 107988
+
+NOTICE:     'MAV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 347
+
+NOTICE:     'TIMAD' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 129046
+
+NOTICE:     'DATEG' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 969
+
+NOTICE:     'AMBOD' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 970
+
+NOTICE:     'ULDIB' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1515
+
+NOTICE:     'RIN' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 101
+
+WARNING:    No Airways with 'TIMAD, DATEG, AMBOD, ULDIB, RIN, ETUMA, TEVAS, IBROP, MB, SINGI, OKDAS, EPTIK, NIDEX, ITMEN, IBKOB, LOSIN, EPTAN, EVATO, NV, EPSIB, GEVAV, WAV, OKNAV, MAV' sequence of point designators have been found in the DB.
+            So 'MAKIR, ETUMA, TEVAS, APKOL, IBROP, MB, SINGI, OKDAS, EPTIK, NIDEX, ITMEN, IBKOB, LOSIN, EPTAN, EVATO, NV, EPSIB, GEVAV, WAV, OKNAV, MAV, TIMAD, DATEG, AMBOD, ULDIB, RIN' Point(s) HAVE NOT BEEN CONNECTED to 'UP312' Airway.
+
+-- 13 ====  UR782 AIRWAY update  ====  Source: ICAO ICARD 5LNC  ====  Comment: Zambia enter/exit problems  ==========================================
+
+NOTICE:     'VLS' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 180
+
+NOTICE:     'IBNOP' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 106716
+
+NOTICE:     'NESAK' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 86257
+
+NOTICE:     'IXALU' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 51028
+
+NOTICE:     'LABON' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 86438
+
+NOTICE:     'BERIL' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 116322
+
+NOTICE:     'TIKAR' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 5247
+
+NOTICE:     'MIRON' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 47807
+
+NOTICE:     'PRA' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1345
+
+WARNING:    No Airways with 'BERIL, TIKAR, MIRON, PRA, IBNOP, NESAK, IXALU, LABON' sequence of point designators have been found in the DB.
+            So 'VLS, IBNOP, NESAK, IXALU, LABON, BERIL, TIKAR, MIRON, PRA' Point(s) HAVE NOT BEEN CONNECTED to 'UR782' Airway.
+
+-- 14 ====  'UL432' AIRWAY update  ====  Source: ICAO ICARD 5LNC  ====  Comment: Jul 16, 2019  ======================================================
+
+NOTICE:     'EKBUL' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 41416
+
+NOTICE:     'BENDO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 121942
+
+NOTICE:     'GWZ' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 158
+
+INSERTION:  'EKBUL - BENDO' segmnt record HAS BEEN INSERTED with PK = 74204
+
+INSERTION:  'EKBUL - BENDO' airwayseg record HAS BEEN INSERTED with PK = 89057
+
+UPDATE:     'BENDO - GWZ' segmnt record (PK = 2600) HAS BEEN UPDATED.
+
+INSERTION:  'BENDO - GWZ' airwayseg record HAS BEEN INSERTED with PK = 89058
+
+UPDATE:     Target point sequence 'EKBUL' has been substituted by the new 'EKBUL, BENDO, GWZ' sequence for 'UL432' Airway with PK = 7537
+
+NOTICE:     'ANTAX' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 134982
+
+NOTICE:     'AMATO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 83229
+
+UPDATE:     'EPSIX' Waypoint (PK = 69402) HAS BEEN MOVED from '06 40 24 N 034 39 18 E' location to '06 38 08 N 034 40 02 E' location.
+
+-- -------  START OF Segment Geometry updates affected by moving 'EPSIX' Waypoint (PK = 69402) in the DB  -------------------------------------------
+
+UPDATE:     'DAGAP - EPSIX' segmnt record (PK = 17267) HAS BEEN UPDATED.
+
+UPDATE:     'AMATO - EPSIX' segmnt record (PK = 251) HAS BEEN UPDATED.
+
+UPDATE:     'EPSIX - IMTOR' segmnt record (PK = 20543) HAS BEEN UPDATED.
+
+UPDATE:     'EPSIX - AVONO' segmnt record (PK = 30510) HAS BEEN UPDATED.
+-- -------  END OF Segment Geometry updates affected by moving 'EPSIX' Waypoint (PK = 69402) in the DB  ----------------------------------------------
+
+-- -------  START OF Airway and Airway Segment Geometry updates affected by moving 'EPSIX' Waypoint (PK = 69402) in the DB  -------------------------
+
+UPDATE:     'AMATO - EPSIX' airwayseg record (PK = 270) HAS BEEN UPDATED.
+
+UPDATE:     'EPSIX - AVONO' airwayseg record (PK = 35164) HAS BEEN UPDATED.
+
+UPDATE:     'A727' airway record (PK = 3664) HAS BEEN UPDATED.
+
+UPDATE:     'DAGAP - EPSIX' airwayseg record (PK = 19692) HAS BEEN UPDATED.
+
+UPDATE:     'EPSIX - IMTOR' airwayseg record (PK = 23400) HAS BEEN UPDATED.
+
+UPDATE:     'B535' airway record (PK = 3355) HAS BEEN UPDATED.
+
+UPDATE:     'DAGAP - EPSIX' airwayseg record (PK = 23033) HAS BEEN UPDATED.
+
+UPDATE:     'EPSIX - IMTOR' airwayseg record (PK = 60588) HAS BEEN UPDATED.
+
+UPDATE:     'UB535' airway record (PK = 3901) HAS BEEN UPDATED.
+-- -------  END OF Airway and Airway Segment Geometry updates affected by moving 'EPSIX' Waypoint (PK = 69402) in the DB  ----------------------------
+
+NOTICE:     'AVONO' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 130061
+
+UPDATE:     'KNA' DME (PK = 1264) HAS BEEN MOVED from '13 01 41 N 032 54 23 E' location to '13 01 41 N 032 54 24 E' location.
+
+UPDATE:     'ANTAX - AMATO' segmnt record (PK = 250) HAS BEEN UPDATED.
+
+INSERTION:  'ANTAX - AMATO' airwayseg record HAS BEEN INSERTED with PK = 89059
+
+UPDATE:     'AMATO - EPSIX' segmnt record (PK = 251) HAS BEEN UPDATED.
+
+INSERTION:  'AMATO - EPSIX' airwayseg record HAS BEEN INSERTED with PK = 89060
+
+UPDATE:     'EPSIX - AVONO' segmnt record (PK = 30510) HAS BEEN UPDATED.
+
+INSERTION:  'EPSIX - AVONO' airwayseg record HAS BEEN INSERTED with PK = 89061
+
+INSERTION:  'AVONO - KNA' segmnt record HAS BEEN INSERTED with PK = 74205
+
+INSERTION:  'AVONO - KNA' airwayseg record HAS BEEN INSERTED with PK = 89062
+
+UPDATE:     Target point sequence 'ANTAX' has been substituted by the new 'ANTAX, AMATO, EPSIX, AVONO, KNA' sequence for 'UA727' Airway with PK = 5583
+
+INSERTION:  'AVESO' Waypoint HAS BEEN INSERTED with PK = 139576
+
+INSERTION:  'WAV - AVESO' segmnt record HAS BEEN INSERTED with PK = 74206
+
+INSERTION:  'WAV - AVESO' airwayseg record HAS BEEN INSERTED with PK = 89063
+
+INSERTION:  'OKRIT' Waypoint HAS BEEN INSERTED with PK = 139577
+
+INSERTION:  'AVESO - OKRIT' segmnt record HAS BEEN INSERTED with PK = 74207
+
+INSERTION:  'AVESO - OKRIT' airwayseg record HAS BEEN INSERTED with PK = 89064
+
+INSERTION:  'OKRIT - NV' segmnt record HAS BEEN INSERTED with PK = 74208
+
+INSERTION:  'OKRIT - NV' airwayseg record HAS BEEN INSERTED with PK = 89065
+
+NOTICE:     'NV' VOR HAS NOT BEEN INSERTED as it already exists in the same location with PK = 1402
+
+NOTICE:     'APNOM' Waypoint HAS NOT BEEN INSERTED as it already exists in the same location with PK = 107987
+
+UPDATE:     'GABSO - NV' segmnt record (PK = 49213) HAS BEEN UPDATED to 'GABSO - APNOM'.
+
+UPDATE:     'GABSO - NV' airwayseg record (PK = 57093) HAS BEEN UPDATED to 'GABSO - APNOM'.
+
+INSERTION:  'APNOM - NV' segmnt record HAS BEEN INSERTED with PK = 74209
+
+INSERTION:  'APNOM - NV' airwayseg record HAS BEEN INSERTED with PK = 89066
+
+UPDATE:     Target point sequence 'NV' has been substituted by the new 'NV, APNOM' sequence for 'UL445' Airway with PK = 9757

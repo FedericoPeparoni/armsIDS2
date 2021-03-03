@@ -1,0 +1,74 @@
+# Database name, defaults to "navdb". This is the name of the database
+# that will be created by "navdb setup" and acted upon by other sub-commands.
+# This parameter may be overridden on commandline with the "-d" option.
+#
+# NOTE: This is typically NOT the same as PGDATABASE defined below!
+#
+#DB_NAME="navdb"
+
+# Directory containing Postgres client programs, such as "psql". If unset,
+# we will try to auto-detect it.
+#
+# The default is blank.
+#
+#POSTGRES_BIN_DIR="/c/Program Files/PostgreSQL/9.5"
+#POSTGRES_BIN_DIR=
+
+# Full path to the "7z" or "7z.exe" program -- this may be used instead
+# of the normal decompressors such as unxz or bunzip2. If you leave this
+# blank or unset we will try to auto-detect it if necessary.
+#
+#SEVENZ_PATH="/c/Program Files/7-Zip/7z.exe"
+#SEVENZ_PATH=
+
+###########################################################################
+# Options below this point determine how to connect to a Postgres server.
+#
+# On Linux, when the server is installed on the same host as NAVDB
+# scripts, you can leave all of these options at their default values,
+# because normally on that platform we can connect to Postgres' superuser
+# account directly over a local socket without a password.
+#
+# Otherwise, you can set any options Postgres client environment variables
+# documented here:
+#     https://www.postgresql.org/docs/9.2/static/libpq-envars.html
+#
+# Typically we should connect to user "postgres", database "postgres".
+#
+# NOTE: this is not the same as the NAVDB user/database name!
+#
+###########################################################################
+#PGUSER=postgres
+#PGPASSWORD=
+#PGDATABASE=
+#PGHOST=
+#PGPORT=
+
+#
+# The following options determine whether we should switch to another OS-level
+# user account when connecting to Postgres server. This only works in Linux
+# and allows us to rely on the "ident" authentication method that is typically
+# enabled on Postgres servers installed on Linux servers.
+#
+# If set to "1" we will  we will switch to OS-level user $PGUSER
+# (defined below, typically "postgress") before executing any client
+# programs, such as "psql". This is done using the "/sbin/runuser" utility
+# in Linux.
+#
+# If set to "0" we will not attempt to switch OS-level user identities;
+# in this case the Postgres server must accept connection requests from
+# us w.r.t. $PGUSER, $PGPASSWORD, etc.
+#
+# If left blank we will switch the user, but only if it exists, and only
+# on Linux.
+# 
+#MATCH_OS_USER=
+
+
+# When switching user accounts, switch to this OS-level user account. If
+# blank we will default to the same user name as $PGUSER.
+#OS_USER=
+
+# Path to "runuser" executable. If left blank we will search for it.
+#RUNUSER=
+

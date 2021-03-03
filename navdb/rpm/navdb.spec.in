@@ -1,0 +1,76 @@
+%global DATA_MODEL_VERSION @@DATA_MODEL_VERSION@@
+
+%global _pkgdatadir        %_datadir/%name
+%global _pkgconfdir        %_sysconfdir/%name
+%global _binary_payload    w5.xzdio
+
+%filter_setup
+%filter_from_provides /perl(Local::/d
+%filter_from_requires /perl(Local::/d
+
+Summary:   Aeronautical static data database
+Name:      @@PACKAGE_NAME@@
+Version:   @@PACKAGE_VERSION@@
+Epoch:     @@RPM_EPOCH@@
+Release:   @@RPM_RELEASE@@
+License:   Proprietary
+Group:     Applications/IDS
+BuildArch: noarch
+
+Source0:   %{name}-%{version}.tar.gz
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
+
+BuildRequires: make
+BuildRequires: tar
+BuildRequires: gzip
+BuildRequires: perl
+BuildRequires: /usr/bin/prove
+BuildRequires: perl(Test::Harness)
+
+BuildRequires: perl(Carp)
+BuildRequires: perl(Cwd)
+BuildRequires: perl(English)
+BuildRequires: perl(File::Basename)
+BuildRequires: perl(File::Spec::Functions)
+BuildRequires: perl(File::Temp)
+BuildRequires: perl(Getopt::Long)
+BuildRequires: perl(IO::File)
+BuildRequires: perl(Test::More)
+BuildRequires: perl(Test::Exception)
+
+Requires: coreutils
+Requires: xz
+Provides: navdb-datamodel = %DATA_MODEL_VERSION
+
+%description
+Aeronautical static data database. This package contains database
+creation scripts for Postgres.
+
+%prep
+%setup
+
+%build
+%configure
+%__make
+
+%install
+set -e
+[ "%{buildroot}" != / ] && %{__rm} -rf %{buildroot}
+%__make install DESTDIR="$RPM_BUILD_ROOT"
+
+%clean
+%{__rm} -rf %{buildroot}
+
+%post
+
+%files
+%attr(0755, root,      root) %_bindir/navdb
+%attr(-,    root,      root) %_bindir/navdb_setup
+%attr(-,    root,      root) %_bindir/navdb_dump
+%attr(-,    root,      root) %_bindir/navdb_restore
+%attr(0644, root,      root) %_sysconfdir/bash_completion.d/*
+%attr(0640, root,      root) %config(noreplace) %_pkgconfdir/navdb.conf
+%attr(-,    root,      root) %_pkgdatadir
+%exclude                     %_pkgdatadir/sql/upgrade.example
+%exclude                     %_pkgdatadir/sql/data/*
+
