@@ -1,9 +1,12 @@
 package ca.ids.abms.modules.aircraft;
 
 import ca.ids.abms.config.db.ABMSRepository;
+
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -70,4 +73,13 @@ public interface AircraftRegistrationRepository extends ABMSRepository<AircraftR
 
     @Query (value = "SELECT COUNT(ar) FROM AircraftRegistration ar JOIN ar.account ac JOIN ac.accountUsers au")
     long countAllForSelfCareAccounts();
+    
+    @Modifying
+    @Query("UPDATE AircraftRegistration SET coaIssueDate = :coa_issue_date, coaExpiryDate = :coa_expiry_date where id = :id")
+    void updateAircraftRegistrationCOADatesById(@Param("id") Integer id,
+                                             @Param("coa_issue_date") Timestamp coa_issue_date,
+                                             @Param("coa_expiry_date") Timestamp coa_expiry_date); 
+    
+    
+    
 }

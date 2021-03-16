@@ -59,9 +59,13 @@ export interface IAviationBillingEngineScope extends ng.IScope {
   startingDay: number;
   setWeekStartDate: Function;
   setMonthlyDates: Function;
+  setAnnuallyDates: Function;
+  setPartiallyDates: Function;
   recalculate: any;
   reconcile: any;
   dateOptions: Object;
+  dateOptionsAnnually: Object;
+  dateOptionsPartially: Object;
   maxDate: string;
   startOfCurrentMonth: any;
   today: any;

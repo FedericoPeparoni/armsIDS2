@@ -1,6 +1,6 @@
 {
   "name": "armsWeb",
-  "version": "1.5.2",
+  "version": "01.05.003",
   "dependencies": {
     "dotenv": "^4.0.0",
     "jspdf": "^1.3.3",

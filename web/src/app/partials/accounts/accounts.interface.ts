@@ -57,6 +57,7 @@ export interface IAccount {
   whitelist_state: string;
   whitelist_inactivity_notice_sent_flag: string;
   whitelist_expiry_notice_sent_flag:string;
+  account_type_discount: number;
 }
 
 export interface IAccountEventMap {

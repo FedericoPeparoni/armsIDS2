@@ -2,6 +2,9 @@ package ca.ids.abms.modules.accounts;
 
 import ca.ids.abms.config.db.ABMSRepository;
 import ca.ids.abms.modules.accounts.enumerate.WhitelistState;
+import ca.ids.abms.modules.aircraft.AircraftRegistration;
+import ca.ids.abms.modules.billings.BillingLedger;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,6 +21,9 @@ public interface AccountRepository extends ABMSRepository<Account, Integer> {
      * @return a list of matching accounts
      */
     List<Account> findByIdIn(List<Integer> accountIds);
+
+    @Query(value="select a.* from accounts a join account_types at on a.account_type = at.id where at.name = :nameAccountType", nativeQuery = true)
+    List<Account> findByAccountType(@Param("nameAccountType") String nameAccountType);
 
     @Query(value="SELECT a.* FROM accounts a WHERE a.icao_code = ?1", nativeQuery = true)
     Account findByIcaoCode(String icaoCode);

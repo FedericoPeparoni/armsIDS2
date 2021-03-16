@@ -111,6 +111,8 @@ export class AccountsController extends CRUDFormControllerUserService {
     $scope.resetExternal = () => this.resetExternal();
   }
 
+
+
   protected create(account: IAccount): ng.IPromise<void> {
     return super.create(account).then((createdAccount: IAccount) => {
       if (this.$state && this.$state.params.after) { // go back to previous page (if state params exist)
@@ -119,6 +121,7 @@ export class AccountsController extends CRUDFormControllerUserService {
         });
       }
     });
+
   }
 
   protected reset(): void {

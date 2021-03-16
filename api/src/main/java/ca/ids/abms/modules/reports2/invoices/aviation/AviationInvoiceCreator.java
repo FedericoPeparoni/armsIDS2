@@ -67,6 +67,7 @@ public class AviationInvoiceCreator {
     private final DateTimeFormatter dateFormatter;
     private final boolean preview;
     private final RoundingUtils roundingUtils;
+    private final LocalDateTime startDate;
     private final LocalDateTime endDateInclusive;
     private final BillingInterval billingInterval;
     private final SystemConfigurationService systemConfigurationService;
@@ -103,6 +104,7 @@ public class AviationInvoiceCreator {
                            final boolean preview,
                            final CurrencyUtils currencyUtils,
                            final boolean approvalWorkflow,
+                           final LocalDateTime startDate,
                            final LocalDateTime endDateInclusive,
                            final RoundingUtils roundingUtils,
                            final SystemConfigurationService systemConfigurationService,
@@ -126,6 +128,7 @@ public class AviationInvoiceCreator {
         this.dateFormatter = reportHelper.getDateFormat();
         this.preview = preview;
         this.pointOfSale = pointOfSale;
+        this.startDate = startDate;
         this.endDateInclusive = endDateInclusive;
         this.billingInterval = billingInterval;
 
@@ -301,8 +304,20 @@ public class AviationInvoiceCreator {
         invoiceData.global.invoiceDateOfIssueStr = reportHelper.formatDateUtc(ldtNow, dateFormatter);
         invoiceData.global.invoiceDueDateStr = reportHelper.formatDateUtc(ldtNow.plusDays(account.getPaymentTerms()), dateFormatter);
         if (billingInterval != null) {
-            invoiceData.global.invoiceBillingPeriod = billingInterval.equals(BillingInterval.MONTHLY) ? String.format("%s-%s", StringUtils.capitalize(endDateInclusive.getMonth().name().toLowerCase()), endDateInclusive.getYear())
-                : String.format("%s - %s", reportHelper.formatDateUtc(endDateInclusive.minusDays(6), dateFormatter), invoiceData.global.invoiceDateStr);
+            switch (billingInterval) {
+            case MONTHLY:
+                invoiceData.global.invoiceBillingPeriod = String.format("%s-%s", StringUtils.capitalize(endDateInclusive.getMonth().name().toLowerCase()), endDateInclusive.getYear());
+                break;
+            case WEEKLY:
+                invoiceData.global.invoiceBillingPeriod = String.format("%s - %s", reportHelper.formatDateUtc(endDateInclusive.minusDays(6), dateFormatter), invoiceData.global.invoiceDateStr);
+                break;
+            case OPEN:
+                invoiceData.global.invoiceBillingPeriod = String.format("%s - %s", reportHelper.formatDateUtc(startDate, dateFormatter), invoiceData.global.invoiceDateStr);
+                break;
+            default:
+                invoiceData.global.invoiceBillingPeriod = invoiceData.global.invoiceDateStr;
+                break;
+            }
         } else {
             invoiceData.global.invoiceBillingPeriod = invoiceData.global.invoiceDateStr;
         }

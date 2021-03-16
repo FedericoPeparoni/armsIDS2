@@ -180,6 +180,7 @@ public class AviationInvoiceService {
             preview,
             currencyUtils,
             true, // approvalWorkflow
+            startDate,
             endDateInclusive,
             roundingUtils,
             systemConfigurationService,
@@ -456,6 +457,7 @@ public class AviationInvoiceService {
             preview,
             currencyUtils,
             false,
+            null,
             ldtNow, // use datetime now because this method is called only from point-of-sale which uses issue date
             roundingUtils,
             systemConfigurationService,
@@ -495,6 +497,7 @@ public class AviationInvoiceService {
                 preview,
                 currencyUtils,
                 false,
+                null,
                 ldtNow, // use datetime now because this method is called only from point-of-sale which uses issue date
                 roundingUtils,
                 systemConfigurationService,
@@ -828,10 +831,12 @@ public class AviationInvoiceService {
         final LocalDateTime ldtStartOfCurrentMonth = LocalDateTime.of(today.getYear(), today.getMonth(), 1, 0, 0, 0, 0);
         final boolean validMonthlyBillingPeriod = startDate.isBefore(ldtStartOfCurrentMonth);
         final boolean validWeeklyBillingPeriod = endDateInclusive.isBefore(today);
+        final boolean validOpenBillingPeriod = endDateInclusive.isBefore(today) && startDate.isBefore(endDateInclusive);
 
         // Ensure billing period is valid if not a preview
         if (!validMonthlyBillingPeriod && !preview && billingInterval.equals(BillingInterval.MONTHLY) ||
-            !validWeeklyBillingPeriod && !preview && billingInterval.equals(BillingInterval.WEEKLY)) {
+            !validWeeklyBillingPeriod && !preview && billingInterval.equals(BillingInterval.WEEKLY) ||
+            !validOpenBillingPeriod && !preview && billingInterval.equals(BillingInterval.OPEN)) {
 
             LOG.debug("Invalid IATA invoice billing period.");
 

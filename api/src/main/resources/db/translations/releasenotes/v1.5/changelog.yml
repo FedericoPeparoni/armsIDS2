@@ -7,3 +7,7 @@ databaseChangeLog:
       author: Olga Bila
       file: 20200609152200_changelog_lang_1.5.2.sql
       relativeToChangelogFile: true
+- include:
+      author: Alessandro Gallinella
+      file: 20210011032150_changelog_lang_1.5.3.sql
+      relativeToChangelogFile: true

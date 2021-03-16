@@ -246,6 +246,13 @@ export function RouterConfig($httpProvider: ng.IHttpProvider, $stateProvider: an
       title: 'Service Charge Catalogue'
     })
 
+    .state('main.tu-rate-management',{
+      url: '/tu-rate-management',
+      templateUrl: 'app/partials/tu-rate-management/tu-rate-management.html',
+      controller: 'TuRateManagementController',
+      title: 'TU Rate Management'
+    })
+
     .state('main.utilities-schedules', {
       url: '/utilities-schedules',
       templateUrl: 'app/partials/utilities-schedules/utilities-schedules.html',

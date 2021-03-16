@@ -25,6 +25,8 @@ import { IRestangularResponse } from '../../angular-ids-project/src/helpers/inte
 
 export class AviationBillingEngineController extends CRUDFormControllerUserService {
 
+
+
   /* @ngInject */
   constructor(public $scope: IAviationBillingEngineScope, private aviationBillingEngineService: AviationBillingEngineService,
     private accountsService: AccountsService, private systemConfigurationService: SystemConfigurationService, private $interval: angular.IIntervalService,
@@ -43,16 +45,18 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
     this.$scope.progressBarValue = 0;
 
     this.setDefaultDate();
+    this.setDefaultAnnuallyDate();
     this.setBillingInterval();
+
 
     // get required system configurations
     $scope.invoiceByFmCategory = sysConfigBoolean.parse(this.systemConfigurationService.getValueByName(<any>SysConfigConstants.INVOICE_FM_CATEGORY));
     $scope.iataSupported = sysConfigBoolean.parse(systemConfigurationService.getValueByName(<any>SysConfigConstants.IATA_INVOICE_SUPPORT));
 
     this.typesService.listAll().then((types: Array<IType>) => {
-      const allAccounts: any = {id: 'all', name: 'All Accounts'};
+      const allAccounts: any = { id: 'all', name: 'All Accounts' };
       $scope.accountTypes = types.filter((type: IType) =>
-        type.name === 'Airline' || type.name === 'GeneralAviation' || type.name === 'Charter');
+        type.name === 'Airline' || type.name === 'GeneralAviation' || type.name === 'Charter' || type.name === 'Unified Tax');
       $scope.accountTypes.unshift(allAccounts);
       this.updateAccounts($scope.editable.account_type);
     });
@@ -69,6 +73,8 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
     $scope.addIdToList = () => this.addIdToList();
     $scope.closeHeader = () => this.closeHeader();
     $scope.setMonthlyDates = () => this.setMonthlyDates();
+    $scope.setAnnuallyDates = () => this.setAnnuallyDates();
+    $scope.setPartiallyDates = () => this.setPartiallyDates();
     $scope.cancelGeneration = () => this.cancelGeneration();
     $scope.setWeekStartDate = () => this.setWeekStartDate();
     $scope.setBillingInterval = () => this.setBillingInterval();
@@ -91,7 +97,7 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
     this.checkRecalculationStatusOnPageLoad();
     this.checkGenerationStatusOnPageLoad();
 
-    // listeners 
+    // listeners
     $scope.$watchGroup(['dateObject', 'editable.end_date', 'editable.billing_interval', 'editable.iata_status'], () =>
       $scope.isBillingPeriodValid = this.validateBillingPeriod());
   }
@@ -129,8 +135,8 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
 
     // if accounts are selected, recalculate selected only
     this.$scope.editable.account_id_list = this.$scope.selectedAccounts && this.$scope.selectedAccounts.length > 0
-    ? this.$scope.selectedAccounts.map((account: IAccountMinimal) => account.id)
-    : null;
+      ? this.$scope.selectedAccounts.map((account: IAccountMinimal) => account.id)
+      : null;
 
     this.$scope.recalculate.executeCalculation(this.$scope.editable);
   }
@@ -237,6 +243,7 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
    */
   private setWeekStartDate(): void {
     this.$scope.editable.start_date = moment(this.$scope.editable.end_date).subtract(6, 'days').toISOString();
+
   }
 
   /**
@@ -269,7 +276,7 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
 
   /**
    * Incomplete Flight sort order by editable sort field value.
-   * 
+   *
    * @param orderBy editable.sort value
    */
   private incompleteFlightSort(orderBy: string): Array<string> {
@@ -295,7 +302,19 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
       this.$scope.editable.processStartDate = this.firstDateOfMonth();
       this.$scope.editable.processEndDate = this.lastDateOfMonth();
       this.$scope.editable.endDateInclusive = this.lastDateOfMonth();
-    } else {
+    }
+    else if (this.$scope.editable.billing_interval === 'ANNUALLY') {
+      this.$scope.editable.processStartDate = this.firstDateOfYear();
+      this.$scope.editable.processEndDate = this.lastDateOfYear();
+      this.$scope.editable.endDateInclusive = this.lastDateOfYear();
+    }
+    else if (this.$scope.editable.billing_interval === 'PARTIALLY') {
+      this.$scope.editable.processStartDate = this.firstDateOfMonth();
+      this.$scope.editable.processEndDate = this.lastDateOfYear();
+      this.$scope.editable.endDateInclusive = this.lastDateOfYear();
+    }
+
+    else {
       this.$scope.editable.processStartDate = new Date(this.$scope.editable.start_date).toISOString();
       this.$scope.editable.processEndDate = new Date(this.$scope.editable.end_date).toISOString();
       this.$scope.editable.endDateInclusive = new Date(this.$scope.editable.end_date).toISOString();
@@ -303,16 +322,40 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
   }
 
   /**
-   * Set start/end dates for monthly interval for previewing and generating
+   * Set start/end dates for monthly,annually,partially interval for previewing and generating
    */
   private setMonthlyDates(): void {
     if (this.$scope.editable.billing_interval === 'MONTHLY') {
       this.$scope.editable.start_date = this.firstDateOfMonth();
       this.$scope.editable.end_date = this.lastDateOfMonth();
-    } else {
+
+    }
+    else if (this.$scope.editable.billing_interval === 'ANNUALLY') {
+      this.setAnnuallyDates();
+    }
+    else if (this.$scope.editable.billing_interval === 'PARTIALLY') {
+      this.setPartiallyDates();
+    }
+    else {
       this.setWeeklyDefaultDate();
     }
   }
+  /**
+   * Set start/end dates for annually interval for previewing and generating
+   */
+  private setAnnuallyDates(): void {
+    this.$scope.editable.start_date = this.firstDateOfYear();
+    this.$scope.editable.end_date = this.lastDateOfYear();
+  }
+  /**
+   * Set start/end dates for partially interval for previewing and generating
+   */
+  private setPartiallyDates(): void {
+    this.$scope.editable.start_date = this.firstDateOfMonth();
+    this.$scope.editable.end_date = this.lastDateOfYear();
+  }
+
+
 
   /**
    * Return the first date of the dateObject (selected month)
@@ -337,6 +380,29 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
     return moment().format(`${yyyy}-${mm}-${dd}[T]00:00:00.000[Z]`);
   }
 
+ /**
+   * Return the first date of the dateObject (selected annually)
+   */
+
+private firstDateOfYear(): string {
+  let d = angular.copy(this.$scope.dateObject);
+  let yyyy = d.getFullYear();
+
+return moment().format(`${yyyy}-01-01[T]00:00:00.000[Z]`);
+
+}
+
+  /**
+   * Return the last date of the dateObject (selected annually)
+   */
+private lastDateOfYear(): string {
+  let d = angular.copy(this.$scope.dateObject);
+  let yyyy = d.getFullYear();
+  return moment().format(`${yyyy}-12-31[T]23:59:59.999[Z]`);
+}
+
+
+
   /**
    * Set default date for monthly billing interval
    */
@@ -344,7 +410,22 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
     let today = new Date();
     let month = today.getMonth();
     this.$scope.dateObject = new Date(today.getFullYear(), month - 1);
+
+    console.log(this.$scope.dateObject);
+
   }
+
+
+  private setDefaultAnnuallyDate(): void {
+    let today = new Date();
+    console.log(today);
+    let year = today.getFullYear();
+    console.log(year);
+    this.$scope.dateObject = new Date(today.getFullYear(),year - 1);
+
+    console.log(this.$scope.dateObject);
+  }
+
 
   /**
    * Set default date for weekly billing interval
@@ -387,12 +468,24 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
       }
       if (this.$scope.editable.billing_interval === 'MONTHLY') {
         this.setMonthlyDates();
-      } else {
+      }
+      else if (this.$scope.editable.billing_interval === 'ANNUALLY'){
+        this.setAnnuallyDates();
+      }
+      else if (this.$scope.editable.billing_interval === 'PARTIALLY'){
+        this.setPartiallyDates();
+      }
+      else {
         this.setWeeklyDefaultDate();
       }
       this.dateOptions();
+      this.dateOptionsAnnually();
+      this.dateOptionsPartially();
     });
   }
+
+
+
 
   /**
    * Set date options
@@ -410,6 +503,42 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
       }
     };
   }
+  /**
+    * Set date options Annually
+    */
+
+  private dateOptionsAnnually(): void {
+    this.$scope.dateOptionsAnnually = {
+      maxDate: new Date(this.$scope.maxDate),
+      minMode: 'year',
+      dateDisabled: (data: any): boolean => {
+        let date = data.date,
+          mode = data.mode;
+        let previousYear =( moment().year() - 1);
+        return mode === 'year' && (date.getFullYear() > previousYear);
+
+      }
+
+    };
+  }
+
+  /**
+     * Set date options Partially
+     */
+
+  private dateOptionsPartially(): void {
+    this.$scope.dateOptionsPartially = {
+      minMode: 'month',
+      dateDisabled: (data: any): boolean => {
+        let date = data.date,
+          mode = data.mode;
+        let previousYear = moment().year() - 1;
+        return mode == 'month' && (date.getFullYear() > previousYear);
+
+      }
+    };
+  }
+
 
   /**
    * @param  {ISystemConfigurationSpring} data
@@ -449,3 +578,7 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
     return this.$scope.progressBarValue;
   }
 }
+function maxDate(maxDate: any) {
+  throw new Error('Function not implemented.');
+}
+

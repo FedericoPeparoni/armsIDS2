@@ -3,6 +3,7 @@ package ca.ids.abms.modules.accounts;
 import ca.ids.abms.modules.common.controllers.MediaDocumentComponent;
 import ca.ids.abms.modules.reports2.common.ReportDocument;
 import ca.ids.abms.modules.reports2.common.ReportDocumentCreator;
+import ca.ids.abms.modules.reports2.invoices.aviation.BillingInterval;
 import ca.ids.abms.modules.util.models.PageImplCustom;
 import ca.ids.abms.util.StringUtils;
 import org.slf4j.Logger;
@@ -244,6 +245,22 @@ public class AccountController extends MediaDocumentComponent {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    
+    /**
+     * Return a list of accounts by name of accountType
+     *
+     * @param nameAccountType the name of the accountType to retrieve the list of accounts
+     * @return ResponseEntity<Account> the account
+     *
+     */
+    @GetMapping(value = "/accounts")
+    public ResponseEntity<List<Account>> findByAccountType(@RequestParam(required = true) String nameAccountType) {
+        LOG.debug("REST request to retrieve the list of accounts associated to the specified account type: {} "+ nameAccountType);
+        List<Account> accounts = accountService.findByAccountType(nameAccountType);
+        
+        return new ResponseEntity<>(accounts, HttpStatus.OK);
+    }
+    
     @PutMapping("/{id}/account_events")
     @PreAuthorize("hasAuthority('account_modify')")
     public ResponseEntity<AccountViewModel> updateAccountEvents(@PathVariable Integer id,

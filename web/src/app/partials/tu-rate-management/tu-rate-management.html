@@ -1,0 +1,178 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12" ng-class="{'col-md-6 col-split-xs-12': toggle}">
+
+        <div class="box-container">
+
+            <box-header page-name="charges-and-formulas.tu-rate-management" toggle="toggle" icon="'check-square-o'"
+                title="{{ 'Unified Tax'  | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="text-filter">Filter</label>
+                        <input id="text-filter" class="form-control" type="text"
+                            ng-keyup="$event.keyCode == 13 && refresh()" ng-model="search" />
+                    </div>
+
+                    <div class="col-xs-12 col-md-6">
+                        <button translate ng-click="refresh()" class="btn btn-primary pull-right">Refresh
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="validity_from">{{'ValidityFrom' | translate }} *</label>
+                        <p class="input-group">
+                            <input id="validity_from" name="validity_from" type="text" ng-pattern="datePickerRegex"  class="form-control"
+                                    uib-datepicker-popup="yyyy" ng-model="editable.validity_from" is-open="open"
+                                    datepicker-options="{ formatYear: 'yyyy', startingDay: 1, minMode: 'year' }"
+                                    required />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open = !open">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                                </span>
+                            </p>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <label translate for="validity_to">{{'ValidityTo' | translate }} *</label>
+                        <p class="input-group">
+                            <input id="validity_to" name="validity_to" type="text" ng-pattern="datePickerRegex"  class="form-control"
+                                    uib-datepicker-popup="yyyy" ng-model="editable.validity_to" is-open="open1"
+                                    datepicker-options="{ formatYear: 'yyyy', startingDay: 1, minMode: 'year' }"
+                                    required />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open1 = !open1">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                                </span>
+                            </p>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive" export-table sort-query-string="getSortQueryString()"
+                            query-string="filterParameters" back-end-export="true" service="tuRateManagementService">
+
+                            <table class="table table-striped table-bordered table-hover table-condensed"
+                                sort-query-string="getSortQueryString" table-sort="refresh()">
+                                <thead>
+                                    <tr>
+                                        <th translate class="text-nowrap" sort="fromManufactureYear">From(Year)</th>
+                                        <th translate class="text-nowrap" sort="toManufactureYear">To(Year)</th>
+                                        <th translate class="text-nowrap" sort="ars">Ars per Tonelada</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="edit(item);" ng-repeat="item in list"
+                                        ng-class="{'highlight': editable.id === item.id}">
+                                        <td class="text-nowrap">{{ ::item.fromManufactureYear }}</td>
+                                        <td class="text-nowrap">{{ ::item.toManufactureYear }}</td>
+                                        <td class="text-nowrap">{{ ::item.ars }}</td>
+                                    </tr>
+                                    <tr ng-show="!list.length">
+                                        <td translate class="text-center" colspan="6">There are no Unified Tax data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-display></pagination-display>
+                        <ul uib-pagination total-items="pagination.total_elements" ng-change="refresh()" max-size="::20"
+                            items-per-page="pagination.size" ng-model="pagination.number" class="pagination-sm"
+                            boundary-link-numbers="::true">
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="crud-second-container" ng-show="toggle">
+        <div class="box-container">
+
+            <box-header ng-show="editable.id === null" icon="'check-square-o'"
+                title="{{ 'Add a Unified Tax' | translate }}"></box-header>
+            <box-header ng-show="editable.id !== null" icon="'check-square-o'"
+                title="{{ 'Edit a Unified Tax' | translate }}"></box-header>
+
+            <div class="box-content">
+
+                <form novalidate action="#" name="form" onsubmit="return false">
+
+                    <fieldset ng-disabled="!hasPermission('tu_rate_management_modify')">
+
+                        <div class="row row-responsive">
+                            <div class="col-xs-12 col-md-6">
+                                <label for="fromValidity">
+                                    {{ 'From Validity*' | translate }} (<span translate>yyyy</span>)
+                                </label>
+                                <p class="input-group">
+                                    <input id="fromValidity" name="fromValidity" type="text" class="form-control"
+                                        uib-datepicker-popup="yyyy" ng-model="editable.fromValidityYear" is-open="openFromValidity"
+                                        datepicker-options="{ formatYear: 'yyyy', startingDay: 1, minMode: 'year' }"
+                                        required />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="openFromValidity = !openFromValidity">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="toValidity">
+                                    {{ 'To Validity*' | translate }} (<span translate>yyyy</span>)
+                                </label>
+                                <p class="input-group">
+                                    <input id="toValidity" name="toValidity" type="text" class="form-control"
+                                        uib-datepicker-popup="yyyy" ng-model="editable.toValidityYear" is-open="openToValidity"
+                                        datepicker-options="{ formatYear: 'yyyy', startingDay: 1, minMode: 'year' }"
+                                        required />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="openToValidity =!openToValidity">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <ng-include
+                            src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <!-- Error Handling -->
+                        </ng-include>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary btn-reset" translate
+                                    ng-click="reset(); form.$setUntouched();">
+                                    Clear
+                                </button>
+                                <button class="btn btn-primary btn-update" translate ng-show="editable.id !== null"
+                                    ng-disabled="form.$invalid" popup popup-text="Are you sure you want to update this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
+                                    popup-confirm="update(editable, editable.id); form.$setUntouched();">Update
+                                </button>
+                                <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null"
+                                    popup popup-text="Are you sure you want to delete this?"
+                                    popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
+                                    popup-confirm="delete(editable.id); form.$setUntouched()">Delete
+                                </button>
+                                <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid"
+                                    ng-show="editable.id === null"
+                                    ng-click="create(editable); form.$setUntouched();">Create
+                                </button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

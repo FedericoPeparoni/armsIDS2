@@ -556,10 +556,12 @@ public class IataInvoiceService {
 
         final Boolean validMonthlyBillingPeriod = startDate.isBefore(startOfCurrentMonth);
         final Boolean validWeeklyBillingPeriod = endDateInclusive.isBefore(today);
+        final Boolean validOpenBillingPeriod = endDateInclusive.isBefore(today) && startDate.isBefore(endDateInclusive);
 
         // Ensure billing period is valid if not a preview
         if (!validMonthlyBillingPeriod && !preview && billingInterval.equals(BillingInterval.MONTHLY) ||
-            !validWeeklyBillingPeriod && !preview && billingInterval.equals(BillingInterval.WEEKLY)) {
+            !validWeeklyBillingPeriod && !preview && billingInterval.equals(BillingInterval.WEEKLY) ||
+            !validOpenBillingPeriod && !preview && billingInterval.equals(BillingInterval.OPEN)) {
 
             logger.debug("Invalid IATA invoice billing period.");
 
@@ -600,11 +602,16 @@ public class IataInvoiceService {
             x.props.intervalDescr = startDate.format(DateTimeFormatter.ofPattern("MMMM 'of' YYYY"));
             x.props.name = String.format("%s - %s - %s", transText, x.props.invoiceNumber, startDate.format(DateTimeFormatter.ofPattern("MMM YYYY")));
 
-        } else {
+        } else if (billingInterval.equals(BillingInterval.WEEKLY)){
             String weeklyName = String.format(
                 "%s - %s", startDate.format(DateTimeFormatter.ofPattern("d MMM YYYY")), endDateInclusive.format(DateTimeFormatter.ofPattern("d MMM YYYY")));
             x.props.name = String.format("%s - %s - %s", transText, x.props.invoiceNumber, weeklyName);
             x.props.intervalDescr = weeklyName;
+        } else if (billingInterval.equals(BillingInterval.OPEN)){
+            String openName = String.format(
+                    "%s - %s", startDate.format(DateTimeFormatter.ofPattern("d MMM YYYY")), endDateInclusive.format(DateTimeFormatter.ofPattern("d MMM YYYY")));
+            x.props.name = String.format("%s - %s - %s", transText, x.props.invoiceNumber, openName);
+            x.props.intervalDescr = openName;
         }
 
         x.flightMovements = flightMovements.stream().map(fm -> {

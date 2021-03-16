@@ -168,6 +168,13 @@ public class AccountService {
     }
 
     @Transactional(readOnly = true)
+    public List<Account> findByAccountType (final String nameAccountType) {
+        LOG.debug("Request to get Accounts for name of AccountType {}", nameAccountType);
+        List<Account> accounts = accountRepository.findByAccountType (nameAccountType);
+        return accounts;
+    }
+
+    @Transactional(readOnly = true)
     public List<Account> findByUserId (final Integer userId) {
         LOG.debug("Request to get Accounts for user id={}", userId);
         return accountRepository.findByUserId (userId);

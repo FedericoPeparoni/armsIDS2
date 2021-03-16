@@ -49,12 +49,13 @@ export const sideBar = [
   },
   {
     title: 'Charges and Formulas', icon: 'check-square-o', permissions: ['charges_schedule_view', 'charges_schedule_modify', 'avg_mtow_factor_view', 'avg_mtow_factor_modify',
-    'enroute_charges_view', 'enroute_charges_modify', 'service_charge_view', 'service_charge_modify', 'utilities_schedule_view',
+    'enroute_charges_view', 'enroute_charges_modify', 'service_charge_view', 'service_charge_modify','tu_rate_management_view','tu_rate_management_modify', 'utilities_schedule_view',
     'utilities_schedule_modify', 'utilities_towns_view', 'utilities_towns_modify'],
     links: [{ category: 'Air Navigation Charges Schedules', icon: 'cloud', permissions: ['charges_schedule_view', 'charges_schedule_modify'], url: 'air-navigation-charges' },
     { category: 'Average MTOW Factor', icon: 'balance-scale', permissions: ['avg_mtow_factor_view', 'avg_mtow_factor_modify'], url: 'mtow' },
     { category: 'Enroute Air Navigation Charges', icon: 'flask', permissions: ['enroute_charges_view', 'enroute_charges_modify'], url: 'enroute-air-navigation-charges-management' },
     { category: 'Service Charge Catalogue', icon: 'retweet', permissions: ['service_charge_view', 'service_charge_modify'], url: 'catalogue-service-charge' },
+    { category: 'TU Rate Management', icon: 'check-square-o', permissions: ['tu_rate_management_view', 'tu_rate_management_modify'], url: 'tu-rate-management' },
     { category: 'Utilities Schedules', icon: 'flash', permissions: ['utilities_schedule_view', 'utilities_schedule_modify'], url: 'utilities-schedules' },
     { category: 'Utilities Towns and Villages', icon: 'tint', permissions: ['utilities_towns_view', 'utilities_towns_modify'], url: 'utilities-towns' }]
   },
@@ -101,7 +102,7 @@ export const sideBar = [
     { category: 'Analysis and Stats - Air Traffic', icon: 'line-chart', permissions: ['statistics_generate'], url: 'air-traffic-data' },
     { category: 'Analysis and Stats - Revenue', icon: 'line-chart', permissions: ['statistics_generate'], url: 'revenue-data' },
     { category: 'Report Generation', icon: 'file-text-o', permissions: ['reports_generate'], url: 'report-generation' }]
-    // hide Revenue Projection until it works correctly as PO and Kieran asked 2018-11-28 
+    // hide Revenue Projection until it works correctly as PO and Kieran asked 2018-11-28
     // { category: 'Revenue Projection', icon: 'dollar', permissions: ['reports_generate'], url: 'revenue-projection' }]
   },
   {
