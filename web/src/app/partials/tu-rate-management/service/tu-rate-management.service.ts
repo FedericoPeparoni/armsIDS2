@@ -1,6 +1,6 @@
 
 // interfaces
-import { ITuRateManagement } from '../TU-rate-managment.interface';
+import { ITuRateManagement } from '../tu-rate-management.interface';
 
 // services
 import { CRUDService } from '../../../angular-ids-project/src/helpers/services/crud.service';
