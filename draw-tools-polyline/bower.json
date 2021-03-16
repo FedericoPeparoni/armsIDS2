@@ -1,0 +1,25 @@
+{
+  "name": "draw-tools-polyline",
+  "version": "1.0.4",
+  "description": "A simple tool to be used with CesiumJS to draw and edit a single polyline on the map.",
+  "keywords": [
+    "cesium",
+    "cesiumjs",
+    "polyline",
+    "map"
+  ],
+  "main": "src/draw-tools-polyline.js",
+  "authors": [
+    "Chris McLeese"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Draw Tools Polyline</title>
+    
+    <script src="/scripts/cesium/Build/Cesium/Cesium.js"></script>
+    <script src="draw-tools-polyline.js"></script>
+    
+    <style>
+        @import url(/scripts/cesium/Build/Cesium/Widgets/widgets.css);
+        html, body, #cesiumContainer {
+            width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
+        }
+        #mapBtn{
+          position: absolute;
+          top: 0; left: 0;
+          z-index: 10;
+        }
+    </style>
+  </head>
+  <body>
+    <button id="mapBtn">Toggle Polyline</button>
+    <div class="map" id="cesiumContainer">
+    </div>
+
+    <script type="text/javascript">
+
+      new Cesium.buildModuleUrl.setBaseUrl('/scripts/cesium/Build/Cesium/');
+      var viewer = new Cesium.Viewer('cesiumContainer');
+
+      //var cesiumWidget = new Cesium.CesiumWidget('cesiumContainer');
+      // extend our view by the cesium navigaton mixin
+      
+
+
+      document.getElementById("mapBtn").addEventListener("click", function(){
+        if(!viewer.drawToolPolyline){
+          viewer.extend(DrawToolPolyline.viewerCesiumDrawPoly, {});
+          viewer.drawToolPolyline.startDrawing();
+        }else{
+          viewer.drawToolPolyline.destroy();
+        }
+      });
+    </script>
+  </body>
+</html>

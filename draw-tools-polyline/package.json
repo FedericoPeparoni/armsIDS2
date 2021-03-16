@@ -1,0 +1,28 @@
+{
+  "name": "draw-tools-polyline",
+  "version": "1.0.4",
+  "description": "A CesiumJS map tool for drawing a polyline.",
+  "main": "draw-tools-polyline.js",
+  "scripts": {
+    "dev": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://c.mcleese@git.idscorporation.ca/map/draw-tools-polyline.git"
+  },
+  "keywords": [
+    "cesium",
+    "cesiumjs",
+    "polyline",
+    "map"
+  ],
+  "author": "Chris McLeese",
+  "license": "ISC",
+  "devDependencies": {
+    "express": "^4.15.4"
+  },
+  "dependencies": {
+    "cesium": "^1.29.0"
+  }
+}
