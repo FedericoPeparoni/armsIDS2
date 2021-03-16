@@ -40,6 +40,7 @@ export class ScAccountManagementService extends CRUDService {
     credit_limit: null,
     aircraft_parking_exemption: 0,
     account_type: null,
+    account_type_discount: null,
     list_of_events_account_notified: null,
     iata_member: false,
     separate_pax_invoice: false,

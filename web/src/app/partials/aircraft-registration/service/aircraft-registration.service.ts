@@ -62,6 +62,7 @@ export class AircraftRegistrationService extends CRUDFileUploadService {
       credit_limit: null,
       aircraft_parking_exemption: null,
       account_type: null,
+      account_type_discount: null,
       list_of_events_account_notified: null,
       iata_member: null,
       separate_pax_invoice: null,
@@ -111,7 +112,7 @@ export class AircraftRegistrationService extends CRUDFileUploadService {
 
   /**
    * Get valid aircraft type from aircraft registration number and registration date.
-   * 
+   *
    * @param regNumber registration number
    * @param flightDate date of registration
    */
