@@ -2,7 +2,7 @@
 import { CRUDFormControllerUserService } from '../../angular-ids-project/src/helpers/controllers/crud-form-user-service/crud-form-user-service.controller';
 
  //interfaces
-import { ITuRateManagementScope } from './TU-rate-managment.interface';
+import { ITuRateManagementScope } from './tu-rate-management.interface';
 
  //services
 import { TuRateManagementService } from './service/tu-rate-management.service';
