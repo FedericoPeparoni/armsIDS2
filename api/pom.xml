@@ -13,7 +13,7 @@
 
     <groupId>ca.ids.abms</groupId>
     <artifactId>api</artifactId>
-    <version>1.5.2</version>
+    <version>01.05.003</version>
     <packaging>jar</packaging>
 
     <name>api</name>
