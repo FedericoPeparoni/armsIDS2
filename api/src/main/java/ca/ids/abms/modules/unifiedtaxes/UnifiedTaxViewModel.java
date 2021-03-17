@@ -17,7 +17,7 @@ public class UnifiedTaxViewModel extends VersionedViewModel {
     private UnifiedTaxValidity validity;
 
     @NotNull
-    private Integer ars;
+    private String rate;
 
     public Integer getId() {
         return id;
@@ -43,12 +43,12 @@ public class UnifiedTaxViewModel extends VersionedViewModel {
         this.toManufactureYear = toManufactureYear;
     }
 
-    public Integer getArs() {
-        return ars;
+    public String getRate() {
+        return rate;
     }
 
-    public void setArs(Integer ars) {
-        this.ars = ars;
+    public void setRate(String rate) {
+        this.rate = rate;
     }
 
     public UnifiedTaxValidity getValidity() {

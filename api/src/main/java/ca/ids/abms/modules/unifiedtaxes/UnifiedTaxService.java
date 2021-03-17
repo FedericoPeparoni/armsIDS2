@@ -34,11 +34,18 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
             throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("The manufacture start date must be before the manufacture end date"),
                     ErrorConstants.ERR_DATE_START);
         }
+        UnifiedTaxValidity validity = unifiedTaxValidityService.findOne(entity.getValidity().getId());
+        if(validity == null) {
+            throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("The specified validity is not available in the database"),
+                    ErrorConstants.ERR_INVALID_UNIFIED_TAX_VALIDITY);
+        }
+        entity.setValidity(validity);
         Integer existingOverlappings = unifiedTaxRepository.countManifactureOverlappingFromAndToDatesOnTheSameValidityPeriod(entity.getFromManufactureYear(), entity.getToManufactureYear(),entity.getValidity().getId());
         if(existingOverlappings > 0) {
             throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("Dates between the updated tax and the existing taxes are overlapping"),
                     ErrorConstants.ERR_DATE_OVERLAP);
         }
+        
         return super.create(entity);
     }
     
@@ -50,6 +57,12 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
             throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("The manufacture start date must be before the manufacture end date"),
                     ErrorConstants.ERR_DATE_START);
         }
+        UnifiedTaxValidity validity = unifiedTaxValidityService.findOne(entity.getValidity().getId());
+        if(validity == null) {
+            throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("The specified validity is not available in the database"),
+                    ErrorConstants.ERR_INVALID_UNIFIED_TAX_VALIDITY);
+        }
+        entity.setValidity(validity);
         Integer existingOverlappings = unifiedTaxRepository.countManifactureOverlappingFromAndToDatesOnTheSameValidityPeriodExcludingCurrentId(entity.getFromManufactureYear(), entity.getToManufactureYear(),entity.getValidity().getId(), entity.getId());
         if(existingOverlappings > 0) {
             throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("Dates between the updated tax and the existing taxes are overlapping"),

@@ -84,6 +84,8 @@ public class UnifiedTaxValidityController
     }
 
     @Override
+    @GetMapping
+    @PreAuthorize("hasAuthority('unified_tax_view')")
     public ResponseEntity<?> getPage(String search, Pageable pageable, Boolean csvExport) {
         LOG.debug("REST request to get all unified tax validities with search '{}' for page '{}'", search, pageable);
         return super.doGetPage(search, pageable, csvExport);
