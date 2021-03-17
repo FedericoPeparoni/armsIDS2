@@ -4,16 +4,16 @@ import { ICRUDFormScope } from '../../angular-ids-project/src/helpers/interfaces
 export interface IUnifiedTaxManagement {
 
 id?: number;
-fromManufactureYear: string;
-toManufactureYear: string;
-ars: number;
+from_manufacture_year: string;
+to_manufacture_year: string;
+rate: number;
 requireExternalSystemId:string;
 }
 
 export interface IValidity {
   id?: number;
-  fromValidityYear: string;
-  toValidityYear: string;
+  from_validity_year: string;
+  to_validity_year: string;
 }
 
 export interface ITuRateManagementScope extends ICRUDFormScope<IUnifiedTaxManagement> {

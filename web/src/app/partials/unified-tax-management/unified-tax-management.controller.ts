@@ -2,21 +2,32 @@
 import { CRUDFormControllerUserService } from '../../angular-ids-project/src/helpers/controllers/crud-form-user-service/crud-form-user-service.controller';
 
  //interfaces
-import { ITuRateManagementScope } from './unified-tax-managment.interface';
+import {ITuRateManagementScope, IUnifiedTaxManagement, IValidity} from './unified-tax-managment.interface';
 
  //services
 import { UnifiedTaxManagementService } from './service/unified-tax-management.service';
 import { SystemConfigurationService } from '../system-configuration/service/system-configuration.service';
 import { SysConfigConstants } from '../system-configuration/system-configuration.constants';
 import { CustomDate } from '../../angular-ids-project/src/components/services/customDate/customDate.service';
+ import {IUser} from "../users/users.interface";
+ import {UnifiedTaxValidityManagementService} from "./service/unified-tax-validity-management.service";
 export class UnifiedTaxManagementController extends CRUDFormControllerUserService {
 
   /* @ngInject */
   constructor(protected $scope: ITuRateManagementScope, protected unifiedTaxManagementService: UnifiedTaxManagementService,
+              protected unifiedTaxValidityManagementService: UnifiedTaxValidityManagementService,
     protected systemConfigurationService: SystemConfigurationService,private customDate: CustomDate) {
     super($scope, unifiedTaxManagementService);
     this.setup();
     this.getFilterParameters();
+
+    //$scope.customDate = this.customDate.returnDateFormatStr(false);
+
+    this.unifiedTaxValidityManagementService.getList().then((validities: Array<IValidity>) => {
+      $scope.listUnifiedTaxValidity = validities;
+      this.getFilterParameters();
+    });
+
   }
 
 
@@ -31,7 +42,9 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     super.setup();
 
     // override refresh scope method with refresh override above
-    this.$scope.refresh = () => this.refresh();
+    this.$scope.refresh = () => this.refreshOverride();
+
+    this.$scope.showTaxes = (validity) => this.showTaxes(validity);
 
 
 
@@ -43,10 +56,16 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
   /**
    * Refresh method override, adds scope filters, pagination, sort query.
    */
-  protected refresh(): angular.IPromise<void> {
+
+  //angular.IPromise<void>
+  private refreshOverride(): ng.IPromise<any> {
+    this.$scope.listUnifiedTax = null;
+    this.$scope.listUnifiedTaxValidity = null;
     this.getFilterParameters();
+
     return super.list(this.$scope.filterParameters, this.$scope.getSortQueryString());
   }
+
 
   private getFilterParameters(): void {
     this.$scope.filterParameters = {
@@ -55,6 +74,15 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     };
   }
 
+
+  private showTaxes(validity: IValidity): void {
+    console.log("showTaxes OK!!!")
+    this.unifiedTaxManagementService.getListByValidityId(validity.id)
+      .then((taxes: Array<IUnifiedTaxManagement>) => {
+        this.$scope.listUnifiedTax = taxes;
+      this.getFilterParameters();
+    });
+  }
 
 
 

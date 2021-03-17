@@ -7,7 +7,6 @@ import { CRUDService } from '../../../angular-ids-project/src/helpers/services/c
 
 
 export let endpoint: string = 'unified-taxes';
-export let endpointValidity: string = 'unified-tax-validities'
 
 export class UnifiedTaxManagementService extends CRUDService {
 
@@ -15,9 +14,9 @@ export class UnifiedTaxManagementService extends CRUDService {
 
   private _mod: IUnifiedTaxManagement = {
     id: null,
-    fromManufactureYear: null,
-    toManufactureYear: null,
-    ars: null,
+    from_manufacture_year: null,
+    to_manufacture_year: null,
+    rate: null,
     requireExternalSystemId:null
   };
 
@@ -33,7 +32,10 @@ export class UnifiedTaxManagementService extends CRUDService {
   getList(): ng.IPromise<Array<IUnifiedTaxManagement>> {
     console.log(this.restangular.all(`${endpoint}/list`).getList());
     return this.restangular.all(`${endpoint}/list`).getList();
+  }
 
+  public getListByValidityId(validityId: number): ng.IPromise<any> {
+    return this.restangular.all(`${endpoint}/validity/${validityId}/list`).getList();
   }
 
 
