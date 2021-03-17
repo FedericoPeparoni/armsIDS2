@@ -31,7 +31,7 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
     public UnifiedTax create(final UnifiedTax entity) {
 
         if(entity.getFromManufactureYear() != null && entity.getToManufactureYear()!= null && entity.getToManufactureYear().isBefore(entity.getFromManufactureYear())) {
-            throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("The manufacture start date shall be before than the manufacture end date"),
+            throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("The manufacture start date must be before the manufacture end date"),
                     ErrorConstants.ERR_DATE_START);
         }
         Integer existingOverlappings = unifiedTaxRepository.countManifactureOverlappingFromAndToDatesOnTheSameValidityPeriod(entity.getFromManufactureYear(), entity.getToManufactureYear(),entity.getValidity().getId());
@@ -47,7 +47,7 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
     public UnifiedTax update(final Integer id, final UnifiedTax entity) {
         
         if(entity.getFromManufactureYear() != null && entity.getToManufactureYear()!= null && entity.getToManufactureYear().isBefore(entity.getFromManufactureYear())) {
-            throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("The manufacture start date shall be before than the manufacture end date"),
+            throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("The manufacture start date must be before the manufacture end date"),
                     ErrorConstants.ERR_DATE_START);
         }
         Integer existingOverlappings = unifiedTaxRepository.countManifactureOverlappingFromAndToDatesOnTheSameValidityPeriodExcludingCurrentId(entity.getFromManufactureYear(), entity.getToManufactureYear(),entity.getValidity().getId(), entity.getId());
