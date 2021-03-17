@@ -15,6 +15,8 @@ export interface IAviationBillingEngine {
   billing_interval: string;
   end_date: string;
   start_date: string;
+  start_date_open: string;
+  end_date_open: string;
   processStartDate: string;
   processEndDate: string;
   preview: number;
