@@ -2405,7 +2405,11 @@ databaseChangeLog:
     - include:
         author: Alessio Bulleri              
         file: 20200918032900_revenue_view_aviation.sql
-        relativeToChangelogFile: true     
+        relativeToChangelogFile: true    
+    - include:
+        author: Marco Cappella              
+        file: 20210315153000_alter_permissions.sql
+        relativeToChangelogFile: true   
     - include:
         author: Marco Cappella              
         file: 20210315183303_create_unified_tax_validity.sql
