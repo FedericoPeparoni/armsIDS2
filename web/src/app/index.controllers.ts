@@ -89,7 +89,7 @@ import { RevenueProjectionController } from './partials/revenue-projection/reven
 import { CurrentUserController } from './partials/current-user/current-user.controller';
 import { FlightReassignmentScopeController } from './partials/flight-reassignment/flight-reassignment.controller';
 import { BankAccountManagementController } from './partials/bank-account-management/bank-account-management.controller';
-import { TuRateManagementController } from './partials/tu-rate-management/tu-rate-management.controller';
+import { UnifiedTaxManagementController } from './partials/unified-tax-management/unified-tax-management.controller';
 
 // controller module
 export default angular.module('armsWeb.controllers', [])
@@ -185,4 +185,4 @@ export default angular.module('armsWeb.controllers', [])
   .controller('CurrentUserController', CurrentUserController)
   .controller('FlightReassignmentScopeController', FlightReassignmentScopeController)
   .controller('BankAccountManagementController', BankAccountManagementController)
-  .controller('TuRateManagementController', TuRateManagementController);
+  .controller('UnifiedTaxManagementController', UnifiedTaxManagementController);

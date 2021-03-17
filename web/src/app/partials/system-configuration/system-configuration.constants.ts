@@ -73,6 +73,7 @@ export enum SysConfigConstants {
   REQUIRE_AERODROME_EXTERNAL_SYSTEM_ID = <any>'Require aerodrome external system id',
   REQUIRE_ACCOUNT_EXTERNAL_SYSTEM_ID = <any>'Require account external system id',
   REQUIRE_BANK_ACCOUNT_EXTERNAL_SYSTEM_ID = <any>'Require bank account external system id',
+  REQUIRE_UNIFIED_TAX_EXTERNAL_SYSTEM_ID = <any>'Require unified text external system id',
   REQUIRE_BILLING_CENTRE_EXTERNAL_SYSTEM_ID = <any>'Require billing centre external system id',
   REQUIRE_CURRENCY_EXTERNAL_SYSTEM_ID = <any>'Require currency external system id',
   REQUIRE_SERVICE_CHARGE_CATALOGUE_EXTERNAL_SYSTEM_ID = <any>'Require service charge catalogue external system id',

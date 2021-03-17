@@ -246,11 +246,11 @@ export function RouterConfig($httpProvider: ng.IHttpProvider, $stateProvider: an
       title: 'Service Charge Catalogue'
     })
 
-    .state('main.tu-rate-management',{
-      url: '/tu-rate-management',
-      templateUrl: 'app/partials/tu-rate-management/tu-rate-management.html',
-      controller: 'TuRateManagementController',
-      title: 'TU Rate Management'
+    .state('main.unified-tax-management',{
+      url: '/unified-tax-management',
+      templateUrl: 'app/partials/unified-tax-management/unified-tax-management.html',
+      controller: 'UnifiedTaxManagementController',
+      title: 'Unified Tax Management'
     })
 
     .state('main.utilities-schedules', {

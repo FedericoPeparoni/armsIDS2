@@ -111,7 +111,7 @@ import { ChargeAdjustmentsService } from './partials/charge-adjustments/service/
 import { OrganizationService } from './partials/organization/service/organization.service';
 import { BankAccountManagementService } from './partials/bank-account-management/service/bank-account-management.service';
 import { RecaptchaService } from './angular-ids-project/src/components/recaptcha/service/recaptcha.service';
-import { TuRateManagementService } from './partials/tu-rate-management/service/tu-rate-management.service';
+import { UnifiedTaxManagementService } from './partials/unified-tax-management/service/unified-tax-management.service';
 
 // service module
 export default angular.module('armsWeb.services', [])
@@ -229,4 +229,4 @@ export default angular.module('armsWeb.services', [])
   .service('organizationService', OrganizationService)
   .service('bankAccountManagementService', BankAccountManagementService)
   .service('recaptchaService', RecaptchaService)
-  .service('tuRateManagementService', TuRateManagementService);
+  .service('unifiedTaxManagementService', UnifiedTaxManagementService);
