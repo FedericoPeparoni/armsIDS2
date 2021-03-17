@@ -23,6 +23,8 @@ export class AviationBillingEngineService extends CRUDService {
     billing_interval: null,
     end_date: null,
     start_date: null,
+    start_date_open: null,
+    end_date_open: null,
     processStartDate: null,
     processEndDate: null,
     flightCategory: null,
