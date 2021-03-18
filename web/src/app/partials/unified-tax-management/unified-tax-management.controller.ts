@@ -70,6 +70,9 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
      // add scope boolean flag for external identifier requirement
      this.$scope.requireExternalSystemId = this.systemConfigurationService
      .getBooleanFromValueByName(<any>SysConfigConstants.REQUIRE_UNIFIED_TAX_EXTERNAL_SYSTEM_ID);
+     
+     this.resetValidity();
+     this.resetTax();
  }
  
  /**
