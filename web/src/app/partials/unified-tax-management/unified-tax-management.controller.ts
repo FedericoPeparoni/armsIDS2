@@ -57,6 +57,7 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     this.$scope.deleteValidity = (validity) => this.deleteValidity(validity);
     this.$scope.deleteTax = (tax) => this.deleteTax(tax);
     this.$scope.refresh = () => this.refreshOverride();
+    this.$scope.refreshOverride = () => this.refreshOverride();
     this.$scope.editValidity = (validity) => this.editValidity(validity);
     this.$scope.editTax = (tax) => this.editTax(tax);
     this.$scope.resetValidity = () => this.resetValidity();
