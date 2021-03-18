@@ -128,7 +128,6 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     });
   }
 
-
   private getFilterParameters(): void {
     this.$scope.filterParameters = {
       search: this.$scope.search,
@@ -150,28 +149,29 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
   protected createValidity(data: Object): ng.IPromise<any> {
     this.service = this.serviceValidity;
     var toRet = super.create(data);
-    this.resetValidity();
+    this.refreshOverride();
     return toRet;
   }
 
-  protected createTax(data: Object): ng.IPromise<any> {
+  protected createTax(data: Object, validityId: number): ng.IPromise<any> {
     this.service = this.serviceTax;
     var toRet = super.create(data);
-    this.resetTax();
+    var validity = {id: validityId};
+    this.showTaxes(<IValidity> validity);
     return toRet;
   }
 
   protected updateValidity(data: Object, id: number): ng.IPromise<any> {
     this.service = this.serviceValidity;
     var toRet = super.update(data, id);
-    this.resetValidity();
+    this.refreshOverride();
     return toRet;
   }
 
   protected updateTax(data: Object, id: number): ng.IPromise<any> {
     this.service = this.serviceTax;
     var toRet = super.update(data, id);
-    this.resetTax();
+    this.showTaxes((<IUnifiedTaxManagement> data).validity);
     return toRet;
   }
 
@@ -187,7 +187,7 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
   protected deleteValidity(id: number): ng.IPromise<void> {
     this.service = this.serviceValidity;
      var toRet = super.delete(id);
-    this.resetValidity();
+    this.refreshOverride();
     return toRet;
   }
 
@@ -198,7 +198,7 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
   protected deleteTax(id: number): ng.IPromise<void> {
     this.service = this.serviceTax;
      var toRet = super.delete(id);
-    this.resetTax();
+    this.showTaxes((<IUnifiedTaxManagement> data).validity);
     return toRet;
   }
 
