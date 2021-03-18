@@ -119,22 +119,22 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <button type="button" class="btn btn-primary btn-reset" translate
-                                    ng-click="resetValidity(); form.$setUntouched();">
+                                    ng-click="resetValidity(); formValidity.$setUntouched();">
                                     Clear
                                 </button>
                                 <button class="btn btn-primary btn-update" translate ng-show="editableValidity.id !== null"
-                                    ng-disabled="form.$invalid" popup popup-text="Are you sure you want to update this?"
+                                    ng-disabled="formValidity.$invalid" popup popup-text="Are you sure you want to update this?"
                                     popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
-                                    popup-confirm="update(editableValidity, editableValidity.id); form.$setUntouched();">Update
+                                    popup-confirm="update(editableValidity, editableValidity.id); formValidity.$setUntouched();">Update
                                 </button>
                                 <button class="btn btn-primary btn-delete" translate ng-show="editableValidity.id !== null"
                                     popup popup-text="Are you sure you want to delete this?"
                                     popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
-                                    popup-confirm="delete(editableValidity.id); form.$setUntouched()">Delete
+                                    popup-confirm="delete(editableValidity.id); formValidity.$setUntouched()">Delete
                                 </button>
-                                <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid"
+                                <button class="btn btn-primary btn-create" translate ng-disabled="formValidity.$invalid"
                                     ng-show="editableValidity.id === null"
-                                    ng-click="create(editableValidity); form.$setUntouched();">Create
+                                    ng-click="create(editableValidity); formValidity.$setUntouched();">Create
                                 </button>
                             </div>
                         </div>
@@ -191,7 +191,7 @@
                                 <label for="unifiedTaxApplicable">
                                     {{ 'Unified Tax Applicable *' | translate }}
                                 </label>
-                                <input id="unifiedTaxApplicable" name="unifiedTaxApplicable" type="number"
+                                <input id="unifiedTaxApplicable" name="unifiedTaxApplicable"
                                     class="form-control" ng-model="editableTax.unifiedTax" required />
                             </div>
                         </div>
@@ -204,22 +204,22 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <button type="button" class="btn btn-primary btn-reset" translate
-                                    ng-click="resetTax(); form.$setUntouched();">
+                                    ng-click="resetTax(); formTax.$setUntouched();">
                                     Clear
                                 </button>
                                 <button class="btn btn-primary btn-update" translate ng-show="editableTax.id !== null"
-                                    ng-disabled="form.$invalid" popup popup-text="Are you sure you want to update this?"
+                                    ng-disabled="formTax.$invalid" popup popup-text="Are you sure you want to update this?"
                                     popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
-                                    popup-confirm="update(editableTax, editableTax.id); form.$setUntouched();">Update
+                                    popup-confirm="update(editableTax, editableTax.id); formTax.$setUntouched();">Update
                                 </button>
                                 <button class="btn btn-primary btn-delete" translate ng-show="editableTax.id !== null"
                                     popup popup-text="Are you sure you want to delete this?"
                                     popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
-                                    popup-confirm="delete(editableTax.id); form.$setUntouched()">Delete
+                                    popup-confirm="delete(editableTax.id); formTax.$setUntouched()">Delete
                                 </button>
-                                <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid"
+                                <button class="btn btn-primary btn-create" translate ng-disabled="formTax.$invalid"
                                     ng-show="editableTax.id === null"
-                                    ng-click="create(editableTax); form.$setUntouched();">Create
+                                    ng-click="create(editableTax); formTax.$setUntouched();">Create
                                 </button>
                             </div>
                         </div>
