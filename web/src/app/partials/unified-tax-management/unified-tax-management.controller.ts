@@ -186,7 +186,9 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
    */
   protected deleteValidity(id: number): ng.IPromise<void> {
     this.service = this.serviceValidity;
-    return super.delete(id);
+     var toRet = super.delete(id);
+    this.resetValidity();
+    return toRet;
   }
 
   /**
@@ -195,7 +197,9 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
    */
   protected deleteTax(id: number): ng.IPromise<void> {
     this.service = this.serviceTax;
-    return super.delete(id);
+     var toRet = super.delete(id);
+    this.resetTax();
+    return toRet;
   }
 
 
