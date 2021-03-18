@@ -39,8 +39,8 @@
                                 <tbody>
                                     <tr ng-click="showTaxes(item);" ng-repeat="item in listUnifiedTaxValidity" ng-class="{'highlight': editable.id === item.id}">
 
-                                        <td class="text-nowrap">{{ ::item.from_validity_year }}</td>
-                                        <td class="text-nowrap">{{ ::item.to_validity_year | dateConverter}}</td>
+                                        <td class="text-nowrap">{{ ::item.from_validity_year | date: 'yyyy' }}</td>
+                                        <td class="text-nowrap">{{ ::item.to_validity_year | date: 'yyyy' }}</td>
 
                                     </tr>
                                     <tr ng-show="!listUnifiedTaxValidity.length">
@@ -66,8 +66,8 @@
                                 <tr ng-click="edit(item);" ng-repeat="item in listUnifiedTax"
                                     ng-class="{'highlight': editable.id === item.id}">
                                     <td class="text-nowrap">{{ ::item.id }}</td>
-                                    <td class="text-nowrap">{{ ::item.from_manufacture_year | dateConverter }}</td>
-                                    <td class="text-nowrap">{{ ::item.to_manufacture_year | dateConverter}}</td>
+                                    <td class="text-nowrap">{{ ::item.from_manufacture_year | date: 'yyyy'  }}</td>
+                                    <td class="text-nowrap">{{ ::item.to_manufacture_year | date: 'yyyy' }}</td>
                                     <td class="text-nowrap">{{ ::item.rate }}</td>
                                 </tr>
                                 <tr ng-show="!listUnifiedTax.length">
