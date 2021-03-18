@@ -119,6 +119,7 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
   //angular.IPromise<void>
   private refreshOverride(): ng.IPromise<any> {
     this.service = this.serviceValidity;
+    this.$scope.selectedValidity = null;
     this.$scope.listUnifiedTax = null;
     this.$scope.listUnifiedTaxValidity = null;
     this.getFilterParameters();
@@ -143,6 +144,7 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
         this.$scope.listUnifiedTax = taxes;
       this.getFilterParameters();
     });
+    this.$scope.selectedValidity = validity;
     this.editValidity(validity)
   }
 
@@ -155,9 +157,9 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
 
   protected createTax(data: Object, validityId: number): ng.IPromise<any> {
     this.service = this.serviceTax;
-    var toRet = super.create(data);
-    var validity = {id: validityId};
-    this.showTaxes(<IValidity> validity);
+    var toRet = super.create(data).then(()=> {
+          this.showTaxes(this.$scope.selectedValidity);
+      });
     return toRet;
   }
 
@@ -170,8 +172,9 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
 
   protected updateTax(data: Object, id: number): ng.IPromise<any> {
     this.service = this.serviceTax;
-    var toRet = super.update(data, id);
-    this.showTaxes((<IUnifiedTaxManagement> data).validity);
+    var toRet = super.update(data, id).then(()=> {
+          this.showTaxes(this.$scope.selectedValidity);
+      });
     return toRet;
   }
 
@@ -198,7 +201,9 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
   protected deleteTax(id: number): ng.IPromise<void> {
     this.service = this.serviceTax;
      var toRet = super.delete(id);
-    this.showTaxes((<IUnifiedTaxManagement> data).validity);
+    super.delete(id).then(()=> {
+          this.showTaxes(this.$scope.selectedValidity);
+      });
     return toRet;
   }
 
