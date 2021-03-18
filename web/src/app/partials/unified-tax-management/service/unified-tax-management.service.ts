@@ -36,8 +36,8 @@ export class UnifiedTaxManagementService extends CRUDService {
   }
 
   public getListByValidityId(validityId: number): ng.IPromise<any> {
-    
-    return this.restangular.all(`${endpoint}/validity/${validityId}/list`).getList();
+    var taxList = this.restangular.all(`${endpoint}/validity/${validityId}/list`).getList();
+    return taxList;
   }
 
 
