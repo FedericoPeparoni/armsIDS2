@@ -7,6 +7,7 @@ id?: number;
 from_manufacture_year: string;
 to_manufacture_year: string;
 rate: number;
+validity: IValidity;
 requireExternalSystemId:string;
 }
 

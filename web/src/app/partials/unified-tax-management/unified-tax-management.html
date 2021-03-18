@@ -103,11 +103,41 @@
                     <fieldset ng-disabled="!hasPermission('unified_tax_modify')">
 
                         <div class="row row-responsive">
-                            <div class="col-xs-12">
-                                    <date-range is-required="::true" control="control" start-name="Start Period *"
-                                        end-name="End Period *" format="{{'yyyy'}}" start-end-adjust="true"
-                                        date-options="{ minMode: 'year' }">
-                                    </date-range>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="fromValidityYear">
+                                    {{ 'Start Period *' | translate }} (<span translate>yyyy</span>)
+                                </label>
+                                <p class="input-group">
+                                    <input id="fromValidityYear" name="fromValidityYear" type="text"
+                                        class="form-control" uib-datepicker-popup="yyyy"
+                                        ng-model="editableValidity.from_validity_year"- is-open="openfromValidityYear"
+                                        datepicker-options="{ formatYear: 'yyyy', startingDay: 1, minMode: 'year' }"
+                                        required />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default"
+                                            ng-click="openfromValidityYear = !openfromValidityYear">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="toValidityYear">
+                                    {{ 'End Period *' | translate }} (<span translate>yyyy</span>)
+                                </label>
+                                <p class="input-group">
+                                    <input id="toValidityYear" name="toValidityYear" type="text"
+                                        class="form-control" uib-datepicker-popup="yyyy"
+                                        ng-model="editableValidity.to_validity_year" is-open="opentoValidityYear"
+                                        datepicker-options="{ formatYear: 'yyyy', startingDay: 1, minMode: 'year' }"
+                                        required />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default"
+                                            ng-click="opentoValidityYear =!opentoValidityYear">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
+                                </p>
                             </div>
                         </div>
 
@@ -157,7 +187,7 @@
                                 <p class="input-group">
                                     <input id="fromManufactureYear" name="fromManufactureYear" type="text"
                                         class="form-control" uib-datepicker-popup="yyyy"
-                                        ng-model="editableTax.fromManufactureYear" is-open="openfromManufactureYear"
+                                        ng-model="editableTax.from_manufacture_year" is-open="openfromManufactureYear"
                                         datepicker-options="{ formatYear: 'yyyy', startingDay: 1, minMode: 'year' }"
                                         required />
                                     <span class="input-group-btn">
@@ -175,7 +205,7 @@
                                 <p class="input-group">
                                     <input id="toManufactureYear" name="toManufactureYear" type="text"
                                         class="form-control" uib-datepicker-popup="yyyy"
-                                        ng-model="editableTax.toManufactureYear" is-open="opentoManufactureYear"
+                                        ng-model="editableTax.to_manufacture_year" is-open="opentoManufactureYear"
                                         datepicker-options="{ formatYear: 'yyyy', startingDay: 1, minMode: 'year' }"
                                         required />
                                     <span class="input-group-btn">

@@ -17,6 +17,7 @@ export class UnifiedTaxManagementService extends CRUDService {
     from_manufacture_year: null,
     to_manufacture_year: null,
     rate: null,
+    validity: null,
     requireExternalSystemId:null
   };
 
