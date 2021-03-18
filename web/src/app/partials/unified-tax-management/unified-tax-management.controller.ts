@@ -118,11 +118,14 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
 
   //angular.IPromise<void>
   private refreshOverride(): ng.IPromise<any> {
+    this.service = this.serviceValidity;
     this.$scope.listUnifiedTax = null;
     this.$scope.listUnifiedTaxValidity = null;
     this.getFilterParameters();
-
-    return super.list(this.$scope.filterParameters, this.$scope.getSortQueryString());
+    return this.unifiedTaxValidityManagementService.getList().then((validities: Array<IValidity>) => {
+      this.$scope.listUnifiedTaxValidity = validities;
+      this.getFilterParameters();
+    });
   }
 
 
