@@ -12,12 +12,20 @@ import { CustomDate } from '../../angular-ids-project/src/components/services/cu
  import {IUser} from "../users/users.interface";
  import {UnifiedTaxValidityManagementService} from "./service/unified-tax-validity-management.service";
 export class UnifiedTaxManagementController extends CRUDFormControllerUserService {
+  
+  protected service: any;
+  
+  protected serviceValidity: any;
+  protected serviceTax: any;
 
   /* @ngInject */
   constructor(protected $scope: ITuRateManagementScope, protected unifiedTaxManagementService: UnifiedTaxManagementService,
               protected unifiedTaxValidityManagementService: UnifiedTaxValidityManagementService,
     protected systemConfigurationService: SystemConfigurationService,private customDate: CustomDate) {
     super($scope, unifiedTaxManagementService);
+    this.service = unifiedTaxValidityManagementService;
+    this.serviceValidity = unifiedTaxValidityManagementService;
+    this.serviceTax = unifiedTaxManagementService;
     this.setup();
     this.getFilterParameters();
 
@@ -129,7 +137,48 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     this.editValidity(validity)
   }
 
+  protected createValidity(data: Object): ng.IPromise<any> {
+    this.service = this.serviceValidity;
+    return super.create(data);
+  }
 
+  protected createTax(data: Object): ng.IPromise<any> {
+    this.service = this.serviceTax;
+    return super.create(data);
+  }
+
+  protected updateValidity(data: Object, id: number): ng.IPromise<any> {
+    this.service = this.serviceValidity;
+    return super.update(data, id);
+  }
+
+  protected updateTax(data: Object, id: number): ng.IPromise<any> {
+    this.service = this.serviceTax;
+    return super.update(data, id);
+  }
+
+  protected list(data?: Object, queryString?: string, endpoint?: string): ng.IPromise<any> {
+    this.service = this.serviceValidity;
+    return super.list(<any>data, queryString, endpoint);
+  }
+
+  /**
+   * Calls the service delete method then resets the form
+   * @param {number} id  the id to delete
+   */
+  protected deleteValidity(id: number): ng.IPromise<void> {
+    this.service = this.serviceValidity;
+    return super.delete(id);
+  }
+
+  /**
+   * Calls the service delete method then resets the form
+   * @param {number} id  the id to delete
+   */
+  protected deleteTax(id: number): ng.IPromise<void> {
+    this.service = this.serviceTax;
+    return super.delete(id);
+  }
 
 
 
