@@ -37,7 +37,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-click="showTaxes(item);" ng-repeat="item in listUnifiedTaxValidity" ng-class="{'highlight': editable.id === item.id}">
+                                    <tr ng-click="showTaxes(item);" ng-repeat="item in listUnifiedTaxValidity" ng-class="{'highlight': editableValidity.id === item.id}">
 
                                         <td class="text-nowrap">{{ ::item.from_validity_year | date: 'yyyy' }}</td>
                                         <td class="text-nowrap">{{ ::item.to_validity_year | date: 'yyyy' }}</td>
@@ -63,8 +63,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-click="edit(item);" ng-repeat="item in listUnifiedTax"
-                                    ng-class="{'highlight': editable.id === item.id}">
+                                <tr ng-click="editTax(item);" ng-repeat="item in listUnifiedTax"
+                                    ng-class="{'highlight': editableTax.id === item.id}">
                                     <td class="text-nowrap">{{ ::item.id }}</td>
                                     <td class="text-nowrap">{{ ::item.from_manufacture_year | date: 'yyyy'  }}</td>
                                     <td class="text-nowrap">{{ ::item.to_manufacture_year | date: 'yyyy' }}</td>
@@ -91,14 +91,14 @@
 
     <div id="crud-second-container" ng-show="toggle">
         <div class="box-container">
-            <box-header ng-show="editable.id === null" icon="'check-square-o'"
+            <box-header ng-show="editableValidity.id === null" icon="'check-square-o'"
                 title="{{ 'Add a Unified Tax ' | translate }}"></box-header>
-            <box-header ng-show="editable.id !== null" icon="'check-square-o'"
+            <box-header ng-show="editableValidity.id !== null" icon="'check-square-o'"
                 title="{{ 'Edit a Unified Tax' | translate }}"></box-header>
             <div class="box-content">
 
 
-                <form novalidate action="#" name="form" onsubmit="return false">
+                <form novalidate action="#" name="formValidity" onsubmit="return false">
 
                     <fieldset ng-disabled="!hasPermission('unified_tax_modify')">
 
@@ -119,22 +119,22 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <button type="button" class="btn btn-primary btn-reset" translate
-                                    ng-click="reset(); form.$setUntouched();">
+                                    ng-click="resetValidity(); form.$setUntouched();">
                                     Clear
                                 </button>
-                                <button class="btn btn-primary btn-update" translate ng-show="editable.id !== null"
+                                <button class="btn btn-primary btn-update" translate ng-show="editableValidity.id !== null"
                                     ng-disabled="form.$invalid" popup popup-text="Are you sure you want to update this?"
                                     popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
-                                    popup-confirm="update(editable, editable.id); form.$setUntouched();">Update
+                                    popup-confirm="update(editableValidity, editableValidity.id); form.$setUntouched();">Update
                                 </button>
-                                <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null"
+                                <button class="btn btn-primary btn-delete" translate ng-show="editableValidity.id !== null"
                                     popup popup-text="Are you sure you want to delete this?"
                                     popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
-                                    popup-confirm="delete(editable.id); form.$setUntouched()">Delete
+                                    popup-confirm="delete(editableValidity.id); form.$setUntouched()">Delete
                                 </button>
                                 <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid"
-                                    ng-show="editable.id === null"
-                                    ng-click="create(editable); form.$setUntouched();">Create
+                                    ng-show="editableValidity.id === null"
+                                    ng-click="create(editableValidity); form.$setUntouched();">Create
                                 </button>
                             </div>
                         </div>
@@ -147,7 +147,7 @@
             <box-header  icon="'check-square-o'"
                 title="{{ 'Add a Unified Tax item' | translate }}"></box-header>
             <div class="box-content">
-                <form novalidate action="#" name="form" onsubmit="return false">
+                <form novalidate action="#" name="formTax" onsubmit="return false">
                     <fieldset ng-disabled="!hasPermission('unified_tax_modify')">
                         <div class="row row-responsive">
                             <div class="col-xs-12 col-md-6">
@@ -157,7 +157,7 @@
                                 <p class="input-group">
                                     <input id="fromManufactureYear" name="fromManufactureYear" type="text"
                                         class="form-control" uib-datepicker-popup="yyyy"
-                                        ng-model="editable.fromManufactureYear" is-open="openfromManufactureYear"
+                                        ng-model="editableTax.fromManufactureYear" is-open="openfromManufactureYear"
                                         datepicker-options="{ formatYear: 'yyyy', startingDay: 1, minMode: 'year' }"
                                         required />
                                     <span class="input-group-btn">
@@ -175,7 +175,7 @@
                                 <p class="input-group">
                                     <input id="toManufactureYear" name="toManufactureYear" type="text"
                                         class="form-control" uib-datepicker-popup="yyyy"
-                                        ng-model="editable.toManufactureYear" is-open="opentoManufactureYear"
+                                        ng-model="editableTax.toManufactureYear" is-open="opentoManufactureYear"
                                         datepicker-options="{ formatYear: 'yyyy', startingDay: 1, minMode: 'year' }"
                                         required />
                                     <span class="input-group-btn">
@@ -192,7 +192,7 @@
                                     {{ 'Unified Tax Applicable *' | translate }}
                                 </label>
                                 <input id="unifiedTaxApplicable" name="unifiedTaxApplicable" type="number"
-                                    class="form-control" ng-model="editable.unifiedTax" required />
+                                    class="form-control" ng-model="editableTax.unifiedTax" required />
                             </div>
                         </div>
 
@@ -204,22 +204,22 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <button type="button" class="btn btn-primary btn-reset" translate
-                                    ng-click="reset(); form.$setUntouched();">
+                                    ng-click="resetTax(); form.$setUntouched();">
                                     Clear
                                 </button>
-                                <button class="btn btn-primary btn-update" translate ng-show="editable.id !== null"
+                                <button class="btn btn-primary btn-update" translate ng-show="editableTax.id !== null"
                                     ng-disabled="form.$invalid" popup popup-text="Are you sure you want to update this?"
                                     popup-local-storage-enable="SystemConfiguration:Require confirmation on update"
-                                    popup-confirm="update(editable, editable.id); form.$setUntouched();">Update
+                                    popup-confirm="update(editableTax, editableTax.id); form.$setUntouched();">Update
                                 </button>
-                                <button class="btn btn-primary btn-delete" translate ng-show="editable.id !== null"
+                                <button class="btn btn-primary btn-delete" translate ng-show="editableTax.id !== null"
                                     popup popup-text="Are you sure you want to delete this?"
                                     popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
-                                    popup-confirm="delete(editable.id); form.$setUntouched()">Delete
+                                    popup-confirm="delete(editableTax.id); form.$setUntouched()">Delete
                                 </button>
                                 <button class="btn btn-primary btn-create" translate ng-disabled="form.$invalid"
-                                    ng-show="editable.id === null"
-                                    ng-click="create(editable); form.$setUntouched();">Create
+                                    ng-show="editableTax.id === null"
+                                    ng-click="create(editableTax); form.$setUntouched();">Create
                                 </button>
                             </div>
                         </div>

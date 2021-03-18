@@ -43,6 +43,10 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
 
     // override refresh scope method with refresh override above
     this.$scope.refresh = () => this.refreshOverride();
+    this.$scope.editValidity = (validity) => this.editValidity(validity);
+    this.$scope.editTax = (tax) => this.editTax(tax);
+    this.$scope.resetValidity = () => this.resetValidity();
+    this.$scope.resetTax = () => this.resetTax();
 
     this.$scope.showTaxes = (validity) => this.showTaxes(validity);
 
@@ -52,6 +56,46 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
      this.$scope.requireExternalSystemId = this.systemConfigurationService
      .getBooleanFromValueByName(<any>SysConfigConstants.REQUIRE_UNIFIED_TAX_EXTERNAL_SYSTEM_ID);
  }
+ 
+ /**
+   * Sets the form to edit the single entry of tax validity
+   * @param {Object} data   entity to edit
+   */
+  protected editValidity(data: Object): void {
+    this.$scope.error = null;
+    this.$scope.editableValidity = angular.copy(data);
+  }
+  
+  /**
+   * Sets the form to edit the single entry of tax item
+   * @param {Object} data   entity to edit
+   */
+  protected editTax(data: Object): void {
+    this.$scope.error = null;
+    this.$scope.editableTax = angular.copy(data);
+  }
+  
+  /**
+   * Resets the form
+   */
+  protected resetValidity(): void {
+    this.$scope.error = null;
+    this.$scope.editableValidity = angular.copy(this.service.model);
+    if (this.$scope.formValidity) {
+      this.$scope.formValidity.$setUntouched();
+    }
+  }
+  
+  /**
+   * Resets the form
+   */
+  protected resetTax(): void {
+    this.$scope.error = null;
+    this.$scope.editableTax = angular.copy(this.service.model);
+    if (this.$scope.formTax) {
+      this.$scope.formTax.$setUntouched();
+    }
+  }
 
   /**
    * Refresh method override, adds scope filters, pagination, sort query.
@@ -82,6 +126,7 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
         this.$scope.listUnifiedTax = taxes;
       this.getFilterParameters();
     });
+    this.editValidity(validity)
   }
 
 
