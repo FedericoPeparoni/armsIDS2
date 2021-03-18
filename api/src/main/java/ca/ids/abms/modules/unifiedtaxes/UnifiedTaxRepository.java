@@ -4,8 +4,6 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -21,7 +19,8 @@ public interface UnifiedTaxRepository extends ABMSRepository<UnifiedTax, Integer
     UnifiedTax findByValidityAndManifactureYear(@Param("validityId") Integer validityId,
             @Param("yearManufacture") Timestamp yearManufacture);
 
-    Page<UnifiedTax> findByValidity_Id(@Param("validityId") Integer validityId, Pageable pageable);
+    @Query(nativeQuery = true, value = "SELECT u.* FROM abms.unified_tax u WHERE u.validity_id = :validityId")
+    List<UnifiedTax> findAllByValidityId(@Param("validityId") Integer validityId);
 
     @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM abms.unified_tax u "
             + "where u.validity_id = :validityId and "
