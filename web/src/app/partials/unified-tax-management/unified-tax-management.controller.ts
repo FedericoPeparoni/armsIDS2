@@ -50,6 +50,12 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     super.setup();
 
     // override refresh scope method with refresh override above
+    this.$scope.createValidity = (validity) => this.createValidity(validity);
+    this.$scope.createTax = (tax) => this.createTax(tax);
+    this.$scope.updateValidity = (validity, id) => this.updateValidity(validity, id);
+    this.$scope.updateTax = (tax, id) => this.updateTax(tax, id);
+    this.$scope.deleteValidity = (validity) => this.deleteValidity(validity);
+    this.$scope.deleteTax = (tax) => this.deleteTax(tax);
     this.$scope.refresh = () => this.refreshOverride();
     this.$scope.editValidity = (validity) => this.editValidity(validity);
     this.$scope.editTax = (tax) => this.editTax(tax);
