@@ -365,6 +365,25 @@ public class AccountService {
         validateWhitelistingFields(account);
     }
 
+    
+  
+ 
+
+    private void validateAccountTypeDiscount(Account account) {
+    Integer accountTypeDiscount = account.getAccountTypeDiscount();
+    if (accountTypeDiscount ==null ) {
+    return ;
+    }
+
+    if (accountTypeDiscount <0 || accountTypeDiscount >100 ) {
+    throw new IllegalArgumentException("the AccountTypeDiscount shall have a value between 0 and 100 ");
+    }
+    }
+  
+    
+    
+    
+    
     private void validateWhitelistingFields(Account account) {
         if (account.getWhitelistLastActivityDateTime() == null) {
             account.setWhitelistLastActivityDateTime(LocalDateTime.now());
@@ -418,6 +437,7 @@ public class AccountService {
 
         validateName(account);
         validateUserLimits(account);
+        validateAccountTypeDiscount(account);
 
         //update account last activity date/time for Whitelisting
         account.setWhitelistLastActivityDateTime(LocalDateTime.now());

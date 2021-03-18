@@ -136,6 +136,8 @@ public class AccountViewModel extends VersionedViewModel {
     private List<AccountExternalChargeCategory> accountExternalChargeCategories;
 
     private List<UserViewModel> accountUsers;
+    
+    private Integer accountTypeDiscount;
 
     // these fields don't exist in the table because we use them
     // only on the front-end to show the status of the record,
@@ -528,4 +530,12 @@ public class AccountViewModel extends VersionedViewModel {
     public void setWhitelistState(WhitelistState whitelistState) {
         this.whitelistState = whitelistState;
     }
+
+	public Integer getAccountTypeDiscount() {
+		return accountTypeDiscount;
+	}
+
+	public void setAccountTypeDiscount(Integer accountTypeDiscount) {
+		this.accountTypeDiscount = accountTypeDiscount;
+	}
 }
