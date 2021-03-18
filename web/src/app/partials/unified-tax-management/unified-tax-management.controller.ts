@@ -155,8 +155,9 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     return toRet;
   }
 
-  protected createTax(data: Object, validityId: number): ng.IPromise<any> {
+  protected createTax(data: IUnifiedTaxManagement): ng.IPromise<any> {
     this.service = this.serviceTax;
+    data.validity = this.$scope.selectedValidity;
     var toRet = super.create(data).then(()=> {
           this.showTaxes(this.$scope.selectedValidity);
       });
