@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -84,8 +86,8 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
         return unifiedTaxRepository.findByValidityAndManifactureYear(unifiedTaxValidity.getId(), timestampManufacture);
     }
 
-    public List<UnifiedTax> findAllByValidityId(Integer validityId) {
-        return unifiedTaxRepository.findAllByValidityId(validityId);
+    public Page<UnifiedTax> findAllByValidityId(Integer validityId, String search, Pageable pageable) {
+        return unifiedTaxRepository.findAllByValidityId(validityId, pageable);
     }
 
 }

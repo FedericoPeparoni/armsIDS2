@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.ids.abms.modules.common.controllers.AbmsCrudController;
 import ca.ids.abms.modules.reports2.common.ReportDocumentCreator;
+import ca.ids.abms.modules.util.models.PageImplCustom;
 
 @RestController
 @RequestMapping(UnifiedTaxController.ENDPOINT)
@@ -120,9 +122,13 @@ public class UnifiedTaxController
 
     @GetMapping(path = "/validity/{validityId}/list")
     @PreAuthorize("hasAuthority('unified_tax_view')")
-    public ResponseEntity<List<UnifiedTaxViewModel>> getAllUnifiedTaxesByValidityId(@PathVariable Integer validityId) {
-        LOG.debug("REST request to get list of unified tax by the validity id: " + validityId);
-        return ResponseEntity.ok(unifiedTaxMapper.toViewModel(unifiedTaxService.findAllByValidityId(validityId)));
-    }
+    public ResponseEntity<?> getAllUnifiedTaxesPageByValidityId(@RequestParam(required = false) Integer validityId,
+            String search, Pageable pageable, Boolean csvExport) {
+        LOG.debug("REST request to get list of unified tax by the validity id '{}' with search '{}' for page '{}'",
+                validityId, search, pageable);
 
+        Page<UnifiedTax> page = unifiedTaxService.findAllByValidityId(validityId, search, pageable);
+        return ResponseEntity.ok().body(new PageImplCustom<>(unifiedTaxMapper.toViewModel(page), pageable,
+                page.getTotalElements(), unifiedTaxService.countAll()));
+    }
 }
