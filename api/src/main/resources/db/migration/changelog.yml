@@ -2422,3 +2422,7 @@ databaseChangeLog:
         author: Marco Cappella              
         file: 20210317103400_insert_account_types_table.sql
         relativeToChangelogFile: true   
+    - include:
+        author: Marco Cappella              
+        file: 20210318123000_alter_account.sql
+        relativeToChangelogFile: true   
