@@ -87,7 +87,7 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
     }
 
     public Page<UnifiedTax> findAllByValidityId(Integer validityId, String search, Pageable pageable) {
-        return unifiedTaxRepository.findAllByValidityId(validityId, pageable);
+        return unifiedTaxRepository.findByValidity_Id(validityId, pageable);
     }
 
 }
