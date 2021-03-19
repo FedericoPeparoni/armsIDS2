@@ -207,7 +207,7 @@
                                 <p class="input-group">
                                     <input ng-model-options="{ timezone: 'UTC' }" id="to_manufacture_year" name="to_manufacture_year" type="text"
                                         class="form-control" uib-datepicker-popup="yyyy"
-                                        ng-model="editableTax.to_manufacture_year | date:'yyyy-MM-dd'" is-open="opentoManufactureYear"
+                                        ng-model="editableTax.to_manufacture_year" is-open="opentoManufactureYear"
                                         datepicker-options="{ formatYear: 'yyyy', startingDay: 1, minMode: 'year' }"
                                         required />
                                     <span class="input-group-btn">
@@ -224,7 +224,7 @@
                                     {{ 'Unified Tax Applicable *' | translate }}
                                 </label>
                                 <input id="rate" name="rate"
-                                    class="form-control" ng-model="editableTax.rate" required />
+                                    class="form-control" ng-model="editableTax.to_manufacture_year" required />
                             </div>
                         </div>
 
