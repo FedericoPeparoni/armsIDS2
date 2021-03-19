@@ -82,6 +82,8 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
   protected editValidity(data: Object): void {
     this.$scope.error = null;
     this.$scope.editableValidity = angular.copy(data);
+    var fromString = this.$scope.editableValidity.from_validity_year;
+    this.$scope.editableValidity.from_validity_year = new Date(fromString);
   }
   
   /**
