@@ -174,8 +174,10 @@
         </div>
 
         <div class="box-container margin-top-20">
-            <box-header  icon="'check-square-o'"
+            <box-header ng-show="editableTax.id === null" icon="'check-square-o'"
                 title="{{ 'Add a Unified Tax item' | translate }}"></box-header>
+            <box-header ng-show="editableTax.id !== null" icon="'check-square-o'"
+                title="{{ 'Edit a Unified Tax item' | translate }}"></box-header>
             <div class="box-content">
                 <form novalidate action="#" name="formTax" onsubmit="return false">
                     <fieldset ng-disabled="!hasPermission('unified_tax_modify')">
@@ -205,7 +207,7 @@
                                 <p class="input-group">
                                     <input ng-model-options="{ timezone: 'UTC' }" id="to_manufacture_year" name="to_manufacture_year" type="text"
                                         class="form-control" uib-datepicker-popup="yyyy"
-                                        ng-model="editableTax.to_manufacture_year" is-open="opentoManufactureYear"
+                                        ng-model="editableTax.to_manufacture_year | date:'yyyy-MM-dd'" is-open="opentoManufactureYear"
                                         datepicker-options="{ formatYear: 'yyyy', startingDay: 1, minMode: 'year' }"
                                         required />
                                     <span class="input-group-btn">
