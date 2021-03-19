@@ -162,7 +162,7 @@
                                     popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
                                     popup-confirm="deleteValidity(editableValidity.id); formValidity.$setUntouched()">Delete
                                 </button>
-                                <button class="btn btn-primary btn-create" translate ng-disabled="formValidity.$invalid && validateValidityDates(editableValidity.from_validity_year, editableValidity.to_validity_year)"
+                                <button class="btn btn-primary btn-create" translate ng-disabled="formValidity.$invalid || !validateValidityDates(editableValidity.from_validity_year, editableValidity.to_validity_year)"
                                     ng-show="editableValidity.id === null"
                                     ng-click="createValidity(editableValidity); formValidity.$setUntouched();">Create
                                 </button>
