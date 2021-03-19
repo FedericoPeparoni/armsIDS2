@@ -55,7 +55,7 @@
                             sort-query-string="getSortQueryString" table-sort="refreshOverride()">
                             <thead>
                                 <tr>
-                                    <th translate class="text-nowrap" sort="id">id</th>
+<!--                                     <th translate class="text-nowrap" sort="id">id</th> -->
                                     <th translate class="text-nowrap" sort="from_manufacture_year">From(Year)</th>
                                     <th translate class="text-nowrap" sort="to_manufacture_year">To(Year)</th>
                                     <th translate class="text-nowrap" sort="rate">Unified Tax Rate</th>
@@ -65,7 +65,7 @@
                             <tbody>
                                 <tr ng-click="editTax(item);" ng-repeat="item in listUnifiedTax"
                                     ng-class="{'highlight': editableTax.id === item.id}">
-                                    <td class="text-nowrap">{{ ::item.id }}</td>
+<!--                                     <td class="text-nowrap">{{ ::item.id }}</td> -->
                                     <td class="text-nowrap">{{ ::item.from_manufacture_year | date: 'yyyy'  }}</td>
                                     <td class="text-nowrap">{{ ::item.to_manufacture_year | date: 'yyyy' }}</td>
                                     <td class="text-nowrap">{{ ::item.rate }}</td>
