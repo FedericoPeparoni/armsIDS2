@@ -137,7 +137,7 @@ public class AccountViewModel extends VersionedViewModel {
 
     private List<UserViewModel> accountUsers;
     
-    private Integer accountTypeDiscount;
+    private Double accountTypeDiscount;
 
     // these fields don't exist in the table because we use them
     // only on the front-end to show the status of the record,
@@ -531,11 +531,11 @@ public class AccountViewModel extends VersionedViewModel {
         this.whitelistState = whitelistState;
     }
 
-	public Integer getAccountTypeDiscount() {
+	public Double getAccountTypeDiscount() {
 		return accountTypeDiscount;
 	}
 
-	public void setAccountTypeDiscount(Integer accountTypeDiscount) {
+	public void setAccountTypeDiscount(Double accountTypeDiscount) {
 		this.accountTypeDiscount = accountTypeDiscount;
 	}
 }
