@@ -26,12 +26,25 @@ public class UnifiedTaxValidityService extends AbmsCrudService<UnifiedTaxValidit
     @Transactional
     @Override
     public UnifiedTaxValidity create(final UnifiedTaxValidity entity) {
-        
+
+
+        if(entity.getFromValidityYear() == null && entity.getToValidityYear() == null) {
+            throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("You have to specify at least one of the validity start and end date"),
+                    ErrorConstants.ERR_DATE_START);
+        }
         if(entity.getFromValidityYear() != null && entity.getToValidityYear()!= null && entity.getToValidityYear().isBefore(entity.getFromValidityYear())) {
             throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("The validity start date must be before the validity end date"),
                     ErrorConstants.ERR_DATE_START);
         }
-        Integer existingValidities = unifiedTaxValidityRepository.countValiditiesOverlappingFromAndToDates(entity.getFromValidityYear(), entity.getToValidityYear());
+         
+        Integer existingValidities = 0;
+        if (entity.getFromValidityYear() == null) {
+            existingValidities  = unifiedTaxValidityRepository.countValiditiesOverlappingToDate(entity.getToValidityYear());
+        } else if (entity.getToValidityYear() == null) {
+            existingValidities  = unifiedTaxValidityRepository.countValiditiesOverlappingFromDate(entity.getFromValidityYear());
+        } else {
+            existingValidities = unifiedTaxValidityRepository.countValiditiesOverlappingFromAndToDates(entity.getFromValidityYear(), entity.getToValidityYear());
+        }
         if(existingValidities > 0) {
             throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("Dates between the new validity and the existing validities are overlapping"),
                     ErrorConstants.ERR_DATE_OVERLAP);
@@ -42,12 +55,24 @@ public class UnifiedTaxValidityService extends AbmsCrudService<UnifiedTaxValidit
     @Transactional
     @Override
     public UnifiedTaxValidity update(final Integer id, final UnifiedTaxValidity entity) {
-        
+
+
+        if(entity.getFromValidityYear() == null && entity.getToValidityYear() == null) {
+            throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("You have to specify at least one of the validity start and end date"),
+                    ErrorConstants.ERR_DATE_START);
+        }
         if(entity.getFromValidityYear() != null && entity.getToValidityYear()!= null && entity.getToValidityYear().isBefore(entity.getFromValidityYear())) {
             throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("The validity start date must be before the validity end date"),
                     ErrorConstants.ERR_DATE_START);
         }
-        Integer existingOverlappings = unifiedTaxValidityRepository.countValiditiesOverlappingFromAndToDatesExcludingCurrentId(entity.getFromValidityYear(), entity.getToValidityYear(), entity.getId());
+        Integer existingOverlappings = 0;
+        if (entity.getFromValidityYear() == null) {
+            existingOverlappings  = unifiedTaxValidityRepository.countValiditiesOverlappingToDateExcludingCurrentId(entity.getToValidityYear(), entity.getId());
+        } else if (entity.getToValidityYear() == null) {
+            existingOverlappings  = unifiedTaxValidityRepository.countValiditiesOverlappingFromDateExcludingCurrentId(entity.getFromValidityYear(), entity.getId());
+        } else {
+            existingOverlappings = unifiedTaxValidityRepository.countValiditiesOverlappingFromAndToDatesExcludingCurrentId(entity.getFromValidityYear(), entity.getToValidityYear(), entity.getId());
+        }
         if(existingOverlappings > 0) {
             throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("Dates between the updated validity and the existing validities are overlapping"),
                     ErrorConstants.ERR_DATE_OVERLAP);

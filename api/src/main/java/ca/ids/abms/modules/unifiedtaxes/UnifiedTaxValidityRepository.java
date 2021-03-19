@@ -16,13 +16,41 @@ public interface UnifiedTaxValidityRepository extends ABMSRepository<UnifiedTaxV
     UnifiedTaxValidity findByValidityYear(@Param("yearValidity") Timestamp yearValidity);
 
     @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM abms.unified_tax_validity u "
-            + "where (:toValidityYear >= u.from_validity_year AND u.to_validity_year >= :fromValidityYear)")
+            + "where ((:toValidityYear >= u.from_validity_year AND u.to_validity_year >= :fromValidityYear)"
+            + " OR (u.from_validity_year IS NULL AND u.to_validity_year >= :fromValidityYear)"
+            + " OR (u.to_validity_year IS NULL AND :toValidityYear >= u.from_validity_year))")
     Integer countValiditiesOverlappingFromAndToDates(@Param("fromValidityYear")LocalDateTime fromValidityYear,@Param("toValidityYear") LocalDateTime toValidityYear);
     
     @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM abms.unified_tax_validity u "
-            + "where u.id != :utvId and "
-            + "  (:toValidityYear >= u.from_validity_year AND u.to_validity_year >= :fromValidityYear)")
+            + "where (u.from_validity_year IS NULL OR "
+            + ":toValidityYear >= u.from_validity_year"
+            + ")")
+    Integer countValiditiesOverlappingToDate(@Param("toValidityYear") LocalDateTime toValidityYear);
+
+    @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM abms.unified_tax_validity u "
+            + "where (u.to_validity_year IS NULL OR "
+            + "u.to_validity_year >= :fromValidityYear"
+            + ")")
+    Integer countValiditiesOverlappingFromDate(@Param("fromValidityYear") LocalDateTime fromValidityYear);
+    
+    @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM abms.unified_tax_validity u "
+            + "where u.id != :utvId and ((:toValidityYear >= u.from_validity_year AND u.to_validity_year >= :fromValidityYear)"
+            + " OR (u.from_validity_year IS NULL AND u.to_validity_year >= :fromValidityYear)"
+            + " OR (u.to_validity_year IS NULL AND :toValidityYear >= u.from_validity_year))")
     Integer countValiditiesOverlappingFromAndToDatesExcludingCurrentId(@Param("fromValidityYear")LocalDateTime fromValidityYear,
             @Param("toValidityYear") LocalDateTime toValidityYear,@Param("utvId") Integer utvId);
+    
+    @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM abms.unified_tax_validity u "
+            + "where u.id != :utvId and (u.from_validity_year IS NULL OR "
+            + ":toValidityYear >= u.from_validity_year"
+            + ")")
+    Integer countValiditiesOverlappingToDateExcludingCurrentId(@Param("toValidityYear") LocalDateTime toValidityYear, @Param("utvId") Integer utvId);
+
+    @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM abms.unified_tax_validity u "
+            + "where u.id != :utvId and (u.to_validity_year IS NULL OR "
+            + "u.to_validity_year >= :fromValidityYear"
+            + ")")
+    Integer countValiditiesOverlappingFromDateExcludingCurrentId(@Param("fromValidityYear") LocalDateTime fromValidityYear, @Param("utvId") Integer utvId);
+
 
 }

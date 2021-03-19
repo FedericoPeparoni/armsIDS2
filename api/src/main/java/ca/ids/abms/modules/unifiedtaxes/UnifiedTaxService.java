@@ -30,6 +30,10 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
     @Override
     public UnifiedTax create(final UnifiedTax entity) {
 
+        if(entity.getFromManufactureYear() == null && entity.getToManufactureYear() == null) {
+            throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("You have to specify at least one of the manufacture start and end date"),
+                    ErrorConstants.ERR_DATE_START);
+        }
         if(entity.getFromManufactureYear() != null && entity.getToManufactureYear()!= null && entity.getToManufactureYear().isBefore(entity.getFromManufactureYear())) {
             throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("The manufacture start date must be before the manufacture end date"),
                     ErrorConstants.ERR_DATE_START);
@@ -40,7 +44,14 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
                     ErrorConstants.ERR_INVALID_UNIFIED_TAX_VALIDITY);
         }
         entity.setValidity(validity);
-        Integer existingOverlappings = unifiedTaxRepository.countManifactureOverlappingFromAndToDatesOnTheSameValidityPeriod(entity.getFromManufactureYear(), entity.getToManufactureYear(),entity.getValidity().getId());
+        Integer existingOverlappings = 0;
+        if (entity.getFromManufactureYear() == null) {
+            existingOverlappings  = unifiedTaxRepository.countManifactureOverlappingToDateOnTheSameValidityPeriod(entity.getToManufactureYear(),entity.getValidity().getId());
+        } else if (entity.getToManufactureYear() == null) {
+            existingOverlappings  = unifiedTaxRepository.countManifactureOverlappingFromDateOnTheSameValidityPeriod(entity.getFromManufactureYear(),entity.getValidity().getId());
+        } else {
+            existingOverlappings = unifiedTaxRepository.countManifactureOverlappingFromAndToDatesOnTheSameValidityPeriod(entity.getFromManufactureYear(), entity.getToManufactureYear(),entity.getValidity().getId());
+        }
         if(existingOverlappings > 0) {
             throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("Dates between the updated tax and the existing taxes are overlapping"),
                     ErrorConstants.ERR_DATE_OVERLAP);
@@ -52,7 +63,12 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
     @Transactional
     @Override
     public UnifiedTax update(final Integer id, final UnifiedTax entity) {
-        
+
+
+        if(entity.getFromManufactureYear() == null && entity.getToManufactureYear() == null) {
+            throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("You have to specify at least one of the manufacture start and end date"),
+                    ErrorConstants.ERR_DATE_START);
+        }
         if(entity.getFromManufactureYear() != null && entity.getToManufactureYear()!= null && entity.getToManufactureYear().isBefore(entity.getFromManufactureYear())) {
             throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("The manufacture start date must be before the manufacture end date"),
                     ErrorConstants.ERR_DATE_START);
@@ -63,7 +79,14 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
                     ErrorConstants.ERR_INVALID_UNIFIED_TAX_VALIDITY);
         }
         entity.setValidity(validity);
-        Integer existingOverlappings = unifiedTaxRepository.countManifactureOverlappingFromAndToDatesOnTheSameValidityPeriodExcludingCurrentId(entity.getFromManufactureYear(), entity.getToManufactureYear(),entity.getValidity().getId(), entity.getId());
+        Integer existingOverlappings = 0;
+        if (entity.getFromManufactureYear() == null) {
+            existingOverlappings  = unifiedTaxRepository.countManifactureOverlappingToDateOnTheSameValidityPeriodExcludingCurrentId(entity.getToManufactureYear(),entity.getValidity().getId(), entity.getId());
+        } else if (entity.getToManufactureYear() == null) {
+            existingOverlappings  = unifiedTaxRepository.countManifactureOverlappingFromDateOnTheSameValidityPeriodExcludingCurrentId(entity.getFromManufactureYear(),entity.getValidity().getId(), entity.getId());
+        } else {
+            existingOverlappings = unifiedTaxRepository.countManifactureOverlappingFromAndToDatesOnTheSameValidityPeriodExcludingCurrentId(entity.getFromManufactureYear(), entity.getToManufactureYear(),entity.getValidity().getId(), entity.getId());
+        }
         if(existingOverlappings > 0) {
             throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("Dates between the updated tax and the existing taxes are overlapping"),
                     ErrorConstants.ERR_DATE_OVERLAP);

@@ -24,14 +24,42 @@ public interface UnifiedTaxRepository extends ABMSRepository<UnifiedTax, Integer
 
     @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM abms.unified_tax u "
             + "where u.validity_id = :validityId and "
-            + "(:toManufactureYear >= u.from_manufacture_year AND u.to_manufacture_year >= :fromManufactureYear)")
+            + "((:toManufactureYear >= u.from_manufacture_year AND u.to_manufacture_year >= :fromManufactureYear)"
+            + " OR (u.from_manufacture_year IS NULL AND u.to_manufacture_year >= :fromManufactureYear)"
+            + " OR (u.to_manufacture_year IS NULL AND :toManufactureYear >= u.from_manufacture_year))")
     Integer countManifactureOverlappingFromAndToDatesOnTheSameValidityPeriod(@Param("fromManufactureYear") LocalDateTime fromManufactureYear,
             @Param("toManufactureYear") LocalDateTime toManufactureYear,@Param("validityId") Integer validityId);
 
     @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM abms.unified_tax u "
+            + "where u.validity_id = :validityId and (u.from_manufacture_year IS NULL OR "
+            + ":toManufactureYear >= u.from_manufacture_year"
+            + ")")
+    Integer countManifactureOverlappingToDateOnTheSameValidityPeriod(@Param("toManufactureYear") LocalDateTime toManufactureYear, @Param("validityId") Integer validityId);
+
+    @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM abms.unified_tax u "
+            + "where u.validity_id = :validityId and (u.to_manufacture_year IS NULL OR "
+            + "u.to_manufacture_year >= :fromManufactureYear"
+            + ")")
+    Integer countManifactureOverlappingFromDateOnTheSameValidityPeriod(@Param("fromManufactureYear") LocalDateTime fromManufactureYear, @Param("validityId") Integer validityId);
+    
+    @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM abms.unified_tax u "
             + "where u.validity_id = :validityId and u.id != :utId and "
-            + "(:toManufactureYear >= u.from_manufacture_year AND u.to_manufacture_year >= :fromManufactureYear)")
+            + "((:toManufactureYear >= u.from_manufacture_year AND u.to_manufacture_year >= :fromManufactureYear)"
+            + " OR (u.from_manufacture_year IS NULL AND u.to_manufacture_year >= :fromManufactureYear)"
+            + " OR (u.to_manufacture_year IS NULL AND :toManufactureYear >= u.from_manufacture_year))")
     Integer countManifactureOverlappingFromAndToDatesOnTheSameValidityPeriodExcludingCurrentId(
             @Param("fromManufactureYear") LocalDateTime fromManufactureYear, @Param("toManufactureYear")LocalDateTime toManufactureYear, @Param("validityId") Integer validityId, @Param("utId") Integer utId);
+
+    @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM abms.unified_tax u "
+            + "where u.validity_id = :validityId and u.id != :utId and (u.from_manufacture_year IS NULL OR "
+            + ":toManufactureYear >= u.from_manufacture_year"
+            + ")")
+    Integer countManifactureOverlappingToDateOnTheSameValidityPeriodExcludingCurrentId(@Param("toManufactureYear") LocalDateTime toManufactureYear, @Param("validityId") Integer validityId, @Param("utId") Integer utId);
+
+    @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM abms.unified_tax u "
+            + "where u.validity_id = :validityId and u.id != :utId and (u.to_manufacture_year IS NULL OR "
+            + "u.to_manufacture_year >= :fromManufactureYear"
+            + ")")
+    Integer countManifactureOverlappingFromDateOnTheSameValidityPeriodExcludingCurrentId(@Param("fromManufactureYear") LocalDateTime fromManufactureYear, @Param("validityId") Integer validityId, @Param("utId") Integer utId);
 
 }
