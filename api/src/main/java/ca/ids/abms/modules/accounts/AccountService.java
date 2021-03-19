@@ -370,7 +370,7 @@ public class AccountService {
  
 
     private void validateAccountTypeDiscount(Account account) {
-    Integer accountTypeDiscount = account.getAccountTypeDiscount();
+    Double accountTypeDiscount = account.getAccountTypeDiscount();
     if (accountTypeDiscount ==null ) {
     return ;
     }
