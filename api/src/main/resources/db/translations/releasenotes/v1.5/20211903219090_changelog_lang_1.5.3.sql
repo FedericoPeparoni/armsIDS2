@@ -7144,7 +7144,7 @@ select add_languages_by_json('[
 
 {
     "code": "es",
-    "token": " Unified Tax",
+    "token": "Unified Tax",
     "val": "Tasa Unificada",
     "part": "frontend",
     "created_by": "system"
@@ -7152,63 +7152,63 @@ select add_languages_by_json('[
 
 {
     "code": "en",
-    "token": " Start/End",
-    "val": " Start/End",
+    "token": "Start/End",
+    "val": "Start/End",
     "part": "frontend",
     "created_by": "system"
   },
 
 {
     "code": "es",
-    "token": " Start/End",
-    "val": " Inicio/Fin",
+    "token": "Start/End",
+    "val": "Inicio/Fin",
     "part": "frontend",
     "created_by": "system"
   },
 
 {
     "code": "en",
-    "token": " From/To/Unified Tax Rate",
-    "val": " From/To/Unified Tax Rate",
+    "token": "From/To/Unified Tax Rate",
+    "val": "From/To/Unified Tax Rate",
     "part": "frontend",
     "created_by": "system"
   },
 
 {
     "code": "es",
-    "token": " From/To/Unified Tax Rate",
-    "val": " Desde/Hasta/Tasa Unificada",
+    "token": "From/To/Unified Tax Rate",
+    "val": "Desde/Hasta/Tasa Unificada",
     "part": "frontend",
     "created_by": "system"
   },
 
 {
     "code": "en",
-    "token": " Crete a Unified Tax/Edit a Unified Tax",
-    "val": " Crete a Unified Tax/Edit a Unified Tax",
+    "token": "Crete a Unified Tax/Edit a Unified Tax",
+    "val": "Crete a Unified Tax/Edit a Unified Tax",
     "part": "frontend",
     "created_by": "system"
   },
 
 {
     "code": "es",
-    "token": " Crete a Unified Tax/Edit a Unified Tax",
-    "val": " Crear una Tasa Unificada/Editar una Tasa Unificada",
+    "token": "Crete a Unified Tax/Edit a Unified Tax",
+    "val": "Crear una Tasa Unificada/Editar una Tasa Unificada",
     "part": "frontend",
     "created_by": "system"
   },
 
 {
     "code": "en",
-    "token": " Start Period * (YYYY)",
-    "val": " Start Period * (YYYY)",
+    "token": "Start Period * (YYYY)",
+    "val": "Start Period * (YYYY)",
     "part": "frontend",
     "created_by": "system"
   },
 
 {
     "code": "es",
-    "token": " Start Period * (YYYY)",
+    "token": "Start Period * (YYYY)",
     "val": " Período de Inicio * (YYYY)",
     "part": "frontend",
     "created_by": "system"
@@ -7216,32 +7216,32 @@ select add_languages_by_json('[
 
 {
     "code": "en",
-    "token": " End Period * (YYYY)",
-    "val": " Período de Fin * (YYYY)",
+    "token": "End Period * (YYYY)",
+    "val": "Período de Fin * (YYYY)",
     "part": "frontend",
     "created_by": "system"
   },
 
 {
     "code": "es",
-    "token": " End Period * (YYYY)",
-    "val": " Período de Fin * (YYYY)",
+    "token": "End Period * (YYYY)",
+    "val": "Período de Fin * (YYYY)",
     "part": "frontend",
     "created_by": "system"
   },
 
 {
     "code": "en",
-    "token": " Add a Unified Tax Item *",
-    "val": " Add a Unified Tax Item *",
+    "token": "Add a Unified Tax Item *",
+    "val": "Add a Unified Tax Item *",
     "part": "frontend",
     "created_by": "system"
   },
 
 {
     "code": "es",
-    "token": " Add a Unified Tax Item *",
-    "val": " Añadir un ítem de Tasa Unificada *",
+    "token": "Add a Unified Tax Item *",
+    "val": "Añadir un ítem de Tasa Unificada *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -7249,7 +7249,7 @@ select add_languages_by_json('[
 {
     "code": "en",
     "token": "From A/C Manufacturing Year * (YYYY)",
-    "val": " From A/C Manufacturing Year * (YYYY)",
+    "val": "From A/C Manufacturing Year * (YYYY)",
     "part": "frontend",
     "created_by": "system"
   },
@@ -7257,7 +7257,7 @@ select add_languages_by_json('[
 {
     "code": "es",
     "token": "From A/C Manufacturing Year * (YYYY)",
-    "val": " Desde el Año de Fabricación del A/C * (YYYY)",
+    "val": "Desde el Año de Fabricación del A/C * (YYYY)",
     "part": "frontend",
     "created_by": "system"
   },
@@ -7265,7 +7265,7 @@ select add_languages_by_json('[
 {
     "code": "en",
     "token": "To A/C Manufacturing Year * (YYYY)",
-    "val": " To A/C Manufacturing Year * (YYYY)",
+    "val": "To A/C Manufacturing Year * (YYYY)",
     "part": "frontend",
     "created_by": "system"
   },
@@ -7274,25 +7274,48 @@ select add_languages_by_json('[
 {
     "code": "es",
     "token": "To A/C Manufacturing Year * (YYYY)",
-    "val": " Al Año de Fabricación del A/C * (YYYY)",
+    "val": "Al Año de Fabricación del A/C * (YYYY)",
     "part": "frontend",
     "created_by": "system"
   },
 
 {
     "code": "en",
-    "token": " Applicable Unified Tax *",
-    "val": " Applicable Unified Tax *",
+    "token": "Applicable Unified Tax *",
+    "val": "Applicable Unified Tax *",
     "part": "frontend",
     "created_by": "system"
   },
 
 {
     "code": "es",
-    "token": " Applicable Unified Tax *",
-    "val": " Tasa Unificada Aplicable *",
+    "token": "Applicable Unified Tax *",
+    "val": "Tasa Unificada Aplicable *",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+
+{
+    "code": "en",
+    "token": "account type discount",
+    "val": "account type discount",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "account type discount",
+    "val": "descuento por tipo de cuenta",
     "part": "frontend",
     "created_by": "system"
   }
+
+
+
+
+
+
 
 ]');

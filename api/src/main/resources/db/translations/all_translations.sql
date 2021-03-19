@@ -21646,7 +21646,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "End Date Of Invoice *",
-    "val": "Fecha de Finalización de La Factura *",
+    "val": "Fecha de Fin *",
     "part": "frontend",
     "created_by": "system"
   },
