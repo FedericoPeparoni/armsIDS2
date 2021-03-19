@@ -112,7 +112,7 @@
                                         class="form-control" uib-datepicker-popup="yyyy"
                                         ng-model="editableValidity.from_validity_year" is-open="openfromValidityYear"
                                         datepicker-options="{ formatYear: 'yyyy', startingDay: 1, minMode: 'year' }"
-                                        required />
+                                        />
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default"
                                             ng-click="openfromValidityYear = !openfromValidityYear">
@@ -130,7 +130,7 @@
                                         class="form-control" uib-datepicker-popup="yyyy"
                                         ng-model="editableValidity.to_validity_year" is-open="opentoValidityYear"
                                         datepicker-options="{ formatYear: 'yyyy', startingDay: 1, minMode: 'year' }"
-                                        required />
+                                        />
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default"
                                             ng-click="opentoValidityYear =!opentoValidityYear">
@@ -162,7 +162,7 @@
                                     popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
                                     popup-confirm="deleteValidity(editableValidity.id); formValidity.$setUntouched()">Delete
                                 </button>
-                                <button class="btn btn-primary btn-create" translate ng-disabled="formValidity.$invalid"
+                                <button class="btn btn-primary btn-create" translate ng-disabled="formValidity.$invalid && validateValidityDates(editableValidity.from_validity_year, editableValidity.to_validity_year)"
                                     ng-show="editableValidity.id === null"
                                     ng-click="createValidity(editableValidity); formValidity.$setUntouched();">Create
                                 </button>

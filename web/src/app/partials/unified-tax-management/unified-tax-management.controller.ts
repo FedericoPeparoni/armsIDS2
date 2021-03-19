@@ -62,6 +62,7 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     this.$scope.editTax = (tax) => this.editTax(tax);
     this.$scope.resetValidity = () => this.resetValidity();
     this.$scope.resetTax = () => this.resetTax();
+    this.$scope.validateValidityDates = (fromValidityYear, toValidityYear) => this.validateValidityDates(fromValidityYear, toValidityYear);
 
     this.$scope.showTaxes = (validity) => this.showTaxes(validity);
 
@@ -232,6 +233,12 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     return toRet;
   }
 
-
+ protected validateValidityDates (fromValidityYear: String, toValidityYear: String): boolean{
+ 
+    if(fromValidityYear!= null || toValidityYear!=null){
+         return true;
+    } 
+    return false;
+ }
 
 }
