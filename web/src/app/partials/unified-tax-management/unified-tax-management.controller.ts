@@ -225,8 +225,7 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
    */
   protected deleteTax(id: number): ng.IPromise<void> {
     this.service = this.serviceTax;
-     var toRet = super.delete(id);
-    super.delete(id).then(()=> {
+     var toRet = super.delete(id).then(()=> {
           this.showTaxes(this.$scope.selectedValidity);
       });
     this.resetTax();
