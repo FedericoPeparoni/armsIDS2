@@ -7209,7 +7209,7 @@ select add_languages_by_json('[
 {
     "code": "es",
     "token": "Start Period * (YYYY)",
-    "val": " Período de Inicio * (YYYY)",
+    "val": "Período de Inicio * (YYYY)",
     "part": "frontend",
     "created_by": "system"
   },
@@ -7298,23 +7298,36 @@ select add_languages_by_json('[
 
 {
     "code": "en",
-    "token": "account type discount",
-    "val": "account type discount",
+    "token": "Account Type Discount",
+    "val": "Account Type Discount",
     "part": "frontend",
     "created_by": "system"
   },
 
 {
     "code": "es",
-    "token": "account type discount",
-    "val": "descuento por tipo de cuenta",
+    "token": "Account Type Discount",
+    "val": "Descuento Cuenta",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+
+{
+    "code": "en",
+    "token": "Unified Tax Management",
+    "val": "Unified Tax Management",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "Unified Tax Management",
+    "val": "Tasa Unificada",
     "part": "frontend",
     "created_by": "system"
   }
-
-
-
-
 
 
 
