@@ -45,7 +45,6 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
     this.$scope.progressBarValue = 0;
 
     this.setDefaultDate();
-    this.setDefaultAnnuallyDate();
     this.setBillingInterval();
 
 
@@ -188,6 +187,7 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
   private setDefaultFlights(iataStatus: string): void {
     this.$scope.editable.userBillingCenterOnly = iataStatus === 'iata' ? 'false' : 'true';
   }
+
 
   /**
    * Create list of selected accounts ids
@@ -335,6 +335,7 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
     }
     else if (this.$scope.editable.billing_interval === 'PARTIALLY') {
       this.setPartiallyDates();
+      this.setDefaultPartiallyDate();
     }
     else {
       this.setWeeklyDefaultDate();
@@ -416,14 +417,17 @@ private lastDateOfYear(): string {
   }
 
 
-  private setDefaultAnnuallyDate(): void {
+ /**
+   * Set default date for partially billing interval
+   */
+
+  private setDefaultPartiallyDate(): void {
     let today = new Date();
-    console.log(today);
-    let year = today.getFullYear();
-    console.log(year);
-    this.$scope.dateObject = new Date(today.getFullYear(),year - 1);
+    let month = today.getMonth();
+    this.$scope.dateObject = new Date(today.getFullYear(), month );
 
     console.log(this.$scope.dateObject);
+
   }
 
 
@@ -514,9 +518,8 @@ private lastDateOfYear(): string {
       dateDisabled: (data: any): boolean => {
         let date = data.date,
           mode = data.mode;
-        let previousYear =( moment().year() - 1);
-        return mode === 'year' && (date.getFullYear() > previousYear);
-
+        let currentYear =( moment().year() );
+        return mode === 'year' && (date.getFullYear() > currentYear);
       }
 
     };
@@ -532,8 +535,9 @@ private lastDateOfYear(): string {
       dateDisabled: (data: any): boolean => {
         let date = data.date,
           mode = data.mode;
-        let previousYear = moment().year() - 1;
-        return mode == 'month' && (date.getFullYear() > previousYear);
+        let previousYear = moment().year() -1 ;
+        let currentMonth = moment().month();
+        return mode == 'month' && (date.getFullYear() > previousYear && date.getMonth() > currentMonth );
 
       }
     };

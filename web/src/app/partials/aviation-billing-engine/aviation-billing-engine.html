@@ -6,7 +6,7 @@
             <div class="box-content">
                 <fieldset>
                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-2">
+                        <div class="col-xs-12 col-sm-12 col-md-3">
                             <label translate for="invoice_type">Invoice Type *</label>
                             <select id="invoice_type" name="status" ng-change="setBillingInterval(); editable.flights = null; editable.incompleteFlights = null;
                                 setDefaultFlights(editable.iata_status);" ng-model="editable.iata_status" class="form-control" required>
@@ -14,14 +14,14 @@
                                 <option translate value="non-iata">NON-IATA</option>
                             </select>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-2">
+                        <div class="col-xs-12 col-sm-12 col-md-3">
                             <label translate for="account_type">{{'Account Type' | translate }} *</label>
                            <select id="account_type" name="status" ng-init="editable.account_type = 'all'"
                                 ng-change="updateAccounts(editable.account_type); editable.flights = null; editable.incompleteFlights = null; selectedAccounts = []"
                                 ng-model="editable.account_type" class="form-control" required ng-options="item.id as (item.name | translate) for item in accountTypes">
                             </select>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-2">
+                        <div class="col-xs-12 col-sm-12 col-md-3">
                             <label translate for="billing_interval">Billing Interval *</label>
                             <select id="billing_interval" name="billing_interval" class="form-control" ng-model="editable.billing_interval"
                                 ng-change="setMonthlyDates()" required>
@@ -32,7 +32,7 @@
                                 <option ng-if="editable.account_type != 8" translate value="OPEN">Open</option>
                             </select>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-6" ng-show="editable.billing_interval != 'OPEN'">
+                        <div class="col-xs-12 col-sm-12 col-md-3" ng-show="editable.billing_interval != 'OPEN'">
                             <div ng-show="editable.billing_interval === 'WEEKLY'">
                                 <label for="end_date">
                                     {{ 'End Date Of Invoice *' | translate }} (<span translate>yyyy-MM-dd</span>)
@@ -69,6 +69,7 @@
                                     {{ 'Billing period *' | translate }} (<span translate>yyyy</span>)
                                 </label>
                                 <p class="input-group">
+                                    <option value="? string:ANNUALLY ?"></option>
                                 <input id="billing_period_annually" name="billing_period_annually" type="text" ng-pattern="datePickerRegex"  class="form-control"
                                         uib-datepicker-popup="yyyy" ng-model="dateObject" is-open="open" ng-change ="setAnnuallyDates()"
                                         datepicker-options="dateOptionsAnnually"
@@ -98,7 +99,7 @@
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-3"  ng-show="editable.billing_interval === 'OPEN'">
-                            
+
                             <div ng-show="editable.billing_interval === 'OPEN'">
                                 <label for="start_date_open">
                                     {{ 'Start Date *' | translate }} (<span translate>yyyy-MM-dd</span>)
