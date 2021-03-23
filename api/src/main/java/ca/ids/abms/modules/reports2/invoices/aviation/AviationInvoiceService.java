@@ -231,7 +231,7 @@ public class AviationInvoiceService {
             accountIdList,
             billingCenter,
             counter);
-        
+
         final Set<Map.Entry<Account, List<FlightMovement>>> accountsSet = accountFlightMap.entrySet();
 
         if (counter != null) {
@@ -295,7 +295,7 @@ public class AviationInvoiceService {
 
     @SuppressWarnings("squid:S00107")
     @Transactional()
-    
+
     public void generateAviationInvoice (final Account account,
                                          final AviationInvoiceCreator invoiceCreator,
                                          final List<FlightMovement> accountFlights,
@@ -348,7 +348,7 @@ public class AviationInvoiceService {
             final List <AviationInvoice> invoiceList, boolean preview
         ) {
         return mergeDocumentsForPreview (invoiceCreator.getReportFormat(),invoiceCreator.getInvoiceNameSuffix(), currentUser,invoiceList,  preview );
-        
+
     }
     public ReportDocument mergeDocumentsForPreview (
         final ReportFormat reportFormat, String invoiceNameSuffix, final User currentUser,
@@ -903,6 +903,7 @@ public class AviationInvoiceService {
                         .collect (Collectors.toList()),
                     AviationInvoiceData.FlightInfo.class, false);
         case pdf:
+            //
             return reportDocumentCreator.combinePdfFiles (bundleName,
                     invoiceList.stream().map (AviationInvoice::invoiceDocument).collect (Collectors.toList()));
         case docx:
@@ -994,7 +995,7 @@ public class AviationInvoiceService {
         LOG.debug("Find FlightmovementCategory by id : {}", flightCategoryId);
         return flightmovementCategoryRepository.findOne(flightCategoryId);
     }
-    
+
     @Transactional()
     public Boolean processAccountUT(AsyncInvoiceGeneratorScope scope,AccountRepository accountRepository, BillingLedgerService billingLedgerService, AircraftRegistrationService aircraftRegistrationService, Account account, UnifiedTaxService unifiedTaxService, List <AviationInvoice> invoiceList,
              FlightmovementCategory flightmovementCategory,User currentUser) {
@@ -1012,113 +1013,295 @@ public class AviationInvoiceService {
         FormulaEvaluatorUT fe = null;
         UnifiedTax ut = null;
         String rate = null;
-        BillingInterval billingInterval = scope.getBillingInterval();
+        final BillingInterval billingInterval = scope.getBillingInterval();
 
-        LOG.debug("Sono all'interno del metodo processAccountUT");
-        Set<BillingLedger> bilSet = account.getBillingLedgers();
-        // Calcolo fattura
-        for (BillingLedger bl : bilSet) {
-            if (billingInterval == BillingInterval.ANNUALLY) {
-                LOG.debug("billingInterval è ANNUALLY");
-                for (AircraftRegistration ar : account.getAircraftRegistrations()) {
-                    if ((scope.getStartDate() != null) && (scope.getEndDateInclusive() != null)) {
-                        if (!((scope.getStartDate().isBefore(ar.getCoaExpiryDate()))
+        try {
+
+            LOG.debug("Sono all'interno del metodo processAccountUT");
+            Set<BillingLedger> bilSet = account.getBillingLedgers();
+            // Calcolo fattura
+            for (BillingLedger bl : bilSet) {
+                if (billingInterval == BillingInterval.ANNUALLY) {
+                    LOG.debug("billingInterval è ANNUALLY");
+                    processAccountUTBillingIntervalANNUALLY(unifiedTaxService, scope, account, bl, aircraftRegistrationService);
+/*
+                    for (AircraftRegistration ar : account.getAircraftRegistrations()) {
+                        if ((scope.getStartDate() != null) && (scope.getEndDateInclusive() != null)) {
+
+                            if(ar.getCoaExpiryDate() == null && ar.getCoaIssueDate() ==null){
+                                LOG.debug("Il TU non è pagato");
+                            }else if(ar.getCoaExpiryDate() != null || ar.getCoaIssueDate() !=null){
+
+                            }else if (!((scope.getStartDate().isBefore(ar.getCoaExpiryDate()))
                                 && (scope.getStartDate().isAfter(ar.getCoaIssueDate()))
                                 && (scope.getEndDateInclusive().isBefore(ar.getCoaExpiryDate()))
                                 && (scope.getEndDateInclusive().isAfter(ar.getCoaIssueDate()))
                                 && (scope.getStartDate().isBefore(scope.getEndDateInclusive())))) {
-                            LOG.debug("Il TU non è pagato");
-                            aircraftWeight = ar.getMtowOverride();
-                            yearManufacture = ar.getAircraftServiceDate();
-                            if (yearManufacture != null) {
-                                if (scope.getStartDate().getYear() == scope.getEndDateInclusive().getYear()) {
-                                    LocalDateTime nowYear = LocalDateTime.now();
-                                    // settare anno in base a localdatetime (anno mese giorno ora min sec
-                                    // nanosecondi)
-                                    yearValidity = nowYear.of(scope.getStartDate().getYear(), Month.JANUARY, 1, 0, 0,
+                                LOG.debug("Il TU non è pagato");
+                                aircraftWeight = ar.getMtowOverride();
+                                yearManufacture = ar.getAircraftServiceDate();
+                                if (yearManufacture != null) {
+                                    if (scope.getStartDate().getYear() == scope.getEndDateInclusive().getYear()) {
+                                        LocalDateTime nowYear = LocalDateTime.now();
+                                        // settare anno in base a localdatetime (anno mese giorno ora min sec
+                                        // nanosecondi)
+                                        yearValidity = nowYear.of(scope.getStartDate().getYear(), Month.JANUARY, 1, 0, 0,
                                             0);
-                                    try {
-                                        ut = unifiedTaxService.findUnifiedTaxByValidityYearAndManufactureYear(
-                                                yearManufacture, yearValidity);
-                                        
-                                        rate = ut.getRate();
-
-                                        fe = new FormulaEvaluatorUTImpl(new JavascriptEngineUTFactory());
                                         try {
-                                            taxAmount = fe.evalDouble(rate);
-                                        } catch (Exception e) {
-                                            // TODO Auto-generated catch block
-                                            e.printStackTrace();
-                                        }
-                                        if (taxAmount != null) {
-                                            invoiceAmount = (aircraftWeight / 1000) * taxAmount;
-                                            LOG.debug("invoiceAmount è {} ", invoiceAmount);
-                                            bl.setInvoiceAmount(invoiceAmount);
-                                            billingLedgerService.updateBillingLedgerByIdAndInvoiceAmount(bl.getId(),
+                                            ut = unifiedTaxService.findUnifiedTaxByValidityYearAndManufactureYear(
+                                                yearManufacture, yearValidity);
+
+                                            rate = ut.getRate();
+
+                                            fe = new FormulaEvaluatorUTImpl(new JavascriptEngineUTFactory());
+                                            try {
+                                                taxAmount = fe.evalDouble(rate);
+                                            } catch (Exception e) {
+                                                // TODO Auto-generated catch block
+                                                e.printStackTrace();
+                                            }
+                                            if (taxAmount != null) {
+                                                invoiceAmount = (aircraftWeight / 1000) * taxAmount;
+                                                LOG.debug("invoiceAmount è {} ", invoiceAmount);
+                                                bl.setInvoiceAmount(invoiceAmount);
+                                                billingLedgerService.updateBillingLedgerByIdAndInvoiceAmount(bl.getId(),
                                                     invoiceAmount);
-                                            expiry_date = bl.getInvoiceDateOfIssue().plusYears(1);
-                                            LOG.debug(
+                                                expiry_date = bl.getInvoiceDateOfIssue().plusYears(1);
+                                                LOG.debug(
                                                     "AircraftRegistration ha id = {}, date of issue = {} e expiry date = {}",
                                                     ar.getId(), bl.getInvoiceDateOfIssue(), expiry_date);
-                                            aircraftRegistrationService.updateAircraftRegistrationByIdAndDates(
+                                                aircraftRegistrationService.updateAircraftRegistrationByIdAndDates(
                                                     ar.getId(), bl.getInvoiceDateOfIssue(), expiry_date);
-                                            accountProcessed = true;
-                                        } else {
-                                            LOG.debug("invoiceAmount è {} e taxAmount è {} ", invoiceAmount, taxAmount);
+                                                accountProcessed = true;
+                                            } else {
+                                                LOG.debug("invoiceAmount è {} e taxAmount è {} ", invoiceAmount, taxAmount);
+                                            }
+                                        } catch (Exception e) {
+                                            LOG.debug("ut ha valore {}", ut);
                                         }
-                                    } catch(Exception e) {
-                                        LOG.debug("ut ha valore {}", ut);
+                                    } else {
+                                        LOG.debug(
+                                            "l'anno di startDate ha valore = {}, l'anno di endDateInclusive ha valore = {}",
+                                            scope.getStartDate().getYear(), scope.getEndDateInclusive().getYear());
                                     }
                                 } else {
                                     LOG.debug(
-                                            "l'anno di startDate ha valore = {}, l'anno di endDateInclusive ha valore = {}",
-                                            scope.getStartDate().getYear(), scope.getEndDateInclusive().getYear());
-                                }
-                            } else {
-                                LOG.debug(
                                         "la data yearManufacture ha valore = {}, la data startDate ha valore = {}, la data endDateInclusive ha valore = {}",
                                         yearManufacture, scope.getStartDate(), scope.getEndDateInclusive());
+                                }
+                            } else {
+                                LOG.debug("Il TU è pagato");
                             }
                         } else {
-                            LOG.debug("Il TU è pagato");
-                        }
-                    } else {
-                        LOG.debug("startDate ha valore {} e endDateInclusive ha valore {}", scope.getStartDate(),
+                            LOG.debug("startDate ha valore {} e endDateInclusive ha valore {}", scope.getStartDate(),
                                 scope.getEndDateInclusive());
+                        }
                     }
-                }
+*/
 
-            } else {
-                for (AircraftRegistration ar : account.getAircraftRegistrations()) {
-                    if ((scope.getStartDate() != null) && (scope.getEndDateInclusive() != null)) {
-                        if (!((scope.getStartDate().isBefore(ar.getCoaExpiryDate()))
+                } else if(billingInterval == BillingInterval.PARTIALLY) {
+                    processAccountUTBillingIntervalPARTIALLY(scope, account, bl);
+                    /*
+                    for (AircraftRegistration ar : account.getAircraftRegistrations()) {
+                        if ((scope.getStartDate() != null) && (scope.getEndDateInclusive() != null)) {
+                            if (!((scope.getStartDate().isBefore(ar.getCoaExpiryDate()))
                                 && (scope.getStartDate().isAfter(ar.getCoaIssueDate()))
                                 && (scope.getEndDateInclusive().isBefore(ar.getCoaExpiryDate()))
                                 && (scope.getEndDateInclusive().isAfter(ar.getCoaIssueDate()))
                                 && (scope.getStartDate().isBefore(scope.getEndDateInclusive())))) {
-                            LOG.debug("Il TU non è pagato");
-                            if (billingInterval == BillingInterval.PARTIALLY) {
-                                LOG.debug("billingInterval è PARTIALLY");
-                                mesiRimasti = 12 - month;
-                                invoiceAmount = (bl.getInvoiceAmount() / 12.0) * mesiRimasti;
-                                LOG.debug("invoiceAmount è {}:", invoiceAmount);
-                                bl.setInvoiceAmount(invoiceAmount);
-                                billingLedgerService.updateBillingLedgerByIdAndInvoiceAmount(bl.getId(), invoiceAmount);
-                                accountProcessed = true;
+                                LOG.debug("Il TU non è pagato");
+  //                              if (billingInterval == BillingInterval.PARTIALLY) {
+                                    LOG.debug("billingInterval è PARTIALLY");
+                                    mesiRimasti = 12 - month;
+                                    invoiceAmount = (bl.getInvoiceAmount() / 12.0) * mesiRimasti;
+                                    LOG.debug("invoiceAmount è {}:", invoiceAmount);
+                                    bl.setInvoiceAmount(invoiceAmount);
+                                    billingLedgerService.updateBillingLedgerByIdAndInvoiceAmount(bl.getId(), invoiceAmount);
+                                    accountProcessed = true;
+  //                              }
+                            } else {
+                                LOG.debug("Il TU è pagato");
                             }
                         } else {
-                            LOG.debug("Il TU è pagato");
-                        }
-                    } else {
-                        LOG.debug("startDate ha valore {} e endDateInclusive ha valore {}", scope.getStartDate(),
+                            LOG.debug("startDate ha valore {} e endDateInclusive ha valore {}", scope.getStartDate(),
                                 scope.getEndDateInclusive());
+                        }
                     }
+                     */
                 }
+            }
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            throw e;
+        }
+        return accountProcessed;
+    }
+
+    private Boolean processAccountUTBillingIntervalANNUALLY(UnifiedTaxService unifiedTaxService, AsyncInvoiceGeneratorScope scope, Account account, BillingLedger bl, AircraftRegistrationService aircraftRegistrationService){
+   /*
+        Double aircraftWeight = 0.0;
+        LocalDateTime yearManufacture = null;
+        LocalDateTime yearValidity = null;
+        String rate = null;
+        UnifiedTax ut = null;
+        FormulaEvaluatorUT fe = null;
+        Double taxAmount = 0.0;
+        Double invoiceAmount = 0.0;
+        LocalDateTime expiry_date = null;
+     */
+        Boolean accountProcessed = false;
+        LOG.debug("billingInterval è ANNUALLY");
+        for (AircraftRegistration ar : account.getAircraftRegistrations()) {
+            if ((scope.getStartDate() != null) && (scope.getEndDateInclusive() != null)) {
+                if(ar.getCoaExpiryDate() == null && ar.getCoaIssueDate() == null){
+                    LOG.debug("Il TU non è pagato");
+                    processBillingIntervalANNUALLY(unifiedTaxService, ar, scope, bl, aircraftRegistrationService, accountProcessed);
+                }else if(ar.getCoaExpiryDate() != null ^ ar.getCoaIssueDate() !=null){
+                    //The A XOR B operation is equivalent to (A AND !B) OR (!A AND B)
+                    LOG.error("ar.getCoaExpiryDate() != null ^ ar.getCoaIssueDate() !=null");
+                }else if (!((scope.getStartDate().isBefore(ar.getCoaExpiryDate()))
+                    && (scope.getStartDate().isAfter(ar.getCoaIssueDate()))
+                    && (scope.getEndDateInclusive().isBefore(ar.getCoaExpiryDate()))
+                    && (scope.getEndDateInclusive().isAfter(ar.getCoaIssueDate()))
+                    && (scope.getStartDate().isBefore(scope.getEndDateInclusive())))) {
+                    LOG.debug("Il TU non è pagato");
+                    processBillingIntervalANNUALLY(unifiedTaxService, ar, scope, bl, aircraftRegistrationService, accountProcessed);
+                } else {
+                    LOG.debug("Il TU è pagato");
+                }
+            } else {
+                LOG.debug("startDate ha valore {} e endDateInclusive ha valore {}", scope.getStartDate(),
+                    scope.getEndDateInclusive());
             }
         }
         return accountProcessed;
-    } 
-    
+    }
+
+    /**
+     *
+     * @param unifiedTaxService
+     * @param ar
+     * @param scope
+     * @param bl
+     * @param aircraftRegistrationService
+     * @param accountProcessed dal momento che è stato passato come riferimento
+     */
+    private void processBillingIntervalANNUALLY(UnifiedTaxService unifiedTaxService,AircraftRegistration ar, AsyncInvoiceGeneratorScope scope, BillingLedger bl, AircraftRegistrationService aircraftRegistrationService, Boolean accountProcessed){
+        Double aircraftWeight = 0.0;
+        LocalDateTime yearManufacture = null;
+        LocalDateTime yearValidity = null;
+        String rate = null;
+        UnifiedTax ut = null;
+        FormulaEvaluatorUT fe = null;
+        Double taxAmount = 0.0;
+        Double invoiceAmount = 0.0;
+        LocalDateTime expiry_date = null;
+        aircraftWeight = ar.getMtowOverride();
+        yearManufacture = ar.getAircraftServiceDate();
+        if (yearManufacture != null) {
+            if (scope.getStartDate().getYear() == scope.getEndDateInclusive().getYear()) {
+                LocalDateTime nowYear = LocalDateTime.now();
+                // settare anno in base a localdatetime (anno mese giorno ora min sec
+                // nanosecondi)
+                yearValidity = nowYear.of(scope.getStartDate().getYear(), Month.JANUARY, 1, 0, 0,
+                    0);
+                try {
+                    ut = unifiedTaxService.findUnifiedTaxByValidityYearAndManufactureYear(
+                        yearManufacture, yearValidity);
+
+                    rate = ut.getRate();
+
+                    fe = new FormulaEvaluatorUTImpl(new JavascriptEngineUTFactory());
+                    try {
+                        taxAmount = fe.evalDouble(rate);
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    if (taxAmount != null) {
+                        invoiceAmount = (aircraftWeight / 1000) * taxAmount;
+                        LOG.debug("invoiceAmount è {} ", invoiceAmount);
+                        bl.setInvoiceAmount(invoiceAmount);
+                        billingLedgerService.updateBillingLedgerByIdAndInvoiceAmount(bl.getId(),
+                            invoiceAmount);
+                        expiry_date = bl.getInvoiceDateOfIssue().plusYears(1);
+                        LOG.debug(
+                            "AircraftRegistration ha id = {}, date of issue = {} e expiry date = {}",
+                            ar.getId(), bl.getInvoiceDateOfIssue(), expiry_date);
+                        aircraftRegistrationService.updateAircraftRegistrationByIdAndDates(
+                            ar.getId(), bl.getInvoiceDateOfIssue(), expiry_date);
+                        accountProcessed = true;
+                    } else {
+                        LOG.debug("invoiceAmount è {} e taxAmount è {} ", invoiceAmount, taxAmount);
+                    }
+                } catch (Exception e) {
+                    LOG.debug("ut ha valore {}", ut);
+                }
+            } else {
+                LOG.debug(
+                    "l'anno di startDate ha valore = {}, l'anno di endDateInclusive ha valore = {}",
+                    scope.getStartDate().getYear(), scope.getEndDateInclusive().getYear());
+            }
+        } else {
+            LOG.debug(
+                "la data yearManufacture ha valore = {}, la data startDate ha valore = {}, la data endDateInclusive ha valore = {}",
+                yearManufacture, scope.getStartDate(), scope.getEndDateInclusive());
+        }
+    }
+
+
+
+    private Boolean processAccountUTBillingIntervalPARTIALLY(AsyncInvoiceGeneratorScope scope, Account account,  BillingLedger bl){
+        LocalDateTime currentDate = LocalDateTime.now();
+        Double invoiceAmount = 0.0;
+        Integer mesiRimasti = 0;
+        Boolean accountProcessed = false;
+        Integer month = currentDate.getMonthValue();
+        for (AircraftRegistration ar : account.getAircraftRegistrations()) {
+            if(ar.getCoaExpiryDate() == null && ar.getCoaIssueDate() == null){
+                LOG.debug("Il TU non è pagato");
+
+                /*Lo stesso di quello sotto*/
+                LOG.debug("billingInterval è PARTIALLY");
+                mesiRimasti = 12 - month;
+                invoiceAmount = (bl.getInvoiceAmount() / 12.0) * mesiRimasti;
+                LOG.debug("invoiceAmount è {}:", invoiceAmount);
+                bl.setInvoiceAmount(invoiceAmount);
+                billingLedgerService.updateBillingLedgerByIdAndInvoiceAmount(bl.getId(), invoiceAmount);
+                accountProcessed = true;
+
+            }else if(ar.getCoaExpiryDate() != null ^ ar.getCoaIssueDate() !=null){
+                //The A XOR B operation is equivalent to (A AND !B) OR (!A AND B)
+                LOG.error("ar.getCoaExpiryDate() != null ^ ar.getCoaIssueDate() !=null");
+            }else if ((scope.getStartDate() != null) && (scope.getEndDateInclusive() != null)) {
+                if (!((scope.getStartDate().isBefore(ar.getCoaExpiryDate()))
+                    && (scope.getStartDate().isAfter(ar.getCoaIssueDate()))
+                    && (scope.getEndDateInclusive().isBefore(ar.getCoaExpiryDate()))
+                    && (scope.getEndDateInclusive().isAfter(ar.getCoaIssueDate()))
+                    && (scope.getStartDate().isBefore(scope.getEndDateInclusive())))) {
+                    LOG.debug("Il TU non è pagato");
+                    //                              if (billingInterval == BillingInterval.PARTIALLY) {
+                    LOG.debug("billingInterval è PARTIALLY");
+                    mesiRimasti = 12 - month;
+                    invoiceAmount = (bl.getInvoiceAmount() / 12.0) * mesiRimasti;
+                    LOG.debug("invoiceAmount è {}:", invoiceAmount);
+                    bl.setInvoiceAmount(invoiceAmount);
+                    billingLedgerService.updateBillingLedgerByIdAndInvoiceAmount(bl.getId(), invoiceAmount);
+                    accountProcessed = true;
+                    //                              }
+                } else {
+                    LOG.debug("Il TU è pagato");
+                }
+            } else {
+                LOG.debug("startDate ha valore {} e endDateInclusive ha valore {}", scope.getStartDate(),
+                    scope.getEndDateInclusive());
+            }
+        }
+        return accountProcessed;
+    }
+
+
+/* Alessio
     @Transactional(readOnly = true)
     public Boolean previewAccountUT(AsyncInvoiceGeneratorScope scope,AccountRepository accountRepository, BillingLedgerService billingLedgerService, AircraftRegistrationService aircraftRegistrationService, Account account, UnifiedTaxService unifiedTaxService, List <AviationInvoice> invoiceList,
             FlightmovementCategory flightmovementCategory,User currentUser) {
@@ -1128,7 +1311,7 @@ public class AviationInvoiceService {
         LocalDateTime yearManufacture = null;
         LocalDateTime yearValidity = null;
         Double taxAmount = 0.0;
-        Integer accountId = account.getId();
+       //Integer accountId = account.getId();
         Double aircraftWeight = 0.0;
         Double invoiceAmount = 0.0;
         Integer mesiRimasti = 0;
@@ -1138,7 +1321,7 @@ public class AviationInvoiceService {
         String rate = null;
         BillingInterval billingInterval = scope.getBillingInterval();
 
-        LOG.debug("Sono all'interno del metodo processAccountUT");
+        LOG.debug("Sono all'interno del metodo previewAccountUT");
         Set<BillingLedger> bilSet = account.getBillingLedgers();
         // Calcolo fattura
         for (BillingLedger bl : bilSet) {
@@ -1164,7 +1347,7 @@ public class AviationInvoiceService {
                                     try {
                                         ut = unifiedTaxService.findUnifiedTaxByValidityYearAndManufactureYear(
                                                 yearManufacture, yearValidity);
-                                        
+
                                         rate = ut.getRate();
 
                                         fe = new FormulaEvaluatorUTImpl(new JavascriptEngineUTFactory());
@@ -1242,21 +1425,124 @@ public class AviationInvoiceService {
         }
         return accountProcessed;
     }
-    
+*/
+
+    @Transactional(readOnly = true)
+    public Boolean previewAccountUT(AsyncInvoiceGeneratorScope scope,AccountRepository accountRepository, BillingLedgerService billingLedgerService, AircraftRegistrationService aircraftRegistrationService, Account account, UnifiedTaxService unifiedTaxService, List <AviationInvoice> invoiceList,
+                                    FlightmovementCategory flightmovementCategory,User currentUser) {
+        Boolean accountProcessed = false;
+     /*   LocalDateTime currentDate = LocalDateTime.now();
+        LocalDateTime expiry_date = null;
+        LocalDateTime yearManufacture = null;
+        LocalDateTime yearValidity = null;
+        Double taxAmount = 0.0;
+        //Integer accountId = account.getId();
+        Double aircraftWeight = 0.0;
+        Double invoiceAmount = 0.0;
+        Integer mesiRimasti = 0;
+        Integer month = currentDate.getMonthValue();
+        FormulaEvaluatorUT fe = null;
+        UnifiedTax ut = null;
+        String rate = null;
+        */
+        BillingInterval billingInterval = scope.getBillingInterval();
+
+        LOG.debug("Sono all'interno del metodo previewAccountUT");
+        Set<BillingLedger> bilSet = account.getBillingLedgers();
+        // Calcolo fattura
+        for (BillingLedger bl : bilSet) {
+            if (billingInterval == BillingInterval.ANNUALLY) {
+                LOG.debug("billingInterval è ANNUALLY");
+                processAccountUTBillingIntervalANNUALLY(unifiedTaxService, scope, account, bl, aircraftRegistrationService);
+
+                /*
+                for (AircraftRegistration ar : account.getAircraftRegistrations()) {
+                    if ((scope.getStartDate() != null) && (scope.getEndDateInclusive() != null)) {
+                        if(ar.getCoaExpiryDate() == null && ar.getCoaIssueDate() == null){
+                            LOG.debug("Il TU non è pagato");
+                            processBillingIntervalANNUALLY(unifiedTaxService, ar, scope, bl, aircraftRegistrationService, accountProcessed);
+                        }else if(ar.getCoaExpiryDate() != null ^ ar.getCoaIssueDate() !=null){
+                            //The A XOR B operation is equivalent to (A AND !B) OR (!A AND B)
+                            LOG.error("ar.getCoaExpiryDate() != null ^ ar.getCoaIssueDate() !=null");
+                        }else if (!((scope.getStartDate().isBefore(ar.getCoaExpiryDate()))
+                            && (scope.getStartDate().isAfter(ar.getCoaIssueDate()))
+                            && (scope.getEndDateInclusive().isBefore(ar.getCoaExpiryDate()))
+                            && (scope.getEndDateInclusive().isAfter(ar.getCoaIssueDate()))
+                            && (scope.getStartDate().isBefore(scope.getEndDateInclusive())))) {
+                            LOG.debug("Il TU non è pagato");
+                            processBillingIntervalANNUALLY(unifiedTaxService, ar, scope, bl, aircraftRegistrationService, accountProcessed);
+                        } else {
+                            LOG.debug("Il TU è pagato");
+                        }
+                    } else {
+                        LOG.debug("startDate ha valore {} e endDateInclusive ha valore {}", scope.getStartDate(),
+                            scope.getEndDateInclusive());
+                    }
+                }
+*/
+            } else if(billingInterval == BillingInterval.PARTIALLY) {
+                LOG.debug("billingInterval è PARTIALLY");
+                processAccountUTBillingIntervalPARTIALLY(scope, account, bl);
+                /*
+                for (AircraftRegistration ar : account.getAircraftRegistrations()) {
+                    if(ar.getCoaExpiryDate() == null && ar.getCoaIssueDate() == null){
+                        LOG.debug("Il TU non è pagato");
+                        //Lo stesso di quello sotto
+
+                        mesiRimasti = 12 - month;
+                        invoiceAmount = (bl.getInvoiceAmount() / 12.0) * mesiRimasti;
+                        LOG.debug("invoiceAmount è {}:", invoiceAmount);
+                        bl.setInvoiceAmount(invoiceAmount);
+                        billingLedgerService.updateBillingLedgerByIdAndInvoiceAmount(bl.getId(), invoiceAmount);
+                        accountProcessed = true;
+
+                    }else if(ar.getCoaExpiryDate() != null ^ ar.getCoaIssueDate() !=null){
+                        //The A XOR B operation is equivalent to (A AND !B) OR (!A AND B)
+                        LOG.error("ar.getCoaExpiryDate() != null ^ ar.getCoaIssueDate() !=null");
+                    }else if ((scope.getStartDate() != null) && (scope.getEndDateInclusive() != null)) {
+                        if (!((scope.getStartDate().isBefore(ar.getCoaExpiryDate()))
+                            && (scope.getStartDate().isAfter(ar.getCoaIssueDate()))
+                            && (scope.getEndDateInclusive().isBefore(ar.getCoaExpiryDate()))
+                            && (scope.getEndDateInclusive().isAfter(ar.getCoaIssueDate()))
+                            && (scope.getStartDate().isBefore(scope.getEndDateInclusive())))) {
+                            LOG.debug("Il TU non è pagato");
+                                LOG.debug("billingInterval è PARTIALLY");
+                                mesiRimasti = 12 - month;
+                                invoiceAmount = (bl.getInvoiceAmount() / 12.0) * mesiRimasti;
+                                LOG.debug("invoiceAmount è {}:", invoiceAmount);
+                                bl.setInvoiceAmount(invoiceAmount);
+                                billingLedgerService.updateBillingLedgerByIdAndInvoiceAmount(bl.getId(), invoiceAmount);
+                                accountProcessed = true;
+                        } else {
+                            LOG.debug("Il TU è pagato");
+                        }
+                    } else {
+                        LOG.debug("startDate ha valore {} e endDateInclusive ha valore {}", scope.getStartDate(),
+                            scope.getEndDateInclusive());
+                    }
+                }
+                */
+            }
+        }
+        return accountProcessed;
+    }
+
+
+
     @Transactional()
     public Boolean processAccount(AsyncInvoiceGeneratorScope scope, Integer accountId, List <AviationInvoice> invoiceList,
              FlightmovementCategory flightmovementCategory,User currentUser) {
-        
+
         Boolean accountProcessed = false;
         if (scope.getPreview()) {
            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
         List<Integer> accountIds = new ArrayList<>();
         accountIds.add(accountId);
-        
+
         final AviationInvoiceCreator invoiceCreator = this.buildTheInvoiceCreator(scope.getStartDate(), scope.getEndDateInclusive(),
                 scope.getBillingInterval(), nvl (scope.getFormat(), AviationInvoiceService.DFLT_FORMAT), scope.getPreview(), currentUser);
-        
+
         final Map<Account, List<FlightMovement>> accountFlightMap = this.getAccountFlightMap(scope.getFlightCategory(),
                 scope.getBillingInterval(), scope.getStartDate(), scope.getEndDateInclusive(),
                 scope.getUserBillingCenterOnly(), accountIds, currentUser, scope.getInvoiceProgressCounter());
@@ -1278,7 +1564,7 @@ public class AviationInvoiceService {
         if(!fmIds.isEmpty()) {
             lockedList = this.flightMovementRepository.findAllByIdInUpdateSkipLocked(fmIds);
         }
-        
+
         try {
             if(!accountFlightMap.isEmpty()) {
                 this.generateAviationInvoice(sortedAccounts.get(0), invoiceCreator, lockedList, invoiceList, flightmovementCategory,
@@ -1293,21 +1579,21 @@ public class AviationInvoiceService {
             throw e;
         }
         return accountProcessed;
-    } 
-    
+    }
+
     @Transactional(readOnly = true)
     public Boolean previewAccount(AsyncInvoiceGeneratorScope scope, Integer accountId, List <AviationInvoice> invoiceList,
              FlightmovementCategory flightmovementCategory,User currentUser) {
-        
+
         boolean accountProcessed = false;
         List<Integer> accountIds = new ArrayList<>();
         accountIds.add(accountId);
-        
+
         TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 
         final AviationInvoiceCreator invoiceCreator = this.buildTheInvoiceCreator(scope.getStartDate(), scope.getEndDateInclusive(),
                 scope.getBillingInterval(), nvl (scope.getFormat(), AviationInvoiceService.DFLT_FORMAT), scope.getPreview(), currentUser);
-        
+
         final Map<Account, List<FlightMovement>> accountFlightMap = this.getAccountFlightMap(scope.getFlightCategory(),
                 scope.getBillingInterval(), scope.getStartDate(), scope.getEndDateInclusive(),
                 scope.getUserBillingCenterOnly(), accountIds, currentUser, scope.getInvoiceProgressCounter());
@@ -1328,7 +1614,7 @@ public class AviationInvoiceService {
             throw e;
         }
         return accountProcessed;
-    } 
+    }
     public InvoiceStateType getInitialLedgerState(Boolean approvalWorkflow) {
         return reportHelper.getInitialLedgerState(approvalWorkflow);
     }
