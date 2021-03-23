@@ -518,8 +518,9 @@ private lastDateOfYear(): string {
       dateDisabled: (data: any): boolean => {
         let date = data.date,
           mode = data.mode;
-        let currentYear =( moment().year() );
-        return mode === 'year' && (date.getFullYear() > currentYear);
+        let previusYear = (moment().year() -1);
+        let nextYear = (moment().year()+1);
+        return mode === 'year' && (date.getFullYear() > nextYear || date.getFullYear() < previusYear) ;
       }
 
     };
@@ -535,11 +536,18 @@ private lastDateOfYear(): string {
       dateDisabled: (data: any): boolean => {
         let date = data.date,
           mode = data.mode;
-        let previousYear = moment().year() -1 ;
-        let currentMonth = moment().month();
-        return mode == 'month' && (date.getFullYear() > previousYear && date.getMonth() > currentMonth );
+        return mode === 'month' && (  date > moment() );
 
       }
+    };
+  }
+
+  /**
+     * Set date options Open
+     */
+   private dateOptionsOpen(): void {
+    this.$scope.dateOptionsAnnually = {
+      minMode: 'day',
     };
   }
 
