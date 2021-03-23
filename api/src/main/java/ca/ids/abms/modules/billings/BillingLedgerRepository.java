@@ -3,6 +3,7 @@ package ca.ids.abms.modules.billings;
 import ca.ids.abms.config.db.ABMSRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -69,4 +70,9 @@ public interface BillingLedgerRepository extends ABMSRepository<BillingLedger, I
 
     @Query (value = "SELECT COUNT(bl) FROM BillingLedger bl JOIN bl.account ac JOIN ac.accountUsers au WHERE au.id = :userId")
     long countAllForSelfCareUser(@Param ("userId") final int userId);
+    
+    @Modifying
+    @Query("UPDATE BillingLedger SET invoiceAmount = :invoiceAmount where id = :id")
+    void updateBillingLedgerByIdAndInvoiceAmount(@Param("id") Integer id,
+                                             @Param("invoiceAmount") Double invoiceAmount); 
 }

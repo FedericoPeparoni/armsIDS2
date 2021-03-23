@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -77,6 +78,11 @@ public class AircraftRegistrationService {
         } catch (RuntimeException e) {
             throw ExceptionFactory.persistenceDataManagement(e, ErrorConstants.ERR_DELETE_NO_LONGER_EXISTS);
         }
+    }
+    
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+    public void updateAircraftRegistrationByIdAndDates(Integer id, LocalDateTime coa_issue_date, LocalDateTime coa_expiry_date) {
+        aircraftRegistrationRepository.updateAircraftRegistrationByIdAndDates(id, coa_issue_date, coa_expiry_date);
     }
 
     @Transactional(readOnly = true)

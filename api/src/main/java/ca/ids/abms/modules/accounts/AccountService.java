@@ -99,6 +99,12 @@ public class AccountService {
         this.systemConfigurationService = systemConfigurationService;
     }
 
+    @Transactional(readOnly = true)
+    public Account findAccountByIdwithBillingLedgerAndAircraft (final Integer userId) {
+        LOG.debug("Request to get Accounts with BillingLedger and AircraftRegistration for user id={}", userId);
+        return accountRepository.findAccountByIdwithBillingLedgerAndAircraft(userId);
+    }
+
     public void delete(Integer id) {
         LOG.debug("Request to delete Account : {}", id);
         try {
@@ -365,9 +371,9 @@ public class AccountService {
         validateWhitelistingFields(account);
     }
 
-    
-  
- 
+
+
+
 
     private void validateAccountTypeDiscount(Account account) {
     Double accountTypeDiscount = account.getAccountTypeDiscount();
@@ -379,11 +385,11 @@ public class AccountService {
     throw new IllegalArgumentException("the AccountTypeDiscount shall have a value between 0 and 100 ");
     }
     }
-  
-    
-    
-    
-    
+
+
+
+
+
     private void validateWhitelistingFields(Account account) {
         if (account.getWhitelistLastActivityDateTime() == null) {
             account.setWhitelistLastActivityDateTime(LocalDateTime.now());

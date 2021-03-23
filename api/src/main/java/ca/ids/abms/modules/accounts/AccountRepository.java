@@ -24,7 +24,13 @@ public interface AccountRepository extends ABMSRepository<Account, Integer> {
 
     @Query(value="select a.* from accounts a join account_types at on a.account_type = at.id where at.name = :nameAccountType", nativeQuery = true)
     List<Account> findByAccountType(@Param("nameAccountType") String nameAccountType);
-
+    
+    @Query(value="select a.* from abms.accounts a where a.id = :id", nativeQuery = true)
+    Account findAccountById(@Param("id") Integer id);
+    
+    @Query(value="select a from Account a join fetch a.billingLedgers join fetch a.aircraftRegistrations where a.id = :id")
+    Account findAccountByIdwithBillingLedgerAndAircraft(@Param("id") Integer id);
+       
     @Query(value="SELECT a.* FROM accounts a WHERE a.icao_code = ?1", nativeQuery = true)
     Account findByIcaoCode(String icaoCode);
 

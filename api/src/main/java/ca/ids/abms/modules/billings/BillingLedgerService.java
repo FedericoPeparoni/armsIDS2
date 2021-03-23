@@ -954,6 +954,11 @@ public class BillingLedgerService extends AbstractPluginService<BillingLedgerSer
             default: // ignored
         }
     }
+    
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+    public void updateBillingLedgerByIdAndInvoiceAmount(Integer id, Double invoiceAmount) {
+        billingLedgerRepository.updateBillingLedgerByIdAndInvoiceAmount(id, invoiceAmount);
+    }
 
     public long countAllForSelfCareUser(Integer id) {
         return billingLedgerRepository.countAllForSelfCareUser(id);

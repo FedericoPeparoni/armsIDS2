@@ -1,13 +1,27 @@
 package ca.ids.abms.modules.reports2.async;
 
 import ca.ids.abms.config.error.ExceptionFactory;
+import ca.ids.abms.modules.accounts.Account;
+import ca.ids.abms.modules.accounts.AccountRepository;
+import ca.ids.abms.modules.accounts.AccountService;
+import ca.ids.abms.modules.aircraft.AircraftRegistration;
+import ca.ids.abms.modules.aircraft.AircraftRegistrationRepository;
+import ca.ids.abms.modules.aircraft.AircraftRegistrationService;
+import ca.ids.abms.modules.billings.BillingLedger;
+import ca.ids.abms.modules.billings.BillingLedgerRepository;
+import ca.ids.abms.modules.billings.BillingLedgerService;
 import ca.ids.abms.modules.common.enumerators.InvoiceStateType;
 import ca.ids.abms.modules.flightmovements.category.FlightmovementCategory;
 import ca.ids.abms.modules.jobs.ItemProcessor;
 import ca.ids.abms.modules.reports2.common.ReportHelper;
 import ca.ids.abms.modules.reports2.invoices.aviation.AviationInvoice;
 import ca.ids.abms.modules.reports2.invoices.aviation.AviationInvoiceService;
+import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxRepository;
+import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxService;
 import ca.ids.abms.modules.users.User;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.time.ZonedDateTime;
@@ -20,10 +34,35 @@ import static ca.ids.abms.util.MiscUtils.nvl;
 @Component
 public class AsyncInvoiceGeneratorProcessor implements ItemProcessor<AsyncInvoiceGeneratorScope> {
 
-    private final AviationInvoiceService aviationInvoiceService;
+    private static final Logger LOG = LoggerFactory.getLogger(AviationInvoiceService.class);
 
-    public AsyncInvoiceGeneratorProcessor(final AviationInvoiceService aviationInvoiceService) {
+    private final AviationInvoiceService aviationInvoiceService;
+    private final AccountRepository accountRepository;
+    private final BillingLedgerService billingLedgerService;
+    private final AircraftRegistrationRepository aircraftRegistrationRepository;
+    private final UnifiedTaxRepository unifiedTaxRepository;
+    private final AccountService accountService;
+    private final UnifiedTaxService unifiedTaxService;
+    private final AircraftRegistrationService aircraftRegistrationService;
+
+//    public AsyncInvoiceGeneratorProcessor(final AviationInvoiceService aviationInvoiceService) {
+//        this.aviationInvoiceService = aviationInvoiceService;
+//    }
+    
+    public AsyncInvoiceGeneratorProcessor(final AccountRepository accountRepository,
+            final AccountService accountService, final AviationInvoiceService aviationInvoiceService,
+            final BillingLedgerService billingLedgerService,
+            final AircraftRegistrationRepository aircraftRegistrationRepository,
+            final UnifiedTaxRepository unifiedTaxRepository, final UnifiedTaxService unifiedTaxService,
+            final AircraftRegistrationService aircraftRegistrationService) {
         this.aviationInvoiceService = aviationInvoiceService;
+        this.accountService = accountService;
+        this.accountRepository = accountRepository;
+        this.billingLedgerService = billingLedgerService;
+        this.aircraftRegistrationRepository = aircraftRegistrationRepository;
+        this.unifiedTaxRepository = unifiedTaxRepository;
+        this.unifiedTaxService = unifiedTaxService;
+        this.aircraftRegistrationService = aircraftRegistrationService;
     }
     
     public AsyncInvoiceGeneratorScope processItem (final AsyncInvoiceGeneratorScope scope) {
@@ -44,21 +83,69 @@ public class AsyncInvoiceGeneratorProcessor implements ItemProcessor<AsyncInvoic
         // Process an account per time and notify if some error has been found
         final List <AviationInvoice> invoiceList = new ArrayList<>();
         scope.getInvoiceProgressCounter().setMessage("Generating the invoices");
-        if(scope.getAccountIdList() != null) {
+        if (scope.getAccountIdList() != null) {
+            List<Integer> accountUTlist = new ArrayList<>();
+            List<Integer> accountNotUTlist = new ArrayList<>();
+            // List <Account> accountList = new ArrayList<>();
+            Account account = null;
             scope.getInvoiceProgressCounter().resetAccountsTotal(scope.getAccountIdList().size());
-        
-            for (final Integer accountId: scope.getAccountIdList()) {
-                Boolean result;
-                scope.getInvoiceProgressCounter().increaseAccountNumber();
-                if(scope.getPreview()) {
-                    result  = aviationInvoiceService.previewAccount(scope, accountId, invoiceList, flightmovementCategory, currentUser);
+
+            for (Integer accountId : scope.getAccountIdList()) {
+                account = accountRepository.findAccountById(accountId);
+                if (account != null) {
+                    if (account.getAccountType().getName().equals("Unified Tax"))
+                        accountUTlist.add(accountId);
                 } else {
-                    result  = aviationInvoiceService.processAccount(scope, accountId, invoiceList, flightmovementCategory, currentUser);
+                    accountNotUTlist.add(accountId);
                 }
-                if(result) {
+            }
+            Account a = null;
+            BillingLedger bl = null;
+            LOG.debug("Sono in AsyncInvoiceGeneratorProcessor");
+            for (final Integer accountId : accountUTlist) {
+                Boolean result;
+                LOG.debug("Sono all'interno del for di accountUTlist");
+                Integer aI = accountId.intValue();
+                LOG.debug("l' accountId è {} ", accountId);
+                // a = accountRepository.findAccountById(aI);
+                a = accountService.findAccountByIdwithBillingLedgerAndAircraft(aI);
+                if (scope.getPreview()) {
+                    result = aviationInvoiceService.previewAccountUT(scope, accountRepository, billingLedgerService,
+                            aircraftRegistrationService, a, unifiedTaxService, invoiceList, flightmovementCategory,
+                            currentUser);
+                } else {
+
+                    result = aviationInvoiceService.processAccountUT(scope, accountRepository, billingLedgerService,
+                            aircraftRegistrationService, a, unifiedTaxService, invoiceList, flightmovementCategory,
+                            currentUser);
+                }
+                if (result) {
                     scope.getInvoiceProgressCounter().increaseProcessed();
                 } else {
                     scope.getInvoiceProgressCounter().increaseDiscarded();
+                }
+            }
+
+            for (final Integer accountId : accountNotUTlist) {
+                Boolean result;
+                LOG.debug("Sono all'interno del for di accountNotUTlist");
+                LOG.debug("l' accountId è {} ", accountId);
+                scope.getInvoiceProgressCounter().increaseAccountNumber();
+                try {
+                    if (scope.getPreview()) {
+                        result = aviationInvoiceService.previewAccount(scope, accountId, invoiceList,
+                                flightmovementCategory, currentUser);
+                    } else {
+                        result = aviationInvoiceService.processAccount(scope, accountId, invoiceList,
+                                flightmovementCategory, currentUser);
+                    }
+                    if (result) {
+                        scope.getInvoiceProgressCounter().increaseProcessed();
+                    } else {
+                        scope.getInvoiceProgressCounter().increaseDiscarded();
+                    }
+                } catch (Exception e) {
+                    LOG.debug("Il processo non è andato a buon fine");
                 }
             }
         }
