@@ -1206,9 +1206,19 @@ public class AviationInvoiceCreator {
             final boolean createdFromPointOfSale) {
 
         final LocalDateTime dueDate = ldtNow.plusDays (account.getPaymentTerms());
-        final double exchangeRate = cachedCurrencyConverter.getExchangeRate (invoiceCurrency, targetCurrency);
-        final double exchangeRateToAnsp = cachedCurrencyConverter.getExchangeRate (invoiceCurrency, anspCurrency);
 
+		final double exchangeRate;
+		final double exchangeRateToAnsp;
+		
+		if (billingInterval == BillingInterval.ANNUALLY || billingInterval == BillingInterval.PARTIALLY) {
+ 			exchangeRate = currencyUtils.getApplicableRate(invoiceCurrency, targetCurrency, startDate);
+			exchangeRateToAnsp = currencyUtils.getApplicableRate (invoiceCurrency, anspCurrency, startDate);
+		}
+		else {
+ 			exchangeRate = cachedCurrencyConverter.getExchangeRate (invoiceCurrency, targetCurrency);
+			exchangeRateToAnsp = cachedCurrencyConverter.getExchangeRate (invoiceCurrency, anspCurrency);
+		}
+        
         // Map of invoice flight data indexed by flight ID
         final Map <Integer, AviationInvoiceData.FlightInfo> flightInfoMap = new HashMap<>();
         invoiceData.flightInfoList.forEach(fi-> flightInfoMap.put(fi.flightMovementId, fi));
