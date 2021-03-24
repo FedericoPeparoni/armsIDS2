@@ -69,7 +69,6 @@
                                     {{ 'Billing period *' | translate }} (<span translate>yyyy</span>)
                                 </label>
                                 <p class="input-group">
-                                    <option value="? string:ANNUALLY ?"></option>
                                 <input id="billing_period_annually" name="billing_period_annually" type="text" ng-pattern="datePickerRegex"  class="form-control"
                                         uib-datepicker-popup="yyyy" ng-model="dateObject" is-open="open" ng-change ="setAnnuallyDates()"
                                         datepicker-options="dateOptionsAnnually"
@@ -106,7 +105,7 @@
                                 </label>
                                 <p class="input-group">
                                     <date-picker id="start_date_open" name="start_date_open" type="text" ng-pattern="datePickerRegex" show-button-bar="false" class="form-control"
-                                        uib-datepicker-popup="{{ dateFormat }}" ng-model="editable.start_date" is-open="startopen" datepicker-options="dateOptions"
+                                        uib-datepicker-popup="{{ dateFormat }}" ng-model="editable.start_date" is-open="startopen" datepicker-options="dateOptionsOpen"
                                         close-text="Close" required>
                                     </date-picker>
                                     <span class="input-group-btn">
@@ -124,7 +123,7 @@
                                 </label>
                                 <p class="input-group">
                                     <date-picker id="end_date_open" name="end_date_open" type="text" ng-pattern="datePickerRegex" show-button-bar="false" class="form-control"
-                                        uib-datepicker-popup="{{ dateFormat }}" ng-model="editable.end_date" is-open="endopen" datepicker-options="dateOptions"
+                                        uib-datepicker-popup="{{ dateFormat }}" ng-model="editable.end_date" is-open="endopen" datepicker-options="dateOptionsOpen"
                                         close-text="Close" required>
                                     </date-picker>
                                     <span class="input-group-btn">

@@ -3,6 +3,7 @@ package ca.ids.abms.modules.reports2.invoices.aviation;
 import ca.ids.abms.config.error.CustomParametrizedException;
 import ca.ids.abms.modules.accounts.Account;
 import ca.ids.abms.modules.aircraft.AircraftRegistration;
+import ca.ids.abms.modules.aircraft.AircraftRegistrationService;
 import ca.ids.abms.modules.bankcode.BankCodeService;
 import ca.ids.abms.modules.billingcenters.BillingCenter;
 import ca.ids.abms.modules.billings.BillingLedger;
@@ -15,6 +16,8 @@ import ca.ids.abms.modules.flightmovements.category.FlightmovementCategory;
 import ca.ids.abms.modules.flightmovements.enumerate.FlightMovementType;
 import ca.ids.abms.modules.flightmovementsbuilder.utility.Item18Parser;
 import ca.ids.abms.modules.flightmovementsbuilder.vo.DeltaFlightVO;
+import ca.ids.abms.modules.formulas.unifiedtax.FormulaEvaluatorUTImpl;
+import ca.ids.abms.modules.formulas.unifiedtax.JavascriptEngineUTFactory;
 import ca.ids.abms.modules.jobs.impl.InvoiceProgressCounter;
 import ca.ids.abms.modules.reports2.common.*;
 import ca.ids.abms.modules.reports2.invoices.ChargeSelection;
@@ -30,6 +33,8 @@ import ca.ids.abms.modules.transactions.Transaction;
 import ca.ids.abms.modules.transactions.TransactionPaymentMechanism;
 import ca.ids.abms.modules.transactions.TransactionService;
 import ca.ids.abms.modules.translation.Translation;
+import ca.ids.abms.modules.unifiedtaxes.UnifiedTax;
+import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxService;
 import ca.ids.abms.modules.users.User;
 import ca.ids.abms.modules.util.models.CurrencyUtils;
 import ca.ids.abms.modules.utilities.invoices.InvoiceSequenceNumberHelper;
@@ -57,6 +62,8 @@ public class AviationInvoiceCreator {
 
     private final ReportHelper reportHelper;
     private final BillingLedgerService billingLedgerService;
+    private final UnifiedTaxService unifiedTaxService;
+    private final AircraftRegistrationService aircraftRegistrationService;
     private final AviationInvoiceDocumentCreator aviationInvoiceDocumentCreator;
     private final TransactionService transactionService;
     private final LocalDateTime ldtNow;
@@ -97,6 +104,8 @@ public class AviationInvoiceCreator {
 
     AviationInvoiceCreator(final ReportHelper reportHelper,
                            final BillingLedgerService billingLedgerService,
+                           final UnifiedTaxService unifiedTaxService,
+                           final AircraftRegistrationService aircraftRegistrationService,
                            final AviationInvoiceDocumentCreator aviationInvoiceDocumentCreator,
                            final TransactionService transactionService,
                            final InvoiceSequenceNumberHelper invoiceSequenceNumberHelper,
@@ -118,6 +127,8 @@ public class AviationInvoiceCreator {
 
         this.reportHelper = reportHelper;
         this.billingLedgerService = billingLedgerService;
+        this.unifiedTaxService = unifiedTaxService;
+        this.aircraftRegistrationService = aircraftRegistrationService;
         this.aviationInvoiceDocumentCreator = aviationInvoiceDocumentCreator;
         this.transactionService = transactionService;
         this.ldtNow = ldtNow;
@@ -401,8 +412,10 @@ public class AviationInvoiceCreator {
 	        for (final AircraftRegistration ar: aircraftRegistrationsToInvoiceByUnifiedTax) {
 	        	// TODO: manage counter update
 	
-	            final AviationInvoiceData.AircraftInfo aircraftInfo = processAircraftRegistration(ar, account, aviationInvoiceCurrency);
-	            invoiceData.aircraftInfoList.add(aircraftInfo);
+	        	if (ar.getAircraftServiceDate()!=null) {
+	        		final AviationInvoiceData.AircraftInfo aircraftInfo = processAircraftRegistration(ar, account, startDate, endDateInclusive, aviationInvoiceCurrency);
+	        		invoiceData.aircraftInfoList.add(aircraftInfo);
+	        	}
 	        }
         }
         
@@ -649,19 +662,42 @@ public class AviationInvoiceCreator {
     }
 
     private AircraftInfo processAircraftRegistration(final AircraftRegistration ar, 
-    												 final Account account, 
+    												 final Account account,
+    												 final LocalDateTime startDate,
+    												 final LocalDateTime endDateInclusive,
     												 final Currency aviationInvoiceCurrency) {
-        AviationInvoiceData.AircraftInfo aircraftInfo = new AviationInvoiceData.AircraftInfo();
+        
+    	AviationInvoiceData.AircraftInfo aircraftInfo = new AviationInvoiceData.AircraftInfo();
         aircraftInfo.manufacturer = ar.getAircraftType().getManufacturer();
-        if (ar.getAircraftServiceDate()!=null)
-        	aircraftInfo.manufactureYearStr = reportHelper.formatYear(ar.getAircraftServiceDate());
+        aircraftInfo.manufactureYearStr = reportHelper.formatYear(ar.getAircraftServiceDate());
         aircraftInfo.weight = ar.getMtowOverride();
         
-        aircraftInfo.unifiedTaxCharges
+        aircraftInfo.unifiedTaxCharges = 0.;
         
         try {
-            ut = unifiedTaxService.findUnifiedTaxByValidityYearAndManufactureYear(
-                yearManufacture, yearValidity);
+        	
+        	LocalDateTime yearManufacture = ar.getAircraftServiceDate();
+            UnifiedTax ut = unifiedTaxService.findUnifiedTaxByValidityYearAndManufactureYear(startDate, yearManufacture);
+            
+            String rate = ut.getRate();
+
+            Double taxAmount = null;
+            FormulaEvaluatorUTImpl fe = new FormulaEvaluatorUTImpl(new JavascriptEngineUTFactory());
+            try {
+                taxAmount = fe.evalDouble(rate);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            
+            if (taxAmount != null) {
+                aircraftInfo.unifiedTaxCharges = (aircraftInfo.weight / 1000) * taxAmount;
+
+                aircraftRegistrationService.updateAircraftRegistrationCOAByIdAndDates(
+                    ar.getId(), startDate, endDateInclusive);
+            }            
+        } 
+        catch(Exception e) {
         }
 
         return aircraftInfo;

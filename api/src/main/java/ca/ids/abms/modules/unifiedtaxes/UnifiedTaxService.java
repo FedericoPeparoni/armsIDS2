@@ -100,7 +100,7 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
     }
 
     @Transactional(readOnly = true)
-    public UnifiedTax findUnifiedTaxByValidityYearAndManufactureYear(LocalDateTime yearManufacture, LocalDateTime yearValidity) {
+    public UnifiedTax findUnifiedTaxByValidityYearAndManufactureYear(LocalDateTime yearValidity, LocalDateTime yearManufacture) {
 
         Timestamp timestampManufacture = Timestamp.valueOf(yearManufacture);
         UnifiedTaxValidity unifiedTaxValidity = unifiedTaxValidityService.findUnifiedTaxValidityByYear(yearValidity);

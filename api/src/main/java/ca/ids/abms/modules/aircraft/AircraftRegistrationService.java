@@ -81,8 +81,8 @@ public class AircraftRegistrationService {
     }
     
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-    public void updateAircraftRegistrationByIdAndDates(Integer id, LocalDateTime coa_issue_date, LocalDateTime coa_expiry_date) {
-        aircraftRegistrationRepository.updateAircraftRegistrationByIdAndDates(id, coa_issue_date, coa_expiry_date);
+    public void updateAircraftRegistrationCOAByIdAndDates(Integer id, LocalDateTime coa_issue_date, LocalDateTime coa_expiry_date) {
+        aircraftRegistrationRepository.updateAircraftRegistrationCOAByIdAndDates(id, coa_issue_date, coa_expiry_date);
     }
 
     @Transactional(readOnly = true)

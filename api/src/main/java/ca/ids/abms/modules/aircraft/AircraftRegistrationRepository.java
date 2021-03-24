@@ -82,7 +82,7 @@ public interface AircraftRegistrationRepository extends ABMSRepository<AircraftR
     
     @Modifying
     @Query("UPDATE AircraftRegistration SET coaIssueDate = :coa_issue_date, coaExpiryDate = :coa_expiry_date where id = :id")
-    void updateAircraftRegistrationByIdAndDates(@Param("id") Integer id,
+    void updateAircraftRegistrationCOAByIdAndDates(@Param("id") Integer id,
                                              @Param("coa_issue_date") LocalDateTime coa_issue_date,
                                              @Param("coa_expiry_date") LocalDateTime coa_expiry_date); 
     
