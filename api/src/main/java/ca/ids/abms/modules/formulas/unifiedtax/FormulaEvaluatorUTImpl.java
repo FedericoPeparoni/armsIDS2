@@ -19,17 +19,26 @@ import com.google.common.base.Preconditions;
 @Service
 public
 class FormulaEvaluatorUTImpl implements FormulaEvaluatorUT {
-	
+
 	public FormulaEvaluatorUTImpl (final JavascriptEngineUTFactory javascriptEngineFactory) {
 		this.javascriptEngineFactory = javascriptEngineFactory;
 	}
-	
+
     @Override
     public double evalDouble (final String formula) throws Exception {
-        return (Double)do_eval (formula, null);
+        Object value = do_eval (formula, null);
+	    if(value instanceof Double){
+            return (Double)value;
+        }else if (value instanceof Integer) {
+           return  ((Integer)value).doubleValue();
+        }else{
+	       logger.error("do_eval (formula, null) error");
+	       throw new RuntimeException("do_eval (formula, null) error");
+        }
+
     }
-        
-	
+
+
 	private Object do_eval (final String script, final Map <String, Object> vars) throws Exception {
 		Preconditions.checkNotNull (script);
 		final ScriptEngine e = do_createScriptEngine();
@@ -44,16 +53,16 @@ class FormulaEvaluatorUTImpl implements FormulaEvaluatorUT {
 		final String dollarScript = convertVarRefs (script, vars);
 		final String fullScript = prologue + "\n" + dollarScript;
 		logger.trace ("Evaluating formula \"{}\" ; vars={}", script, vars);
-		
-		Object result = e.eval (fullScript); 
+
+		Object result = e.eval (fullScript);
 		if (result.equals(Double.NaN)) {
-			throw new CustomParametrizedException("Formula returns NaN value");	
+			throw new CustomParametrizedException("Formula returns NaN value");
 		}
 		return result;
 	}
-	
 
-	
+
+
 	private static final Pattern RE_VAR_REF = Pattern.compile ("\\[\\s*?([a-zA-Z][a-zA-Z0-9_]*)\\s*?\\]");
 	private static String convertVarRefs (final String script, final Map <String, Object> vars) throws Exception {
 	    final Matcher m = RE_VAR_REF.matcher (script);
@@ -84,7 +93,7 @@ class FormulaEvaluatorUTImpl implements FormulaEvaluatorUT {
 	    }
 	    return null;
 	}
-	
+
 	private ScriptEngine do_createScriptEngine() {
         final ScriptEngine e = javascriptEngineFactory.createScriptEngine();
         return e;
@@ -92,5 +101,5 @@ class FormulaEvaluatorUTImpl implements FormulaEvaluatorUT {
 
 	private final Logger logger = LoggerFactory.getLogger (FormulaEvaluatorUTImpl.class);
 	private JavascriptEngineUTFactory javascriptEngineFactory;
-	
+
 }

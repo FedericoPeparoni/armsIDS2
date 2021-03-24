@@ -145,7 +145,14 @@ public class AviationInvoiceCreator {
         this.endDateInclusive = endDateInclusive;
         this.billingInterval = billingInterval;
 
-        this.cachedCurrencyConverter = new CachedCurrencyConverter(currencyUtils, endDateInclusive);
+            if(billingInterval == BillingInterval.PARTIALLY || billingInterval == BillingInterval.ANNUALLY){
+                this.cachedCurrencyConverter = new CachedCurrencyConverter(currencyUtils, startDate);
+            }else{
+                this.cachedCurrencyConverter = new CachedCurrencyConverter(currencyUtils, endDateInclusive);
+
+            }
+
+
         this.invoiceReportUtility = new InvoiceReportUtility(reportHelper, billingLedgerService, transactionService,
                 systemConfigurationService, cachedCurrencyConverter, bankCodeService, aviationInvoiceChargeProviders);
         this.systemConfigurationService = systemConfigurationService;
@@ -177,7 +184,7 @@ public class AviationInvoiceCreator {
      */
     public AviationInvoice createInvoice(final Account account,
                                          final List <FlightMovement> accountFlights,
-                                         final List <AircraftRegistration> aircraftRegistrationsToInvoiceByUnifiedTax,                                         
+                                         final List <AircraftRegistration> aircraftRegistrationsToInvoiceByUnifiedTax,
                                          final InvoicePaymentParameters payment,
                                          final ChargeSelection chargeSelection,
                                          final FlightmovementCategory flightmovementCategory,
@@ -266,7 +273,7 @@ public class AviationInvoiceCreator {
         }
         return aviationInvoice;
     }
-   
+
     /**
      * Create payment for the invoice
      */
@@ -299,7 +306,7 @@ public class AviationInvoiceCreator {
      */
     private AviationInvoiceData do_createInvoiceData(final Account account,
                                                      final List <FlightMovement> accountFlights,
-                                                     final List <AircraftRegistration> aircraftRegistrationsToInvoiceByUnifiedTax, 
+                                                     final List <AircraftRegistration> aircraftRegistrationsToInvoiceByUnifiedTax,
                                                      final ChargeSelection chargesIncluded,
                                                      final InvoicePaymentParameters payment,
                                                      final Currency aviationInvoiceCurrency,
@@ -407,18 +414,20 @@ public class AviationInvoiceCreator {
                 }
             }
         }
-        
+
+        invoiceData.aircraftInfoList = new ArrayList<>();
+
         if (aircraftRegistrationsToInvoiceByUnifiedTax != null) {
 	        for (final AircraftRegistration ar: aircraftRegistrationsToInvoiceByUnifiedTax) {
 	        	// TODO: manage counter update
-	
+
 	        	if (ar.getAircraftServiceDate()!=null) {
 	        		final AviationInvoiceData.AircraftInfo aircraftInfo = processAircraftRegistration(ar, account, startDate, endDateInclusive, aviationInvoiceCurrency);
 	        		invoiceData.aircraftInfoList.add(aircraftInfo);
 	        	}
 	        }
         }
-        
+
         if (invoiceData.invoiceGenerationAllowed) {
 
             // additional charges
@@ -471,7 +480,7 @@ public class AviationInvoiceCreator {
             // sub-totals for Overflight Flight Category
             AviationInvoiceData.Global.FlightCategoryInfo overflightData = new AviationInvoiceData.Global.FlightCategoryInfo();
             Double overflightTotalCharges;
-            
+
             List<String> flightMovementCategoryScope = new ArrayList<>();
 
             // loop through each flight info and add to sub totals
@@ -519,11 +528,11 @@ public class AviationInvoiceCreator {
 
                 if (fi.flightCategory.equals("OV")) {
                     setSubtotalsByFlightCategories(fi, overflightData);
-                }   
-                
-                if (fi.flightMovementCategoryScope != null) { 
+                }
+
+                if (fi.flightMovementCategoryScope != null) {
                 	flightMovementCategoryScope.add(fi.flightMovementCategoryScope);
-                }	
+                }
             }
 
 	        if (billingOrgCode == BillingOrgCode.CADSUR) {
@@ -661,24 +670,24 @@ public class AviationInvoiceCreator {
         return invoiceData;
     }
 
-    private AircraftInfo processAircraftRegistration(final AircraftRegistration ar, 
+    private AircraftInfo processAircraftRegistration(final AircraftRegistration ar,
     												 final Account account,
     												 final LocalDateTime startDate,
     												 final LocalDateTime endDateInclusive,
     												 final Currency aviationInvoiceCurrency) {
-        
+
     	AviationInvoiceData.AircraftInfo aircraftInfo = new AviationInvoiceData.AircraftInfo();
         aircraftInfo.manufacturer = ar.getAircraftType().getManufacturer();
         aircraftInfo.manufactureYearStr = reportHelper.formatYear(ar.getAircraftServiceDate());
         aircraftInfo.weight = ar.getMtowOverride();
-        
+
         aircraftInfo.unifiedTaxCharges = 0.;
-        
+
         try {
-        	
+
         	LocalDateTime yearManufacture = ar.getAircraftServiceDate();
             UnifiedTax ut = unifiedTaxService.findUnifiedTaxByValidityYearAndManufactureYear(startDate, yearManufacture);
-            
+
             String rate = ut.getRate();
 
             Double taxAmount = null;
@@ -689,14 +698,14 @@ public class AviationInvoiceCreator {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            
+
             if (taxAmount != null) {
                 aircraftInfo.unifiedTaxCharges = (aircraftInfo.weight / 1000) * taxAmount;
 
                 aircraftRegistrationService.updateAircraftRegistrationCOAByIdAndDates(
                     ar.getId(), startDate, endDateInclusive);
-            }            
-        } 
+            }
+        }
         catch(Exception e) {
         }
 
@@ -809,7 +818,7 @@ public class AviationInvoiceCreator {
         flightInfo.entryPoint = entryPoint;
         flightInfo.exitPoint = exitPoint;
         flightInfo.midPoints = midPoints;
-        
+
         String entryTime = null;
         String exitTime = null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -849,14 +858,14 @@ public class AviationInvoiceCreator {
         flightInfo.taspTypeMilitary = ft.contains("M");
 
         flightInfo.departureLocation = reportHelper.getLocation(fm, true);
-        
+
         flightInfo.departureTimeStr = reportHelper.formatFlightTime(fm.getDepTime());
         flightInfo.actualDepartureTimeStr = reportHelper.formatFlightTime(fm.getActualDepartureTime());
 
         // destination aerodrome/time OR first item18 DEST/ point if destination aerodrome is 'ZZZZ' OR last if delta
         final DeltaFlightVO item18DeltaDest = fm.getDeltaFlight() ? Item18Parser.mapDeltaDest(fm.getItem18Dest()) : null;
         flightInfo.arrivalLocation = reportHelper.getLocation(fm, false);
-        
+
         flightInfo.arrivalTimeStr = reportHelper.formatFlightTime(MiscUtils.evl(
             fm.getArrivalTime(), item18DeltaDest != null ? item18DeltaDest.getArrivaAt() : null));
 
@@ -1131,8 +1140,17 @@ public class AviationInvoiceCreator {
 
         // set invoice amount dues
         Double amountDue = billingLedger.getAmountOwing();
-        Double amountDueAnsp = cachedCurrencyConverter.toANSPCurrency(amountDue, invoiceCurrency);
-        Double amountDueUsd = cachedCurrencyConverter.toUSDCurrency(amountDue, invoiceCurrency);
+
+        Double amountDueAnsp = null;
+        Double amountDueUsd = null;
+        if (billingInterval == BillingInterval.ANNUALLY || billingInterval == BillingInterval.PARTIALLY) {
+            amountDueAnsp = cachedCurrencyConverter.toANSPCurrency(amountDue, invoiceCurrency);
+            amountDueUsd = cachedCurrencyConverter.toANSPCurrency(amountDue, invoiceCurrency);
+        }else{
+            amountDueAnsp = cachedCurrencyConverter.toANSPCurrency(amountDue, invoiceCurrency);
+            amountDueUsd = cachedCurrencyConverter.toUSDCurrency(amountDue, invoiceCurrency);
+        }
+
 
         // KCAA must **DISPLAY** total outstanding amount in amount due
         if (billingOrgCode == BillingOrgCode.KCAA) {
@@ -1209,7 +1227,7 @@ public class AviationInvoiceCreator {
 
 		final double exchangeRate;
 		final double exchangeRateToAnsp;
-		
+
 		if (billingInterval == BillingInterval.ANNUALLY || billingInterval == BillingInterval.PARTIALLY) {
  			exchangeRate = currencyUtils.getApplicableRate(invoiceCurrency, targetCurrency, startDate);
 			exchangeRateToAnsp = currencyUtils.getApplicableRate (invoiceCurrency, anspCurrency, startDate);
@@ -1218,7 +1236,7 @@ public class AviationInvoiceCreator {
  			exchangeRate = cachedCurrencyConverter.getExchangeRate (invoiceCurrency, targetCurrency);
 			exchangeRateToAnsp = cachedCurrencyConverter.getExchangeRate (invoiceCurrency, anspCurrency);
 		}
-        
+
         // Map of invoice flight data indexed by flight ID
         final Map <Integer, AviationInvoiceData.FlightInfo> flightInfoMap = new HashMap<>();
         invoiceData.flightInfoList.forEach(fi-> flightInfoMap.put(fi.flightMovementId, fi));
