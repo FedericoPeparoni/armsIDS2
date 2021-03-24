@@ -32,7 +32,7 @@ public class AviationInvoiceDocumentCreator {
      */
     @SuppressWarnings("squid:S3776")
     public ReportDocument create (final AviationInvoiceData data, final ReportFormat reportFormat,
-                                  final ChargeSelection chargeSelection, final Boolean cashAccount, final Boolean pointOfSale) {
+                                  final ChargeSelection chargeSelection, final Boolean cashAccount, final Boolean unifiedTaxAccount, final Boolean pointOfSale) {
         switch (reportFormat) {
         case json:
             return reportDocumentCreator.createJsonDocument (data.global.invoiceName, data);
@@ -48,6 +48,11 @@ public class AviationInvoiceDocumentCreator {
             boolean isEANA = billingOrgCode == BillingOrgCode.EANA;
             boolean isTTCAA = billingOrgCode == BillingOrgCode.TTCAA;
             boolean isCADSUR = billingOrgCode == BillingOrgCode.CADSUR;
+            
+            if (unifiedTaxAccount) {
+                return reportDocumentCreator.createXmlBasedInvoiceDocument(data.global.invoiceName, data, reportFormat, InvoiceTemplateCategory.AVIATION_INVOICE_UNIFIED_TAX);
+            }
+            
             if (isKCAA || isEANA) {
                 if (cashAccount || (isKCAA && pointOfSale)) {
                     return reportDocumentCreator.createXmlBasedInvoiceDocument(data.global.invoiceName, data, reportFormat, InvoiceTemplateCategory.AVIATION_INVOICE_CASH);

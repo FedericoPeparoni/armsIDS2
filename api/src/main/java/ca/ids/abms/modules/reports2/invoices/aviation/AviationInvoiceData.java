@@ -91,6 +91,10 @@ public class AviationInvoiceData {
         public @XmlElement(nillable = true) Double extendedHoursSurchargesAnsp;
         public @XmlElement(nillable = true) String extendedHoursSurchargesAnspStr;
 
+        // Unified Tax charges
+        public @XmlElement(nillable = true) Double unifiedTaxCharges;
+        public @XmlElement(nillable = true) String unifiedTaxChargesStr;
+        
         // Subtotal: sum of all subtotals
         public @XmlElement(nillable = true) Double subtotalAmount;
         public @XmlElement(nillable = true) String subtotalAmountStr;
@@ -382,5 +386,18 @@ public class AviationInvoiceData {
     @XmlElement (name="bankAccount", nillable = true)
     public List <BankAccount> bankAccountList;
 
+    /** Information about each individual unified tax aircraft in this invoice */
+    public static final class AircraftInfo {
+        public @XmlElement Double unifiedTaxCharges = 0d;
+        public @XmlElement String manufacturer;
+        public @XmlElement String aircraftType;
+        public @XmlElement Double weight = 0d;
+        public @XmlElement String manufactureYearStr;
+    }
+
+    @XmlElementWrapper
+    @XmlElement (name="aircraftInfo", nillable = true)
+    public List <AircraftInfo> aircraftInfoList;
+    
     public boolean invoiceGenerationAllowed;
 }

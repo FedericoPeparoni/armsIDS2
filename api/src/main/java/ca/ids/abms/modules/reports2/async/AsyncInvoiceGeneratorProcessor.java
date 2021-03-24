@@ -101,12 +101,9 @@ public class AsyncInvoiceGeneratorProcessor implements ItemProcessor<AsyncInvoic
             }
             Account a = null;
             BillingLedger bl = null;
-            LOG.debug("Sono in AsyncInvoiceGeneratorProcessor");
             for (final Integer accountId : accountUTlist) {
                 Boolean result;
-                LOG.debug("Sono all'interno del for di accountUTlist");
                 Integer aI = accountId.intValue();
-                LOG.debug("l' accountId è {} ", accountId);
                 // a = accountRepository.findAccountById(aI);
                 a = accountService.findAccountByIdwithBillingLedgerAndAircraft(aI);
                 if (scope.getPreview()) {
@@ -128,8 +125,6 @@ public class AsyncInvoiceGeneratorProcessor implements ItemProcessor<AsyncInvoic
 
             for (final Integer accountId : accountNotUTlist) {
                 Boolean result;
-                LOG.debug("Sono all'interno del for di accountNotUTlist");
-                LOG.debug("l' accountId è {} ", accountId);
                 scope.getInvoiceProgressCounter().increaseAccountNumber();
                 try {
                     if (scope.getPreview()) {

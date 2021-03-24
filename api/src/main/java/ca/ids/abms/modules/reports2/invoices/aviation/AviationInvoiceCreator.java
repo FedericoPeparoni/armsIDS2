@@ -2,6 +2,7 @@ package ca.ids.abms.modules.reports2.invoices.aviation;
 
 import ca.ids.abms.config.error.CustomParametrizedException;
 import ca.ids.abms.modules.accounts.Account;
+import ca.ids.abms.modules.aircraft.AircraftRegistration;
 import ca.ids.abms.modules.bankcode.BankCodeService;
 import ca.ids.abms.modules.billingcenters.BillingCenter;
 import ca.ids.abms.modules.billings.BillingLedger;
@@ -19,6 +20,7 @@ import ca.ids.abms.modules.reports2.common.*;
 import ca.ids.abms.modules.reports2.invoices.ChargeSelection;
 import ca.ids.abms.modules.reports2.invoices.InvoiceReportUtility;
 import ca.ids.abms.modules.reports2.invoices.OverduePenaltyInvoice;
+import ca.ids.abms.modules.reports2.invoices.aviation.AviationInvoiceData.AircraftInfo;
 import ca.ids.abms.modules.reports2.invoices.aviation.charges.AviationInvoiceChargeProvider;
 import ca.ids.abms.modules.system.BillingOrgCode;
 import ca.ids.abms.modules.system.SystemConfiguration;
@@ -164,6 +166,7 @@ public class AviationInvoiceCreator {
      */
     public AviationInvoice createInvoice(final Account account,
                                          final List <FlightMovement> accountFlights,
+                                         final List <AircraftRegistration> aircraftRegistrationsToInvoiceByUnifiedTax,                                         
                                          final InvoicePaymentParameters payment,
                                          final ChargeSelection chargeSelection,
                                          final FlightmovementCategory flightmovementCategory,
@@ -211,12 +214,13 @@ public class AviationInvoiceCreator {
 
         // create invoice data, total amount and amount due formatted below
         final AviationInvoiceData invoiceData = this.do_createInvoiceData(
-            account, accountFlights, chargeSelection, payment, aviationInvoiceCurrency, counter, invoicePermits
+            account, accountFlights, aircraftRegistrationsToInvoiceByUnifiedTax, chargeSelection, payment, aviationInvoiceCurrency, counter, invoicePermits
         );
 
         if(chargeSelection != ONLY_PAX || invoiceData.invoiceGenerationAllowed) {
 
             final boolean cashAccount = account.getCashAccount();
+            final boolean unifiedTaxAccount = account.getAccountType().getName().equals("Unified Tax");
 
             // create billing ledger, non-rounded total amount required in invoiceData
             final BillingLedger billingLedger = do_createBillingLedger(account, invoiceData, accountFlights,
@@ -237,7 +241,7 @@ public class AviationInvoiceCreator {
             }
 
             // Create PDF file
-            final ReportDocument reportDocument = this.aviationInvoiceDocumentCreator.create(invoiceData, reportFormat, chargeSelection, cashAccount, pointOfSale);
+            final ReportDocument reportDocument = this.aviationInvoiceDocumentCreator.create(invoiceData, reportFormat, chargeSelection, cashAccount, unifiedTaxAccount, pointOfSale);
 
             // save PDF file in billing ledger
             reportHelper.setReportDocument(billingLedger, reportDocument);
@@ -284,6 +288,7 @@ public class AviationInvoiceCreator {
      */
     private AviationInvoiceData do_createInvoiceData(final Account account,
                                                      final List <FlightMovement> accountFlights,
+                                                     final List <AircraftRegistration> aircraftRegistrationsToInvoiceByUnifiedTax, 
                                                      final ChargeSelection chargesIncluded,
                                                      final InvoicePaymentParameters payment,
                                                      final Currency aviationInvoiceCurrency,
@@ -312,6 +317,10 @@ public class AviationInvoiceCreator {
                 invoiceData.global.invoiceBillingPeriod = String.format("%s - %s", reportHelper.formatDateUtc(endDateInclusive.minusDays(6), dateFormatter), invoiceData.global.invoiceDateStr);
                 break;
             case OPEN:
+                invoiceData.global.invoiceBillingPeriod = String.format("%s - %s", reportHelper.formatDateUtc(startDate, dateFormatter), invoiceData.global.invoiceDateStr);
+                break;
+            case ANNUALLY:
+            case PARTIALLY:
                 invoiceData.global.invoiceBillingPeriod = String.format("%s - %s", reportHelper.formatDateUtc(startDate, dateFormatter), invoiceData.global.invoiceDateStr);
                 break;
             default:
@@ -387,6 +396,16 @@ public class AviationInvoiceCreator {
                 }
             }
         }
+        
+        if (aircraftRegistrationsToInvoiceByUnifiedTax != null) {
+	        for (final AircraftRegistration ar: aircraftRegistrationsToInvoiceByUnifiedTax) {
+	        	// TODO: manage counter update
+	
+	            final AviationInvoiceData.AircraftInfo aircraftInfo = processAircraftRegistration(ar, account, aviationInvoiceCurrency);
+	            invoiceData.aircraftInfoList.add(aircraftInfo);
+	        }
+        }
+        
         if (invoiceData.invoiceGenerationAllowed) {
 
             // additional charges
@@ -629,7 +648,26 @@ public class AviationInvoiceCreator {
         return invoiceData;
     }
 
-    String getInvoiceNameSuffix() {
+    private AircraftInfo processAircraftRegistration(final AircraftRegistration ar, 
+    												 final Account account, 
+    												 final Currency aviationInvoiceCurrency) {
+        AviationInvoiceData.AircraftInfo aircraftInfo = new AviationInvoiceData.AircraftInfo();
+        aircraftInfo.manufacturer = ar.getAircraftType().getManufacturer();
+        if (ar.getAircraftServiceDate()!=null)
+        	aircraftInfo.manufactureYearStr = reportHelper.formatYear(ar.getAircraftServiceDate());
+        aircraftInfo.weight = ar.getMtowOverride();
+        
+        aircraftInfo.unifiedTaxCharges
+        
+        try {
+            ut = unifiedTaxService.findUnifiedTaxByValidityYearAndManufactureYear(
+                yearManufacture, yearValidity);
+        }
+
+        return aircraftInfo;
+    }
+
+	String getInvoiceNameSuffix() {
         return invoiceNameSuffix;
     }
 

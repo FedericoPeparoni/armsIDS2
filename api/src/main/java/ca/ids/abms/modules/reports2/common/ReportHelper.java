@@ -162,6 +162,14 @@ public class ReportHelper {
     }
 
     /**
+     * Format year
+     */
+    public String formatYear (final LocalDateTime date) {
+        final ZonedDateTime zdt = ZonedDateTime.of (date, UTC_ZONE_ID);
+        return zdt.format (DateTimeFormatter.ofPattern ("yyyy"));
+    }
+    
+    /**
      * Format currency without the currency symbol
      */
     public String formatCurrency (final Double value, final Currency currency) {
