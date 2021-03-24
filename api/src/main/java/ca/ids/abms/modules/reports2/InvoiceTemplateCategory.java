@@ -19,7 +19,8 @@ public enum InvoiceTemplateCategory {
     NON_AVIATION_CREDIT_NOTE("Credit note"),
 	OVERDUE_INVOICE("Overdue invoice"),
     REVENUE_PROJECTION("Revenue projection"),
-    INTEREST_INVOICE("Interest invoice");
+    INTEREST_INVOICE("Interest invoice"),
+    AVIATION_INVOICE_UNIFIED_TAX("Aviation invoice unified tax");
 
     private String value;
 
