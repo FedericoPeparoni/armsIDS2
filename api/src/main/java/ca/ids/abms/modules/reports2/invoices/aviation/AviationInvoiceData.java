@@ -31,7 +31,6 @@ public class AviationInvoiceData {
         public @XmlElement(nillable = true) String fromName;
         public @XmlElement(nillable = true) String fromPosition;
         public @XmlElement(nillable = true) String taspFeeLabel;
-        public @XmlElement(nillable = true) String referenceMonthStr; 
     	public @XmlElement(nillable = true) String flightMovementCategoryScope;
 
 
@@ -192,6 +191,8 @@ public class AviationInvoiceData {
         public @XmlElement(nillable = true) Integer totalFlightsWithTaspCharges;
         public @XmlElement(nillable = true) Integer totalFlightsWithLateDepartureArrivalCharges;
         public @XmlElement(nillable = true) Integer totalFlightsWithExtendedHoursCharges;
+
+
 
         // Domestic Flight Category info
         public @XmlElement(nillable = true) String domesticEnrouteChargesStr;
@@ -390,9 +391,14 @@ public class AviationInvoiceData {
 
     /** Information about each individual "unified tax" aircraft registration in this invoice */
     public static final class AircraftInfo {
+        public @XmlElement String customerName;
+        public @XmlElement String company;
+        public @XmlElement String invoicePeriod;
+        public @XmlElement String invoiceExpiration;
+
         public @XmlElement Double unifiedTaxCharges = 0d;
         public @XmlElement String manufacturer;
-        public @XmlElement String aircraftType;
+        public @XmlElement String aircraftType
         public @XmlElement Double mtow = 0d;
         public @XmlElement String manufactureYearStr;
     }
@@ -400,6 +406,6 @@ public class AviationInvoiceData {
     @XmlElementWrapper
     @XmlElement (name="aircraftInfo", nillable = true)
     public List <AircraftInfo> aircraftInfoList;
-    
+
     public boolean invoiceGenerationAllowed;
 }
