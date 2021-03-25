@@ -198,7 +198,11 @@ public class AviationInvoiceCreator {
 
     	if (counter != null) {
     	    counter.setAccountName(account.getName());
-    	    counter.setFlightsTotal(accountFlights.size());
+    	    //unifiedTaxChargesStrNullPointer
+    	    if(accountFlights != null){
+                counter.setFlightsTotal(accountFlights.size());
+            }
+
     	    counter.update();
         }
 
@@ -389,31 +393,33 @@ public class AviationInvoiceCreator {
         invoiceData.invoiceGenerationAllowed = chargesIncluded != ONLY_PAX;
 
         //FIXME Helen said that FlightMovementType will not be used in the future
+if(accountFlights!= null){
+    for (final FlightMovement flight : accountFlights) {
+        if (counter != null) {
+            counter.increaseFlightNumber();
+            counter.update();
+        }
+        if (chargesIncluded != ONLY_PAX
+            || flight.getMovementType() == FlightMovementType.DOMESTIC
+            || flight.getMovementType() == FlightMovementType.REG_DEPARTURE
+            || flight.getMovementType() == FlightMovementType.INT_DEPARTURE) {
 
-        for (final FlightMovement flight : accountFlights) {
-            if (counter != null) {
-                counter.increaseFlightNumber();
-                counter.update();
-            }
-            if (chargesIncluded != ONLY_PAX
-                || flight.getMovementType() == FlightMovementType.DOMESTIC
-                || flight.getMovementType() == FlightMovementType.REG_DEPARTURE
-                || flight.getMovementType() == FlightMovementType.INT_DEPARTURE) {
 
+            final AviationInvoiceData.FlightInfo flightInfo = processFlight(flight, account, chargesIncluded, aviationInvoiceCurrency,
+                airNavigationChargesCurrency, domesticPassengerChargesCurrency, internationalPassengerChargesCurrency, invoicePermits);
+            invoiceData.flightInfoList.add(flightInfo);
 
-                final AviationInvoiceData.FlightInfo flightInfo = processFlight(flight, account, chargesIncluded, aviationInvoiceCurrency,
-                		airNavigationChargesCurrency, domesticPassengerChargesCurrency, internationalPassengerChargesCurrency, invoicePermits);
-                invoiceData.flightInfoList.add(flightInfo);
-
-                /* The passenger invoice should be generated only when the invoice includes at least a domestic or departure
-                 * flight with passenger counters not null(previously calculated through the "invoicePaxAllowed" boolean.
-                 * That rule is not applicable when the invoice to generate contains only/even other charges.
-                 */
-                if(!invoiceData.invoiceGenerationAllowed) {
-                    invoiceData.invoiceGenerationAllowed |=(chargesIncluded == ONLY_PAX) && flightInfo.invoicePaxAllowed;
-                }
+            /* The passenger invoice should be generated only when the invoice includes at least a domestic or departure
+             * flight with passenger counters not null(previously calculated through the "invoicePaxAllowed" boolean.
+             * That rule is not applicable when the invoice to generate contains only/even other charges.
+             */
+            if(!invoiceData.invoiceGenerationAllowed) {
+                invoiceData.invoiceGenerationAllowed |=(chargesIncluded == ONLY_PAX) && flightInfo.invoicePaxAllowed;
             }
         }
+    }
+}
+
 
         invoiceData.aircraftInfoList = new ArrayList<>();
 
@@ -460,6 +466,8 @@ public class AviationInvoiceCreator {
             Double totalLateDepartureArrivalChargesAnsp = 0d;
             Double totalExtendedHoursSurchargesAnsp = 0d;
 
+
+
             Integer totalFlightsWithEnrouteCharges = 0;
             Integer totalFlightsWithAerodromeCharges = 0;
             Integer totalFlightsWithApproachCharges = 0;
@@ -468,6 +476,10 @@ public class AviationInvoiceCreator {
             Integer totalFlightsWithTaspCharges = 0;
             Integer totalFlightsWithLateDepartureArrivalCharges = 0;
             Integer totalFlightsWithExtendedHoursCharges = 0;
+
+            Integer totalAirctaftRegistration = 0;
+
+            Double unifiedTaxCharges = 0d;
 
             // sub-totals for Domestic Flight Category
             AviationInvoiceData.Global.FlightCategoryInfo domesticData = new AviationInvoiceData.Global.FlightCategoryInfo();
@@ -605,6 +617,16 @@ public class AviationInvoiceCreator {
             invoiceData.global.passengerChargesAnsp = totalPassengerChargesAnsp;
             invoiceData.global.passengerChargesAnspStr = reportHelper.formatCurrency(invoiceData.global.passengerChargesAnsp, anspCurrency);
 
+            /*
+         //public @XmlElement(nillable = true) Double amountOfTheInvoiceCharges;
+        //public @XmlElement(nillable = true) String amountOfTheInvoiceChargesStr;
+             */
+
+
+            invoiceData.global.unifiedTaxCharges = unifiedTaxCharges;
+            invoiceData.global.unifiedTaxChargesStr = reportHelper.formatCurrency(invoiceData.global.unifiedTaxCharges, aviationInvoiceCurrency);
+
+
             invoiceData.global.lateDepartureArrivalCharges = totalLateDepartureArrivalCharges;
             invoiceData.global.lateDepartureArrivalChargesStr = reportHelper.formatCurrency(invoiceData.global.lateDepartureArrivalCharges, aviationInvoiceCurrency);
             invoiceData.global.lateDepartureArrivalChargesStrWithCurrencySymbol = reportHelper.formatCurrency(invoiceData.global.lateDepartureArrivalCharges, aviationInvoiceCurrency);
@@ -625,6 +647,9 @@ public class AviationInvoiceCreator {
             invoiceData.global.totalFlightsWithTaspCharges = totalFlightsWithTaspCharges;
             invoiceData.global.totalFlightsWithLateDepartureArrivalCharges = totalFlightsWithLateDepartureArrivalCharges;
             invoiceData.global.totalFlightsWithExtendedHoursCharges = totalFlightsWithExtendedHoursCharges;
+
+            invoiceData.global.totalAirctaftRegistration = totalAirctaftRegistration;
+
 
             invoiceData.global.domesticEnrouteChargesStr = reportHelper.formatCurrency(domesticData.enrouteCharges, aviationInvoiceCurrency);
             invoiceData.global.domesticAerodromeChargesStr = reportHelper.formatCurrency(domesticData.aerodromeCharges, aviationInvoiceCurrency);
