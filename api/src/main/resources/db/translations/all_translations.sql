@@ -21632,7 +21632,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "End Date *",
-    "val": "Fecha de Fin",
+    "val": "Fecha de Fin *",
     "part": "frontend",
     "created_by": "system"
   },
