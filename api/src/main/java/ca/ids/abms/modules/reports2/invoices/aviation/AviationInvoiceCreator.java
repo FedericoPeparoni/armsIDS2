@@ -421,7 +421,7 @@ if(accountFlights!= null){
 }
 
 
-        invoiceData.global.unifiedTaxTotalCharges= 0.0; 
+        invoiceData.global.unifiedTaxTotalCharges= 0.0;
         invoiceData.aircraftInfoList = new ArrayList<>();
 
         if (aircraftRegistrationsToInvoiceByUnifiedTax != null) {
@@ -488,9 +488,6 @@ if(accountFlights!= null){
             Integer totalFlightsWithLateDepartureArrivalCharges = 0;
             Integer totalFlightsWithExtendedHoursCharges = 0;
 
-            Integer totalAirctaftRegistration = 0;
-
-            Double unifiedTaxCharges = 0d;
 
             // sub-totals for Domestic Flight Category
             AviationInvoiceData.Global.FlightCategoryInfo domesticData = new AviationInvoiceData.Global.FlightCategoryInfo();
@@ -637,10 +634,6 @@ if(accountFlights!= null){
              */
 
 
-            invoiceData.global.unifiedTaxCharges = unifiedTaxCharges;
-            invoiceData.global.unifiedTaxChargesStr = reportHelper.formatCurrency(invoiceData.global.unifiedTaxCharges, aviationInvoiceCurrency);
-
-
             invoiceData.global.lateDepartureArrivalCharges = totalLateDepartureArrivalCharges;
             invoiceData.global.lateDepartureArrivalChargesStr = reportHelper.formatCurrency(invoiceData.global.lateDepartureArrivalCharges, aviationInvoiceCurrency);
             invoiceData.global.lateDepartureArrivalChargesStrWithCurrencySymbol = reportHelper.formatCurrency(invoiceData.global.lateDepartureArrivalCharges, aviationInvoiceCurrency);
@@ -661,8 +654,6 @@ if(accountFlights!= null){
             invoiceData.global.totalFlightsWithTaspCharges = totalFlightsWithTaspCharges;
             invoiceData.global.totalFlightsWithLateDepartureArrivalCharges = totalFlightsWithLateDepartureArrivalCharges;
             invoiceData.global.totalFlightsWithExtendedHoursCharges = totalFlightsWithExtendedHoursCharges;
-
-            invoiceData.global.totalAirctaftRegistration = totalAirctaftRegistration;
 
 
             invoiceData.global.domesticEnrouteChargesStr = reportHelper.formatCurrency(domesticData.enrouteCharges, aviationInvoiceCurrency);
@@ -756,6 +747,7 @@ if(accountFlights!= null){
             }
         }
         catch(Exception e) {
+            e.printStackTrace();
         }
 
         return aircraftInfo;
