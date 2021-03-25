@@ -90,10 +90,6 @@ public class AviationInvoiceData {
         public @XmlElement(nillable = true) String extendedHoursSurchargesStrWithCurrencySymbol;
         public @XmlElement(nillable = true) Double extendedHoursSurchargesAnsp;
         public @XmlElement(nillable = true) String extendedHoursSurchargesAnspStr;
-
-        // Unified Tax charges
-        public @XmlElement(nillable = true) Double unifiedTaxCharges;
-        public @XmlElement(nillable = true) String unifiedTaxChargesStr;
         
         // Subtotal: sum of all subtotals
         public @XmlElement(nillable = true) Double subtotalAmount;
@@ -237,6 +233,12 @@ public class AviationInvoiceData {
 
         public @XmlElement(nillable = true) String overflightTotalChargesStr;
         public @XmlElement(nillable = true) Integer overflightTotalFlights;
+        
+        // Unified Tax category
+        public @XmlElement(nillable = true) Double unifiedTaxTotalCharges;
+        public @XmlElement(nillable = true) String unifiedTaxChargesStr;
+        public @XmlElement(nillable = true) Integer unifiedTaxAircraftTotal;
+        
 
         // FIXME: these should be a booleans, also in all BIRT templates & XML files
         @SuppressWarnings("squid:S1134")
@@ -386,12 +388,12 @@ public class AviationInvoiceData {
     @XmlElement (name="bankAccount", nillable = true)
     public List <BankAccount> bankAccountList;
 
-    /** Information about each individual unified tax aircraft in this invoice */
+    /** Information about each individual "unified tax" aircraft registration in this invoice */
     public static final class AircraftInfo {
         public @XmlElement Double unifiedTaxCharges = 0d;
         public @XmlElement String manufacturer;
         public @XmlElement String aircraftType;
-        public @XmlElement Double weight = 0d;
+        public @XmlElement Double mtow = 0d;
         public @XmlElement String manufactureYearStr;
     }
 

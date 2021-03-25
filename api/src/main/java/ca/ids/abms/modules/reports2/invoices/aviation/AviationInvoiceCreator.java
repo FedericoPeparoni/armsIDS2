@@ -415,15 +415,21 @@ public class AviationInvoiceCreator {
             }
         }
 
+        invoiceData.global.unifiedTaxTotalCharges= 0.0; 
         invoiceData.aircraftInfoList = new ArrayList<>();
 
         if (aircraftRegistrationsToInvoiceByUnifiedTax != null) {
+        	
+        	invoiceData.global.unifiedTaxAircraftTotal = aircraftRegistrationsToInvoiceByUnifiedTax.size();
 	        for (final AircraftRegistration ar: aircraftRegistrationsToInvoiceByUnifiedTax) {
 	        	// TODO: manage counter update
 
 	        	if (ar.getAircraftServiceDate()!=null) {
 	        		final AviationInvoiceData.AircraftInfo aircraftInfo = processAircraftRegistration(ar, account, startDate, endDateInclusive, aviationInvoiceCurrency);
 	        		invoiceData.aircraftInfoList.add(aircraftInfo);
+	        		
+	        		invoiceData.global.unifiedTaxTotalCharges += aircraftInfo.unifiedTaxCharges;
+
 	        	}
 	        }
         }
@@ -562,6 +568,9 @@ public class AviationInvoiceCreator {
                 totalChargesAnsp = totalEnrouteChargesAnsp + totalTaspChargesAnsp + totalLandingChargesAnsp +
                     totalParkingChargesAnsp + totalLateDepartureArrivalChargesAnsp + totalExtendedHoursSurchargesAnsp;
             }
+            
+            // UNIFIED TAX amount summed to total charges
+            totalCharges += invoiceData.global.unifiedTaxTotalCharges;
 
             invoiceData.global.enrouteCharges = totalEnrouteCharges;
             invoiceData.global.enrouteChargesStr = reportHelper.formatCurrency(invoiceData.global.enrouteCharges, aviationInvoiceCurrency);
@@ -679,8 +688,8 @@ public class AviationInvoiceCreator {
     	AviationInvoiceData.AircraftInfo aircraftInfo = new AviationInvoiceData.AircraftInfo();
         aircraftInfo.manufacturer = ar.getAircraftType().getManufacturer();
         aircraftInfo.manufactureYearStr = reportHelper.formatYear(ar.getAircraftServiceDate());
-        aircraftInfo.weight = ar.getMtowOverride();
-
+        aircraftInfo.mtow = ar.getMtowOverride();
+        
         aircraftInfo.unifiedTaxCharges = 0.;
 
         try {
@@ -700,8 +709,17 @@ public class AviationInvoiceCreator {
             }
 
             if (taxAmount != null) {
-                aircraftInfo.unifiedTaxCharges = (aircraftInfo.weight / 1000) * taxAmount;
-
+            	
+            	double mtow = aircraftInfo.mtow;
+	            if (mtowUnitOfMeasure.equalsIgnoreCase("KG")) {
+	                mtow = mtow * ReportHelper.TO_KG;
+	            }
+	            
+	            aircraftInfo.unifiedTaxCharges = mtow * taxAmount;
+            	Double discount = account.getAccountTypeDiscount();
+            	if (discount != null)
+            		aircraftInfo.unifiedTaxCharges *= discount;
+            	
                 aircraftRegistrationService.updateAircraftRegistrationCOAByIdAndDates(
                     ar.getId(), startDate, endDateInclusive);
             }
