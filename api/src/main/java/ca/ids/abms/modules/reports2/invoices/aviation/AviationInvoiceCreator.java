@@ -431,7 +431,8 @@ if(accountFlights!= null){
 	        	// TODO: manage counter update
 
 	        	if (ar.getAircraftServiceDate()!=null) {
-	        		final AviationInvoiceData.AircraftInfo aircraftInfo = processAircraftRegistration(ar, account, startDate, endDateInclusive, aviationInvoiceCurrency);
+
+	        		final AviationInvoiceData.AircraftInfo aircraftInfo = processAircraftRegistration(ar, account, startDate, endDateInclusive, aviationInvoiceCurrency, preview);
 	        		//Aggiungo
                     aircraftInfo.customerName = invoiceData.global.accountName;
                     aircraftInfo.company = invoiceData.global.billingName;
@@ -704,7 +705,8 @@ if(accountFlights!= null){
     												 final Account account,
     												 final LocalDateTime startDate,
     												 final LocalDateTime endDateInclusive,
-    												 final Currency aviationInvoiceCurrency) {
+    												 final Currency aviationInvoiceCurrency,
+                                                     boolean previewMode) {
 
     	AviationInvoiceData.AircraftInfo aircraftInfo = new AviationInvoiceData.AircraftInfo();
         aircraftInfo.manufacturer = ar.getAircraftType().getManufacturer();
@@ -742,8 +744,11 @@ if(accountFlights!= null){
             	if (discount != null)
             		aircraftInfo.unifiedTaxCharges *= discount;
 
-                aircraftRegistrationService.updateAircraftRegistrationCOAByIdAndDates(
-                    ar.getId(), startDate, endDateInclusive);
+            	if(previewMode == false){
+                    aircraftRegistrationService.updateAircraftRegistrationCOAByIdAndDates(
+                        ar.getId(), startDate, endDateInclusive);
+                }
+
             }
         }
         catch(Exception e) {

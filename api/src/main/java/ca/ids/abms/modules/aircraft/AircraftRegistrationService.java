@@ -79,8 +79,7 @@ public class AircraftRegistrationService {
             throw ExceptionFactory.persistenceDataManagement(e, ErrorConstants.ERR_DELETE_NO_LONGER_EXISTS);
         }
     }
-    
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+
     public void updateAircraftRegistrationCOAByIdAndDates(Integer id, LocalDateTime coa_issue_date, LocalDateTime coa_expiry_date) {
         aircraftRegistrationRepository.updateAircraftRegistrationCOAByIdAndDates(id, coa_issue_date, coa_expiry_date);
     }
