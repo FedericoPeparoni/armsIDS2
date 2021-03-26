@@ -55,9 +55,7 @@
                                 </p>
                             </div>
                             <div ng-show="editable.billing_interval === 'MONTHLY'">
-                                <label for="end_date">
-                                    {{ 'Billing period *' | translate }} (<span translate>yyyy-MM</span>)
-                                </label>
+                               <label for="billing-period"><span translate>Billing Period</span>&nbsp;*&nbsp;(<span translate>{{ customDate }}</span>)</label>
                                 <p class="input-group">
                                     <input id="billing_period" name="billing_period" type="text" class="form-control"
                                         ng-change="setMonthlyDates()" uib-datepicker-popup="yyyy-MM" ng-required="true"
