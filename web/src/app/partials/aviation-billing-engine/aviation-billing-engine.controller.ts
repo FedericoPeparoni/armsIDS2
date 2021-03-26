@@ -15,6 +15,7 @@ import { ReportsService } from '../reports/service/reports.service';
 import { SysConfigBoolean } from '../../angular-ids-project/src/components/services/sysConfigBoolean/sysConfigBoolean.service';
 import { ServerDatetimeService } from '../../angular-ids-project/src/components/server-datetime/server-datetime.service';
 import { TypesService } from '../types/service/types.service';
+import { CustomDate } from '../../angular-ids-project/src/components/services/customDate/customDate.service';
 
 // constants
 import { SysConfigConstants } from '../system-configuration/system-configuration.constants';
@@ -23,12 +24,14 @@ import { SysConfigConstants } from '../system-configuration/system-configuration
 import { Calculation } from '../recalculate-reconcile/calculation';
 import { IRestangularResponse } from '../../angular-ids-project/src/helpers/interfaces/restangularError.interface';
 
+
 export class AviationBillingEngineController extends CRUDFormControllerUserService {
 
 
 
   /* @ngInject */
   constructor(public $scope: IAviationBillingEngineScope, private aviationBillingEngineService: AviationBillingEngineService,
+    private customDate: CustomDate,
     private accountsService: AccountsService, private systemConfigurationService: SystemConfigurationService, private $interval: angular.IIntervalService,
     private reportsService: ReportsService, $translate: angular.translate.ITranslateService, private sysConfigBoolean: SysConfigBoolean,
     private serverDatetimeService: ServerDatetimeService, private typesService: TypesService) {
@@ -42,6 +45,7 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
     $scope.selectedAccounts = [];
     $scope.today = () => moment();
     $scope.startOfCurrentMonth = $scope.today().startOf('month');
+    $scope.customDate = this.customDate.returnDateFormatStr(false);
     this.$scope.progressBarValue = 0;
 
     this.setDefaultDate();
@@ -83,6 +87,7 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
     $scope.setDefaultFlights = (iataStatus: string) => this.setDefaultFlights(iataStatus);
     $scope.incompleteFlightSort = (orderBy: string) => this.incompleteFlightSort(orderBy);
     $scope.updateAccounts = (accountType: number) => this.updateAccounts(accountType);
+    $scope.setIntervalPeriodForUnifiedTax = (accountType: number) => this.setIntervalPeriodForUnifiedTax(accountType);
     $scope.getProgressBarValue = (accountsTotal: number, accountNumber: number, flightsTotal: number, flightNumber: number) =>
       this.getProgressBarValue(accountsTotal, accountNumber, flightsTotal, flightNumber);
 
@@ -381,26 +386,26 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
     return moment().format(`${yyyy}-${mm}-${dd}[T]00:00:00.000[Z]`);
   }
 
- /**
-   * Return the first date of the dateObject (selected annually)
-   */
+  /**
+    * Return the first date of the dateObject (selected annually)
+    */
 
-private firstDateOfYear(): string {
-  let d = angular.copy(this.$scope.dateObject);
-  let yyyy = d.getFullYear();
+  private firstDateOfYear(): string {
+    let d = angular.copy(this.$scope.dateObject);
+    let yyyy = d.getFullYear();
 
-return moment().format(`${yyyy}-01-01[T]00:00:00.000[Z]`);
+    return moment().format(`${yyyy}-01-01[T]00:00:00.000[Z]`);
 
-}
+  }
 
   /**
    * Return the last date of the dateObject (selected annually)
    */
-private lastDateOfYear(): string {
-  let d = angular.copy(this.$scope.dateObject);
-  let yyyy = d.getFullYear();
-  return moment().format(`${yyyy}-12-31[T]23:59:59.999[Z]`);
-}
+  private lastDateOfYear(): string {
+    let d = angular.copy(this.$scope.dateObject);
+    let yyyy = d.getFullYear();
+    return moment().format(`${yyyy}-12-31[T]23:59:59.999[Z]`);
+  }
 
 
 
@@ -417,14 +422,14 @@ private lastDateOfYear(): string {
   }
 
 
- /**
-   * Set default date for partially billing interval
-   */
+  /**
+    * Set default date for partially billing interval
+    */
 
   private setDefaultPartiallyDate(): void {
     let today = new Date();
     let month = today.getMonth();
-    this.$scope.dateObject = new Date(today.getFullYear(), month );
+    this.$scope.dateObject = new Date(today.getFullYear(), month);
 
     console.log(this.$scope.dateObject);
 
@@ -473,10 +478,10 @@ private lastDateOfYear(): string {
       if (this.$scope.editable.billing_interval === 'MONTHLY') {
         this.setMonthlyDates();
       }
-      else if (this.$scope.editable.billing_interval === 'ANNUALLY'){
+      else if (this.$scope.editable.billing_interval === 'ANNUALLY') {
         this.setAnnuallyDates();
       }
-      else if (this.$scope.editable.billing_interval === 'PARTIALLY'){
+      else if (this.$scope.editable.billing_interval === 'PARTIALLY') {
         this.setPartiallyDates();
       }
       else {
@@ -488,68 +493,75 @@ private lastDateOfYear(): string {
     });
   }
 
-
+  /**
+   * Set billing interval default in accountType UnifiedTax
+   */
+  private setIntervalPeriodForUnifiedTax(accountType: number): void  {
+    if (accountType === 8){
+      this.$scope.editable.billing_interval = 'ANNUALLY';
+    }
+  }
 
 
   /**
    * Set date options
    */
   private dateOptions(): void {
-    this.$scope.dateOptions = {
-      startingDay: 0,
-      showWeeks: false,
-      maxDate: new Date(this.$scope.maxDate),
-      dateDisabled: (data: any): boolean => {
-        let date = data.date,
-          mode = data.mode;
-        let startingDay = this.$scope.startingDay === 0 ? 6 : this.$scope.startingDay - 1;
-        return mode === 'day' && (date.getDay() !== startingDay);
-      }
-    };
-  }
+  this.$scope.dateOptions = {
+    startingDay: 0,
+    showWeeks: false,
+    maxDate: new Date(this.$scope.maxDate),
+    dateDisabled: (data: any): boolean => {
+      let date = data.date,
+        mode = data.mode;
+      let startingDay = this.$scope.startingDay === 0 ? 6 : this.$scope.startingDay - 1;
+      return mode === 'day' && (date.getDay() !== startingDay);
+    }
+  };
+}
   /**
     * Set date options Annually
     */
 
   private dateOptionsAnnually(): void {
-    this.$scope.dateOptionsAnnually = {
-      maxDate: new Date(this.$scope.maxDate),
-      minMode: 'year',
-      dateDisabled: (data: any): boolean => {
-        let date = data.date,
-          mode = data.mode;
-        let previusYear = (moment().year() -1);
-        let nextYear = (moment().year()+1);
-        return mode === 'year' && (date.getFullYear() > nextYear || date.getFullYear() < previusYear) ;
-      }
+  this.$scope.dateOptionsAnnually = {
+    maxDate: new Date(this.$scope.maxDate),
+    minMode: 'year',
+    dateDisabled: (data: any): boolean => {
+      let date = data.date,
+        mode = data.mode;
+      let previusYear = (moment().year() - 1);
+      let nextYear = (moment().year() + 1);
+      return mode === 'year' && (date.getFullYear() > nextYear || date.getFullYear() < previusYear);
+    }
 
-    };
-  }
+  };
+}
 
   /**
      * Set date options Partially
      */
 
   private dateOptionsPartially(): void {
-    this.$scope.dateOptionsPartially = {
-      minMode: 'month',
-      dateDisabled: (data: any): boolean => {
-        let date = data.date,
-          mode = data.mode;
-        return mode === 'month' && (  date > moment() );
+  this.$scope.dateOptionsPartially = {
+    minMode: 'month',
+    dateDisabled: (data: any): boolean => {
+      let date = data.date,
+        mode = data.mode;
+      return mode === 'month' && (date > moment());
 
-      }
-    };
-  }
+    }
+  };
+}
 
   /**
      * Set date options Open
      */
    private dateOptionsOpen(): void {
-    this.$scope.dateOptionsAnnually = {
-      minMode: 'day',
-    };
-  }
+  this.$scope.dateOptionsAnnually = {
+    minMode: 'day',
+  };
+}
 
 
   /**
@@ -557,16 +569,16 @@ private lastDateOfYear(): string {
    * @returns default or current value for itemName parameter
    */
   private getSystemConfigurationItem(data: ISystemConfigurationSpring, itemName: string): string {
-    for (let item of data.content) {
-      if (item.item_name === itemName) {
-        if (typeof (item.current_value) === 'string') {
-          return item.current_value;
-        } else {
-          return item.default_value;
-        }
+  for (let item of data.content) {
+    if (item.item_name === itemName) {
+      if (typeof (item.current_value) === 'string') {
+        return item.current_value;
+      } else {
+        return item.default_value;
       }
     }
   }
+}
 
   /**
    * Prepends `0` to a
@@ -576,19 +588,19 @@ private lastDateOfYear(): string {
    * @returns string
    */
   private str_pad(n: number): string {
-    return String('0' + n).slice(-2);
-  }
+  return String('0' + n).slice(-2);
+}
 
   private getProgressBarValue(accountsTotal: any, accountNumber: any, flightsTotal: any, flightNumber: any): number {
-    if (accountsTotal && flightsTotal && flightNumber) {
-      if (accountsTotal === accountNumber) {
-        this.$scope.progressBarValue = accountsTotal - 1 + flightNumber / flightsTotal;
-      } else {
-        this.$scope.progressBarValue = accountNumber;
-      }
+  if (accountsTotal && flightsTotal && flightNumber) {
+    if (accountsTotal === accountNumber) {
+      this.$scope.progressBarValue = accountsTotal - 1 + flightNumber / flightsTotal;
+    } else {
+      this.$scope.progressBarValue = accountNumber;
     }
-    return this.$scope.progressBarValue;
   }
+  return this.$scope.progressBarValue;
+}
 }
 function maxDate(maxDate: any) {
   throw new Error('Function not implemented.');
