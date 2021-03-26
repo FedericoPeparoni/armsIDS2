@@ -6,41 +6,46 @@
             <div class="box-content">
                 <fieldset>
                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-3">
+                        <div class="col-xs-12 col-sm-12 col-md-2">
                             <label translate for="invoice_type">Invoice Type *</label>
                             <select id="invoice_type" name="status" ng-change="setBillingInterval(); editable.flights = null; editable.incompleteFlights = null;
-                                setDefaultFlights(editable.iata_status);" ng-model="editable.iata_status" class="form-control" required>
+                                setDefaultFlights(editable.iata_status);" ng-model="editable.iata_status"
+                                class="form-control" required>
                                 <option translate value="iata" ng-if="iataSupported">IATA</option>
                                 <option translate value="non-iata">NON-IATA</option>
                             </select>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-3">
+                        <div class="col-xs-12 col-sm-12 col-md-2">
                             <label translate for="account_type">{{'Account Type' | translate }} *</label>
-                           <select id="account_type" name="status" ng-init="editable.account_type = 'all'"
-                                ng-change="updateAccounts(editable.account_type); editable.flights = null; editable.incompleteFlights = null; selectedAccounts = []"
-                                ng-model="editable.account_type" class="form-control" required ng-options="item.id as (item.name | translate) for item in accountTypes">
+                            <select id="account_type" name="status" ng-init="editable.account_type = 'all'" ng-change="updateAccounts(editable.account_type); editable.flights = null; editable.incompleteFlights = null; selectedAccounts = [];
+                                setIntervalPeriodForUnifiedTax(editable.account_type)" ng-model="editable.account_type"
+                                class="form-control" required
+                                ng-options="item.id as (item.name | translate) for item in accountTypes">
                             </select>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-3">
+                        <div class="col-xs-12 col-sm-12 col-md-2">
                             <label translate for="billing_interval">Billing Interval *</label>
-                            <select id="billing_interval" name="billing_interval" class="form-control" ng-model="editable.billing_interval"
-                                ng-change="setMonthlyDates()" required>
+                            <select id="billing_interval" name="billing_interval" class="form-control"
+                                ng-model="editable.billing_interval" ng-change="setMonthlyDates()" required>
                                 <option ng-if="editable.account_type != 8" translate value="WEEKLY">Weekly</option>
                                 <option ng-if="editable.account_type != 8" translate value="MONTHLY">Monthly</option>
                                 <option ng-if="editable.account_type === 8" translate value="ANNUALLY">Annually</option>
-                                <option ng-if="editable.account_type === 8" translate value="PARTIALLY">Partially</option>
+                                <option ng-if="editable.account_type === 8" translate value="PARTIALLY">Partially
+                                </option>
                                 <option ng-if="editable.account_type != 8" translate value="OPEN">Open</option>
                             </select>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-3" ng-show="editable.billing_interval != 'OPEN'">
+                        <div class="col-xs-12 col-sm-12 col-md-3">
                             <div ng-show="editable.billing_interval === 'WEEKLY'">
                                 <label for="end_date">
                                     {{ 'End Date Of Invoice *' | translate }} (<span translate>yyyy-MM-dd</span>)
                                 </label>
                                 <p class="input-group">
-                                    <date-picker id="end_date" name="end_date" type="text" ng-pattern="datePickerRegex" show-button-bar="false" class="form-control"
-                                        uib-datepicker-popup="{{ dateFormat }}" ng-model="editable.end_date" is-open="open" datepicker-options="dateOptions"
-                                        close-text="Close" ng-change="setWeekStartDate()" required>
+                                    <date-picker id="end_date" name="end_date" type="text" ng-pattern="datePickerRegex"
+                                        show-button-bar="false" class="form-control"
+                                        uib-datepicker-popup="{{ dateFormat }}" ng-model="editable.end_date"
+                                        is-open="open" datepicker-options="dateOptions" close-text="Close"
+                                        ng-change="setWeekStartDate()" required>
                                     </date-picker>
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-click="open = !open">
@@ -54,9 +59,10 @@
                                     {{ 'Billing period *' | translate }} (<span translate>yyyy-MM</span>)
                                 </label>
                                 <p class="input-group">
-                                    <input id="billing_period" name="billing_period" type="text" class="form-control" ng-change="setMonthlyDates()"
-                                        uib-datepicker-popup="yyyy-MM" ng-required="true" close-text="Close"
-                                        ng-model="dateObject" is-open="open" datepicker-options="{ formatYear: 'yyyy-MM', startingDay: 1, minMode: 'month' }" />
+                                    <input id="billing_period" name="billing_period" type="text" class="form-control"
+                                        ng-change="setMonthlyDates()" uib-datepicker-popup="yyyy-MM" ng-required="true"
+                                        close-text="Close" ng-model="dateObject" is-open="open"
+                                        datepicker-options="{ formatYear: 'yyyy-MM', startingDay: 1, minMode: 'month' }" />
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-click="open = !open">
                                             <i class="glyphicon glyphicon-calendar"></i>
@@ -69,10 +75,10 @@
                                     {{ 'Billing period *' | translate }} (<span translate>yyyy</span>)
                                 </label>
                                 <p class="input-group">
-                                <input id="billing_period_annually" name="billing_period_annually" type="text" ng-pattern="datePickerRegex"  class="form-control"
-                                        uib-datepicker-popup="yyyy" ng-model="dateObject" is-open="open" ng-change ="setAnnuallyDates()"
-                                        datepicker-options="dateOptionsAnnually"
-                                        required />
+                                    <input id="billing_period_annually" name="billing_period_annually" type="text"
+                                        ng-pattern="datePickerRegex" class="form-control" uib-datepicker-popup="yyyy"
+                                        ng-model="dateObject" is-open="open" ng-change="setAnnuallyDates()"
+                                        datepicker-options="dateOptionsAnnually" required />
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-click="open = !open">
                                             <i class="glyphicon glyphicon-calendar"></i>
@@ -85,10 +91,10 @@
                                     {{ 'Billing period *' | translate }} (<span translate>yyyy-MM</span>)
                                 </label>
                                 <p class="input-group">
-                                <input id="billing_period_partially" name="billing_period_partially" type="text" class="form-control"
-                                        uib-datepicker-popup="yyyy-MM" ng-model="dateObject" is-open="open" ng-change="setPartiallyDates()"
-                                        datepicker-options="dateOptionsPartially"
-                                        required />
+                                    <input id="billing_period_partially" name="billing_period_partially" type="text"
+                                        class="form-control" uib-datepicker-popup="yyyy-MM" ng-model="dateObject"
+                                        is-open="open" ng-change="setPartiallyDates()"
+                                        datepicker-options="dateOptionsPartially" required />
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-click="open = !open">
                                             <i class="glyphicon glyphicon-calendar"></i>
@@ -97,42 +103,12 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-3"  ng-show="editable.billing_interval === 'OPEN'">
-
-                            <div ng-show="editable.billing_interval === 'OPEN'">
-                                <label for="start_date_open">
-                                    {{ 'Start Date *' | translate }} (<span translate>yyyy-MM-dd</span>)
-                                </label>
-                                <p class="input-group">
-                                    <date-picker id="start_date_open" name="start_date_open" type="text" ng-pattern="datePickerRegex" show-button-bar="false" class="form-control"
-                                        uib-datepicker-popup="{{ dateFormat }}" ng-model="editable.start_date" is-open="startopen" datepicker-options="dateOptionsOpen"
-                                        close-text="Close" required>
-                                    </date-picker>
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" ng-click="startopen = !open">
-                                            <i class="glyphicon glyphicon-calendar"></i>
-                                        </button>
-                                    </span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-3" ng-show="editable.billing_interval === 'OPEN'">
-                            <div ng-show="editable.billing_interval === 'OPEN'">
-                                <label for="end_date_open">
-                                    {{ 'End Date *' | translate }} (<span translate>yyyy-MM-dd</span>)
-                                </label>
-                                <p class="input-group">
-                                    <date-picker id="end_date_open" name="end_date_open" type="text" ng-pattern="datePickerRegex" show-button-bar="false" class="form-control"
-                                        uib-datepicker-popup="{{ dateFormat }}" ng-model="editable.end_date" is-open="endopen" datepicker-options="dateOptionsOpen"
-                                        close-text="Close" required>
-                                    </date-picker>
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" ng-click="endopen = !open">
-                                            <i class="glyphicon glyphicon-calendar"></i>
-                                        </button>
-                                    </span>
-                                </p>
-                            </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6" ng-show="editable.billing_interval === 'OPEN'">
+                            <date-range is-required="false" control="control" format="{{customDate}}"
+                                ng-click="control.getUTCStartDate() !== null && control.getUTCEndDate() !== null ? refreshList() : ''"
+                                ng-keyup="control.getUTCStartDate() === null && control.getUTCEndDate() === null ? refreshList() : ''">
+                                <!--Datepickers -->
+                            </date-range>
                         </div>
                     </div>
                     <div class="row">
@@ -142,20 +118,22 @@
                                 <span ng-show="editable.iata_status === 'iata'" translate>(Preview Invoice)</span>
                                 <span ng-show="editable.iata_status !== 'iata'">*</span>
                             </label>
-                            <multiselect id="accounts" name="accountIdList" extra-settings="{ displayProp: 'name' }" options="listOfAccounts" model="selectedAccounts">
+                            <multiselect id="accounts" name="accountIdList" extra-settings="{ displayProp: 'name' }"
+                                options="listOfAccounts" model="selectedAccounts">
                             </multiselect>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-3">
                             <label translate for="sort">Sort By *</label>
-                            <select id="sort" name="sort" ng-init="editable.sort = 'account,dateTime'" ng-model="editable.sort" class="form-control"
-                                required>
+                            <select id="sort" name="sort" ng-init="editable.sort = 'account,dateTime'"
+                                ng-model="editable.sort" class="form-control" required>
                                 <option translate value="dateTime,account">Date, Account</option>
                                 <option translate value="account,dateTime">Account, Date</option>
                             </select>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-3">
                             <label translate for="userBillingCenterOnly">Select Flights *</label>
-                            <select class="form-control" ng-model="editable.userBillingCenterOnly" id="userBillingCenterOnly" name="userBillingCenterOnly"
+                            <select class="form-control" ng-model="editable.userBillingCenterOnly"
+                                id="userBillingCenterOnly" name="userBillingCenterOnly"
                                 ng-init="editable.iata_status === 'iata' ? editable.userBillingCenterOnly = 'false' : editable.userBillingCenterOnly = 'true'"
                                 required>
                                 <option translate value="true">Show flights for billing centre</option>
@@ -164,44 +142,56 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-3" ng-if="::invoiceByFmCategory">
                             <label for="flightCategory">
-                                <span translate >Flight Movement Category</span>
+                                <span translate>Flight Movement Category</span>
                                 <span>*</span>
                             </label>
-                            <dynamic-service-dropdown class="text-capitalize" id="flightCategory" allow-empty="true" name="flightCategory"
-                                ng-model="editable.flightCategory" options="item.id as (item.name | translate).toLowerCase() for item in list"
-                                dropdown-type="single" service="::flightMovementCategoryService" method="getFlightMovementCategoryForAviationInvoice"
+                            <dynamic-service-dropdown class="text-capitalize" id="flightCategory" allow-empty="true"
+                                name="flightCategory" ng-model="editable.flightCategory"
+                                options="item.id as (item.name | translate).toLowerCase() for item in list"
+                                dropdown-type="single" service="::flightMovementCategoryService"
+                                method="getFlightMovementCategoryForAviationInvoice"
                                 is-required="::invoiceByFmCategory">
                             </dynamic-service-dropdown>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
-                            <button translate ng-disabled="processing === true || !hasPermission('aviation_invoice_validate')" class="btn btn-primary"
+                            <button translate
+                                ng-disabled="processing === true || !hasPermission('aviation_invoice_validate')"
+                                class="btn btn-primary"
                                 ng-click="editable.flights = null; editable.incompleteFlights = null; closeHeader(); validate();">
                                 Validate
                             </button>
-                            <button translate ng-disabled="processing === true || !hasPermission('aviation_invoice_recalculate')"
+                            <button translate
+                                ng-disabled="processing === true || !hasPermission('aviation_invoice_recalculate')"
                                 ng-show="recalculateJob.job_execution_status !== 'STARTED' && recalculateJob.job_execution_status !== 'QUEUED'"
-                                ng-click="editable.flights = null; editable.incompleteFlights = null; closeHeader(); executeRecalculation();" class="btn btn-primary">
+                                ng-click="editable.flights = null; editable.incompleteFlights = null; closeHeader(); executeRecalculation();"
+                                class="btn btn-primary">
                                 Recalculate
                             </button>
-                            <button translate ng-show="recalculateJob.job_execution_status === 'STARTED' || recalculateJob.job_execution_status === 'QUEUED'"
+                            <button translate
+                                ng-show="recalculateJob.job_execution_status === 'STARTED' || recalculateJob.job_execution_status === 'QUEUED'"
                                 ng-click="cancelRecalculation();" class="btn btn-default">
                                 Cancel Recalculate
                             </button>
-                            <button translate ng-disabled="processing === true || (!selectedAccounts.length && editable.iata_status !== 'iata')
+                            <button translate
+                                ng-disabled="processing === true || (!selectedAccounts.length && editable.iata_status !== 'iata')
                                 || !(invoiceByFmCategory === false || editable.flightCategory) || !hasPermission('aviation_invoice_generate')"
                                 ng-show="generateJob.job_execution_status !== 'STARTED' && generateJob.job_execution_status !== 'QUEUED'"
-                                ng-click="editable.flights = null; editable.incompleteFlights = null;  closeHeader(); executeGeneration(0);" class="btn btn-primary">
+                                ng-click="editable.flights = null; editable.incompleteFlights = null;  closeHeader(); executeGeneration(0);"
+                                class="btn btn-primary">
                                 Generate Invoice
                             </button>
-                            <button translate ng-disabled="processing === true || (!selectedAccounts.length && editable.iata_status !== 'iata')
+                            <button translate
+                                ng-disabled="processing === true || (!selectedAccounts.length && editable.iata_status !== 'iata')
                                 || !(invoiceByFmCategory === false || editable.flightCategory) || !hasPermission('aviation_invoice_preview')"
                                 ng-show="generateJob.job_execution_status !== 'STARTED' && generateJob.job_execution_status !== 'QUEUED'"
-                                ng-click="editable.flights = null; editable.incompleteFlights = null;  closeHeader(); executeGeneration(1);" class="btn btn-primary">
+                                ng-click="editable.flights = null; editable.incompleteFlights = null;  closeHeader(); executeGeneration(1);"
+                                class="btn btn-primary">
                                 Preview Invoice
                             </button>
-                            <button translate ng-show="processing === true && generateJob.job_execution_status === 'STARTED' || generateJob.job_execution_status === 'QUEUED'"
+                            <button translate
+                                ng-show="processing === true && generateJob.job_execution_status === 'STARTED' || generateJob.job_execution_status === 'QUEUED'"
                                 ng-click="cancelGeneration();" class="btn btn-default">
                                 Cancel Invoice
                             </button>
@@ -209,7 +199,8 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
-                            <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
+                            <ng-include
+                                src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'">
                                 <!-- Error Handling -->
                             </ng-include>
                         </div>
@@ -219,11 +210,13 @@
         </div>
     </div>
 </div>
+
 <div class="row margin-top-20" ng-show="editable.incompleteFlights">
     <div class="col-xs-12">
         <div class="box-container">
-            <box-header icon="'plane'" title="{{ 'Incomplete Flight Movements' | translate }} ({{ editable.incompleteFlights.length }})"
-            show-close="true" close-func="closeHeader()"></box-header>
+            <box-header icon="'plane'"
+                title="{{ 'Incomplete Flight Movements' | translate }} ({{ editable.incompleteFlights.length }})"
+                show-close="true" close-func="closeHeader()"></box-header>
             <div class="box-content">
                 <div class="row">
                     <div class="col-xs-12">
@@ -242,7 +235,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="item in editable.incompleteFlights | orderBy: incompleteFlightSort(editable.sort)">
+                                    <tr
+                                        ng-repeat="item in editable.incompleteFlights | orderBy: incompleteFlightSort(editable.sort)">
                                         <td class="text-nowrap">{{ item.account_name}}</td>
                                         <td class="text-nowrap">{{ item.flight_id }}</td>
                                         <td class="text-nowrap">{{ item.registration }}</td>
@@ -252,7 +246,8 @@
                                         <td class="text-nowrap">{{ item.issues.join(', ') }}</td>
                                     </tr>
                                     <tr ng-show="!editable.incompleteFlights.length">
-                                        <td class="text-center" colspan="7" translate>There are no incomplete flight movements</td>
+                                        <td class="text-center" colspan="7" translate>There are no incomplete flight
+                                            movements</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -273,7 +268,9 @@
                     <div class="col-xs-12">
                         <div class="feedback">
                             <u translate>Recalculation</u>
-                            <span ng-show="processing === false && recalculateJob.job_execution_status !== 'STARTED' && recalculateJob.job_execution_status !== 'QUEUED'" class="btn btn-sm pull-right" ng-click="recalculateJob = null;">X</span>
+                            <span
+                                ng-show="processing === false && recalculateJob.job_execution_status !== 'STARTED' && recalculateJob.job_execution_status !== 'QUEUED'"
+                                class="btn btn-sm pull-right" ng-click="recalculateJob = null;">X</span>
                             <br>
                             <span translate>Period:</span>
                             <span>&nbsp;{{ recalculateJob.job_parameters }}</span>
@@ -298,7 +295,8 @@
                             <span>&nbsp;{{ recalculateJob.rate }}</span>
                             <br>
                             <br>
-                            <uib-progressbar max="recalculateJob.total_steps" value="recalculateJob.steps_completed + recalculateJob.steps_aborted"
+                            <uib-progressbar max="recalculateJob.total_steps"
+                                value="recalculateJob.steps_completed + recalculateJob.steps_aborted"
                                 ng-show="recalculateJob.job_execution_status !== 'STARTING'" style="height: 10px">
                             </uib-progressbar>
                         </div>
@@ -317,7 +315,8 @@
                     <div class="col-xs-12">
                         <div class="feedback" style="width: 500px;">
                             <u translate>Generate/Preview Invoice</u>
-                            <span class="btn btn-sm pull-right" ng-show="processing === false" ng-click="generateJob = null;">X</span>
+                            <span class="btn btn-sm pull-right" ng-show="processing === false"
+                                ng-click="generateJob = null;">X</span>
                             <br>
                             <span translate>Period:</span>
                             <span>&nbsp;{{ generateJob.job_parameters }}</span>
@@ -335,20 +334,21 @@
                             <span ng-show="generateJob.accountName">
                                 <span translate>Account:</span>
                                 <span>
-                                    <span>&nbsp;{{ generateJob.accountName }} ({{ generateJob.accountNumber }} of {{ generateJob.accountsTotal }})</span>
+                                    <span>&nbsp;{{ generateJob.accountName }} ({{ generateJob.accountNumber }} of {{
+                                        generateJob.accountsTotal }})</span>
                                 </span>
                                 <span ng-show="generateJob.flightsTotal">
                                     <br>
                                     <span translate>Flights:</span>
                                     <span ng-show="generateJob.flightsTotal">
-                                        <span>&nbsp;Processing {{ generateJob.flightNumber }} of {{ generateJob.flightsTotal }}</span>
+                                        <span>&nbsp;Processing {{ generateJob.flightNumber }} of {{
+                                            generateJob.flightsTotal }}</span>
                                     </span>
                                 </span>
                             </span>
                             <br>
                             <br>
-                            <uib-progressbar ng-show="generateJob.accountsTotal"
-                                max="generateJob.accountsTotal"
+                            <uib-progressbar ng-show="generateJob.accountsTotal" max="generateJob.accountsTotal"
                                 value="getProgressBarValue(generateJob.accountsTotal, generateJob.accountNumber, generateJob.flightsTotal, generateJob.flightNumber)"
                                 style="height: 10px">
                             </uib-progressbar>
