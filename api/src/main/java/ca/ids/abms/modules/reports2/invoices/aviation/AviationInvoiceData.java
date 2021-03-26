@@ -402,7 +402,12 @@ public class AviationInvoiceData {
         public @XmlElement String manufacturer;
         public @XmlElement String aircraftType;
         public @XmlElement Double mtow = 0d;
+        public @XmlElement String mtowUnitOfMeasure;
+        public @XmlElement String mtowStr;
+
         public @XmlElement String manufactureYearStr;
+
+        public @XmlElement Double discountPercentage;
     }
 
     @XmlElementWrapper

@@ -359,7 +359,7 @@ public class BillingLedgerService extends AbstractPluginService<BillingLedgerSer
         }
         return savedBillingLedger;
     }
-    
+
     private BillingLedger createBillingLedger (final BillingLedger billingLedger, final boolean allowApplyPenalty, final boolean preview) {
 
         // validate of input data
@@ -428,8 +428,8 @@ public class BillingLedgerService extends AbstractPluginService<BillingLedgerSer
         // create BillingLedger record in DB
         InvoiceType invoiceType = InvoiceType.forValue(billingLedger.getInvoiceType());
         if (billingLedger.getInvoiceNumber() == null) {
- 
-            final String invoiceNumber; 
+
+            final String invoiceNumber;
             if(preview) {
                 invoiceNumber = "N/A";
             } else {
@@ -467,7 +467,7 @@ public class BillingLedgerService extends AbstractPluginService<BillingLedgerSer
         if(!preview) {
         	return saveBillingLedger(savedBillingLedger);
         } else {
-            return savedBillingLedger;        
+            return savedBillingLedger;
         }
     }
 
@@ -637,9 +637,9 @@ public class BillingLedgerService extends AbstractPluginService<BillingLedgerSer
         final BillingLedger savedBillingLedger = saveBillingLedger(billingLedger);
 
         if (publishedInvoiceFromPointOfSale) {
-            voidAviationPublishedCashInvoice(billingLedger.getId());    
+            voidAviationPublishedCashInvoice(billingLedger.getId());
         } else {
-            billingLedgerFlightUtility.updateFlightStatusToMatchInvoice(savedBillingLedger, this.systemConfigurationService.shouldDisplayPaxCharges());     
+            billingLedgerFlightUtility.updateFlightStatusToMatchInvoice(savedBillingLedger, this.systemConfigurationService.shouldDisplayPaxCharges());
         }
 
 
@@ -954,8 +954,8 @@ public class BillingLedgerService extends AbstractPluginService<BillingLedgerSer
             default: // ignored
         }
     }
-    
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+
+    //@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     public void updateBillingLedgerByIdAndInvoiceAmount(Integer id, Double invoiceAmount) {
         billingLedgerRepository.updateBillingLedgerByIdAndInvoiceAmount(id, invoiceAmount);
     }

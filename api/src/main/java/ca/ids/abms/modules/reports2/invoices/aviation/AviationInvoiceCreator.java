@@ -438,7 +438,11 @@ if(accountFlights!= null){
                     aircraftInfo.company = invoiceData.global.billingName;
                     aircraftInfo.invoicePeriod = invoiceData.global.invoiceBillingPeriod;
                     aircraftInfo.invoiceExpiration = invoiceData.global.invoiceDueDateStr;
-	        		invoiceData.aircraftInfoList.add(aircraftInfo);
+                    aircraftInfo.mtow = ar.getMtowOverride();
+                    aircraftInfo.mtowUnitOfMeasure = reportHelper.getMTOWUnitOfMeasure();
+                    aircraftInfo.mtowStr = String.format(TWO_DECIMALS, ar.getMtowOverride())+  " " +reportHelper.getMTOWUnitOfMeasure();
+                    aircraftInfo.discountPercentage = account.getAccountTypeDiscount();
+                    invoiceData.aircraftInfoList.add(aircraftInfo);
 
 	        		invoiceData.global.unifiedTaxTotalCharges += aircraftInfo.unifiedTaxCharges;
 
@@ -712,6 +716,8 @@ if(accountFlights!= null){
         aircraftInfo.manufacturer = ar.getAircraftType().getManufacturer();
         aircraftInfo.manufactureYearStr = reportHelper.formatYear(ar.getAircraftServiceDate());
         aircraftInfo.mtow = ar.getMtowOverride();
+        aircraftInfo.mtowUnitOfMeasure = reportHelper.getMTOWUnitOfMeasure();
+        aircraftInfo.mtowStr = ar.getMtowOverride() +  reportHelper.getMTOWUnitOfMeasure();
         aircraftInfo.aircraftType = ar.getAircraftType().getAircraftType();
 
         aircraftInfo.unifiedTaxCharges = 0.;
