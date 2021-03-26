@@ -239,6 +239,7 @@ public class AviationInvoiceData {
 
         // Unified Tax category
         public @XmlElement(nillable = true) Double unifiedTaxTotalCharges;
+        public @XmlElement(nillable = true) String unifiedTaxTotalChargesStr;
         public @XmlElement(nillable = true) String unifiedTaxChargesStr;
         public @XmlElement(nillable = true) Integer unifiedTaxAircraftTotal;
 
@@ -402,7 +403,12 @@ public class AviationInvoiceData {
         public @XmlElement String manufacturer;
         public @XmlElement String aircraftType;
         public @XmlElement Double mtow = 0d;
+        public @XmlElement String mtowUnitOfMeasure;
+        public @XmlElement String mtowStr;
+
         public @XmlElement String manufactureYearStr;
+
+        public @XmlElement Double discountPercentage;
     }
 
     @XmlElementWrapper
