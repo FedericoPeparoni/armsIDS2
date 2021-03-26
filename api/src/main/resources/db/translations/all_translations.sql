@@ -14541,24 +14541,11 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Billing Interval *",
-    "val": "Intervalo de Facturación",
+    "val": "Intervalo de Facturación *",
     "part": "frontend",
     "created_by": "system"
   },
-  {
-    "code": "en",
-    "token": "Billing Period",
-    "val": "Billing Period",
-    "part": "frontend",
-    "created_by": "system"
-  },
-  {
-    "code": "es",
-    "token": "Billing Period",
-    "val": "Periodo de Facturación",
-    "part": "frontend",
-    "created_by": "system"
-  },
+  
   {
     "code": "en",
     "token": "Billing Period *",
