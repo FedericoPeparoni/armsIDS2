@@ -28,7 +28,7 @@
                         <div class="table-responsive" export-table sort-query-string="getSortQueryString()"
                             query-string="filterParameters" back-end-export="true" service="unifiedTaxValidityManagementService">
                             <table class="table table-striped table-bordered table-hover table-condensed"
-                                sort-query-string="getSortQueryString" table-sort="refreshOverride()">
+                                sort-query-string="getSortQueryString" table-sort="refreshOverrideUnifiedTaxValidity()">
                                 <thead>
                                     <tr>
 
@@ -52,12 +52,12 @@
                     </div>
                     <div class="col-xs-12 col-md-6">
                         <table class="table table-striped table-bordered table-hover table-condensed"
-                            sort-query-string="getSortQueryString" table-sort="refreshOverride()">
+                            sort-query-string="getSortQueryString" table-sort="refreshOverrideUnifiedTax()">
                             <thead>
                                 <tr>
 <!--                                     <th translate class="text-nowrap" sort="id">id</th> -->
-                                    <th translate class="text-nowrap" sort="from_manufacture_year">From(Year)</th>
-                                    <th translate class="text-nowrap" sort="to_manufacture_year">To(Year)</th>
+                                    <th translate class="text-nowrap" sort="from_manufacture_year">From (Year)</th>
+                                    <th translate class="text-nowrap" sort="to_manufacture_year">To (Year)</th>
                                     <th translate class="text-nowrap" sort="rate">Unified Tax Rate</th>
 
                                 </tr>
