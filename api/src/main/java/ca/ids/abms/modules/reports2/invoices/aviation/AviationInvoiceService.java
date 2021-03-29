@@ -1152,7 +1152,7 @@ public class AviationInvoiceService {
              FlightmovementCategory flightmovementCategory,User currentUser) {
 
         boolean accountProcessed = false;
-try{
+
 
 
         final AviationInvoiceCreator invoiceCreator = this.buildTheInvoiceCreator(scope.getStartDate(), scope.getEndDateInclusive(),
@@ -1200,9 +1200,7 @@ try{
                 ExceptionFactory.resolveManagedErrors(e));
             throw e;
         }
-}catch (RuntimeException ex){
-    ex.printStackTrace();
-}
+
         return accountProcessed;
     }
 
