@@ -48,6 +48,7 @@ import org.slf4j.LoggerFactory;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static ca.ids.abms.modules.reports2.invoices.ChargeSelection.*;
@@ -432,14 +433,16 @@ if(accountFlights!= null){
 
         if (aircraftRegistrationsToInvoiceByUnifiedTax != null) {
 
-        	invoiceData.global.unifiedTaxAircraftTotal = aircraftRegistrationsToInvoiceByUnifiedTax.size();
-	        //totalAmount
+        	//invoiceData.global.unifiedTaxAircraftTotal = aircraftRegistrationsToInvoiceByUnifiedTax.size();
+            AtomicInteger countUnifiedTaxAircraftTotal = new AtomicInteger(0);
+
+        	//totalAmount
         	for (final AircraftRegistration ar: aircraftRegistrationsToInvoiceByUnifiedTax) {
 	        	// TODO: manage counter update
 
 	        	if (ar.getAircraftServiceDate()!=null) {
 
-	        		final AviationInvoiceData.AircraftInfo aircraftInfo = processAircraftRegistration(ar, account, startDate, endDateInclusive, aviationInvoiceCurrency, preview);
+	        		final AviationInvoiceData.AircraftInfo aircraftInfo = processAircraftRegistration(ar, account, startDate, endDateInclusive, aviationInvoiceCurrency, billingInterval,countUnifiedTaxAircraftTotal, preview);
 	        		//Aggiungo
                     aircraftInfo.customerName = invoiceData.global.accountName;
                     aircraftInfo.company = invoiceData.global.billingName;
@@ -455,6 +458,7 @@ if(accountFlights!= null){
 
 	        	}
 	        }
+            invoiceData.global.unifiedTaxAircraftTotal = countUnifiedTaxAircraftTotal.get();
         }
 
         if (invoiceData.invoiceGenerationAllowed) {
@@ -718,6 +722,8 @@ if(accountFlights!= null){
     												 final LocalDateTime startDate,
     												 final LocalDateTime endDateInclusive,
     												 final Currency aviationInvoiceCurrency,
+                                                     final BillingInterval billingInterval,
+                                                     final AtomicInteger countAircraftRegistration,
                                                      boolean previewMode) {
 
     	AviationInvoiceData.AircraftInfo aircraftInfo = new AviationInvoiceData.AircraftInfo();
@@ -729,6 +735,7 @@ if(accountFlights!= null){
         aircraftInfo.aircraftType = ar.getAircraftType().getAircraftType();
 
         aircraftInfo.unifiedTaxCharges = 0.;
+
 
 
 
@@ -753,11 +760,21 @@ if(accountFlights!= null){
 	                mtow = mtow * ReportHelper.TO_KG;
 	            }
 
-	            aircraftInfo.unifiedTaxCharges = mtow * taxAmount;
+                aircraftInfo.unifiedTaxCharges = mtow * taxAmount;
+
+	            if(billingInterval.equals(BillingInterval.PARTIALLY)){
+                    Integer mesiRimasti = 0;
+                    mesiRimasti = 12 - startDate.getMonthValue() +1; //+1 perchè deve essere incluso il mese start Date;
+                    aircraftInfo.unifiedTaxCharges = (aircraftInfo.unifiedTaxCharges / 12.0) * mesiRimasti;
+                }
+
+
             	Double discount = account.getAccountTypeDiscount();
             	if (discount != null)
             		aircraftInfo.unifiedTaxCharges = aircraftInfo.unifiedTaxCharges - aircraftInfo.unifiedTaxCharges* discount / 100;
-/*
+
+                countAircraftRegistration.incrementAndGet();
+            	/*
                 CachedCurrencyConverter aircraftRegisterCurrencyConverter = new CachedCurrencyConverter (this.currencyUtils, ldtNow);
 
                 aircraftInfo.unifiedTaxCharges = zeroToNull(aircraftRegisterCurrencyConverter.convertCurrency(aircraftInfo.unifiedTaxCharges, usdCurrency, aviationInvoiceCurrency));
