@@ -146,7 +146,8 @@ public class AviationInvoiceCreator {
         this.billingInterval = billingInterval;
 
             if(billingInterval == BillingInterval.PARTIALLY || billingInterval == BillingInterval.ANNUALLY){
-                this.cachedCurrencyConverter = new CachedCurrencyConverter(currencyUtils, startDate);
+                //Now
+                this.cachedCurrencyConverter = new CachedCurrencyConverter(currencyUtils, ldtNow);
             }else{
                 this.cachedCurrencyConverter = new CachedCurrencyConverter(currencyUtils, endDateInclusive);
 
@@ -204,7 +205,14 @@ public class AviationInvoiceCreator {
     	    counter.update();
         }
 
-    	if (do_checkIfAviationInvoicingIsByFlightmovementCategory()) {
+/*
+        if(aircraftRegistrationsToInvoiceByUnifiedTax != null){
+            aviationInvoiceCurrency = account.getInvoiceCurrency();
+            //aviationInvoiceCurrency = flightmovementCategory.
+            //targetCurrency = account.getInvoiceCurrency();
+            //targetCurrency = usdCurrency;
+            targetCurrency = usdCurrency;
+        }else */if (do_checkIfAviationInvoicingIsByFlightmovementCategory()) {
 
     		if (flightmovementCategory == null) {
     			throw new CustomParametrizedException("Flightmovement Category can't be null");
@@ -722,7 +730,7 @@ if(accountFlights!= null){
 
         aircraftInfo.unifiedTaxCharges = 0.;
 
-        try {
+
 
         	LocalDateTime yearManufacture = ar.getAircraftServiceDate();
             UnifiedTax ut = unifiedTaxService.findUnifiedTaxByValidityYearAndManufactureYear(startDate, yearManufacture);
@@ -749,8 +757,11 @@ if(accountFlights!= null){
             	Double discount = account.getAccountTypeDiscount();
             	if (discount != null)
             		aircraftInfo.unifiedTaxCharges = aircraftInfo.unifiedTaxCharges - aircraftInfo.unifiedTaxCharges* discount / 100;
+/*
+                CachedCurrencyConverter aircraftRegisterCurrencyConverter = new CachedCurrencyConverter (this.currencyUtils, ldtNow);
 
-
+                aircraftInfo.unifiedTaxCharges = zeroToNull(aircraftRegisterCurrencyConverter.convertCurrency(aircraftInfo.unifiedTaxCharges, usdCurrency, aviationInvoiceCurrency));
+*/
 
 
                 if(previewMode == false){
@@ -759,10 +770,7 @@ if(accountFlights!= null){
                 }
 
             }
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
+
 
         return aircraftInfo;
     }
