@@ -48,6 +48,7 @@ import org.slf4j.LoggerFactory;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static ca.ids.abms.modules.reports2.invoices.ChargeSelection.*;
@@ -146,7 +147,8 @@ public class AviationInvoiceCreator {
         this.billingInterval = billingInterval;
 
             if(billingInterval == BillingInterval.PARTIALLY || billingInterval == BillingInterval.ANNUALLY){
-                this.cachedCurrencyConverter = new CachedCurrencyConverter(currencyUtils, startDate);
+                //Now
+                this.cachedCurrencyConverter = new CachedCurrencyConverter(currencyUtils, ldtNow);
             }else{
                 this.cachedCurrencyConverter = new CachedCurrencyConverter(currencyUtils, endDateInclusive);
 
@@ -198,15 +200,20 @@ public class AviationInvoiceCreator {
 
     	if (counter != null) {
     	    counter.setAccountName(account.getName());
-    	    //unifiedTaxChargesStrNullPointer
     	    if(accountFlights != null){
                 counter.setFlightsTotal(accountFlights.size());
             }
-
     	    counter.update();
         }
 
-    	if (do_checkIfAviationInvoicingIsByFlightmovementCategory()) {
+/*
+        if(aircraftRegistrationsToInvoiceByUnifiedTax != null){
+            aviationInvoiceCurrency = account.getInvoiceCurrency();
+            //aviationInvoiceCurrency = flightmovementCategory.
+            //targetCurrency = account.getInvoiceCurrency();
+            //targetCurrency = usdCurrency;
+            targetCurrency = usdCurrency;
+        }else */if (do_checkIfAviationInvoicingIsByFlightmovementCategory()) {
 
     		if (flightmovementCategory == null) {
     			throw new CustomParametrizedException("Flightmovement Category can't be null");
@@ -421,23 +428,37 @@ if(accountFlights!= null){
 }
 
 
-        invoiceData.global.unifiedTaxTotalCharges= 0.0; 
+        invoiceData.global.unifiedTaxTotalCharges= 0.0;
         invoiceData.aircraftInfoList = new ArrayList<>();
 
         if (aircraftRegistrationsToInvoiceByUnifiedTax != null) {
-        	
-        	invoiceData.global.unifiedTaxAircraftTotal = aircraftRegistrationsToInvoiceByUnifiedTax.size();
-	        for (final AircraftRegistration ar: aircraftRegistrationsToInvoiceByUnifiedTax) {
+
+        	//invoiceData.global.unifiedTaxAircraftTotal = aircraftRegistrationsToInvoiceByUnifiedTax.size();
+            AtomicInteger countUnifiedTaxAircraftTotal = new AtomicInteger(0);
+
+        	//totalAmount
+        	for (final AircraftRegistration ar: aircraftRegistrationsToInvoiceByUnifiedTax) {
 	        	// TODO: manage counter update
 
 	        	if (ar.getAircraftServiceDate()!=null) {
-	        		final AviationInvoiceData.AircraftInfo aircraftInfo = processAircraftRegistration(ar, account, startDate, endDateInclusive, aviationInvoiceCurrency);
-	        		invoiceData.aircraftInfoList.add(aircraftInfo);
-	        		
+
+	        		final AviationInvoiceData.AircraftInfo aircraftInfo = processAircraftRegistration(ar, account, startDate, endDateInclusive, aviationInvoiceCurrency, billingInterval,countUnifiedTaxAircraftTotal, preview);
+	        		//Aggiungo
+                    aircraftInfo.customerName = invoiceData.global.accountName;
+                    aircraftInfo.company = invoiceData.global.billingName;
+                    aircraftInfo.invoicePeriod = invoiceData.global.invoiceBillingPeriod;
+                    aircraftInfo.invoiceExpiration = invoiceData.global.invoiceDueDateStr;
+                    aircraftInfo.mtow = ar.getMtowOverride();
+                    aircraftInfo.mtowUnitOfMeasure = reportHelper.getMTOWUnitOfMeasure();
+                    aircraftInfo.mtowStr = String.format(TWO_DECIMALS, ar.getMtowOverride())+  " " +reportHelper.getMTOWUnitOfMeasure();
+                    aircraftInfo.discountPercentage = account.getAccountTypeDiscount();
+                    invoiceData.aircraftInfoList.add(aircraftInfo);
+
 	        		invoiceData.global.unifiedTaxTotalCharges += aircraftInfo.unifiedTaxCharges;
 
 	        	}
 	        }
+            invoiceData.global.unifiedTaxAircraftTotal = countUnifiedTaxAircraftTotal.get();
         }
 
         if (invoiceData.invoiceGenerationAllowed) {
@@ -483,9 +504,6 @@ if(accountFlights!= null){
             Integer totalFlightsWithLateDepartureArrivalCharges = 0;
             Integer totalFlightsWithExtendedHoursCharges = 0;
 
-            Integer totalAirctaftRegistration = 0;
-
-            Double unifiedTaxCharges = 0d;
 
             // sub-totals for Domestic Flight Category
             AviationInvoiceData.Global.FlightCategoryInfo domesticData = new AviationInvoiceData.Global.FlightCategoryInfo();
@@ -580,8 +598,9 @@ if(accountFlights!= null){
                 totalChargesAnsp = totalEnrouteChargesAnsp + totalTaspChargesAnsp + totalLandingChargesAnsp +
                     totalParkingChargesAnsp + totalLateDepartureArrivalChargesAnsp + totalExtendedHoursSurchargesAnsp;
             }
-            
+
             // UNIFIED TAX amount summed to total charges
+            invoiceData.global.unifiedTaxTotalChargesStr = reportHelper.formatCurrency(invoiceData.global.unifiedTaxTotalCharges, aviationInvoiceCurrency);
             totalCharges += invoiceData.global.unifiedTaxTotalCharges;
 
             invoiceData.global.enrouteCharges = totalEnrouteCharges;
@@ -632,10 +651,6 @@ if(accountFlights!= null){
              */
 
 
-            invoiceData.global.unifiedTaxCharges = unifiedTaxCharges;
-            invoiceData.global.unifiedTaxChargesStr = reportHelper.formatCurrency(invoiceData.global.unifiedTaxCharges, aviationInvoiceCurrency);
-
-
             invoiceData.global.lateDepartureArrivalCharges = totalLateDepartureArrivalCharges;
             invoiceData.global.lateDepartureArrivalChargesStr = reportHelper.formatCurrency(invoiceData.global.lateDepartureArrivalCharges, aviationInvoiceCurrency);
             invoiceData.global.lateDepartureArrivalChargesStrWithCurrencySymbol = reportHelper.formatCurrency(invoiceData.global.lateDepartureArrivalCharges, aviationInvoiceCurrency);
@@ -656,8 +671,6 @@ if(accountFlights!= null){
             invoiceData.global.totalFlightsWithTaspCharges = totalFlightsWithTaspCharges;
             invoiceData.global.totalFlightsWithLateDepartureArrivalCharges = totalFlightsWithLateDepartureArrivalCharges;
             invoiceData.global.totalFlightsWithExtendedHoursCharges = totalFlightsWithExtendedHoursCharges;
-
-            invoiceData.global.totalAirctaftRegistration = totalAirctaftRegistration;
 
 
             invoiceData.global.domesticEnrouteChargesStr = reportHelper.formatCurrency(domesticData.enrouteCharges, aviationInvoiceCurrency);
@@ -708,16 +721,23 @@ if(accountFlights!= null){
     												 final Account account,
     												 final LocalDateTime startDate,
     												 final LocalDateTime endDateInclusive,
-    												 final Currency aviationInvoiceCurrency) {
+    												 final Currency aviationInvoiceCurrency,
+                                                     final BillingInterval billingInterval,
+                                                     final AtomicInteger countAircraftRegistration,
+                                                     boolean previewMode) {
 
     	AviationInvoiceData.AircraftInfo aircraftInfo = new AviationInvoiceData.AircraftInfo();
         aircraftInfo.manufacturer = ar.getAircraftType().getManufacturer();
         aircraftInfo.manufactureYearStr = reportHelper.formatYear(ar.getAircraftServiceDate());
         aircraftInfo.mtow = ar.getMtowOverride();
-        
+        aircraftInfo.mtowUnitOfMeasure = reportHelper.getMTOWUnitOfMeasure();
+        aircraftInfo.mtowStr = ar.getMtowOverride() +  reportHelper.getMTOWUnitOfMeasure();
+        aircraftInfo.aircraftType = ar.getAircraftType().getAircraftType();
+
         aircraftInfo.unifiedTaxCharges = 0.;
 
-        try {
+
+
 
         	LocalDateTime yearManufacture = ar.getAircraftServiceDate();
             UnifiedTax ut = unifiedTaxService.findUnifiedTaxByValidityYearAndManufactureYear(startDate, yearManufacture);
@@ -734,23 +754,40 @@ if(accountFlights!= null){
             }
 
             if (taxAmount != null) {
-            	
+
             	double mtow = aircraftInfo.mtow;
 	            if (mtowUnitOfMeasure.equalsIgnoreCase("KG")) {
 	                mtow = mtow * ReportHelper.TO_KG;
 	            }
-	            
-	            aircraftInfo.unifiedTaxCharges = mtow * taxAmount;
+
+                aircraftInfo.unifiedTaxCharges = mtow * taxAmount;
+
+	            if(billingInterval.equals(BillingInterval.PARTIALLY)){
+                    Integer mesiRimasti = 0;
+                    mesiRimasti = 12 - startDate.getMonthValue() +1; //+1 perchè deve essere incluso il mese start Date;
+                    aircraftInfo.unifiedTaxCharges = (aircraftInfo.unifiedTaxCharges / 12.0) * mesiRimasti;
+                }
+
+
             	Double discount = account.getAccountTypeDiscount();
             	if (discount != null)
-            		aircraftInfo.unifiedTaxCharges *= discount;
-            	
-                aircraftRegistrationService.updateAircraftRegistrationCOAByIdAndDates(
-                    ar.getId(), startDate, endDateInclusive);
+            		aircraftInfo.unifiedTaxCharges = aircraftInfo.unifiedTaxCharges - aircraftInfo.unifiedTaxCharges* discount / 100;
+
+                countAircraftRegistration.incrementAndGet();
+            	/*
+                CachedCurrencyConverter aircraftRegisterCurrencyConverter = new CachedCurrencyConverter (this.currencyUtils, ldtNow);
+
+                aircraftInfo.unifiedTaxCharges = zeroToNull(aircraftRegisterCurrencyConverter.convertCurrency(aircraftInfo.unifiedTaxCharges, usdCurrency, aviationInvoiceCurrency));
+*/
+
+
+                if(previewMode == false){
+                    aircraftRegistrationService.updateAircraftRegistrationCOAByIdAndDates(
+                        ar.getId(), startDate, endDateInclusive);
+                }
+
             }
-        }
-        catch(Exception e) {
-        }
+
 
         return aircraftInfo;
     }

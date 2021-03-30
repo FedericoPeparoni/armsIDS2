@@ -5,15 +5,14 @@
                 <form ng-show="!recoveryForm" novalidate name="loginForm" onsubmit="return false" class="box-container">
                     <div class="row">
                         <div class="form-group logo-holder col-xs-9">
-                            <img class="ids-logo" alt="IDS" src="assets/images/ids_logo_corp-trans.png" />
-                            <h1>ARMS</h1>
-                            <img class="logo" alt="#" src="assets/images/logo.png" />
+                        <img class="logo" alt="#" src="assets/images/logo.png" />
+                            <h3>ARMS</h3>
                         </div>
                         <div class="col-xs-3">
                             <span ng-show="language.enabled">
                                 <label translate for="language">Languages</label>
-                                <select id="language" class="form-control" ng-model="language.selected" 
-                                    ng-change="setFrontendLanguage(language.selected)" 
+                                <select id="language" class="form-control" ng-model="language.selected"
+                                    ng-change="setFrontendLanguage(language.selected)"
                                     ng-options="language as language.label for language in language.supported">
                                 </select>
                             </span>
@@ -41,7 +40,7 @@
                     <div ng-show="error" class="form-group">
                         <uib-alert ng-show="error === 400 || error === 401" translate>Invalid username and/or password. Please try again</uib-alert>
                         <uib-alert ng-show="error !== 400 && error !== 401">{{ offlineServerError }}</uib-alert>
-                    </div>                    
+                    </div>
                     <div>
                         <button type="button" class="btn-link link btn-forgot-password" translate
                             ng-click="passwordRecoveryForm()">
@@ -54,7 +53,6 @@
                 <form ng-show="recoveryForm" novalidate name="loginForm" onsubmit="return false" class="box-container">
                     <div class="row">
                         <div class="form-group logo-holder col-xs-12">
-                            <img class="ids-logo" alt="IDS" src="assets/images/ids_logo_corp-trans.png" />
                             <h1>ARMS</h1>
                             <img class="logo" alt="#" src="assets/images/logo.png" />
                         </div>
