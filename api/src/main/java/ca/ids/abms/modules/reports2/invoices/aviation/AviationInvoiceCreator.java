@@ -306,6 +306,10 @@ public class AviationInvoiceCreator {
 
 
     private boolean do_checkIfAviationInvoicingIsByFlightmovementCategory() {
+    	
+    	if (billingInterval == BillingInterval.PARTIALLY || billingInterval == BillingInterval.ANNUALLY)
+    		return false;
+    	
     	final SystemConfiguration aviationInvoiceCurrencyItem = systemConfigurationService.getOneByItemName(SystemConfigurationItemName.INVOICE_CURRENCY_ENROUTE);
     	boolean invoiceByFlightMovementCategory = systemConfigurationService.getBoolean(SystemConfigurationItemName.INVOICE_BY_FLIGHT_MOVEMENT_CATEGORY);
 
