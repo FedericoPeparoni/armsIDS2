@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.ids.abms.modules.formulas.FormulaEvaluator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,11 +22,15 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
 
 	private final UnifiedTaxValidityService unifiedTaxValidityService;
 
+    private final FormulaEvaluator formulaEvaluator;
+
 	UnifiedTaxService(final UnifiedTaxValidityService unifiedTaxValidityService,
-			final UnifiedTaxRepository unifiedTaxRepository) {
+			final UnifiedTaxRepository unifiedTaxRepository,
+            final FormulaEvaluator formulaEvaluator) {
 		super(unifiedTaxRepository);
 		this.unifiedTaxRepository = unifiedTaxRepository;
 		this.unifiedTaxValidityService = unifiedTaxValidityService;
+        this.formulaEvaluator = formulaEvaluator;
 	}
 
 	@Transactional
@@ -149,4 +154,8 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
 		}
 		return taxManagement;
 	}
+
+    public FormulaEvaluator getFormulaEvaluator() {
+        return formulaEvaluator;
+    }
 }
