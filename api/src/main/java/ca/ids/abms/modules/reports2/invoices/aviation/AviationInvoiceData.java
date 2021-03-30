@@ -240,7 +240,7 @@ public class AviationInvoiceData {
         // Unified Tax category
         public @XmlElement(nillable = true) Double unifiedTaxTotalCharges;
         public @XmlElement(nillable = true) String unifiedTaxTotalChargesStr;
-        public @XmlElement(nillable = true) String unifiedTaxChargesStr;
+        //public @XmlElement(nillable = true) String unifiedTaxChargesStr;
         public @XmlElement(nillable = true) Integer unifiedTaxAircraftTotal;
 
 
