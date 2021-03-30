@@ -1,16 +1,17 @@
- // controllers
- import { CRUDFormControllerUserService } from '../../angular-ids-project/src/helpers/controllers/crud-form-user-service/crud-form-user-service.controller';
+// controllers
+import { CRUDFormControllerUserService } from '../../angular-ids-project/src/helpers/controllers/crud-form-user-service/crud-form-user-service.controller';
 
- //interfaces
-import {ITuRateManagementScope, IUnifiedTaxManagement, IValidity} from './unified-tax-managment.interface';
+//interfaces
+import { ITuRateManagementScope, IUnifiedTaxManagement, IValidity } from './unified-tax-managment.interface';
+import { IExtendableError, IError } from '../../angular-ids-project/src/helpers/interfaces/restangularError.interface';
 
- //services
+//services
 import { UnifiedTaxManagementService } from './service/unified-tax-management.service';
 import { SystemConfigurationService } from '../system-configuration/service/system-configuration.service';
 import { SysConfigConstants } from '../system-configuration/system-configuration.constants';
 import { CustomDate } from '../../angular-ids-project/src/components/services/customDate/customDate.service';
- import {IUser} from "../users/users.interface";
- import {UnifiedTaxValidityManagementService} from "./service/unified-tax-validity-management.service";
+import { IUser } from "../users/users.interface";
+import { UnifiedTaxValidityManagementService } from "./service/unified-tax-validity-management.service";
 export class UnifiedTaxManagementController extends CRUDFormControllerUserService {
 
   protected service: any;
@@ -20,13 +21,17 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
 
   /* @ngInject */
   constructor(protected $scope: ITuRateManagementScope, protected unifiedTaxManagementService: UnifiedTaxManagementService,
-              protected unifiedTaxValidityManagementService: UnifiedTaxValidityManagementService,
-    protected systemConfigurationService: SystemConfigurationService,private customDate: CustomDate) {
+    protected unifiedTaxValidityManagementService: UnifiedTaxValidityManagementService,
+    protected systemConfigurationService: SystemConfigurationService, private customDate: CustomDate) {
     super($scope, unifiedTaxManagementService);
     this.service = unifiedTaxValidityManagementService;
     this.serviceValidity = unifiedTaxValidityManagementService;
     this.serviceTax = unifiedTaxManagementService;
     this.setup();
+    $scope.reset = () => this.reset();
+    $scope.validate = () => this.validate();
+    $scope.addToFormula = (text: string) => this.addToFormula(text);
+    $scope.setField = (index: number, field: string) => this.setField(index, field);
     this.getFilterParameters();
 
     //$scope.customDate = this.customDate.returnDateFormatStr(false);
@@ -73,27 +78,27 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
 
 
 
-     // add scope boolean flag for external identifier requirement
-     this.$scope.requireExternalSystemId = this.systemConfigurationService
-     .getBooleanFromValueByName(<any>SysConfigConstants.REQUIRE_UNIFIED_TAX_EXTERNAL_SYSTEM_ID);
+    // add scope boolean flag for external identifier requirement
+    this.$scope.requireExternalSystemId = this.systemConfigurationService
+      .getBooleanFromValueByName(<any>SysConfigConstants.REQUIRE_UNIFIED_TAX_EXTERNAL_SYSTEM_ID);
 
-     this.resetValidity();
-     this.resetTax();
- }
+    this.resetValidity();
+    this.resetTax();
+  }
 
- /**
-   * Sets the form to edit the single entry of tax validity
-   * @param {Object} data   entity to edit
-   */
+  /**
+    * Sets the form to edit the single entry of tax validity
+    * @param {Object} data   entity to edit
+    */
   protected editValidity(data: Object): void {
     this.$scope.error = null;
     this.$scope.editableValidity = angular.copy(data);
     var fromString = this.$scope.editableValidity.from_validity_year;
     var toString = this.$scope.editableValidity.to_validity_year;
-    if(fromString){
+    if (fromString) {
       this.$scope.editableValidity.from_validity_year = new Date(fromString);
     }
-    if(toString){
+    if (toString) {
       this.$scope.editableValidity.to_validity_year = new Date(toString);
     }
   }
@@ -107,10 +112,10 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     this.$scope.editableTax = angular.copy(data);
     var fromString = this.$scope.editableTax.from_manufacture_year;
     var toString = this.$scope.editableTax.to_manufacture_year;
-    if(fromString){
+    if (fromString) {
       this.$scope.editableTax.from_manufacture_year = new Date(fromString);
     }
-    if(toString){
+    if (toString) {
       this.$scope.editableTax.to_manufacture_year = new Date(toString);
     }
   }
@@ -161,7 +166,7 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     //this.$scope.listUnifiedTaxValidity = null;
     this.getFilterParameters();
 
-    if(this.$scope.selectedValidity != null){
+    if (this.$scope.selectedValidity != null) {
       return this.unifiedTaxManagementService.getListByValidityId(this.$scope.selectedValidity.id)
         .then((taxes: Array<IUnifiedTaxManagement>) => {
           this.$scope.listUnifiedTax = taxes;
@@ -185,8 +190,8 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     this.unifiedTaxManagementService.getListByValidityId(validity.id)
       .then((taxes: Array<IUnifiedTaxManagement>) => {
         this.$scope.listUnifiedTax = taxes;
-      this.getFilterParameters();
-    });
+        this.getFilterParameters();
+      });
     this.$scope.selectedValidity = validity;
     this.editValidity(validity)
   }
@@ -202,9 +207,9 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
   protected createTax(data: IUnifiedTaxManagement): ng.IPromise<any> {
     this.service = this.serviceTax;
     data.validity = this.$scope.selectedValidity;
-    var toRet = super.create(data).then(()=> {
-          this.showTaxes(this.$scope.selectedValidity);
-      });
+    var toRet = super.create(data).then(() => {
+      this.showTaxes(this.$scope.selectedValidity);
+    });
     this.resetTax();
     return toRet;
   }
@@ -219,9 +224,9 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
 
   protected updateTax(data: Object, id: number): ng.IPromise<any> {
     this.service = this.serviceTax;
-    var toRet = super.update(data, id).then(()=> {
-          this.showTaxes(this.$scope.selectedValidity);
-      });
+    var toRet = super.update(data, id).then(() => {
+      this.showTaxes(this.$scope.selectedValidity);
+    });
     this.resetTax();
     return toRet;
   }
@@ -237,7 +242,7 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
    */
   protected deleteValidity(id: number): ng.IPromise<void> {
     this.service = this.serviceValidity;
-     var toRet = super.delete(id);
+    var toRet = super.delete(id);
     this.refreshOverrideUnifiedTaxValidity();
     this.resetValidity();
     return toRet;
@@ -249,29 +254,72 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
    */
   protected deleteTax(id: number): ng.IPromise<void> {
     this.service = this.serviceTax;
-     var toRet = super.delete(id).then(()=> {
-          this.showTaxes(this.$scope.selectedValidity);
-      });
+    var toRet = super.delete(id).then(() => {
+      this.showTaxes(this.$scope.selectedValidity);
+    });
     this.resetTax();
     return toRet;
   }
 
- protected validateValidityDates (fromValidityYear: String, toValidityYear: String): boolean{
+  protected validateValidityDates(fromValidityYear: String, toValidityYear: String): boolean {
 
-    if(fromValidityYear!= null || toValidityYear!=null){
-         return true;
+    if (fromValidityYear != null || toValidityYear != null) {
+      return true;
     }
     return false;
- }
+  }
 
- protected validateTaxDates (fromManufactureYear: String, toManufactureYear: String): boolean{
+  protected validateTaxDates(fromManufactureYear: String, toManufactureYear: String): boolean {
 
-    if(fromManufactureYear!= null || toManufactureYear!=null){
-         return true;
+    if (fromManufactureYear != null || toManufactureYear != null) {
+      return true;
     }
     return false;
- }
+  }
 
+  private validate(): void {
+    this.service.validate(this.$scope.editable).then((data: any) => {
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].formula_valid === false) {
+          this.$scope.error = <IExtendableError>{};
+          let errorObj = <IError>{};
+          this.$scope.error.error = { data: errorObj };
+          this.$scope.error.error.data.error = data[i].formula;
+          this.$scope.error.error.data.error_description = data[i].issue;
+          return;
+        }
+      }
+      this.$scope.ifValidate = false;
+    });
+  }
+
+  private addToFormula(text: string): void {
+    this.$scope.ifValidate = true;
+
+    if (!this.$scope.formula) {
+      this.$scope.formula = text;
+    } else {
+      this.$scope.formula += text;
+    }
+
+    if (this.$scope.index >= 0 && this.$scope.field) {
+      this.$scope.editable.unified_tax_formulas[this.$scope.index][this.$scope.field] = this.$scope.formula;
+    } else {
+      this.$scope.editableTax.rate = this.$scope.formula;
+    }
+  }
+
+
+  private setField(index: number, field: string): void {
+    this.$scope.showDWFactor = field === 'formula';
+
+    this.$scope.index = index;
+    this.$scope.field = field;
+
+    if (index >= 0 && field) {
+      this.$scope.formula = this.$scope.editable.unified_tax_formulas[index][field];
+    } else {
+      this.$scope.formula = this.$scope.editableTax.rate;
+    }
+  }
 }
-
-

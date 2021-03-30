@@ -18,14 +18,16 @@ export class UnifiedTaxManagementService extends CRUDService {
     to_manufacture_year: null,
     rate: null,
     validity: null,
-    requireExternalSystemId:null
+    requireExternalSystemId: null,
+    w_factor_formula: null,
+    unified_tax_formulas: null
   };
 
- /** @ngInject */
- constructor(protected Restangular: restangular.IService) {
-  super(Restangular, endpoint);
-  this.model = angular.copy(this._mod);
-}
+  /** @ngInject */
+  constructor(protected Restangular: restangular.IService) {
+    super(Restangular, endpoint);
+    this.model = angular.copy(this._mod);
+  }
 
   /**
    * Get list of all unified TAx.
@@ -41,7 +43,12 @@ export class UnifiedTaxManagementService extends CRUDService {
   }
 
 
-
+   // validates formulas, returning which formulas are invalid and why
+   public validate(unifiedTaxCharge: IUnifiedTaxManagement): ng.IPromise<any> {
+    let copy = angular.copy(unifiedTaxCharge); // copy of object sends to back end with id = null because back end doesn't accept id when updating
+    copy.id = null;
+    return this.restangular.all(`${endpoint}/validate`).customPOST(copy);
+  }
 
 
 }
