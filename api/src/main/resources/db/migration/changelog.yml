@@ -2335,11 +2335,11 @@ databaseChangeLog:
         file: tables/20200304154700_alter_tables_tma_crossing.sql
         relativeToChangelogFile: true
     - include:
-        author: Helen Eskina       
+        author: Helen Eskina
         file: procedure/local_airspace_union_geom_2.sql
         relativeToChangelogFile: true
     - include:
-        author: Helen Eskina       
+        author: Helen Eskina
         file: 20200326144000_system_configuration_tma.sql
         relativeToChangelogFile: true
     - include:
@@ -2351,49 +2351,49 @@ databaseChangeLog:
         file: tables/20200327111600_create_self_care_portal_inactivity_expiry_notices_table.sql
         relativeToChangelogFile: true
     - include:
-        author: Helen Eskina               
+        author: Helen Eskina
         file: 20200415162800_add_default_flight_levels.sql
         relativeToChangelogFile: true
     - include:
-        author: Helen Eskina               
+        author: Helen Eskina
         file: 20200504164900_update_existing_airspaces_3d_routing.sql
-        relativeToChangelogFile: true     
+        relativeToChangelogFile: true
     - include:
-        author: Helen Eskina               
+        author: Helen Eskina
         file: tables/20200512152500_nominal_exempted_routes_unique.sql
-        relativeToChangelogFile: true           
+        relativeToChangelogFile: true
     - include:
         author: Olga Bila
         file: tables/20200507150800_alter_flight_movements_table.sql
         relativeToChangelogFile: true
     - include:
-        author: Helen Eskina               
+        author: Helen Eskina
         file: tables/202006171500_alter_radar_summary_table_constraint.sql
-        relativeToChangelogFile: true           
+        relativeToChangelogFile: true
     - include:
         author: Olga Bila
         file: 20200630161000_alter_system_configuration_table.sql
         relativeToChangelogFile: true
     - include:
-        author: Alessio Bulleri              
+        author: Alessio Bulleri
         file: tables/20200721140200_alter_billing_centers_table.sql
-        relativeToChangelogFile: true  
+        relativeToChangelogFile: true
     - include:
-        author: Alessio Bulleri              
+        author: Alessio Bulleri
         file: 20200720174600_insert_system_configurations.sql
-        relativeToChangelogFile: true   
+        relativeToChangelogFile: true
     - include:
-        author: Alessio Bulleri              
+        author: Alessio Bulleri
         file: tables/20200728125600_alter_billing_centers_table.sql
-        relativeToChangelogFile: true   
+        relativeToChangelogFile: true
     - include:
-        author: Alessio Bulleri              
+        author: Alessio Bulleri
         file: tables/20200728151600_alter_billing_ledgers_table.sql
-        relativeToChangelogFile: true   
+        relativeToChangelogFile: true
     - include:
-        author: Alessio Bulleri              
+        author: Alessio Bulleri
         file: tables/20200728152600_alter_transactions_table.sql
-        relativeToChangelogFile: true  
+        relativeToChangelogFile: true
     - include:
         author: Davlet Panech
         file: tables/20200614150400_amhs_config_tables.sql
@@ -2401,28 +2401,32 @@ databaseChangeLog:
     - include:
         author: Davlet Panech
         file: tables/20200811203300_clear_amhs_ip_addresses.sql
-        relativeToChangelogFile: true   
+        relativeToChangelogFile: true
     - include:
-        author: Alessio Bulleri              
+        author: Alessio Bulleri
         file: 20200918032900_revenue_view_aviation.sql
-        relativeToChangelogFile: true    
+        relativeToChangelogFile: true
     - include:
-        author: Marco Cappella              
+        author: Marco Cappella
         file: 20210315153000_alter_permissions.sql
-        relativeToChangelogFile: true   
+        relativeToChangelogFile: true
     - include:
-        author: Marco Cappella              
+        author: Marco Cappella
         file: 20210315183313_create_unified_tax_validity.sql
-        relativeToChangelogFile: true    
+        relativeToChangelogFile: true
     - include:
-        author: Alessandro Gallinella              
+        author: Alessandro Gallinella
         file: 20210315211553_create_unified_tax.sql
-        relativeToChangelogFile: true   
+        relativeToChangelogFile: true
     - include:
-        author: Marco Cappella              
+        author: Marco Cappella
         file: 20210317103400_insert_account_types_table.sql
-        relativeToChangelogFile: true   
+        relativeToChangelogFile: true
     - include:
-        author: Marco Cappella              
+        author: Marco Cappella
         file: 20210318125000_alter_account.sql
-        relativeToChangelogFile: true   
+        relativeToChangelogFile: true
+    - include:
+          author: Raffaele Aramo
+          file: 20210330211553_alter_unified_tax.sql
+          relativeToChangelogFile: true

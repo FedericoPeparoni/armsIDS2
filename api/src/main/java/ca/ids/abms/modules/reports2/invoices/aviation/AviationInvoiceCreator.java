@@ -1641,7 +1641,7 @@ if(accountFlights!= null){
             UnifiedTax ut = unifiedTaxService.findUnifiedTaxByValidityYearAndManufactureYear(startDate, yearManufacture);
 
             //getChargeFormula
-            String rate = ut.getRate();
+            String rate = ut.getChargeFormula();
 
             //String rate = ut.getChargeFormula();
 
