@@ -441,7 +441,7 @@ if(accountFlights!= null){
         	//invoiceData.global.unifiedTaxAircraftTotal = aircraftRegistrationsToInvoiceByUnifiedTax.size();
             AtomicInteger countUnifiedTaxAircraftTotal = new AtomicInteger(0);
 
-            UnifiedTaxProcess unifiedTaxProcess = new UnifiedTaxProcess(account, startDate, endDateInclusive, aviationInvoiceCurrency, billingInterval,countUnifiedTaxAircraftTotal, unifiedTaxService,  preview);
+            UnifiedTaxProcess unifiedTaxProcess = new UnifiedTaxProcess(account, startDate, endDateInclusive, aviationInvoiceCurrency, billingInterval,countUnifiedTaxAircraftTotal, unifiedTaxService, currencyUtils, preview);
 
         	//totalAmount
         	for (final AircraftRegistration ar: aircraftRegistrationsToInvoiceByUnifiedTax) {
@@ -1592,8 +1592,10 @@ if(accountFlights!= null){
         private AtomicInteger countAircraftRegistration;
         private UnifiedTaxService unifiedTaxService;
         private boolean previewMode;
-
+        private CachedCurrencyConverter aircraftRegisterCurrencyConverter;
+        private CurrencyUtils currencyUtils;
         private Map<String, Object> vars;
+        private Currency anspCurrency;
 
         public UnifiedTaxProcess(//final AircraftRegistration ar,
                                  final Account account,
@@ -1603,6 +1605,7 @@ if(accountFlights!= null){
                                  final BillingInterval billingInterval,
                                  final AtomicInteger countAircraftRegistration,
                                  final UnifiedTaxService unifiedTaxService,
+                                 final CurrencyUtils currencyUtils,
                                  boolean previewMode){
             this.account = account;
             this.startDate = startDate;
@@ -1612,8 +1615,12 @@ if(accountFlights!= null){
             this.countAircraftRegistration = countAircraftRegistration;
             this.unifiedTaxService = unifiedTaxService;
             this.previewMode = previewMode;
-
+            this.currencyUtils = currencyUtils;
             vars=initVarsMap();
+
+            aircraftRegisterCurrencyConverter = new CachedCurrencyConverter (this.currencyUtils, ldtNow);
+            this.anspCurrency = aircraftRegisterCurrencyConverter.getAnspCurrency();
+
         }
 
         public AircraftInfo processAircraftRegistration(final AircraftRegistration ar) {
@@ -1652,6 +1659,7 @@ if(accountFlights!= null){
 
             if (taxAmount != null) {
 
+                //reportHelper.convertMTOWinTons(Double mtow)
                 /*
                 double mtow = aircraftInfo.mtow;
                 if (mtowUnitOfMeasure.equalsIgnoreCase("KG")) {
@@ -1676,13 +1684,7 @@ if(accountFlights!= null){
 
                 countAircraftRegistration.incrementAndGet();
 
-
-                //CachedCurrencyConverter aircraftRegisterCurrencyConverter = new CachedCurrencyConverter (this.currencyUtils, ldtNow);
-
-                //Ansp Currency !=
-                //aircraftInfo.unifiedTaxCharges = zeroToNull(aircraftRegisterCurrencyConverter.convertCurrency(aircraftInfo.unifiedTaxCharges, account.getInvoiceCurrency(), account.getInvoiceCurrency()));
-
-
+                aircraftInfo.unifiedTaxCharges = zeroToNull(aircraftRegisterCurrencyConverter.convertCurrency(aircraftInfo.unifiedTaxCharges, anspCurrency, account.getInvoiceCurrency()));
 
                 if(previewMode == false){
                     aircraftRegistrationService.updateAircraftRegistrationCOAByIdAndDates(
