@@ -17,7 +17,11 @@ public class InvoiceProgressCounter extends StepSummary {
     private int flightNumber;
 
     private int flightsTotal;
+    
+    private int unifiedTaxAircraftNumber;
 
+    private int unifiedTaxAircraftTotal;
+    
     public InvoiceProgressCounter(int itemsToProcess) {
         super(itemsToProcess);
 
@@ -59,6 +63,17 @@ public class InvoiceProgressCounter extends StepSummary {
         }
     }
 
+    public void setUnifiedTaxAircraftTotal(int unifiedTaxAircraftTotal) {
+        this.unifiedTaxAircraftTotal = unifiedTaxAircraftTotal;
+        this.unifiedTaxAircraftNumber = 0;
+    }
+
+    public void increaseunifiedTaxAircraftTotal() {
+        if (unifiedTaxAircraftNumber < unifiedTaxAircraftTotal) {
+            unifiedTaxAircraftNumber++;
+        }
+    }
+    
     public String getAccountName() {
         return accountName;
     }
@@ -83,6 +98,14 @@ public class InvoiceProgressCounter extends StepSummary {
         return flightsTotal;
     }
 
+    public int getUnifiedTaxAircraftTotal() {
+        return unifiedTaxAircraftTotal;
+    }
+
+    public int getUnifiedTaxAircraftNumber() {
+        return unifiedTaxAircraftNumber;
+    }
+
     @Override
     public void update() {
         final  JobMessage.Builder jmb = new JobMessage.Builder().setMessage(message);
@@ -94,7 +117,11 @@ public class InvoiceProgressCounter extends StepSummary {
         }
         if (flightsTotal > 0) {
             jmb.addVariable("flightsTotal", flightsTotal).addVariable("flightNumber", flightNumber);
-        }
+		}
+        if (unifiedTaxAircraftTotal > 0) {
+            jmb.addVariable("unifiedTaxAircraftTotal", unifiedTaxAircraftTotal).addVariable("unifiedTaxAircraftNumber", unifiedTaxAircraftNumber);
+		}
+        
         super.setMessage(jmb.build());
         super.update();
     }
