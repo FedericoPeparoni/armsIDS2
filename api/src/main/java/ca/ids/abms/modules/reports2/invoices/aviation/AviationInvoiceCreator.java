@@ -1624,8 +1624,13 @@ if(accountFlights!= null){
         }
 
         public AircraftInfo processAircraftRegistration(final AircraftRegistration ar) {
+            //Convert in mtow KG
+            double mtow = ar.getMtowOverride();
+            if (mtowUnitOfMeasure.equalsIgnoreCase("KG")) {
+                mtow = mtow * ReportHelper.TO_KG;
+            }
 
-            vars.put(CostFormulaVar.MTOW.varName(), ar.getMtowOverride());
+            vars.put(CostFormulaVar.MTOW.varName(), mtow);
 
             AviationInvoiceData.AircraftInfo aircraftInfo = new AviationInvoiceData.AircraftInfo();
             aircraftInfo.manufacturer = ar.getAircraftType().getManufacturer();
@@ -1660,14 +1665,12 @@ if(accountFlights!= null){
             if (taxAmount != null) {
 
                 //reportHelper.convertMTOWinTons(Double mtow)
-                /*
-                double mtow = aircraftInfo.mtow;
-                if (mtowUnitOfMeasure.equalsIgnoreCase("KG")) {
-                    mtow = mtow * ReportHelper.TO_KG;
-                }
+                //String unitOfMeasure = getMTOWUnitOfMeasure()
 
-                aircraftInfo.unifiedTaxCharges = mtow * taxAmount;
-                 */
+
+
+                //aircraftInfo.unifiedTaxCharges = mtow * taxAmount;
+
                 aircraftInfo.unifiedTaxCharges = taxAmount;
 
                 //
@@ -1701,10 +1704,9 @@ if(accountFlights!= null){
 
         private final Map<String, Object> initVarsMap(){
             Map<String, Object> vars = new HashedMap();
-
             vars.put(CostFormulaVar.MTOW.varName(),12.89);
-            vars.put(CostFormulaVar.AVGMASSFACTOR.varName(),45.65);
-            vars.put(CostFormulaVar.SCHEDCROSSDIST.varName(),25.03);
+            //vars.put(CostFormulaVar.AVGMASSFACTOR.varName(),45.65);
+            //vars.put(CostFormulaVar.SCHEDCROSSDIST.varName(),25.03);
 
             return vars;
         }
