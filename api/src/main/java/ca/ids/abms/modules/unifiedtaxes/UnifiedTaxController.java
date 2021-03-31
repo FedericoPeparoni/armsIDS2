@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import ca.ids.abms.config.error.ErrorDTO;
+import ca.ids.abms.config.error.ErrorVariables;
 import ca.ids.abms.modules.formulas.unifiedtax.UnifiedTaxChargeFormulaValidationViewModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +59,15 @@ public class UnifiedTaxController
         UnifiedTaxChargeFormulaValidationViewModel unifiedTaxChargeFormulaValidation = unifiedTaxService.validateUnifiedTaxFormula(viewModel.getRate());
 
         if(!unifiedTaxChargeFormulaValidation.getFormulaValid()){
-            throw new UnifiedTaxChargeFormulaException(unifiedTaxChargeFormulaValidation);
+            ErrorVariables detailVariables = new ErrorVariables();
+
+            detailVariables.addEntry("rate", viewModel.getRate());
+            throw new ErrorDTO.Builder()
+                .setErrorMessage(unifiedTaxChargeFormulaValidation.getIssue())
+                .setErrorMessageVariables(detailVariables)
+                //.appendDetails("Please update the exchange rates before continuing")
+                .buildInvalidDataException();
+            //throw new UnifiedTaxChargeFormulaException(unifiedTaxChargeFormulaValidation);
         }
 
         return super.doCreate(viewModel);
@@ -73,7 +83,14 @@ public class UnifiedTaxController
         UnifiedTaxChargeFormulaValidationViewModel unifiedTaxChargeFormulaValidation = unifiedTaxService.validateUnifiedTaxFormula(viewModel.getRate());
 
         if(!unifiedTaxChargeFormulaValidation.getFormulaValid()){
-            throw new UnifiedTaxChargeFormulaException(unifiedTaxChargeFormulaValidation);
+            ErrorVariables detailVariables = new ErrorVariables();
+            detailVariables.addEntry("rate", viewModel.getRate());
+            throw new ErrorDTO.Builder()
+                .setErrorMessage(unifiedTaxChargeFormulaValidation.getIssue())
+                .setErrorMessageVariables(detailVariables)
+                //.appendDetails("Please update the exchange rates before continuing")
+                .buildInvalidDataException();
+            //throw new UnifiedTaxChargeFormulaException(unifiedTaxChargeFormulaValidation);
         }
 
         return super.doUpdate(id, viewModel);
