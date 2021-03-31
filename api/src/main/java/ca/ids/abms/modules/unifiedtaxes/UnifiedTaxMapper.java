@@ -17,8 +17,7 @@ interface UnifiedTaxMapper extends AbmsCrudMapper<UnifiedTax, UnifiedTaxViewMode
 //    @Mapping(target = "validityId", source = "validity.id")
 //    @Mapping(target = "fromValidityYear", source = "validity.fromValidityYear")
 //    @Mapping(target = "toValidityYear", source = "validity.toValidityYear")
-    @Mapping(source = "chargeFormula", target = "rate")
-    @Named("mapToUnifiedTaxViewModelViewModel")
+    //@Mapping(source = "chargeFormula", target = "rate")
     UnifiedTaxViewModel toViewModel(UnifiedTax unifiedTax);
 //
 //    @Mapping(source = "validityId", target = "validity.id")
@@ -26,7 +25,7 @@ interface UnifiedTaxMapper extends AbmsCrudMapper<UnifiedTax, UnifiedTaxViewMode
 //    @Mapping(source = "toValidityYear", target = "validity.toValidityYear")
 //    UnifiedTax toModel(UnifiedTaxViewModel unifiedTaxViewModel);
 //
-    @IterableMapping(qualifiedBy = Mapper.class)
+    //@IterableMapping(qualifiedBy = Mapper.class)
     List<UnifiedTaxViewModel> toViewModel(List<UnifiedTax> unifiedTaxList);
 
 }

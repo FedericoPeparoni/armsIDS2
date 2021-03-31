@@ -56,12 +56,12 @@ public class UnifiedTaxController
     public ResponseEntity<UnifiedTaxViewModel> create(@Valid @RequestBody final UnifiedTaxViewModel viewModel)
             throws URISyntaxException {
         LOG.debug("REST request to create unifiedTax account : {}", viewModel);
-        UnifiedTaxChargeFormulaValidationViewModel unifiedTaxChargeFormulaValidation = unifiedTaxService.validateUnifiedTaxFormula(viewModel.getRate());
+        UnifiedTaxChargeFormulaValidationViewModel unifiedTaxChargeFormulaValidation = unifiedTaxService.validateUnifiedTaxFormula(viewModel.getChargeFormula());
 
         if(!unifiedTaxChargeFormulaValidation.getFormulaValid()){
             ErrorVariables detailVariables = new ErrorVariables();
 
-            detailVariables.addEntry("rate", viewModel.getRate());
+            detailVariables.addEntry("chargeFormula", viewModel.getChargeFormula());
             throw new ErrorDTO.Builder()
                 .setErrorMessage(unifiedTaxChargeFormulaValidation.getIssue())
                 .setErrorMessageVariables(detailVariables)
@@ -80,11 +80,11 @@ public class UnifiedTaxController
     public ResponseEntity<UnifiedTaxViewModel> update(@PathVariable final Integer id,
             @Valid @RequestBody final UnifiedTaxViewModel viewModel) {
         LOG.debug("REST request to update unifiedTax account with id '{}' : {}", id, viewModel);
-        UnifiedTaxChargeFormulaValidationViewModel unifiedTaxChargeFormulaValidation = unifiedTaxService.validateUnifiedTaxFormula(viewModel.getRate());
+        UnifiedTaxChargeFormulaValidationViewModel unifiedTaxChargeFormulaValidation = unifiedTaxService.validateUnifiedTaxFormula(viewModel.getChargeFormula());
 
         if(!unifiedTaxChargeFormulaValidation.getFormulaValid()){
             ErrorVariables detailVariables = new ErrorVariables();
-            detailVariables.addEntry("rate", viewModel.getRate());
+            detailVariables.addEntry("chargeFormula", viewModel.getChargeFormula());
             throw new ErrorDTO.Builder()
                 .setErrorMessage(unifiedTaxChargeFormulaValidation.getIssue())
                 .setErrorMessageVariables(detailVariables)
