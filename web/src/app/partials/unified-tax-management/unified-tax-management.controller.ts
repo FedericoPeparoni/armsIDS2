@@ -292,7 +292,7 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     if (this.$scope.index >= 0 && this.$scope.field) {
       this.$scope.editable.unified_tax_formulas[this.$scope.index][this.$scope.field] = this.$scope.formula;
     } else {
-      this.$scope.editableTax.rate = this.$scope.formula;
+      this.$scope.editableTax.charge_formula = this.$scope.formula;
     }
   }
 
