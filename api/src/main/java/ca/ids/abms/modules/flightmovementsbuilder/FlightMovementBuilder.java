@@ -6,6 +6,8 @@ import ca.ids.abms.config.error.RejectedReasons;
 import ca.ids.abms.modules.accounts.Account;
 import ca.ids.abms.modules.accounts.AccountService;
 import ca.ids.abms.modules.aerodromes.Aerodrome;
+import ca.ids.abms.modules.aircraft.AircraftRegistration;
+import ca.ids.abms.modules.aircraft.AircraftRegistrationRepository;
 import ca.ids.abms.modules.atcmovements.AtcMovementLog;
 import ca.ids.abms.modules.atcmovements.AtcMovementLogBillableRouteFinder;
 import ca.ids.abms.modules.billingcenters.BillingCenter;
@@ -16,18 +18,23 @@ import ca.ids.abms.modules.dbqueries.DatabaseQueryResult;
 import ca.ids.abms.modules.dbqueries.DatabaseQueryService;
 import ca.ids.abms.modules.flightmovements.FlightMovement;
 import ca.ids.abms.modules.flightmovements.FlightMovementAerodromeService;
+import ca.ids.abms.modules.flightmovements.FlightMovementService;
 import ca.ids.abms.modules.flightmovements.FlightMovementValidationViewModel;
 import ca.ids.abms.modules.flightmovements.enumerate.FlightMovementSource;
+import ca.ids.abms.modules.flightmovements.enumerate.FlightMovementStatus;
+import ca.ids.abms.modules.flightmovements.enumerate.FlightmovementCategoryNationality;
 import ca.ids.abms.modules.flightmovements.enumerate.FlightmovementCategoryScope;
 import ca.ids.abms.modules.flightmovements.enumerate.FlightmovementCategoryType;
 import ca.ids.abms.modules.flightmovementsbuilder.utility.*;
 import ca.ids.abms.modules.flightmovementsbuilder.utility.cache.vo.RouteCacheVO;
 import ca.ids.abms.modules.flightmovementsbuilder.vo.ThruFlightPlanVO;
 import ca.ids.abms.modules.radarsummary.RadarSummary;
+import ca.ids.abms.modules.reports2.common.ReportHelper;
 import ca.ids.abms.modules.routesegments.RouteSegment;
 import ca.ids.abms.modules.routesegments.SegmentType;
 import ca.ids.abms.modules.routesegments.SegmentTypeMap;
 import ca.ids.abms.modules.spatiareader.dto.FplObjectDto;
+import ca.ids.abms.modules.system.SystemConfiguration;
 import ca.ids.abms.modules.system.SystemConfigurationService;
 import ca.ids.abms.modules.system.summary.SystemConfigurationItemName;
 import ca.ids.abms.modules.towermovements.TowerMovementLog;
@@ -93,6 +100,7 @@ public class FlightMovementBuilder {
     private final FlightMovementMerge flightMovementMerge;
     private final FlightMovementBillingDateEstimator flightMovementBillingDateEstimator;
     private final SystemConfigurationService systemConfigurationService;
+    private final AircraftRegistrationRepository aircraftRegistrationRepository;
 
     @SuppressWarnings("squid:S00107")
     public FlightMovementBuilder(
@@ -110,7 +118,8 @@ public class FlightMovementBuilder {
         final DatabaseQueryService databaseQueryService,
         final FlightMovementMerge flightMovementMerge,
         final FlightMovementBillingDateEstimator flightMovementBillingDateEstimator,
-        final SystemConfigurationService systemConfigurationService
+        final SystemConfigurationService systemConfigurationService,
+        final AircraftRegistrationRepository aircraftRegistrationRepository
     ) {
         this.flightMovementBuilderUtility = flightMovementBuilderUtility;
         this.flightMovementValidator = flightMovementValidator;
@@ -127,6 +136,7 @@ public class FlightMovementBuilder {
         this.flightMovementMerge = flightMovementMerge;
         this.flightMovementBillingDateEstimator = flightMovementBillingDateEstimator;
         this.systemConfigurationService = systemConfigurationService;
+        this.aircraftRegistrationRepository = aircraftRegistrationRepository;
     }
 
     public FlightMovementBillable getFlightMovementBillable() {
@@ -160,7 +170,7 @@ public class FlightMovementBuilder {
     public FlightMovement calculateFlightMovement(FlightMovement flightMovement, Boolean forInvoice, Boolean checkRegNum)
         throws FlightMovementBuilderException {
         LOG.debug("Calculate Flight Movement from WebInterface");
-
+    
         if (flightMovement.getId() == null) {
             flightMovement.setSource(FlightMovementSource.MANUAL);
         }
@@ -248,6 +258,38 @@ public class FlightMovementBuilder {
 
         // resolve billing center from dep and dest aerodromes based on movement type
         this.resolveBillingCenter(flightMovement, dep, dest);
+        
+        AircraftRegistration ar = null;
+        Double aMtow = null;
+        List<AircraftRegistration> arList = null;
+        String item18RegNum = checkAircraftRegistrationNumber(flightMovement);
+        
+        Integer maxWeight = systemConfigurationService.getIntOrZero(SystemConfigurationItemName.SMALL_AIRCRAFT_MAX_WEIGHT);
+        
+        if (item18RegNum != null) {
+            arList = aircraftRegistrationRepository.findAircraftRegistrationByRegistrationNumber(item18RegNum);
+            if (arList != null && !arList.isEmpty()) {
+                ar = arList.get(0);
+                aMtow = ar.getMtowOverride()* ReportHelper.TO_KG;
+                if (aMtow <= maxWeight) {
+                    if ((ar.getIsLocal())||(flightMovement.getFlightCategoryNationality().equals(FlightmovementCategoryNationality.NATIONAL))) {
+                        if ((ar.getCoaIssueDate() != null) && (ar.getCoaExpiryDate() != null) && 
+                            ((flightMovement.getDateOfFlight().isAfter(ar.getCoaIssueDate())) &&
+                             (flightMovement.getDateOfFlight().isBefore(ar.getCoaExpiryDate())))||
+                            ((flightMovement.getDateOfFlight().isEqual(ar.getCoaIssueDate()))||
+                             (flightMovement.getDateOfFlight().isEqual(ar.getCoaExpiryDate())))) {
+                            // Unified Tax è pagata per l'anno in corso
+                            flightMovement.setStatus(FlightMovementStatus.INVOICED);
+                            flightMovement.setFlightNotes("");
+                        } else {
+                            // Unified Tax non è pagata per l'anno in corso
+                            flightMovement.setStatus(FlightMovementStatus.INCOMPLETE);
+                            flightMovement.setFlightNotes("Unified Tax not payed for the current year");
+                        }
+                    }
+                }
+            }
+        }
 
         return flightMovement;
     }
@@ -285,7 +327,41 @@ public class FlightMovementBuilder {
      */
     public FlightMovement calculateFlightMovementFromFlightObject(FlightMovement flightMovement) throws FlightMovementBuilderException {
 
+        AircraftRegistration ar = null;
+        Double aMtow = null;
+        List<AircraftRegistration> arList = null;
+        String item18RegNum = null;
+        
+        Integer maxWeight = systemConfigurationService.getIntOrZero(SystemConfigurationItemName.SMALL_AIRCRAFT_MAX_WEIGHT);
+       
         if(flightMovement != null) {
+            
+            item18RegNum = checkAircraftRegistrationNumber(flightMovement);
+            if (item18RegNum != null) {
+                arList = aircraftRegistrationRepository.findAircraftRegistrationByRegistrationNumber(item18RegNum);
+                if (arList != null && !arList.isEmpty()) {
+                    ar = arList.get(0);
+                    aMtow = ar.getMtowOverride()* ReportHelper.TO_KG;
+                    if (aMtow <= maxWeight) {
+                        if ((ar.getIsLocal())||(flightMovement.getFlightCategoryNationality().equals(FlightmovementCategoryNationality.NATIONAL))) {
+                            if ((ar.getCoaIssueDate() != null) && (ar.getCoaExpiryDate() != null) && 
+                                    ((flightMovement.getDateOfFlight().isAfter(ar.getCoaIssueDate())) &&
+                                     (flightMovement.getDateOfFlight().isBefore(ar.getCoaExpiryDate())))||
+                                    ((flightMovement.getDateOfFlight().isEqual(ar.getCoaIssueDate()))||
+                                     (flightMovement.getDateOfFlight().isEqual(ar.getCoaExpiryDate())))) {
+                                // Unified Tax è pagata per l'anno in corso
+                                flightMovement.setStatus(FlightMovementStatus.INVOICED);
+                                flightMovement.setFlightNotes("");
+                            } else {
+                                // Unified Tax non è pagata per l'anno in corso
+                                flightMovement.setStatus(FlightMovementStatus.INCOMPLETE);
+                                flightMovement.setFlightNotes("Unified Tax not payed for the current year");
+                            }
+                        }
+                    }
+                }
+            }
+            
             SegmentType segmentType = SegmentTypeMap
                     .mapFlightMovementSourceToSegmentType(FlightMovementSource.NETWORK);
 
