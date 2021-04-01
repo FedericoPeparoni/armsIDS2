@@ -2430,3 +2430,10 @@ databaseChangeLog:
           author: Raffaele Aramo
           file: 20210330211553_alter_unified_tax.sql
           relativeToChangelogFile: true
+    - include:
+        author: Alessandro Gallinella
+        file: 20210104122301_create_aircraft_scope.sql
+        relativeToChangelogFile: true
+
+
+      

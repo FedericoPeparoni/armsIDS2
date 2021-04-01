@@ -40,8 +40,22 @@ public class AircraftRegistration extends VersionedAuditedEntity implements Smal
 
     @NotNull
     private LocalDateTime registrationExpiryDate;
+    
+    //add 
+    
+    
+    private String aircraftScope;
+    
 
-    @ManyToOne
+    public String getAircraftScope() {
+		return aircraftScope;
+	}
+
+	public void setAircraftScope(String aircraftScope) {
+		this.aircraftScope = aircraftScope;
+	}
+
+	@ManyToOne
     @SearchableEntity
     private AircraftType aircraftType;
 
