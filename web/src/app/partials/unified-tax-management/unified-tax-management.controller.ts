@@ -138,7 +138,12 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     if (this.$scope.formTax) {
       this.$scope.formTax.$setUntouched();
     }
+    this.$scope.editableTax.rate = "";
+    this.$scope.formula ="";
   }
+
+
+
 
   /**
    * Refresh method override, adds scope filters, pagination, sort query.
