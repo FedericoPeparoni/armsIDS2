@@ -2434,6 +2434,9 @@ databaseChangeLog:
         author: Alessandro Gallinella
         file: 20210104122301_create_aircraft_scope.sql
         relativeToChangelogFile: true
-
+    - include:
+        author: Federico Peparoni
+        file: 20210402141800_insert_system_configuration.sql
+        relativeToChangelogFile: true
 
       
