@@ -8,6 +8,7 @@ import ca.ids.abms.modules.accounts.AccountService;
 import ca.ids.abms.modules.aerodromes.Aerodrome;
 import ca.ids.abms.modules.aircraft.AircraftRegistration;
 import ca.ids.abms.modules.aircraft.AircraftRegistrationRepository;
+import ca.ids.abms.modules.aircraft.AircraftRegistrationService;
 import ca.ids.abms.modules.atcmovements.AtcMovementLog;
 import ca.ids.abms.modules.atcmovements.AtcMovementLogBillableRouteFinder;
 import ca.ids.abms.modules.billingcenters.BillingCenter;
@@ -100,7 +101,7 @@ public class FlightMovementBuilder {
     private final FlightMovementMerge flightMovementMerge;
     private final FlightMovementBillingDateEstimator flightMovementBillingDateEstimator;
     private final SystemConfigurationService systemConfigurationService;
-    private final AircraftRegistrationRepository aircraftRegistrationRepository;
+    private final AircraftRegistrationService aircraftRegistrationService;
 
     @SuppressWarnings("squid:S00107")
     public FlightMovementBuilder(
@@ -119,7 +120,7 @@ public class FlightMovementBuilder {
         final FlightMovementMerge flightMovementMerge,
         final FlightMovementBillingDateEstimator flightMovementBillingDateEstimator,
         final SystemConfigurationService systemConfigurationService,
-        final AircraftRegistrationRepository aircraftRegistrationRepository
+        final AircraftRegistrationService aircraftRegistrationService
     ) {
         this.flightMovementBuilderUtility = flightMovementBuilderUtility;
         this.flightMovementValidator = flightMovementValidator;
@@ -136,7 +137,7 @@ public class FlightMovementBuilder {
         this.flightMovementMerge = flightMovementMerge;
         this.flightMovementBillingDateEstimator = flightMovementBillingDateEstimator;
         this.systemConfigurationService = systemConfigurationService;
-        this.aircraftRegistrationRepository = aircraftRegistrationRepository;
+        this.aircraftRegistrationService = aircraftRegistrationService;
     }
 
     public FlightMovementBillable getFlightMovementBillable() {
@@ -259,17 +260,21 @@ public class FlightMovementBuilder {
         // resolve billing center from dep and dest aerodromes based on movement type
         this.resolveBillingCenter(flightMovement, dep, dest);
         
+        flightMovement = managementIncomingFlightUnifiedTax(flightMovement);
+
+        return flightMovement;
+    }
+    
+    private FlightMovement managementIncomingFlightUnifiedTax(FlightMovement flightMovement) {
         AircraftRegistration ar = null;
         Double aMtow = null;
-        List<AircraftRegistration> arList = null;
         String item18RegNum = checkAircraftRegistrationNumber(flightMovement);
         
         Integer maxWeight = systemConfigurationService.getIntOrZero(SystemConfigurationItemName.SMALL_AIRCRAFT_MAX_WEIGHT);
         
         if (item18RegNum != null) {
-            arList = aircraftRegistrationRepository.findAircraftRegistrationByRegistrationNumber(item18RegNum);
-            if (arList != null && !arList.isEmpty()) {
-                ar = arList.get(0);
+            ar = aircraftRegistrationService.findAircraftRegistrationByRegNumber(item18RegNum);
+            if (ar != null) {
                 aMtow = ar.getMtowOverride()* ReportHelper.TO_KG;
                 if (aMtow <= maxWeight) {
                     if ((ar.getIsLocal())||(flightMovement.getFlightCategoryNationality().equals(FlightmovementCategoryNationality.NATIONAL))) {
@@ -290,7 +295,7 @@ public class FlightMovementBuilder {
                 }
             }
         }
-
+        
         return flightMovement;
     }
 
@@ -336,31 +341,7 @@ public class FlightMovementBuilder {
        
         if(flightMovement != null) {
             
-            item18RegNum = checkAircraftRegistrationNumber(flightMovement);
-            if (item18RegNum != null) {
-                arList = aircraftRegistrationRepository.findAircraftRegistrationByRegistrationNumber(item18RegNum);
-                if (arList != null && !arList.isEmpty()) {
-                    ar = arList.get(0);
-                    aMtow = ar.getMtowOverride()* ReportHelper.TO_KG;
-                    if (aMtow <= maxWeight) {
-                        if ((ar.getIsLocal())||(flightMovement.getFlightCategoryNationality().equals(FlightmovementCategoryNationality.NATIONAL))) {
-                            if ((ar.getCoaIssueDate() != null) && (ar.getCoaExpiryDate() != null) && 
-                                    ((flightMovement.getDateOfFlight().isAfter(ar.getCoaIssueDate())) &&
-                                     (flightMovement.getDateOfFlight().isBefore(ar.getCoaExpiryDate())))||
-                                    ((flightMovement.getDateOfFlight().isEqual(ar.getCoaIssueDate()))||
-                                     (flightMovement.getDateOfFlight().isEqual(ar.getCoaExpiryDate())))) {
-                                // Unified Tax è pagata per l'anno in corso
-                                flightMovement.setStatus(FlightMovementStatus.INVOICED);
-                                flightMovement.setFlightNotes("");
-                            } else {
-                                // Unified Tax non è pagata per l'anno in corso
-                                flightMovement.setStatus(FlightMovementStatus.INCOMPLETE);
-                                flightMovement.setFlightNotes("Unified Tax not payed for the current year");
-                            }
-                        }
-                    }
-                }
-            }
+            flightMovement = managementIncomingFlightUnifiedTax(flightMovement);
             
             SegmentType segmentType = SegmentTypeMap
                     .mapFlightMovementSourceToSegmentType(FlightMovementSource.NETWORK);

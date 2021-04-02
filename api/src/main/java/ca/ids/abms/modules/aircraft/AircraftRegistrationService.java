@@ -106,6 +106,17 @@ public class AircraftRegistrationService {
         }
         return ar;
     }
+    
+    @Transactional(readOnly = true)
+    public AircraftRegistration findAircraftRegistrationByRegNumber(String registrationNumber) {
+        AircraftRegistration ar = null;
+            List<AircraftRegistration> arList = aircraftRegistrationRepository
+                    .findAircraftRegistrationByRegistrationNumber(registrationNumber);
+            if (arList != null && !arList.isEmpty()) {
+                ar = arList.get(0);
+            }
+        return ar;
+    }
 
     @Transactional(readOnly = true)
     public List<AircraftRegistration> findAll() {
