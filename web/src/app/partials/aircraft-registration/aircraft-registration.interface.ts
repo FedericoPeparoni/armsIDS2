@@ -20,6 +20,8 @@ export interface IAircraftRegistration {
   coa_issue_date: string;
   aircraft_service_date: string;
   is_local: boolean;
+  aircraft_scope : string;
+
 }
 
 export interface IAircraftRegistrationScope extends ng.IScope {

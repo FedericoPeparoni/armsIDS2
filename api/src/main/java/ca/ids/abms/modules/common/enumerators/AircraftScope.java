@@ -8,12 +8,12 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum AircraftScope {
 
-	AGRICOLTURE, FLIGHT_SCHOOL ;
+	AGRICULTURE, FLIGHT_SCHOOL ;
 	
 	private static Map<String, AircraftScope> values = new HashMap<>(5);
 
     static {
-        values.put("agricolture", AGRICOLTURE);
+        values.put("agriculture", AGRICULTURE);
         values.put("flight school", FLIGHT_SCHOOL);
        
     }

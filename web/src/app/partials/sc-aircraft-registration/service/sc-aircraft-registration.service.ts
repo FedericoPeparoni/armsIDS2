@@ -96,7 +96,8 @@ export class ScAircraftRegistrationService extends CRUDFileUploadService {
     coa_expiry_date: null,
     coa_issue_date: null,
     aircraft_service_date: null,
-    is_local: null
+    is_local: null,
+    aircraft_scope : null
   };
 
   /** @ngInject */
