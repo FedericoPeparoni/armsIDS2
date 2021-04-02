@@ -17,6 +17,8 @@ import java.util.List;
 
 import ca.ids.abms.modules.accounts.AccountService;
 import ca.ids.abms.modules.aerodromes.cluster.RepositioningAerodromeClusterService;
+import ca.ids.abms.modules.aircraft.AircraftRegistration;
+import ca.ids.abms.modules.aircraft.AircraftRegistrationService;
 import ca.ids.abms.modules.exemptions.flightroutes.ExemptFlightRouteService;
 import ca.ids.abms.modules.flightmovementsbuilder.utility.cache.mapper.RouteCacheSegmentMapperImpl;
 import com.vividsolutions.jts.geom.Coordinate;
@@ -111,7 +113,7 @@ public class FlightMovementBuilderTest {
             mock(ThruFlightPlanUtility.class), chargesUtility, flightMovementBillable,
             mock(AtcMovementLogBillableRouteFinder.class), mock(FlightMovementAerodromeService.class),
             billingCenterService, mock(PassengerServiceChargeReturnRepository.class), accountService, mock(DatabaseQueryService.class),
-            flightMovementMerge, mock(FlightMovementBillingDateEstimator.class), mock(SystemConfigurationService.class));
+            flightMovementMerge, mock(FlightMovementBillingDateEstimator.class), mock(SystemConfigurationService.class), mock(AircraftRegistrationService.class));
 
         // create this object for mock methods
         flightMovementValidationViewModel = new FlightMovementValidationViewModel();
