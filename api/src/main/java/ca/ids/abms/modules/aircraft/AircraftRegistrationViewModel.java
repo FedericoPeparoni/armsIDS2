@@ -51,8 +51,18 @@ public class AircraftRegistrationViewModel extends VersionedViewModel {
     private LocalDateTime coaExpiryDate;
     
     private LocalDateTime coaIssueDate;
+    
+    private String aircraftScope ;
 
-    public Integer getId() {
+    public String getAircraftScope() {
+		return aircraftScope;
+	}
+
+	public void setAircraftScope(String aircraftScope) {
+		this.aircraftScope = aircraftScope;
+	}
+
+	public Integer getId() {
         return id;
     }
 

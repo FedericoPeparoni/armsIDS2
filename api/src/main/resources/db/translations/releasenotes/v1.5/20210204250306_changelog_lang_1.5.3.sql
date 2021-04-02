@@ -7426,7 +7426,7 @@ select add_languages_by_json('[
 {
     "code": "es",
     "token": "Aircraft Scope",
-    "val": "No hay datos de impuestos unificados *",
+    "val": "Alcance de Aeronave",
     "part": "frontend",
     "created_by": "system"
   },
@@ -7458,7 +7458,7 @@ select add_languages_by_json('[
 {
     "code": "es",
     "token": "Flight School",
-    "val": "Escuela de vuelo",
+    "val": "Escuelas de Entrenamiento",
     "part": "frontend",
     "created_by": "system"
   }
