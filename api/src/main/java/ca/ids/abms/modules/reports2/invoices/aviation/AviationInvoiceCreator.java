@@ -8,6 +8,7 @@ import ca.ids.abms.modules.bankcode.BankCodeService;
 import ca.ids.abms.modules.billingcenters.BillingCenter;
 import ca.ids.abms.modules.billings.BillingLedger;
 import ca.ids.abms.modules.billings.BillingLedgerService;
+import ca.ids.abms.modules.common.enumerators.AircraftScope;
 import ca.ids.abms.modules.common.enumerators.InvoiceStateType;
 import ca.ids.abms.modules.common.enumerators.InvoiceType;
 import ca.ids.abms.modules.currencies.Currency;
@@ -1680,10 +1681,23 @@ if(accountFlights!= null){
                     aircraftInfo.unifiedTaxCharges = (aircraftInfo.unifiedTaxCharges / 12.0) * monthsLeft;
                 }
 
+                //Old Discount
+                /*
+                    Double discount = account.getAccountTypeDiscount();
+                    if (discount != null)
+                        aircraftInfo.unifiedTaxCharges = aircraftInfo.unifiedTaxCharges - aircraftInfo.unifiedTaxCharges* discount / 100;
+                */
 
-                Double discount = account.getAccountTypeDiscount();
-                if (discount != null)
-                    aircraftInfo.unifiedTaxCharges = aircraftInfo.unifiedTaxCharges - aircraftInfo.unifiedTaxCharges* discount / 100;
+                if(ar.getAircraftScope().equals(AircraftScope.FLIGHT_SCHOOL.toValue())){
+                    final Double discount = systemConfigurationService.getDouble(SystemConfigurationItemName.UNIFIED_TAX_FLIGHT_SCHOOL_DISCOUNT, 0d);
+                    aircraftInfo.unifiedTaxCharges = aircraftInfo.unifiedTaxCharges - aircraftInfo.unifiedTaxCharges * discount / 100;
+
+                }else if(ar.getAircraftScope().equals(AircraftScope.AGRICULTURE.toValue())){
+                    final Double discount = systemConfigurationService.getDouble(SystemConfigurationItemName.UNIFIED_TAX_AGRICULTURAL_DISCOUNT, 0d);
+                    aircraftInfo.unifiedTaxCharges = aircraftInfo.unifiedTaxCharges - aircraftInfo.unifiedTaxCharges * discount / 100;
+                }
+
+
 
                 countAircraftRegistration.incrementAndGet();
 
