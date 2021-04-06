@@ -1346,7 +1346,7 @@ if(accountFlights!= null){
         bl.setBillingCenter(currentUser != null ? currentUser.getBillingCenter() : null);
         bl.setInvoicePeriodOrDate(endDateInclusive);
         if (unifiedTaxInvoice) {
-        	bl.setInvoiceType(InvoiceType.UNIFIED_TAX.toString());
+        	bl.setInvoiceType(InvoiceType.UNIFIED_TAX.toValue());
         }
         else {
 	        bl.setInvoiceType(ChargeSelection.ONLY_PAX == chargeSelection ?

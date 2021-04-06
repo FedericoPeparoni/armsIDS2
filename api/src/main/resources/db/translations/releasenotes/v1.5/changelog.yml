@@ -11,3 +11,7 @@ databaseChangeLog:
       author: Alessandro Gallinella
       file: 20212603250404_changelog_lang_1.5.3.sql
       relativeToChangelogFile: true
+- include:
+      author: Raffaele Aramo
+      file: 20214061513000_changelog_lang_1.5.3.sql
+      relativeToChangelogFile: true
