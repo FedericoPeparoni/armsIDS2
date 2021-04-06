@@ -88,6 +88,8 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
     $scope.incompleteFlightSort = (orderBy: string) => this.incompleteFlightSort(orderBy);
     $scope.updateAccounts = (accountType: number) => this.updateAccounts(accountType);
     $scope.setIntervalPeriodForUnifiedTax = (accountType: number) => this.setIntervalPeriodForUnifiedTax(accountType);
+    $scope.setFlightMovementCategory = (accountType: number) => this.setFlightMovementCategory(accountType);
+
     $scope.getProgressBarValue = (accountsTotal: number, accountNumber: number, flightsTotal: number, flightNumber: number) =>
       this.getProgressBarValue(accountsTotal, accountNumber, flightsTotal, flightNumber);
 
@@ -106,7 +108,8 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
       $scope.isBillingPeriodValid = this.validateBillingPeriod());
   }
 
-  private updateAccounts(accountType: number): void {
+  private
+  updateAccounts(accountType: number): void {
     if (typeof accountType === 'string') {
       accountType = null;
     }
@@ -503,6 +506,18 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
   }
 
 
+/**
+   * Set Flight Movement Category default in accountType UnifiedTax
+   */
+  private setFlightMovementCategory(accountType: number): void  {
+    if (accountType === 8){
+      this.$scope.editable.flightCategory = null ;
+    }
+  }
+
+
+
+
   /**
    * Set date options
    */
@@ -604,5 +619,6 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
 }
 function maxDate(maxDate: any) {
   throw new Error('Function not implemented.');
+
 }
 

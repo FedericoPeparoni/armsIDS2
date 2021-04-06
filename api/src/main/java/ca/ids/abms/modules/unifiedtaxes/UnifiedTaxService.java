@@ -4,28 +4,46 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import ca.ids.abms.modules.flightmovements.category.FlightmovementCategory;
+import ca.ids.abms.modules.flightmovements.enumerate.CostFormulaVar;
+import ca.ids.abms.modules.formulas.FormulaEvaluator;
+import ca.ids.abms.modules.formulas.enroute.EnrouteAirNavigationChargeCategory;
+import ca.ids.abms.modules.formulas.enroute.EnrouteAirNavigationChargeFormula;
+import ca.ids.abms.modules.formulas.enroute.EnrouteAirNavigationChargeFormulaValidationViewModel;
+import ca.ids.abms.modules.formulas.unifiedtax.UnifiedTaxChargeFormulaValidationViewModel;
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.ids.abms.config.error.ErrorConstants;
 import ca.ids.abms.config.error.ExceptionFactory;
 import ca.ids.abms.modules.common.services.AbmsCrudService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
 
-//    private static final Logger LOG = LoggerFactory.getLogger(UnifiedTaxController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UnifiedTaxController.class);
 
 	private final UnifiedTaxRepository unifiedTaxRepository;
 
 	private final UnifiedTaxValidityService unifiedTaxValidityService;
 
+    private final FormulaEvaluator formulaEvaluator;
+
+    private static Map<String, Object> vars;
+
 	UnifiedTaxService(final UnifiedTaxValidityService unifiedTaxValidityService,
-			final UnifiedTaxRepository unifiedTaxRepository) {
+			final UnifiedTaxRepository unifiedTaxRepository,
+            final FormulaEvaluator formulaEvaluator) {
 		super(unifiedTaxRepository);
 		this.unifiedTaxRepository = unifiedTaxRepository;
 		this.unifiedTaxValidityService = unifiedTaxValidityService;
+        this.formulaEvaluator = formulaEvaluator;
+        initVarsMap();
 	}
 
 	@Transactional
@@ -149,4 +167,33 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
 		}
 		return taxManagement;
 	}
+
+    public FormulaEvaluator getFormulaEvaluator() {
+        return formulaEvaluator;
+    }
+
+
+    UnifiedTaxChargeFormulaValidationViewModel validateUnifiedTaxFormula(String aFormula) {
+        // evaluate wformula
+        UnifiedTaxChargeFormulaValidationViewModel wformulaValidation=new UnifiedTaxChargeFormulaValidationViewModel();
+        try {
+            wformulaValidation.setFormula(aFormula);
+            formulaEvaluator.evalDouble(aFormula,vars);
+            wformulaValidation.setFormulaValid(Boolean.TRUE);
+        } catch (Exception e) {
+            LOG.error(e.getLocalizedMessage(), e);
+            wformulaValidation.setFormulaValid(Boolean.FALSE);
+            wformulaValidation.setIssue(e.getLocalizedMessage());
+        }
+
+        return wformulaValidation;
+    }
+
+    private void initVarsMap(){
+        vars = new HashedMap();
+        vars.put(CostFormulaVar.MTOW.varName(),12.89);
+        vars.put(CostFormulaVar.SCHEDCROSSDIST.varName(),25.03);
+        vars.put(CostFormulaVar.AVGMASSFACTOR.varName(),45.65);
+    }
+
 }

@@ -60,7 +60,7 @@
                                     <!--                                     <th translate class="text-nowrap" sort="id">id</th> -->
                                     <th translate class="text-nowrap" sort="from_manufacture_year">From (Year)</th>
                                     <th translate class="text-nowrap" sort="to_manufacture_year">To (Year)</th>
-                                    <th translate class="text-nowrap" sort="rate">Unified Tax Rate</th>
+                                    <th translate class="text-nowrap" sort="charge_formula">Unified Tax Charge Formula</th>
 
                                 </tr>
                             </thead>
@@ -70,7 +70,7 @@
                                     <!--                                     <td class="text-nowrap">{{ ::item.id }}</td> -->
                                     <td class="text-nowrap">{{ ::item.from_manufacture_year | date: 'yyyy' }}</td>
                                     <td class="text-nowrap">{{ ::item.to_manufacture_year | date: 'yyyy' }}</td>
-                                    <td class="text-nowrap">{{ ::item.rate }}</td>
+                                    <td class="text-nowrap">{{ ::item.charge_formula }}</td>
                                 </tr>
                                 <tr ng-show="!listUnifiedTax.length">
                                     <td translate class="text-center" colspan="6">There are no Unified Tax data</td>
@@ -226,10 +226,10 @@
                             </div>
 
                             <div class="col-xs-12 col-md-6">
-                                <label for="rate">
+                                <label for="chargeFormula">
                                     {{ 'Unified Tax Applicable *' | translate }}
                                 </label>
-                                <input id="rate" name="rate" class="form-control" ng-model="editableTax.rate"
+                                <input id="chargeFormula" name="chargeFormula" class="form-control" ng-model="editableTax.charge_formula"
                                     required />
                             </div>
                         </div>
@@ -292,66 +292,6 @@
                                                     </button>
                                                 </td>
                                                 <td translate>Maximum Take Off Weight</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-md-1">
-                                                    <button translate type="button" class="btn btn-primary btn-block"
-                                                        id="btn-avgMassFactor"
-                                                        ng-click="addToFormula('[AvgMassFactor]')">
-                                                        [AvgMassFactor]</button>
-                                                </td>
-                                                <td translate>Average Mass Factor</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-md-1">
-                                                    <button type="button" class="btn btn-primary btn-block"
-                                                        id="btn-crossDist" ng-click="addToFormula('[CrossDist]')">
-                                                        [CrossDist] </button>
-                                                </td>
-                                                <td translate>FIR crossing distance</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-md-1">
-                                                    <button type="button" class="btn btn-primary btn-block"
-                                                        id="btn-accountDiscount"
-                                                        ng-click="addToFormula('[AccountDiscount]')">
-                                                        [AccountDiscount] </button>
-                                                </td>
-                                                <td translate>Discount percentage for the account</td>
-                                            </tr>
-
-
-                                            <tr>
-                                                <td class="col-md-1">
-                                                    <button type="button" class="btn btn-primary btn-block"
-                                                        id="btn-approachFee" ng-click="addToFormula('[ApproachFee]')">
-                                                        [ApproachFee] </button>
-                                                </td>
-                                                <td translate>Approach fee</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-md-1">
-                                                    <button type="button" class="btn btn-primary btn-block"
-                                                        id="btn-aerodromeFee" ng-click="addToFormula('[AerodromeFee]')">
-                                                        [AerodromeFee] </button>
-                                                </td>
-                                                <td translate>Aerodrome fee</td>
-                                            </tr>
-                                            <tr ng-show="showDWFactor">
-                                                <td class="col-md-1">
-                                                    <button type="button" class="btn btn-primary btn-block"
-                                                        id="btn-wFactor" ng-click="addToFormula('[WFACTOR]')">
-                                                        [WFACTOR] </button>
-                                                </td>
-                                                <td translate>W Factor Formula</td>
-                                            </tr>
-                                            <tr ng-show="showDWFactor">
-                                                <td class="col-md-1">
-                                                    <button type="button" class="btn btn-primary btn-block"
-                                                        id="btn-dFactor" ng-click="addToFormula('[DFACTOR]')">
-                                                        [DFACTOR] </button>
-                                                </td>
-                                                <td translate>D Factor Formula</td>
                                             </tr>
                                         </table>
                                     </div>

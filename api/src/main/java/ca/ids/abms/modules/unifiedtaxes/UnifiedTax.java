@@ -39,10 +39,10 @@ public class UnifiedTax extends VersionedAuditedEntity implements AbmsCrudEntity
     @JoinColumn(name = "validity_id")
     private UnifiedTaxValidity validity;
 
-    @Column(name = "rate")
+    @Column(name = "charge_formula")
     @NotNull
     @SearchableText
-    private String rate;
+    private String chargeFormula;
 
     public Integer getId() {
         return id;
@@ -68,12 +68,12 @@ public class UnifiedTax extends VersionedAuditedEntity implements AbmsCrudEntity
         this.toManufactureYear = toManufactureYear;
     }
 
-    public String getRate() {
-        return rate;
+    public String getChargeFormula() {
+        return chargeFormula;
     }
 
-    public void setRate(String rate) {
-        this.rate = rate;
+    public void setChargeFormula(String rate) {
+        this.chargeFormula = rate;
     }
 
     public UnifiedTaxValidity getValidity() {
@@ -90,7 +90,7 @@ public class UnifiedTax extends VersionedAuditedEntity implements AbmsCrudEntity
         int result = 1;
         result = prime * result + ((fromManufactureYear == null) ? 0 : fromManufactureYear.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((rate == null) ? 0 : rate.hashCode());
+        result = prime * result + ((chargeFormula == null) ? 0 : chargeFormula.hashCode());
         result = prime * result + ((toManufactureYear == null) ? 0 : toManufactureYear.hashCode());
         result = prime * result + ((validity == null) ? 0 : validity.hashCode());
         return result;
@@ -115,10 +115,10 @@ public class UnifiedTax extends VersionedAuditedEntity implements AbmsCrudEntity
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        if (rate == null) {
-            if (other.rate != null)
+        if (chargeFormula == null) {
+            if (other.chargeFormula != null)
                 return false;
-        } else if (!rate.equals(other.rate))
+        } else if (!chargeFormula.equals(other.chargeFormula))
             return false;
         if (toManufactureYear == null) {
             if (other.toManufactureYear != null)
@@ -136,9 +136,9 @@ public class UnifiedTax extends VersionedAuditedEntity implements AbmsCrudEntity
     @Override
     public String toString() {
         return "UnifiedTax [id=" + id + ", fromManufactureYear=" + fromManufactureYear + ", toManufactureYear="
-                + toManufactureYear + ", validity=" + validity + ", rate=" + rate + "]";
+                + toManufactureYear + ", validity=" + validity + ", rate=" + chargeFormula + "]";
     }
 
-   
+
 
 }

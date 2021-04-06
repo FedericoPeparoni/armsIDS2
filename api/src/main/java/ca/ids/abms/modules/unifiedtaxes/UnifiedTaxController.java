@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import ca.ids.abms.config.error.ErrorDTO;
+import ca.ids.abms.config.error.ErrorVariables;
+import ca.ids.abms.modules.formulas.unifiedtax.UnifiedTaxChargeFormulaValidationViewModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
@@ -13,15 +16,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import ca.ids.abms.modules.common.controllers.AbmsCrudController;
 import ca.ids.abms.modules.reports2.common.ReportDocumentCreator;
@@ -54,21 +49,50 @@ public class UnifiedTaxController
         return super.doGetOne(id);
     }
 
+    //Exception
     @Override
     @PostMapping
     @PreAuthorize("hasAuthority('unified_tax_modify')")
     public ResponseEntity<UnifiedTaxViewModel> create(@Valid @RequestBody final UnifiedTaxViewModel viewModel)
             throws URISyntaxException {
         LOG.debug("REST request to create unifiedTax account : {}", viewModel);
+        UnifiedTaxChargeFormulaValidationViewModel unifiedTaxChargeFormulaValidation = unifiedTaxService.validateUnifiedTaxFormula(viewModel.getChargeFormula());
+
+        if(!unifiedTaxChargeFormulaValidation.getFormulaValid()){
+            ErrorVariables detailVariables = new ErrorVariables();
+
+            detailVariables.addEntry("chargeFormula", viewModel.getChargeFormula());
+            throw new ErrorDTO.Builder()
+                .setErrorMessage(unifiedTaxChargeFormulaValidation.getIssue())
+                .setErrorMessageVariables(detailVariables)
+                //.appendDetails("Please update the exchange rates before continuing")
+                .buildInvalidDataException();
+            //throw new UnifiedTaxChargeFormulaException(unifiedTaxChargeFormulaValidation);
+        }
+
         return super.doCreate(viewModel);
     }
 
+    //Exception
     @Override
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('unified_tax_modify')")
     public ResponseEntity<UnifiedTaxViewModel> update(@PathVariable final Integer id,
             @Valid @RequestBody final UnifiedTaxViewModel viewModel) {
         LOG.debug("REST request to update unifiedTax account with id '{}' : {}", id, viewModel);
+        UnifiedTaxChargeFormulaValidationViewModel unifiedTaxChargeFormulaValidation = unifiedTaxService.validateUnifiedTaxFormula(viewModel.getChargeFormula());
+
+        if(!unifiedTaxChargeFormulaValidation.getFormulaValid()){
+            ErrorVariables detailVariables = new ErrorVariables();
+            detailVariables.addEntry("chargeFormula", viewModel.getChargeFormula());
+            throw new ErrorDTO.Builder()
+                .setErrorMessage(unifiedTaxChargeFormulaValidation.getIssue())
+                .setErrorMessageVariables(detailVariables)
+                //.appendDetails("Please update the exchange rates before continuing")
+                .buildInvalidDataException();
+            //throw new UnifiedTaxChargeFormulaException(unifiedTaxChargeFormulaValidation);
+        }
+
         return super.doUpdate(id, viewModel);
     }
 
@@ -123,6 +147,15 @@ public class UnifiedTaxController
     public ResponseEntity<List<UnifiedTaxViewModel>> getAllUnifiedTaxesByValidityId(@PathVariable Integer validityId) {
         LOG.debug("REST request to get list of unified tax by the validity id: " + validityId);
         return ResponseEntity.ok(unifiedTaxMapper.toViewModel(unifiedTaxService.findAllByValidityId(validityId)));
+    }
+
+    @ExceptionHandler(UnifiedTaxChargeFormulaException.class)
+    //@ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<UnifiedTaxChargeFormulaValidationViewModel> handleNoSuchElementFoundException(UnifiedTaxChargeFormulaException exception
+    ) {
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(exception.getUnifiedTaxChargeFormulaValidationViewModel());
     }
 
 }

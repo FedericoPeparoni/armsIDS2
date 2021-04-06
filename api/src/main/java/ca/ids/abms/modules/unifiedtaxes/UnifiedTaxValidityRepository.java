@@ -2,6 +2,7 @@ package ca.ids.abms.modules.unifiedtaxes;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -53,4 +54,9 @@ public interface UnifiedTaxValidityRepository extends ABMSRepository<UnifiedTaxV
     Integer countValiditiesOverlappingFromDateExcludingCurrentId(@Param("fromValidityYear") LocalDateTime fromValidityYear, @Param("utvId") Integer utvId);
 
 
+    @Query(nativeQuery = true, value = "SELECT * FROM abms.unified_tax_validity Order by from_validity_year Asc")
+    List<UnifiedTaxValidity> findAll();
+    
+    
+                               
 }

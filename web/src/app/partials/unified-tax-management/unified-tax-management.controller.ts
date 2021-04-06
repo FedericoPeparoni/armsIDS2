@@ -29,9 +29,7 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     this.serviceTax = unifiedTaxManagementService;
     this.setup();
     $scope.reset = () => this.reset();
-    $scope.validate = () => this.validate();
     $scope.addToFormula = (text: string) => this.addToFormula(text);
-    $scope.setField = (index: number, field: string) => this.setField(index, field);
     this.getFilterParameters();
 
     //$scope.customDate = this.customDate.returnDateFormatStr(false);
@@ -140,7 +138,12 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     if (this.$scope.formTax) {
       this.$scope.formTax.$setUntouched();
     }
+    this.$scope.editableTax.rate = "";
+    this.$scope.formula ="";
   }
+
+
+
 
   /**
    * Refresh method override, adds scope filters, pagination, sort query.
@@ -186,7 +189,6 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
 
 
   private showTaxes(validity: IValidity): void {
-    console.log("showTaxes OK!!!")
     this.unifiedTaxManagementService.getListByValidityId(validity.id)
       .then((taxes: Array<IUnifiedTaxManagement>) => {
         this.$scope.listUnifiedTax = taxes;
@@ -277,21 +279,6 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     return false;
   }
 
-  private validate(): void {
-    this.service.validate(this.$scope.editable).then((data: any) => {
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].formula_valid === false) {
-          this.$scope.error = <IExtendableError>{};
-          let errorObj = <IError>{};
-          this.$scope.error.error = { data: errorObj };
-          this.$scope.error.error.data.error = data[i].formula;
-          this.$scope.error.error.data.error_description = data[i].issue;
-          return;
-        }
-      }
-      this.$scope.ifValidate = false;
-    });
-  }
 
   private addToFormula(text: string): void {
     this.$scope.ifValidate = true;
@@ -305,21 +292,8 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     if (this.$scope.index >= 0 && this.$scope.field) {
       this.$scope.editable.unified_tax_formulas[this.$scope.index][this.$scope.field] = this.$scope.formula;
     } else {
-      this.$scope.editableTax.rate = this.$scope.formula;
+      this.$scope.editableTax.charge_formula = this.$scope.formula;
     }
   }
 
-
-  private setField(index: number, field: string): void {
-    this.$scope.showDWFactor = field === 'formula';
-
-    this.$scope.index = index;
-    this.$scope.field = field;
-
-    if (index >= 0 && field) {
-      this.$scope.formula = this.$scope.editable.unified_tax_formulas[index][field];
-    } else {
-      this.$scope.formula = this.$scope.editableTax.rate;
-    }
-  }
 }

@@ -11453,36 +11453,23 @@ select add_languages_by_json('[
   },
   {
     "code": "en",
-    "token": "aircraft type",
-    "val": "aircraft type",
+    "token": "aircraft type *",
+    "val": "aircraft type *",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
-    "token": "aircraft type",
-    "val": "tipo de aeronave",
+    "token": "aircraft type *",
+    "val": "tipo de aeronave *",
     "part": "frontend",
     "created_by": "system"
   },
-  {
-    "code": "en",
-    "token": "Aircraft Type",
-    "val": "Aircraft Type",
-    "part": "frontend",
-    "created_by": "system"
-  },
-  {
-    "code": "es",
-    "token": "Aircraft Type",
-    "val": "Tipo A/C",
-    "part": "frontend",
-    "created_by": "system"
-  },
+  
   {
     "code": "en",
     "token": "Aircraft Type *",
-    "val": "Aircraft Type *",
+    "val": "Tipo A/C *",
     "part": "frontend",
     "created_by": "system"
   },

@@ -7,7 +7,7 @@ export interface IUnifiedTaxManagement {
 id?: number;
 from_manufacture_year: any;
 to_manufacture_year: any;
-rate: number;
+charge_formula: string;
 validity: IValidity;
 requireExternalSystemId:string;
 w_factor_formula: string;

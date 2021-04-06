@@ -27,6 +27,7 @@
                                 <option translate value="missingBillingInformationReport">Missing Billing Information Report</option>
                                 <option translate value="aircraftRegistrationTrackingReport">Aircraft Registration Tracking Report</option>
                                 <option translate value="revenueReport">Revenue Report</option>
+                                <option translate value="unifiedTax">Unified Tax Report</option>
 
                                 <!-- kcaa customized reports -->
                                 <option translate ng-if="KCAA" value="kcaaDebtorReport">Debtor report</option>
@@ -176,7 +177,7 @@
                             <div class="col-xs-12 col-md-2">
                                 <label translate for="report-currency">Report Currency *</label>
                                 <select id="report-currency" name="reportCurrency" class="form-control" ng-model="editable.report_currency" required
-                                    ng-options="item.currency_code as ((item.currency_name | translate) + ' (' + item.currency_code + ')') 
+                                    ng-options="item.currency_code as ((item.currency_name | translate) + ' (' + item.currency_code + ')')
                                         for item in currenciesList"></select>
                             </div>
 
@@ -184,7 +185,7 @@
                                 <input id="fiscal-year" type="checkbox" ng-init="editable.fiscal_year = flase" ng-model="editable.fiscal_year"
                                 ng-change="getFiscalYear()">
                                 <label translate for="fiscal-year">Use the fiscal start of the year</label><br>
-                            
+
                                 <input id="account-new-page" type="checkbox" ng-init="editable.account_new_page = true"
                                     ng-model="editable.account_new_page">
                                 <label translate for="account-new-page">Begin each statement on new page</label>
@@ -256,7 +257,7 @@
                     <div class="row" ng-if="editable.report=='revenueReport'">
                         <div class="col-xs-12">
                             <label for="displayed-columns">{{ 'Displayed Columns' | translate }} *</label><br>
-                        
+
                             <div class="col-xs-12 col-md-2">
                                 <input id="exchange-rate-USD" type="checkbox" ng-model="editable.exchange_rate_usd">
                                 <label translate for="exchange-rate-USD">Exchange rate to USD</label>
@@ -269,7 +270,7 @@
                         </div>
                     </div>
                     <div class="row" ng-if="editable.report=='revenueReport'">
-                        <div class="col-xs-12"> 
+                        <div class="col-xs-12">
                             <div class="col-xs-12 col-md-2">
                                 <input id="exchange-rate-ANSP" type="checkbox" ng-model="editable.exchange_rate_ansp">
                                 <label translate for="exchange-rate-ANSP">Exchange rate to ANSP</label>
@@ -389,8 +390,8 @@
                             <preview-oauth2 ng-if="editable.report==='accountStatusReport'" url="reports/generic/account_status"
                                 error="$parent.error"
                                 height="'670px'"
-                                params="{ text: 'Preview', 
-                                        credit_type: editable.credit_type, 
+                                params="{ text: 'Preview',
+                                        credit_type: editable.credit_type,
                                         page_break: editable.account_new_page }"
                                 disable="editable.credit_type !== 'false' && editable.credit_type !== 'true'">
                             </preview-oauth2>
@@ -436,9 +437,9 @@
                             <preview-oauth2 ng-if="editable.report==='debtorReport'" url="reports/generic/debtor_report_v2"
                                 error="$parent.error"
                                 height="'670px'"
-                                params="{ page_break: editable.account_new_page, 
-                                        text: 'Preview', 
-                                        overdue_interval: editable.overdue_interval, 
+                                params="{ page_break: editable.account_new_page,
+                                        text: 'Preview',
+                                        overdue_interval: editable.overdue_interval,
                                         credit_type: editable.invoices }"
                                 disable="form.$invalid">
                             </preview-oauth2>
@@ -460,9 +461,9 @@
                             <preview-oauth2 ng-if="editable.report==='revenueLostToExemptionsReport'" url="reports/generic/revenue_lost_to_exemptions"
                                 error="$parent.error"
                                 height="'670px'"
-                                params="{ page_break: editable.account_new_page, 
-                                        text: 'Preview', 
-                                        fromdate: returnFilteredDate(control.getUTCStartDate()), 
+                                params="{ page_break: editable.account_new_page,
+                                        text: 'Preview',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
                                         todate: returnFilteredDate(control.getUTCEndDate()) }"
                                 disable="!selectedAccounts.length || form.$invalid"
                                 request-method="POST"
@@ -491,10 +492,10 @@
                             <preview-oauth2 ng-if="editable.report==='summarisedInvoiceTotalsReport'" url="reports/generic/summarised_invoice_totals_v2"
                                 error="$parent.error"
                                 height="'670px'"
-                                params="{ page_break: editable.account_new_page, 
+                                params="{ page_break: editable.account_new_page,
                                         text: 'Preview',
-                                        fromdate: returnFilteredDate(control.getUTCStartDate()), 
-                                        todate: returnFilteredDate(control.getUTCEndDate()), 
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
                                         grouping: editable.summary_interval,
                                         currency: editable.report_currency,
                                         fiscal_year: editable.fiscal_year,
@@ -521,10 +522,10 @@
                             <preview-oauth2 ng-if="editable.report==='aircraftTypesReport'" url="reports/generic/aircraft_types"
                                 error="$parent.error"
                                 height="'670px'"
-                                params="{ page_break: editable.account_new_page, 
-                                        text: 'Preview', 
-                                        fromdate: returnFilteredDate(control.getUTCStartDate()), 
-                                        todate: returnFilteredDate(control.getUTCEndDate()), 
+                                params="{ page_break: editable.account_new_page,
+                                        text: 'Preview',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
                                         filter_type: getFilterType(editable) }"
                                 disable="!editable.used_defined && !editable.used_undefined">
                             </preview-oauth2>
@@ -648,8 +649,8 @@
                             <!--Revenue Report-->
                             <download-oauth2 ng-show="editable.report === 'revenueReport'"
                                 url=reports/generic/revenue_report_{{editable.report_type}}
-                                error="error" 
-                                class-used="btn btn-primary btn-generate" 
+                                error="error"
+                                class-used="btn btn-primary btn-generate"
                                 params="{ text: 'Generate',
                                         output_format: report_format,
                                         fromdate: returnFilteredDate(control.getUTCStartDate()),
@@ -658,15 +659,15 @@
                                         amountUSD: editable.amount_usd,
                                         exchangeANSP: editable.exchange_rate_ansp,
                                         amountANSP: editable.amount_ansp,
-                                        generated_by: userName }"   
+                                        generated_by: userName }"
                                 request-method="POST"
-                                disable="form.$invalid || !report_format || !(editable.exchange_rate_usd || editable.amount_usd 
+                                disable="form.$invalid || !report_format || !(editable.exchange_rate_usd || editable.amount_usd
                                     || editable.exchange_rate_ansp || editable.amount_ansp)" hide-icon="true">
                             </download-oauth2>
                             <preview-oauth2 ng-if="editable.report === 'revenueReport'"
                                 url="reports/generic/revenue_report_{{editable.report_type}}"
-                                error="$parent.error" 
-                                height="'670px'" 
+                                error="$parent.error"
+                                height="'670px'"
                                 params="{ text: 'Preview',
                                         fromdate: returnFilteredDate(control.getUTCStartDate()),
                                         todate: returnFilteredDate(control.getUTCEndDate()),
@@ -674,9 +675,9 @@
                                         amountUSD: editable.amount_usd,
                                         exchangeANSP: editable.exchange_rate_ansp,
                                         amountANSP: editable.amount_ansp,
-                                        generated_by: userName }" 
+                                        generated_by: userName }"
                                 request-method="POST"
-                                disable="form.$invalid || !(editable.exchange_rate_usd || editable.amount_usd 
+                                disable="form.$invalid || !(editable.exchange_rate_usd || editable.amount_usd
                                     || editable.exchange_rate_ansp || editable.amount_ansp)">
                             </preview-oauth2>
 
@@ -727,9 +728,9 @@
                             <preview-oauth2 ng-if="editable.report==='kcaaAccountStatementReport'" url="reports/generic/account_statement_kcaa"
                                 error="$parent.error"
                                 height="'670px'"
-                                params="{ page_break: editable.account_new_page, 
-                                        text: 'Preview', 
-                                        fromdate: returnFilteredDate(control.getUTCStartDate()), 
+                                params="{ page_break: editable.account_new_page,
+                                        text: 'Preview',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
                                         todate: returnFilteredDate(control.getUTCEndDate()) }"
                                 disable="!selectedAccounts.length || form.$invalid"
                                 request-method="POST"
@@ -828,7 +829,7 @@
                                 disable="!selectedAccounts.length || !missingInfo.length || form.$invalid || !report_format"
                                 hide-icon="true"
                                 request-method="POST"
-                                body-params="{ account_ids: accountIdsWithBrackets, 
+                                body-params="{ account_ids: accountIdsWithBrackets,
                                             billing_errors: billingErrors }">
                             </download-oauth2>
                             <preview-oauth2 ng-if="editable.report==='missingBillingInformationReport' && KCAA" url="reports/generic/missing_billing_info_kcaa_v2"
@@ -978,4 +979,3 @@
         </div>
     </div>
 </div>
-    

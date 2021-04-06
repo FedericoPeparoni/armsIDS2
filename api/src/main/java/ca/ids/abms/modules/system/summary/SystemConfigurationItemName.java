@@ -165,10 +165,14 @@ public class SystemConfigurationItemName {
     public static final String DEFAULT_FLIGHT_LEVEL = "Default flight level";
     public static final String USE_ADDITIONAL_INVOICES_NUMBER = "Use additional invoice number sequence";
     public static final String USE_RECEIPT_NUMBER_BY_PAYMENT_MECHANISM = "Use receipt number sequence by payment mechanism";
-    
+
     // note the double space between "Organization name." and "Used to determine..."
     // this is intentional and must remain as-is unless the database and front-end are updated as well
     public static final String ORGANISATION_NAME = "Organisation name.  Used to determine site-specific processing.";
+
+    public static final String UNIFIED_TAX_AGRICULTURAL_DISCOUNT = "Agricultural Discount (%)";
+    public static final String UNIFIED_TAX_FLIGHT_SCHOOL_DISCOUNT= "Flight School Discount (%)";
+
 
     private SystemConfigurationItemName() {}
 }

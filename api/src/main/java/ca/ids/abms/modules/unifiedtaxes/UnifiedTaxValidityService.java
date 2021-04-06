@@ -2,6 +2,7 @@ package ca.ids.abms.modules.unifiedtaxes;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -82,7 +83,24 @@ public class UnifiedTaxValidityService extends AbmsCrudService<UnifiedTaxValidit
 
     @Transactional(readOnly = true)
     public List<UnifiedTaxValidity> findAll() {
-        return unifiedTaxValidityRepository.findAll();
+    	
+    	List<UnifiedTaxValidity> taxManagementStart1 = new ArrayList<UnifiedTaxValidity>();
+		List<UnifiedTaxValidity>taxManagementStart2 = unifiedTaxValidityRepository.findAll();
+    	
+		for (UnifiedTaxValidity s : taxManagementStart2) {
+			if (s.getFromValidityYear() == null) {
+				taxManagementStart1.add(s);
+			}
+		}
+		
+		for (UnifiedTaxValidity s : taxManagementStart2) {
+			if (s.getFromValidityYear() != null) {
+				taxManagementStart1.add(s);
+			}
+		}
+    	
+    	
+        return taxManagementStart1 ;
     }
 
     public UnifiedTaxValidity findUnifiedTaxValidityByYear(LocalDateTime yearValidity) {
