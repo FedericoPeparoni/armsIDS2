@@ -1688,11 +1688,11 @@ if(accountFlights!= null){
                         aircraftInfo.unifiedTaxCharges = aircraftInfo.unifiedTaxCharges - aircraftInfo.unifiedTaxCharges* discount / 100;
                 */
 
-                if(ar.getAircraftScope().equals(AircraftScope.FLIGHT_SCHOOL.toValue())){
+                if(ar.getAircraftScope()!=null && ar.getAircraftScope().equals(AircraftScope.FLIGHT_SCHOOL.toValue())){
                     final Double discount = systemConfigurationService.getDouble(SystemConfigurationItemName.UNIFIED_TAX_FLIGHT_SCHOOL_DISCOUNT, 0d);
                     aircraftInfo.unifiedTaxCharges = aircraftInfo.unifiedTaxCharges - aircraftInfo.unifiedTaxCharges * discount / 100;
 
-                }else if(ar.getAircraftScope().equals(AircraftScope.AGRICULTURE.toValue())){
+                }else if(ar.getAircraftScope()!=null && ar.getAircraftScope().equals(AircraftScope.AGRICULTURE.toValue())){
                     final Double discount = systemConfigurationService.getDouble(SystemConfigurationItemName.UNIFIED_TAX_AGRICULTURAL_DISCOUNT, 0d);
                     aircraftInfo.unifiedTaxCharges = aircraftInfo.unifiedTaxCharges - aircraftInfo.unifiedTaxCharges * discount / 100;
                 }
