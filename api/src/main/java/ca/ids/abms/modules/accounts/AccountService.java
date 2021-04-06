@@ -373,7 +373,7 @@ public class AccountService {
 
 
 
-
+/*
 
     private void validateAccountTypeDiscount(Account account) {
     Double accountTypeDiscount = account.getAccountTypeDiscount();
@@ -386,7 +386,7 @@ public class AccountService {
     }
     }
 
-
+*/
 
 
 
@@ -443,7 +443,7 @@ public class AccountService {
 
         validateName(account);
         validateUserLimits(account);
-        validateAccountTypeDiscount(account);
+   //     validateAccountTypeDiscount(account);
 
         //update account last activity date/time for Whitelisting
         account.setWhitelistLastActivityDateTime(LocalDateTime.now());

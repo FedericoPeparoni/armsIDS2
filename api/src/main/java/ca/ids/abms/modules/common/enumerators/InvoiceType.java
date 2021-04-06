@@ -8,7 +8,7 @@ import java.util.Map;
 
 public enum InvoiceType {
 
-    AVIATION_IATA, AVIATION_NONIATA, NON_AVIATION, PASSENGER, DEBIT_NOTE, OVERDUE, INTEREST;
+    AVIATION_IATA, AVIATION_NONIATA, NON_AVIATION, PASSENGER, DEBIT_NOTE, OVERDUE, INTEREST, UNIFIED_TAX;
 
     private static Map<String, InvoiceType> values = new HashMap<>(5);
 
@@ -20,6 +20,7 @@ public enum InvoiceType {
         values.put("debit-note", DEBIT_NOTE);
         values.put("overdue", OVERDUE);
         values.put("interest", INTEREST);
+        values.put("unified-tax", UNIFIED_TAX);        
     }
 
     @JsonCreator
