@@ -27,7 +27,7 @@
                                 <option translate value="missingBillingInformationReport">Missing Billing Information Report</option>
                                 <option translate value="aircraftRegistrationTrackingReport">Aircraft Registration Tracking Report</option>
                                 <option translate value="revenueReport">Revenue Report</option>
-                                <option translate value="unifiedTax">Unified Tax Report</option>
+                                <option translate value="unifiedTaxReport">Unified Tax Report</option>
 
                                 <!-- kcaa customized reports -->
                                 <option translate ng-if="KCAA" value="kcaaDebtorReport">Debtor report</option>
@@ -48,7 +48,8 @@
                                     editable.report==='creditAndDebitNotesReport'         ||
                                     editable.report==='missingBillingInformationReport'   ||
                                     editable.report==='aircraftRegistrationTrackingReport'||
-                                    editable.report==='kcaaAccountStatementReport'">
+                                    editable.report==='kcaaAccountStatementReport' ||
+                             editable.report==='unifiedTaxReport'">
                             <label translate for="accounts">Accounts *</label>
                             <multiselect
                                 id="accounts"
@@ -59,6 +60,27 @@
                                 events="{ onSelectionChanged: addAccountToList }">
                             </multiselect>
                         </div>
+
+                        <!-- unified Tax Form -->
+                     <!--   <div class="col-xs-12 col-md-2" ng-if="editable.report=='unifiedTaxReport'">
+                            <label translate>Account Type *</label>
+                            <select id="customer_type" class="form-control" ng-model="editable.customer_type" ng-init="editable.customer_type = 'tu'" required>
+                                <option translate value="tu">TU</option>
+                            </select>
+                        </div>
+
+                        <div class="col-xs-12 col-md-3">
+                            <label translate for="aircraft_registration">Aircraft Registration</label>
+                            <multiselect id="aircraft_registration" name="aircraft_registration"
+                                         extra-settings="{ displayProp: 'aircraft_registration_name', idProp: 'aircraft_registration_name', externalIdProp: '' }"
+                                         options="aircraftRegistrationList"
+                                         model="selectedAircraftRegistration"
+                                         events="{ onSelectionChanged: addAircraftRegistrationToList }">
+                            </multiselect>
+                        </div>-->
+
+
+                        <!-- end unified Tax Form -->
 
                         <div class="col-xs-12 col-md-3"
                                 ng-if="editable.report ==='kcaaPassengerReport' || editable.report ==='passengerReport'">
@@ -970,6 +992,35 @@
                                         todate: returnEndOfMonth(editable.report_month) }"
                                 disable="form.$invalid"
                                 request-method="POST">
+                            </preview-oauth2>
+
+
+
+
+                            <!--Unified Tax report-->
+                            <download-oauth2 ng-show="editable.report==='unifiedTaxReport'" url="reports/generic/unified_tax"
+                                             error="error"
+                                             class-used="btn btn-primary btn-generate"
+                                             params="{ text: 'Generate',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()),
+                                        output_format: report_format,
+                                        page_break: editable.account_new_page }"
+                                             request-method="POST"
+                                             body-params="{'account_id': accountIdsWithBrackets }"
+                                             disable="!selectedAccounts.length || form.$invalid || !report_format"
+                                             hide-icon="true">
+                            </download-oauth2>
+                            <preview-oauth2 ng-if="editable.report==='unifiedTaxReport'" url="reports/generic/unified_tax"
+                                            error="$parent.error"
+                                            height="'670px'"
+                                            params="{ page_break: editable.account_new_page,
+                                        text: 'Preview',
+                                        fromdate: returnFilteredDate(control.getUTCStartDate()),
+                                        todate: returnFilteredDate(control.getUTCEndDate()) }"
+                                            disable="!selectedAccounts.length || form.$invalid"
+                                            request-method="POST"
+                                            body-params="{'account_id': accountIdsWithBrackets }">
                             </preview-oauth2>
 
                         </div>

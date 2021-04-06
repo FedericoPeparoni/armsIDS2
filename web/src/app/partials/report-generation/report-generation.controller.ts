@@ -37,7 +37,8 @@ const reportsWithDatePicker = [
   'kcaaAccountStatementReport',
   'kcaaPassengerReport',
   'passengerReport',
-  'revenueReport'
+  'revenueReport',
+  'unifiedTaxReport'
 ];
 
 export class ReportGenerationController extends CRUDFormControllerUserService {

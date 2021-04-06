@@ -1,0 +1,1063 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.7.0.v201706222054</property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <parameters>
+        <scalar-parameter name="account_id" id="1120">
+            <property name="valueType">static</property>
+            <property name="isRequired">true</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">{37,85}</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="concealValue">false</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="fromdate" id="1258">
+            <text-property name="promptText">From</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">true</property>
+            <property name="dataType">date</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">2018-10-01</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Short Date</property>
+                <property name="pattern">Short Date</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="todate" id="1262">
+            <text-property name="promptText">To</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">dateTime</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">BirtDateTime.now()</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Custom</property>
+                <property name="pattern">yyyy-MM-dd HH:mm:ss</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="878">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledMetadataBidiFormatStr</name>
+                </ex-property>
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledContentBidiFormatStr</name>
+                </ex-property>
+            </list-property>
+            <property name="odaDriverClass">org.postgresql.Driver</property>
+            <property name="odaURL">jdbc:postgresql://localhost/abms_qa</property>
+            <property name="odaUser">abms</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">YWJtcw==</encrypted-property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="accounts" id="1103">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">id</text-property>
+                    <text-property name="heading">id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">name</text-property>
+                    <text-property name="heading">name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">alias</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">alias</text-property>
+                    <text-property name="heading">alias</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">alias</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="nativeName">id</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">name</property>
+                    <property name="nativeName">name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">alias</property>
+                    <property name="nativeName">alias</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[
+select 
+	id,
+	name,
+	alias
+from 
+	accounts
+where 
+	id=?
+]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <DataSetParameters>
+    <parameter>
+      <design:ParameterDefinition>
+        <design:inOutMode>In</design:inOutMode>
+        <design:attributes>
+          <design:identifier>
+            <design:name></design:name>
+            <design:position>1</design:position>
+          </design:identifier>
+          <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+          <design:precision>0</design:precision>
+          <design:scale>0</design:scale>
+          <design:nullability>Unknown</design:nullability>
+        </design:attributes>
+      </design:ParameterDefinition>
+    </parameter>
+  </DataSetParameters>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>id</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>id</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>id</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>name</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>100</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>name</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>name</design:label>
+            <design:formattingHints>
+              <design:displaySize>100</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>alias</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>100</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>alias</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>alias</design:label>
+            <design:formattingHints>
+              <design:displaySize>100</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="statement" id="1152">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">account_id</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">account_id</text-property>
+                    <text-property name="heading">account_id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">customer_name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">customer_name</text-property>
+                    <text-property name="heading">customer_name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">aircraft_registration_name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">aircraft_registration_name</text-property>
+                    <text-property name="heading">aircraft_registration_name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">aircraft_model</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">aircraft_model</text-property>
+                    <text-property name="heading">aircraft_model</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">aircraft_year</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">aircraft_year</text-property>
+                    <text-property name="heading">aircraft_year</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">mtow_kg</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">mtow_kg</text-property>
+                    <text-property name="heading">mtow_kg</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">mtow_ton</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">mtow_ton</text-property>
+                    <text-property name="heading">mtow_ton</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">agricultural_flight_school</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">agricultural_flight_school</text-property>
+                    <text-property name="heading">agricultural_flight_school</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">type_document</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">type_document</text-property>
+                    <text-property name="heading">type_document</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">issuing_aerodrome</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">issuing_aerodrome</text-property>
+                    <text-property name="heading">issuing_aerodrome</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">currency_document</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">currency_document</text-property>
+                    <text-property name="heading">currency_document</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">amount_document</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">amount_document</text-property>
+                    <text-property name="heading">amount_document</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">application_payment</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">application_payment</text-property>
+                    <text-property name="heading">application_payment</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">balance</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">balance</text-property>
+                    <text-property name="heading">balance</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">symbol</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">symbol</text-property>
+                    <text-property name="heading">symbol</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">fromdate</property>
+                    <property name="paramName">fromdate</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">93</property>
+                    <property name="position">1</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">todate</property>
+                    <property name="paramName">todate</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">dateTime</property>
+                    <property name="nativeDataType">93</property>
+                    <property name="position">2</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">account_id</property>
+                    <property name="paramName">account_id</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">2003</property>
+                    <property name="position">3</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">account_id</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">customer_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">aircraft_registration_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">aircraft_model</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">aircraft_year</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">mtow_kg</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">mtow_ton</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">agricultural_flight_school</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">type_document</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">issuing_aerodrome</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">currency_document</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">amount_document</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">application_payment</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">balance</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">symbol</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">account_id</property>
+                    <property name="nativeName">account_id</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">customer_name</property>
+                    <property name="nativeName">customer_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">aircraft_registration_name</property>
+                    <property name="nativeName">aircraft_registration_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">aircraft_model</property>
+                    <property name="nativeName">aircraft_model</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">aircraft_year</property>
+                    <property name="nativeName">aircraft_year</property>
+                    <property name="dataType">date-time</property>
+                    <property name="nativeDataType">93</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">mtow_kg</property>
+                    <property name="nativeName">mtow_kg</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">mtow_ton</property>
+                    <property name="nativeName">mtow_ton</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">agricultural_flight_school</property>
+                    <property name="nativeName">agricultural_flight_school</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">type_document</property>
+                    <property name="nativeName">type_document</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">issuing_aerodrome</property>
+                    <property name="nativeName">issuing_aerodrome</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">currency_document</property>
+                    <property name="nativeName">currency_document</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">amount_document</property>
+                    <property name="nativeName">amount_document</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">application_payment</property>
+                    <property name="nativeName">application_payment</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">balance</property>
+                    <property name="nativeName">balance</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">symbol</property>
+                    <property name="nativeName">symbol</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[
+SELECT  abms.accounts.id AS account_id, abms.accounts.name AS customer_name , abms.aircraft_registrations.registration_number AS aircraft_registration_name, abms.aircraft_types.manufacturer, abms.billing_ledgers.amount_owing, abms.aircraft_registrations.aircraft_scope, abms.currencies.currency_code, abms.currencies.symbol
+FROM abms.accounts
+INNER JOIN abms.aircraft_registrations ON abms.accounts.id=abms.aircraft_registrations.account_id
+INNER JOIN abms.aircraft_types ON abms.aircraft_types.id=abms.aircraft_registrations.aircraft_type_id
+INNER JOIN abms.billing_ledgers ON abms.accounts.id=abms.billing_ledgers.account_id
+INNER JOIN abms.currencies ON abms.currencies.id=abms.billing_ledgers.invoice_currency
+INNER JOIN abms.transactions ON abms.currencies.id=abms.billing_ledgers.invoice_currency
+WHERE abms.billing_ledgers.invoice_type = 'unified-tax' AND ( abms.transactions.transaction_date_time >= ? AND abms.transactions.transaction_date_time <= ?) AND  abms.accounts.id = any(?::int[]) 
+ ]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <styles>
+        <style name="report" id="4">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="6">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Botswana_MasterPage_Landscape" id="137">
+            <property name="orientation">portrait</property>
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+            <property name="headerHeight">1.6in</property>
+            <property name="footerHeight">0.7in</property>
+            <page-header>
+                <grid id="138">
+                    <property name="height">1.1666666666666667in</property>
+                    <property name="width">7.854166666666667in</property>
+                    <column id="139">
+                        <property name="width">2.3958333333333335in</property>
+                    </column>
+                    <column id="140">
+                        <property name="width">5.458333333333333in</property>
+                    </column>
+                    <row id="141">
+                        <property name="height">0.7916666666666666in</property>
+                        <cell id="142">
+                            <property name="colSpan">2</property>
+                            <property name="rowSpan">1</property>
+                            <property name="textAlign">center</property>
+                            <image id="1550">
+                                <property name="height">0.6161616161616161in</property>
+                                <property name="width">5.606060606060606in</property>
+                                <property name="source">embed</property>
+                                <property name="imageName">logo.png</property>
+                            </image>
+                        </cell>
+                    </row>
+                    <row id="156">
+                        <property name="height">0.375in</property>
+                        <cell id="157">
+                            <property name="colSpan">2</property>
+                            <property name="rowSpan">1</property>
+                            <property name="textAlign">right</property>
+                            <grid id="158">
+                                <property name="height">15pt</property>
+                                <column id="159"/>
+                                <row id="160">
+                                    <cell id="161">
+                                        <property name="borderBottomStyle">solid</property>
+                                        <property name="borderBottomWidth">medium</property>
+                                    </cell>
+                                </row>
+                                <row id="162">
+                                    <cell id="163">
+                                        <property name="borderBottomStyle">solid</property>
+                                        <property name="borderBottomWidth">medium</property>
+                                    </cell>
+                                </row>
+                                <row id="164">
+                                    <cell id="165">
+                                        <property name="borderBottomStyle">solid</property>
+                                        <property name="borderBottomWidth">medium</property>
+                                    </cell>
+                                </row>
+                            </grid>
+                        </cell>
+                    </row>
+                </grid>
+            </page-header>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="58">
+            <property name="width">7.989583333333333in</property>
+            <column id="59">
+                <property name="width">7.989583333333333in</property>
+            </column>
+            <row id="61">
+                <cell id="62">
+                    <property name="colSpan">1</property>
+                    <property name="rowSpan">1</property>
+                    <text id="67">
+                        <property name="fontFamily">"Times New Roman"</property>
+                        <property name="fontSize">19px</property>
+                        <property name="fontWeight">bold</property>
+                        <property name="textUnderline">underline</property>
+                        <property name="textAlign">center</property>
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[UNIFIED TAX]]></text-property>
+                    </text>
+                </cell>
+            </row>
+            <row id="64">
+                <cell id="65">
+                    <property name="width">5in</property>
+                    <text-data id="1271">
+                        <property name="textAlign">right</property>
+                        <expression name="valueExpr">var dt1=Formatter.format(BirtDateTime.now(), "yyyy-MM-dd");&#13;
+var dt2=Formatter.format(params["todate"], "yyyy-MM-dd");&#13;
+var dt3=Formatter.format(params["fromdate"], "yyyy-MM-dd");&#13;
+"Generated: "  + dt1 +  "&lt;br>" +&#13;
+"From: " + dt3 +  "&lt;br>" +&#13;
+"To: " + dt2</expression>
+                        <property name="contentType">html</property>
+                    </text-data>
+                </cell>
+            </row>
+        </grid>
+        <table id="1154">
+            <property name="width">10.458333333333334in</property>
+            <property name="dataSet">statement</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">customer_name</property>
+                    <text-property name="displayName">customer_name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["customer_name"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">aircraft_registration_name</property>
+                    <text-property name="displayName">aircraft_registration_name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["aircraft_registration_name"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <column id="1167">
+                <property name="width">136px</property>
+            </column>
+            <column id="1168">
+                <property name="width">1.5in</property>
+            </column>
+            <column id="1198">
+                <property name="width">0.8in</property>
+            </column>
+            <column id="1222">
+                <property name="width">1in</property>
+            </column>
+            <column id="1494">
+                <property name="width">0.7in</property>
+            </column>
+            <column id="1205">
+                <property name="width">0.8in</property>
+            </column>
+            <column id="1212">
+                <property name="width">0.8in</property>
+            </column>
+            <column id="1169">
+                <property name="width">1in</property>
+            </column>
+            <column id="1246">
+                <property name="width">266px</property>
+            </column>
+            <group id="1354">
+                <property name="groupName">Current Account Data</property>
+                <expression name="keyExpr" type="javascript">row["account_name"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["account_name"]</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">always-excluding-last</property>
+                <header>
+                    <row id="1398">
+                        <cell id="1399"/>
+                        <cell id="1400"/>
+                        <cell id="1401"/>
+                        <cell id="1402"/>
+                        <cell id="1485"/>
+                        <cell id="1403"/>
+                        <cell id="1404"/>
+                        <cell id="1405"/>
+                        <cell id="1406"/>
+                    </row>
+                    <row id="1373">
+                        <cell id="1374">
+                            <text id="1382">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Current Account Data]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1375">
+                            <text id="1383">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Type of document]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1376">
+                            <text id="1384">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Issuing Aerodrome]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1377">
+                            <text id="1385">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Currency of the document]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1487">
+                            <text id="1523">
+                                <property name="fontWeight">bold</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Amount]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1378">
+                            <text id="1498">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">right</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Application of payment]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1379"/>
+                        <cell id="1380">
+                            <text id="1524">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">right</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Balance]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1381"/>
+                    </row>
+                    <row id="1557">
+                        <cell id="1558"/>
+                        <cell id="1559"/>
+                        <cell id="1560"/>
+                        <cell id="1561"/>
+                        <cell id="1562"/>
+                        <cell id="1563"/>
+                        <cell id="1564"/>
+                        <cell id="1565"/>
+                        <cell id="1566"/>
+                    </row>
+                </header>
+            </group>
+            <group id="1499">
+                <property name="groupName">Customer and aircraft data</property>
+                <expression name="keyExpr" type="javascript">row["opening_balance"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["opening_balance"]</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+                <header>
+                    <row id="1500">
+                        <cell id="1501">
+                            <text id="1569">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Customer and aircraft data]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1502">
+                            <text id="1551">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Customer Name]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1503">
+                            <text id="1552">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Customer Type]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1504">
+                            <text id="1553">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Aircraft Registration]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1505">
+                            <text id="1554">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Aircraft manufacturer and model]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1506">
+                            <text id="1555">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Year of manufacture]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1507">
+                            <text id="1556">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[MTOW (kg)]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1508">
+                            <text id="1567">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[MTOW (ton)]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1509"/>
+                    </row>
+                </header>
+                <footer>
+                    <row id="1510">
+                        <cell id="1511"/>
+                        <cell id="1512"/>
+                        <cell id="1513"/>
+                        <cell id="1514"/>
+                        <cell id="1515"/>
+                        <cell id="1516"/>
+                        <cell id="1517"/>
+                        <cell id="1518"/>
+                        <cell id="1519"/>
+                    </row>
+                </footer>
+            </group>
+            <detail>
+                <row id="1159">
+                    <list-property name="visibility">
+                        <structure>
+                            <property name="format">all</property>
+                            <expression name="valueExpr" type="javascript">row["Transaction_Date"] === null</expression>
+                        </structure>
+                    </list-property>
+                    <cell id="1160"/>
+                    <cell id="1161">
+                        <data id="1173">
+                            <property name="textAlign">left</property>
+                            <property name="resultSetColumn">customer_name</property>
+                        </data>
+                    </cell>
+                    <cell id="1195"/>
+                    <cell id="1219">
+                        <data id="1226">
+                            <property name="textAlign">left</property>
+                            <property name="resultSetColumn">aircraft_registration_name</property>
+                        </data>
+                    </cell>
+                    <cell id="1489"/>
+                    <cell id="1202"/>
+                    <cell id="1209"/>
+                    <cell id="1162"/>
+                    <cell id="1243"/>
+                </row>
+            </detail>
+            <footer>
+                <row id="1163">
+                    <cell id="1164"/>
+                    <cell id="1165"/>
+                    <cell id="1197"/>
+                    <cell id="1221"/>
+                    <cell id="1493"/>
+                    <cell id="1204"/>
+                    <cell id="1211"/>
+                    <cell id="1166"/>
+                    <cell id="1245"/>
+                </row>
+            </footer>
+        </table>
+    </body>
+    <list-property name="images">
+        <structure>
+            <property name="name">logo.png</property>
+            <property name="type">image/png</property>
+            <property name="data">
+                iVBORw0KGgoAAAANSUhEUgAAAisAAAA9CAMAAABbYNm1AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7O
+                HOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAGZQTFRF////V5fT
+                V5fTV5fTV5fTV5fTV5fTV5fTV5fTV5fTV5fTEmmwEmmwEmmwV5fTV5fTEmmwEmmwEmmwEmmwEmmwEmmw
+                V5fTEmmwV5fTEmmwV5fTEmmwEmmwEmmwEmmwV5fTEmmw////UJz9KgAAAB90Uk5TAKDwgCBgMBDg0LAQ
+                QDBAcMBgcOCA8MBQUNCQsCCgkD1+djEAAAABYktHRACIBR1IAAAACXBIWXMAAA9gAAAPYAF6eEWNAAAP
+                TUlEQVR42u2daXviug6As5ENCnTLULrQ//8rD/EiS7K8JHPO03Iv+jJD4lguemNLXkRR3OUWpKzq5qfb
+                cJebkM3lKuWdlrskpa2uqFSbn27GXX6/dP0VlaH96Wbc5QZknAeg7qdb8X8hTV3XP92Gu2jZ7kAefqPG
+                /fW19K5dxXXqzfwReY7tla7a3G5p0aKbP+87cwMLrn6uoD7wYUNd9jzUZqNK7wON0bdJXS1R17EW/mdy
+                zJPHSBVP3yDPkWKPrraXdJFjDIJHp/E1/SdKrMxxxQW+7nr+hPqecv48of9XbgQ4qEevn6cLE1uiqyt7
+                qa/J0DGocIa1DuqpdKBDG+Nuo7rUtQP++2xr/1P5zpOXSBXPqFyEqRdU7E+6yO7vNaLvkl+7EAIYK402
+                jn63W/V/F4OAvUOsnCp8sUfdja7qgvHpRlxYhTq4MR1RUp3MU/qq7UpuiJU/uNwxXA6D8PqQLBJhZYc1
+                viX/xCAr8AUzVmp913QAAzFFCz1SgJUNv+yGk1JfQB1YN7DCZ9KYtme3DbJadd+5v+9GWDmSguGh44VY
+                eJsqEmHlnWiMdUDwXfJrF2I2xorpGEy3syEWP88fBmcwzoqHyhmq7WxX465wVGYYXGM6joqFZSKo3w4r
+                H7TgZ7DgS7pcHivZGgv3XfJr9rvXvTplBcytPYKuwncrsJh2Gphv22jO+kNTdKe5Hxmdzpr1Dga8awd2
+                6or9uTIaXWNGd7s1PlDVgGpo1O2w8slKbkMFKSuin5HHyhfT+JH4E2OsVII7CS+76QBK9P+T63AmOxhh
+                0cPMaEaHZhiQcwK9hLWr9osqU8fVdSlJY/b6tnFLTB9UgmpQfzOsbF9zSzJWJJcli5V8jUZirOjhhLCi
+                v/rJ9TraRdEmG8FeIiuNq1MLQkWv6fSuLgPWyZUoSGNGpLcAWJoCsaKovRlWnnjJYNjMWJFclixWHrnG
+                VNgcZUX5E4QVZcHTBhnAhbodMp/EyoH4NlRU+bZ2sOnxrOTlbGO6C25VYfuZQ4Fdpam4IVaevaKBeNhj
+                RXA0sljxNSbC5iArg32vMSuNGXEqZ3XFTQX/M92GMlhZW1HUjGGztfrRxg1iLetWjNjG7D3uaLg+WNRv
+                hZU/ftFjoKjHyvdTrEiIlV2+RiNBVrQjenVZMCv2/2f30nfg0A7INWVxUA3XalePEl28NI+WtnMwMHjN
+                tQ2okZuE7kxWzcmi/hOsPK+Ytz0KXAV8TZ8VL8DOYeX9O10PlSAr2lO9DB1mpTdvM+oAtH1Hei3MCnI7
+                HA2d7Zv2gEAOK5N3B1jZtwb1n2Al5SMK8iEYLhTECqw8b8NFdn+v0UiYFRO0loiVjcGC2L01wwHqa5b2
+                K7X1jTSMp+LvWbGo3wgrX5LlXuWwWWDl+z1cJMCKVEskUC+KKCvG4IMzsbowzg7IiMaAQQ8cOIgJs3J2
+                hnU09ODdTNa0vkPiHqztNA++UzJWDOrDTbDiha9ansTCL+miGazIGqNNj7HSVdTY7YWJDnSU3Xr1HkNA
+                LMVBaCpGLRcP1twnXm8jBDpaLCt8IQpNCoJqN+/761nB671vaGgRC8s9wi5UZJfUeExpNBJjxbzcYLSS
+                29TMu1bwAoPxJFZ0XwArwLoM/AfLPJKp+iq+iQkGRKWz7+gN1a2B6gZQ//WsoPD1C097iGGzzAoZsNKs
+                ICI/scZY2BxlxY0Vs3m6iyd6jDjbjxXdGMBY0a9+1ZIyBaxcI5nr2WAa55VCOm9bA1RKdOmeqob+6rez
+                gsPXDzweHaXSMiukbJIVrPGhSGk0EmeFLK7oOHUy0jvvA4ztps7EOX5t38r0LJvKqClJvZXtfPSsv95J
+                q3a9QBsUuLrTGPb6ttZ/YqrrG2HlndgKLwxJYXOAFaw2ycon0Yg960jYnGDFrubW1nhgf7T4A0S5/Wd6
+                QmxyoiozHkR1dWNHM0BYq4MXu7EdhB0Ah3Nt6ifrzHYRcyjtbdMJYUynm2AFh69/6EcpiA2xgqhIsYJV
+                PKY1GkmwYv3ZGhnRSO8cFGM3tNQj70loK365MlP/bsVZozP3EAdeuCSTyJ73NCBw97iy384Keq2Vb3l0
+                n6Wwmex1wqy8fkhFJFbQfbUIhOflwmFzihVjsZrvTaRTp5V9760E9jrx/UlDg6ZUjNi5PW+7S1kU/iSy
+                kxFPA9rub38DrGAHRT2a8DUxCHT9700qIrGCNH7Nn/EKw1MRkiQrehmn1h0Mjku0q6uNcuY3Q3souzO6
+                1s9wnVh3BXN7c+PQdqde4UQXvSdWl1NNdwv/lvWgZPhq/BNkSiGIxSCwXS9fQpFdjsbnqEb7fQusgIOh
+                zTteP22KzXyRzHfU7krDb54nJnCnOWj3dShPrpYDrreclELdPL1PoR/N5w26p24P5DaobsnHc/Hfy3pW
+                kJ3M9OtX9BnCyvaNaPjjFxGUvnkaM/Z7y6zcZYWsZmXnF8C+5rv3AGGl+JBcljgrDz4YWOMx9CfeWfmX
+                ZDUraBSB7h/7ml7YTFlhuxnevCK7LI2pQH2WVaxsyvv5YS5rWcFvNLiV2P5f/AnGClt3/ORFPKVbdBPc
+                8B2vQpA1rMyh73RPTEBlLSvYrC5cRT6MFzZzVgrqsjwWCVbwzY8sjUZWsKLn58b7eXMia1lB7gZ6n0lc
+                zJ7wWGEuy0OClWdRI97vGwibV7AysomWu8yykpVH+TYeJ3gQ67HCtkO+baOsrNBoZDkr8+TcPd+JJytZ
+                QeMHOST6GX7MZ8U7XhZj5RhgAmuUw+blrJhMCHehso4V3CMcX5DgSCiy6c1eOxI9jxFWHkIaMStH8U+M
+                sNLNG9XwdiKeJ2OeW23YZ1utUNTeEnNnIDnMWTIKuS6vjSd1TmAD9TVcs22409ga2r2ic+4NlIMjnlqk
+                UNk8RFaICbD4wSg/bCgLfU5ihW2sw6Tt/l5jmpUNm7jfX5i4fSR2JRAy/ElFjUi5M3iL8JI1rWvA8VdT
+                etdrrtnWOHh7a7yi81oA2p+L1jAKP7VIx5bA0Bedvx70kWU4VqHEinSCQ2Rlm9Y2y5fU2ggrep3vQIrG
+                WXHfZpgVU0t4FNP2RzCxqgZ4uanuqSmKCCuuxkWshFKLmKfd0voqVl7yLPcafMhdfQo9vFulUQqbw6wY
+                o/b8QpwV83WGWfFzZ1Cxu+8cTLwu00PQ7Cy2pWFWoA9YxEootYg9gA39zipWXvMsR8NmmRXxvI/PynOO
+                um95L2WYFWuKEy6aZkWvEAdZsXvo+iIgNX/Cq8vsxvP2r+wTrNjdm8tYCaQWsfszobdaw8pjpuFoiBRg
+                ZRvAgLDyJ0vdtxw2B1mBjZEjLnoZmMOqjyCrj3XvLKmNJ/i2YKBTIYvd4eJgcnVtNB/qROzBmPfUFc1m
+                upBTaiX1bS3kPd0MpfPW1e7AyezI+6yIqUXcpgv7l61h5ZhrOWLwACskwgmxsk5jihW30aRBRb2tICQp
+                lzuMY1/pIAqhPSVufxO4jbiuje1BzI43602dqtJvD/4bEfZsLzD9KLAipRZx+8ntpRWsPGQbjizRhFgJ
+                uCzY6Jm+9Cz++naYFZWN+uy6/AxWzB7cGCsod0YkYcKZaCJ12U2/GzZQ2dqirGi0lrIipBbRAyA5VL2C
+                lbzwVQsKYoOsyC7L7u81JlgxSe6V8WOp1/zsLJcYK37uDCqt1kFgInVZy050nJLb47FCDxDlsuKnFlG9
+                WoVP6q5gJTN89eoMs8I2PnmsbHN96Vn8sDnEyqCtNaJvQx9MhzwZ6GSy/QrdhkX91oNYs/u5M5iYhAkE
+                JswKbNwkIxBnZQLFG2j4CC7LIlbE1CLaWToXOA/NclYyw1ctr/JzrMoHAQbEylO2um8pbA6wYr8yvBuW
+                x0EeK3uXX4cVtabwc2dQsQkTCEyIFXNqxPoL+4LomgovuJmg4fXBXljESmMPwBFWbL+HznAvZwXvApBL
+                4G7CBbERVqTIaidrlPcdHEWNcVasUfGhoDArvTtdZgrLrAi5M6hAwgS8lq1trETXVtI0CpmsmEmAehkr
+                YmoRdW202krOSiz/iuvZsVnFaVJaxIXNMVYEj8SxggPmz7RGL2yWWWmsUfHpnTArWEpqP8KKkDuDCvgp
+                GCauYY5LcBqFXFZMp7Rfxoo9DYtZgXx5unvrGCsxOYJe/AoHdi0S/wIOBEZZ8V2W3RKNZHaQh80yK+qL
+                GeYB/+yMksVKKdp3j1CguTOI6ONqytG4OJg4Ki1cZPcTrJijbNWwjBU/tYgmxE3O1GtYeZAucsG9BPQE
+                UVZ8lwUsnrX/+kvSGGWFnw88s6+RUQUCp3QcTBwFLDxs5qeKeDyiUOtcCzWYasqNsCLFQTVtwAJWeGoR
+                b8a4X8NKersIMy/ssIyz4k3N7iSNj1kaWecjsuIZNZz+E/wVfejHXhZZEXNnIPETJrj1AvCHjFVLBlsW
+                K8jKC1jhqUU676TtZjkrGdvQZjmiYtZlTrDCc0RZVvCAFslO+i5ojLHiZTdX30Z8fuVwwVaSWPFS/fCw
+                2VvhQTEV2MhM1Gv7uY0Geay4vO1LWKGpRfw3SZVfyMpT2CRYJF8zxQrbq70TqvoKa8TdEkNK/P0gZUd7
+                YnCwHUZiLo78vobEikJhILkzyGEAzQKcVASYoC4dkpyRie0vhXQw0xtnxZ2+X8QKrKOqSnqvmfNfvZAV
+                vNAXy22OvY/HTFboXu3dQo3h34mRWCnJ9w3TXxQhc1bU2abBo9CFfJ/qlGgodwaI6plcwgRlkgOx2YjM
+                bHup/lzXKHUGTRKjT6siVmB9eBkrOLUIi/dL0/8tYwW/vcLKi5Mv/9kkK9RlMazs/IpkwdXT34kRWNFw
+                sF9rKf04iCbPoaOQ0EszFDQ6eFMki6MP1ibOZmQU8ocCmPHAsqes2DXRZayg1CL8GMPe9H/LWDmiS0HP
+                dhbiaz5ksiLtzX5fpZGEzQIrNTUqJC5IsWKGBWkubv72w7kztPCECQATstnpgh7aMB/z3OWwYpyxhay4
+                FwFNqSDED8tYwfaIpvOjVH3msoKf2i3V+O5pDLPizZOZqYUkK4177X1WYrkznM2wp2FhwjbTo5BpXIsD
+                q4mm/Qqz0rAOLY8Vm1qEpvEFivrc3zvUXiX+PcJEEvwdftp7OPTUlv/eIX7oaanGICvtPMqP+MpJX2l5
+                nozZXyFJLtSHabYkL3pO5M6Yf5Fulo43ZKIpPnQpl3HwrHuJyf5Yp2kC9Vdamojj5CfdcB/bCXJwiKlF
+                ivmfCQ+dHS33Pyz3PAn/jvwDE8yXKXy0BTUAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTYtMDctMjlUMTU6
+                NDc6MzUrMDA6MDBFYwLHAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE2LTA3LTI5VDE1OjQ3OjM1KzAwOjAw
+                ND66ewAAAABJRU5ErkJggg==
+</property>
+        </structure>
+    </list-property>
+</report>
