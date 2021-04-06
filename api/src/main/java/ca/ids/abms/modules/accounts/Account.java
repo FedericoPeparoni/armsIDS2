@@ -194,7 +194,7 @@ public class Account extends VersionedAuditedEntity {
     @NotNull
     private Boolean whitelistExpiryNoticeSentFlag;
     
-    private Double accountTypeDiscount ;
+    // private Double accountTypeDiscount ;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -632,12 +632,13 @@ public class Account extends VersionedAuditedEntity {
                 + icaoCode + ", accountUsers=" + accountUsers + ", nationality=" + nationality + "]";
     }
 
-	public Double getAccountTypeDiscount() {
+    
+	/*public Double getAccountTypeDiscount() {
 		return accountTypeDiscount;
 	}
 
 	public void setAccountTypeDiscount(Double accountTypeDiscount) {
 		this.accountTypeDiscount = accountTypeDiscount;
 	}
-
+   */
 }

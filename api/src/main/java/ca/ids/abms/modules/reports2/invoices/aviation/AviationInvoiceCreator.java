@@ -460,7 +460,7 @@ if(accountFlights!= null){
                     aircraftInfo.mtow = ar.getMtowOverride();
                     aircraftInfo.mtowUnitOfMeasure = reportHelper.getMTOWUnitOfMeasure();
                     aircraftInfo.mtowStr = String.format(TWO_DECIMALS, ar.getMtowOverride())+  " " +reportHelper.getMTOWUnitOfMeasure();
-                    aircraftInfo.discountPercentage = account.getAccountTypeDiscount();
+             //       aircraftInfo.discountPercentage = account.getAccountTypeDiscount();
                     invoiceData.aircraftInfoList.add(aircraftInfo);
 
 	        		invoiceData.global.unifiedTaxTotalCharges += aircraftInfo.unifiedTaxCharges;

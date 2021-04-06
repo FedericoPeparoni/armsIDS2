@@ -2438,5 +2438,16 @@ databaseChangeLog:
         author: Federico Peparoni
         file: 20210402181800_insert_system_configuration.sql
         relativeToChangelogFile: true
+    - include:
+        author: Alessandro Gallinella
+        file: 20210604555002_alter_account_type_discount.sql
+        relativeToChangelogFile: true
+
+
+
+
+
+
+
 
       
