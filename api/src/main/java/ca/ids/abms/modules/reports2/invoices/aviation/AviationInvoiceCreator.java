@@ -1312,7 +1312,8 @@ if(accountFlights!= null){
 		final double exchangeRate;
 		final double exchangeRateToAnsp;
 
-		if (billingInterval == BillingInterval.ANNUALLY || billingInterval == BillingInterval.PARTIALLY) {
+		final boolean unifiedTaxInvoice = billingInterval == BillingInterval.ANNUALLY || billingInterval == BillingInterval.PARTIALLY;
+		if (unifiedTaxInvoice) {
  			exchangeRate = currencyUtils.getApplicableRate(invoiceCurrency, targetCurrency, startDate);
 			exchangeRateToAnsp = currencyUtils.getApplicableRate (invoiceCurrency, anspCurrency, startDate);
 		}
@@ -1330,8 +1331,13 @@ if(accountFlights!= null){
         bl.setAccount(account);
         bl.setBillingCenter(currentUser != null ? currentUser.getBillingCenter() : null);
         bl.setInvoicePeriodOrDate(endDateInclusive);
-        bl.setInvoiceType(ChargeSelection.ONLY_PAX == chargeSelection ?
-            InvoiceType.PASSENGER.toValue() : InvoiceType.AVIATION_NONIATA.toValue());
+        if (unifiedTaxInvoice) {
+        	bl.setInvoiceType(InvoiceType.UNIFIED_TAX.toString());
+        }
+        else {
+	        bl.setInvoiceType(ChargeSelection.ONLY_PAX == chargeSelection ?
+	            InvoiceType.PASSENGER.toValue() : InvoiceType.AVIATION_NONIATA.toValue());
+        }
         bl.setInvoiceStateType (initialLedgerState.toValue());
         bl.setPaymentDueDate (dueDate);
         bl.setUser (currentUser);
