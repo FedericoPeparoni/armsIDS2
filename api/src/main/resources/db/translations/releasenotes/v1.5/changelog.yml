@@ -13,5 +13,5 @@ databaseChangeLog:
       relativeToChangelogFile: true
 - include:
       author: Raffaele Aramo
-      file: 20214061513000_changelog_lang_1.5.3.sql
+      file: 20214061513002_changelog_lang_1.5.3.sql
       relativeToChangelogFile: true
