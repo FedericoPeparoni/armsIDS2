@@ -29,7 +29,25 @@ select add_languages_by_json('[
     "val": "Añadir de Articulo Tasa Unificada",
     "part": "frontend",
     "created_by": "system"
+  },
+
+{
+    "code": "en",
+    "token": "Unified Tax Charge Formula",
+    "val": "Unified Tax Charge Formula",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "Unified Tax Charge Formula",
+    "val": "Unified Tax Fórmula de carga",
+    "part": "frontend",
+    "created_by": "system"
   }
+
+	
 
 
 
