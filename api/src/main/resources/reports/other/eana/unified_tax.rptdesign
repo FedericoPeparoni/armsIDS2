@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
     <property name="createdBy">Eclipse BIRT Designer Version 4.7.0.v201706222054</property>
+    <list-property name="propertyBindings">
+        <structure>
+            <property name="name">queryText</property>
+            <property name="id">1153</property>
+        </structure>
+        <structure>
+            <property name="name">queryTimeOut</property>
+            <property name="id">1153</property>
+        </structure>
+        <structure>
+            <property name="name">rowFetchSize</property>
+            <property name="id">1153</property>
+        </structure>
+    </list-property>
     <property name="units">in</property>
     <property name="iconFile">/templates/blank_report.gif</property>
     <property name="bidiLayoutOrientation">ltr</property>
@@ -146,13 +160,13 @@
                 </structure>
             </list-property>
             <xml-property name="queryText"><![CDATA[
-select 
+select
 	id,
 	name,
 	alias
-from 
+from
 	accounts
-where 
+where
 	id=?
 ]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
@@ -247,7 +261,8 @@ where
   </design:ResultSets>
 </model:DesignValues>]]></xml-property>
         </oda-data-set>
-        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="statement" id="1152">
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="statementUsBil" id="1153">
+            <property name="nullsOrdering">nulls lowest</property>
             <list-property name="columnHints">
                 <structure>
                     <property name="columnName">account_id</property>
@@ -274,22 +289,10 @@ where
                     <text-property name="heading">aircraft_model</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">aircraft_year</property>
-                    <property name="analysis">dimension</property>
-                    <text-property name="displayName">aircraft_year</text-property>
-                    <text-property name="heading">aircraft_year</text-property>
-                </structure>
-                <structure>
                     <property name="columnName">mtow_kg</property>
                     <property name="analysis">measure</property>
                     <text-property name="displayName">mtow_kg</text-property>
                     <text-property name="heading">mtow_kg</text-property>
-                </structure>
-                <structure>
-                    <property name="columnName">mtow_ton</property>
-                    <property name="analysis">measure</property>
-                    <text-property name="displayName">mtow_ton</text-property>
-                    <text-property name="heading">mtow_ton</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">agricultural_flight_school</property>
@@ -298,40 +301,16 @@ where
                     <text-property name="heading">agricultural_flight_school</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">type_document</property>
-                    <property name="analysis">dimension</property>
-                    <text-property name="displayName">type_document</text-property>
-                    <text-property name="heading">type_document</text-property>
-                </structure>
-                <structure>
-                    <property name="columnName">issuing_aerodrome</property>
-                    <property name="analysis">dimension</property>
-                    <text-property name="displayName">issuing_aerodrome</text-property>
-                    <text-property name="heading">issuing_aerodrome</text-property>
-                </structure>
-                <structure>
-                    <property name="columnName">currency_document</property>
-                    <property name="analysis">dimension</property>
-                    <text-property name="displayName">currency_document</text-property>
-                    <text-property name="heading">currency_document</text-property>
-                </structure>
-                <structure>
                     <property name="columnName">amount_document</property>
                     <property name="analysis">dimension</property>
                     <text-property name="displayName">amount_document</text-property>
                     <text-property name="heading">amount_document</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">application_payment</property>
+                    <property name="columnName">currency_document</property>
                     <property name="analysis">dimension</property>
-                    <text-property name="displayName">application_payment</text-property>
-                    <text-property name="heading">application_payment</text-property>
-                </structure>
-                <structure>
-                    <property name="columnName">balance</property>
-                    <property name="analysis">dimension</property>
-                    <text-property name="displayName">balance</text-property>
-                    <text-property name="heading">balance</text-property>
+                    <text-property name="displayName">currency_document</text-property>
+                    <text-property name="heading">currency_document</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">symbol</property>
@@ -396,56 +375,26 @@ where
                     </structure>
                     <structure>
                         <property name="position">5</property>
-                        <property name="name">aircraft_year</property>
-                        <property name="dataType">date-time</property>
-                    </structure>
-                    <structure>
-                        <property name="position">6</property>
                         <property name="name">mtow_kg</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">7</property>
-                        <property name="name">mtow_ton</property>
-                        <property name="dataType">float</property>
-                    </structure>
-                    <structure>
-                        <property name="position">8</property>
+                        <property name="position">6</property>
                         <property name="name">agricultural_flight_school</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">9</property>
-                        <property name="name">type_document</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">10</property>
-                        <property name="name">issuing_aerodrome</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">11</property>
-                        <property name="name">currency_document</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">12</property>
+                        <property name="position">7</property>
                         <property name="name">amount_document</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">13</property>
-                        <property name="name">application_payment</property>
+                        <property name="position">8</property>
+                        <property name="name">currency_document</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">14</property>
-                        <property name="name">balance</property>
-                        <property name="dataType">float</property>
-                    </structure>
-                    <structure>
-                        <property name="position">15</property>
+                        <property name="position">9</property>
                         <property name="name">symbol</property>
                         <property name="dataType">string</property>
                     </structure>
@@ -483,76 +432,34 @@ where
                 </structure>
                 <structure>
                     <property name="position">5</property>
-                    <property name="name">aircraft_year</property>
-                    <property name="nativeName">aircraft_year</property>
-                    <property name="dataType">date-time</property>
-                    <property name="nativeDataType">93</property>
-                </structure>
-                <structure>
-                    <property name="position">6</property>
                     <property name="name">mtow_kg</property>
                     <property name="nativeName">mtow_kg</property>
                     <property name="dataType">float</property>
                     <property name="nativeDataType">8</property>
                 </structure>
                 <structure>
-                    <property name="position">7</property>
-                    <property name="name">mtow_ton</property>
-                    <property name="nativeName">mtow_ton</property>
-                    <property name="dataType">float</property>
-                    <property name="nativeDataType">8</property>
-                </structure>
-                <structure>
-                    <property name="position">8</property>
+                    <property name="position">6</property>
                     <property name="name">agricultural_flight_school</property>
                     <property name="nativeName">agricultural_flight_school</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">9</property>
-                    <property name="name">type_document</property>
-                    <property name="nativeName">type_document</property>
-                    <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
-                </structure>
-                <structure>
-                    <property name="position">10</property>
-                    <property name="name">issuing_aerodrome</property>
-                    <property name="nativeName">issuing_aerodrome</property>
-                    <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
-                </structure>
-                <structure>
-                    <property name="position">11</property>
-                    <property name="name">currency_document</property>
-                    <property name="nativeName">currency_document</property>
-                    <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
-                </structure>
-                <structure>
-                    <property name="position">12</property>
+                    <property name="position">7</property>
                     <property name="name">amount_document</property>
                     <property name="nativeName">amount_document</property>
                     <property name="dataType">float</property>
                     <property name="nativeDataType">8</property>
                 </structure>
                 <structure>
-                    <property name="position">13</property>
-                    <property name="name">application_payment</property>
-                    <property name="nativeName">application_payment</property>
+                    <property name="position">8</property>
+                    <property name="name">currency_document</property>
+                    <property name="nativeName">currency_document</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">14</property>
-                    <property name="name">balance</property>
-                    <property name="nativeName">balance</property>
-                    <property name="dataType">float</property>
-                    <property name="nativeDataType">8</property>
-                </structure>
-                <structure>
-                    <property name="position">15</property>
+                    <property name="position">9</property>
                     <property name="name">symbol</property>
                     <property name="nativeName">symbol</property>
                     <property name="dataType">string</property>
@@ -560,14 +467,419 @@ where
                 </structure>
             </list-property>
             <xml-property name="queryText"><![CDATA[
-SELECT  abms.accounts.id AS account_id, abms.accounts.name AS customer_name , abms.aircraft_registrations.registration_number AS aircraft_registration_name, abms.aircraft_types.manufacturer, abms.billing_ledgers.amount_owing, abms.aircraft_registrations.aircraft_scope, abms.currencies.currency_code, abms.currencies.symbol
+SELECT  abms.accounts.id AS account_id, abms.accounts.name AS customer_name, abms.billing_ledgers.amount_owing AS amount_document, abms.currencies.currency_code AS currency_document, abms.currencies.symbol AS symbol
+FROM abms.accounts
+INNER JOIN abms.billing_ledgers ON abms.accounts.id=abms.billing_ledgers.account_id
+INNER JOIN abms.currencies ON abms.currencies.id=abms.billing_ledgers.invoice_currency
+INNER JOIN abms.transactions ON abms.currencies.id=abms.billing_ledgers.invoice_currency
+WHERE abms.billing_ledgers.invoice_type = 'unified-tax' AND ( abms.transactions.transaction_date_time >= ? AND abms.transactions.transaction_date_time <= ?) AND  abms.accounts.id = any(?::int[])
+ ]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="statementAir" id="1154">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">account_id</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">account_id</text-property>
+                    <text-property name="heading">account_id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">customer_name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">customer_name</text-property>
+                    <text-property name="heading">customer_name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">aircraft_registration_name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">aircraft_registration_name</text-property>
+                    <text-property name="heading">aircraft_registration_name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">aircraft_model</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">aircraft_model</text-property>
+                    <text-property name="heading">aircraft_model</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">mtow_kg</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">mtow_kg</text-property>
+                    <text-property name="heading">mtow_kg</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">agricultural_flight_school</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">agricultural_flight_school</text-property>
+                    <text-property name="heading">agricultural_flight_school</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">amount_document</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">amount_document</text-property>
+                    <text-property name="heading">amount_document</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">currency_document</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">currency_document</text-property>
+                    <text-property name="heading">currency_document</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">symbol</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">symbol</text-property>
+                    <text-property name="heading">symbol</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">single_account_id</property>
+                    <property name="paramName">single_account_id</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                    <property name="position">1</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">account_id</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">customer_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">aircraft_registration_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">aircraft_model</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">mtow_kg</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">agricultural_flight_school</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">amount_document</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">currency_document</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">symbol</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">account_id</property>
+                    <property name="nativeName">account_id</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">customer_name</property>
+                    <property name="nativeName">customer_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">aircraft_registration_name</property>
+                    <property name="nativeName">aircraft_registration_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">aircraft_model</property>
+                    <property name="nativeName">aircraft_model</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">mtow_kg</property>
+                    <property name="nativeName">mtow_kg</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">agricultural_flight_school</property>
+                    <property name="nativeName">agricultural_flight_school</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">amount_document</property>
+                    <property name="nativeName">amount_document</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">currency_document</property>
+                    <property name="nativeName">currency_document</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">symbol</property>
+                    <property name="nativeName">symbol</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[
+SELECT  abms.accounts.id AS account_id, abms.accounts.name AS customer_name , abms.aircraft_registrations.registration_number AS aircraft_registration_name, abms.aircraft_types.manufacturer AS aircraft_model, abms.aircraft_registrations.mtow_override AS mtow_kg, abms.aircraft_registrations.aircraft_scope AS agricultural_flight_school
+FROM abms.accounts
+INNER JOIN abms.aircraft_registrations ON abms.accounts.id=abms.aircraft_registrations.account_id
+INNER JOIN abms.aircraft_types ON abms.aircraft_types.id=abms.aircraft_registrations.aircraft_type_id
+WHERE  abms.accounts.id = ?
+ ]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="statement" id="1152">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">account_id</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">account_id</text-property>
+                    <text-property name="heading">account_id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">customer_name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">customer_name</text-property>
+                    <text-property name="heading">customer_name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">aircraft_registration_name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">aircraft_registration_name</text-property>
+                    <text-property name="heading">aircraft_registration_name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">aircraft_model</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">aircraft_model</text-property>
+                    <text-property name="heading">aircraft_model</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">mtow_kg</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">mtow_kg</text-property>
+                    <text-property name="heading">mtow_kg</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">agricultural_flight_school</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">agricultural_flight_school</text-property>
+                    <text-property name="heading">agricultural_flight_school</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">amount_document</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">amount_document</text-property>
+                    <text-property name="heading">amount_document</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">currency_document</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">currency_document</text-property>
+                    <text-property name="heading">currency_document</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">symbol</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">symbol</text-property>
+                    <text-property name="heading">symbol</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">fromdate</property>
+                    <property name="paramName">fromdate</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">93</property>
+                    <property name="position">1</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">todate</property>
+                    <property name="paramName">todate</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">dateTime</property>
+                    <property name="nativeDataType">93</property>
+                    <property name="position">2</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">account_id</property>
+                    <property name="paramName">account_id</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">2003</property>
+                    <property name="position">3</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">account_id</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">customer_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">aircraft_registration_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">aircraft_model</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">mtow_kg</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">agricultural_flight_school</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">amount_document</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">currency_document</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">symbol</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">account_id</property>
+                    <property name="nativeName">account_id</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">customer_name</property>
+                    <property name="nativeName">customer_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">aircraft_registration_name</property>
+                    <property name="nativeName">aircraft_registration_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">aircraft_model</property>
+                    <property name="nativeName">aircraft_model</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">mtow_kg</property>
+                    <property name="nativeName">mtow_kg</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">agricultural_flight_school</property>
+                    <property name="nativeName">agricultural_flight_school</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">amount_document</property>
+                    <property name="nativeName">amount_document</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">currency_document</property>
+                    <property name="nativeName">currency_document</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">symbol</property>
+                    <property name="nativeName">symbol</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[
+SELECT  abms.accounts.id AS account_id, abms.accounts.name AS customer_name , abms.aircraft_registrations.registration_number AS aircraft_registration_name, abms.aircraft_types.manufacturer AS aircraft_model, abms.aircraft_registrations.mtow_override AS mtow_kg, abms.aircraft_registrations.aircraft_scope AS agricultural_flight_school, abms.billing_ledgers.amount_owing AS amount_document, abms.currencies.currency_code AS currency_document, abms.currencies.symbol AS symbol
 FROM abms.accounts
 INNER JOIN abms.aircraft_registrations ON abms.accounts.id=abms.aircraft_registrations.account_id
 INNER JOIN abms.aircraft_types ON abms.aircraft_types.id=abms.aircraft_registrations.aircraft_type_id
 INNER JOIN abms.billing_ledgers ON abms.accounts.id=abms.billing_ledgers.account_id
 INNER JOIN abms.currencies ON abms.currencies.id=abms.billing_ledgers.invoice_currency
 INNER JOIN abms.transactions ON abms.currencies.id=abms.billing_ledgers.invoice_currency
-WHERE abms.billing_ledgers.invoice_type = 'unified-tax' AND ( abms.transactions.transaction_date_time >= ? AND abms.transactions.transaction_date_time <= ?) AND  abms.accounts.id = any(?::int[]) 
+WHERE abms.billing_ledgers.invoice_type = 'unified-tax' AND ( abms.transactions.transaction_date_time >= ? AND abms.transactions.transaction_date_time <= ?) AND  abms.accounts.id = any(?::int[])
  ]]></xml-property>
         </oda-data-set>
     </data-sets>
@@ -707,10 +1019,34 @@ var dt3=Formatter.format(params["fromdate"], "yyyy-MM-dd");&#13;
                 </cell>
             </row>
         </grid>
-        <table id="1154">
+        <table name="TableParent" id="1717">
             <property name="width">10.458333333333334in</property>
-            <property name="dataSet">statement</property>
+            <property name="dataSet">statementUsBil</property>
             <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">account_id</property>
+                    <text-property name="displayName">account_id</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["account_id"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">amount_document</property>
+                    <text-property name="displayName">amount_document</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["amount_document"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">currency_document</property>
+                    <text-property name="displayName">currency_document</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["currency_document"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">symbol</property>
+                    <text-property name="displayName">symbol</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["symbol"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
                 <structure>
                     <property name="name">customer_name</property>
                     <text-property name="displayName">customer_name</text-property>
@@ -719,10 +1055,16 @@ var dt3=Formatter.format(params["fromdate"], "yyyy-MM-dd");&#13;
                     <property name="allowExport">true</property>
                 </structure>
                 <structure>
-                    <property name="name">aircraft_registration_name</property>
-                    <text-property name="displayName">aircraft_registration_name</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["aircraft_registration_name"]</expression>
-                    <property name="dataType">string</property>
+                    <property name="name">aggregation_aircraft_data_account_id</property>
+                    <text-property name="displayName">aggregation_account_id</text-property>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">FIRST</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["account_id"]</expression>
+                        </structure>
+                    </list-property>
                     <property name="allowExport">true</property>
                 </structure>
             </list-property>
@@ -753,28 +1095,207 @@ var dt3=Formatter.format(params["fromdate"], "yyyy-MM-dd");&#13;
             <column id="1246">
                 <property name="width">266px</property>
             </column>
-            <group id="1354">
-                <property name="groupName">Current Account Data</property>
-                <expression name="keyExpr" type="javascript">row["account_name"]</expression>
+            <group id="1624">
+                <property name="groupName">Account</property>
+                <expression name="keyExpr" type="javascript">row["customer_name"]</expression>
                 <structure name="toc">
-                    <expression name="expressionValue" type="javascript">row["account_name"]</expression>
+                    <expression name="expressionValue" type="javascript">row["customer_name"]</expression>
                 </structure>
                 <property name="hideDetail">false</property>
-                <property name="pageBreakAfter">always-excluding-last</property>
                 <header>
-                    <row id="1398">
-                        <cell id="1399"/>
-                        <cell id="1400"/>
-                        <cell id="1401"/>
-                        <cell id="1402"/>
-                        <cell id="1485"/>
-                        <cell id="1403"/>
-                        <cell id="1404"/>
-                        <cell id="1405"/>
-                        <cell id="1406"/>
+                    <row id="1625">
+                        <cell id="1626">
+                            <data id="1645">
+                                <property name="resultSetColumn">customer_name</property>
+                            </data>
+                        </cell>
+                        <cell id="1627">
+                            <property name="colSpan">7</property>
+                            <property name="rowSpan">1</property>
+                        </cell>
+                        <cell id="1634"/>
                     </row>
-                    <row id="1373">
-                        <cell id="1374">
+                    <row id="1646">
+                        <cell id="1647">
+                            <text id="1656">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Customer and aircraft data]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1648">
+                            <property name="colSpan">7</property>
+                            <property name="rowSpan">1</property>
+                            <table name="TableAircraft" id="1657">
+                                <property name="dataSet">statementAir</property>
+                                <list-property name="paramBindings">
+                                    <structure>
+                                        <property name="paramName">account_id</property>
+                                        <simple-property-list name="expression">
+                                            <value type="javascript">row["account_id"]</value>
+                                        </simple-property-list>
+                                    </structure>
+                                    <structure>
+                                        <property name="paramName">single_account_id</property>
+                                        <simple-property-list name="expression">
+                                            <value type="javascript">row["aggregation_aircraft_data_account_id"]</value>
+                                        </simple-property-list>
+                                    </structure>
+                                </list-property>
+                                <list-property name="boundDataColumns">
+                                    <structure>
+                                        <property name="name">account_id</property>
+                                        <text-property name="displayName">account_id</text-property>
+                                        <expression name="expression" type="javascript">dataSetRow["account_id"]</expression>
+                                        <property name="dataType">integer</property>
+                                    </structure>
+                                    <structure>
+                                        <property name="name">customer_name</property>
+                                        <text-property name="displayName">customer_name</text-property>
+                                        <expression name="expression" type="javascript">dataSetRow["customer_name"]</expression>
+                                        <property name="dataType">string</property>
+                                    </structure>
+                                    <structure>
+                                        <property name="name">aircraft_registration_name</property>
+                                        <text-property name="displayName">aircraft_registration_name</text-property>
+                                        <expression name="expression" type="javascript">dataSetRow["aircraft_registration_name"]</expression>
+                                        <property name="dataType">string</property>
+                                    </structure>
+                                    <structure>
+                                        <property name="name">aircraft_model</property>
+                                        <text-property name="displayName">aircraft_model</text-property>
+                                        <expression name="expression" type="javascript">dataSetRow["aircraft_model"]</expression>
+                                        <property name="dataType">string</property>
+                                    </structure>
+                                    <structure>
+                                        <property name="name">mtow_kg</property>
+                                        <text-property name="displayName">mtow_kg</text-property>
+                                        <expression name="expression" type="javascript">dataSetRow["mtow_kg"]</expression>
+                                        <property name="dataType">float</property>
+                                    </structure>
+                                    <structure>
+                                        <property name="name">agricultural_flight_school</property>
+                                        <text-property name="displayName">agricultural_flight_school</text-property>
+                                        <expression name="expression" type="javascript">dataSetRow["agricultural_flight_school"]</expression>
+                                        <property name="dataType">string</property>
+                                    </structure>
+                                </list-property>
+                                <column id="1698"/>
+                                <column id="1699"/>
+                                <column id="1700"/>
+                                <column id="1701"/>
+                                <column id="1702"/>
+                                <column id="1703"/>
+                                <column id="1704"/>
+                                <column id="1705"/>
+                                <column id="1706"/>
+                                <header>
+                                    <row id="1658">
+                                        <cell id="1659">
+                                            <text id="1707">
+                                                <property name="fontWeight">bold</property>
+                                                <property name="textAlign">left</property>
+                                                <property name="contentType">auto</property>
+                                                <text-property name="content"><![CDATA[Customer Name]]></text-property>
+                                            </text>
+                                        </cell>
+                                        <cell id="1660">
+                                            <text id="1708">
+                                                <property name="fontWeight">bold</property>
+                                                <property name="textAlign">left</property>
+                                                <property name="contentType">auto</property>
+                                                <text-property name="content"><![CDATA[Customer Type]]></text-property>
+                                            </text>
+                                        </cell>
+                                        <cell id="1661">
+                                            <text id="1710">
+                                                <property name="fontWeight">bold</property>
+                                                <property name="textAlign">left</property>
+                                                <property name="contentType">auto</property>
+                                                <text-property name="content"><![CDATA[Aircraft Registration]]></text-property>
+                                            </text>
+                                        </cell>
+                                        <cell id="1662">
+                                            <text id="1711">
+                                                <property name="fontWeight">bold</property>
+                                                <property name="textAlign">left</property>
+                                                <property name="contentType">auto</property>
+                                                <text-property name="content"><![CDATA[Aircraft manufacturer and model]]></text-property>
+                                            </text>
+                                        </cell>
+                                        <cell id="1663">
+                                            <text id="1712">
+                                                <property name="fontWeight">bold</property>
+                                                <property name="textAlign">left</property>
+                                                <property name="contentType">auto</property>
+                                                <text-property name="content"><![CDATA[Year of manufacture]]></text-property>
+                                            </text>
+                                        </cell>
+                                        <cell id="1664">
+                                            <text id="1713">
+                                                <property name="fontWeight">bold</property>
+                                                <property name="textAlign">left</property>
+                                                <property name="contentType">auto</property>
+                                                <text-property name="content"><![CDATA[MTOW (kg)]]></text-property>
+                                            </text>
+                                        </cell>
+                                        <cell id="1665">
+                                            <text id="1714">
+                                                <property name="fontWeight">bold</property>
+                                                <property name="textAlign">left</property>
+                                                <property name="contentType">auto</property>
+                                                <text-property name="content"><![CDATA[MTOW (ton)]]></text-property>
+                                            </text>
+                                        </cell>
+                                        <cell id="1666"/>
+                                        <cell id="1667"/>
+                                    </row>
+                                </header>
+                                <detail>
+                                    <row id="1668">
+                                        <cell id="1669">
+                                            <data id="1716">
+                                                <property name="resultSetColumn">customer_name</property>
+                                            </data>
+                                        </cell>
+                                        <cell id="1670">
+                                            <label id="1718">
+                                                <text-property name="text">TU</text-property>
+                                            </label>
+                                        </cell>
+                                        <cell id="1671">
+                                            <data id="1715">
+                                                <property name="resultSetColumn">aircraft_registration_name</property>
+                                            </data>
+                                        </cell>
+                                        <cell id="1672"/>
+                                        <cell id="1673"/>
+                                        <cell id="1674"/>
+                                        <cell id="1675"/>
+                                        <cell id="1676"/>
+                                        <cell id="1677"/>
+                                    </row>
+                                </detail>
+                                <footer>
+                                    <row id="1688">
+                                        <cell id="1689"/>
+                                        <cell id="1690"/>
+                                        <cell id="1691"/>
+                                        <cell id="1692"/>
+                                        <cell id="1693"/>
+                                        <cell id="1694"/>
+                                        <cell id="1695"/>
+                                        <cell id="1696"/>
+                                        <cell id="1697"/>
+                                    </row>
+                                </footer>
+                            </table>
+                        </cell>
+                        <cell id="1655"/>
+                    </row>
+                    <row id="1719">
+                        <cell id="1720">
                             <text id="1382">
                                 <property name="fontWeight">bold</property>
                                 <property name="textAlign">left</property>
@@ -782,7 +1303,7 @@ var dt3=Formatter.format(params["fromdate"], "yyyy-MM-dd");&#13;
                                 <text-property name="content"><![CDATA[Current Account Data]]></text-property>
                             </text>
                         </cell>
-                        <cell id="1375">
+                        <cell id="1721">
                             <text id="1383">
                                 <property name="fontWeight">bold</property>
                                 <property name="textAlign">left</property>
@@ -790,7 +1311,7 @@ var dt3=Formatter.format(params["fromdate"], "yyyy-MM-dd");&#13;
                                 <text-property name="content"><![CDATA[Type of document]]></text-property>
                             </text>
                         </cell>
-                        <cell id="1376">
+                        <cell id="1722">
                             <text id="1384">
                                 <property name="fontWeight">bold</property>
                                 <property name="textAlign">left</property>
@@ -798,7 +1319,7 @@ var dt3=Formatter.format(params["fromdate"], "yyyy-MM-dd");&#13;
                                 <text-property name="content"><![CDATA[Issuing Aerodrome]]></text-property>
                             </text>
                         </cell>
-                        <cell id="1377">
+                        <cell id="1723">
                             <text id="1385">
                                 <property name="fontWeight">bold</property>
                                 <property name="textAlign">left</property>
@@ -806,14 +1327,14 @@ var dt3=Formatter.format(params["fromdate"], "yyyy-MM-dd");&#13;
                                 <text-property name="content"><![CDATA[Currency of the document]]></text-property>
                             </text>
                         </cell>
-                        <cell id="1487">
+                        <cell id="1724">
                             <text id="1523">
                                 <property name="fontWeight">bold</property>
                                 <property name="contentType">auto</property>
                                 <text-property name="content"><![CDATA[Amount]]></text-property>
                             </text>
                         </cell>
-                        <cell id="1378">
+                        <cell id="1725">
                             <text id="1498">
                                 <property name="fontWeight">bold</property>
                                 <property name="textAlign">right</property>
@@ -821,8 +1342,8 @@ var dt3=Formatter.format(params["fromdate"], "yyyy-MM-dd");&#13;
                                 <text-property name="content"><![CDATA[Application of payment]]></text-property>
                             </text>
                         </cell>
-                        <cell id="1379"/>
-                        <cell id="1380">
+                        <cell id="1726"/>
+                        <cell id="1727">
                             <text id="1524">
                                 <property name="fontWeight">bold</property>
                                 <property name="textAlign">right</property>
@@ -830,140 +1351,23 @@ var dt3=Formatter.format(params["fromdate"], "yyyy-MM-dd");&#13;
                                 <text-property name="content"><![CDATA[Balance]]></text-property>
                             </text>
                         </cell>
-                        <cell id="1381"/>
-                    </row>
-                    <row id="1557">
-                        <cell id="1558"/>
-                        <cell id="1559"/>
-                        <cell id="1560"/>
-                        <cell id="1561"/>
-                        <cell id="1562"/>
-                        <cell id="1563"/>
-                        <cell id="1564"/>
-                        <cell id="1565"/>
-                        <cell id="1566"/>
-                    </row>
-                </header>
-            </group>
-            <group id="1499">
-                <property name="groupName">Customer and aircraft data</property>
-                <expression name="keyExpr" type="javascript">row["opening_balance"]</expression>
-                <structure name="toc">
-                    <expression name="expressionValue" type="javascript">row["opening_balance"]</expression>
-                </structure>
-                <property name="hideDetail">false</property>
-                <header>
-                    <row id="1500">
-                        <cell id="1501">
-                            <text id="1569">
-                                <property name="fontWeight">bold</property>
-                                <property name="textAlign">left</property>
-                                <property name="contentType">auto</property>
-                                <text-property name="content"><![CDATA[Customer and aircraft data]]></text-property>
-                            </text>
-                        </cell>
-                        <cell id="1502">
-                            <text id="1551">
-                                <property name="fontWeight">bold</property>
-                                <property name="textAlign">left</property>
-                                <property name="contentType">auto</property>
-                                <text-property name="content"><![CDATA[Customer Name]]></text-property>
-                            </text>
-                        </cell>
-                        <cell id="1503">
-                            <text id="1552">
-                                <property name="fontWeight">bold</property>
-                                <property name="textAlign">left</property>
-                                <property name="contentType">auto</property>
-                                <text-property name="content"><![CDATA[Customer Type]]></text-property>
-                            </text>
-                        </cell>
-                        <cell id="1504">
-                            <text id="1553">
-                                <property name="fontWeight">bold</property>
-                                <property name="textAlign">left</property>
-                                <property name="contentType">auto</property>
-                                <text-property name="content"><![CDATA[Aircraft Registration]]></text-property>
-                            </text>
-                        </cell>
-                        <cell id="1505">
-                            <text id="1554">
-                                <property name="fontWeight">bold</property>
-                                <property name="textAlign">left</property>
-                                <property name="contentType">auto</property>
-                                <text-property name="content"><![CDATA[Aircraft manufacturer and model]]></text-property>
-                            </text>
-                        </cell>
-                        <cell id="1506">
-                            <text id="1555">
-                                <property name="fontWeight">bold</property>
-                                <property name="textAlign">left</property>
-                                <property name="contentType">auto</property>
-                                <text-property name="content"><![CDATA[Year of manufacture]]></text-property>
-                            </text>
-                        </cell>
-                        <cell id="1507">
-                            <text id="1556">
-                                <property name="fontWeight">bold</property>
-                                <property name="textAlign">left</property>
-                                <property name="contentType">auto</property>
-                                <text-property name="content"><![CDATA[MTOW (kg)]]></text-property>
-                            </text>
-                        </cell>
-                        <cell id="1508">
-                            <text id="1567">
-                                <property name="fontWeight">bold</property>
-                                <property name="textAlign">left</property>
-                                <property name="contentType">auto</property>
-                                <text-property name="content"><![CDATA[MTOW (ton)]]></text-property>
-                            </text>
-                        </cell>
-                        <cell id="1509"/>
+                        <cell id="1728"/>
                     </row>
                 </header>
                 <footer>
-                    <row id="1510">
-                        <cell id="1511"/>
-                        <cell id="1512"/>
-                        <cell id="1513"/>
-                        <cell id="1514"/>
-                        <cell id="1515"/>
-                        <cell id="1516"/>
-                        <cell id="1517"/>
-                        <cell id="1518"/>
-                        <cell id="1519"/>
+                    <row id="1635">
+                        <cell id="1636"/>
+                        <cell id="1637"/>
+                        <cell id="1638"/>
+                        <cell id="1639"/>
+                        <cell id="1640"/>
+                        <cell id="1641"/>
+                        <cell id="1642"/>
+                        <cell id="1643"/>
+                        <cell id="1644"/>
                     </row>
                 </footer>
             </group>
-            <detail>
-                <row id="1159">
-                    <list-property name="visibility">
-                        <structure>
-                            <property name="format">all</property>
-                            <expression name="valueExpr" type="javascript">row["Transaction_Date"] === null</expression>
-                        </structure>
-                    </list-property>
-                    <cell id="1160"/>
-                    <cell id="1161">
-                        <data id="1173">
-                            <property name="textAlign">left</property>
-                            <property name="resultSetColumn">customer_name</property>
-                        </data>
-                    </cell>
-                    <cell id="1195"/>
-                    <cell id="1219">
-                        <data id="1226">
-                            <property name="textAlign">left</property>
-                            <property name="resultSetColumn">aircraft_registration_name</property>
-                        </data>
-                    </cell>
-                    <cell id="1489"/>
-                    <cell id="1202"/>
-                    <cell id="1209"/>
-                    <cell id="1162"/>
-                    <cell id="1243"/>
-                </row>
-            </detail>
             <footer>
                 <row id="1163">
                     <cell id="1164"/>
