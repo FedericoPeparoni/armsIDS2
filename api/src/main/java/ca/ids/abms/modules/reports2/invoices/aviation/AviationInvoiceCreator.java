@@ -1697,10 +1697,14 @@ if(accountFlights!= null){
                 if(ar.getAircraftScope()!=null && ar.getAircraftScope().equals(AircraftScope.FLIGHT_SCHOOL.toValue())){
                     final Double discount = systemConfigurationService.getDouble(SystemConfigurationItemName.UNIFIED_TAX_FLIGHT_SCHOOL_DISCOUNT, 0d);
                     aircraftInfo.unifiedTaxCharges = aircraftInfo.unifiedTaxCharges - aircraftInfo.unifiedTaxCharges * discount / 100;
+                    aircraftInfo.discountPercentage = discount;
 
                 }else if(ar.getAircraftScope()!=null && ar.getAircraftScope().equals(AircraftScope.AGRICULTURE.toValue())){
                     final Double discount = systemConfigurationService.getDouble(SystemConfigurationItemName.UNIFIED_TAX_AGRICULTURAL_DISCOUNT, 0d);
                     aircraftInfo.unifiedTaxCharges = aircraftInfo.unifiedTaxCharges - aircraftInfo.unifiedTaxCharges * discount / 100;
+                    aircraftInfo.discountPercentage = discount;
+                } else {
+                    aircraftInfo.discountPercentage = 0d;
                 }
 
 
