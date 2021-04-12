@@ -1,0 +1,31 @@
+[Unit]
+Description=abms-geoserver
+After=network.target
+After=httpd.service
+After=pghelper.service
+After=abms-api.service
+
+[Service]
+Type=simple
+ExecStart=/usr/libexec/abms/geoserver/systemd.start.sh
+ExecStartPost=/usr/libexec/abms/geoserver/systemd.start.post.sh
+TimeoutStartSec=3min
+# Successful termination: 0 and Bash exit codes that indicate termination due to
+# signals:
+#   0 - success
+#   129 - SIGPIPE
+#   130 - SIGINT
+#   141 - SIGPIPE
+#   143 - SIGTERM
+SuccessExitStatus=0 129 130 141 143
+WorkingDirectory=/var/lib/abms/geoserver/cores
+StandardOutput=journal
+StandardError=inherit
+SyslogIdentifier=abms-geoserver
+User=abms
+UMask=0022
+#ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target
+

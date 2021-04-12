@@ -1,0 +1,35 @@
+# vim:syn=crontab
+
+#
+# Create a backup in /var/lib/abms/backup, delete old backups and temporary
+# files and then push the entire backup directory to the peer server using
+# rsync (over ssh). Do all that only if system service "abms-backup" is
+# started; otherwise do nothing.
+#
+# In cluster environments the backup service will be started only on one
+# of the servers, where postgres is running as master.
+#
+# The log file for this cron job is in /var/log/abms/backup/
+#
+# You can create and otherwise manage system backups manually from command
+# line -- type `abms-backup --help' for more info.
+# 
+03 00 * * * root nice timeout -k 1m 2h /usr/libexec/abms/backup/create_system_backup.sh
+
+#
+# Copy any missing backups from peer server to local server, then remove
+# any old backups and temporary files. Do all that, only when the system
+# service called "abms-backup" is stopped; if that service is running do
+# nothing. This allows us to catch up with missing backups in case the local
+# server was down for a while.
+#
+# In cluster environments the backup service will be started only on one
+# of the servers, where postgres is running as master.
+#
+# The log file for this cron job is in /var/log/abms/backup/
+# 
+# You can create and otherwise manage system backups manually from command
+# line -- type `abms-backup --help' for more info.
+# 
+42 * * * * root nice timeout -k 1m 30m /usr/libexec/abms/backup/pull_system_backups.sh
+

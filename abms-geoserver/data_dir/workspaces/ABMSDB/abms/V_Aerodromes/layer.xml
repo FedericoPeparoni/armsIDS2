@@ -1,0 +1,15 @@
+<layer>
+  <name>V_Aerodromes</name>
+  <id>LayerInfoImpl--4e018e4b:164b7c254a9:-7fd2</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--10abe3bc:15459f0d771:-8000</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl--4e018e4b:164b7c254a9:-7fd3</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+</layer>

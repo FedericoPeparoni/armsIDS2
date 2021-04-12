@@ -1,0 +1,77 @@
+version: '2'
+
+volumes:
+    abms_db:
+        external:
+            name: abms_db
+    navdb_data:
+        external:
+            name: navdb_data
+    geoserver_data:
+        external:
+            name: geoserver_data
+
+services:
+
+    server:        
+        build: ./server
+        links:
+            - web
+            - api        
+            - geoserver
+        ports:
+            - "80:80"
+
+    web:
+        image: idsna/abms-web:$ABMS_DOCKER_IMAGE_TAG
+        environment:
+           API_HOST: http://abms10dock1/
+        expose: 
+            - "80"
+
+    api:
+        image: idsna/abms-api:$ABMS_DOCKER_IMAGE_TAG
+        links:
+            - db
+        environment:
+            SPRING_PROFILES_ACTIVE: dev
+            SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/abms
+            SPRING_DATASOURCE_USERNAME: abms
+            SPRING_DATASOURCE_PASSWORD: abms
+            SPATIA_DB_URL: jdbc:postgresql://aim77qa01.idscorporation.ca/aim
+            SPATIA_DB_USER: aim
+            SPATIA_DB_PASSWORD: aftn
+            NAV_DB_URL: jdbc:postgresql://navdb:5432/navdb
+            NAV_DB_USER: navdb
+            NAV_DB_PASSWORD: navdb
+            APP_SPATIADB_FPLIMPORT_ENABLED: "true"
+        expose:
+            - "8080"
+
+    geoserver:
+        image: kartoza/geoserver:2.8.0
+        volumes:
+            - geoserver_data:/opt/geoserver/data_dir
+        expose:
+            - "8080"
+
+    db:        
+        image: mdillon/postgis:9.5
+        volumes:
+             - abms_db:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: abms            
+            POSTGRES_DB: abms
+        ports:
+            - "5433:5432"
+
+    navdb:
+        image: mdillon/postgis:9.5
+        volumes:
+             - navdb_data:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: navdb            
+            POSTGRES_DB: navdb
+        ports:
+            - "5434:5432"
+

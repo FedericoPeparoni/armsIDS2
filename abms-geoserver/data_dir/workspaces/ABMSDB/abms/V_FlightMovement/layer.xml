@@ -1,0 +1,20 @@
+<layer>
+  <name>V_FlightMovement</name>
+  <id>LayerInfoImpl--5df87f5c:158c0ec1599:6285</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--10abe3bc:15459f0d771:-8000</id>
+  </defaultStyle>
+  <styles class="linked-hash-set">
+    <style>
+      <id>StyleInfoImpl--7fa343b:152f4d7cfb5:-568a</id>
+    </style>
+  </styles>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl--5df87f5c:158c0ec1599:6284</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+</layer>

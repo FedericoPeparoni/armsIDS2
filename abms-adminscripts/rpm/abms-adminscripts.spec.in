@@ -1,0 +1,120 @@
+%global         spec_version       1
+
+Summary:	ABMS - admin scripts
+Name:		abms-adminscripts
+Epoch:		0
+Version:	@@RPM_VERSION@@
+Release:	%{spec_version}@@RPM_RELEASE_SUFFIX@@
+License:	Proprietary
+Group:		IDS
+
+BuildArch: 	noarch
+Source0:        %{name}-%{version}.tar
+Requires:       pcs
+Requires:       /usr/bin/xpath
+Requires:       pghelper-ra
+Requires:       resource-agents
+Requires(pre):  abms-user
+
+%description
+ABMS - admin scripts
+
+%prep
+%setup
+
+%build
+
+%install
+set -e
+[ "$RPM_BUILD_ROOT" != / ] && %{__rm} -rf "$RPM_BUILD_ROOT"
+
+# create directories
+%__install -d "$RPM_BUILD_ROOT"%_bindir
+%__install -d "$RPM_BUILD_ROOT"%_sbindir
+%__install -d "$RPM_BUILD_ROOT"%_sysconfdir
+%__install -d "$RPM_BUILD_ROOT"%_sysconfdir/abms
+%__install -d "$RPM_BUILD_ROOT"%_sysconfdir/abms/cluster
+%__install -d "$RPM_BUILD_ROOT"%_sysconfdir/abms/backup
+%__install -d "$RPM_BUILD_ROOT"%_sysconfdir/corosync
+%__install -d "$RPM_BUILD_ROOT"%_localstatedir/lib/abms/backup
+%__install -d "$RPM_BUILD_ROOT"%_localstatedir/log/abms/backup
+%__install -d "$RPM_BUILD_ROOT"%_libexecdir/abms/backup
+%__install -d "$RPM_BUILD_ROOT"%_tmpfilesdir
+%__install -d "$RPM_BUILD_ROOT"%_unitdir
+%__install -d "$RPM_BUILD_ROOT"%_unitdir
+%__install -d "$RPM_BUILD_ROOT"%_sysconfdir/cron.d
+%__install -d "$RPM_BUILD_ROOT"%_sysconfdir/logrotate.d/
+
+# install scripts to _bindir
+for f in bin/*.sh ; do
+	target=$(basename "$f" .sh)
+	%__install -m 0755 $f "$RPM_BUILD_ROOT"%_bindir/$target
+done
+
+# install config files
+%__install -m 0644 conf/cluster/* "$RPM_BUILD_ROOT"%_sysconfdir/abms/cluster/
+%__install -m 0644 conf/corosync/* "$RPM_BUILD_ROOT"%_sysconfdir/corosync/
+%__install -m 0644 conf/backup/backup.conf "$RPM_BUILD_ROOT"%_sysconfdir/abms/backup/
+
+# install systemd tmpfiles configuration
+%__install -m 0644 conf/backup/abms-backup.systemd.tmpfiles.conf "$RPM_BUILD_ROOT"%_tmpfilesdir/abms-backup.conf
+
+# install systemd unit files
+%__install -m 0644 conf/backup/abms-backup.systemd.service "$RPM_BUILD_ROOT"%_unitdir/abms-backup.service
+
+# install crontabs
+%__install -m 0644 conf/backup/abms-backup.crontab "$RPM_BUILD_ROOT"%_sysconfdir/cron.d/abms-backup
+
+# install logrtate files
+%__install -m 0644 conf/backup/abms-backup.logrotate.conf "$RPM_BUILD_ROOT"%_sysconfdir/logrotate.d/abms-backup
+
+# install libexec (internal) scripts
+%__install -m 0755 libexec/backup/*.sh "$RPM_BUILD_ROOT"%_libexecdir/abms/backup/
+
+%clean
+[ "%{buildroot}" != / ] && %{__rm} -rf "%{buildroot}"
+
+%files
+%attr(0755, root, root) %_bindir/abms-cluster-setup
+%attr(0755, root, root) %_bindir/abms-cluster-reset
+%attr(0755, root, root) %_bindir/abms-update
+%attr(0755, root, root) %dir %_sysconfdir/abms/cluster
+%attr(0644, root, root) %config(noreplace) %_sysconfdir/abms/cluster/*.conf
+%attr(0644, root, root) %_sysconfdir/corosync/*.example.*
+
+%package -n abms-backup
+
+Summary: ABMS backup command
+%{?systemd_requires}
+Requires(pre): abms-backup
+Requires(pre): %_sysconfdir/cron.d
+Requires(pre): %_sysconfdir/logrotate.d
+Requires: bc
+
+%description -n abms-backup
+
+ABMS backup command
+
+%files -n abms-backup
+%attr(0755, root, root) %_bindir/abms-backup
+%attr(0755, root, root) %dir %_sysconfdir/abms/backup
+%attr(0644, root, root) %config(noreplace) %_sysconfdir/abms/backup/backup.conf
+%attr(0755, root, root) %dir %_localstatedir/lib/abms/backup
+%attr(0755, root, root) %dir %_localstatedir/log/abms/backup
+%attr(0644, root, root) %_tmpfilesdir/abms-backup.conf
+%attr(0644, root, root) %_unitdir/abms-backup.service
+%attr(0644, root, root) %config(noreplace) %_sysconfdir/cron.d/abms-backup
+%attr(0644, root, root) %config(noreplace) %_sysconfdir/logrotate.d/abms-backup
+%attr(0755, root, root) %dir %_libexecdir/abms/backup
+%attr(0755, root, root) %_libexecdir/abms/backup/*.sh
+
+%post -n abms-backup
+%systemd_post abms-backup.service
+systemctl daemon-reload >/dev/null 2>&1 || :
+
+%preun -n abms-backup
+%systemd_preun abms-backup.service
+
+%postun -n abms-backup
+%systemd_postun abms-backup.service
+

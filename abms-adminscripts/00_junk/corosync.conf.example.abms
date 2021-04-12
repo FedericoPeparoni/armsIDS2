@@ -1,0 +1,38 @@
+# vim: ts=4 sts=4 sw=4 noet
+# ---------------------------------------------------
+# Example file for corosync. At a minumum you must edit the
+# "nodelist" section below.
+# ---------------------------------------------------
+totem {
+    version: 2
+    secauth: off
+    cluster_name: abms_cluster
+    transport: udpu
+}
+
+# This section must contain every node in the cluster
+# Each node is described by two options:
+#   - nodeid: unique node ID (integer)
+#   - ring0_addr: hostname or IP address that corresponds to the
+#                 LAN which will be used by corosync
+nodelist {
+    node {
+        nodeid: 1
+        ring0_addr: abms1x
+    }
+    node {
+        nodeid: 2
+        ring0_addr: abms2x
+    }
+}
+
+quorum {
+    provider: corosync_votequorum
+    two_node: 1
+}
+
+logging {
+    to_logfile: yes
+    logfile: /var/log/cluster/corosync.log
+    to_syslog: yes
+}

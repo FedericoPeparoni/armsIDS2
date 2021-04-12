@@ -1,0 +1,9 @@
+[Unit]
+Description=ABMS backup service
+After=pghelper.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/true
+RemainAfterExit=yes
+

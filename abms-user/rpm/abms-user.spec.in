@@ -1,0 +1,78 @@
+%global         RPM_NAME           @@RPM_NAME@@
+%global         RPM_EPOCH          @@RPM_EPOCH@@
+%global         RPM_VERSION        @@RPM_VERSION@@
+%global         RPM_RELEASE_SUFFIX @@RPM_RELEASE_SUFFIX@@
+%global         RPM_SPEC_VERSION   @@RPM_SPEC_VERSION@@ 
+
+Summary:	system user account used by ABMS packages
+Name:		%{RPM_NAME}
+Epoch:		%{RPM_EPOCH}
+Version:	%{RPM_VERSION}
+Release:	%{RPM_SPEC_VERSION}%{RPM_RELEASE_SUFFIX}
+License:	Proprietary
+Group:		IDS
+
+BuildArch: 	noarch
+
+%description
+system user account used by ABMS packages
+
+%prep
+%setup -cT
+
+%build
+:
+
+# ===================================================================
+# pre
+# ===================================================================
+%pre
+
+# try to get the grouo name of an existing user "abms"
+current_group=`id -gn abms 2>/dev/null`
+# user "abms" exists
+if [ $? -eq 0 ] ; then
+	# make sure it's group is "abms"
+	if [ ."$current_group" != .abms ] ; then
+		echo "User `abms' already exists, but its group is not `abms'" >&2
+		exit 1
+	fi
+# user "abms" doesn't exist
+else
+	# create group
+	/sbin/groupadd -r abms
+	# create user
+	/sbin/useradd -g abms -d "%_localstatedir/lib/abms" -M -N -r -s /bin/bash abms
+fi
+
+%install
+set -e
+[ "$RPM_BUILD_ROOT" != / ] && %{__rm} -rf "$RPM_BUILD_ROOT"
+
+%__install -d "$RPM_BUILD_ROOT"%_sysconfdir/abms
+%__install -d "$RPM_BUILD_ROOT"%_datadir/abms
+%__install -d "$RPM_BUILD_ROOT"%_localstatedir/lib/abms
+%__install -d "$RPM_BUILD_ROOT"%_localstatedir/log/abms
+%__install -d "$RPM_BUILD_ROOT"%_localstatedir/cache/abms
+%__install -d "$RPM_BUILD_ROOT"%_libexecdir/abms
+%__install -d "$RPM_BUILD_ROOT"%_rundir/abms
+
+# tmpfiles to protect /run/abms from being deleted at boot
+%__install -d "$RPM_BUILD_ROOT"%_tmpfilesdir
+cat >"$RPM_BUILD_ROOT"%_tmpfilesdir/abms.conf <<_END
+d %_rundir/abms 755 root root
+_END
+
+%clean
+[ "%{buildroot}" != / ] && %{__rm} -rf "%{buildroot}"
+
+%files
+%attr(0755, root, root) %dir %_sysconfdir/abms
+%attr(0755, root, root) %dir %_datadir/abms
+%attr(0755, abms, abms) %dir %_localstatedir/lib/abms
+%attr(0755, root, root) %dir %_localstatedir/log/abms
+%attr(0755, root, root) %dir %_localstatedir/cache/abms
+%attr(0755, root, root) %dir %_libexecdir/abms
+%attr(0755, root, root) %dir %_rundir/abms
+%attr(0644, root, root) %_tmpfilesdir/*.conf
+

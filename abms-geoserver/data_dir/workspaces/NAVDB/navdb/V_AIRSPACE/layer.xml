@@ -1,0 +1,15 @@
+<layer>
+  <name>V_AIRSPACE</name>
+  <id>LayerInfoImpl--7ac4f666:145f27a8426:-7ffe</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--7ac4f666:145f27a8426:-7ffb</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl--7ac4f666:145f27a8426:-7fff</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+</layer>

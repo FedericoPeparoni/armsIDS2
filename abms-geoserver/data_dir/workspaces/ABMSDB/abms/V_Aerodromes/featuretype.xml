@@ -1,0 +1,79 @@
+<featureType>
+  <id>FeatureTypeInfoImpl--4e018e4b:164b7c254a9:-7fd3</id>
+  <name>V_Aerodromes</name>
+  <nativeName>aerodromes</nativeName>
+  <namespace>
+    <id>NamespaceInfoImpl--51601c73:15ccf8fe079:-7ffc</id>
+  </namespace>
+  <title>V_Aerodromes</title>
+  <keywords>
+    <string>features</string>
+    <string>aerodromes</string>
+  </keywords>
+  <srs>EPSG:4326</srs>
+  <nativeBoundingBox>
+    <minx>34.13</minx>
+    <maxx>41.8486</maxx>
+    <miny>-4.2969</miny>
+    <maxy>4.32</maxy>
+  </nativeBoundingBox>
+  <latLonBoundingBox>
+    <minx>34.13</minx>
+    <maxx>41.8486</maxx>
+    <miny>-4.2969</miny>
+    <maxy>4.32</maxy>
+    <crs>GEOGCS[&quot;WGS84(DD)&quot;, &#xd;
+  DATUM[&quot;WGS84&quot;, &#xd;
+    SPHEROID[&quot;WGS84&quot;, 6378137.0, 298.257223563]], &#xd;
+  PRIMEM[&quot;Greenwich&quot;, 0.0], &#xd;
+  UNIT[&quot;degree&quot;, 0.017453292519943295], &#xd;
+  AXIS[&quot;Geodetic longitude&quot;, EAST], &#xd;
+  AXIS[&quot;Geodetic latitude&quot;, NORTH]]</crs>
+  </latLonBoundingBox>
+  <projectionPolicy>FORCE_DECLARED</projectionPolicy>
+  <enabled>true</enabled>
+  <metadata>
+    <entry key="elevation">
+      <dimensionInfo>
+        <enabled>false</enabled>
+      </dimensionInfo>
+    </entry>
+    <entry key="JDBC_VIRTUAL_TABLE">
+      <virtualTable>
+        <name>aerodromes</name>
+        <sql>SELECT &#xd;
+&#xd;
+aerodrome_name AS &quot;Name&quot;,&#xd;
+geometry AS &quot;geom&quot;,&#xd;
+billing_center_id AS &quot;Billing ID&quot;,&#xd;
+aerodrome_category_id AS &quot;Category&quot;&#xd;
+&#xd;
+FROM aerodromes&#xd;
+&#xd;
+WHERE %condition%
+</sql>
+        <escapeSql>false</escapeSql>
+        <parameter>
+          <name>condition</name>
+          <defaultValue>true</defaultValue>
+          <regexpValidator>^.+$</regexpValidator>
+        </parameter>
+      </virtualTable>
+    </entry>
+    <entry key="time">
+      <dimensionInfo>
+        <enabled>false</enabled>
+        <defaultValue/>
+      </dimensionInfo>
+    </entry>
+    <entry key="cachingEnabled">false</entry>
+  </metadata>
+  <store class="dataStore">
+    <id>DataStoreInfoImpl--5df87f5c:158c0ec1599:6283</id>
+  </store>
+  <maxFeatures>0</maxFeatures>
+  <numDecimals>0</numDecimals>
+  <overridingServiceSRS>false</overridingServiceSRS>
+  <skipNumberMatched>false</skipNumberMatched>
+  <circularArcPresent>false</circularArcPresent>
+</featureType>

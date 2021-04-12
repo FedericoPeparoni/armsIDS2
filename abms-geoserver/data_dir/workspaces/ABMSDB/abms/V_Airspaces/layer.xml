@@ -1,0 +1,23 @@
+<layer>
+  <name>V_Airspaces</name>
+  <id>LayerInfoImpl--51601c73:15ccf8fe079:-750a</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--1f136d28:15d148bd776:-2f47</id>
+  </defaultStyle>
+  <styles class="linked-hash-set">
+    <style>
+      <id>StyleInfoImpl--4b321fc4:16b75fffbb7:-7fff</id>
+    </style>
+    <style>
+      <id>StyleInfoImpl--4b321fc4:16b75fffbb7:-7ff7</id>
+    </style>
+  </styles>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl--51601c73:15ccf8fe079:-750b</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+</layer>

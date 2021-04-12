@@ -1,0 +1,14 @@
+/.geoserver_home/
+/.gwc/
+/.tmp/
+/data_dir/logs/*.log
+/data_dir/logs/*.log.*
+/data_dir/gwc/tmp
+/conf/
+/src/extra/*
+!/src/extra/*.sh
+/tmp/*
+!/tmp/.keep
+
+.*.swp
+

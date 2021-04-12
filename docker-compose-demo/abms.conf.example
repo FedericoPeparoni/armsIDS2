@@ -1,0 +1,6 @@
+# vim: syn=conf
+
+# Docker build tag for "api" and "web" projects:
+#   latest - corresponds to git branch "develop"
+#   stable - corresponds to git branch "master"
+export ABMS_DOCKER_IMAGE_TAG="latest"

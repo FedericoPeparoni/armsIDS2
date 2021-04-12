@@ -1,0 +1,163 @@
+<featureType>
+  <id>FeatureTypeInfoImpl--4e018e4b:164b7fc7896:6077</id>
+  <name>V_FlightMovementInside_SP</name>
+  <nativeName>V_FlightMovementInside_SP</nativeName>
+  <namespace>
+    <id>NamespaceInfoImpl--51601c73:15ccf8fe079:-7ffc</id>
+  </namespace>
+  <title>V_FlightMovementInside_SP</title>
+  <keywords>
+    <string>features</string>
+    <string>V_FlightMovementInside_SP</string>
+  </keywords>
+  <srs>EPSG:4326</srs>
+  <nativeBoundingBox>
+    <minx>33.9256899299885</minx>
+    <maxx>44.000979112518</maxx>
+    <miny>-4.70988986322472</miny>
+    <maxy>4.01647314715296</maxy>
+  </nativeBoundingBox>
+  <latLonBoundingBox>
+    <minx>33.9256899299885</minx>
+    <maxx>44.000979112518</maxx>
+    <miny>-4.70988986322472</miny>
+    <maxy>4.01647314715296</maxy>
+    <crs>GEOGCS[&quot;WGS84(DD)&quot;, &#xd;
+  DATUM[&quot;WGS84&quot;, &#xd;
+    SPHEROID[&quot;WGS84&quot;, 6378137.0, 298.257223563]], &#xd;
+  PRIMEM[&quot;Greenwich&quot;, 0.0], &#xd;
+  UNIT[&quot;degree&quot;, 0.017453292519943295], &#xd;
+  AXIS[&quot;Geodetic longitude&quot;, EAST], &#xd;
+  AXIS[&quot;Geodetic latitude&quot;, NORTH]]</crs>
+  </latLonBoundingBox>
+  <projectionPolicy>FORCE_DECLARED</projectionPolicy>
+  <enabled>true</enabled>
+  <metadata>
+    <entry key="JDBC_VIRTUAL_TABLE">
+      <virtualTable>
+        <name>V_FlightMovementInside_SP</name>
+        <sql>SELECT id, &#xd;
+       created_at, &#xd;
+       updated_at, &#xd;
+       created_by, &#xd;
+       updated_by, &#xd;
+       status, &#xd;
+       movement_type, &#xd;
+       spatia_fpl_object_id, &#xd;
+       date_of_flight, &#xd;
+       flight_id, &#xd;
+       flight_type, &#xd;
+       dep_time, &#xd;
+       dep_ad, &#xd;
+       dest_ad, &#xd;
+       item18_reg_num, &#xd;
+       fpl_route, &#xd;
+       aircraft_type, &#xd;
+       wake_turb, &#xd;
+       item18_status, &#xd;
+       item18_dep, &#xd;
+       item18_dest, &#xd;
+       initial_fpl_data, &#xd;
+       actual_departure_time, &#xd;
+       arrival_time, &#xd;
+       arrival_ad, &#xd;
+       other_info, &#xd;
+       entry_time, &#xd;
+       exit_time, &#xd;
+       fpl_crossing_distance, &#xd;
+       radar_crossing_distance, &#xd;
+       nominal_crossing_distance, &#xd;
+       fpl_crossing_cost, &#xd;
+       radar_crossing_cost, &#xd;
+       nominal_crossing_cost, &#xd;
+       actual_mtow, &#xd;
+       average_mass_factor, &#xd;
+       associated_aircraft, &#xd;
+       enroute_charges, &#xd;
+       parking_charges, &#xd;
+       total_charges, &#xd;
+       flight_notes, &#xd;
+       passengers_transit_adult, &#xd;
+       passengers_joining_adult, &#xd;
+       passengers_chargeable_domestic, &#xd;
+       passengers_chargeable_intern, &#xd;
+       prepaid_amount, &#xd;
+       crew_members, &#xd;
+       account, &#xd;
+       item18_rmk, &#xd;
+       atc_crossing_distance, &#xd;
+       tower_crossing_distance, &#xd;
+       user_crossing_distance, &#xd;
+       atc_crossing_distance_cost, &#xd;
+       tower_crossing_distance_cost, &#xd;
+       user_crossing_distance_cost, &#xd;
+       enroute_charges_basis, &#xd;
+       late_charges, &#xd;
+       parking_time, &#xd;
+       domestic_passenger_charges, &#xd;
+       international_passenger_charges, &#xd;
+       exempt_enroute_charges, &#xd;
+       exempt_approch_charges, &#xd;
+       exempt_dep_charges, &#xd;
+       exempt_late_charges, &#xd;
+       exempt_parking_charges, &#xd;
+       exempt_domestic_passenger_charges, &#xd;
+       exempt_international_passenger_charges, &#xd;
+       enroute_charges_status, &#xd;
+       passenger_charges_status, &#xd;
+       other_charges_status, &#xd;
+       enroute_invoice_id, &#xd;
+       passenger_invoice_id, &#xd;
+       other_invoice_id, &#xd;
+       delta_flight, &#xd;
+       source, &#xd;
+       billable_entry_point, &#xd;
+       billable_exit_point, &#xd;
+       radar_route_text, &#xd;
+       atc_log_route_text, &#xd;
+       tower_log_route_text, &#xd;
+       estimated_elapsed_time, &#xd;
+       flight_level, &#xd;
+       manually_changed_fields, &#xd;
+       resolution_errors, &#xd;
+       tasp_charge, &#xd;
+       billable_crossing_dist, &#xd;
+       billable_crossing_cost, &#xd;
+       passengers_child, &#xd;
+       approach_charges, &#xd;
+       aerodrome_charges, &#xd;
+       late_arrival_charges, &#xd;
+       late_departure_charges, &#xd;
+       exempt_aerodrome_charges, &#xd;
+       exempt_late_arrival_charges, &#xd;
+       exempt_late_departure_charges, &#xd;
+       delta_dest_ad, &#xd;
+       cruising_speed, &#xd;
+       flight_rules,&#xd;
+       route_inside_local_airspace (billable_route) as main_route&#xd;
+FROM abms.flight_movements&#xd;
+WHERE %where%
+</sql>
+        <escapeSql>false</escapeSql>
+        <geometry>
+          <name>main_route</name>
+          <type>Geometry</type>
+          <srid>-1</srid>
+        </geometry>
+        <parameter>
+          <name>where</name>
+          <defaultValue>true</defaultValue>
+          <regexpValidator>^.+$</regexpValidator>
+        </parameter>
+      </virtualTable>
+    </entry>
+  </metadata>
+  <store class="dataStore">
+    <id>DataStoreInfoImpl--5df87f5c:158c0ec1599:6283</id>
+  </store>
+  <maxFeatures>0</maxFeatures>
+  <numDecimals>0</numDecimals>
+  <overridingServiceSRS>false</overridingServiceSRS>
+  <skipNumberMatched>false</skipNumberMatched>
+  <circularArcPresent>false</circularArcPresent>
+</featureType>

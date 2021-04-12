@@ -1,0 +1,21 @@
+image: docker-reg.idscorporation.ca/abms/centos-builder:generic
+
+stages:
+    - build
+    - deploy
+    
+build:
+    stage: build
+    script:
+        - export PACKAGE_QUALIFIER=$(echo "$CI_COMMIT_REF_NAME" | perl -n -e '/^develop-\d[\d.]+-(.+)$/ and print ".".$1' ; )
+        - cd rpm && ./build.sh
+    artifacts:
+        paths:
+            - rpm/RPMS/*.rpm
+            
+deploy:
+    stage: deploy
+    only:
+        - /^develop(.*)?$/
+    script:
+        deploy_rpms.sh rpm/RPMS/*.rpm

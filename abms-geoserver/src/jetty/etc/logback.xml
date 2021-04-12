@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<!-- logging property file name -->
+	<property name="LOG_PROP_FILE" value="${logging.propFile:-etc/logging.properties}" />
+
+	<!-- read logging properties -->
+	<property file="${LOG_PROP_FILE}" />
+
+	<!-- root log level -->
+	<property name="ROOT_LOG_LEVEL" value="${logging.level.root:-info}" />
+
+	<!-- exception info format for all appenders -->
+	<property name="LOG_EXCEPTION_CONVERSION_WORD" value="${logging.exception-conversion-word:-%xEx}" />
+
+	<!-- console appender properties -->
+	<property name="LOG_CONSOLE_ENABLED" value="${logging.consoleEnabled:-true}" />
+	<property name="CONSOLE_LOG_PATTERN" value="${logging.pattern.console:-%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n${LOG_EXCEPTION_CONVERSION_WORD}}" />
+
+	<!-- journald appender properties -->
+	<property name="LOG_JOURNALD_ENABLED" value="${logging.journaldEnabled:-false}" />
+	<property name="JOURNALD_LOG_PATTERN" value="${logging.pattern.journald:-%-5level %logger{36} - %msg%n${LOG_EXCEPTION_CONVERSION_WORD}}" />
+
+	<!-- file appender properties -->
+	<property name="LOG_FILE_ENABLED" value="${logging.fileEnabled:-false}" />
+	<property name="FILE_LOG_PATTERN" value="${logging.pattern.file:-%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n${LOG_EXCEPTION_CONVERSION_WORD}}" />
+	<property name="LOG_FILE" value="${logging.file:-logs/geoserver.log}" />
+	<property name="LOG_FILE_MAX_INDEX" value="${logging.fileMaxIndex:-9}" />
+	<property name="LOG_FILE_MAX_SIZE" value="${logging.fileMaxSize:-10MB}" />
+
+
+	<!-- console appender -->
+	<if condition="${LOG_CONSOLE_ENABLED}">
+		<then>
+			<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+				<encoder>
+					<pattern>${CONSOLE_LOG_PATTERN}</pattern>
+					<charset>utf8</charset>
+				</encoder>
+			</appender>
+		</then>
+	</if>
+
+	<!-- journald appender -->
+	<if condition="${LOG_JOURNALD_ENABLED}">
+		<then>
+			<appender name="JOURNALD" class="ch.qos.logback.core.ConsoleAppender">
+				<encoder>
+					<pattern>${JOURNALD_LOG_PATTERN}</pattern>
+					<charset>utf8</charset>
+				</encoder>
+			</appender>
+		</then>
+	</if>
+
+	<!-- file appender -->
+	<if condition="${LOG_FILE_ENABLED}">
+		<then>
+			<appender name="FILE"
+				class="ch.qos.logback.core.rolling.RollingFileAppender">
+				<encoder>
+					<pattern>${FILE_LOG_PATTERN}</pattern>
+				</encoder>
+				<file>${LOG_FILE}</file>
+				<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+					<maxIndex>${LOG_FILE_MAX_INDEX}</maxIndex>
+					<fileNamePattern>${LOG_FILE}.%i.gz</fileNamePattern>
+				</rollingPolicy>
+				<triggeringPolicy
+					class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+					<MaxFileSize>${LOG_FILE_MAX_SIZE}</MaxFileSize>
+				</triggeringPolicy>
+			</appender>
+		</then>
+	</if>
+
+	<!-- root logger -->
+	<root level="${ROOT_LOG_LEVEL}">
+		<if condition='${LOG_CONSOLE_ENABLED}'>
+			<then>
+				<appender-ref ref="CONSOLE"/>
+			</then>
+		</if>
+		<if condition='${LOG_JOURNALD_ENABLED}'>
+			<then>
+				<appender-ref ref="JOURNALD"/>
+			</then>
+		</if>
+		<if condition="${LOG_FILE_ENABLED}">
+			<then>
+				<appender-ref ref="FILE"/>
+			</then>
+		</if>
+	</root>
+
+</configuration>
+

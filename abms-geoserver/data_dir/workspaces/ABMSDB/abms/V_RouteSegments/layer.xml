@@ -1,0 +1,15 @@
+<layer>
+  <name>V_RouteSegments</name>
+  <id>LayerInfoImpl--51601c73:15ccf8fe079:-74fa</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--51601c73:15ccf8fe079:-4385</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl--51601c73:15ccf8fe079:-74fb</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+</layer>

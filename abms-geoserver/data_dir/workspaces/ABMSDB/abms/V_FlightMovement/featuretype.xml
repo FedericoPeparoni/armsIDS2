@@ -1,0 +1,96 @@
+<featureType>
+  <id>FeatureTypeInfoImpl--5df87f5c:158c0ec1599:6284</id>
+  <name>V_FlightMovement</name>
+  <nativeName>V_FlightMovement</nativeName>
+  <namespace>
+    <id>NamespaceInfoImpl--51601c73:15ccf8fe079:-7ffc</id>
+  </namespace>
+  <title>V_FlightMovement</title>
+  <keywords>
+    <string>V_FlightMovement</string>
+    <string>features</string>
+  </keywords>
+  <nativeCRS>GEOGCS[&quot;WGS 84&quot;, &#xd;
+  DATUM[&quot;World Geodetic System 1984&quot;, &#xd;
+    SPHEROID[&quot;WGS 84&quot;, 6378137.0, 298.257223563, AUTHORITY[&quot;EPSG&quot;,&quot;7030&quot;]], &#xd;
+    AUTHORITY[&quot;EPSG&quot;,&quot;6326&quot;]], &#xd;
+  PRIMEM[&quot;Greenwich&quot;, 0.0, AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]], &#xd;
+  UNIT[&quot;degree&quot;, 0.017453292519943295], &#xd;
+  AXIS[&quot;Geodetic longitude&quot;, EAST], &#xd;
+  AXIS[&quot;Geodetic latitude&quot;, NORTH], &#xd;
+  AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]]</nativeCRS>
+  <srs>EPSG:4326</srs>
+  <nativeBoundingBox>
+    <minx>-180.0</minx>
+    <maxx>180.0</maxx>
+    <miny>-90.0</miny>
+    <maxy>90.0</maxy>
+    <crs>EPSG:4326</crs>
+  </nativeBoundingBox>
+  <latLonBoundingBox>
+    <minx>-180.0</minx>
+    <maxx>180.0</maxx>
+    <miny>-90.0</miny>
+    <maxy>90.0</maxy>
+    <crs>GEOGCS[&quot;WGS84(DD)&quot;, &#xd;
+  DATUM[&quot;WGS84&quot;, &#xd;
+    SPHEROID[&quot;WGS84&quot;, 6378137.0, 298.257223563]], &#xd;
+  PRIMEM[&quot;Greenwich&quot;, 0.0], &#xd;
+  UNIT[&quot;degree&quot;, 0.017453292519943295], &#xd;
+  AXIS[&quot;Geodetic longitude&quot;, EAST], &#xd;
+  AXIS[&quot;Geodetic latitude&quot;, NORTH]]</crs>
+  </latLonBoundingBox>
+  <projectionPolicy>FORCE_DECLARED</projectionPolicy>
+  <enabled>true</enabled>
+  <metadata>
+    <entry key="JDBC_VIRTUAL_TABLE">
+      <virtualTable>
+        <name>V_FlightMovement</name>
+        <sql>SELECT * FROM flight_movements&#xd;
+WHERE&#xd;
+  %where%
+</sql>
+        <escapeSql>false</escapeSql>
+        <geometry>
+          <name>radar_route</name>
+          <type>Geometry</type>
+          <srid>4326</srid>
+        </geometry>
+        <geometry>
+          <name>billable_route</name>
+          <type>Geometry</type>
+          <srid>4326</srid>
+        </geometry>
+        <geometry>
+          <name>atc_log_track</name>
+          <type>Geometry</type>
+          <srid>4326</srid>
+        </geometry>
+        <geometry>
+          <name>fpl_route_geom</name>
+          <type>Geometry</type>
+          <srid>4326</srid>
+        </geometry>
+        <geometry>
+          <name>tower_log_track</name>
+          <type>Geometry</type>
+          <srid>4326</srid>
+        </geometry>
+        <parameter>
+          <name>where</name>
+          <defaultValue>true</defaultValue>
+          <regexpValidator>^.+$</regexpValidator>
+        </parameter>
+      </virtualTable>
+    </entry>
+    <entry key="cachingEnabled">false</entry>
+  </metadata>
+  <store class="dataStore">
+    <id>DataStoreInfoImpl--5df87f5c:158c0ec1599:6283</id>
+  </store>
+  <maxFeatures>0</maxFeatures>
+  <numDecimals>0</numDecimals>
+  <overridingServiceSRS>false</overridingServiceSRS>
+  <skipNumberMatched>false</skipNumberMatched>
+  <circularArcPresent>true</circularArcPresent>
+</featureType>

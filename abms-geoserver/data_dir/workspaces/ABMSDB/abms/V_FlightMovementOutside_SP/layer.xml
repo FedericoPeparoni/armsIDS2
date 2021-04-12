@@ -1,0 +1,15 @@
+<layer>
+  <name>V_FlightMovementOutside_SP</name>
+  <id>LayerInfoImpl--4e018e4b:164b80ed17d:1286</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--10abe3bc:15459f0d771:-8000</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl--4e018e4b:164b80ed17d:1285</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+</layer>

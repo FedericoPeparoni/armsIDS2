@@ -1,0 +1,32 @@
+<layerGroup>
+  <id>LayerGroupInfoImpl--7a8f441c:15ce4d06460:-8000</id>
+  <name>G_FlightMovement_I</name>
+  <mode>NAMED</mode>
+  <title>G_FlightMovement_I</title>
+  <workspace>
+    <id>WorkspaceInfoImpl--51601c73:15ccf8fe079:-7ffd</id>
+  </workspace>
+  <publishables>
+    <published type="layer">
+      <id>LayerInfoImpl--51601c73:15ccf8fe079:-750a</id>
+    </published>
+    <published type="layer">
+      <id>LayerInfoImpl--51601c73:15ccf8fe079:-74fa</id>
+    </published>
+  </publishables>
+  <styles>
+    <style>
+      <id>StyleInfoImpl--1f136d28:15d148bd776:-2f47</id>
+    </style>
+    <style>
+      <id>StyleInfoImpl--51601c73:15ccf8fe079:-4385</id>
+    </style>
+  </styles>
+  <bounds>
+    <minx>-180.0</minx>
+    <maxx>180.0</maxx>
+    <miny>-90.0</miny>
+    <maxy>90.0</maxy>
+    <crs>EPSG:4326</crs>
+  </bounds>
+</layerGroup>

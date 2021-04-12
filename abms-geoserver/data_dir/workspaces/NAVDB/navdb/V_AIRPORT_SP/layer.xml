@@ -1,0 +1,20 @@
+<layer>
+  <name>V_AIRPORT_SP</name>
+  <id>LayerInfoImpl-13b23658:14b187d0fa1:-7ffe</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-2d8edb07:1447a640caa:-8000</id>
+  </defaultStyle>
+  <styles class="linked-hash-set">
+    <style>
+      <id>StyleInfoImpl-2d8edb07:1447a640caa:-8000</id>
+    </style>
+  </styles>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl-13b23658:14b187d0fa1:-7fff</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+</layer>

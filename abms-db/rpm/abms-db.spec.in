@@ -1,0 +1,60 @@
+%global         spec_version       1
+%global         home_dir           %_datadir/abms/db
+%global         conf_dir           %_sysconfdir/abms/db
+
+Summary:	ABMS - database scripts
+Name:		@@RPM_NAME@@
+Epoch:		0
+Version:	@@RPM_VERSION@@
+Release:	%{spec_version}@@RPM_RELEASE_SUFFIX@@
+License:	Proprietary
+Group:		IDS
+
+Requires:	postgresql >= 9.5
+Requires(pre):	postgresql >= 9.5
+
+BuildArch: 	noarch
+Source0:        %{name}-%{version}.tar
+
+%description
+ABMS - database scripts
+
+%prep
+%setup
+
+%build
+
+%install
+set -e
+[ "$RPM_BUILD_ROOT" != / ] && %{__rm} -rf "$RPM_BUILD_ROOT"
+
+# home dir
+%__install -d "$RPM_BUILD_ROOT"%home_dir
+%__cp -r * "$RPM_BUILD_ROOT"%home_dir/
+find "$RPM_BUILD_ROOT"%home_dir -type d -exec chmod 0755 '{}' +
+find "$RPM_BUILD_ROOT"%home_dir -type f -exec chmod 0644 '{}' +
+chmod 0755 "$RPM_BUILD_ROOT"%home_dir/bin/*.sh
+
+# symlinks in /usr/bin
+%__install -d "$RPM_BUILD_ROOT"%_bindir
+for f in "$RPM_BUILD_ROOT"%home_dir/bin/*.sh ; do
+	b=`basename "$f"`
+	l=`basename "$f" .sh`
+	%__ln_s "%home_dir/bin/$b" "$RPM_BUILD_ROOT"%_bindir/"$l"
+done
+
+# config files
+%__install -d "$RPM_BUILD_ROOT"%conf_dir
+%__mv "$RPM_BUILD_ROOT"%home_dir/conf.example/* "$RPM_BUILD_ROOT"%conf_dir
+rmdir "$RPM_BUILD_ROOT"%home_dir/conf.example
+%__ln_s %conf_dir "$RPM_BUILD_ROOT"%home_dir/conf
+
+%clean
+[ "%{buildroot}" != / ] && %{__rm} -rf "%{buildroot}"
+
+%files
+%attr(-,    root, root)                        %home_dir
+%attr(-,    root, root)                        %_bindir/*
+%attr(0755, root, root)     %dir               %conf_dir
+%attr(640,  root, postgres) %config(noreplace) %conf_dir/*.conf
+

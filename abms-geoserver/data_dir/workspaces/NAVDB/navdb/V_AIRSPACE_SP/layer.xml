@@ -1,0 +1,20 @@
+<layer>
+  <name>V_AIRSPACE_SP</name>
+  <id>LayerInfoImpl--1b724c2a:1487936935d:4233</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--2d72c0d4:123e3a69b74:-8000</id>
+  </defaultStyle>
+  <styles class="linked-hash-set">
+    <style>
+      <id>StyleInfoImpl--4b321fc4:16b75fffbb7:-7fef</id>
+    </style>
+  </styles>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl--1b724c2a:1487936935d:4232</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+</layer>

@@ -1,0 +1,303 @@
+%global _pkgdatadir  		%_datadir/abms/geoserver
+%global _pkgstatedir 		%_localstatedir/lib/abms/geoserver
+%global _pkgcachedir            %_localstatedir/cache/abms/geoserver
+%global _pkglogdir 		%_localstatedir/log/abms/geoserver
+%global _pkgconfdir		%_sysconfdir/abms/geoserver
+%global _pkglibexecdir          %_libexecdir/abms/geoserver
+%global _jettyhomedir           %_pkgdatadir/jetty
+
+%global SPEC_VER                1
+%global PACKAGE_EPOCH           0
+%global PACKAGE_NAME            @@PACKAGE_NAME@@
+%global PACKAGE_VERSION         @@PACKAGE_VERSION@@
+%global BUILD_SUFFIX            @@BUILD_SUFFIX@@
+%global GS_VERSION              @@GS_VERSION@@
+%global JETTY_VERSION           @@JETTY_VERSION@@
+%global PACKAGE_RELEASE         %{SPEC_VER}%{BUILD_SUFFIX}%{?dist}
+
+%global	__os_install_post       %{nil}
+%global	debug_package           %{nil}
+%global __requires_exclude_from ^.*\.jar$
+%global __provides_exclude_from ^.*\.jar$
+
+%if 0%{?compress}
+%global         _binary_payload    w9.xzdio
+%else
+%global         _binary_payload    w0.gzdio
+%endif
+
+
+
+Summary: ABMS map service
+Name:    %{PACKAGE_NAME}
+Epoch:   %{PACKAGE_EPOCH}
+Version: %{PACKAGE_VERSION}
+Release: %{PACKAGE_RELEASE}
+License: Proprietary
+Group: Applications/IDS
+BuildArch: noarch
+
+Source0: %name-%version.tar
+Source1: abms-gstool.sh
+Source2: logging.properties
+Source3: logback.xml
+Source4: startup.conf
+Source5: geoserver.properties
+Source6: abms-geoserver.httpd.conf
+Source10: run.sh
+Source20: %{name}.service
+Source21: systemd.start.sh
+Source22: systemd.start.post.sh
+
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
+
+Requires:       jre >= 1.8.0
+Requires(pre):  abms-user
+Requires:       /usr/bin/curl
+Requires(post): /usr/bin/curl
+Requires:	httpd
+Requires(post):	httpd
+Requires:       %_pkgdatadir/data.zip
+Requires(pre):  %_pkgdatadir/data.zip
+Provides:       %name(geoserver) = %{GS_VERSION}
+Provides:       %name(jetty) = %{JETTY_VERSION}
+Requires:       /usr/bin/zip
+Requires:       /usr/bin/unzip
+Requires:       /usr/bin/rsync
+
+
+%systemd_requires
+
+%description
+ABMS map service
+
+# ---------------------------------------------------------------------------
+%prep
+%setup
+
+# ---------------------------------------------------------------------------
+%build
+%__rm -f data_dir/logs/*.log
+%__rm -f bin/*.bat
+
+# ---------------------------------------------------------------------------
+%install
+set -e
+[ "%{buildroot}" != / ] && %{__rm} -rf %{buildroot}
+
+# home directory - /usr/share/abms/geoserver
+%__install -d "${RPM_BUILD_ROOT}"%_jettyhomedir
+%__cp -r * "${RPM_BUILD_ROOT}"%_jettyhomedir
+
+# remove duplicate jars
+find "${RPM_BUILD_ROOT}"%_jettyhomedir/webapps -type f -name '*.jar' | while read f ; do
+	b=`basename "$f"`
+	x=`cd "${RPM_BUILD_ROOT}" && find .%_jettyhomedir/lib -type f -name "$b"` || :
+	if [ -n "$x" ] ; then
+		x=`echo "$x" | sed 's,^\\.,,g'`
+		%__rm -f "$f"
+		%__ln_s "$x" "$f"
+	fi
+done
+
+# config files - /etc/abms/geoserver/jetty
+%__install -d "${RPM_BUILD_ROOT}"%_pkgconfdir
+# jetty
+%__mv "${RPM_BUILD_ROOT}"%_jettyhomedir/etc "${RPM_BUILD_ROOT}"%_pkgconfdir/jetty
+%__ln_s %_pkgconfdir/jetty "${RPM_BUILD_ROOT}"%_jettyhomedir/etc
+# {startp.conf,geoserver.properties} => /etc/abms/geoserver/
+for f in %SOURCE4 %SOURCE5 ; do
+	sed -r 's,^([[:space:]]*)([^#]),\1#\2,g' "$f" >"${RPM_BUILD_ROOT}"%_pkgconfdir/`basename "$f"`
+done
+%__mv "${RPM_BUILD_ROOT}"%_pkgconfdir/jetty/webapp/cors.web.xml "${RPM_BUILD_ROOT}"%_pkgconfdir/
+%__ln_s ../../cors.web.xml "${RPM_BUILD_ROOT}"%_pkgconfdir/jetty/webapp/
+
+# cache directory - /var/cache/abms/geoserver
+%__install -d "${RPM_BUILD_ROOT}"%_pkgcachedir
+%__install -d "${RPM_BUILD_ROOT}"%_pkgcachedir/gwc
+
+# state directory - /var/lib/abms/geoserver
+%__install -d "${RPM_BUILD_ROOT}"%_pkgstatedir
+
+# core files directory - /var/lib/abms/geoserver/cores
+%__install -d "${RPM_BUILD_ROOT}"%_pkgstatedir/cores
+
+# log directory - /var/log/abms/geoserver
+%__install -d "${RPM_BUILD_ROOT}"%_pkglogdir
+%__rm -rf "${RPM_BUILD_ROOT}"%_jettyhomedir/logs
+%__ln_s %_pkglogdir "${RPM_BUILD_ROOT}"%_jettyhomedir/logs
+%__install -m 0644 %SOURCE2 "${RPM_BUILD_ROOT}"%_pkgconfdir/
+%__sed -r -i '/^\s*#?\s*logging\.fileEnabled\s*=/d' "${RPM_BUILD_ROOT}"%_pkgconfdir/logging.properties
+
+# data directory - /var/lib/abms/geoserver/data
+%__install -d "${RPM_BUILD_ROOT}"%_pkgstatedir/data
+( cd "${RPM_BUILD_ROOT}"%_jettyhomedir/data_dir && zip -qr ../data.zip * ; )
+%__mv "${RPM_BUILD_ROOT}"%_jettyhomedir/data.zip "${RPM_BUILD_ROOT}"%_pkgdatadir/
+%__rm -rf "${RPM_BUILD_ROOT}"%_jettyhomedir/data_dir
+%__ln_s %_pkgstatedir/data "${RPM_BUILD_ROOT}"%_jettyhomedir/data_dir
+
+# gwc directory - /var/lib/abms/geoserver/gwc
+%__install -d "${RPM_BUILD_ROOT}"%_pkgstatedir/gwc
+
+# documents
+%__install -d "${RPM_BUILD_ROOT}"%_docdir/%name-%version
+(
+	cd "${RPM_BUILD_ROOT}"%_jettyhomedir
+	for f in *.txt ; do
+		%__mv $f "${RPM_BUILD_ROOT}"%_docdir/%name-%version/
+		%__ln_s %_docdir/%name-%version/$f ./
+	done
+)
+
+# /usr/bin/abms-gstool
+%__install -d "${RPM_BUILD_ROOT}"%_bindir
+%__install %SOURCE1 "${RPM_BUILD_ROOT}"%_bindir/abms-gstool
+
+# run.sh
+%__rm -f "${RPM_BUILD_ROOT}"%_jettyhomedir/bin/shutdown.sh
+%__rm -f  "${RPM_BUILD_ROOT}"%_jettyhomedir/bin/startup.sh
+%__install -m 0755 %SOURCE10 "${RPM_BUILD_ROOT}"%_jettyhomedir/bin/run.sh
+
+# systemd
+%__install -d "${RPM_BUILD_ROOT}"%_unitdir
+%__install %SOURCE20 "${RPM_BUILD_ROOT}"%_unitdir/
+%__install -d "${RPM_BUILD_ROOT}"%_pkglibexecdir
+%__install %SOURCE21 "${RPM_BUILD_ROOT}"%_pkglibexecdir/
+%__install %SOURCE22 "${RPM_BUILD_ROOT}"%_pkglibexecdir/
+
+# httpd
+%__install -d "${RPM_BUILD_ROOT}"%_sysconfdir/httpd/conf.d
+%__install %SOURCE6 "${RPM_BUILD_ROOT}"%_sysconfdir/httpd/conf.d/%name.conf
+
+# ---------------------------------------------------------------------------
+%clean
+[ "%{buildroot}" != / ] && %{__rm} -rf "%{buildroot}"
+
+# ---------------------------------------------------------------------------
+%pre
+
+# ---------------------------------------------------------------------------
+%post
+
+# data directory empty?
+if [ -z "`find %_pkgstatedir/data -mindepth 1 -maxdepth 1 -print -quit 2>/dev/null`" ] ; then
+	echo "Initializing data directory \`%_pkgstatedir/data'"
+	/usr/bin/abms-gstool --reset --quiet || :
+# first install?
+elif [ "$1" -eq 1 ] ; then
+	echo "===================================================================="
+	echo "WARNING:"
+	echo "WARNING: Geoserver data directory was not re-initialized because it"
+	echo "WARNING: is not empty. If you want re-initialize it to default"
+	echo "WARNING: state, and loose any local changes, please run:"
+	echo "WARNING:"
+	echo "WARNING:     \`abms-gstool --reset'"
+	echo "WARNING:"
+	echo "===================================================================="
+fi
+
+# upgrade
+if [ "$1" -gt 1 ] ; then
+	# edit the commented-out "#jetty.port=..." line to match the actual jetty
+	# port used (9080)
+	if [ -f %_pkgconfdir/geoserver.properties ] ; then
+		%__sed -r 's/^(\s*#\s*jetty\.port\s*=\s*)[0-9]+\s*$/\19080/g' %_pkgconfdir/geoserver.properties >%_pkgconfdir/geoserver.properties.rpmtmp
+		if ! diff -q %_pkgconfdir/geoserver.properties %_pkgconfdir/geoserver.properties.rpmtmp >/dev/null 2>&1 ; then
+			cat %_pkgconfdir/geoserver.properties.rpmtmp >%_pkgconfdir/geoserver.properties
+		fi
+		%__rm -f %_pkgconfdir/geoserver.properties.rpmtmp
+	fi
+fi
+
+%systemd_post %{name}.service
+systemctl daemon-reload >/dev/null 2>&1 || :
+systemctl reload httpd >/dev/null 2>&1 || :
+
+# ---------------------------------------------------------------------------
+%preun
+%systemd_preun %{name}.service
+
+# ---------------------------------------------------------------------------
+%postun
+%systemd_postun_with_restart %{name}.service
+
+# ---------------------------------------------------------------------------
+%files
+%attr(0755, root,     root)     %dir               %_docdir/%name-%version
+%attr(0644, root,     root)     %doc               %_docdir/%name-%version/*
+%attr(0755, root,     root)     %dir               %_pkgconfdir
+%attr(0755, root,     root)     %dir               %_pkgconfdir/jetty
+%attr(0640, root,     abms)     %config(noreplace) %_pkgconfdir/jetty/*.xml
+%attr(0640, root,     abms)     %config(noreplace) %_pkgconfdir/jetty/*.properties
+%attr(0640, root,     abms)     %config(noreplace) %_pkgconfdir/jetty/keystore
+%attr(0755, root,     root)     %dir               %_pkgconfdir/jetty/webapp
+%attr(0640, root,     abms)     %config(noreplace) %_pkgconfdir/jetty/webapp/*.xml
+%attr(0640, root,     abms)     %config(noreplace) %_pkgconfdir/*.conf
+%attr(0640, root,     abms)     %config(noreplace) %_pkgconfdir/*.properties
+%attr(0640, root,     abms)     %config(noreplace) %_pkgconfdir/*.xml
+%attr(0755, abms,     abms)     %dir               %_pkglogdir
+%attr(0755, root,     root)     %dir               %_pkgdatadir
+%attr(-,    root,     root)                        %_jettyhomedir
+%attr(0755, root,     root)     %dir               %_pkgcachedir
+%attr(0755, abms,     abms)     %dir               %_pkgcachedir/gwc
+%attr(0755, abms,     abms)     %dir               %_pkgstatedir
+%attr(0755, abms,     abms)     %dir               %_pkgstatedir/data
+%attr(0755, abms,     abms)     %dir               %_pkgstatedir/cores
+%attr(0755, abms,     abms)     %dir               %_pkgstatedir/gwc
+%attr(0755, root,     root)                        %_bindir/*
+%attr(0755, root,     root)     %dir               %_pkglibexecdir
+%attr(0755, root,     root)                        %_pkglibexecdir/*.sh
+%attr(0644, root,     root)                        %_unitdir/*.service
+%attr(0644, root,     root)     %config(noreplace) %_sysconfdir/httpd/conf.d/*.conf
+
+# ===========================================================================
+# data package
+# ===========================================================================
+
+%package data
+Summary: Default data directory for %name
+
+%description data
+Default data directory for %name
+
+%post data
+# data_dir empty?
+if [ -z "`find %_pkgstatedir/data -mindepth 1 -maxdepth 1 -print -quit 2>/dev/null`" ] ; then
+	# service is running?
+	if systemctl %{name}.service status >/dev/null 2>&1 ; then
+		echo "===================================================================="
+		echo "WARNING:"
+		echo "WARNING: Geoserver data directory was not re-initialized because"
+		echo "WARNING: the %name service is already running. If you want"
+		echo "WARNING: re-initialize it to default state, and loose any local"
+		echo "WARNING: changes, please run:"
+		echo "WARNING:"
+		echo "WARNING:     \`abms-gstool --reset'"
+		echo "WARNING:"
+		echo "===================================================================="
+	elif [ -x /usr/bin/abms-gstool ] ; then
+		echo "Initializing data directory \`%_pkgstatedir/data'"
+		/usr/bin/abms-gstool --reset --quiet || :
+	fi
+	# else: 
+	#   service not installed, in which case data_dir will be initialized when service is installed
+
+# else: data_dir not empty and service is installed
+elif [ -x "/usr/bin/abms-gstool" ] ; then
+	echo "===================================================================="
+	echo "WARNING:"
+	echo "WARNING: Geoserver data directory was not re-initialized because it"
+	echo "WARNING: is not empty. If you want re-initialize it to default"
+	echo "WARNING: state, and loose any local changes, please run:"
+	echo "WARNING:"
+	echo "WARNING:     \`abms-gstool --reset'"
+	echo "WARNING:"
+	echo "===================================================================="
+fi
+# else: data_dir not empty and service not installed
+
+%files data
+%attr(0755, root,     root)     %dir               %_pkgdatadir
+%attr(0644, root,     root)                        %_pkgdatadir/data.zip
+
+

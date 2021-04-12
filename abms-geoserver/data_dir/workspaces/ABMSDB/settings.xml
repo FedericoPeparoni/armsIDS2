@@ -1,0 +1,32 @@
+<settings>
+  <id>SettingsInfoImpl--51601c73:15ccf8fe079:-7ffb</id>
+  <workspace>
+    <id>WorkspaceInfoImpl--51601c73:15ccf8fe079:-7ffd</id>
+    <name>ABMSDB</name>
+  </workspace>
+  <contact>
+    <id>contact</id>
+    <addressCity>Kanata</addressCity>
+    <addressCountry>Canada</addressCountry>
+    <addressState>Ontario</addressState>
+    <addressType>Work</addressType>
+    <contactEmail>aerodivision@idscorporation.com</contactEmail>
+    <contactOrganization>IDS Corporation</contactOrganization>
+    <contactPerson>IDS Tech</contactPerson>
+    <contactPosition>Ottawa</contactPosition>
+  </contact>
+  <charset>UTF-8</charset>
+  <numDecimals>8</numDecimals>
+  <onlineResource>http://opengeo.org</onlineResource>
+  <verbose>false</verbose>
+  <verboseExceptions>false</verboseExceptions>
+  <metadata>
+    <map>
+      <entry>
+        <string>quietOnNotFound</string>
+        <boolean>false</boolean>
+      </entry>
+    </map>
+  </metadata>
+  <localWorkspaceIncludesPrefix>false</localWorkspaceIncludesPrefix>
+</settings>

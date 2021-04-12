@@ -1,0 +1,15 @@
+<layer>
+  <name>V_AIRSPACE_FIR</name>
+  <id>LayerInfoImpl--7fa343b:152f4d7cfb5:-568b</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--7fa343b:152f4d7cfb5:-568a</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl--7fa343b:152f4d7cfb5:-568c</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+</layer>

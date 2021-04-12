@@ -1,0 +1,27 @@
+<dataStore>
+  <id>DataStoreInfoImpl--5df87f5c:158c0ec1599:6283</id>
+  <name>abms</name>
+  <description>abms</description>
+  <type>PostGIS (JNDI)</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl--51601c73:15ccf8fe079:-7ffd</id>
+  </workspace>
+  <connectionParameters>
+    <entry key="schema">abms</entry>
+    <entry key="Estimated extends">true</entry>
+    <entry key="fetch size">1000</entry>
+    <entry key="encode functions">false</entry>
+    <entry key="Expose primary keys">false</entry>
+    <entry key="Support on the fly geometry simplification">true</entry>
+    <entry key="Connection timeout">20</entry>
+    <entry key="create database">false</entry>
+    <entry key="Batch insert size">1</entry>
+    <entry key="preparedStatements">false</entry>
+    <entry key="jndiReferenceName">java:comp/env/jdbc/abmsdb</entry>
+    <entry key="dbtype">postgis</entry>
+    <entry key="namespace">www.idscorporation.com/</entry>
+    <entry key="Loose bbox">true</entry>
+  </connectionParameters>
+  <__default>false</__default>
+</dataStore>

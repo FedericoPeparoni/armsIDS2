@@ -1,0 +1,35 @@
+<settings>
+  <id>SettingsInfoImpl-7d66aca3:1547ccec502:-8000</id>
+  <workspace>
+    <id>WorkspaceInfoImpl-6734949e:14476ac0132:-8000</id>
+    <name>NAVDB</name>
+  </workspace>
+  <contact>
+    <id>contact</id>
+    <address>1068, Flaminia st.</address>
+    <addressCity>Rome</addressCity>
+    <addressCountry>Italy</addressCountry>
+    <addressPostalCode>00189</addressPostalCode>
+    <addressState>Lazio</addressState>
+    <addressType>Work</addressType>
+    <contactEmail>aerodivision@idscorporation.com</contactEmail>
+    <contactOrganization>IDS</contactOrganization>
+    <contactPerson>IDS - Ingegneria dei Sistemi</contactPerson>
+    <contactPosition>Rome, via Flaminia 1068</contactPosition>
+    <contactVoice>+ 39 06 33 217 324</contactVoice>
+  </contact>
+  <charset>UTF-8</charset>
+  <numDecimals>8</numDecimals>
+  <onlineResource>http://opengeo.org</onlineResource>
+  <verbose>false</verbose>
+  <verboseExceptions>false</verboseExceptions>
+  <metadata>
+    <map>
+      <entry>
+        <string>quietOnNotFound</string>
+        <boolean>false</boolean>
+      </entry>
+    </map>
+  </metadata>
+  <localWorkspaceIncludesPrefix>false</localWorkspaceIncludesPrefix>
+</settings>
