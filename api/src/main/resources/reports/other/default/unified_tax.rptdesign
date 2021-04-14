@@ -647,10 +647,16 @@ ORDER  BY a.id,
                     <text-property name="heading">date_manufacture</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">aircraft_model</property>
+                    <property name="columnName">aircraft_type</property>
                     <property name="analysis">dimension</property>
-                    <text-property name="displayName">aircraft_model</text-property>
-                    <text-property name="heading">aircraft_model</text-property>
+                    <text-property name="displayName">aircraft_type</text-property>
+                    <text-property name="heading">aircraft_type</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">aircraft_manufacturer</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">aircraft_manufacturer</text-property>
+                    <text-property name="heading">aircraft_manufacturer</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">mtow_ton</property>
@@ -701,16 +707,21 @@ ORDER  BY a.id,
                     </structure>
                     <structure>
                         <property name="position">5</property>
-                        <property name="name">aircraft_model</property>
+                        <property name="name">aircraft_type</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">6</property>
+                        <property name="name">aircraft_manufacturer</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
                         <property name="name">mtow_ton</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">7</property>
+                        <property name="position">8</property>
                         <property name="name">agricultural_flight_school</property>
                         <property name="dataType">string</property>
                     </structure>
@@ -748,27 +759,34 @@ ORDER  BY a.id,
                 </structure>
                 <structure>
                     <property name="position">5</property>
-                    <property name="name">aircraft_model</property>
-                    <property name="nativeName">aircraft_model</property>
+                    <property name="name">aircraft_type</property>
+                    <property name="nativeName">aircraft_type</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
                     <property name="position">6</property>
+                    <property name="name">aircraft_manufacturer</property>
+                    <property name="nativeName">aircraft_manufacturer</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
                     <property name="name">mtow_ton</property>
                     <property name="nativeName">mtow_ton</property>
                     <property name="dataType">float</property>
                     <property name="nativeDataType">8</property>
                 </structure>
                 <structure>
-                    <property name="position">7</property>
+                    <property name="position">8</property>
                     <property name="name">agricultural_flight_school</property>
                     <property name="nativeName">agricultural_flight_school</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
             </list-property>
-            <xml-property name="queryText"><![CDATA[SELECT  abms.accounts.id AS account_id, abms.accounts.name AS customer_name , abms.aircraft_registrations.registration_number AS aircraft_registration_name, abms.aircraft_registrations.aircraft_service_date AS date_manufacture, abms.aircraft_types.manufacturer AS aircraft_model, abms.aircraft_registrations.mtow_override AS mtow_ton, abms.aircraft_registrations.aircraft_scope AS agricultural_flight_school
+            <xml-property name="queryText"><![CDATA[SELECT  abms.accounts.id AS account_id, abms.accounts.name AS customer_name , abms.aircraft_registrations.registration_number AS aircraft_registration_name, abms.aircraft_registrations.aircraft_service_date AS date_manufacture, abms.aircraft_types.aircraft_type AS aircraft_type, abms.aircraft_types.manufacturer AS aircraft_manufacturer, abms.aircraft_registrations.mtow_override AS mtow_ton, abms.aircraft_registrations.aircraft_scope AS agricultural_flight_school
 FROM abms.accounts
 INNER JOIN abms.aircraft_registrations ON abms.accounts.id=abms.aircraft_registrations.account_id
 INNER JOIN abms.aircraft_types ON abms.aircraft_types.id=abms.aircraft_registrations.aircraft_type_id
@@ -891,7 +909,7 @@ WHERE  abms.accounts.id = ?]]></xml-property>
                         <property name="textUnderline">underline</property>
                         <property name="textAlign">center</property>
                         <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[ACCOUNT STATEMENT]]></text-property>
+                        <text-property name="content"><![CDATA[UNIFIED TAX]]></text-property>
                     </text>
                 </cell>
             </row>
@@ -1258,9 +1276,8 @@ dataSetRow["amount"]&#13;
                         <cell id="1363"/>
                     </row>
                     <row id="1551">
-                        <cell id="1552"/>
-                        <cell id="1553">
-                            <property name="colSpan">7</property>
+                        <cell id="1552">
+                            <property name="colSpan">8</property>
                             <property name="rowSpan">1</property>
                             <table id="1562">
                                 <property name="dataSet">aircraft</property>
@@ -1292,12 +1309,6 @@ dataSetRow["amount"]&#13;
                                         <property name="dataType">string</property>
                                     </structure>
                                     <structure>
-                                        <property name="name">aircraft_model</property>
-                                        <text-property name="displayName">aircraft_model</text-property>
-                                        <expression name="expression" type="javascript">dataSetRow["aircraft_model"]</expression>
-                                        <property name="dataType">string</property>
-                                    </structure>
-                                    <structure>
                                         <property name="name">agricultural_flight_school</property>
                                         <text-property name="displayName">agricultural_flight_school</text-property>
                                         <expression name="expression" type="javascript">dataSetRow["agricultural_flight_school"]</expression>
@@ -1317,9 +1328,24 @@ dataSetRow["amount"]&#13;
                                         <property name="dataType">float</property>
                                         <property name="allowExport">true</property>
                                     </structure>
+                                    <structure>
+                                        <property name="name">aircraft_manufacturer</property>
+                                        <text-property name="displayName">aircraft_manufacturer</text-property>
+                                        <expression name="expression" type="javascript">dataSetRow["aircraft_manufacturer"]</expression>
+                                        <property name="dataType">string</property>
+                                        <property name="allowExport">true</property>
+                                    </structure>
+                                    <structure>
+                                        <property name="name">aircraft_type</property>
+                                        <text-property name="displayName">aircraft_type</text-property>
+                                        <expression name="expression" type="javascript">dataSetRow["aircraft_type"]</expression>
+                                        <property name="dataType">string</property>
+                                        <property name="allowExport">true</property>
+                                    </structure>
                                 </list-property>
                                 <column id="1598"/>
                                 <column id="1599"/>
+                                <column id="1624"/>
                                 <column id="1610"/>
                                 <column id="1600"/>
                                 <column id="1614"/>
@@ -1339,7 +1365,15 @@ dataSetRow["amount"]&#13;
                                                 <property name="fontWeight">bold</property>
                                                 <property name="textAlign">left</property>
                                                 <property name="contentType">auto</property>
-                                                <text-property name="content"><![CDATA[Aircraft manufacturer and model]]></text-property>
+                                                <text-property name="content"><![CDATA[Aircraft Manufacturer]]></text-property>
+                                            </text>
+                                        </cell>
+                                        <cell id="1621">
+                                            <text id="1625">
+                                                <property name="fontWeight">bold</property>
+                                                <property name="textAlign">left</property>
+                                                <property name="contentType">auto</property>
+                                                <text-property name="content"><![CDATA[Aircraft Type]]></text-property>
                                             </text>
                                         </cell>
                                         <cell id="1607">
@@ -1384,8 +1418,13 @@ dataSetRow["amount"]&#13;
                                             </data>
                                         </cell>
                                         <cell id="1583">
-                                            <data id="1584">
-                                                <property name="resultSetColumn">aircraft_model</property>
+                                            <data id="1626">
+                                                <property name="resultSetColumn">aircraft_manufacturer</property>
+                                            </data>
+                                        </cell>
+                                        <cell id="1622">
+                                            <data id="1627">
+                                                <property name="resultSetColumn">aircraft_type</property>
                                             </data>
                                         </cell>
                                         <cell id="1608">
@@ -1416,6 +1455,7 @@ dataSetRow["amount"]&#13;
                                     <row id="1589">
                                         <cell id="1592"/>
                                         <cell id="1593"/>
+                                        <cell id="1623"/>
                                         <cell id="1609"/>
                                         <cell id="1594"/>
                                         <cell id="1613"/>
@@ -1425,6 +1465,18 @@ dataSetRow["amount"]&#13;
                             </table>
                         </cell>
                         <cell id="1560"/>
+                    </row>
+                    <row id="1628">
+                        <property name="height">5mm</property>
+                        <cell id="1629"/>
+                        <cell id="1630"/>
+                        <cell id="1631"/>
+                        <cell id="1632"/>
+                        <cell id="1633"/>
+                        <cell id="1634"/>
+                        <cell id="1635"/>
+                        <cell id="1636"/>
+                        <cell id="1637"/>
                     </row>
                     <row id="1373">
                         <cell id="1374">
@@ -1778,12 +1830,6 @@ dataSetRow["amount"]&#13;
                 </row>
             </footer>
         </table>
-        <text id="1605">
-            <property name="fontWeight">bold</property>
-            <property name="textAlign">left</property>
-            <property name="contentType">auto</property>
-            <text-property name="content"><![CDATA[Aircraft manufacturer and model]]></text-property>
-        </text>
     </body>
     <list-property name="images">
         <structure>
