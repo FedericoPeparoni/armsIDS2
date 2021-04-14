@@ -549,7 +549,7 @@ where
                     <property name="nativeDataType">8</property>
                 </structure>
             </list-property>
-            <xml-property name="queryText"><![CDATA[SELECT a.id                               AS account_id, 
+            <xml-property name="queryText"><![CDATA[            SELECT a.id                               AS account_id, 
        a.NAME                             AS account_name, 
        a.aviation_billing_mailing_address AS aviation_billing_mailing_address, 
        COALESCE (x.opening_balance, 0)    AS opening_balance, 
@@ -595,30 +595,45 @@ FROM   accounts a
                                             currency_id, 
                                             Max(id) id 
                                      FROM   abms.transactions 
-                                     WHERE  transaction_date_time < ?
+                                   
+                                WHERE  transaction_date_time < ?
+                                   
                                      GROUP  BY account_id, 
                                                currency_id 
                                      ORDER  BY account_id) t1 
-                                 ON t.id = t1.id) AS original 
+                                 ON T.id = t1.id) AS original 
                                             ON original.account_id = a.id 
                                                AND original.currency_id = c.id 
                                LEFT OUTER JOIN 
-                               (SELECT * 
-                                FROM   abms.transactions t 
+                               (SELECT t.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.balance, bl.invoice_type, t.payment_mechanism, t.payment_reference_number, t.currency_id, t.transaction_type_id, t.id, t.description, t.exchange_rate
+                                FROM   abms.transactions t
+   
+   
+INNER JOIN abms.billing_ledgers bl ON bl.invoice_number = t.payment_reference_number
+UNION
+SELECT  bl.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.balance, bl.invoice_type, t.payment_mechanism, t.payment_reference_number, t.currency_id, t.transaction_type_id, t.id, t.description, t.exchange_rate
+FROM abms.billing_ledgers bl 
+INNER JOIN abms.transaction_payments tp ON bl.id = tp.billing_ledger_id
+INNER JOIN abms.transactions t ON tp.transaction_id = t.id                                
+
                                 WHERE  t.transaction_date_time 
                                        >= ?
-                                       AND t.transaction_date_time <= ?) AS t 
+                                       AND t.transaction_date_time <= ?
+             
+                             ) AS T 
                                             ON a.id = t.account_id 
-                                               AND t.currency_id = c.id 
+                                               AND T.currency_id = c.id AND T.invoice_type='aviation-noniata'
                                LEFT OUTER JOIN abms.transaction_types tt 
-                                            ON tt.id = t.transaction_type_id 
+                                            ON tt.id = T.transaction_type_id 
                         WHERE  ( original.latest_balance IS NOT NULL 
                                   OR t.id IS NOT NULL )) x 
-                    ON a.id = x.account_id 
+                    ON a.id = x.account_id
+
 WHERE  a.id = any(?::int[]) 
+
 ORDER  BY a.id, 
           transaction_id, 
-          symbol]]></xml-property>
+          symbol ]]></xml-property>
         </oda-data-set>
         <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="aircraft" id="1561">
             <list-property name="columnHints">
