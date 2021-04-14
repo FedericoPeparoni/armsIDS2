@@ -1127,6 +1127,7 @@ dataSetRow["amount"]&#13;
                 <structure name="toc">
                     <expression name="expressionValue" type="javascript">row["account_name"]</expression>
                 </structure>
+                <property name="repeatHeader">false</property>
                 <property name="hideDetail">false</property>
                 <property name="pageBreakAfter">always-excluding-last</property>
                 <header>
