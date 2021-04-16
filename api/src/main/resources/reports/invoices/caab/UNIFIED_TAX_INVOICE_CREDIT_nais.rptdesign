@@ -4054,7 +4054,7 @@ Gaborone Botswana]]></text-property>
         <table name="Details" id="1312">
             <property name="marginTop">0.208in</property>
             <property name="marginBottom">0.208in</property>
-            <property name="width">7.833333333333333in</property>
+            <property name="width">10.562in</property>
             <property name="dataSet">global</property>
             <list-property name="boundDataColumns">
                 <structure>
@@ -4277,7 +4277,7 @@ Gaborone Botswana]]></text-property>
                             <property name="fontFamily">"Tahoma"</property>
                             <property name="fontWeight">bold</property>
                             <property name="textUnderline">underline</property>
-                            <expression name="valueExpr">"Amount (" + row["invoiceCurrencyCode"] + ")"</expression>
+                            <expression name="valueExpr">"Amount (" + dataSetRow["invoiceCurrencyCode"] + ")"</expression>
                             <property name="contentType">html</property>
                         </text-data>
                     </cell>
