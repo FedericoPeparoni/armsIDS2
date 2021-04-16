@@ -2661,9 +2661,7 @@
                                 <property name="paddingLeft">0pt</property>
                                 <property name="paddingBottom">0pt</property>
                                 <property name="paddingRight">0pt</property>
-                                <text id="40">
-                                    <property name="fontFamily">"Arial"</property>
-                                    <property name="fontSize">9pt</property>
+                                <text id="3356">
                                     <property name="contentType">auto</property>
                                     <text-property name="content"><![CDATA[Av. José Felix Sosa con Av. Luis Roche Urb. Altamira Sur
 Torre Britànica de Seguros Caracas Dtto. Capital
@@ -4101,7 +4099,7 @@ Venezuela]]></text-property>
                         <property name="borderTopWidth">thin</property>
                         <text id="1342">
                             <property name="backgroundColor">#EEEEEE</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">10pt</property>
                             <property name="fontWeight">bold</property>
                             <property name="color">#000000</property>
@@ -4122,7 +4120,7 @@ Venezuela]]></text-property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
                         <label id="1344">
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontWeight">bold</property>
                             <property name="textUnderline">underline</property>
                             <text-property name="text">No.</text-property>
@@ -4142,7 +4140,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">10pt</property>
                             <property name="fontWeight">bold</property>
                             <property name="fontStyle">normal</property>
@@ -4203,7 +4201,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">10pt</property>
                             <property name="fontWeight">bold</property>
                             <property name="fontStyle">normal</property>
@@ -4260,7 +4258,7 @@ Venezuela]]></text-property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
                         <text-data id="3344">
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontWeight">bold</property>
                             <property name="textUnderline">underline</property>
                             <expression name="valueExpr">"Amount (" + dataSetRow["invoiceCurrencyCode"] + ")"</expression>
@@ -4286,7 +4284,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">10pt</property>
                             <property name="fontWeight">normal</property>
                             <property name="fontStyle">normal</property>
@@ -4350,7 +4348,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">10pt</property>
                             <property name="fontWeight">normal</property>
                             <property name="fontStyle">normal</property>
@@ -4409,7 +4407,7 @@ Venezuela]]></text-property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
                         <data id="3346">
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="textAlign">right</property>
                             <property name="resultSetColumn">unifiedTaxAircraftTotal</property>
                         </data>
@@ -4424,7 +4422,7 @@ Venezuela]]></text-property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
                         <data id="3347">
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="textAlign">right</property>
                             <property name="resultSetColumn">unifiedTaxTotalChargesStr</property>
                         </data>
@@ -4449,7 +4447,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">10pt</property>
                             <property name="fontWeight">bold</property>
                             <property name="fontStyle">normal</property>
@@ -4512,7 +4510,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">10pt</property>
                             <property name="fontWeight">bold</property>
                             <property name="fontStyle">normal</property>
@@ -5702,7 +5700,7 @@ Venezuela]]></text-property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
                         <label id="1660">
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <text-property name="text">No.</text-property>
                         </label>
                     </cell>
@@ -5720,7 +5718,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">9pt</property>
                             <property name="fontWeight">normal</property>
                             <property name="fontStyle">normal</property>
@@ -5780,7 +5778,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">9pt</property>
                             <property name="fontWeight">normal</property>
                             <property name="fontStyle">normal</property>
@@ -5840,7 +5838,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">9pt</property>
                             <property name="fontWeight">normal</property>
                             <property name="fontStyle">normal</property>
@@ -5900,7 +5898,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">9pt</property>
                             <property name="fontWeight">normal</property>
                             <property name="fontStyle">normal</property>
@@ -5960,7 +5958,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">9pt</property>
                             <property name="fontWeight">normal</property>
                             <property name="fontStyle">normal</property>
@@ -6020,7 +6018,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">9pt</property>
                             <property name="fontWeight">normal</property>
                             <property name="fontStyle">normal</property>
@@ -6080,7 +6078,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">9pt</property>
                             <property name="fontWeight">normal</property>
                             <property name="fontStyle">normal</property>
@@ -6140,7 +6138,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">9pt</property>
                             <property name="fontWeight">normal</property>
                             <property name="fontStyle">normal</property>
@@ -6200,7 +6198,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">9pt</property>
                             <property name="fontWeight">normal</property>
                             <property name="fontStyle">normal</property>
@@ -6260,7 +6258,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">9pt</property>
                             <property name="fontWeight">normal</property>
                             <property name="fontStyle">normal</property>
@@ -6325,7 +6323,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">9pt</property>
                             <property name="fontWeight">normal</property>
                             <property name="fontStyle">normal</property>
@@ -6386,7 +6384,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">9pt</property>
                             <property name="fontWeight">normal</property>
                             <property name="fontStyle">normal</property>
@@ -6446,7 +6444,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">9pt</property>
                             <property name="fontWeight">normal</property>
                             <property name="fontStyle">normal</property>
@@ -6506,7 +6504,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">9pt</property>
                             <property name="fontWeight">normal</property>
                             <property name="fontStyle">normal</property>
@@ -6566,7 +6564,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">9pt</property>
                             <property name="fontWeight">normal</property>
                             <property name="fontStyle">normal</property>
@@ -6626,7 +6624,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">9pt</property>
                             <property name="fontWeight">normal</property>
                             <property name="fontStyle">normal</property>
@@ -6686,7 +6684,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">9pt</property>
                             <property name="fontWeight">normal</property>
                             <property name="fontStyle">normal</property>
@@ -6746,7 +6744,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">9pt</property>
                             <property name="fontWeight">normal</property>
                             <property name="fontStyle">normal</property>
@@ -6836,6 +6834,7 @@ Venezuela]]></text-property>
                         <property name="canShrink">false</property>
                         <property name="overflow">hidden</property>
                         <data id="3307">
+                            <property name="fontFamily">"Arial"</property>
                             <property name="resultSetColumn">manufactureYearStr</property>
                         </data>
                     </cell>
@@ -6883,6 +6882,7 @@ Venezuela]]></text-property>
                         <property name="canShrink">false</property>
                         <property name="overflow">hidden</property>
                         <label id="3278">
+                            <property name="fontFamily">"Arial"</property>
                             <text-property name="text">unified rate</text-property>
                         </label>
                     </cell>
@@ -6934,7 +6934,7 @@ Venezuela]]></text-property>
                             <property name="backgroundPositionX">0%</property>
                             <property name="backgroundPositionY">0%</property>
                             <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="fontFamily">"Arial"</property>
                             <property name="fontSize">9pt</property>
                             <property name="fontWeight">normal</property>
                             <property name="fontStyle">normal</property>
