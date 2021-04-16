@@ -7613,6 +7613,12 @@ Golden Grove Roda, Piarco]]></text-property>
                     </cell>
                 </row>
                 <row id="1394">
+                    <list-property name="visibility">
+                        <structure>
+                            <property name="format">all</property>
+                            <expression name="valueExpr" type="javascript">true</expression>
+                        </structure>
+                    </list-property>
                     <cell id="1395">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
@@ -10074,7 +10080,7 @@ Golden Grove Roda, Piarco]]></text-property>
     </body>
     <list-property name="images">
         <structure>
-           <property name="name">logo.jpg</property>
+            <property name="name">logo.jpg</property>
             <property name="data">
                 /9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAsJCQcJCQcJCQkJCwkJCQkJCQsJCwsMCwsLDA0QDBEODQ4M
                 EhkSJRodJR0ZHxwpKRYlNzU2GioyPi0pMBk7IRP/2wBDAQcICAsJCxULCxUsHRkdLCwsLCwsLCwsLCws

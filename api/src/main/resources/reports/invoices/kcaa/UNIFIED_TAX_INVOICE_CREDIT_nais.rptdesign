@@ -7591,6 +7591,12 @@ Website: www.kcaa.or.ke]]></text-property>
                     </cell>
                 </row>
                 <row id="1394">
+                    <list-property name="visibility">
+                        <structure>
+                            <property name="format">all</property>
+                            <expression name="valueExpr" type="javascript">true</expression>
+                        </structure>
+                    </list-property>
                     <cell id="1395">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
