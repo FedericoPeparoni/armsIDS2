@@ -3173,7 +3173,7 @@
                                     <property name="paddingTop">10pt</property>
                                     <property name="textAlign">center</property>
                                     <property name="contentType">auto</property>
-                                    <text-property name="content"><![CDATA[LIQUIDACIÓN]]></text-property>
+                                    <text-property name="content"><![CDATA[Tasa Unificada]]></text-property>
                                 </text>
                             </cell>
                         </row>
@@ -3566,7 +3566,7 @@ Website: www.eana.com.ar]]></text-property>
                             <property name="canShrink">false</property>
                             <property name="overflow">hidden</property>
                             <property name="contentType">auto</property>
-                            <text-property name="content"><![CDATA[Numero de Liquidación:]]></text-property>
+                            <text-property name="content"><![CDATA[Numero de Tasa Unificada:]]></text-property>
                         </text>
                     </cell>
                     <cell id="1539">
@@ -3837,7 +3837,7 @@ Website: www.eana.com.ar]]></text-property>
                             <property name="canShrink">false</property>
                             <property name="overflow">hidden</property>
                             <property name="contentType">auto</property>
-                            <text-property name="content"><![CDATA[Fecha Liquidación:]]></text-property>
+                            <text-property name="content"><![CDATA[Fecha Tasa Unificada:]]></text-property>
                         </text>
                     </cell>
                     <cell id="1545">
@@ -4109,7 +4109,7 @@ Website: www.eana.com.ar]]></text-property>
                             <property name="canShrink">false</property>
                             <property name="overflow">hidden</property>
                             <property name="contentType">auto</property>
-                            <text-property name="content"><![CDATA[Período Liquidación:]]></text-property>
+                            <text-property name="content"><![CDATA[Período Tasa Unificada:]]></text-property>
                         </text>
                     </cell>
                     <cell id="1551">
@@ -4581,7 +4581,7 @@ Website: www.eana.com.ar]]></text-property>
                 </row>
             </detail>
         </table>
-        <table id="1312">
+        <table name="Details" id="1312">
             <property name="marginTop">0.208in</property>
             <property name="marginBottom">0.208in</property>
             <property name="width">7.833333333333333in</property>
@@ -4817,7 +4817,7 @@ num.toString();</expression>
                             <property name="color">white</property>
                             <property name="textUnderline">none</property>
                             <property name="contentType">auto</property>
-                            <text-property name="content"><![CDATA[Detalle de Liquidación]]></text-property>
+                            <text-property name="content"><![CDATA[Detalle de Tasa Unificada]]></text-property>
                         </text>
                     </cell>
                 </row>
@@ -5560,7 +5560,7 @@ num.toString();</expression>
                             <property name="canShrink">false</property>
                             <property name="overflow">hidden</property>
                             <property name="contentType">auto</property>
-                            <text-property name="content"><![CDATA[Resumen de Liquidación]]></text-property>
+                            <text-property name="content"><![CDATA[Resumen de Tasa Unificada]]></text-property>
                         </text>
                     </cell>
                 </row>
@@ -6623,7 +6623,7 @@ USD/ARS]]></text-property>
             </row>
         </grid>
         <label id="1776"/>
-        <table id="1587">
+        <table name="Aircraft" id="1587">
             <property name="backgroundPositionX">center</property>
             <property name="marginTop">auto</property>
             <property name="marginLeft">auto</property>
