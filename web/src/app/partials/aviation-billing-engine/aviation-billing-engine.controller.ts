@@ -23,6 +23,7 @@ import { SysConfigConstants } from '../system-configuration/system-configuration
 // classes
 import { Calculation } from '../recalculate-reconcile/calculation';
 import { IRestangularResponse } from '../../angular-ids-project/src/helpers/interfaces/restangularError.interface';
+import {IStartEndDates} from "../../angular-ids-project/src/components/dateRange/dateRange.interface";
 
 
 export class AviationBillingEngineController extends CRUDFormControllerUserService {
@@ -106,6 +107,9 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
     // listeners
     $scope.$watchGroup(['dateObject', 'editable.end_date', 'editable.billing_interval', 'editable.iata_status'], () =>
       $scope.isBillingPeriodValid = this.validateBillingPeriod());
+
+
+    //$scope.control_open: IStartEndDates;
   }
 
   private
@@ -320,12 +324,27 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
       this.$scope.editable.processStartDate = this.firstDateOfMonth();
       this.$scope.editable.processEndDate = this.lastDateOfYear();
       this.$scope.editable.endDateInclusive = this.lastDateOfYear();
+    }/*else if (this.$scope.editable.billing_interval === 'WEEKLY') {
+      console.log( 'WEEKLY')
+      this.$scope.editable.processStartDate = this.firstDateOfMonth();
+      this.$scope.editable.processEndDate = this.lastDateOfYear();
+      this.$scope.editable.endDateInclusive = this.lastDateOfYear();
+
+    }*/else if (this.$scope.editable.billing_interval === 'OPEN') {
+      console.log( 'OPEN')
+
+      this.$scope.control.start.date
+      this.$scope.control.end.date
+
+      //console.log(new Date(this.$scope.control.start.date).toISOString())
+      //console.log(new Date(this.$scope.control.end.date).toISOString())
+      this.$scope.editable.processStartDate = new Date(this.$scope.control.start.date).toISOString();
+      this.$scope.editable.processEndDate = new Date(this.$scope.control.end.date).toISOString();
+      this.$scope.editable.endDateInclusive = new Date(this.$scope.control.end.date).toISOString();
     }
 
     else {
-      this.$scope.editable.processStartDate = new Date(this.$scope.editable.start_date).toISOString();
-      this.$scope.editable.processEndDate = new Date(this.$scope.editable.end_date).toISOString();
-      this.$scope.editable.endDateInclusive = new Date(this.$scope.editable.end_date).toISOString();
+
     }
   }
 
@@ -486,7 +505,9 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
       }
       else if (this.$scope.editable.billing_interval === 'PARTIALLY') {
         this.setPartiallyDates();
-      }
+      }/*else if (this.$scope.editable.billing_interval === 'OPEN') {
+        this.setOpenDates();
+      }*/
       else {
         this.setWeeklyDefaultDate();
       }
