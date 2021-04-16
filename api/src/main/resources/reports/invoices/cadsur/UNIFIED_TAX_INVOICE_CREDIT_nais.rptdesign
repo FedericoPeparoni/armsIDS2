@@ -6573,12 +6573,12 @@ Paramaribo - Suriname - South America]]></text-property>
                         <text id="1342">
                             <property name="backgroundColor">#C0C0C0</property>
                             <property name="fontFamily">"Tahoma"</property>
-                            <property name="fontSize">11pt</property>
+                            <property name="fontSize">10pt</property>
                             <property name="fontWeight">bold</property>
                             <property name="color">#000000</property>
                             <property name="textUnderline">none</property>
                             <property name="contentType">auto</property>
-                            <text-property name="content"><![CDATA[Details Unified Tax]]></text-property>
+                            <text-property name="content"><![CDATA[Unified Tax Details]]></text-property>
                         </text>
                     </cell>
                 </row>
@@ -6657,7 +6657,7 @@ Paramaribo - Suriname - South America]]></text-property>
                             <property name="showIfBlank">false</property>
                             <property name="canShrink">false</property>
                             <property name="overflow">hidden</property>
-                            <text-property name="text">Tipo de Tasa</text-property>
+                            <text-property name="text">Tax Type</text-property>
                         </label>
                     </cell>
                     <cell id="1316">
@@ -6718,7 +6718,7 @@ Paramaribo - Suriname - South America]]></text-property>
                             <property name="showIfBlank">false</property>
                             <property name="canShrink">false</property>
                             <property name="overflow">hidden</property>
-                            <text-property name="text">Cant. Operaciones</text-property>
+                            <text-property name="text">Operations Quantity</text-property>
                         </label>
                     </cell>
                     <cell id="1317">
@@ -6879,6 +6879,11 @@ Paramaribo - Suriname - South America]]></text-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
+                        <data id="3346">
+                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">unifiedTaxAircraftTotal</property>
+                        </data>
                     </cell>
                     <cell id="3340">
                         <property name="borderBottomStyle">solid</property>
@@ -6889,6 +6894,11 @@ Paramaribo - Suriname - South America]]></text-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
+                        <data id="3347">
+                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">unifiedTaxTotalChargesStr</property>
+                        </data>
                     </cell>
                 </row>
             </detail>
