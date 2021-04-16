@@ -324,27 +324,16 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
       this.$scope.editable.processStartDate = this.firstDateOfMonth();
       this.$scope.editable.processEndDate = this.lastDateOfYear();
       this.$scope.editable.endDateInclusive = this.lastDateOfYear();
-    }/*else if (this.$scope.editable.billing_interval === 'WEEKLY') {
-      console.log( 'WEEKLY')
-      this.$scope.editable.processStartDate = this.firstDateOfMonth();
-      this.$scope.editable.processEndDate = this.lastDateOfYear();
-      this.$scope.editable.endDateInclusive = this.lastDateOfYear();
-
-    }*/else if (this.$scope.editable.billing_interval === 'OPEN') {
-      console.log( 'OPEN')
-
-      this.$scope.control.start.date
-      this.$scope.control.end.date
-
-      //console.log(new Date(this.$scope.control.start.date).toISOString())
-      //console.log(new Date(this.$scope.control.end.date).toISOString())
+    }
+    else if (this.$scope.editable.billing_interval === 'OPEN') {
       this.$scope.editable.processStartDate = new Date(this.$scope.control.start.date).toISOString();
       this.$scope.editable.processEndDate = new Date(this.$scope.control.end.date).toISOString();
       this.$scope.editable.endDateInclusive = new Date(this.$scope.control.end.date).toISOString();
     }
-
     else {
-
+      this.$scope.editable.processStartDate = new Date(this.$scope.editable.start_date).toISOString();
+      this.$scope.editable.processEndDate = new Date(this.$scope.editable.end_date).toISOString();
+      this.$scope.editable.endDateInclusive = new Date(this.$scope.editable.end_date).toISOString();
     }
   }
 
