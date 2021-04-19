@@ -7426,7 +7426,7 @@ select add_languages_by_json('[
 {
     "code": "es",
     "token": "Agricultural Discount (%)",
-    "val": "Descuento Agrícola (%)",
+    "val": "Descuento para Agricultura (%)",
     "part": "frontend",
     "created_by": "system"
   },
@@ -7442,7 +7442,7 @@ select add_languages_by_json('[
 {
     "code": "es",
     "token": "Flight School Discount (%)",
-    "val": "Descuento Escuela de Vuelo (%)",
+    "val": "Descuento para Entrenamiento (%)",
     "part": "frontend",
     "created_by": "system"
   },

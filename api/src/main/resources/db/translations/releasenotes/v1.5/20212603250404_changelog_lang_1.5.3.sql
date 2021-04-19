@@ -7414,12 +7414,6 @@ select add_languages_by_json('[
     "part": "frontend",
     "created_by": "system"
   }
-	
-
-
-
-
-
 
 
 ]');

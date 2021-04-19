@@ -29,8 +29,8 @@
                                 ng-model="editable.billing_interval" ng-change="setMonthlyDates()" required>
                                 <option ng-if="editable.account_type != 8" translate value="WEEKLY">Weekly</option>
                                 <option ng-if="editable.account_type != 8" translate value="MONTHLY">Monthly</option>
-                                <option ng-if="editable.account_type === 8" translate value="ANNUALLY">Annually</option>
-                                <option ng-if="editable.account_type === 8" translate value="PARTIALLY">Partially
+                                <option ng-if="editable.account_type === 8" translate value="ANNUALLY">Annual</option>
+                                <option ng-if="editable.account_type === 8" translate value="PARTIALLY">Partial
                                 </option>
                                 <option ng-if="editable.account_type != 8" translate value="OPEN">Open</option>
                             </select>
