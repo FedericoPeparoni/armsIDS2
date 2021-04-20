@@ -19,7 +19,7 @@ public interface UnifiedTaxRepository extends ABMSRepository<UnifiedTax, Integer
     UnifiedTax findByValidityAndManifactureYear(@Param("validityId") Integer validityId,
             @Param("yearManufacture") Timestamp yearManufacture);
 
-    @Query(nativeQuery = true, value = "SELECT u.* FROM abms.unified_tax u WHERE u.validity_id = :validityId Order by u.from_manufacture_year Asc")
+    @Query(nativeQuery = true, value = "SELECT u.* FROM abms.unified_tax u WHERE u.validity_id = :validityId Order by u.from_manufacture_year Desc")
     List<UnifiedTax> findAllByValidityId(@Param("validityId") Integer validityId);
 
     @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM abms.unified_tax u "
