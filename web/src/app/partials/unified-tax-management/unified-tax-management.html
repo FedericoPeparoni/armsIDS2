@@ -229,7 +229,7 @@
                                 <label for="chargeFormula">
                                     {{ 'Applicable Unified Tax *' | translate }}
                                 </label>
-                                <input id="chargeFormula" name="chargeFormula" class="form-control" ng-model="editableTax.charge_formula"
+                                <input id="chargeFormula" name="chargeFormula" class="form-control" ng-model="editableTax.charge_formula" ng-change="onChangeFormula()"
                                     required />
                             </div>
                         </div>
