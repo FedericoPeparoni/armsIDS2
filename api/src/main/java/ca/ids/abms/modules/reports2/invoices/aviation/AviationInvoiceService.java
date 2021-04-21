@@ -286,7 +286,7 @@ public class AviationInvoiceService {
         }
 
         if (counter != null) {
-            counter.setMessage("Validating the flights movements list");
+            counter.setMessage(Translation.getLangByToken(""));
             counter.update();
         }
 
@@ -320,7 +320,7 @@ public class AviationInvoiceService {
             String accountName = account.getName();
             counter.setAccountName(accountName);
 
-            counter.setMessage("Looking for billable unified tax aircraft");
+            counter.setMessage(Translation.getLangByToken("Looking for billable unified tax aircraft"));
             counter.update();
         }
 
