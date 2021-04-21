@@ -17,6 +17,7 @@ import ca.ids.abms.modules.common.enumerators.InvoiceStateType;
 import ca.ids.abms.modules.flightmovements.FlightMovement;
 import ca.ids.abms.modules.flightmovements.FlightMovementRepository;
 import ca.ids.abms.modules.flightmovements.FlightMovementRepositoryUtility;
+import ca.ids.abms.modules.flightmovements.FlightMovementService;
 import ca.ids.abms.modules.flightmovements.category.FlightmovementCategory;
 import ca.ids.abms.modules.flightmovements.category.FlightmovementCategoryRepository;
 import ca.ids.abms.modules.flightmovements.enumerate.FlightMovementStatus;
@@ -72,6 +73,7 @@ public class AviationInvoiceService {
     private final BillingLedgerService billingLedgerService;
     private final UnifiedTaxService unifiedTaxService;
     private final AircraftRegistrationService aircraftRegistrationService;
+    private final FlightMovementService flightMovementService;
     private final AviationInvoiceDocumentCreator aviationInvoiceDocumentCreator;
     private final InvoiceSequenceNumberHelper invoiceSequenceNumberHelper;
     private final TransactionService transactionReceiptService;
@@ -92,6 +94,7 @@ public class AviationInvoiceService {
                                   final BillingLedgerService billingLedgerService,
                                   final UnifiedTaxService unifiedTaxService,
                                   final AircraftRegistrationService aircraftRegistrationService,
+                                  final FlightMovementService flightMovementService,
                                   final AviationInvoiceDocumentCreator aviationInvoiceDocumentCreator,
                                   final InvoiceSequenceNumberHelper invoiceSequenceNumberHelper,
                                   final TransactionService transactionReceiptService,
@@ -110,6 +113,7 @@ public class AviationInvoiceService {
         this.billingLedgerService = billingLedgerService;
         this.unifiedTaxService = unifiedTaxService;
         this.aircraftRegistrationService = aircraftRegistrationService;
+        this.flightMovementService = flightMovementService;
         this.aviationInvoiceDocumentCreator = aviationInvoiceDocumentCreator;
         this.invoiceSequenceNumberHelper = invoiceSequenceNumberHelper;
         this.transactionReceiptService = transactionReceiptService;
@@ -187,6 +191,7 @@ public class AviationInvoiceService {
             billingLedgerService,
             unifiedTaxService,
             aircraftRegistrationService,
+            flightMovementService,
             aviationInvoiceDocumentCreator,
             transactionReceiptService,
             invoiceSequenceNumberHelper,
@@ -509,6 +514,7 @@ public class AviationInvoiceService {
             billingLedgerService,
             unifiedTaxService,
             aircraftRegistrationService,
+            flightMovementService,
             aviationInvoiceDocumentCreator,
             transactionReceiptService,
             invoiceSequenceNumberHelper,
@@ -551,6 +557,7 @@ public class AviationInvoiceService {
                 billingLedgerService,
                 unifiedTaxService,
                 aircraftRegistrationService,
+                flightMovementService,
                 aviationInvoiceDocumentCreator,
                 transactionReceiptService,
                 invoiceSequenceNumberHelper,

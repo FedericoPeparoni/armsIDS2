@@ -259,31 +259,50 @@ public class FlightMovementBuilder {
 
         // resolve billing center from dep and dest aerodromes based on movement type
         this.resolveBillingCenter(flightMovement, dep, dest);
-        
-        flightMovement = managementIncomingFlightUnifiedTax(flightMovement);
 
+        // manage the FlightMovementStatus if the flight is "unified tax"
+        setFlightStatusIfUnifiedTaxFlight(flightMovement);
+        
         return flightMovement;
     }
+        
+    private boolean checkUnifiedTaxInvoiced(AircraftRegistration ar, LocalDateTime flightDate) {
+    	LocalDateTime coaIssueDate = ar.getCoaIssueDate();
+    	LocalDateTime coaExpiryDate = ar.getCoaExpiryDate();
+    	if (coaIssueDate == null || coaExpiryDate == null)
+    		return false;
+    	
+    	if (flightDate.isBefore(coaIssueDate) || flightDate.isAfter(coaExpiryDate))
+    		return false;
+    	
+    	return true;
+    }
     
-    private FlightMovement managementIncomingFlightUnifiedTax(FlightMovement flightMovement) {
-        AircraftRegistration ar = null;
-        Double aMtow = null;
-        String item18RegNum = checkAircraftRegistrationNumber(flightMovement);
-        
-        Integer maxWeight = systemConfigurationService.getIntOrZero(SystemConfigurationItemName.SMALL_AIRCRAFT_MAX_WEIGHT);
-        
+    private void setFlightStatusIfUnifiedTaxFlight(FlightMovement flightMovement) {
+        // get aircraft registration number from item18RegNum
+    	String item18RegNum = flightMovementBuilderUtility.checkAircraftRegistrationNumber(flightMovement);
+                
         if (item18RegNum != null) {
-            ar = aircraftRegistrationService.findAircraftRegistrationByRegNumber(item18RegNum);
+
+            Double aMtow = null;
+
+            AircraftRegistration ar = aircraftRegistrationService.findAircraftRegistrationByRegNumber(item18RegNum);
             if (ar != null) {
-                aMtow = ar.getMtowOverride()* ReportHelper.TO_KG;
+            	// SMALL_AIRCRAFT_MAX_WEIGHT is expressed in KG
+                Integer maxWeight = systemConfigurationService.getIntOrZero(SystemConfigurationItemName.SMALL_AIRCRAFT_MAX_WEIGHT);
+                
+                // MTOW stored in small tones in the DB ==> need to convert it to KG
+            	aMtow = ar.getMtowOverride()* ReportHelper.TO_KG;
+
                 if (aMtow <= maxWeight) {
-                    if ((ar.getIsLocal())||(flightMovement.getFlightCategoryNationality().equals(FlightmovementCategoryNationality.NATIONAL))) {
-                        if ((ar.getCoaIssueDate() != null) && (ar.getCoaExpiryDate() != null) && 
-                            ((flightMovement.getDateOfFlight().isAfter(ar.getCoaIssueDate())) &&
-                             (flightMovement.getDateOfFlight().isBefore(ar.getCoaExpiryDate())))||
-                            ((flightMovement.getDateOfFlight().isEqual(ar.getCoaIssueDate()))||
-                             (flightMovement.getDateOfFlight().isEqual(ar.getCoaExpiryDate())))) {
-                            // Unified Tax è pagata per l'anno in corso
+                	
+                	boolean isDomesticOrLocal = (ar.getIsLocal()) || 
+                		(flightMovement.getFlightCategoryNationality().equals(FlightmovementCategoryNationality.NATIONAL));
+                    
+                	if (isDomesticOrLocal) {
+                		boolean invoiced = checkUnifiedTaxInvoiced(ar, flightMovement.getDateOfFlight());
+                		if (invoiced) {        
+                        	// Unified Tax è pagata per l'anno in corso
                             flightMovement.setStatus(FlightMovementStatus.INVOICED);
                             flightMovement.setFlightNotes("");
                         } else {
@@ -294,9 +313,7 @@ public class FlightMovementBuilder {
                     }
                 }
             }
-        }
-        
-        return flightMovement;
+        }        
     }
 
     private void checkFlightRules(FlightMovement aFlightMovement) {
@@ -332,16 +349,9 @@ public class FlightMovementBuilder {
      */
     public FlightMovement calculateFlightMovementFromFlightObject(FlightMovement flightMovement) throws FlightMovementBuilderException {
 
-        AircraftRegistration ar = null;
-        Double aMtow = null;
-        List<AircraftRegistration> arList = null;
-        String item18RegNum = null;
-        
-        Integer maxWeight = systemConfigurationService.getIntOrZero(SystemConfigurationItemName.SMALL_AIRCRAFT_MAX_WEIGHT);
-       
         if(flightMovement != null) {
-            
-            flightMovement = managementIncomingFlightUnifiedTax(flightMovement);
+                        
+            setFlightStatusIfUnifiedTaxFlight(flightMovement);
             
             SegmentType segmentType = SegmentTypeMap
                     .mapFlightMovementSourceToSegmentType(FlightMovementSource.NETWORK);
@@ -1193,7 +1203,7 @@ public class FlightMovementBuilder {
 
             // check aircraft registration number
             if (checkRegNum) {
-                String item18RegNum = checkAircraftRegistrationNumber(flightMovement);
+                String item18RegNum = flightMovementBuilderUtility.checkAircraftRegistrationNumber(flightMovement);
                 flightMovement.setItem18RegNum(item18RegNum);
             }
 
@@ -1825,18 +1835,6 @@ public class FlightMovementBuilder {
                 flightMovement.setItem18AircraftType(aircraftType);
             }
         }
-    }
-
-    private String checkAircraftRegistrationNumber(FlightMovement flightMovement) {
-        String item18RegNum = flightMovement.getItem18RegNum();
-        if (item18RegNum == null) {
-            String flightId = flightMovement.getFlightId();
-            if (flightMovementBuilderUtility.checkAircraftRegistration(flightId, flightMovement.getDateOfFlight()) ||
-                    flightMovementBuilderUtility.checkAircraftRegistrationNumberPrefix(flightId)) {
-                item18RegNum = flightId;
-            }
-        }
-        return item18RegNum;
     }
 
     private void catchAerodromeErrors(FlightMovement flightMovement, FlightMovementBuilderException fmbe)
