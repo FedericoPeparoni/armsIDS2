@@ -88,13 +88,13 @@ public class UnifiedTaxValidityService extends AbmsCrudService<UnifiedTaxValidit
 		List<UnifiedTaxValidity>taxManagementStart2 = unifiedTaxValidityRepository.findAll();
     	
 		for (UnifiedTaxValidity s : taxManagementStart2) {
-			if (s.getFromValidityYear() == null) {
+			if (s.getFromValidityYear() != null) {
 				taxManagementStart1.add(s);
 			}
 		}
 		
 		for (UnifiedTaxValidity s : taxManagementStart2) {
-			if (s.getFromValidityYear() != null) {
+			if (s.getFromValidityYear() == null) {
 				taxManagementStart1.add(s);
 			}
 		}
