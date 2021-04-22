@@ -755,11 +755,23 @@ public class FlightMovementBuilderUtility {
         }
         return ret;
     }
-
+    
     public boolean checkAircraftRegistrationNumberPrefix(String registrationNumber) {
         return flightMovementAircraftService.startsWithAircraftRegistrationPrefix(registrationNumber);
     }
 
+    public String checkAircraftRegistrationNumber(FlightMovement flightMovement) {
+        String item18RegNum = flightMovement.getItem18RegNum();
+        if (item18RegNum == null) {
+            String flightId = flightMovement.getFlightId();
+            if (checkAircraftRegistration(flightId, flightMovement.getDateOfFlight()) ||
+                    checkAircraftRegistrationNumberPrefix(flightId)) {
+                item18RegNum = flightId;
+            }
+        }
+        return item18RegNum;
+    }
+    
     public List<RouteSegment> mergeTheSegmentsList (final List<RouteSegment> existingSegmentsList,
                                                      final List<RouteSegmentVO> newSegments, final SegmentType type) {
 

@@ -13,8 +13,10 @@ import ca.ids.abms.modules.common.enumerators.InvoiceStateType;
 import ca.ids.abms.modules.common.enumerators.InvoiceType;
 import ca.ids.abms.modules.currencies.Currency;
 import ca.ids.abms.modules.flightmovements.FlightMovement;
+import ca.ids.abms.modules.flightmovements.FlightMovementService;
 import ca.ids.abms.modules.flightmovements.category.FlightmovementCategory;
 import ca.ids.abms.modules.flightmovements.enumerate.CostFormulaVar;
+import ca.ids.abms.modules.flightmovements.enumerate.FlightMovementStatus;
 import ca.ids.abms.modules.flightmovements.enumerate.FlightMovementType;
 import ca.ids.abms.modules.flightmovementsbuilder.utility.Item18Parser;
 import ca.ids.abms.modules.flightmovementsbuilder.vo.DeltaFlightVO;
@@ -67,6 +69,7 @@ public class AviationInvoiceCreator {
     private final BillingLedgerService billingLedgerService;
     private final UnifiedTaxService unifiedTaxService;
     private final AircraftRegistrationService aircraftRegistrationService;
+    private final FlightMovementService flightMovementService;
     private final AviationInvoiceDocumentCreator aviationInvoiceDocumentCreator;
     private final TransactionService transactionService;
     private final LocalDateTime ldtNow;
@@ -109,6 +112,7 @@ public class AviationInvoiceCreator {
                            final BillingLedgerService billingLedgerService,
                            final UnifiedTaxService unifiedTaxService,
                            final AircraftRegistrationService aircraftRegistrationService,
+                           final FlightMovementService flightMovementService,
                            final AviationInvoiceDocumentCreator aviationInvoiceDocumentCreator,
                            final TransactionService transactionService,
                            final InvoiceSequenceNumberHelper invoiceSequenceNumberHelper,
@@ -132,6 +136,7 @@ public class AviationInvoiceCreator {
         this.billingLedgerService = billingLedgerService;
         this.unifiedTaxService = unifiedTaxService;
         this.aircraftRegistrationService = aircraftRegistrationService;
+        this.flightMovementService = flightMovementService;
         this.aviationInvoiceDocumentCreator = aviationInvoiceDocumentCreator;
         this.transactionService = transactionService;
         this.ldtNow = ldtNow;
@@ -1631,7 +1636,8 @@ if(accountFlights!= null){
         }
 
         public AircraftInfo processAircraftRegistration(final AircraftRegistration ar) {
-            //Convert in mtow KG
+            
+        	//Convert in mtow KG
             double mtow = ar.getMtowOverride();
             if (mtowUnitOfMeasure.equalsIgnoreCase("KG")) {
                 mtow = mtow * ReportHelper.TO_KG;
@@ -1674,8 +1680,6 @@ if(accountFlights!= null){
                 //reportHelper.convertMTOWinTons(Double mtow)
                 //String unitOfMeasure = getMTOWUnitOfMeasure()
 
-
-
                 //aircraftInfo.unifiedTaxCharges = mtow * taxAmount;
 
                 aircraftInfo.unifiedTaxCharges = taxAmount;
@@ -1683,7 +1687,7 @@ if(accountFlights!= null){
                 //
                 if(billingInterval.equals(BillingInterval.PARTIALLY)){
                     Integer monthsLeft = 0;
-                    monthsLeft = 12 - startDate.getMonthValue() +1; //+1 perchè deve essere incluso il mese start Date;
+                    monthsLeft = 12 - startDate.getMonthValue() + 1; //+1 perchè deve essere incluso il mese start Date;
                     aircraftInfo.unifiedTaxCharges = (aircraftInfo.unifiedTaxCharges / 12.0) * monthsLeft;
                 }
 
@@ -1707,8 +1711,6 @@ if(accountFlights!= null){
                     aircraftInfo.discountPercentage = 0d;
                 }
 
-
-
                 countAircraftRegistration.incrementAndGet();
 
                 aircraftInfo.unifiedTaxCharges = zeroToNull(aircraftRegisterCurrencyConverter.convertCurrency(aircraftInfo.unifiedTaxCharges, anspCurrency, account.getInvoiceCurrency()));
@@ -1716,6 +1718,18 @@ if(accountFlights!= null){
                 if(previewMode == false){
                     aircraftRegistrationService.updateAircraftRegistrationCOAByIdAndDates(
                         ar.getId(), startDate, endDateInclusive);
+                    
+                    List<FlightMovement> flightMovements = flightMovementService.findAllFlightMovementByAccountAndDate(account.getId(), "PENDING", startDate, endDateInclusive);
+                    if (flightMovements != null) {
+                    	for (final FlightMovement fm: flightMovements) {
+                    	
+                    		if (flightMovementService.checkIfUnifiedTaxFlight(fm)) {
+                                fm.setStatus(FlightMovementStatus.INVOICED);
+                                fm.setFlightNotes("");
+                    		}
+                    	}
+                    }
+                    
                 }
 
             }

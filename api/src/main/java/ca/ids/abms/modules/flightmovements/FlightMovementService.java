@@ -6,6 +6,8 @@ import ca.ids.abms.config.db.JoinFilter;
 import ca.ids.abms.config.error.*;
 import ca.ids.abms.modules.accounts.Account;
 import ca.ids.abms.modules.aerodromeoperationalhours.AerodromeOperationalHoursService;
+import ca.ids.abms.modules.aircraft.AircraftRegistration;
+import ca.ids.abms.modules.aircraft.AircraftRegistrationService;
 import ca.ids.abms.modules.aircraft.AircraftType;
 import ca.ids.abms.modules.aircraft.AircraftTypeService;
 import ca.ids.abms.modules.atcmovements.AtcMovementLog;
@@ -159,6 +161,7 @@ public class FlightMovementService {
     private final WhitelistingUtils whitelistingUtils;
     private final PluginService pluginService;
     private HttpClient httpclient = null;
+    private final AircraftRegistrationService aircraftRegistrationService;    
 
     @SuppressWarnings("squid:S00107")
     public FlightMovementService(final FlightMovementRepository flightMovementRepository,
@@ -175,7 +178,8 @@ public class FlightMovementService {
                                  final CurrencyUtils currencyUtils,
                                  final TransactionService transactionService,
                                  final WhitelistingUtils whitelistingUtils,
-                                 final PluginService pluginService) {
+                                 final PluginService pluginService,
+                                 final AircraftRegistrationService aircraftRegistrationService) {
         this.flightMovementRepository = flightMovementRepository;
         this.flightMovementAerodromeService = flightMovementAerodromeService;
         this.aircraftTypeService = aircraftTypeService;
@@ -191,6 +195,7 @@ public class FlightMovementService {
         this.transactionService = transactionService;
         this.whitelistingUtils = whitelistingUtils;
         this.pluginService = pluginService;
+        this.aircraftRegistrationService = aircraftRegistrationService;        
     }
 
     public SystemConfigurationService getSystemConfigurationService() {
@@ -2881,4 +2886,37 @@ public class FlightMovementService {
                 statusLine.getStatusCode(), statusLine.getReasonPhrase());
         }
     }
+    
+    public boolean checkIfUnifiedTaxFlight(FlightMovement flightMovement) {
+    	
+    	boolean isUnifiedTaxAircraft = false;
+
+    	String item18RegNum = flightMovementBuilderUtility.checkAircraftRegistrationNumber(flightMovement);
+        
+        if (item18RegNum != null) {
+
+            Double aMtow = null;
+
+            AircraftRegistration ar = aircraftRegistrationService.findAircraftRegistrationByRegNumber(item18RegNum);
+            if (ar != null) {
+            	// SMALL_AIRCRAFT_MAX_WEIGHT is expressed in KG
+                Integer maxWeight = systemConfigurationService.getIntOrZero(SystemConfigurationItemName.SMALL_AIRCRAFT_MAX_WEIGHT);
+                
+                // MTOW stored in small tones in the DB ==> need to convert it to KG
+            	aMtow = ar.getMtowOverride()* ReportHelper.TO_KG;
+
+                if (aMtow <= maxWeight) {
+                	
+                	boolean isDomesticOrLocal = (ar.getIsLocal()) || 
+                		(flightMovement.getFlightCategoryNationality().equals(FlightmovementCategoryNationality.NATIONAL));
+                    
+                	if (isDomesticOrLocal) {
+                		isUnifiedTaxAircraft = true;
+                	}
+                }
+            }
+        }
+        return isUnifiedTaxAircraft;
+    }
+    
 }
