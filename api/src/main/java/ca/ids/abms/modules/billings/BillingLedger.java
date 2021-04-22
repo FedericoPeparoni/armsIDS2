@@ -178,6 +178,10 @@ public class BillingLedger extends VersionedAuditedEntity {
     @Column(name = "invoice_seq_number_type")
     private String invoiceSequenceNumberType;
 
+    @Column(name = "invoice_reference_number")
+    @SearchableText
+    private String invoiceReferenceNumber;
+   
     /**
      * Used for account credit when a billing ledger is created but not saved during invoice preview
      */
@@ -272,6 +276,10 @@ public class BillingLedger extends VersionedAuditedEntity {
         return invoicePeriodOrDate;
     }
 
+    public String getInvoiceReferenceNumber() {
+        return invoiceReferenceNumber;
+    }
+    
     public String getInvoiceStateType() {
         return invoiceStateType;
     }
@@ -380,6 +388,10 @@ public class BillingLedger extends VersionedAuditedEntity {
         invoicePeriodOrDate = aInvoicePeriodOrDate;
     }
 
+    public void setInvoiceReferenceNumber(String invoiceReferenceNumber) {
+        this.invoiceReferenceNumber = invoiceReferenceNumber;
+    }
+    
     public void setInvoiceStateType(String aInvoiceStateType) {
         invoiceStateType = aInvoiceStateType;
     }

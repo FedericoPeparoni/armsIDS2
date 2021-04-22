@@ -614,10 +614,17 @@ public class TransactionReceiptCreator {
         transaction.setReceiptDocumentType(null);
         transaction.setReceiptDocumentFileName(null);
 
+        BillingLedger billingLedgerToAdjust = null;
+        if (CollectionUtils.isNotEmpty(transaction.getBillingLedgerIds())) {
+            billingLedgerToAdjust = reportHelper.getBillingLedger(transaction.getBillingLedgerIds().get(0));
+        }
+        if (billingLedgerToAdjust != null)
+        	bl.setInvoiceReferenceNumber(billingLedgerToAdjust.getInvoiceNumber());
+
         final BillingLedger billingLedger = billingLedgerService.createBillingLedgerAndTransaction(bl,true,false);
 
         List<Integer> invoicesId = transaction.getBillingLedgerIds();
-        if (invoicesId == null) {
+        if (invoicesId == null){
             invoicesId = new ArrayList<>();
             transaction.setBillingLedgerIds(invoicesId);
         }
