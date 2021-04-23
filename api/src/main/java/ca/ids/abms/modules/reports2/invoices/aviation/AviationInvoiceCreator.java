@@ -64,7 +64,8 @@ import static ca.ids.abms.util.MiscUtils.nvl;
 public class AviationInvoiceCreator {
     private static final Logger LOG = LoggerFactory.getLogger(AviationInvoiceCreator.class);
     private static final String TWO_DECIMALS = "%,.2f";
-
+    private static final String THREE_DECIMALS = "%,.3f";
+    
     private final ReportHelper reportHelper;
     private final BillingLedgerService billingLedgerService;
     private final UnifiedTaxService unifiedTaxService;
@@ -411,32 +412,32 @@ public class AviationInvoiceCreator {
         invoiceData.invoiceGenerationAllowed = chargesIncluded != ONLY_PAX;
 
         //FIXME Helen said that FlightMovementType will not be used in the future
-if(accountFlights!= null){
-    for (final FlightMovement flight : accountFlights) {
-        if (counter != null) {
-            counter.increaseFlightNumber();
-            counter.update();
-        }
-        if (chargesIncluded != ONLY_PAX
-            || flight.getMovementType() == FlightMovementType.DOMESTIC
-            || flight.getMovementType() == FlightMovementType.REG_DEPARTURE
-            || flight.getMovementType() == FlightMovementType.INT_DEPARTURE) {
-
-
-            final AviationInvoiceData.FlightInfo flightInfo = processFlight(flight, account, chargesIncluded, aviationInvoiceCurrency,
-                airNavigationChargesCurrency, domesticPassengerChargesCurrency, internationalPassengerChargesCurrency, invoicePermits);
-            invoiceData.flightInfoList.add(flightInfo);
-
-            /* The passenger invoice should be generated only when the invoice includes at least a domestic or departure
-             * flight with passenger counters not null(previously calculated through the "invoicePaxAllowed" boolean.
-             * That rule is not applicable when the invoice to generate contains only/even other charges.
-             */
-            if(!invoiceData.invoiceGenerationAllowed) {
-                invoiceData.invoiceGenerationAllowed |=(chargesIncluded == ONLY_PAX) && flightInfo.invoicePaxAllowed;
-            }
-        }
-    }
-}
+		if(accountFlights!= null){
+		    for (final FlightMovement flight : accountFlights) {
+		        if (counter != null) {
+		            counter.increaseFlightNumber();
+		            counter.update();
+		        }
+		        if (chargesIncluded != ONLY_PAX
+		            || flight.getMovementType() == FlightMovementType.DOMESTIC
+		            || flight.getMovementType() == FlightMovementType.REG_DEPARTURE
+		            || flight.getMovementType() == FlightMovementType.INT_DEPARTURE) {
+		
+		
+		            final AviationInvoiceData.FlightInfo flightInfo = processFlight(flight, account, chargesIncluded, aviationInvoiceCurrency,
+		                airNavigationChargesCurrency, domesticPassengerChargesCurrency, internationalPassengerChargesCurrency, invoicePermits);
+		            invoiceData.flightInfoList.add(flightInfo);
+		
+		            /* The passenger invoice should be generated only when the invoice includes at least a domestic or departure
+		             * flight with passenger counters not null(previously calculated through the "invoicePaxAllowed" boolean.
+		             * That rule is not applicable when the invoice to generate contains only/even other charges.
+		             */
+		            if(!invoiceData.invoiceGenerationAllowed) {
+		                invoiceData.invoiceGenerationAllowed |=(chargesIncluded == ONLY_PAX) && flightInfo.invoicePaxAllowed;
+		            }
+		        }
+		    }
+		}
 
 
         invoiceData.global.unifiedTaxTotalCharges= 0.0;
@@ -462,10 +463,9 @@ if(accountFlights!= null){
                     aircraftInfo.company = invoiceData.global.billingName;
                     aircraftInfo.invoicePeriod = invoiceData.global.invoiceBillingPeriod;
                     aircraftInfo.invoiceExpiration = invoiceData.global.invoiceDueDateStr;
-                    aircraftInfo.mtow = ar.getMtowOverride();
-                    aircraftInfo.mtowUnitOfMeasure = reportHelper.getMTOWUnitOfMeasure();
-                    aircraftInfo.mtowStr = String.format(TWO_DECIMALS, ar.getMtowOverride())+  " " +reportHelper.getMTOWUnitOfMeasure();
-             //       aircraftInfo.discountPercentage = account.getAccountTypeDiscount();
+                    aircraftInfo.mtow = ar.getMtowOverride()*ReportHelper.TO_KG/1000.0;
+                    aircraftInfo.mtowUnitOfMeasure = "Ton"; // reportHelper.getMTOWUnitOfMeasure();
+                    aircraftInfo.mtowStr = String.format(THREE_DECIMALS, ar.getMtowOverride()) +  " " + aircraftInfo.mtowUnitOfMeasure;
                     invoiceData.aircraftInfoList.add(aircraftInfo);
 
 	        		invoiceData.global.unifiedTaxTotalCharges += aircraftInfo.unifiedTaxCharges;
@@ -1637,11 +1637,15 @@ if(accountFlights!= null){
 
         public AircraftInfo processAircraftRegistration(final AircraftRegistration ar) {
             
-        	//Convert in mtow KG
+        	//Convert MTOW from Short Tons to KG
             double mtow = ar.getMtowOverride();
+            mtow = mtow * ReportHelper.TO_KG;
+            
+            /*
             if (mtowUnitOfMeasure.equalsIgnoreCase("KG")) {
                 mtow = mtow * ReportHelper.TO_KG;
             }
+            */
 
             vars.put(CostFormulaVar.MTOW.varName(), mtow);
 
