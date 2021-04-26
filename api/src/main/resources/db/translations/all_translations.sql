@@ -51,7 +51,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Account",
-    "val": "Cliente",
+    "val": "Cuenta",
     "part": "backend",
     "created_by": "system"
   },
@@ -93,7 +93,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "account Id",
-    "val": "Id de la cuenta",
+    "val": "ID de Cuenta",
     "part": "backend",
     "created_by": "system"
   },
@@ -121,7 +121,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "A date or time cannot be parsed: ",
-    "val": "Una fecha o tiempo no se puede analizar: ",
+    "val": "No se puede actualiza la fecha y hora: ",
     "part": "backend",
     "created_by": "system"
   },
@@ -163,7 +163,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aerodrome category deletion is failed",
-    "val": "Aeródromo de la categoría de la eliminación de error",
+    "val": "El Borrado de la Categoría de Aeródromo ha Fallado",
     "part": "backend",
     "created_by": "system"
   },
@@ -177,7 +177,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aerodrome is required",
-    "val": "El aeródromo se requiere",
+    "val": "El Aeródromo es necesario",
     "part": "backend",
     "created_by": "system"
   },
@@ -191,7 +191,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aerodrome not valid",
-    "val": "El aeródromo no válido",
+    "val": "Aeródromo no válido",
     "part": "backend",
     "created_by": "system"
   },
@@ -205,7 +205,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aerodrome prefix already exists",
-    "val": "Aeródromo prefijo ya existe",
+    "val": "El prefijo del aeródromo ya existe",
     "part": "backend",
     "created_by": "system"
   },
@@ -233,7 +233,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "against the current version",
-    "val": "en contra de la versión actual",
+    "val": "contra de la versión actual",
     "part": "backend",
     "created_by": "system"
   },
@@ -247,7 +247,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aircraft prefix already exists",
-    "val": "Aviones prefijo ya existe",
+    "val": "Prefijo de Aeronave ya existente",
     "part": "backend",
     "created_by": "system"
   },
@@ -275,7 +275,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Air navigation charges currency can not be modified if there are flight movements with non-zero air navigation charges.",
-    "val": "Las tasas de navegación aérea de la moneda no puede ser modificado si hay vuelo movimientos con los no-cero de las tasas de navegación aérea.",
+    "val": "Tasas de Navegación Aérea de la moneda no puede ser modificado si hay vuelo movimientos con los no-cero de Tasas de Navegación Aérea.",
     "part": "backend",
     "created_by": "system"
   },
@@ -289,7 +289,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Air navigation charges currency can not be null",
-    "val": "Las tasas de navegación aérea de la moneda no puede ser null",
+    "val": "Tasas de Navegación Aérea de la moneda no puede ser null",
     "part": "backend",
     "created_by": "system"
   },
@@ -331,7 +331,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Already fixed",
-    "val": "Ya fijo",
+    "val": "Ya está arreglado",
     "part": "backend",
     "created_by": "system"
   },
@@ -359,7 +359,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Already running the Job with ID",
-    "val": "Ya está ejecutando el Trabajo con IDENTIFICADOR",
+    "val": "Ya se está ejecutando el trabajo con ID",
     "part": "backend",
     "created_by": "system"
   },
@@ -387,7 +387,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "amount is missing",
-    "val": "cantidad que falta",
+    "val": "Monto Faltante",
     "part": "backend",
     "created_by": "system"
   },
@@ -415,7 +415,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "and maximum credit note amounts",
-    "val": "y la máxima nota de crédito cantidades",
+    "val": "y los montos máximos de notas de crédito",
     "part": "backend",
     "created_by": "system"
   },
@@ -429,7 +429,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "An exchange rate in the period may be overlapped",
-    "val": "La tasa de cambio en el período puede ser superpuesta",
+    "val": "Un Tipo de Cambio en el período puede ser solapado",
     "part": "backend",
     "created_by": "system"
   },
@@ -471,7 +471,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ANSP currency can not be modified if there are pending transactions.",
-    "val": "ANSP moneda no puede ser modificado si hay transacciones pendientes.",
+    "val": "Moneda ANSP no puede ser modificada si hay transacciones pendientes.",
     "part": "backend",
     "created_by": "system"
   },
@@ -485,7 +485,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ANSP currency can not be null",
-    "val": "ANSP moneda no puede ser null",
+    "val": "La moneda ANSP no puede ser nula",
     "part": "backend",
     "created_by": "system"
   },
@@ -499,7 +499,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ANSP currency is not defined",
-    "val": "ANSP moneda no está definido",
+    "val": "Moneda ANSP no definida",
     "part": "backend",
     "created_by": "system"
   },
@@ -583,7 +583,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aviation invoice",
-    "val": "La aviación de la factura",
+    "val": "Factura de Aviación",
     "part": "backend",
     "created_by": "system"
   },
@@ -597,7 +597,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aviation invoices",
-    "val": "La aviación facturas",
+    "val": "Factura de Aviación",
     "part": "backend",
     "created_by": "system"
   },
@@ -611,7 +611,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aviation invoices cannot be generated for the current or future billing periods.",
-    "val": "La aviación facturas no pueden ser generados para los actuales o futuros períodos de facturación.",
+    "val": "Las facturas de aviación no pueden generarse para los períodos de facturación actuales o futuros.",
     "part": "backend",
     "created_by": "system"
   },
@@ -625,7 +625,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aviation invoices cannot be generated for the current or future billing periods. Please choose a valid Aviation invoice billing period.",
-    "val": "La aviación facturas no pueden ser generados para los actuales o futuros períodos de facturación. Por favor, elija una válida de la Aviación de la factura del período de facturación.",
+    "val": "La aviación facturas no pueden ser generados para los actuales o futuros períodos de facturación. Por favor, elija una válida de Factura de Aviación del período de facturación.",
     "part": "backend",
     "created_by": "system"
   },
@@ -639,7 +639,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aviation invoices PREVIEW",
-    "val": "La aviación facturas de vista previa",
+    "val": "Vista Previa de Factura de Aviación",
     "part": "backend",
     "created_by": "system"
   },
@@ -653,7 +653,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Bad request: The Aircraft Type is used in Exempt Aircraft Types",
-    "val": "Solicitud incorrecta: El Tipo de Aeronave es utilizada en Eximir a los Tipos de Aeronaves",
+    "val": "Solicitud incorrecta: El tipo de aeronave se utiliza en los tipos de aeronave exentos",
     "part": "backend",
     "created_by": "system"
   },
@@ -695,7 +695,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "because amount of payment can''t be greater than owing amount",
-    "val": "debido a la cantidad de pago no puede ser mayor que debido cantidad",
+    "val": "porque el importe del pago no puede ser mayor que el importe adeudado",
     "part": "backend",
     "created_by": "system"
   },
@@ -709,7 +709,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Billing center has no aerodromes associated with it",
-    "val": "Centro de facturación no tiene aeródromos asociado con él",
+    "val": "Centro de facturación no tiene aeródromos asociados",
     "part": "backend",
     "created_by": "system"
   },
@@ -737,7 +737,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "billing_ledger_ids",
-    "val": "billing_ledger_ids",
+    "val": "ID del Libro Mayor de Facturación",
     "part": "backend",
     "created_by": "system"
   },
@@ -835,7 +835,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Billing Ledger with id %d doesn''t exist. Please provide a valid ID",
-    "val": "La facturación de Contabilidad con id %d no existe. Por favor proporcionar una IDENTIFICACIÓN válida",
+    "val": "La Factura con ID %d no existe. Por favor proporcionar un ID Válido",
     "part": "backend",
     "created_by": "system"
   },
@@ -849,7 +849,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cached Event could not be found. It was either processed successfully or deleted by a user.",
-    "val": "Caché Evento no se pudo encontrar. Fue procesado con éxito o borrado por un usuario.",
+    "val": "No se pudo encontrar el evento en caché. Fue procesado con éxito o borrado por un usuario.",
     "part": "backend",
     "created_by": "system"
   },
@@ -891,7 +891,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot create a credit note because the referred invoice is missing",
-    "val": "No se puede crear una nota de crédito debido a que la referida factura falta",
+    "val": "No se puede crear una nota de crédito porque falta la factura referida",
     "part": "backend",
     "created_by": "system"
   },
@@ -905,7 +905,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot create a flight movement from ATC logs",
-    "val": "No se puede crear un vuelo movimiento de ATC registros",
+    "val": "No se puede crear un movimiento de vuelo a partir de los registros del ATC",
     "part": "backend",
     "created_by": "system"
   },
@@ -919,7 +919,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot create a flight movement from radar logs",
-    "val": "No se puede crear un vuelo movimiento de radar de los registros de",
+    "val": "No se puede crear un movimiento de vuelo a partir de los registros Radar",
     "part": "backend",
     "created_by": "system"
   },
@@ -933,7 +933,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot create a flight movement from tower logs",
-    "val": "No se puede crear un vuelo movimiento de la torre de los registros de",
+    "val": "No se puede crear un movimiento de vuelo a partir de los registros de Torre",
     "part": "backend",
     "created_by": "system"
   },
@@ -975,7 +975,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot modify the Administrator role",
-    "val": "No puede modificar la función de Administrador",
+    "val": "No se puede modificar el rol de administrador",
     "part": "backend",
     "created_by": "system"
   },
@@ -989,7 +989,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot read or write a resource in the system, or the resource required is not available",
-    "val": "No pueden leer o escribir en un recurso en el sistema, o el recurso requerido no está disponible",
+    "val": "No se puede leer o escribir un recurso en el sistema, o el recurso requerido no está disponible",
     "part": "backend",
     "created_by": "system"
   },
@@ -1003,7 +1003,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot read or write this item in the DB due to missing data or query wrong",
-    "val": "No pueden leer o escribir en este elemento en la base de datos debido a la falta de datos o consulta equivocado",
+    "val": "No se puede leer o escribir este elemento en la Base de Dato. Faltan datos o la consulta es incorrecta",
     "part": "backend",
     "created_by": "system"
   },
@@ -1017,7 +1017,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot retrieve exemptions for flight movements",
-    "val": "No se puede recuperar exenciones para el vuelo de los movimientos",
+    "val": "No se pueden recuperar las exenciones para los movimientos de vuelo",
     "part": "backend",
     "created_by": "system"
   },
@@ -1031,7 +1031,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot retrieve the account due to unknown account name",
-    "val": "No se puede recuperar la cuenta debido a que desconoce el nombre de la cuenta",
+    "val": "No se puede recuperar la Cuenta. Nombre de la Cuenta desconocido",
     "part": "backend",
     "created_by": "system"
   },
@@ -1045,7 +1045,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot retrieve the aircraft type due to unknown aircraft type",
-    "val": "No se puede recuperar el tipo de aeronave, debido a que desconoce el tipo de aeronave",
+    "val": "No se puede recuperar el tipo de aeronave. Tipo de aeronave desconocido",
     "part": "backend",
     "created_by": "system"
   },
@@ -1059,7 +1059,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot retrieve the country due to unknown prefix",
-    "val": "No se puede recuperar el país, debido a desconocidos prefijo",
+    "val": "No se puede recuperar el país. Prefijo desconocido",
     "part": "backend",
     "created_by": "system"
   },
@@ -1087,7 +1087,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot retrieve the ICAO code due to unknown operator",
-    "val": "No se puede recuperar el código OACI debido a desconocidos operador",
+    "val": "No se puede recuperar el código OACI. Operador desconocido",
     "part": "backend",
     "created_by": "system"
   },
@@ -1101,7 +1101,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot update a flight movement from ATC logs",
-    "val": "No se puede actualizar un vuelo movimiento de ATC registros",
+    "val": "No se puede actualizar el movimiento de un vuelo desde los registros del ATC",
     "part": "backend",
     "created_by": "system"
   },
@@ -1115,7 +1115,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot update a flight movement from radar logs",
-    "val": "No se puede actualizar un vuelo movimiento de radar de los registros de",
+    "val": "No se puede actualizar el movimiento de un vuelo desde los registros de Torre",
     "part": "backend",
     "created_by": "system"
   },
@@ -1745,7 +1745,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "DEF_ERR_ALREADY_EXISTS",
-    "val": "El elemento ya existe",
+    "val": "Elemento ya existente",
     "part": "backend",
     "created_by": "system"
   },
@@ -1787,7 +1787,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "DEF_ERR_DATE_TIME_PARSE",
-    "val": "Una fecha o tiempo no se puede analizar: ",
+    "val": "No se puede actualiza la fecha y hora: ",
     "part": "backend",
     "created_by": "system"
   },
@@ -2389,7 +2389,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ERR_ACOUNT_DELETE",
-    "val": "La cuenta de %s a %.0 transacciones y no pueden ser eliminados",
+    "val": "La cuenta de %s a %.0 transacciones que no se pueden eliminar",
     "part": "backend",
     "created_by": "system"
   },
@@ -2501,7 +2501,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ERR_ANSP_CURRENCY_NULL",
-    "val": "Las tasas de navegación aérea de la moneda no puede ser null",
+    "val": "Tasas de Navegación Aérea de la moneda no puede ser null",
     "part": "backend",
     "created_by": "system"
   },
@@ -2515,7 +2515,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ERR_ANSP_MODIFY",
-    "val": "Las tasas de navegación aérea de la moneda no puede ser modificado si hay vuelo movimientos con los no-cero de las tasas de navegación aérea.",
+    "val": "Tasas de Navegación Aérea de la moneda no puede ser modificado si hay vuelo movimientos con los no-cero de Tasas de Navegación Aérea.",
     "part": "backend",
     "created_by": "system"
   },
@@ -2557,7 +2557,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ERR_AV_NOGEN",
-    "val": "La aviación facturas no pueden ser generados para los actuales o futuros períodos de facturación. Por favor, elija una válida de la Aviación de la factura del período de facturación.",
+    "val": "Las facturas de aviación no pueden generarse para los períodos de facturación actuales o futuros. Por favor, seleccione un periodo de facturación válido.",
     "part": "backend",
     "created_by": "system"
   },
@@ -2809,7 +2809,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ERR_DATE_EXPIRY",
-    "val": "; fecha de caducidad:",
+    "val": "; Fecha de Vencimiento:",
     "part": "backend",
     "created_by": "system"
   },
@@ -2823,7 +2823,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ERR_DATE_OVERLAP",
-    "val": "Superponen las fechas de matrícula de la aeronave número : ",
+    "val": "Superponen las fechas Matrícula de Aeronave número : ",
     "part": "backend",
     "created_by": "system"
   },
@@ -3879,15 +3879,15 @@ select add_languages_by_json('[
   },
   {
     "code": "en",
-    "token": " exceeds the maximum amount approval limit of ",
-    "val": " exceeds the maximum amount approval limit of ",
+    "token": "exceeds the maximum amount approval limit of",
+    "val": "exceeds the maximum amount approval limit of",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
-    "token": " exceeds the maximum amount approval limit of ",
-    "val": " supera la cantidad máxima de aprobación límite de ",
+    "token": "exceeds the maximum amount approval limit of",
+    "val": "Eccede el límite de cantidad máxima autorizada",
     "part": "backend",
     "created_by": "system"
   },
@@ -4069,7 +4069,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "; expiry date:",
-    "val": "; fecha de caducidad:",
+    "val": "; Fecha de Vencimiento:",
     "part": "backend",
     "created_by": "system"
   },
@@ -4951,7 +4951,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Invalid Aviation invoice billing period.",
-    "val": "No válido de la Aviación de la factura del período de facturación.",
+    "val": "No válido de Factura de Aviación del período de facturación.",
     "part": "backend",
     "created_by": "system"
   },
@@ -6127,7 +6127,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Non-aviation invoice",
-    "val": "No de la aviación de la factura",
+    "val": "No de Factura de Aviación",
     "part": "backend",
     "created_by": "system"
   },
@@ -6617,7 +6617,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Overlapped dates for aircraft registration number",
-    "val": "Superponen las fechas de matrícula de la aeronave número",
+    "val": "Superponen las fechas Matrícula de Aeronave",
     "part": "backend",
     "created_by": "system"
   },
@@ -6631,7 +6631,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Overlapped dates for aircraft registration number : ",
-    "val": "Superponen las fechas de matrícula de la aeronave número : ",
+    "val": "Superponen las fechas Matrícula de Aeronave : ",
     "part": "backend",
     "created_by": "system"
   },
@@ -6841,7 +6841,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Please choose a valid Aviation invoice billing period.",
-    "val": "Por favor, elija una válida de la Aviación de la factura del período de facturación.",
+    "val": "Por favor, elija una válida de Factura de Aviación del período de facturación.",
     "part": "backend",
     "created_by": "system"
   },
@@ -7751,7 +7751,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "The account {{name}} has {{size}} transactions and cannot be deleted",
-    "val": "La cuenta {{name}} {{size}} transacciones y no pueden ser eliminados",
+    "val": "La cuenta {{name}} {{size}} transacciones que no se pueden eliminar",
     "part": "backend",
     "created_by": "system"
   },
@@ -7765,7 +7765,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "The account %s has %.0 transactions and cannot be deleted",
-    "val": "La cuenta de %s a %.0 transacciones y no pueden ser eliminados",
+    "val": "La cuenta de %s a %.0 transacciones que no se pueden eliminar",
     "part": "backend",
     "created_by": "system"
   },
@@ -8619,7 +8619,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": " transactions and cannot be deleted",
-    "val": " transacciones y no pueden ser eliminados",
+    "val": " transacciones que no se pueden eliminar",
     "part": "backend",
     "created_by": "system"
   },
@@ -9347,7 +9347,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "7 REGISTRATION NUMBER",
-    "val": "7 NÚMERO DE REGISTRO",
+    "val": "Matrícula",
     "part": "frontend",
     "created_by": "system"
   },
@@ -9389,7 +9389,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "9 NUMBER",
-    "val": "9 NÚMERO de",
+    "val": "9 NÚMERO ",
     "part": "frontend",
     "created_by": "system"
   },
@@ -9487,7 +9487,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Account",
-    "val": "Cliente",
+    "val": "Cuenta",
     "part": "frontend",
     "created_by": "system"
   },
@@ -9501,7 +9501,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Account *",
-    "val": "Cliente *",
+    "val": "Cuenta *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -9529,7 +9529,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Account Alias",
-    "val": "Alias",
+    "val": "Alias de cuenta",
     "part": "frontend",
     "created_by": "system"
   },
@@ -9571,7 +9571,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Account, Date",
-    "val": "Cuenta y Fecha",
+    "val": "Cuenta Fecha",
     "part": "frontend",
     "created_by": "system"
   },
@@ -9613,7 +9613,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "account exemptions",
-    "val": "cuenta exenciones",
+    "val": "Exenciones de cuenta",
     "part": "frontend",
     "created_by": "system"
   },
@@ -9711,7 +9711,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Accounts *",
-    "val": "Cliente *",
+    "val": "Cuenta *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -9753,7 +9753,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Accounts Exempt Management",
-    "val": "Cuentas Exentas de Gestión",
+    "val": "Gestión de Cuentas Exentas",
     "part": "frontend",
     "created_by": "system"
   },
@@ -9809,7 +9809,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Account status report",
-    "val": "Informe por Estado de Cuenta",
+    "val": "Informe de Estados de Cuenta",
     "part": "frontend",
     "created_by": "system"
   },
@@ -9907,7 +9907,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Active",
-    "val": "Activas",
+    "val": "Activo(a)",
     "part": "frontend",
     "created_by": "system"
   },
@@ -9921,7 +9921,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Active *",
-    "val": "Activo(a) *",
+    "val": "Activo/a *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -9949,7 +9949,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Active (Pending/Incomplete)",
-    "val": "Activo (Pendiente/Incompleta)",
+    "val": "Activo (Pendiente/Incompleto/a)",
     "part": "frontend",
     "created_by": "system"
   },
@@ -9977,7 +9977,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Actual Amount",
-    "val": "Cantidad Actual",
+    "val": "Monto Actual",
     "part": "frontend",
     "created_by": "system"
   },
@@ -10117,7 +10117,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Add a Country",
-    "val": "Crear un País",
+    "val": "Añadir País",
     "part": "frontend",
     "created_by": "system"
   },
@@ -10131,7 +10131,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Add Airspace",
-    "val": "Agregar Espacio Aére",
+    "val": "Agregar espacio aéreo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -10537,7 +10537,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Addition",
-    "val": "Además",
+    "val": "Adición",
     "part": "frontend",
     "created_by": "system"
   },
@@ -10663,7 +10663,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Adjustment Amount:",
-    "val": "Cantidad de Ajuste:",
+    "val": "Monto de Ajuste:",
     "part": "frontend",
     "created_by": "system"
   },
@@ -10747,7 +10747,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aerodrome *",
-    "val": "Aerodrome *",
+    "val": "Aeródromo *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -10781,7 +10781,7 @@ select add_languages_by_json('[
   },
   {
     "code": "en",
-    "token": "aerodromecategories",
+    "token": "Categorías de aeródromos",
     "val": "aerodromecategories",
     "part": "frontend",
     "created_by": "system"
@@ -10831,7 +10831,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aerodrome Category",
-    "val": "Categoría del Aeródromo",
+    "val": "Categoría de Aeródromo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -10845,7 +10845,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aerodrome Category *",
-    "val": "Categoría del Aeródromo",
+    "val": "Categoría del Aeródromo *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -10901,7 +10901,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "aerodrome_charges",
-    "val": "Aeródromo de Cargos",
+    "val": "Cargos de Aeródromo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -10915,7 +10915,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aerodrome Charges",
-    "val": "Aeródromo de Cargos",
+    "val": "Cargos de Aeródromo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -10929,7 +10929,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aerodrome Charges (%)",
-    "val": "Cargos por Aeródromo (%)",
+    "val": "Cargas por Aeródromo (%)",
     "part": "frontend",
     "created_by": "system"
   },
@@ -10943,7 +10943,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aerodrome Fees",
-    "val": "Tarifas de aeródromo",
+    "val": "Tasas de Aeródromo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -10957,7 +10957,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aerodrome Fees Exempt",
-    "val": "Costo de Aeródromo Exonerado",
+    "val": "Exención de Tasas de Aeródromo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -10971,7 +10971,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aerodrome Fees Exempt *",
-    "val": "Costo de Aeródromo Exonerado *",
+    "val": "Exención de Tasas de Aeródromo *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11027,7 +11027,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aerodrome Prefixes",
-    "val": "Prefijo de Aeródromo",
+    "val": "Prefijos de Aeródromo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11041,7 +11041,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aerodrome Prefixes *",
-    "val": "Prefijo de Aeródromo *",
+    "val": "Prefijos de Aeródromo *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11069,7 +11069,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aerodromes",
-    "val": "Aeródromos Nacionales",
+    "val": "Aeródromos",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11111,7 +11111,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Afghan Afghani",
-    "val": "El Afgano Afghani",
+    "val": "Afgano Afghani",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11251,7 +11251,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aircraft Nationality Foreign",
-    "val": "Aeronave Nacionalidad Extranjera",
+    "val": "Aeronave Extranjera",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11265,7 +11265,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aircraft Nationality International",
-    "val": "Aeronave Nacionalidad Internacional",
+    "val": "Aeronave Internacional",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11279,7 +11279,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aircraft Nationality National",
-    "val": "Aeronave Nacionalidad Nacional",
+    "val": "Aeronave Nacional",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11293,7 +11293,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aircraft Parking Exemption *",
-    "val": "Exoneración de Estacionamiento de Aeronaves",
+    "val": "Exención de Estacionamiento de Aeronaves *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11307,7 +11307,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aircraft Registration",
-    "val": "De Matrícula de La Aeronave",
+    "val": "Matrícula de Aeronave",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11335,7 +11335,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aircraft Registration Prefixes",
-    "val": "Prefijo de Registro de Aeronave",
+    "val": "Prefijo de Matrícula de Aeronave",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11349,7 +11349,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aircraft Registration Prefixes *",
-    "val": "Prefijo de Registro de Aeronave *",
+    "val": "Prefijo de Matrícula de Aeronave *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11363,7 +11363,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aircraft Registration Report",
-    "val": "De Matrícula de La Aeronave Informe",
+    "val": "Matrícula de Aeronave Informe",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11377,7 +11377,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "aircraft registrations",
-    "val": "los registros de la aeronave",
+    "val": "Registros de Aeronaves",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11405,7 +11405,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aircraft Registrations *",
-    "val": "Aviones de Registros *",
+    "val": "Registro de Matrículas *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11419,7 +11419,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aircraft Registrations filtering",
-    "val": "Filtración de matriculaciones de aeronaves.",
+    "val": "Filtrado de Matrículas",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11433,7 +11433,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aircraft Registration Tracking Report",
-    "val": "De Matrícula de La Aeronave Informe de Seguimiento de",
+    "val": "Matrícula de Aeronave Informe de Seguimiento de",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11447,7 +11447,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aircraft registration tracking report - UI is not usable",
-    "val": "De matrícula de la aeronave informe de seguimiento - interfaz de usuario no es utilizable",
+    "val": "Matrícula de Aeronave informe de seguimiento - interfaz de usuario no es utilizable",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11504,7 +11504,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aircraft Type Management",
-    "val": "Tipo de Aeronave de Gestión",
+    "val": "Gestión del Tipo de Aeronave",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11518,7 +11518,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "aircraft types",
-    "val": "los tipos de aeronaves",
+    "val": "Tipos de Aeronaves",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11560,7 +11560,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aircraft Types Resolved",
-    "val": "Tipo A/C",
+    "val": "Tipo de Aeronave Resuelto",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11602,7 +11602,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Air Navigation Charges",
-    "val": "Las Tasas de Navegación Aérea",
+    "val": "Tasas de Navegación Aérea",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11616,7 +11616,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Air navigation charges currency",
-    "val": "Moneda de Gastos de Navegación Aérea",
+    "val": "Moneda de las Tasas de Navegación Aérea",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11658,7 +11658,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Airspace Management",
-    "val": "La Gestión del Espacio Aéreo",
+    "val": "Gestión del Espacio Aéreo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11672,7 +11672,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "airspaces",
-    "val": "los espacios aéreos",
+    "val": "Espacios Aéreos",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11714,7 +11714,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Air Traffic Data",
-    "val": "Los Datos de Tráfico Aéreo",
+    "val": "Datos de Tráfico Aéreo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11728,7 +11728,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "air traffic statistics",
-    "val": "aire estadísticas de tráfico",
+    "val": "Estadísticas de Tráfico Aéreo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11756,7 +11756,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Air Traffic Stats",
-    "val": "Aire Estadísticas De Tráfico",
+    "val": "Estadísticas de Tráfico Aéreo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11826,7 +11826,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "All",
-    "val": "Todas",
+    "val": "Todos",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11868,7 +11868,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "All Available Airspaces",
-    "val": "Agregar Espacio Aére",
+    "val": "Todos los espacios aéreos disponibles",
     "part": "frontend",
     "created_by": "system"
   },
@@ -11994,7 +11994,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Allow Update From Web",
-    "val": "Permitir la actualización de la Web",
+    "val": "Permitir actualización desde la Web",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12064,7 +12064,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "All used but undefined",
-    "val": "Todos los utilizados pero no definidos",
+    "val": "Todos los utilizados pero indefinidos",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12078,7 +12078,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Altitude Reservation",
-    "val": "La Altitud de La Reserva",
+    "val": "Reserva de Altitud",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12134,7 +12134,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Amount Owed",
-    "val": "Monto de La Deuda",
+    "val": "Monto de Deuda",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12148,7 +12148,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Amount Owed:",
-    "val": "Monto de La Deuda:",
+    "val": "Monto de Deuda:",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12176,7 +12176,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Amount to Apply",
-    "val": "Cantidad a Aplicar",
+    "val": "Monto a Aplicar",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12190,7 +12190,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Analysis and Stats - Air Traffic",
-    "val": "Análisis y Estadísticas de Tráfico Aéreo",
+    "val": "Análisis y Estadísticas - Tráfico Aéreo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12204,7 +12204,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Analysis and Stats - Revenue",
-    "val": "Análisis y Estadísticas de Ingresos",
+    "val": "Análisis y Estadística - Ingresos",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12288,7 +12288,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Angolan Kwanza",
-    "val": "Angolan Angolano",
+    "val": "Kwanza Angoleño",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12316,7 +12316,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ANSP currency",
-    "val": "ANSP moneda",
+    "val": "Moneda ANSP",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12344,7 +12344,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ANSP currency can not be modified if there are pending transactions.",
-    "val": "ANSP moneda no puede ser modificado si hay transacciones pendientes.",
+    "val": "Moneda ANSP no puede ser modificada si hay transacciones pendientes.",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12400,7 +12400,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "A payment amount of",
-    "val": "El monto de un pago de",
+    "val": "Importe de Pago",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12414,7 +12414,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Application Management",
-    "val": "Aplicación",
+    "val": "Gestión de aplicación",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12596,7 +12596,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "approach_charges",
-    "val": "El Enfoque de Los Cargos",
+    "val": "Tasas de Aproximación",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12610,7 +12610,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approach Charges",
-    "val": "El Enfoque de Los Cargos",
+    "val": "Tasas de Aproximación",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12624,7 +12624,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approach Charges (%)",
-    "val": "Cargos por Aproximaciones (%)",
+    "val": "Cargas por Aproximaciones (%)",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12652,7 +12652,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approach fee as ADAP",
-    "val": "Cargo de Aproximación ADAP",
+    "val": "Tasa de Aproximación como ADAP",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12666,7 +12666,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approach Fees",
-    "val": "Tarifas de aproximación",
+    "val": "Tasas de Aproximación",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12680,7 +12680,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approach Fees Exempt",
-    "val": "Costo de Aproximación Exonerado",
+    "val": "Tasas de Aproximación Exentas",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12694,7 +12694,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approach Fees Exempt *",
-    "val": "Costo de Aproximación Exonerado *",
+    "val": "Tasas de Aproximación Exentas *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12708,7 +12708,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approach fees label",
-    "val": "El enfoque de las cuotas de la etiqueta",
+    "val": "Etiqueta de las Tasas de Aproximación",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12736,7 +12736,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approval Group",
-    "val": "La Aprobación Del Grupo De",
+    "val": "Grupo de Aprobación",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12764,7 +12764,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approval Level Filter",
-    "val": "Nivel De Aprobación De Filtro",
+    "val": "Filtro de Nivel de Aprobación",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12792,7 +12792,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approval Over",
-    "val": "La Aprobación De Más De",
+    "val": "Aprobación Terminada",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12820,7 +12820,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approval request rejection response",
-    "val": "Solicitud de aprobación de respuesta de rechazo",
+    "val": "Respuesta de rechazo a la solicitud de aprobación",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12834,7 +12834,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approval Under",
-    "val": "La Aprobación En",
+    "val": "La Aprobación Abajo De",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12890,7 +12890,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approved Flight School *",
-    "val": "De Vuelo Aprobado de La Escuela. *",
+    "val": "Escuela de Vuelo Aprobada *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12918,7 +12918,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Are you sure? This will delete any existing Transaction Workflow Steps.",
-    "val": "Estás seguro? Esto eliminará cualquier Transacción existente Pasos del Flujo de trabajo.",
+    "val": "Está seguro? Esto eliminará todos los pasos de Flujo de aprobación de Transacción existentes.",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12932,7 +12932,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Are you sure you want to clear the current cache?",
-    "val": "Seguro que quieres borrar el caché actual?",
+    "val": "Estás seguro de que quieres borrar la caché actual?",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12946,7 +12946,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Are you sure you want to delete this?",
-    "val": "Está seguro de que desea borrar este?",
+    "val": "Está seguro de que desea borrar esto?",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12960,7 +12960,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Are you sure you want to update the exchange rate of currencies?",
-    "val": "Está seguro que quiere actualizar la tasa de cambio de las monedas.",
+    "val": "Está seguro que desea actualizar la Tasa de Cambio de las monedas?",
     "part": "frontend",
     "created_by": "system"
   },
@@ -12974,7 +12974,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Are you sure you want to update the retention number?",
-    "val": "Seguro que quieres actualizar el número de retención?",
+    "val": "Está seguro de que quiere actualizar el número de retención?",
     "part": "frontend",
     "created_by": "system"
   },
@@ -13114,7 +13114,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Arrival Airport",
-    "val": "El Aeropuerto de Llegada",
+    "val": "Aeródromo de Destino",
     "part": "frontend",
     "created_by": "system"
   },
@@ -13268,7 +13268,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ATC log is required",
-    "val": "Registro de ATC necesario",
+    "val": "Se requiere registro de ATC",
     "part": "frontend",
     "created_by": "system"
   },
@@ -13310,7 +13310,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "atc movement log",
-    "val": "atc movimiento de registro",
+    "val": "atc registro de movimiento",
     "part": "frontend",
     "created_by": "system"
   },
@@ -13548,7 +13548,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Average Mass Factor",
-    "val": "La Masa Promedio Del Factor De",
+    "val": "Factor Promedio de MTOW",
     "part": "frontend",
     "created_by": "system"
   },
@@ -13562,7 +13562,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Average MTOW Factor",
-    "val": "Factor Promedio de Peso Máximo al Despegue",
+    "val": "Factor MTOW Promedio",
     "part": "frontend",
     "created_by": "system"
   },
@@ -13576,7 +13576,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Average MTOW Factor *",
-    "val": "El Promedio de Peso Máximo al Despegue Factor *",
+    "val": "Factor de MTOW promedio *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -13590,7 +13590,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "average mtow factors",
-    "val": "el promedio de peso máximo al despegue de los factores de",
+    "val": "Factor de MTOW promedio",
     "part": "frontend",
     "created_by": "system"
   },
@@ -13660,7 +13660,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aviation Billing Email Address",
-    "val": "Dirección de Correo Electrónico de Facturación de Aviación",
+    "val": "Dirección de Correo Electrónico para Facturación Aeronáutica",
     "part": "frontend",
     "created_by": "system"
   },
@@ -13674,7 +13674,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aviation Billing Engine",
-    "val": "La Aviación de Facturación Motor",
+    "val": "Motor de Facturación de Aviación",
     "part": "frontend",
     "created_by": "system"
   },
@@ -13716,7 +13716,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aviation Billing Mailing Address",
-    "val": "Dirección de Envío de Facturación de Aviación",
+    "val": "Dirección para Facturación Aeronáutica",
     "part": "frontend",
     "created_by": "system"
   },
@@ -13730,7 +13730,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aviation Billing Phone Number",
-    "val": "Teléfono de Contacto de Facturación de Aviación",
+    "val": "Teléfono del Contacto de Facturación de Aviación",
     "part": "frontend",
     "created_by": "system"
   },
@@ -13884,7 +13884,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aviation invoice",
-    "val": "La aviación de la factura",
+    "val": "Factura de Aviación",
     "part": "frontend",
     "created_by": "system"
   },
@@ -13926,7 +13926,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aviation invoice total rounding",
-    "val": "Redondeo de la Factura Total de Aviación",
+    "val": "Redondeo del Total de la Factura de Aviación",
     "part": "frontend",
     "created_by": "system"
   },
@@ -13954,7 +13954,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "AVIATION_NONIATA",
-    "val": "avaviación-noniata",
+    "val": "Aviación-noniata",
     "part": "frontend",
     "created_by": "system"
   },
@@ -14136,7 +14136,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Banking information",
-    "val": "Información de la banca",
+    "val": "Información del Banco",
     "part": "frontend",
     "created_by": "system"
   },
@@ -14192,7 +14192,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Basis for Charge",
-    "val": "Base por Cargo",
+    "val": "Base por Carga",
     "part": "frontend",
     "created_by": "system"
   },
@@ -14388,7 +14388,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Bidirectional Fees Exempt",
-    "val": "Exoneración de Ruta Bidireccional",
+    "val": "Exención de Tasas Bidireccionales",
     "part": "frontend",
     "created_by": "system"
   },
@@ -14486,7 +14486,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Billing Centre Management",
-    "val": "La Facturación de La Gestión del Centro",
+    "val": "Gestión del Centro de Facturación",
     "part": "frontend",
     "created_by": "system"
   },
@@ -14571,7 +14571,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "BLACKLISTED_ACCOUNT",
-    "val": "Cliente en Lista Negra",
+    "val": "Cuenta en Lista Negra",
     "part": "frontend",
     "created_by": "system"
   },
@@ -14627,7 +14627,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Blacklisted Override *",
-    "val": "Anular Lista negra *",
+    "val": "Anular Lista Negra *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -14655,7 +14655,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "BLOCKED",
-    "val": "OBSTRUIDO",
+    "val": "BLOQUEADO",
     "part": "frontend",
     "created_by": "system"
   },
@@ -14991,7 +14991,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cached Event Result(s)",
-    "val": "En caché el Resultado del Evento(s)",
+    "val": "Resultados del Evento en Caché",
     "part": "frontend",
     "created_by": "system"
   },
@@ -15033,7 +15033,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cached Event Statement(s)",
-    "val": "Caché de Eventos de Instrucción(s)",
+    "val": "Declaración de evento en caché",
     "part": "frontend",
     "created_by": "system"
   },
@@ -15047,7 +15047,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Calculate circular flight distance based on speed and duration",
-    "val": "Calcule la distancia circular de vuelo en función de la velocidad y la duración",
+    "val": "Calcular la distancia circular de vuelo en función de la velocidad y la duración",
     "part": "frontend",
     "created_by": "system"
   },
@@ -15117,7 +15117,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Calculate overdue invoice penalties daily",
-    "val": "Calcular penalidades por retraso de facturas diariamente",
+    "val": "Calcular diariamente las penalizaciones por facturas vencidas",
     "part": "frontend",
     "created_by": "system"
   },
@@ -15285,7 +15285,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Canceled Flight Movements",
-    "val": "Anulado",
+    "val": "Movimiento de Vuelo Cancelado",
     "part": "frontend",
     "created_by": "system"
   },
@@ -15355,7 +15355,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot create credit transaction",
-    "val": "No se puede crear la operación de crédito",
+    "val": "No se puede crear una transacción de crédito",
     "part": "frontend",
     "created_by": "system"
   },
@@ -15369,7 +15369,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot create or modify the flight movement",
-    "val": "No se puede crear o modificar el vuelo movimiento",
+    "val": "No se puede crear o modificar el Movimiento de Vuelo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -15397,7 +15397,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot generate invoices",
-    "val": "No se generan las Facturas",
+    "val": "No se pueden generar facturas",
     "part": "frontend",
     "created_by": "system"
   },
@@ -15411,7 +15411,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot modify flight movement created from ATC log or tower logs or radar summaries",
-    "val": "No se puede modificar el vuelo se creó el movimiento de ATC de registro o de la torre de los registros o de radar de resúmenes",
+    "val": "No se puede modificar el movimiento del vuelo creado a partir del registro ATC o de los registros de la torre o de los resúmenes del radar",
     "part": "frontend",
     "created_by": "system"
   },
@@ -15481,7 +15481,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot update the item because it has been modified in the meantime",
-    "val": "No se puede actualizar el artículo porque ha sido modificado en el ínterin",
+    "val": "No se puede actualizar el artículo porque ha sido modificado mientras tanto",
     "part": "frontend",
     "created_by": "system"
   },
@@ -19093,7 +19093,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Default account maximum credit note amount",
-    "val": "Monto predeterminado Máximo de Nota de Crédito por Cliente",
+    "val": "Monto predeterminado Máximo de Nota de Crédito por Cuenta",
     "part": "frontend",
     "created_by": "system"
   },
@@ -19107,7 +19107,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Default account minimum credit note amount",
-    "val": "Monto predeterminado Mínimo de Nota de Crédito por Cliente",
+    "val": "Monto predeterminado Mínimo de Nota de Crédito por Cuenta",
     "part": "frontend",
     "created_by": "system"
   },
@@ -19121,7 +19121,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Default account monthly penalty rate",
-    "val": "Porcentaje predeterminado de penalidad mensual por cliente",
+    "val": "Porcentaje predeterminado de penalidad mensual por Cuenta",
     "part": "frontend",
     "created_by": "system"
   },
@@ -19149,7 +19149,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Default account payment terms",
-    "val": "Término predeterminado de pago por Cliente",
+    "val": "Término predeterminado de pago por Cuenta",
     "part": "frontend",
     "created_by": "system"
   },
@@ -19373,7 +19373,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Delta Flight no Aerodrome charges, and wrong arrival time set",
-    "val": "Delta Flight no Aeródromo de cargos, y el mal tiempo de llegada conjunto",
+    "val": "Delta Flight no Cargos de Aeródromo, y el mal tiempo de llegada conjunto",
     "part": "frontend",
     "created_by": "system"
   },
@@ -20206,7 +20206,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Domestic Aerodromes",
-    "val": "Aeródromos Nacionales",
+    "val": "Aeródromos",
     "part": "frontend",
     "created_by": "system"
   },
@@ -21676,7 +21676,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "enroute air navigation charges",
-    "val": "las tasas de navegación aérea en ruta",
+    "val": "Tasas de Navegación Aérea en ruta",
     "part": "frontend",
     "created_by": "system"
   },
@@ -22516,7 +22516,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Exempt Aircraft Registration",
-    "val": "Exento De Matrícula De La Aeronave",
+    "val": "Exento Matrícula de Aeronave",
     "part": "frontend",
     "created_by": "system"
   },
@@ -30594,7 +30594,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "List of events account is to be notified",
-    "val": "Lista de razones por las que el Cliente será notificado:",
+    "val": "Lista de razones por las que el Cuenta será notificado:",
     "part": "frontend",
     "created_by": "system"
   },
@@ -33912,7 +33912,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Non aviation invoice",
-    "val": "No de la aviación de la factura",
+    "val": "No de Factura de Aviación",
     "part": "frontend",
     "created_by": "system"
   },
@@ -33940,7 +33940,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Non-Aviation invoice generation should be done - i.e. billing period in the future",
-    "val": "No de la Aviación de la factura de la generación se debe hacer - es decir, el período de facturación en el futuro",
+    "val": "No de Factura de Aviación de la generación se debe hacer - es decir, el período de facturación en el futuro",
     "part": "frontend",
     "created_by": "system"
   },
@@ -35438,7 +35438,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "P.ACR.TITLE",
-    "val": "Registro de aeronaves",
+    "val": "Matrícula Aeronave",
     "part": "frontend",
     "created_by": "system"
   },
@@ -36908,7 +36908,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "P.CEV.TITLE",
-    "val": "Eventos Almacenados En Caché",
+    "val": "Eventos en Caché",
     "part": "frontend",
     "created_by": "system"
   },
@@ -38140,7 +38140,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Preview Air Navigation Charges File",
-    "val": "Vista Previa de Las Tasas de Navegación Aérea Archivo",
+    "val": "Vista Previa de Tasas de Navegación Aérea Archivo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -42242,7 +42242,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Self-Care Account",
-    "val": "Cliente con Autoservicio",
+    "val": "Cuenta con Autoservicio",
     "part": "frontend",
     "created_by": "system"
   },
@@ -42494,7 +42494,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "SelfCare Portal - New User Account is Forced to Change Password",
-    "val": "SelfCare Portal - Nueva cuenta de usuario se ve obligada a cambiar la contraseña",
+    "val": "SelfCare Portal - Nueva usuarios de la cuenta se ve obligada a cambiar la contraseña",
     "part": "frontend",
     "created_by": "system"
   },
@@ -45154,7 +45154,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "There are no Air Navigation Charges Schedules data",
-    "val": "No existen las tasas de Navegación Aérea Horarios de datos",
+    "val": "No existen Tasas de Navegación Aérea Horarios de datos",
     "part": "frontend",
     "created_by": "system"
   },
@@ -50880,7 +50880,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approach Discount Amount",
-    "val": "Monto de Descuento de Aproximación",
+    "val": "Descuento al Monto de Aproximación",
     "part": "frontend",
     "created_by": "system"
   },
@@ -51006,7 +51006,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "All With Service Outages",
-    "val": "Todos Con Cortes de Servicio",
+    "val": "Todos con interrupciones de servicio",
     "part": "frontend",
     "created_by": "system"
   },
@@ -51118,7 +51118,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approach Discount Amount should be should within 0-100%",
-    "val": "El monto de descuento del enfoque debe ser dentro de 0-100%",
+    "val": "El monto de descuento de Aproximación debe estar dentro de 0-100%",
     "part": "frontend",
     "created_by": "system"
   },
@@ -51272,7 +51272,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Arriving Children At Domestic Airport",
-    "val": "Llegando Niños al Aeropuerto Doméstico",
+    "val": "Llegada de niños al Aeropuerto Nacional",
     "part": "frontend",
     "created_by": "system"
   },
@@ -51832,7 +51832,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Apply interest penalty on",
-    "val": "Aplicar penalización de intereses en",
+    "val": "Aplicar multa por intereses",
     "part": "frontend",
     "created_by": "system"
   },
@@ -52000,7 +52000,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approach Currency",
-    "val": "Moneda de acercamiento",
+    "val": "Moneda de Aproximación",
     "part": "frontend",
     "created_by": "system"
   },
@@ -52042,7 +52042,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aerodrome Currency",
-    "val": "Moneda del aeródromo",
+    "val": "Moneda de Aeródromo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -52812,7 +52812,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Are you sure you want to delete this flight?",
-    "val": "Estás seguro de que quieres eliminar este vuelo?",
+    "val": "Estás seguro de que querés eliminar este vuelo?",
     "part": "frontend",
     "created_by": "system"
   },
@@ -52896,7 +52896,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Are you sure you want to undelete this flight?",
-    "val": "Estás seguro de que quieres recuperar este vuelo?",
+    "val": "Estás seguro de que querés recuperar este vuelo?",
     "part": "frontend",
     "created_by": "system"
   },
@@ -52924,7 +52924,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Are you sure you want to pay this invoice?",
-    "val": "Seguro que quieres pagar esta factura?",
+    "val": "Está seguro de que quiere pagar esta factura?",
     "part": "frontend",
     "created_by": "system"
   },
@@ -53610,7 +53610,7 @@ select add_languages_by_json('[
   {
     "token": "Approval Request",
     "code": "es",
-    "val": "Requerimiento Aprobado",
+    "val": "Solicitud de Aprobación",
     "created_by": "system",
     "part": "frontend"
   },
@@ -53960,7 +53960,7 @@ select add_languages_by_json('[
   {
     "token": "ADAP charges",
     "code": "es",
-    "val": "Cargos ADAP",
+    "val": "Cargas ADAP",
     "created_by": "system",
     "part": "frontend"
   },
@@ -54240,7 +54240,7 @@ select add_languages_by_json('[
   {
     "token": "aviation billing phone number",
     "code": "es",
-    "val": "teléfono de facturación de aviación",
+    "val": "teléfono del contacto de facturación de aviación",
     "created_by": "system",
     "part": "frontend"
   },
@@ -54352,7 +54352,7 @@ select add_languages_by_json('[
   {
     "token": "black listed override",
     "code": "es",
-    "val": "eliminado de lista negra",
+    "val": "anulación de la lista negra",
     "created_by": "system",
     "part": "frontend"
   },
@@ -54464,7 +54464,7 @@ select add_languages_by_json('[
   {
     "token": "account users",
     "code": "es",
-    "val": "cuenta de usuario",
+    "val": "usuarios de la cuenta",
     "created_by": "system",
     "part": "frontend"
   },
@@ -55276,7 +55276,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Billable Cros Dist",
-    "val": "Dist. Cruce Facturable",
+    "val": "Dist. de Cruce a Facturar",
     "part": "frontend",
     "created_by": "system"
   },
@@ -55640,7 +55640,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approach charges",
-    "val": "Cargos de aproximación",
+    "val": "Cargas de aproximación",
     "part": "frontend",
     "created_by": "system"
   },
@@ -56368,7 +56368,7 @@ select add_languages_by_json('[
   {
    "code": "es",
    "token": "Allow non-standard flight id",
-   "val": "Permitir identificación de vuelo no estándar",
+   "val": "Permitir ID de vuelo no estándar",
    "part": "frontend",
    "created_by": "system"
   },
@@ -56620,7 +56620,7 @@ select add_languages_by_json('[
   {
    "code": "es",
    "token": "Airspace Ceiling",
-   "val": "Techo del Aspacio Aéreo",
+   "val": "Límite de Espacio Aéreo",
    "part": "frontend",
    "created_by": "system"
   },
@@ -56746,7 +56746,7 @@ select add_languages_by_json('[
   {
    "code": "es",
    "token": "Amount Prepaid",
-   "val": "Cantidad Prepaga",
+   "val": "Monto Prepagado",
    "part": "frontend",
    "created_by": "system"
   },
@@ -56830,7 +56830,7 @@ select add_languages_by_json('[
   {
    "code": "es",
    "token": "Actual flight report",
-   "val": "Informe de vuelo real",
+   "val": "Informe de Vuelos Actuales",
    "part": "frontend",
    "created_by": "system"
   },
