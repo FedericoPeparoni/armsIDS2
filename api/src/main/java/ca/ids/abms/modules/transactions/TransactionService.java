@@ -683,7 +683,6 @@ public class TransactionService extends AbstractPluginService<TransactionService
             setBillingLedgerFinalPaymentDate(billingLedgerFromDb, transactionPayment);
             //se isCreditNote è true evitare di generare fatture con interessi
             if(!isCreditNote) { 
-                
                 checkAndCreateInterestInvoice(billingLedgerFromDb);     
             }
         }
