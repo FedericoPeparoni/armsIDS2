@@ -4605,13 +4605,7 @@ select add_languages_by_json('[
     "part": "backend",
     "created_by": "system"
   },
-  {
-    "code": "es",
-    "token": "No report will be generated because one or more files for ansp are missing",
-    "val": "No se generará ningún informe porque faltan uno o más archivos para ansp",
-    "part": "backend",
-    "created_by": "system"
-  },
+
   {
     "code": "es",
     "token": "There are no Local Aircraft Registry data",
@@ -7411,85 +7405,6 @@ select add_languages_by_json('[
     "code": "es",
     "token": "Unified Tax Applicable *",
     "val": "No hay datos de impuestos unificados *",
-    "part": "frontend",
-    "created_by": "system"
-  },
-
-{
-    "code": "en",
-    "token": "Agricultural Discount (%)",
-    "val": "Agricultural Discount (%)",
-    "part": "frontend",
-    "created_by": "system"
-  },
-
-{
-    "code": "es",
-    "token": "Agricultural Discount (%)",
-    "val": "Descuento para Agricultura (%)",
-    "part": "frontend",
-    "created_by": "system"
-  },
-
-{
-    "code": "en",
-    "token": "Flight School Discount (%)",
-    "val": "Flight School Discount (%)",
-    "part": "frontend",
-    "created_by": "system"
-  },
-
-{
-    "code": "es",
-    "token": "Flight School Discount (%)",
-    "val": "Descuento para Entrenamiento (%)",
-    "part": "frontend",
-    "created_by": "system"
-  },
-{
-    "code": "en",
-    "token": "Aircraft Scope",
-    "val": "Aircraft Scope",
-    "part": "frontend",
-    "created_by": "system"
-  },
-
-{
-    "code": "es",
-    "token": "Aircraft Scope",
-    "val": "Alcance de Aeronave",
-    "part": "frontend",
-    "created_by": "system"
-  },
-
-	{
-    "code": "en",
-    "token": "Agriculture",
-    "val": "Agriculture",
-    "part": "frontend",
-    "created_by": "system"
-  },
-
-{
-    "code": "es",
-    "token": "Agriculture",
-    "val": "Agricultura",
-    "part": "frontend",
-    "created_by": "system"
-  },
-
-{
-    "code": "en",
-    "token": "Flight School",
-    "val": "Flight School",
-    "part": "frontend",
-    "created_by": "system"
-  },
-
-{
-    "code": "es",
-    "token": "Flight School",
-    "val": "Escuelas de Entrenamiento",
     "part": "frontend",
     "created_by": "system"
   }

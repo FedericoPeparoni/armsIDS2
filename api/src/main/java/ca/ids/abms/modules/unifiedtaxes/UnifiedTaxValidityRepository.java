@@ -54,7 +54,7 @@ public interface UnifiedTaxValidityRepository extends ABMSRepository<UnifiedTaxV
     Integer countValiditiesOverlappingFromDateExcludingCurrentId(@Param("fromValidityYear") LocalDateTime fromValidityYear, @Param("utvId") Integer utvId);
 
 
-    @Query(nativeQuery = true, value = "SELECT * FROM abms.unified_tax_validity Order by from_validity_year Asc")
+    @Query(nativeQuery = true, value = "SELECT * FROM abms.unified_tax_validity Order by from_validity_year Desc")
     List<UnifiedTaxValidity> findAll();
     
     

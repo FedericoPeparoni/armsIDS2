@@ -9,9 +9,21 @@ databaseChangeLog:
       relativeToChangelogFile: true
 - include:
       author: Alessandro Gallinella
-      file: 20212603250404_changelog_lang_1.5.3.sql
+      file: 20212603250708_changelog_lang_1.5.3.sql
       relativeToChangelogFile: true
 - include:
       author: Raffaele Aramo
-      file: 20214061513004_changelog_lang_1.5.3.sql
+      file: 20214061513085_changelog_lang_1.5.3.sql
       relativeToChangelogFile: true
+- include:
+      author: Alessandro Gallinella
+      file: 20210402250308_changelog_lang_1.5.3.sql
+      relativeToChangelogFile: true
+
+
+
+
+
+
+
+

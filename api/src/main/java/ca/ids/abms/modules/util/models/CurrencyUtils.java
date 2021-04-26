@@ -12,6 +12,7 @@ import ca.ids.abms.modules.system.BillingOrgCode;
 import ca.ids.abms.modules.system.SystemConfiguration;
 import ca.ids.abms.modules.system.SystemConfigurationService;
 import ca.ids.abms.modules.system.summary.SystemConfigurationItemName;
+import ca.ids.abms.modules.translation.Translation;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -143,7 +144,7 @@ public class CurrencyUtils {
         errorVariables.addEntry("date", date.toLocalDate().toString());
 
         throw new ErrorDTO.Builder()
-            .setErrorMessage("Missing applicable exchange rates for currency {{fromCurrencyCode}} to {{toCurrencyCode}} on {{date}}")
+            .setErrorMessage(Translation.getLangByToken("Missing applicable exchange rates for currency {{fromCurrencyCode}} to {{toCurrencyCode}} on {{date}}"))
             .setErrorMessageVariables(errorVariables)
             .appendDetails("Please update the exchange rates before continuing")
             .buildInvalidDataException();
@@ -164,7 +165,7 @@ public class CurrencyUtils {
             errorVariables.addEntry("date", date.toLocalDate().toString());
 
             throw new ErrorDTO.Builder()
-                    .setErrorMessage("Missing applicable exchange rates for currency {{currencyCode}} on {{date}}")
+                    .setErrorMessage(Translation.getLangByToken("Missing applicable exchange rates for currency {{currencyCode}} on {{date}}"))
                     .setErrorMessageVariables(errorVariables)
                     .appendDetails("Please update the exchange rates before continuing")
                     .buildInvalidDataException();

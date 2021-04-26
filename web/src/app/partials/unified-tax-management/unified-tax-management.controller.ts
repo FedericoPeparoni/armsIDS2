@@ -67,6 +67,7 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
 
     this.$scope.editValidity = (validity) => this.editValidity(validity);
     this.$scope.editTax = (tax) => this.editTax(tax);
+    this.$scope.onChangeFormula = () => this.onChangeFormula();
     this.$scope.resetValidity = () => this.resetValidity();
     this.$scope.resetTax = () => this.resetTax();
     this.$scope.validateValidityDates = (fromValidityYear, toValidityYear) => this.validateValidityDates(fromValidityYear, toValidityYear);
@@ -108,6 +109,7 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
   protected editTax(data: Object): void {
     this.$scope.error = null;
     this.$scope.editableTax = angular.copy(data);
+    this.$scope.formula = this.$scope.editableTax.charge_formula;
     var fromString = this.$scope.editableTax.from_manufacture_year;
     var toString = this.$scope.editableTax.to_manufacture_year;
     if (fromString) {
@@ -143,7 +145,9 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
   }
 
 
-
+  protected onChangeFormula(): void {
+    this.$scope.formula = this.$scope.editableTax.charge_formula;
+  }
 
   /**
    * Refresh method override, adds scope filters, pagination, sort query.

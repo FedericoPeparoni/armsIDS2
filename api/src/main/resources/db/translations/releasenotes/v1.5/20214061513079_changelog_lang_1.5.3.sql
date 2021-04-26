@@ -45,9 +45,60 @@ select add_languages_by_json('[
     "val": "Unified Tax Fórmula de carga",
     "part": "frontend",
     "created_by": "system"
+  },
+
+{
+    "code": "en",
+    "token": "Annual",
+    "val": "Annual",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "Annual",
+    "val": "Anual",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "en",
+    "token": "Partial",
+    "val": "Partial",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "Partial",
+    "val": "Parcial",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "en",
+    "token": "Applicable Unified Tax *",
+    "val": "Applicable Unified Tax *",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "Applicable Unified Tax *",
+    "val": "Impuesto unificado aplicable *",
+    "part": "frontend",
+    "created_by": "system"
   }
 
-	
+
+
+
+
 
 
 

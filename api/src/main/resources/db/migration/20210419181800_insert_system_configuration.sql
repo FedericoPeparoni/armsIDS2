@@ -7,20 +7,20 @@ begin
 
 INSERT INTO abms.system_item_types(
     id, name)
-VALUES (system_item_types_id, 'UnifiedTax');
+VALUES (system_item_types_id, 'Unified Tax');
 
 
 INSERT INTO abms.system_configurations(
     id, item_name, item_class, data_type, units, range, created_by)
-    
-    
+
+
 VALUES (DEFAULT, 'Agricultural Discount (%)', system_item_types_id, 5, 'percent', '0,100', 'system' );
-       
+
 
 
 INSERT INTO abms.system_configurations(
     id, item_name, item_class, data_type, units, range, created_by)
- 
+
 VALUES (DEFAULT, 'Flight School Discount (%)', system_item_types_id, 5, 'percent', '0,100', 'system');
-  
- end $$ LANGUAGE plpgsql;
+
+end $$ LANGUAGE plpgsql;
