@@ -147,9 +147,22 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
 	public UnifiedTax findUnifiedTaxByValidityYearAndManufactureYear(LocalDateTime yearValidity,
 			LocalDateTime yearManufacture) {
 
-		Timestamp timestampManufacture = Timestamp.valueOf(yearManufacture);
 		UnifiedTaxValidity unifiedTaxValidity = unifiedTaxValidityService.findUnifiedTaxValidityByYear(yearValidity);
-		return unifiedTaxRepository.findByValidityAndManifactureYear(unifiedTaxValidity.getId(), timestampManufacture);
+		if (unifiedTaxValidity == null) {
+			throw ExceptionFactory.persistenceDataManagement(
+					new IllegalArgumentException("The specified validity year is not available in the database"),
+					ErrorConstants.ERR_INVALID_UNIFIED_TAX_VALIDITY);
+		}
+
+		Timestamp timestampManufacture = Timestamp.valueOf(yearManufacture);
+		UnifiedTax unifiedTax = unifiedTaxRepository.findByValidityAndManifactureYear(unifiedTaxValidity.getId(), timestampManufacture);
+		if (unifiedTax == null) {
+			throw ExceptionFactory.persistenceDataManagement(
+					new IllegalArgumentException("No unified tax is available in the database for the specified years"),
+					ErrorConstants.ERR_NO_UNIFIED_TAX);
+		}
+		
+		return unifiedTax;
 	}
 
 	public List<UnifiedTax> findAllByValidityId(Integer validityId) {

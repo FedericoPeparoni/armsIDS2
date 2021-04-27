@@ -456,20 +456,17 @@ public class AviationInvoiceCreator {
 
 	        	if (ar.getAircraftServiceDate()!=null) {
 
-	        		//final AviationInvoiceData.AircraftInfo aircraftInfo = processAircraftRegistration(ar, account, startDate, endDateInclusive, aviationInvoiceCurrency, billingInterval,countUnifiedTaxAircraftTotal, unifiedTaxService,  preview);
                     final AviationInvoiceData.AircraftInfo aircraftInfo = unifiedTaxProcess.processAircraftRegistration(ar);
-                    //Aggiungo
                     aircraftInfo.customerName = invoiceData.global.accountName;
                     aircraftInfo.company = invoiceData.global.billingName;
                     aircraftInfo.invoicePeriod = invoiceData.global.invoiceBillingPeriod;
                     aircraftInfo.invoiceExpiration = invoiceData.global.invoiceDueDateStr;
                     aircraftInfo.mtow = ar.getMtowOverride()*ReportHelper.TO_KG/1000.0;
                     aircraftInfo.mtowUnitOfMeasure = "Ton"; // reportHelper.getMTOWUnitOfMeasure();
-                    aircraftInfo.mtowStr = String.format(THREE_DECIMALS, ar.getMtowOverride()) +  " " + aircraftInfo.mtowUnitOfMeasure;
+                    aircraftInfo.mtowStr = String.format(THREE_DECIMALS, aircraftInfo.mtow) +  " " + aircraftInfo.mtowUnitOfMeasure;
                     invoiceData.aircraftInfoList.add(aircraftInfo);
 
 	        		invoiceData.global.unifiedTaxTotalCharges += aircraftInfo.unifiedTaxCharges;
-
 	        	}
 	        }
             invoiceData.global.unifiedTaxAircraftTotal = countUnifiedTaxAircraftTotal.get();
@@ -1663,17 +1660,14 @@ public class AviationInvoiceCreator {
             UnifiedTax ut = unifiedTaxService.findUnifiedTaxByValidityYearAndManufactureYear(startDate, yearManufacture);
 
             //getChargeFormula
-            String rate = ut.getChargeFormula();
-
-            //String rate = ut.getChargeFormula();
+            String chargeFormula = ut.getChargeFormula();
 
             Double taxAmount = null;
 
             //Non c'è altro modo
             FormulaEvaluator fe = unifiedTaxService.getFormulaEvaluator();
             try {
-
-                taxAmount = fe.evalDouble(rate, vars);
+                taxAmount = fe.evalDouble(chargeFormula, vars);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -1681,26 +1675,13 @@ public class AviationInvoiceCreator {
 
             if (taxAmount != null) {
 
-                //reportHelper.convertMTOWinTons(Double mtow)
-                //String unitOfMeasure = getMTOWUnitOfMeasure()
-
-                //aircraftInfo.unifiedTaxCharges = mtow * taxAmount;
-
                 aircraftInfo.unifiedTaxCharges = taxAmount;
 
-                //
-                if(billingInterval.equals(BillingInterval.PARTIALLY)){
+                if (billingInterval.equals(BillingInterval.PARTIALLY)){
                     Integer monthsLeft = 0;
                     monthsLeft = 12 - startDate.getMonthValue() + 1; //+1 perchè deve essere incluso il mese start Date;
                     aircraftInfo.unifiedTaxCharges = (aircraftInfo.unifiedTaxCharges / 12.0) * monthsLeft;
                 }
-
-                //Old Discount
-                /*
-                    Double discount = account.getAccountTypeDiscount();
-                    if (discount != null)
-                        aircraftInfo.unifiedTaxCharges = aircraftInfo.unifiedTaxCharges - aircraftInfo.unifiedTaxCharges* discount / 100;
-                */
 
                 if(ar.getAircraftScope()!=null && ar.getAircraftScope().equals(AircraftScope.FLIGHT_SCHOOL.toValue())){
                     final Double discount = systemConfigurationService.getDouble(SystemConfigurationItemName.UNIFIED_TAX_FLIGHT_SCHOOL_DISCOUNT, 0d);
@@ -1732,12 +1713,9 @@ public class AviationInvoiceCreator {
                                 fm.setFlightNotes("");
                     		}
                     	}
-                    }
-                    
+                    }   
                 }
-
             }
-
 
             return aircraftInfo;
         }
