@@ -2921,7 +2921,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ERR_EX_UPDATE",
-    "val": "Por favor actualizar los tipos de cambio antes de continuar",
+    "val": "Por favor, actualizar los Tipos de Cambio antes de continuar",
     "part": "backend",
     "created_by": "system"
   },
@@ -6687,7 +6687,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "payment_amount",
-    "val": "payment_amount",
+    "val": "monto_de_pago",
     "part": "backend",
     "created_by": "system"
   },
@@ -6701,7 +6701,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "payment_currency",
-    "val": "payment_currency",
+    "val": "moneda_de_pago",
     "part": "backend",
     "created_by": "system"
   },
@@ -6715,7 +6715,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "payment_due_date",
-    "val": "payment_due_date",
+    "val": "vencimiento_del_pago",
     "part": "backend",
     "created_by": "system"
   },
@@ -6729,7 +6729,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "payment_exchange_rate",
-    "val": "payment_exchange_rate",
+    "val": "cambio_de_pago",
     "part": "backend",
     "created_by": "system"
   },
@@ -6743,7 +6743,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "payment_mechanism",
-    "val": "payment_mechanism",
+    "val": "machanismo_de_pago",
     "part": "backend",
     "created_by": "system"
   },
@@ -6757,7 +6757,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "payment_reference_number",
-    "val": "payment_reference_number",
+    "val": "referencia_de_pago",
     "part": "backend",
     "created_by": "system"
   },
@@ -6771,7 +6771,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Payment reference number is required",
-    "val": "Número de referencia de pago es requerido",
+    "val": "Se requiere el número de referencia del pago",
     "part": "backend",
     "created_by": "system"
   },
@@ -6799,7 +6799,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Penalty for overdue invoice",
-    "val": "Penalización por retraso de la factura",
+    "val": "Sansión por factura vencida",
     "part": "backend",
     "created_by": "system"
   },
@@ -6813,7 +6813,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "percent",
-    "val": "por ciento",
+    "val": "porcentaje",
     "part": "backend",
     "created_by": "system"
   },
@@ -6827,7 +6827,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Pessimistic Lock Exception Example.",
-    "val": "Bloqueo Pesimista Excepción Ejemplo.",
+    "val": "Ejemplo de excepción de bloqueo pesimista.",
     "part": "backend",
     "created_by": "system"
   },
@@ -6883,7 +6883,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "prototype",
-    "val": "prototype",
+    "val": "Prototipo",
     "part": "backend",
     "created_by": "system"
   },
@@ -6981,7 +6981,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Recurring charge end notification",
-    "val": "Notificación y cargo recurrente",
+    "val": "Notificación de finalización de cargos recurrentes",
     "part": "backend",
     "created_by": "system"
   },
@@ -36754,7 +36754,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Payment Amount *",
-    "val": "Cantidad de Pago *",
+    "val": "Monto de Pago *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -36782,7 +36782,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Payment Due Date",
-    "val": "Vencimiento",
+    "val": "Fecha de Vencimiento del pago",
     "part": "frontend",
     "created_by": "system"
   },
@@ -37062,7 +37062,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Pending (Complete)",
-    "val": "Pendiente (Completa)",
+    "val": "Pendiente (Completo)",
     "part": "frontend",
     "created_by": "system"
   },
@@ -37076,7 +37076,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Pending (Complete) Flight Movements",
-    "val": "Pendiente (Completo)",
+    "val": "Pendiente (Completo) Movimiento de Vuelo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -37146,7 +37146,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Percentage of EET to be used for flight match",
-    "val": "Porcentaje Estimado de Tiempo Transcurrido del Vuelo",
+    "val": "Porcentaje de EET que se utilizará para la Fusión de Vuelos",
     "part": "frontend",
     "created_by": "system"
   },
@@ -37160,7 +37160,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Percentage of EET to detect duplicate flights",
-    "val": "Porcentaje Estimado de Tiempo Transcurrido  para identificar Vuelo Duplicado",
+    "val": "Porcentaje de EET para identificar Vuelos Duplicados",
     "part": "frontend",
     "created_by": "system"
   },
@@ -37188,7 +37188,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Percent Blacklisted",
-    "val": "Por Ciento de La Lista Negra",
+    "val": "Porcentaje en Lista Negra",
     "part": "frontend",
     "created_by": "system"
   },
@@ -37230,7 +37230,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Percent Resolved",
-    "val": "Porcentaje Finalizado",
+    "val": "Porcentaje Resuelto",
     "part": "frontend",
     "created_by": "system"
   },
@@ -37384,7 +37384,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Pie",
-    "val": "Pie",
+    "val": "Pastel",
     "part": "frontend",
     "created_by": "system"
   },
@@ -37482,7 +37482,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Please apply the excess adjustment amount of",
-    "val": "Por favor aplicar el exceso de ajuste de la cantidad de",
+    "val": "Por favor, aplique la cantidad de ajuste en exceso de",
     "part": "frontend",
     "created_by": "system"
   },
@@ -37496,7 +37496,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "PLEASE DO NOT USE COMMAS FOR THOUSAND SEPARATORS. e.g. 1000000.00",
-    "val": "Por favor, no utilice comas para los separadores de miles, por ejemplo, 1000000.00",
+    "val": "POR FAVOR, NO UTILICE COMAS PARA LOS SEPARADORES DE MILES. Por ejemplo, 1000000,00",
     "part": "frontend",
     "created_by": "system"
   },
@@ -37510,7 +37510,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Please enter you email",
-    "val": "Por favor ingrese su correo electrónico",
+    "val": "Por favor, introduzca su correo electrónico",
     "part": "frontend",
     "created_by": "system"
   },
@@ -37538,7 +37538,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Please fill out this field",
-    "val": "Por favor, rellene este campo",
+    "val": "Por favor, complete este campo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -37552,7 +37552,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Please indicate which fees are exempt and why",
-    "val": "Por favor indicar que los honorarios están exentos y por qué",
+    "val": "Por favor, indicar cuales tasas son exentas y por qué",
     "part": "frontend",
     "created_by": "system"
   },
@@ -37594,7 +37594,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Plugin Description",
-    "val": "Plugin Descripción",
+    "val": "Descripción del complemento",
     "part": "frontend",
     "created_by": "system"
   },
@@ -37608,7 +37608,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Plugin Name",
-    "val": "Nombre del Plugin",
+    "val": "Nombre del complemento",
     "part": "frontend",
     "created_by": "system"
   },
@@ -37622,7 +37622,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Plugins",
-    "val": "Programas Adicionales",
+    "val": "Plugins",
     "part": "frontend",
     "created_by": "system"
   },
@@ -37762,7 +37762,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Point Of Sale Invoice Generation",
-    "val": "Punto de Venta Donde se Generó la Factura",
+    "val": "Punto de venta - Generación de facturas",
     "part": "frontend",
     "created_by": "system"
   },
@@ -38070,7 +38070,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Preconfigured revenue and air traffic statistics",
-    "val": "Preconfigurado de ingresos y aire estadísticas de tráfico",
+    "val": "Estadísticas preconfiguradas de ingresos y tráfico aéreo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -38126,7 +38126,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Preview air charges spreadsheet",
-    "val": "Vista previa de hoja de cálculo de Costo por Tipo de Navegación Aérea",
+    "val": "Vista previa de la hoja de cálculo de tarifas aéreas",
     "part": "frontend",
     "created_by": "system"
   },
@@ -38630,7 +38630,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Radar Dist",
-    "val": "Distancia en Radar",
+    "val": "Distancia de Radar",
     "part": "frontend",
     "created_by": "system"
   },
@@ -38658,7 +38658,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Radar floor level",
-    "val": "Nivel de radar en Piso",
+    "val": "Nivel de suelo del radar",
     "part": "frontend",
     "created_by": "system"
   },
@@ -38686,7 +38686,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "RADAR_SUMM",
-    "val": "Información de Radar",
+    "val": "Resumen de Radar",
     "part": "frontend",
     "created_by": "system"
   },
@@ -38700,7 +38700,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "radar summaries",
-    "val": "radar de resúmenes",
+    "val": "resúmenes del radar",
     "part": "frontend",
     "created_by": "system"
   },
@@ -38714,7 +38714,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "radar-summary",
-    "val": "Información de Radar",
+    "val": "Resumen de Radar",
     "part": "frontend",
     "created_by": "system"
   },
@@ -38798,7 +38798,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Radar Summary Incomplete",
-    "val": "Información de radar incompleta",
+    "val": "Resumen de Radar Incompleto",
     "part": "frontend",
     "created_by": "system"
   },
@@ -38882,7 +38882,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Rate to USD",
-    "val": "La tasa de USD",
+    "val": "Tasa a USD",
     "part": "frontend",
     "created_by": "system"
   },
@@ -38952,7 +38952,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Recalculation",
-    "val": "El recálculo de la",
+    "val": "Recálculo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -39022,7 +39022,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Receipt Prefix",
-    "val": "Prefijo de Recibo",
+    "val": "Prefijo del Recibo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -39162,7 +39162,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Record Primary Key",
-    "val": "Registro de La Clave Principal",
+    "val": "Clave Principal de Registro",
     "part": "frontend",
     "created_by": "system"
   },
@@ -39218,7 +39218,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "recurring charges",
-    "val": "los cargos recurrentes",
+    "val": "Cargos Recurrentes",
     "part": "frontend",
     "created_by": "system"
   },
@@ -39232,7 +39232,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Recurring Charges",
-    "val": "Cargos Recurrentes",
+    "val": "Cargas Recurrentes",
     "part": "frontend",
     "created_by": "system"
   },
@@ -39246,7 +39246,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Refresh",
-    "val": "Actualización",
+    "val": "Actualizar",
     "part": "frontend",
     "created_by": "system"
   },
@@ -39274,7 +39274,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "reg_arr_d_factor_formula",
-    "val": "Regional De La Llegada (D)",
+    "val": "formula_lle_reg_factor_d",
     "part": "frontend",
     "created_by": "system"
   },
@@ -39330,7 +39330,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "reg_dep_d_factor_formula",
-    "val": "Regional De La Salida (D)",
+    "val": "formula_sal_reg_factor_d",
     "part": "frontend",
     "created_by": "system"
   },
@@ -39400,7 +39400,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "REGIONAL ARRIVAL",
-    "val": "REGIONAL DE LA LLEGADA",
+    "val": "LLEGADA REGIONAL",
     "part": "frontend",
     "created_by": "system"
   },
@@ -39456,7 +39456,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "regional_arrival_formula",
-    "val": "Regional De La Llegada",
+    "val": "fórmula_de_llegada_regional",
     "part": "frontend",
     "created_by": "system"
   },
@@ -39498,7 +39498,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Regional Countries",
-    "val": "Paises por Region",
+    "val": "Países Regionales",
     "part": "frontend",
     "created_by": "system"
   },
@@ -39512,7 +39512,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Regional Country Management",
-    "val": "Regional de Gestión del País",
+    "val": "Gestión de Países Regionales",
     "part": "frontend",
     "created_by": "system"
   },
@@ -39540,7 +39540,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "REGIONAL DEPARTURE",
-    "val": "REGIONAL DE LA SALIDA",
+    "val": "SALIDA REGIONAL",
     "part": "frontend",
     "created_by": "system"
   },
@@ -39554,7 +39554,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Regional Departure (D)",
-    "val": "Regional De La Salida (D)",
+    "val": "Salida Regional (D)",
     "part": "frontend",
     "created_by": "system"
   },
@@ -39582,7 +39582,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "regional_departure_formula",
-    "val": "Regional De La Salida",
+    "val": "formula_de_salida_regional",
     "part": "frontend",
     "created_by": "system"
   },
@@ -39666,7 +39666,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "REGIONAL OVERFLIGHT",
-    "val": "REGIONAL DE SOBREVUELO",
+    "val": "SOBREVUELO REGIONAL",
     "part": "frontend",
     "created_by": "system"
   },
@@ -39680,7 +39680,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Regional Overflight (D)",
-    "val": "Regional De Sobrevuelo (D)",
+    "val": "formula_sob_reg_factor_d",
     "part": "frontend",
     "created_by": "system"
   },
@@ -39890,7 +39890,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "reg_ovr_d_factor_formula",
-    "val": "Regional De Sobrevuelo (D)",
+    "val": "Sobrevuelo Regional (D)",
     "part": "frontend",
     "created_by": "system"
   },
@@ -51552,7 +51552,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Percentage should be equal or more than 0",
-    "val": "El porcentaje debe ser igual o mayor que 0",
+    "val": "Porcentaje debe ser igual o mayor que 0",
     "part": "frontend",
     "created_by": "system"
   },
@@ -51580,7 +51580,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Punitive Interest Grace Period should be more than Default Interest Grace Period",
-    "val": "El período de gracia de interés punitivo debe ser más que el período de gracia de interés predeterminado",
+    "val": "El periodo de gracia de los intereses punitivos debe ser mayor que el periodo de gracia de los intereses por defecto",
     "part": "frontend",
     "created_by": "system"
   },
@@ -51762,7 +51762,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Regional aerodrome charges currency",
-    "val": "Aeródromo regional cobra monedas",
+    "val": "Moneda de Tasas de Aeródromo Regional",
     "part": "frontend",
     "created_by": "system"
   },
@@ -51804,7 +51804,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Regional approach charges currency",
-    "val": "Enfoque regional cobra monedas",
+    "val": "Moneda de Tasas Aproximación Regional",
     "part": "frontend",
     "created_by": "system"
   },
@@ -54254,7 +54254,7 @@ select add_languages_by_json('[
   {
     "token": "payment terms",
     "code": "es",
-    "val": "terminos de pago",
+    "val": "Términos de Pago",
     "created_by": "system",
     "part": "frontend"
   },
@@ -54856,7 +54856,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Payment Amount",
-    "val": "Cantidad de Pago",
+    "val": "Monto de Pago",
     "part": "frontend",
     "created_by": "system"
   },
