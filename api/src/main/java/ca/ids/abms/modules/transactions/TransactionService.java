@@ -571,7 +571,7 @@ public class TransactionService extends AbstractPluginService<TransactionService
      * @param amountForTransactionPayments payment amount
      */
     private List<TransactionPayment> doCreateTransactionPaymentsByTransaction(final Transaction transaction,
-                                                                              final HashMap<Integer,Double> amountForTransactionPayments) {
+                                                                              final HashMap<Integer,Double> amountForTransactionPayments, boolean isCreditNote) {
         assert (transaction != null);
         final List<Integer> billingLedgerIds = transaction.getBillingLedgerIds();
 
@@ -597,7 +597,7 @@ public class TransactionService extends AbstractPluginService<TransactionService
 
                     // create transaction payment and add to list
                     transactionPayments.add(doCreateTransactionPaymentForBillingLedger(amountForTransactionPayment,
-                        billingLedgerFromDb, transaction,false));
+                        billingLedgerFromDb, transaction,false, isCreditNote));
                 }
             }
         }
@@ -609,8 +609,8 @@ public class TransactionService extends AbstractPluginService<TransactionService
     private TransactionPayment doCreateTransactionPaymentForBillingLedger(final Double amountForTransactionPayment,
                                                                           final BillingLedger providedBillingLedger,
                                                                           final Transaction providedTransaction,
-                                                                          final Boolean isAccountCredit) {
-        return doCreateTransactionPaymentForBillingLedger(amountForTransactionPayment, providedBillingLedger, providedTransaction, isAccountCredit, false);
+                                                                          final Boolean isAccountCredit, boolean isCreditNote) {
+        return doCreateTransactionPaymentForBillingLedger(amountForTransactionPayment, providedBillingLedger, providedTransaction, isAccountCredit, false, isCreditNote);
     }
 
     /**
@@ -625,7 +625,7 @@ public class TransactionService extends AbstractPluginService<TransactionService
                                                                           final BillingLedger providedBillingLedger,
                                                                           final Transaction providedTransaction,
                                                                           final Boolean isAccountCredit,
-                                                                          final boolean preview) {
+                                                                          final boolean preview, boolean isCreditNote) {
 
         TransactionPayment transactionPayment = new TransactionPayment();
         transactionPayment.setTransaction(providedTransaction);
@@ -644,7 +644,7 @@ public class TransactionService extends AbstractPluginService<TransactionService
         }
 
         //update BillingLedger
-        doUpdateBillingLedgerByTransactionPayment(transactionPayment, preview);
+        doUpdateBillingLedgerByTransactionPayment(transactionPayment, preview, isCreditNote); 
 
         return transactionPayment;
     }
@@ -652,7 +652,7 @@ public class TransactionService extends AbstractPluginService<TransactionService
     /**
      * When TransactionPayment is created an invoice needs to be updated
      */
-    private void doUpdateBillingLedgerByTransactionPayment(final TransactionPayment transactionPayment, final boolean preview) {
+    private void doUpdateBillingLedgerByTransactionPayment(final TransactionPayment transactionPayment, final boolean preview, boolean isCreditNote) {
         BillingLedger billingLedgerFromDb;
 
         if (preview) {
@@ -681,8 +681,10 @@ public class TransactionService extends AbstractPluginService<TransactionService
             billingLedgerFromDb.setInvoiceStateType(InvoiceStateType.PAID.toValue());
 
             setBillingLedgerFinalPaymentDate(billingLedgerFromDb, transactionPayment);
-
-            checkAndCreateInterestInvoice(billingLedgerFromDb);
+            //se isCreditNote è true evitare di generare fatture con interessi
+            if(!isCreditNote) { 
+                checkAndCreateInterestInvoice(billingLedgerFromDb);     
+            }
         }
 
         billingLedgerFromDb.setAmountOwing(updatedAmountOwing);
@@ -740,9 +742,9 @@ public class TransactionService extends AbstractPluginService<TransactionService
         if (!createInterestInvoice) {
             return;
         }
-
+        
         InvoiceOverduePenalty overduePenalty = overdueInvoiceService.createNewPenalty(billingLedger, finalPaymentDate);
-
+        
         if (overduePenalty != null && (overduePenalty.getDefaultPenaltyAmount() + overduePenalty.getPunitivePenaltyAmount() > 0)) {
             double defaultPenalty = overduePenalty.getDefaultPenaltyAmount();
             double punitivePenalty = overduePenalty.getPunitivePenaltyAmount();
@@ -1038,7 +1040,7 @@ public class TransactionService extends AbstractPluginService<TransactionService
                             //Create transaction payment based on account credit amount. amountOwing of the invoice will be reduced after that.
                             TransactionPayment transactionPayment = doCreateTransactionPaymentForBillingLedger(
                                 amountForTransactionPayment, mostRecentBillingLedgerFromDb,
-                                creditTransactionWithUnusedAccountCredit, true, preview);
+                                creditTransactionWithUnusedAccountCredit, true, preview, false);
 
                             // broadcast credit payment created event
                             if (!preview) {
@@ -1456,7 +1458,7 @@ public class TransactionService extends AbstractPluginService<TransactionService
             resultTransaction.setChargesAdjustment(transaction.getChargesAdjustment());
 
             List<TransactionPayment> transactionPayments = doCreateTransactionPaymentsByTransaction(
-                resultTransaction, billingLedgersPaymentAmounts);
+                resultTransaction, billingLedgersPaymentAmounts, true);
 
             newInvoiceCreator().createTransactionCreditNote(resultTransaction, transaction.getChargesAdjustment(),
                 transaction.getBillingLedgerIds());
@@ -1490,7 +1492,7 @@ public class TransactionService extends AbstractPluginService<TransactionService
         resultTransaction = doCreateTransaction(transaction);
         resultTransaction.setBillingLedgerIds(transaction.getBillingLedgerIds());
         resultTransaction.setChargesAdjustment(transaction.getChargesAdjustment());
-        List<TransactionPayment> transactionPayments = doCreateTransactionPaymentsByTransaction(resultTransaction, billingLedgersPaymentAmounts);
+        List<TransactionPayment> transactionPayments = doCreateTransactionPaymentsByTransaction(resultTransaction, billingLedgersPaymentAmounts, false);
         newInvoiceCreator(resolveExchangeRateDate(transaction)).createTransactionReceipt(transaction);
 
         // broadcast credit payment created event for each
