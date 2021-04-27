@@ -104,11 +104,11 @@ public class ExemptFlightStatusService implements ExemptionTypeProvider {
                 FlightItemType.ITEM18_RMK, flightMovement.getItem18Rmk()));
         }
 
-        if (StringUtils.isNotBlank(flightMovement.getItem18RegNum())) {
+        if (StringUtils.isNotBlank(flightMovement.getFlightType())) {
             exemptions.addAll(exemptFlightStatusRepository.findAllByFlightItemTypeAndFlightItemValue(
-                FlightItemType.ITEM8_TYPE, flightMovement.getItem18RegNum()));
+                FlightItemType.ITEM8_TYPE, flightMovement.getFlightType()));
         }
-
+                
         return exemptions;
     }
 
