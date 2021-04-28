@@ -1284,11 +1284,16 @@ public class TransactionService extends AbstractPluginService<TransactionService
         return transactionPaymentRepository.getAllTransactionPaymentsByTransactionId(transactionId, pageable);
     }
 
+    BillingLedger getDebitNoteBillingLedgerByTransactionId(Integer transactionId) {
+        LOG.debug("get Debit Note Billing Ledger that have a transaction id: {}", transactionId);
+        return billingLedgerRepository.getDebitNoteBillingLedgerByTransactionId(transactionId);
+    }
+
     Page<BillingLedger> getAllBillingLedgerByTransactionId(Integer transactionId, Pageable pageable) {
         LOG.debug("get Billing Ledgers that have a transaction id: {}", transactionId);
         return transactionPaymentRepository.getAllBillingLedgerByTransactionId(transactionId, pageable);
     }
-
+    
     double calculateTransactionBalance(final Transaction currentTransaction) {
         Double transactionAmount = currentTransaction.getAmount();
         Double transactionBalance;
