@@ -53,7 +53,7 @@ public class FlightMovementServiceFromSpatiaTest {
             mock(FlightMovementValidator.class), mock(FlightMovementBuilderUtility.class),
             mock(ThruFlightPlanUtility.class), systemConfigurationService, mock(FlightMovementMerge.class),
             flightMovementRepositoryUtility, mock(AerodromeOperationalHoursService.class),
-            mock(CurrencyUtils.class), mock(TransactionService.class), mock(WhitelistingUtils.class), mock(PluginService.class));
+            mock(CurrencyUtils.class), mock(TransactionService.class), mock(WhitelistingUtils.class), mock(PluginService.class), null);
 
         // mock system configuration item departure time range eet percentage matching setting
         when(systemConfigurationService
