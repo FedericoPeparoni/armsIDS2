@@ -259,9 +259,6 @@ public class FlightMovementBuilder {
 
         // resolve billing center from dep and dest aerodromes based on movement type
         this.resolveBillingCenter(flightMovement, dep, dest);
-
-        // manage the FlightMovementStatus if the flight is "unified tax"
-        setFlightStatusIfUnifiedTaxFlight(flightMovement);
         
         return flightMovement;
     }
@@ -278,7 +275,7 @@ public class FlightMovementBuilder {
     	return true;
     }
     
-    private void setFlightStatusIfUnifiedTaxFlight(FlightMovement flightMovement) {
+    private void setFlightStatusIfUnifiedTaxFlight2(FlightMovement flightMovement) {
         // get aircraft registration number from item18RegNum
     	String item18RegNum = flightMovementBuilderUtility.checkAircraftRegistrationNumber(flightMovement);
                 
@@ -338,6 +335,9 @@ public class FlightMovementBuilder {
         FlightMovement flightMovement = null;
         if(fplObject != null) {
             flightMovement = validateAndMapFromFplObject(fplObject);
+            
+            // manage the FlightMovementStatus if the flight is "unified tax"
+            setFlightStatusIfUnifiedTaxFlight2(flightMovement);
         }
         return flightMovement;
     }
@@ -351,7 +351,7 @@ public class FlightMovementBuilder {
 
         if(flightMovement != null) {
                         
-            setFlightStatusIfUnifiedTaxFlight(flightMovement);
+            setFlightStatusIfUnifiedTaxFlight2(flightMovement);
             
             SegmentType segmentType = SegmentTypeMap
                     .mapFlightMovementSourceToSegmentType(FlightMovementSource.NETWORK);
@@ -580,6 +580,8 @@ public class FlightMovementBuilder {
                 }
                 checkAndParseItem18Field(validFM);
                 checkArrivalAerodromeTimeEet(validFM);
+                
+                
             } else {
                 final ErrorDTO errorDto = FlightMovementBuilderUtility.getMandatoryFieldNotValued(validFM,
                     "Cannot create/update a flight movement from Spatia", false);
