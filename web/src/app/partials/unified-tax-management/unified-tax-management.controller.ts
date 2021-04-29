@@ -59,8 +59,9 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     this.$scope.updateTax = (tax, id) => this.updateTax(tax, id);
     this.$scope.deleteValidity = (validity) => this.deleteValidity(validity);
     this.$scope.deleteTax = (tax) => this.deleteTax(tax);
-    //this.$scope.refresh = () => this.refreshOverrideUnifiedTaxValidity();
+    this.$scope.refresh = () => this.refreshOverride();
 
+    this.$scope.refreshOverride = () => this.refreshOverride();
     this.$scope.refreshOverrideUnifiedTaxValidity = () => this.refreshOverrideUnifiedTaxValidity();
     this.$scope.refreshOverrideUnifiedTax = () => this.refreshOverrideUnifiedTax();
 
@@ -74,6 +75,7 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     this.$scope.validateTaxDates = (fromManufactureYear, toManufactureYear) => this.validateTaxDates(fromManufactureYear, toManufactureYear);
 
     this.$scope.showTaxes = (validity) => this.showTaxes(validity);
+
 
 
 
@@ -100,6 +102,11 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     if (toString) {
       this.$scope.editableValidity.to_validity_year = new Date(toString);
     }
+  }
+
+  private refreshOverride():  ng.IPromise<any>{
+    this.refreshOverrideUnifiedTax();
+    return this.refreshOverrideUnifiedTaxValidity();
   }
 
   /**
@@ -166,6 +173,7 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
     });
   }
 
+
   private refreshOverrideUnifiedTax(): ng.IPromise<any> {
     this.service = this.serviceValidity;
     //this.$scope.selectedValidity = null;
@@ -199,16 +207,23 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
         this.getFilterParameters();
       });
     this.$scope.selectedValidity = validity;
-    this.editValidity(validity)
+    this.editValidity(validity);
+    console.log(validity.to_validity_year);
   }
 
   protected createValidity(data: Object): ng.IPromise<any> {
     this.service = this.serviceValidity;
+    (<any>data).to_validity_year = moment((<any>data).to_validity_year).endOf("year").toDate();
     var toRet = super.create(data);
     this.refreshOverrideUnifiedTaxValidity();
     this.resetValidity();
+    console.log(data);
     return toRet;
   }
+
+
+
+
 
   protected createTax(data: IUnifiedTaxManagement): ng.IPromise<any> {
     this.service = this.serviceTax;
