@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 4.6.0.v201606072122</property>
+    <property name="createdBy">Eclipse BIRT Designer Version 4.7.0.v201706222054</property>
+    <list-property name="propertyBindings">
+        <structure>
+            <property name="name">queryText</property>
+            <property name="id">1152</property>
+        </structure>
+        <structure>
+            <property name="name">queryTimeOut</property>
+            <property name="id">1152</property>
+        </structure>
+        <structure>
+            <property name="name">rowFetchSize</property>
+            <property name="id">1152</property>
+        </structure>
+    </list-property>
     <property name="units">in</property>
     <property name="iconFile">/templates/blank_report.gif</property>
     <property name="bidiLayoutOrientation">ltr</property>
@@ -75,7 +89,7 @@
                 </ex-property>
             </list-property>
             <property name="odaDriverClass">org.postgresql.Driver</property>
-            <property name="odaURL">jdbc:postgresql://localhost/abms_qa</property>
+            <property name="odaURL">jdbc:postgresql://localhost/abms</property>
             <property name="odaUser">abms</property>
             <encrypted-property name="odaPassword" encryptionID="base64">YWJtcw==</encrypted-property>
         </oda-data-source>
@@ -337,6 +351,12 @@ where
                     <text-property name="displayName">billing_ledgers_invoice_type</text-property>
                     <text-property name="heading">billing_ledgers_invoice_type</text-property>
                 </structure>
+                <structure>
+                    <property name="columnName">billing_centers_name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">billing_centers_name</text-property>
+                    <text-property name="heading">billing_centers_name</text-property>
+                </structure>
             </list-property>
             <list-property name="parameters">
                 <structure>
@@ -457,6 +477,11 @@ where
                         <property name="name">billing_ledgers_invoice_type</property>
                         <property name="dataType">string</property>
                     </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">billing_centers_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
                 </list-property>
             </structure>
             <property name="dataSource">Data Source</property>
@@ -566,6 +591,13 @@ where
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">billing_centers_name</property>
+                    <property name="nativeName">billing_centers_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
             </list-property>
             <xml-property name="queryText"><![CDATA[SELECT a.id                               AS account_id, 
        a.NAME                             AS account_name, 
@@ -581,7 +613,8 @@ where
        x.transaction_type 				  AS transaction_type,
        x.transaction_date_time 			  AS transaction_date_time,
        x.exchange_rate_to_usd			  AS exchange_rate_to_usd,
-       x.invoice_type                     AS billing_ledgers_invoice_type
+       x.invoice_type                     AS billing_ledgers_invoice_type,
+       x.billing_centers_name           AS billing_centers_name
 FROM   accounts a 
        LEFT OUTER JOIN (
        SELECT DISTINCT a.id                    		AS account_id, 
@@ -603,7 +636,8 @@ FROM   accounts a
                         t.payment_reference_number 	AS payment_reference_number,
                         t.exchange_rate		 		AS exchange_rate_to_usd,
                         tt.NAME                 	AS transaction_type,
-                        t.invoice_type              AS invoice_type
+                        t.invoice_type              AS invoice_type,
+                        t.billing_centers_name      AS billing_centers_name
                         FROM   abms.accounts a 
                                CROSS JOIN abms.currencies c 
                                LEFT OUTER JOIN (SELECT t.id, 
@@ -625,17 +659,16 @@ FROM   accounts a
                                             ON original.account_id = a.id 
                                                AND original.currency_id = c.id 
                                LEFT OUTER JOIN 
-                               (SELECT t.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.balance, bl.invoice_type, t.payment_mechanism, t.payment_reference_number, t.currency_id, t.transaction_type_id, t.id, t.description, t.exchange_rate
+                               (SELECT t.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.balance, bl.invoice_type, t.payment_mechanism, t.payment_reference_number, t.currency_id, t.transaction_type_id, t.id, t.description, t.exchange_rate,  be.name  AS billing_centers_name
                                 FROM   abms.transactions t
-   
-   
 INNER JOIN abms.billing_ledgers bl ON bl.invoice_number = t.payment_reference_number
+INNER JOIN abms.billing_centers be ON bl.billing_center_id = be.id  
 UNION
-SELECT  bl.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.balance, bl.invoice_type, t.payment_mechanism, t.payment_reference_number, t.currency_id, t.transaction_type_id, t.id, t.description, t.exchange_rate
+SELECT  bl.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.balance, bl.invoice_type, t.payment_mechanism, t.payment_reference_number, t.currency_id, t.transaction_type_id, t.id, t.description, t.exchange_rate, be.name  AS billing_centers_name
 FROM abms.billing_ledgers bl 
 INNER JOIN abms.transaction_payments tp ON bl.id = tp.billing_ledger_id
 INNER JOIN abms.transactions t ON tp.transaction_id = t.id                                
-
+INNER JOIN abms.billing_centers be ON bl.billing_center_id = be.id  
                                 WHERE  t.transaction_date_time 
                                        >= ?
                                        AND t.transaction_date_time <= ?
@@ -942,7 +975,6 @@ WHERE  abms.accounts.id = ?]]></xml-property>
             </page-header>
         </simple-master-page>
     </page-setup>
-
     <body>
         <grid id="58">
             <property name="width">7.989583333333333in</property>
@@ -1166,6 +1198,13 @@ dataSetRow["amount"]&#13;
                     <property name="name">invoice_type</property>
                     <text-property name="displayName">invoice_type</text-property>
                     <expression name="expression" type="javascript">dataSetRow["billing_ledgers_invoice_type"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">billing_centers_name</property>
+                    <text-property name="displayName">billing_centers_name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["billing_centers_name"]</expression>
                     <property name="dataType">string</property>
                     <property name="allowExport">true</property>
                 </structure>
@@ -1415,7 +1454,7 @@ dataSetRow["amount"]&#13;
                                                 <property name="fontWeight">bold</property>
                                                 <property name="textAlign">left</property>
                                                 <property name="contentType">auto</property>
-                                                <text-property name="content"><![CDATA[Aircraft Registration]]></text-property>
+                                                <text-property name="content"><![CDATA[A/C Reg Num]]></text-property>
                                             </text>
                                         </cell>
                                         <cell id="1570">
@@ -1423,7 +1462,7 @@ dataSetRow["amount"]&#13;
                                                 <property name="fontWeight">bold</property>
                                                 <property name="textAlign">left</property>
                                                 <property name="contentType">auto</property>
-                                                <text-property name="content"><![CDATA[Aircraft Manufacturer]]></text-property>
+                                                <text-property name="content"><![CDATA[Manufacturer]]></text-property>
                                             </text>
                                         </cell>
                                         <cell id="1621">
@@ -1431,7 +1470,7 @@ dataSetRow["amount"]&#13;
                                                 <property name="fontWeight">bold</property>
                                                 <property name="textAlign">left</property>
                                                 <property name="contentType">auto</property>
-                                                <text-property name="content"><![CDATA[Aircraft Type]]></text-property>
+                                                <text-property name="content"><![CDATA[Model]]></text-property>
                                             </text>
                                         </cell>
                                         <cell id="1607">
@@ -1439,7 +1478,7 @@ dataSetRow["amount"]&#13;
                                                 <property name="fontWeight">bold</property>
                                                 <property name="textAlign">left</property>
                                                 <property name="contentType">auto</property>
-                                                <text-property name="content"><![CDATA[Year of manufacture]]></text-property>
+                                                <text-property name="content"><![CDATA[Service Date]]></text-property>
                                             </text>
                                         </cell>
                                         <cell id="1572">
@@ -1493,14 +1532,15 @@ dataSetRow["amount"]&#13;
                                         </cell>
                                         <cell id="1585">
                                             <text-data id="1617">
-                                                <expression name="valueExpr">row["mtow_ton"]*907</expression>
+                                                <expression name="valueExpr">(row["mtow_ton"]*907).toPrecision(10)</expression>
                                                 <property name="contentType">html</property>
                                             </text-data>
                                         </cell>
                                         <cell id="1612">
-                                            <data id="1620">
-                                                <property name="resultSetColumn">mtow_ton</property>
-                                            </data>
+                                            <text-data id="1652">
+                                                <expression name="valueExpr">(row["mtow_ton"]).toPrecision(10)</expression>
+                                                <property name="contentType">html</property>
+                                            </text-data>
                                         </cell>
                                         <cell id="1587">
                                             <data id="1588">
@@ -1545,19 +1585,19 @@ dataSetRow["amount"]&#13;
                             </text>
                         </cell>
                         <cell id="1375">
+                            <text id="1650">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Billing Centre]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1642">
                             <text id="1383">
                                 <property name="fontWeight">bold</property>
                                 <property name="textAlign">left</property>
                                 <property name="contentType">auto</property>
                                 <text-property name="content"><![CDATA[Description]]></text-property>
-                            </text>
-                        </cell>
-                        <cell id="1642">
-                            <text id="1650">
-                                <property name="fontWeight">bold</property>
-                                <property name="textAlign">left</property>
-                                <property name="contentType">auto</property>
-                                <text-property name="content"><![CDATA[Billing Ledger]]></text-property>
                             </text>
                         </cell>
                         <cell id="1376">
@@ -1664,7 +1704,7 @@ dataSetRow["amount"]&#13;
                             <label id="1521">
                                 <property name="fontWeight">bold</property>
                                 <property name="fontStyle">italic</property>
-                                <property name="textUnderline">underline</property>
+                                <property name="textUnderline">none</property>
                                 <text-property name="text">Opening Balance</text-property>
                             </label>
                         </cell>
@@ -1772,20 +1812,20 @@ dataSetRow["amount"]&#13;
                     </list-property>
                     <cell id="1160">
                         <text-data id="1257">
-                            <property name="paddingLeft">15px</property>
+                            <property name="paddingLeft">2px</property>
                             <expression name="valueExpr">Formatter.format(row["Transaction_Date"],"YYYY-MM-dd")</expression>
                             <property name="contentType">html</property>
                         </text-data>
                     </cell>
                     <cell id="1161">
-                        <data id="1173">
-                            <property name="textAlign">left</property>
-                            <property name="resultSetColumn">description</property>
+                        <data id="1653">
+                            <property name="resultSetColumn">billing_centers_name</property>
                         </data>
                     </cell>
                     <cell id="1645">
-                        <data id="1651">
-                            <property name="resultSetColumn">invoice_type</property>
+                        <data id="1173">
+                            <property name="textAlign">left</property>
+                            <property name="resultSetColumn">description</property>
                         </data>
                     </cell>
                     <cell id="1195">
@@ -1899,6 +1939,4 @@ dataSetRow["amount"]&#13;
             </footer>
         </table>
     </body>
-
-
 </report>
