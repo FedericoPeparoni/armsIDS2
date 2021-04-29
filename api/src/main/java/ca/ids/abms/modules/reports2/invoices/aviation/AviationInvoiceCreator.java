@@ -324,6 +324,20 @@ public class AviationInvoiceCreator {
     	return invoiceByFlightMovementCategory && aviationInvoiceCurrencyItem!=null;
     }
 
+    
+    private boolean do_checkIfUnifiedTaxAlreadyPaid(AircraftRegistration ar) {
+    	LocalDateTime coaIssueDate = ar.getCoaIssueDate();
+    	LocalDateTime coaExpiryDate = ar.getCoaExpiryDate();
+    	
+    	if (coaIssueDate != null && coaExpiryDate != null) {
+    		if ((this.startDate.isAfter(coaIssueDate) || this.startDate.isEqual(coaIssueDate)) && 
+    		    (this.endDateInclusive.isBefore(coaExpiryDate) || this.endDateInclusive.isEqual(coaExpiryDate)))
+    		return true;
+    	}
+    	
+    	return false;
+    }
+    
     /**
      * Create raw invoice data; to be further formatted into PDF etc.
      */
@@ -454,7 +468,12 @@ public class AviationInvoiceCreator {
         	for (final AircraftRegistration ar: aircraftRegistrationsToInvoiceByUnifiedTax) {
 	        	// TODO: manage counter update
 
+        		if (do_checkIfUnifiedTaxAlreadyPaid(ar))
+        			continue;
+        		
 	        	if (ar.getAircraftServiceDate()!=null) {
+	        		
+	        		// check if the unified tax has been already paid for the aircraft registration
 
                     final AviationInvoiceData.AircraftInfo aircraftInfo = unifiedTaxProcess.processAircraftRegistration(ar);
                     aircraftInfo.customerName = invoiceData.global.accountName;
