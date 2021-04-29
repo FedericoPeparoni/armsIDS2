@@ -1503,13 +1503,13 @@ dataSetRow["amount"]&#13;
                                         </cell>
                                         <cell id="1585">
                                             <text-data id="1617">
-                                                <expression name="valueExpr">(row["mtow_ton"]*907).toPrecision(10)</expression>
+                                                <expression name="valueExpr">Formatter.format((row["mtow_ton"]*907), '#,##0.00')</expression>
                                                 <property name="contentType">html</property>
                                             </text-data>
                                         </cell>
                                         <cell id="1612">
                                             <text-data id="1652">
-                                                <expression name="valueExpr">(row["mtow_ton"]).toPrecision(10)</expression>
+                                                <expression name="valueExpr">Formatter.format((row["mtow_ton"]), '#,##0.00')</expression>
                                                 <property name="contentType">html</property>
                                             </text-data>
                                         </cell>
@@ -1752,6 +1752,11 @@ dataSetRow["amount"]&#13;
                                 <structure name="numberFormat">
                                     <property name="category">Fixed</property>
                                     <property name="pattern">#,##0.00{RoundingMode=HALF_UP}</property>
+                                    <property name="locale">es</property>
+                                </structure>
+                                <structure name="stringFormat">
+                                    <property name="category">Unformatted</property>
+                                    <property name="locale">es</property>
                                 </structure>
                                 <property name="textAlign">right</property>
                                 <property name="resultSetColumn">opening_balance</property>
@@ -1878,6 +1883,11 @@ dataSetRow["amount"]&#13;
                             <structure name="numberFormat">
                                 <property name="category">Fixed</property>
                                 <property name="pattern">#,##0.00{RoundingMode=HALF_UP}</property>
+                                <property name="locale">es</property>
+                            </structure>
+                            <structure name="stringFormat">
+                                <property name="category">Unformatted</property>
+                                <property name="locale">es</property>
                             </structure>
                             <property name="textAlign">right</property>
                             <property name="resultSetColumn">New_Amount_USD</property>
@@ -1888,6 +1898,11 @@ dataSetRow["amount"]&#13;
                             <structure name="numberFormat">
                                 <property name="category">Fixed</property>
                                 <property name="pattern">#,##0.00{RoundingMode=UP}</property>
+                                <property name="locale">es</property>
+                            </structure>
+                            <structure name="stringFormat">
+                                <property name="category">Unformatted</property>
+                                <property name="locale">es</property>
                             </structure>
                             <property name="textAlign">right</property>
                             <property name="resultSetColumn">Balance_USD</property>
