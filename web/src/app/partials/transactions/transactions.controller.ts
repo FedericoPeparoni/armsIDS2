@@ -259,7 +259,7 @@ export class TransactionsController extends CRUDFileUploadController {
   /**
    * Populate transaction form using provided transaction parameter genearted from an invoice.
    * This is used on the Billing -> Invoices view to pay a selected invoice.
-   * 
+   *
    * @param transaction transaction to populate
    */
   private setTransactionFromInvoice(transaction: ITransaction): void {
@@ -705,12 +705,16 @@ export class TransactionsController extends CRUDFileUploadController {
           case 'aviation-noniata':
             this.$scope.chargeTypes = this.chargeAdjustmentsService.nonIataChargeTypes();
             break;
+            case 'unified-tax':
+              this.$scope.chargeTypes = this.chargeAdjustmentsService.unifiedTaxChargeTypes();
+            break;
           case 'non-aviation':
             this.$scope.chargeTypes = this.$scope.catalogueCharges;
             break;
           case 'debit-note':
             this.$scope.chargeTypes = [{ description: <any> ChargesAdjustmentType.OTHER_CHARGES }];
             break;
+
           default:
             this.$scope.chargeTypes = [];
         }
@@ -1171,7 +1175,7 @@ export class TransactionsController extends CRUDFileUploadController {
 
   /**
    * Verify if any provided payment mechanisms are selected.
-   * 
+   *
    * @param mechanisms payment mechanisms to verify
    */
   private isPaymentMechanism(mechanisms: Array<string>): boolean {
@@ -1190,7 +1194,7 @@ export class TransactionsController extends CRUDFileUploadController {
   /**
    * Set editable transaction's bank account name, number, externalId from
    * provided bank account object.
-   * 
+   *
    * @param bankAccount bank account info to use
    */
   private setEditableBankAccount(bankAccount: IBankAccount): void {
@@ -1207,7 +1211,7 @@ export class TransactionsController extends CRUDFileUploadController {
 
   /**
    * On payment mechanism change event, updated editable transaction properties.
-   * 
+   *
    * @param editable editable transaction
    */
   private onPaymentMechanismChange(editable: ITransaction): void {
@@ -1239,12 +1243,12 @@ export class TransactionsController extends CRUDFileUploadController {
 
   /**
    * On transaction type change event, updated editable transaction properties
-   * 
+   *
    * @param editable editable transaction
    */
   private onTransactionTypeChange(editable: ITransaction): void {
 
-    // set payment reference number to 'N/A' if transaction type is 'debit' or 
+    // set payment reference number to 'N/A' if transaction type is 'debit' or
     // transaction type is 'credit' and payment mechanism is 'adjustment' or 'cash'
     editable.payment_reference_number = editable.transaction_type.name === 'debit' ||
     editable.transaction_type.name === 'credit' && this.isPaymentMechanism(['adjustment', 'cash'])

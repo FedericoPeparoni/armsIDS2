@@ -15,6 +15,7 @@ export enum ChargesAdjustmentType {
   ALL_CHARGES = <any> 'All charges',
   ENROUTE_CHARGES = <any> 'Enroute charges',
   LANDING_CHARGES = <any> 'Landing charges',
+  UNIFIED_TAX_CHARGES = <any> 'Unified Tax',
   OTHER_CHARGES = <any> 'Other charges',
   PARKING_CHARGES = <any> 'Parking charges',
   PASSENGER_CHARGES = <any> 'Passenger charges',
@@ -37,6 +38,14 @@ export class ChargeAdjustmentsService {
       { description: this.getChargesAdjustment(ChargesAdjustmentType.ALL_CHARGES) }
     ];
   }
+
+
+  public unifiedTaxChargeTypes(): Array<IChargeTypeScope>{
+    return [
+      {description: this.getChargesAdjustment(ChargesAdjustmentType.UNIFIED_TAX_CHARGES)}
+    ]
+  }
+
 
   /**
    * Retreive non iata aviation charges based on system configuration settings.
@@ -66,7 +75,7 @@ export class ChargeAdjustmentsService {
 
   /**
    * Resolve flight adjustment external properties based on organization system settings.
-   * 
+   *
    * @param charge charge adjustment details
    * @param flight flight movement being adjusted
    */
