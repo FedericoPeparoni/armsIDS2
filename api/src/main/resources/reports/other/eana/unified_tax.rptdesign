@@ -5,6 +5,7 @@
     <property name="iconFile">/templates/blank_report.gif</property>
     <property name="bidiLayoutOrientation">ltr</property>
     <property name="imageDPI">96</property>
+    <property name="locale">es</property>
     <parameters>
         <scalar-parameter name="account_id" id="1120">
             <property name="valueType">static</property>
@@ -645,8 +646,12 @@ FROM   accounts a
                                             ON original.account_id = a.id 
                                                AND original.currency_id = c.id 
                                LEFT OUTER JOIN 
-                               (SELECT t.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.balance, bl.invoice_type, t.payment_mechanism, t.payment_reference_number, t.currency_id, t.transaction_type_id, t.id, t.description, t.exchange_rate,  be.name  AS billing_centers_name
-                                FROM   abms.transactions t
+                               (
+                               
+SELECT *
+  FROM (                               
+SELECT t.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.balance, bl.invoice_type, t.payment_mechanism, t.payment_reference_number, t.currency_id, t.transaction_type_id, t.id, t.description, t.exchange_rate,  be.name  AS billing_centers_name
+FROM   abms.transactions t
 INNER JOIN abms.billing_ledgers bl ON bl.invoice_number = t.payment_reference_number
 INNER JOIN abms.billing_centers be ON bl.billing_center_id = be.id  
 UNION
@@ -654,7 +659,8 @@ SELECT  bl.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.b
 FROM abms.billing_ledgers bl 
 INNER JOIN abms.transaction_payments tp ON bl.id = tp.billing_ledger_id
 INNER JOIN abms.transactions t ON tp.transaction_id = t.id                                
-INNER JOIN abms.billing_centers be ON bl.billing_center_id = be.id  
+INNER JOIN abms.billing_centers be ON bl.billing_center_id = be.id
+) AS t 
                                 WHERE  t.transaction_date_time 
                                        >= ?
                                        AND t.transaction_date_time <= ?
@@ -1190,13 +1196,13 @@ dataSetRow["amount"]&#13;
                 <property name="width">100%</property>
             </column>
             <column id="1198">
-                <property name="width">100%</property>
+                <property name="width">80%</property>
             </column>
             <column id="1222">
                 <property name="width">100%</property>
             </column>
             <column id="1494">
-                <property name="width">100%</property>
+                <property name="width">80%</property>
             </column>
             <column id="1205">
                 <property name="width">100%</property>
@@ -1503,13 +1509,13 @@ dataSetRow["amount"]&#13;
                                         </cell>
                                         <cell id="1585">
                                             <text-data id="1617">
-                                                <expression name="valueExpr">Formatter.format((row["mtow_ton"]*907), '#,##0.00')</expression>
+                                                <expression name="valueExpr">(row["mtow_ton"]*907).toPrecision(10)</expression>
                                                 <property name="contentType">html</property>
                                             </text-data>
                                         </cell>
                                         <cell id="1612">
                                             <text-data id="1652">
-                                                <expression name="valueExpr">Formatter.format((row["mtow_ton"]), '#,##0.00')</expression>
+                                                <expression name="valueExpr">(row["mtow_ton"]).toPrecision(10)</expression>
                                                 <property name="contentType">html</property>
                                             </text-data>
                                         </cell>
@@ -1883,11 +1889,9 @@ dataSetRow["amount"]&#13;
                             <structure name="numberFormat">
                                 <property name="category">Fixed</property>
                                 <property name="pattern">#,##0.00{RoundingMode=HALF_UP}</property>
-                                <property name="locale">es</property>
                             </structure>
                             <structure name="stringFormat">
                                 <property name="category">Unformatted</property>
-                                <property name="locale">es</property>
                             </structure>
                             <property name="textAlign">right</property>
                             <property name="resultSetColumn">New_Amount_USD</property>
@@ -1898,11 +1902,9 @@ dataSetRow["amount"]&#13;
                             <structure name="numberFormat">
                                 <property name="category">Fixed</property>
                                 <property name="pattern">#,##0.00{RoundingMode=UP}</property>
-                                <property name="locale">es</property>
                             </structure>
                             <structure name="stringFormat">
                                 <property name="category">Unformatted</property>
-                                <property name="locale">es</property>
                             </structure>
                             <property name="textAlign">right</property>
                             <property name="resultSetColumn">Balance_USD</property>
