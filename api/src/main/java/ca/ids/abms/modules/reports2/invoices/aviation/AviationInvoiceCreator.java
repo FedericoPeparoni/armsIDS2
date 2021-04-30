@@ -480,9 +480,20 @@ public class AviationInvoiceCreator {
                     aircraftInfo.company = invoiceData.global.billingName;
                     aircraftInfo.invoicePeriod = invoiceData.global.invoiceBillingPeriod;
                     aircraftInfo.invoiceExpiration = invoiceData.global.invoiceDueDateStr;
-                    aircraftInfo.mtow = ar.getMtowOverride()*ReportHelper.TO_KG/1000.0;
-                    aircraftInfo.mtowUnitOfMeasure = "Ton"; // reportHelper.getMTOWUnitOfMeasure();
-                    aircraftInfo.mtowStr = String.format(THREE_DECIMALS, aircraftInfo.mtow) +  " " + aircraftInfo.mtowUnitOfMeasure;
+
+                    aircraftInfo.mtowUnitOfMeasure = reportHelper.getMTOWUnitOfMeasure();
+                    
+                    if (mtowUnitOfMeasure.equalsIgnoreCase("KG")) {
+                        aircraftInfo.mtow = ar.getMtowOverride()*ReportHelper.TO_KG;
+                        aircraftInfo.mtowStr = String.format("%,.0f", aircraftInfo.mtow) +  " " 
+                        		+ aircraftInfo.mtowUnitOfMeasure;
+                    }
+                    else {
+                    	aircraftInfo.mtow = ar.getMtowOverride()*ReportHelper.TO_KG/1000.0;
+                        aircraftInfo.mtowStr = String.format(THREE_DECIMALS, aircraftInfo.mtow) +  " " 
+                        		+ aircraftInfo.mtowUnitOfMeasure;
+                    }
+                    
                     invoiceData.aircraftInfoList.add(aircraftInfo);
 
 	        		invoiceData.global.unifiedTaxTotalCharges += aircraftInfo.unifiedTaxCharges;
@@ -1668,9 +1679,6 @@ public class AviationInvoiceCreator {
             AviationInvoiceData.AircraftInfo aircraftInfo = new AviationInvoiceData.AircraftInfo();
             aircraftInfo.manufacturer = ar.getAircraftType().getManufacturer();
             aircraftInfo.manufactureYearStr = reportHelper.formatYear(ar.getAircraftServiceDate());
-            aircraftInfo.mtow = ar.getMtowOverride();
-            aircraftInfo.mtowUnitOfMeasure = reportHelper.getMTOWUnitOfMeasure();
-            aircraftInfo.mtowStr = ar.getMtowOverride() +  reportHelper.getMTOWUnitOfMeasure();
             aircraftInfo.aircraftType = ar.getAircraftType().getAircraftType();
             aircraftInfo.unifiedTaxCharges = 0.;
 
