@@ -2,6 +2,7 @@ package ca.ids.abms.modules.unifiedtaxes;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -56,12 +57,19 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
 							"You have to specify at least one of the manufacture start and end date"),
 					ErrorConstants.ERR_DATE_START);
 		}
+				
 		if (entity.getFromManufactureYear() != null && entity.getToManufactureYear() != null
 				&& entity.getToManufactureYear().isBefore(entity.getFromManufactureYear())) {
 			throw ExceptionFactory.persistenceDataManagement(
 					new IllegalArgumentException("The manufacture start date must be before the manufacture end date"),
 					ErrorConstants.ERR_DATE_START);
 		}
+		
+    	if (entity.getToManufactureYear() != null) {
+    		LocalDateTime lastDayOfYear = entity.getToManufactureYear().with(TemporalAdjusters.lastDayOfYear());
+    		entity.setToManufactureYear(lastDayOfYear);
+    	}
+
 		UnifiedTaxValidity validity = unifiedTaxValidityService.findOne(entity.getValidity().getId());
 		if (validity == null) {
 			throw ExceptionFactory.persistenceDataManagement(
@@ -107,6 +115,12 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
 					new IllegalArgumentException("The manufacture start date must be before the manufacture end date"),
 					ErrorConstants.ERR_DATE_START);
 		}
+
+    	if (entity.getToManufactureYear() != null) {
+    		LocalDateTime lastDayOfYear = entity.getToManufactureYear().with(TemporalAdjusters.lastDayOfYear());
+    		entity.setToManufactureYear(lastDayOfYear);
+    	}
+		
 		UnifiedTaxValidity validity = unifiedTaxValidityService.findOne(entity.getValidity().getId());
 		if (validity == null) {
 			throw ExceptionFactory.persistenceDataManagement(
