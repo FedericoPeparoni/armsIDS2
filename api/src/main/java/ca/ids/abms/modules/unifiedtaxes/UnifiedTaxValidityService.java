@@ -2,6 +2,7 @@ package ca.ids.abms.modules.unifiedtaxes;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,11 @@ public class UnifiedTaxValidityService extends AbmsCrudService<UnifiedTaxValidit
     @Override
     public UnifiedTaxValidity create(final UnifiedTaxValidity entity) {
 
-
+    	if (entity.getToValidityYear() != null) {
+    		LocalDateTime lastDayOfYear = entity.getToValidityYear().with(TemporalAdjusters.lastDayOfYear());
+    		entity.setToValidityYear(lastDayOfYear);
+    	}
+    	
         if(entity.getFromValidityYear() == null && entity.getToValidityYear() == null) {
             throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("You have to specify at least one of the validity start and end date"),
                     ErrorConstants.ERR_DATE_START);
@@ -57,7 +62,11 @@ public class UnifiedTaxValidityService extends AbmsCrudService<UnifiedTaxValidit
     @Override
     public UnifiedTaxValidity update(final Integer id, final UnifiedTaxValidity entity) {
 
-
+    	if (entity.getToValidityYear() != null) {
+    		LocalDateTime lastDayOfYear = entity.getToValidityYear().with(TemporalAdjusters.lastDayOfYear());
+    		entity.setToValidityYear(lastDayOfYear);
+    	}
+    	
         if(entity.getFromValidityYear() == null && entity.getToValidityYear() == null) {
             throw ExceptionFactory.persistenceDataManagement(new IllegalArgumentException("You have to specify at least one of the validity start and end date"),
                     ErrorConstants.ERR_DATE_START);

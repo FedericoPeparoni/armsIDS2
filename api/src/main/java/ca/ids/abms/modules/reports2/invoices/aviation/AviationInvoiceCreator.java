@@ -324,6 +324,20 @@ public class AviationInvoiceCreator {
     	return invoiceByFlightMovementCategory && aviationInvoiceCurrencyItem!=null;
     }
 
+    
+    private boolean do_checkIfUnifiedTaxAlreadyPaid(AircraftRegistration ar) {
+    	LocalDateTime coaIssueDate = ar.getCoaIssueDate();
+    	LocalDateTime coaExpiryDate = ar.getCoaExpiryDate();
+    	
+    	if (coaIssueDate != null && coaExpiryDate != null) {
+    		if ((this.startDate.isAfter(coaIssueDate) || this.startDate.isEqual(coaIssueDate)) && 
+    		    (this.endDateInclusive.isBefore(coaExpiryDate) || this.endDateInclusive.isEqual(coaExpiryDate)))
+    		return true;
+    	}
+    	
+    	return false;
+    }
+    
     /**
      * Create raw invoice data; to be further formatted into PDF etc.
      */
@@ -454,22 +468,35 @@ public class AviationInvoiceCreator {
         	for (final AircraftRegistration ar: aircraftRegistrationsToInvoiceByUnifiedTax) {
 	        	// TODO: manage counter update
 
+        		if (do_checkIfUnifiedTaxAlreadyPaid(ar))
+        			continue;
+        		
 	        	if (ar.getAircraftServiceDate()!=null) {
+	        		
+	        		// check if the unified tax has been already paid for the aircraft registration
 
-	        		//final AviationInvoiceData.AircraftInfo aircraftInfo = processAircraftRegistration(ar, account, startDate, endDateInclusive, aviationInvoiceCurrency, billingInterval,countUnifiedTaxAircraftTotal, unifiedTaxService,  preview);
                     final AviationInvoiceData.AircraftInfo aircraftInfo = unifiedTaxProcess.processAircraftRegistration(ar);
-                    //Aggiungo
                     aircraftInfo.customerName = invoiceData.global.accountName;
                     aircraftInfo.company = invoiceData.global.billingName;
                     aircraftInfo.invoicePeriod = invoiceData.global.invoiceBillingPeriod;
                     aircraftInfo.invoiceExpiration = invoiceData.global.invoiceDueDateStr;
-                    aircraftInfo.mtow = ar.getMtowOverride()*ReportHelper.TO_KG/1000.0;
-                    aircraftInfo.mtowUnitOfMeasure = "Ton"; // reportHelper.getMTOWUnitOfMeasure();
-                    aircraftInfo.mtowStr = String.format(THREE_DECIMALS, ar.getMtowOverride()) +  " " + aircraftInfo.mtowUnitOfMeasure;
+
+                    aircraftInfo.mtowUnitOfMeasure = reportHelper.getMTOWUnitOfMeasure();
+                    
+                    if (mtowUnitOfMeasure.equalsIgnoreCase("KG")) {
+                        aircraftInfo.mtow = ar.getMtowOverride()*ReportHelper.TO_KG;
+                        aircraftInfo.mtowStr = String.format("%,.0f", aircraftInfo.mtow) +  " " 
+                        		+ aircraftInfo.mtowUnitOfMeasure;
+                    }
+                    else {
+                    	aircraftInfo.mtow = ar.getMtowOverride()*ReportHelper.TO_KG/1000.0;
+                        aircraftInfo.mtowStr = String.format(THREE_DECIMALS, aircraftInfo.mtow) +  " " 
+                        		+ aircraftInfo.mtowUnitOfMeasure;
+                    }
+                    
                     invoiceData.aircraftInfoList.add(aircraftInfo);
 
 	        		invoiceData.global.unifiedTaxTotalCharges += aircraftInfo.unifiedTaxCharges;
-
 	        	}
 	        }
             invoiceData.global.unifiedTaxAircraftTotal = countUnifiedTaxAircraftTotal.get();
@@ -1652,9 +1679,6 @@ public class AviationInvoiceCreator {
             AviationInvoiceData.AircraftInfo aircraftInfo = new AviationInvoiceData.AircraftInfo();
             aircraftInfo.manufacturer = ar.getAircraftType().getManufacturer();
             aircraftInfo.manufactureYearStr = reportHelper.formatYear(ar.getAircraftServiceDate());
-            aircraftInfo.mtow = ar.getMtowOverride();
-            aircraftInfo.mtowUnitOfMeasure = reportHelper.getMTOWUnitOfMeasure();
-            aircraftInfo.mtowStr = ar.getMtowOverride() +  reportHelper.getMTOWUnitOfMeasure();
             aircraftInfo.aircraftType = ar.getAircraftType().getAircraftType();
             aircraftInfo.unifiedTaxCharges = 0.;
 
@@ -1663,17 +1687,14 @@ public class AviationInvoiceCreator {
             UnifiedTax ut = unifiedTaxService.findUnifiedTaxByValidityYearAndManufactureYear(startDate, yearManufacture);
 
             //getChargeFormula
-            String rate = ut.getChargeFormula();
-
-            //String rate = ut.getChargeFormula();
+            String chargeFormula = ut.getChargeFormula();
 
             Double taxAmount = null;
 
             //Non c'è altro modo
             FormulaEvaluator fe = unifiedTaxService.getFormulaEvaluator();
             try {
-
-                taxAmount = fe.evalDouble(rate, vars);
+                taxAmount = fe.evalDouble(chargeFormula, vars);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -1681,26 +1702,13 @@ public class AviationInvoiceCreator {
 
             if (taxAmount != null) {
 
-                //reportHelper.convertMTOWinTons(Double mtow)
-                //String unitOfMeasure = getMTOWUnitOfMeasure()
-
-                //aircraftInfo.unifiedTaxCharges = mtow * taxAmount;
-
                 aircraftInfo.unifiedTaxCharges = taxAmount;
 
-                //
-                if(billingInterval.equals(BillingInterval.PARTIALLY)){
+                if (billingInterval.equals(BillingInterval.PARTIALLY)){
                     Integer monthsLeft = 0;
                     monthsLeft = 12 - startDate.getMonthValue() + 1; //+1 perchè deve essere incluso il mese start Date;
                     aircraftInfo.unifiedTaxCharges = (aircraftInfo.unifiedTaxCharges / 12.0) * monthsLeft;
                 }
-
-                //Old Discount
-                /*
-                    Double discount = account.getAccountTypeDiscount();
-                    if (discount != null)
-                        aircraftInfo.unifiedTaxCharges = aircraftInfo.unifiedTaxCharges - aircraftInfo.unifiedTaxCharges* discount / 100;
-                */
 
                 if(ar.getAircraftScope()!=null && ar.getAircraftScope().equals(AircraftScope.FLIGHT_SCHOOL.toValue())){
                     final Double discount = systemConfigurationService.getDouble(SystemConfigurationItemName.UNIFIED_TAX_FLIGHT_SCHOOL_DISCOUNT, 0d);
@@ -1732,12 +1740,9 @@ public class AviationInvoiceCreator {
                                 fm.setFlightNotes("");
                     		}
                     	}
-                    }
-                    
+                    }   
                 }
-
             }
-
 
             return aircraftInfo;
         }

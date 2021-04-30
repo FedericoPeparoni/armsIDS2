@@ -72,7 +72,7 @@ public class FlightMovementServiceTest {
             aircraftTypeService, flightMovementBuilder, flightMovementValidator, flightMovementBuilderUtility,
             thruFlightPlanUtility, systemConfigurationService, flightMovementMerge, flightMovementRepositoryUtility,
             mock(AerodromeOperationalHoursService.class), mock(CurrencyUtils.class),
-            mock(TransactionService.class), mock(WhitelistingUtils.class), mock(PluginService.class));
+            mock(TransactionService.class), mock(WhitelistingUtils.class), mock(PluginService.class), null);
 
         when(flightMovementRepositoryUtility.persist(any(FlightMovement.class)))
             .thenAnswer(i -> i.getArguments()[0]);

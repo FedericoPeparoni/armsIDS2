@@ -60,6 +60,7 @@ import ca.ids.abms.modules.formulas.ldp.ChargeTypes.LdpBillingFormulaChargeType;
 import ca.ids.abms.modules.mtow.AverageMtowFactor;
 import ca.ids.abms.modules.mtow.AverageMtowFactorService;
 import ca.ids.abms.modules.radarsummary.RadarSummary;
+import ca.ids.abms.modules.reports2.common.ReportHelper;
 import ca.ids.abms.modules.spatiareader.dto.FplObjectDto;
 import ca.ids.abms.modules.system.SystemConfiguration;
 import ca.ids.abms.modules.system.SystemConfigurationService;
@@ -148,10 +149,10 @@ public class FlightMovementValidator {
         boolean isParkingTimeRequired = getIsRequired(SystemConfigurationItemName.PARKING_TIME_REQUIRED);
         boolean isPassengerServiceChargeRequired = getIsRequired(SystemConfigurationItemName.PASSENGER_SERVICE_CHARGE_REQUIRED);
 
-
+        
         if (flightMovement == null)
             return null;
-
+       
         flightMovementValidationViewModel.setFlightMovementID(flightMovement.getId());
         flightMovementValidationViewModel.setFlightId(flightMovement.getFlightId());
         flightMovementValidationViewModel.setDayOfFlight(flightMovement.getDateOfFlight());
@@ -369,10 +370,24 @@ public class FlightMovementValidator {
             issues.add(FlightMovementValidatorIssue.INVALID_FLIGHT_LEVEL);
         }
         
+        boolean isUnifiedtaxFlightMovement = isUnifiedTaxFlightMovement(flightMovement);
+        boolean isUnifiedtaxFlightMovementInvoiced = false;
+        
+        if (isUnifiedtaxFlightMovement) {
+        	isUnifiedtaxFlightMovementInvoiced = checkUnifiedTaxInvoiced(flightMovement);
+			if (!isUnifiedtaxFlightMovementInvoiced) {        
+	            issues.add(FlightMovementValidatorIssue.UNIFIED_TAX_NOT_PAID_FOR_CURRENT_YEAR);
+	        }
+        }        
+                
         if (!issues.isEmpty()) {
             flightMovementValidationViewModel.setStatus(FlightMovementStatus.INCOMPLETE);
-        } else {
-            flightMovementValidationViewModel.setStatus(FlightMovementStatus.PENDING);
+        }
+        else {
+        	if (isUnifiedtaxFlightMovement && isUnifiedtaxFlightMovementInvoiced)
+        		flightMovementValidationViewModel.setStatus(FlightMovementStatus.INVOICED);
+        	else
+        		flightMovementValidationViewModel.setStatus(FlightMovementStatus.PENDING);
         }
 
         flightMovementValidationViewModel.setIssues(issues);
@@ -1158,6 +1173,103 @@ public class FlightMovementValidator {
     
     public Boolean isValidateFlightLevelAirspace() {
         return systemConfigurationService.getBoolean(SystemConfigurationItemName.VALIDATE_FLIGHT_LEVEL_AIRSPACE);
+    }
+ 
+    private boolean isUnifiedTaxFlightMovement(FlightMovement flightMovement) {
+        // get aircraft registration number from item18RegNum
+    	String item18RegNum = flightMovementBuilderUtility.checkAircraftRegistrationNumber(flightMovement);
+                
+        if (item18RegNum != null) {
+
+            Double aMtow = null;
+
+            AircraftRegistration ar = aircraftRegistrationService.findAircraftRegistrationByRegNumber(item18RegNum);
+            if (ar != null) {
+            	// SMALL_AIRCRAFT_MAX_WEIGHT is expressed in KG
+                Integer maxWeight = systemConfigurationService.getIntOrZero(SystemConfigurationItemName.SMALL_AIRCRAFT_MAX_WEIGHT);
+                
+                // MTOW stored in small tones in the DB ==> need to convert it to KG
+            	aMtow = ar.getMtowOverride()* ReportHelper.TO_KG;
+
+                if (aMtow <= maxWeight) {
+                	
+                	boolean isDomesticOrLocal = (ar.getIsLocal()) || 
+                		(flightMovement.getFlightCategoryNationality().equals(FlightmovementCategoryNationality.NATIONAL));
+                    
+                	if (isDomesticOrLocal) {
+                		return true;
+                	}
+                }
+            }
+        }
+        return false;
+    }
+
+    private AircraftRegistration getAircraftRegistration(FlightMovement flightMovement) {
+
+    	AircraftRegistration ar = null;
+    	
+    	// get aircraft registration number from item18RegNum
+    	String item18RegNum = flightMovementBuilderUtility.checkAircraftRegistrationNumber(flightMovement);
+                
+        if (item18RegNum != null) {
+            ar = aircraftRegistrationService.findAircraftRegistrationByRegNumber(item18RegNum);
+        }
+        
+        return ar;
+    }
+    
+    private boolean checkUnifiedTaxInvoiced(FlightMovement flightMovement) {
+    	
+    	AircraftRegistration ar = getAircraftRegistration(flightMovement);
+    	
+    	if (ar != null) {
+	    	LocalDateTime coaIssueDate = ar.getCoaIssueDate();
+	    	LocalDateTime coaExpiryDate = ar.getCoaExpiryDate();
+	    	if (coaIssueDate == null || coaExpiryDate == null)
+	    		return false;
+	    	
+	    	LocalDateTime flightDate = flightMovement.getDateOfFlight();
+	    	if (flightDate.isBefore(coaIssueDate) || flightDate.isAfter(coaExpiryDate))
+	    		return false;
+	    	
+	    	return true;
+    	}
+            
+    	return false;
+    }
+    
+    private void setFlightStatusIfUnifiedTaxFlight(FlightMovement flightMovement) {
+        
+    	AircraftRegistration ar = getAircraftRegistration(flightMovement);    	
+        if (ar != null) {
+        	
+        	// SMALL_AIRCRAFT_MAX_WEIGHT is expressed in KG
+            Integer maxWeight = systemConfigurationService.getIntOrZero(SystemConfigurationItemName.SMALL_AIRCRAFT_MAX_WEIGHT);
+            
+            // MTOW stored in small tones in the DB ==> need to convert it to KG
+        	Double aMtow = ar.getMtowOverride()* ReportHelper.TO_KG;
+
+            if (aMtow <= maxWeight) {
+            	
+            	boolean isDomesticOrLocal = (ar.getIsLocal()) || 
+            		(flightMovement.getFlightCategoryNationality().equals(FlightmovementCategoryNationality.NATIONAL));
+                
+            	if (isDomesticOrLocal) {
+            		boolean invoiced = checkUnifiedTaxInvoiced(flightMovement);
+            		
+            		if (invoiced) {        
+                    	// Unified Tax è pagata per l'anno in corso
+                        flightMovement.setStatus(FlightMovementStatus.INVOICED);
+                        flightMovement.setFlightNotes("");
+                    } else {
+                        // Unified Tax non è pagata per l'anno in corso
+                        flightMovement.setStatus(FlightMovementStatus.INCOMPLETE);
+                        flightMovement.setFlightNotes("Unified Tax not payed for the current year");
+                    }
+                }
+            }
+        }
     }
     
 }

@@ -2,6 +2,7 @@ package ca.ids.abms.modules.unifiedtaxes;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -56,12 +57,19 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
 							"You have to specify at least one of the manufacture start and end date"),
 					ErrorConstants.ERR_DATE_START);
 		}
+				
 		if (entity.getFromManufactureYear() != null && entity.getToManufactureYear() != null
 				&& entity.getToManufactureYear().isBefore(entity.getFromManufactureYear())) {
 			throw ExceptionFactory.persistenceDataManagement(
 					new IllegalArgumentException("The manufacture start date must be before the manufacture end date"),
 					ErrorConstants.ERR_DATE_START);
 		}
+		
+    	if (entity.getToManufactureYear() != null) {
+    		LocalDateTime lastDayOfYear = entity.getToManufactureYear().with(TemporalAdjusters.lastDayOfYear());
+    		entity.setToManufactureYear(lastDayOfYear);
+    	}
+
 		UnifiedTaxValidity validity = unifiedTaxValidityService.findOne(entity.getValidity().getId());
 		if (validity == null) {
 			throw ExceptionFactory.persistenceDataManagement(
@@ -107,6 +115,12 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
 					new IllegalArgumentException("The manufacture start date must be before the manufacture end date"),
 					ErrorConstants.ERR_DATE_START);
 		}
+
+    	if (entity.getToManufactureYear() != null) {
+    		LocalDateTime lastDayOfYear = entity.getToManufactureYear().with(TemporalAdjusters.lastDayOfYear());
+    		entity.setToManufactureYear(lastDayOfYear);
+    	}
+		
 		UnifiedTaxValidity validity = unifiedTaxValidityService.findOne(entity.getValidity().getId());
 		if (validity == null) {
 			throw ExceptionFactory.persistenceDataManagement(
@@ -147,9 +161,22 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
 	public UnifiedTax findUnifiedTaxByValidityYearAndManufactureYear(LocalDateTime yearValidity,
 			LocalDateTime yearManufacture) {
 
-		Timestamp timestampManufacture = Timestamp.valueOf(yearManufacture);
 		UnifiedTaxValidity unifiedTaxValidity = unifiedTaxValidityService.findUnifiedTaxValidityByYear(yearValidity);
-		return unifiedTaxRepository.findByValidityAndManifactureYear(unifiedTaxValidity.getId(), timestampManufacture);
+		if (unifiedTaxValidity == null) {
+			throw ExceptionFactory.persistenceDataManagement(
+					new IllegalArgumentException("The specified validity year is not available in the database"),
+					ErrorConstants.ERR_INVALID_UNIFIED_TAX_VALIDITY);
+		}
+
+		Timestamp timestampManufacture = Timestamp.valueOf(yearManufacture);
+		UnifiedTax unifiedTax = unifiedTaxRepository.findByValidityAndManifactureYear(unifiedTaxValidity.getId(), timestampManufacture);
+		if (unifiedTax == null) {
+			throw ExceptionFactory.persistenceDataManagement(
+					new IllegalArgumentException("No unified tax is available in the database for the specified years"),
+					ErrorConstants.ERR_NO_UNIFIED_TAX);
+		}
+		
+		return unifiedTax;
 	}
 
 	public List<UnifiedTax> findAllByValidityId(Integer validityId) {

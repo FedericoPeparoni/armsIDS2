@@ -54,7 +54,7 @@ public class FlightMovementServiceFilterTest {
             aircraftTypeService, flightMovementBuilder, flightMovementValidator, flightMovementBuilderUtility,
             thruFlightPlanUtility, mock(SystemConfigurationService.class), flightMovementMerge,
             mock(FlightMovementRepositoryUtility.class), mock(AerodromeOperationalHoursService.class),
-            mock(CurrencyUtils.class), mock(TransactionService.class), mock(WhitelistingUtils.class), mock(PluginService.class));
+            mock(CurrencyUtils.class), mock(TransactionService.class), mock(WhitelistingUtils.class), mock(PluginService.class), null);
     }
 
     @Test

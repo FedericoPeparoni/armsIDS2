@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -250,6 +251,24 @@ public class TransactionController extends MediaDocumentComponent {
         }
     }
 
+    @GetMapping(path = "/getDebitNoteByTransactionId/{transactionId}")
+    public ResponseEntity<?> getDebitNoteByTransactionId(@PathVariable final Integer transactionId,
+                                                         @RequestParam(name = "csvExport", required = false) Boolean csvExport) {
+        LOG.debug("REST request to get a debit note by transaction id : {}", transactionId);
+
+        BillingLedger bl = transactionService.getDebitNoteBillingLedgerByTransactionId(transactionId);
+        if (csvExport != null && csvExport) {
+        	List<BillingLedger> list = new ArrayList<BillingLedger>();
+            final List<BillingLedgerCsvExportModel> csvExportModel = billingLedgerMapper.toCsvModel(list);
+            ReportDocument report = reportDocumentCreator.createCsvDocument("Transaction_Approvals", csvExportModel,
+            		BillingLedgerCsvExportModel.class, true);
+            return doCreateBinaryResponse(report);
+        } else {
+            return new ResponseEntity<>(bl, HttpStatus.OK);
+        }
+    }
+   
+    
     @GetMapping(path = "/getPaymentMechanismList")
     public ResponseEntity<List<String>> listPaymentMechanism() {
         LOG.debug("REST request to get a list of TransactionPaymentMechanism");

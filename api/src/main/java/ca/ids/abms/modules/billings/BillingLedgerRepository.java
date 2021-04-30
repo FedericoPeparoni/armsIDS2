@@ -74,5 +74,8 @@ public interface BillingLedgerRepository extends ABMSRepository<BillingLedger, I
     @Modifying
     @Query("UPDATE BillingLedger SET invoiceAmount = :invoiceAmount where id = :id")
     void updateBillingLedgerByIdAndInvoiceAmount(@Param("id") Integer id,
-                                             @Param("invoiceAmount") Double invoiceAmount); 
+                                             @Param("invoiceAmount") Double invoiceAmount);
+
+    @Query("SELECT bl FROM Transaction t, BillingLedger bl WHERE t.id = :transactionId AND t.paymentReferenceNumber=bl.invoiceNumber AND t.paymentMechanism='adjustment'")
+	BillingLedger getDebitNoteBillingLedgerByTransactionId(@Param("transactionId") Integer transactionId); 
 }

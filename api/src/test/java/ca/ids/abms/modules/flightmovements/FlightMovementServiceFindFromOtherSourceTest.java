@@ -73,7 +73,7 @@ public class FlightMovementServiceFindFromOtherSourceTest {
             aircraftTypeService, flightMovementBuilder, flightMovementValidator, flightMovementBuilderUtility,
             thruFlightPlanUtility, systemConfigurationService, flightMovementMerge,
             mock(FlightMovementRepositoryUtility.class), mock(AerodromeOperationalHoursService.class),
-            mock(CurrencyUtils.class), mock(TransactionService.class), mock(WhitelistingUtils.class), mock(PluginService.class));
+            mock(CurrencyUtils.class), mock(TransactionService.class), mock(WhitelistingUtils.class), mock(PluginService.class), null);
 
 
         // Create some utility object
