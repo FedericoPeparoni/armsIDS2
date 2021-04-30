@@ -111,4 +111,6 @@ export interface IAirTrafficDataScope extends ng.IScope {
   newSortIndexes: Array<Object>;
   name: string;
   showMTOWList: Function;
+
+  chartHeight: number;
 }

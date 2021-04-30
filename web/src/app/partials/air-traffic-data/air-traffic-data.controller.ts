@@ -186,6 +186,16 @@ export class AirTrafficDataController extends CRUDFormControllerUserService {
           if (data.length === 0) {
             this.$scope.noData = true;
           } else {
+            //separo il numero di account selezionati
+            let temp : string[] = airTrafficData.accounts.split(",");
+    
+            //controllo il numero di account per impostare l'altezza del grafico
+            if(temp.length <= 40){
+              this.$scope.chartHeight= 320;
+            }else {
+              this.$scope.chartHeight = 520;
+            }
+
             this.$scope.data = data; // reused if chart type changes
             this.$scope.datapoints = this.getDataPoints(this.$scope.data);
             this.$scope.datacolumns = this.getColumnLabels(this.$scope.data, this.$scope.datapoints, airTrafficData.group_by, chartType);
