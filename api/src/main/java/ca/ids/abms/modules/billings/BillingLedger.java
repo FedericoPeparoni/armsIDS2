@@ -24,6 +24,8 @@ import ca.ids.abms.modules.chargesadjustment.ChargesAdjustment;
 import ca.ids.abms.modules.currencies.Currency;
 import ca.ids.abms.modules.flightmovements.FlightMovement;
 import ca.ids.abms.modules.flightmovements.category.FlightmovementCategory;
+import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxCharges;
+import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxValidity;
 import ca.ids.abms.modules.users.User;
 import ca.ids.abms.modules.util.models.VersionedAuditedEntity;
 
@@ -172,6 +174,15 @@ public class BillingLedger extends VersionedAuditedEntity {
     private String clerkName;
     
     private String receiptNumber;
+    
+    
+    @ManyToOne
+    @JoinColumn(name = "billing_ledger_id")
+    private UnifiedTaxCharges unifiedTaxCharges;
+    
+    
+    
+    
     
     @NotNull
     @SearchableText

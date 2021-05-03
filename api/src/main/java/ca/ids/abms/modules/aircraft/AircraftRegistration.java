@@ -12,6 +12,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import ca.ids.abms.modules.flightmovementsbuilder.vo.SmallAircraftVO;
+import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxCharges;
+
 import org.springframework.data.annotation.Transient;
 
 import ca.ids.abms.config.db.SearchableEntity;
@@ -45,6 +47,13 @@ public class AircraftRegistration extends VersionedAuditedEntity implements Smal
     
     
     private String aircraftScope;
+    
+    
+
+    @ManyToOne
+    @JoinColumn(name = "aircraft_registration_id")
+    private UnifiedTaxCharges unifiedTaxCharges;
+    
     
 
     public String getAircraftScope() {

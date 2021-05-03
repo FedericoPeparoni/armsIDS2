@@ -2446,9 +2446,10 @@ databaseChangeLog:
         author: Federico Peparoni
         file: 20210422555002_alter_billing_ledgers.sql
         relativeToChangelogFile: true
-
-
-
+    - include:
+        author: Alessandro Gallinella
+        file: 20210503211126_unified_tax_charges.sql
+        relativeToChangelogFile: true
 
 
 
