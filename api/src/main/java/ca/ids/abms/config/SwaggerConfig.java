@@ -82,16 +82,16 @@ public class SwaggerConfig {
             .clientSecret(CLIENT_SECRET)
             .useBasicAuthenticationWithAccessCodeGrant(true)
             .build();
-    }
+    } 
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-            .title("ARMS API")
-            .description("IDS North America Ltd. ARMS service api endpoint documentation.")
+        	.title("ARMS API")
+            .description("IDS AirNav S.r.l. \n ARMS Service api endpoint documentation.")
             .contact(new Contact(
-                "IDS North America Ltd.",
-                "https://www.idscorporation.com/ids-subsidiaries/ids-north-america/",
-                "support@idscorporation.com"))
+                "IDS AirNav",
+                "https://www.idsairnav.com/",
+                "customercare@idsairnav.com"))
             .version(getClass().getPackage().getImplementationVersion())
             .build();
     }
