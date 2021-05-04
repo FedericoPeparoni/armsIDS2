@@ -28,11 +28,14 @@ import { FlightMovementManagementService } from '../flight-movement-management/s
 import { ChargesAdjustmentType, ChargeAdjustmentsService } from '../charge-adjustments/service/charge-adjustments.service';
 import { OrganizationService } from '../organization/service/organization.service';
 import { BankAccountManagementService } from '../bank-account-management/service/bank-account-management.service';
+import { AircraftRegistrationService } from '../aircraft-registration/service/aircraft-registration.service';
 
 // constants
 import { SysConfigConstants } from '../system-configuration/system-configuration.constants';
 import { ITransactionType } from '../transaction-types/transaction-types.interface';
 import { TransactionTypesService } from '../transaction-types/service/transaction-types.service';
+import { IAircraftRegistration } from '../aircraft-registration/aircraft-registration.interface';
+
 
 export class TransactionsController extends CRUDFileUploadController {
 
@@ -44,6 +47,7 @@ export class TransactionsController extends CRUDFileUploadController {
 
   /* @ngInject */
   constructor(protected $scope: ITransactionsScope, private transactionsService: TransactionsService,
+    private aircraftRegistrationService: AircraftRegistrationService,
     private currencyManagementService: CurrencyManagementService, private invoicesService: InvoicesService,
     private currencyExchangeRatesService: CurrencyExchangeRatesService, private $timeout: ng.ITimeoutService,
     private catalogueServiceChargeService: CatalogueServiceChargeService, private systemConfigurationService: SystemConfigurationService,
@@ -88,12 +92,15 @@ export class TransactionsController extends CRUDFileUploadController {
     $scope.getInvoicesByTransactionId = (id: number) => this.service.getInvoicesByTransactionId(id).then((data: IInvoice) =>
       this.$scope.listOfInvoices = data);
 
+
+
     $scope.getTransactionPaymentsByTransactionId = (id: number) => this.service.getTransactionPaymentsByTransactionId(id).then((data: IInvoice) =>
       this.$scope.listOfTransactionPayments = data);
 
     $scope.updateExchangeRate = (transaction: ITransaction, prioritizePayment?: boolean) => this.updateExchangeRate(transaction, prioritizePayment);
     $scope.updateLocalAmount = () => this.updateLocalAmount();
     $scope.updatePaymentAmount = () => this.updatePaymentAmount();
+
 
     // default exchange rate to null and add watch to update from editable value
     // this is here to limit exchange rate in view to 5 decimal places
@@ -201,6 +208,7 @@ export class TransactionsController extends CRUDFileUploadController {
 
     $scope.getLineItemsByInvoiceId = (invoiceId: number) => this.getLineItemsByInvoiceId(invoiceId);
     $scope.getFlightMovementsByInvoiceId = (invoiceId: number) => this.getFlightMovementsByInvoiceId(invoiceId);
+    $scope.getAircraftRegistrationByInvoiceId = (invoiceId: number) => this.getAircraftRegistrationByInvoiceId(invoiceId);
 
     // define scope payment mechanism functions
     $scope.isPaymentMechanism = (...mechanisms: Array<string>) => this.isPaymentMechanism(mechanisms);
@@ -220,6 +228,9 @@ export class TransactionsController extends CRUDFileUploadController {
     // initialize all data requests and trigger on load method once complete
     this.initialize();
   }
+
+
+
 
   protected create(transaction: ITransaction): ng.IPromise<any> {
 
@@ -1151,6 +1162,15 @@ export class TransactionsController extends CRUDFileUploadController {
       .then((lineItems: Array<IInvoiceLineItem>) => this.$scope.lineItems = lineItems);
   }
 
+  //federico
+ private getAircraftRegistrationByInvoiceId(invoiceId: number): ng.IPromise<Array<IAircraftRegistration>> {
+  console.log('aircraftregistration');
+    return this.aircraftRegistrationService.getAircraftRegistrationByInvoiceId(invoiceId)
+    .then((listAircraftRegstration: Array<IAircraftRegistration>) => this.$scope.listAircraftRegstration = listAircraftRegstration);
+
+     }
+
+
   /**
    * Edit override for transactions.
    */
@@ -1327,6 +1347,8 @@ export class TransactionsController extends CRUDFileUploadController {
       this.loadExportSupport(), this.loadBankAccounts()
     ]).then(() => this.onLoad());
   }
+
+
 
   /**
    * Called after all data requests have been loaded into the scope.

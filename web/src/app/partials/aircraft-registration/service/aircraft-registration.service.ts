@@ -124,4 +124,9 @@ export class AircraftRegistrationService extends CRUDFileUploadService {
       return this.$q.reject('regNumber and flightDate cannot be null or empty');
     }
   }
+
+
+  public getAircraftRegistrationByInvoiceId(invoiceId: number): ng.IPromise<any> {
+    return this.restangular.one(`${endpoint}/getAircraftRegistrationByInvoiceId/${invoiceId}`).get();
+  }
 }
