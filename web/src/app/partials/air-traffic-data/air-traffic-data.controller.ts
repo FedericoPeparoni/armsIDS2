@@ -32,11 +32,11 @@ export class AirTrafficDataController extends CRUDFormControllerUserService {
 
   /* @ngInject */
   constructor(protected $scope: IAirTrafficDataScope, private airTrafficDataService: AirTrafficDataService,
-              private aerodromesService: AerodromesService, private aircraftTypeManagementService: AircraftTypeManagementService,
-              private billingCentreManagementService: BillingCentreManagementService, private accountsService: AccountsService,
-              private mtowService: MtowService, private flightMovementManagementService: FlightMovementManagementService,
-              private systemConfigurationService: SystemConfigurationService, private $filter: ng.IFilterService,
-              private dbqueryService: DbqueryService, private $timeout: ng.ITimeoutService, private customDate: CustomDate) {
+    private aerodromesService: AerodromesService, private aircraftTypeManagementService: AircraftTypeManagementService,
+    private billingCentreManagementService: BillingCentreManagementService, private accountsService: AccountsService,
+    private mtowService: MtowService, private flightMovementManagementService: FlightMovementManagementService,
+    private systemConfigurationService: SystemConfigurationService, private $filter: ng.IFilterService,
+    private dbqueryService: DbqueryService, private $timeout: ng.ITimeoutService, private customDate: CustomDate) {
     super($scope, airTrafficDataService);
     super.setup();
 
@@ -50,7 +50,7 @@ export class AirTrafficDataController extends CRUDFormControllerUserService {
     $scope.mtowUnitOfMeasure = systemConfigurationService.getValueByName(<any>SysConfigConstants.MTOW_UNIT_OF_MEASURE);
 
     $scope.$watchGroup(['editable.temporal_group', 'editable.group_by'], () => {
-        this.createSortList();
+      this.createSortList();
     });
 
     $scope.cashAccounts = <IAccountMinimal>{};
@@ -96,13 +96,13 @@ export class AirTrafficDataController extends CRUDFormControllerUserService {
     $scope.showMTOWList = (mtowFactorClass: string) => this.showMTOWList(mtowFactorClass);
 
     flightMovementManagementService.getDistinctRoutes().then((routes: Array<string>) => {
-        $scope.routeList = [];
-        this.setListForMultiselect($scope.routeList, routes, true);
+      $scope.routeList = [];
+      this.setListForMultiselect($scope.routeList, routes, true);
     });
 
     flightMovementManagementService.getDistinctFlightLevels().then((flightlevels: Array<string>) => {
-        $scope.flightLevelList = [];
-        this.setListForMultiselect($scope.flightLevelList, flightlevels, false);
+      $scope.flightLevelList = [];
+      this.setListForMultiselect($scope.flightLevelList, flightlevels, false);
     });
 
     $scope.displayValues = this.service.displayValues();
@@ -126,7 +126,7 @@ export class AirTrafficDataController extends CRUDFormControllerUserService {
     $scope.datapoints = [];
     $scope.datacolumns = [];
     $scope.ylabel = [];
-    $scope.datax = {'id': 'x'};
+    $scope.datax = { 'id': 'x' };
 
     $scope.getEmptyModels = () => this.getEmptyModels();
     this.getEmptyModels();
@@ -186,27 +186,28 @@ export class AirTrafficDataController extends CRUDFormControllerUserService {
           if (data.length === 0) {
             this.$scope.noData = true;
           } else {
-            //separo il numero di account selezionati
-            let temp : string[] = airTrafficData.accounts.split(",");
-    
-            //controllo il numero di account per impostare l'altezza del grafico
-            if(temp.length <= 40){
-              this.$scope.chartHeight= 320;
-            }else {
-              this.$scope.chartHeight = 520;
-            }
+
 
             this.$scope.data = data; // reused if chart type changes
             this.$scope.datapoints = this.getDataPoints(this.$scope.data);
             this.$scope.datacolumns = this.getColumnLabels(this.$scope.data, this.$scope.datapoints, airTrafficData.group_by, chartType);
+
+            let contentDivWidth = document.getElementById("content").offsetWidth;
+            //controllo il numero di elementi per impostare l'altezza del grafico
+            if (this.$scope.datacolumns.length <= 40) {
+              this.$scope.chartHeight = contentDivWidth * 0.3;
+            } else {
+              this.$scope.chartHeight = contentDivWidth * 0.5;
+            }
+
             this.$scope.csvData = this.createCSVdata(this.$scope.datapoints);
             $scope.editable = airTrafficData;
           }
         })
         .catch((error: any) => {
           this.$scope.error = <IExtendableError>{};
-          this.$scope.error.error = {data: error.data};
-      });
+          this.$scope.error.error = { data: error.data };
+        });
 
     $scope.labelFormat = (value: any) => {
       if (!this.$scope.display_values) {
@@ -221,6 +222,10 @@ export class AirTrafficDataController extends CRUDFormControllerUserService {
         return value.toLocaleString();
       }
     };
+  
+    $scope.valueFormat = (value : any) =>{
+      return value.toFixed(2);
+    }
   }
 
   private setListForMultiselect(list: Array<object>, array: Array<string>, pairElement: boolean): void {
@@ -419,7 +424,7 @@ export class AirTrafficDataController extends CRUDFormControllerUserService {
     this.airTrafficDataService.createTemplate(template).then(() => { this.getTemplateNames(); this.getEmptyModels(); })
       .catch((error: any) => {
         this.$scope.error = <IExtendableError>{};
-        this.$scope.error.error = {data: error.data};
+        this.$scope.error.error = { data: error.data };
       });
   }
 
@@ -520,7 +525,7 @@ export class AirTrafficDataController extends CRUDFormControllerUserService {
             return;
           }
           neededProp = element[val];
-          if (typeof(template) === 'object') {
+          if (typeof (template) === 'object') {
             if (template.includes(neededProp)) {
               model.push(element);
             }
@@ -577,8 +582,8 @@ export class AirTrafficDataController extends CRUDFormControllerUserService {
     data.forEach((item: string) => {
       let row = {};
       Object.keys(headers).forEach((key: string) => row[key] = item[key] || 0);
-        csvData.push(row);
-      });
+      csvData.push(row);
+    });
 
     return csvData;
   }

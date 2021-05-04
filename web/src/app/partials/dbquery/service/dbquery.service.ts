@@ -21,7 +21,6 @@ export class DbqueryService {
    */
   public getDataPoints(data: any[], yaxis: string, sortList: any): Object[] {
     const datapoints = [];
-
     const xAxisAttribute = sortList[0].value;
     const yAxisAttribute = sortList[1] ? sortList[1].value : null;
 
@@ -40,19 +39,34 @@ export class DbqueryService {
       const existingTarget = datapoints.find(((dp: any) => dp.x === itemXAxisAttribute));
 
       const target = existingTarget ? existingTarget : { x: itemXAxisAttribute };
-      const groupName = item[yAxisAttribute] ? item[yAxisAttribute] : defaultGroupName;
+      let groupName = item[yAxisAttribute] ? item[yAxisAttribute] : defaultGroupName;
+      //calcolo il totale dei valori passati 
+      let sum : number = 0;
+      for(let i = 0; i < data.length; i++){ 
+        sum = sum + data[i][yaxis];        
+      }
+
+      //controllo che la percentuale sia inferiore all'1%
+      let percentuale : number = (item[yaxis] / sum) * 100;
+      if(percentuale <  0.01){
+        //se la percentuale è inferiore all'1% effettuo una somma dei valori raggruppandoli in "Other"
+        groupName = "OTHER";
+      }
 
       if (!yAxisAttribute) {
         target[defaultKey] = item[yaxis];
       } else {
-        target[groupName] = item[yaxis];
+        if(groupName === "OTHER"){
+          target[groupName] = target[groupName] !== undefined ? target[groupName] + item[yaxis] : item[yaxis];
+        }else{
+          target[groupName] = item[yaxis];
+        }
       }
 
       if (!existingTarget) {
         datapoints.push(target);
       }
     }
-
     // sort the buckets by date
     datapoints.sort((a: any, b: any) => {
       return a.x.localeCompare(b.x, undefined, {numeric: true, sensitivity: 'base'});
