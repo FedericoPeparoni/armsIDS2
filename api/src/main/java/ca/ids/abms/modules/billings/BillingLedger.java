@@ -176,13 +176,10 @@ public class BillingLedger extends VersionedAuditedEntity {
     private String receiptNumber;
     
     
-    @ManyToOne
-    @JoinColumn(name = "billing_ledger_id")
-    private UnifiedTaxCharges unifiedTaxCharges;
-    
-    
-    
-    
+    @JsonIgnore
+    @OneToMany(mappedBy = "billingLedger", cascade = CascadeType.ALL,
+        fetch = FetchType.LAZY)
+    private Set<UnifiedTaxCharges > unifiedTaxCharges = new HashSet<>();
     
     @NotNull
     @SearchableText
@@ -311,6 +308,10 @@ public class BillingLedger extends VersionedAuditedEntity {
         return targetCurrency;
     }
 
+    public Set<UnifiedTaxCharges> getUnifiedTaxCharges() {
+        return unifiedTaxCharges;
+    }
+        
     public User getUser() {
         return user;
     }
@@ -423,6 +424,10 @@ public class BillingLedger extends VersionedAuditedEntity {
         targetCurrency = aTargetCurrency;
     }
 
+    public void setUnifiedTaxCharges(Set<UnifiedTaxCharges> aUnifiedTaxCharges) {
+        unifiedTaxCharges = aUnifiedTaxCharges;
+    }
+  
 	public void setUser(User aUser) {
         user = aUser;
     }

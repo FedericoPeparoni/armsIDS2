@@ -48,14 +48,12 @@ public class AircraftRegistration extends VersionedAuditedEntity implements Smal
     
     private String aircraftScope;
     
-    
-
+/*
     @ManyToOne
     @JoinColumn(name = "aircraft_registration_id")
     private UnifiedTaxCharges unifiedTaxCharges;
+*/    
     
-    
-
     public String getAircraftScope() {
 		return aircraftScope;
 	}

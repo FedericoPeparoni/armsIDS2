@@ -37,6 +37,7 @@ import ca.ids.abms.modules.transactions.TransactionPaymentMechanism;
 import ca.ids.abms.modules.transactions.TransactionService;
 import ca.ids.abms.modules.translation.Translation;
 import ca.ids.abms.modules.unifiedtaxes.UnifiedTax;
+import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxCharges;
 import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxService;
 import ca.ids.abms.modules.users.User;
 import ca.ids.abms.modules.util.models.CurrencyUtils;
@@ -1378,7 +1379,22 @@ public class AviationInvoiceCreator {
         bl.setBillingCenter(currentUser != null ? currentUser.getBillingCenter() : null);
         bl.setInvoicePeriodOrDate(endDateInclusive);
         if (unifiedTaxInvoice) {
+        	
         	bl.setInvoiceType(InvoiceType.UNIFIED_TAX.toValue());
+        	
+            Set<UnifiedTaxCharges> unifiedTaxCharges = new HashSet<UnifiedTaxCharges>();
+            
+            for (AircraftInfo aircraftInfo : invoiceData.aircraftInfoList) {
+            	UnifiedTaxCharges charge = new UnifiedTaxCharges();
+            	charge.setAmount(aircraftInfo.unifiedTaxCharges);
+            	charge.setPercentage(aircraftInfo.discountPercentage);
+            	String registrationNumber = aircraftInfo.registrationNumber;
+            	AircraftRegistration ar = aircraftRegistrationService.findAircraftRegistrationByRegistrationNumber(registrationNumber, null);
+            	charge.setAircraftRegistration(ar);
+            	unifiedTaxCharges.add(charge);
+            }
+            
+            bl.setUnifiedTaxCharges(unifiedTaxCharges);                  	
         }
         else {
 	        bl.setInvoiceType(ChargeSelection.ONLY_PAX == chargeSelection ?
@@ -1677,6 +1693,8 @@ public class AviationInvoiceCreator {
             vars.put(CostFormulaVar.MTOW.varName(), mtow);
 
             AviationInvoiceData.AircraftInfo aircraftInfo = new AviationInvoiceData.AircraftInfo();
+            
+            aircraftInfo.registrationNumber = ar.getRegistrationNumber();
             aircraftInfo.manufacturer = ar.getAircraftType().getManufacturer();
             aircraftInfo.manufactureYearStr = reportHelper.formatYear(ar.getAircraftServiceDate());
             aircraftInfo.aircraftType = ar.getAircraftType().getAircraftType();

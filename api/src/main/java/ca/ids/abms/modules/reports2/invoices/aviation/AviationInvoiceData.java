@@ -400,6 +400,8 @@ public class AviationInvoiceData {
         public @XmlElement String invoiceExpiration;
 
         public @XmlElement Double unifiedTaxCharges = 0d;
+        
+        public @XmlElement String registrationNumber;
         public @XmlElement String manufacturer;
         public @XmlElement String aircraftType;
         public @XmlElement Double mtow = 0d;

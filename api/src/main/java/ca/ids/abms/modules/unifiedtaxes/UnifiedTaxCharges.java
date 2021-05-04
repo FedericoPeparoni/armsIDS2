@@ -22,7 +22,7 @@ import ca.ids.abms.modules.util.models.VersionedAuditedEntity;
 
 @Entity
 @Table(name = "unified_tax_charges")
-public class UnifiedTaxCharges extends VersionedAuditedEntity implements AbmsCrudEntity<Integer> {
+public class UnifiedTaxCharges extends VersionedAuditedEntity {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -39,9 +39,6 @@ public class UnifiedTaxCharges extends VersionedAuditedEntity implements AbmsCru
 	@Column(name = "percentage")
     private double percentage;
 
-	
-	
-	
 	 @ManyToOne
 	    @JoinColumn(name = "aircraft_registration_id")
 	private AircraftRegistration aircraftRegistration;
@@ -50,10 +47,6 @@ public class UnifiedTaxCharges extends VersionedAuditedEntity implements AbmsCru
 	    @JoinColumn(name = "billing_ledger_id")
 	private BillingLedger billingLedger;
 	 
-	 
-	 
-	
-	
 	public Integer getId() {
 		return id;
 	}

@@ -15,6 +15,8 @@ import ca.ids.abms.modules.billings.utility.BillingLedgerExportFilterSpecificati
 import ca.ids.abms.modules.flightmovements.FlightMovementService;
 import ca.ids.abms.modules.reports2.common.RoundingUtils;
 import ca.ids.abms.modules.transactions.*;
+import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxCharges;
+import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxChargesService;
 import ca.ids.abms.util.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -88,6 +90,7 @@ public class BillingLedgerService extends AbstractPluginService<BillingLedgerSer
     private final OverdueInvoiceService overdueInvoiceService;
     private final RoundingUtils roundingUtils;
     private final FlightMovementService flightMovementService;
+    private final UnifiedTaxChargesService unifiedTaxChargesService;
 
     @SuppressWarnings("squid:S00107")
     public BillingLedgerService(
@@ -107,7 +110,8 @@ public class BillingLedgerService extends AbstractPluginService<BillingLedgerSer
         final ChargesAdjustmentService chargesAdjustmentService,
         final OverdueInvoiceService overdueInvoiceService,
         final RoundingUtils roundingUtils,
-        final FlightMovementService flightMovementService) {
+        final FlightMovementService flightMovementService,
+        final UnifiedTaxChargesService unifiedTaxChargesService) {
         this.billingLedgerRepository = billingLedgerRepository;
         this.transactionService = transactionService;
         this.transactionTypeService = transactionTypeService;
@@ -124,8 +128,9 @@ public class BillingLedgerService extends AbstractPluginService<BillingLedgerSer
         this.invoicesApprovalWorkflow = invoicesApprovalWorkflow;
         this.chargesAdjustmentService = chargesAdjustmentService;
         this.overdueInvoiceService = overdueInvoiceService;
-        this.roundingUtils = roundingUtils;
+        this.roundingUtils = roundingUtils; 
         this.flightMovementService = flightMovementService;
+        this.unifiedTaxChargesService = unifiedTaxChargesService;
     }
 
     @Transactional(readOnly = true)
@@ -802,6 +807,13 @@ public class BillingLedgerService extends AbstractPluginService<BillingLedgerSer
             for (ChargesAdjustment chargesAdjustment : billingLedger.getChargesAdjustment()) {
                 chargesAdjustment.setBillingLedger(billingLedger);
                 chargesAdjustmentService.save(chargesAdjustment);
+            }
+        }
+        
+        if (billingLedger.getUnifiedTaxCharges() != null) {
+            for (UnifiedTaxCharges unifiedTaxCharge : billingLedger.getUnifiedTaxCharges()) {
+            	unifiedTaxCharge.setBillingLedger(billingLedger);
+            	unifiedTaxChargesService.save(unifiedTaxCharge);
             }
         }
         return savedBillingLedger;

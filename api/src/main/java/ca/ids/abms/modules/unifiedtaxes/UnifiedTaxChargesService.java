@@ -10,35 +10,26 @@ import org.springframework.transaction.annotation.Transactional;
 import ca.ids.abms.modules.common.services.AbmsCrudService;
 
 @Service
-public class UnifiedTaxChargesService extends AbmsCrudService<UnifiedTaxCharges, Integer> {
+@Transactional
+public class UnifiedTaxChargesService  {
 
     private static final Logger LOG = LoggerFactory.getLogger(UnifiedTaxChargesController.class);
 
 	
     private final UnifiedTaxChargesRepository unifiedTaxChargesRepository;
     
-    UnifiedTaxChargesService(final UnifiedTaxChargesRepository unifiedTaxChargesRepository)
-    {
-    	super(unifiedTaxChargesRepository);
+    UnifiedTaxChargesService(final UnifiedTaxChargesRepository unifiedTaxChargesRepository) {
     	this.unifiedTaxChargesRepository = unifiedTaxChargesRepository;
     }
     
     
     @Transactional
-    @Override 
-    public UnifiedTaxCharges create(final UnifiedTaxCharges entity) {
-    	return super.create(entity);
+    public UnifiedTaxCharges save(final UnifiedTaxCharges charge) {
+        LOG.debug("Save unified tax charge {}", charge);
+        return unifiedTaxChargesRepository.save(charge);
+    	
     }
-   		    
-    
-    @Transactional
-    @Override 
-    public UnifiedTaxCharges update(final Integer id, final UnifiedTaxCharges entity) {
-    	return super.update(id, entity);
-    }
-    
-    
-    
+   		        
     @Transactional(readOnly = true)
 	public List<UnifiedTaxCharges> findAll() {
 		return unifiedTaxChargesRepository.findAll() ;
