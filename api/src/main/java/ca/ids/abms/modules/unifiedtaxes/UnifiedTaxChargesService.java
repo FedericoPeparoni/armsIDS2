@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ca.ids.abms.modules.aircraft.AircraftRegistration;
 import ca.ids.abms.modules.common.services.AbmsCrudService;
 
 @Service
@@ -35,6 +36,11 @@ public class UnifiedTaxChargesService  {
 	public List<UnifiedTaxCharges> findAll() {
 		return unifiedTaxChargesRepository.findAll() ;
 		
+	}
+
+    @Transactional(readOnly = true)
+	public List<AircraftRegistration> getAircraftRegistrationsByBillingLedgerId(Integer billingLedgerId) {
+		return unifiedTaxChargesRepository.getAircraftRegistrationsByBillingLedgerId(billingLedgerId);
 	}	
     
     

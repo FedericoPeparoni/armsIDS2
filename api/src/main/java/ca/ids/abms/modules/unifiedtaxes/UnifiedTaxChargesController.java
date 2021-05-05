@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,9 +17,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import ca.ids.abms.modules.aircraft.AircraftRegistration;
 import ca.ids.abms.modules.common.controllers.AbmsCrudController;
 
 @RestController
@@ -42,12 +44,17 @@ public class UnifiedTaxChargesController{
     @PreAuthorize("hasAuthority('unified_tax_charge_view')")
 	public ResponseEntity<List<UnifiedTaxCharges>> getAllUnifiedTaxCharges(){
 		return ResponseEntity.ok(unifiedTaxChargesService.findAll());
-				
-
 	}
 	
-	
-	
+    @GetMapping(path = "/getAircraftRegistrationsByBillingLedgerId/{billingLedgerId}")
+    public ResponseEntity<List<AircraftRegistration>> getAircraftRegistrationsByBillingLedgerId(@PathVariable final Integer billingLedgerId,
+                                                              Pageable pageable,
+                                                              @RequestParam(name = "csvExport", required = false) Boolean csvExport) {
+        LOG.debug("REST request to get a list of aircraft registrations by unified-tax billing ledger id : {}", billingLedgerId);
+
+		return ResponseEntity.ok(unifiedTaxChargesService.getAircraftRegistrationsByBillingLedgerId(billingLedgerId));       
+    }
+    
    /* @PostMapping()
     @PreAuthorize("hasAuthority('unified_tax_modify')")
     public ResponseEntity<UnifiedTaxCharges> save(final UnifiedTaxCharges charges){
