@@ -24,6 +24,7 @@ public class AviationInvoiceData {
         public @XmlElement(nillable = true) String invoiceDateOfIssueStr;
         public @XmlElement(nillable = true) String invoiceDueDateStr;
         public @XmlElement(nillable = true) String invoiceBillingPeriod;
+        public @XmlElement(nillable = true) String invoiceBillingPeriodSpanish;        
         public @XmlElement(nillable = true) Integer accountId;
         public @XmlElement(nillable = true) String accountName;
         public @XmlElement(nillable = true) String accountAlias;

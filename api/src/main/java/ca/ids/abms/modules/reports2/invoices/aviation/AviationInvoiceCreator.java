@@ -52,6 +52,8 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.time.format.TextStyle;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -368,6 +370,9 @@ public class AviationInvoiceCreator {
             switch (billingInterval) {
             case MONTHLY:
                 invoiceData.global.invoiceBillingPeriod = String.format("%s-%s", StringUtils.capitalize(endDateInclusive.getMonth().name().toLowerCase()), endDateInclusive.getYear());
+                
+                Locale localeES = new Locale ("es" , "ES");                
+                invoiceData.global.invoiceBillingPeriodSpanish = String.format("%s-%s", StringUtils.capitalize(endDateInclusive.getMonth().getDisplayName(TextStyle.FULL, localeES).toLowerCase()), endDateInclusive.getYear());                
                 break;
             case WEEKLY:
                 invoiceData.global.invoiceBillingPeriod = String.format("%s - %s", reportHelper.formatDateUtc(endDateInclusive.minusDays(6), dateFormatter), invoiceData.global.invoiceDateStr);
@@ -1385,6 +1390,7 @@ public class AviationInvoiceCreator {
             Set<UnifiedTaxCharges> unifiedTaxCharges = new HashSet<UnifiedTaxCharges>();
             
             for (AircraftInfo aircraftInfo : invoiceData.aircraftInfoList) {
+            	
             	UnifiedTaxCharges charge = new UnifiedTaxCharges();
             	charge.setAmount(aircraftInfo.unifiedTaxCharges);
             	charge.setPercentage(aircraftInfo.discountPercentage);
@@ -1436,7 +1442,31 @@ public class AviationInvoiceCreator {
         final BillingLedger billingLedger = billingLedgerService.createBillingLedgerAndTransaction(bl, allowApplyPenalty, preview);
 
         // if not in preview mode, link flights to this ledger entry
-        if (!preview) accountFlights.forEach(fm -> linkFlightMovementAndUpdateStatus(fm, billingLedger, flightInfoMap));
+        if (!preview) {
+        	if (unifiedTaxInvoice) {
+        		
+                List<FlightMovement> flightMovements = flightMovementService.findAllFlightMovementByAccountAndDate(account.getId(), "PENDING", startDate, endDateInclusive);
+                if (flightMovements != null) {
+                	for (final FlightMovement fm: flightMovements) {
+                	
+                		if (flightMovementService.checkIfUnifiedTaxFlight(fm)) {
+
+                	        fm.setEnrouteInvoiceId(billingLedger.getId());
+                	        fm.setPassengerInvoiceId(billingLedger.getId());
+                	        fm.setOtherInvoiceId(billingLedger.getId());
+
+                	        reportHelper.updateFlightStatusToMatchInvoice(billingLedger, fm);
+                	        LOG.debug("Flight movement #{} regNum={}, updated status={}", fm.getId(),
+                	            fm.getItem18RegNum(), fm.getStatus());
+                			
+                			// fm.setStatus(FlightMovementStatus.INVOICED);                            
+                		}
+                	}
+                }   
+        	}
+        	else
+        		accountFlights.forEach(fm -> linkFlightMovementAndUpdateStatus(fm, billingLedger, flightInfoMap));
+        }
 
         // link extensions to this ledger entry
         handleBillingLedgerExtensions(invoicePermits, billingLedger);
@@ -1747,18 +1777,7 @@ public class AviationInvoiceCreator {
 
                 if(previewMode == false){
                     aircraftRegistrationService.updateAircraftRegistrationCOAByIdAndDates(
-                        ar.getId(), startDate, endDateInclusive);
-                    
-                    List<FlightMovement> flightMovements = flightMovementService.findAllFlightMovementByAccountAndDate(account.getId(), "PENDING", startDate, endDateInclusive);
-                    if (flightMovements != null) {
-                    	for (final FlightMovement fm: flightMovements) {
-                    	
-                    		if (flightMovementService.checkIfUnifiedTaxFlight(fm)) {
-                                fm.setStatus(FlightMovementStatus.INVOICED);
-                                fm.setFlightNotes("");
-                    		}
-                    	}
-                    }   
+                        ar.getId(), startDate, endDateInclusive);                    
                 }
             }
 
