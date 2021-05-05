@@ -84,7 +84,7 @@ public class BillingLedgerServiceTest extends TranslationRequired {
             chargesAdjustmentService,
             overdueInvoiceService,
             roundingUtils,
-            flightMovementService);
+            flightMovementService, null);
 
         when(roundingUtils.calculateSingleRoundedValue(anyDouble(), any(Currency.class), anyBoolean()))
             .thenAnswer(i -> i.getArguments()[0]);
