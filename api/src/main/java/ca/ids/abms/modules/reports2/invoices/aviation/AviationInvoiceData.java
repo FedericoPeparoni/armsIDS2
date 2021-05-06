@@ -24,7 +24,7 @@ public class AviationInvoiceData {
         public @XmlElement(nillable = true) String invoiceDateOfIssueStr;
         public @XmlElement(nillable = true) String invoiceDueDateStr;
         public @XmlElement(nillable = true) String invoiceBillingPeriod;
-        public @XmlElement(nillable = true) String invoiceBillingPeriodSpanish;        
+        public @XmlElement(nillable = true) String invoiceBillingPeriodSpanish;
         public @XmlElement(nillable = true) Integer accountId;
         public @XmlElement(nillable = true) String accountName;
         public @XmlElement(nillable = true) String accountAlias;
@@ -401,14 +401,14 @@ public class AviationInvoiceData {
         public @XmlElement String invoiceExpiration;
 
         public @XmlElement Double unifiedTaxCharges = 0d;
-        
+
         public @XmlElement String registrationNumber;
         public @XmlElement String manufacturer;
         public @XmlElement String aircraftType;
         public @XmlElement Double mtow = 0d;
         public @XmlElement String mtowUnitOfMeasure;
         public @XmlElement String mtowStr;
-
+        public @XmlElement String mtowStrSpanish;
         public @XmlElement String manufactureYearStr;
 
         public @XmlElement Double discountPercentage;

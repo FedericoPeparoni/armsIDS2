@@ -50,6 +50,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -68,7 +69,7 @@ public class AviationInvoiceCreator {
     private static final Logger LOG = LoggerFactory.getLogger(AviationInvoiceCreator.class);
     private static final String TWO_DECIMALS = "%,.2f";
     private static final String THREE_DECIMALS = "%,.3f";
-    
+
     private final ReportHelper reportHelper;
     private final BillingLedgerService billingLedgerService;
     private final UnifiedTaxService unifiedTaxService;
@@ -327,20 +328,20 @@ public class AviationInvoiceCreator {
     	return invoiceByFlightMovementCategory && aviationInvoiceCurrencyItem!=null;
     }
 
-    
+
     private boolean do_checkIfUnifiedTaxAlreadyPaid(AircraftRegistration ar) {
     	LocalDateTime coaIssueDate = ar.getCoaIssueDate();
     	LocalDateTime coaExpiryDate = ar.getCoaExpiryDate();
-    	
+
     	if (coaIssueDate != null && coaExpiryDate != null) {
-    		if ((this.startDate.isAfter(coaIssueDate) || this.startDate.isEqual(coaIssueDate)) && 
+    		if ((this.startDate.isAfter(coaIssueDate) || this.startDate.isEqual(coaIssueDate)) &&
     		    (this.endDateInclusive.isBefore(coaExpiryDate) || this.endDateInclusive.isEqual(coaExpiryDate)))
     		return true;
     	}
-    	
+
     	return false;
     }
-    
+
     /**
      * Create raw invoice data; to be further formatted into PDF etc.
      */
@@ -370,9 +371,9 @@ public class AviationInvoiceCreator {
             switch (billingInterval) {
             case MONTHLY:
                 invoiceData.global.invoiceBillingPeriod = String.format("%s-%s", StringUtils.capitalize(endDateInclusive.getMonth().name().toLowerCase()), endDateInclusive.getYear());
-                
-                Locale localeES = new Locale ("es" , "ES");                
-                invoiceData.global.invoiceBillingPeriodSpanish = String.format("%s-%s", StringUtils.capitalize(endDateInclusive.getMonth().getDisplayName(TextStyle.FULL, localeES).toLowerCase()), endDateInclusive.getYear());                
+
+                Locale localeES = new Locale ("es" , "ES");
+                invoiceData.global.invoiceBillingPeriodSpanish = String.format("%s-%s", StringUtils.capitalize(endDateInclusive.getMonth().getDisplayName(TextStyle.FULL, localeES).toLowerCase()), endDateInclusive.getYear());
                 break;
             case WEEKLY:
                 invoiceData.global.invoiceBillingPeriod = String.format("%s - %s", reportHelper.formatDateUtc(endDateInclusive.minusDays(6), dateFormatter), invoiceData.global.invoiceDateStr);
@@ -442,12 +443,12 @@ public class AviationInvoiceCreator {
 		            || flight.getMovementType() == FlightMovementType.DOMESTIC
 		            || flight.getMovementType() == FlightMovementType.REG_DEPARTURE
 		            || flight.getMovementType() == FlightMovementType.INT_DEPARTURE) {
-		
-		
+
+
 		            final AviationInvoiceData.FlightInfo flightInfo = processFlight(flight, account, chargesIncluded, aviationInvoiceCurrency,
 		                airNavigationChargesCurrency, domesticPassengerChargesCurrency, internationalPassengerChargesCurrency, invoicePermits);
 		            invoiceData.flightInfoList.add(flightInfo);
-		
+
 		            /* The passenger invoice should be generated only when the invoice includes at least a domestic or departure
 		             * flight with passenger counters not null(previously calculated through the "invoicePaxAllowed" boolean.
 		             * That rule is not applicable when the invoice to generate contains only/even other charges.
@@ -476,9 +477,9 @@ public class AviationInvoiceCreator {
 
         		if (do_checkIfUnifiedTaxAlreadyPaid(ar))
         			continue;
-        		
+
 	        	if (ar.getAircraftServiceDate()!=null) {
-	        		
+
 	        		// check if the unified tax has been already paid for the aircraft registration
 
                     final AviationInvoiceData.AircraftInfo aircraftInfo = unifiedTaxProcess.processAircraftRegistration(ar);
@@ -488,18 +489,26 @@ public class AviationInvoiceCreator {
                     aircraftInfo.invoiceExpiration = invoiceData.global.invoiceDueDateStr;
 
                     aircraftInfo.mtowUnitOfMeasure = reportHelper.getMTOWUnitOfMeasure();
-                    
+
+
                     if (mtowUnitOfMeasure.equalsIgnoreCase("KG")) {
                         aircraftInfo.mtow = ar.getMtowOverride()*ReportHelper.TO_KG;
-                        aircraftInfo.mtowStr = String.format("%,.0f", aircraftInfo.mtow) +  " " 
+                        aircraftInfo.mtowStr = String.format("%,.0f", aircraftInfo.mtow) +  " "
                         		+ aircraftInfo.mtowUnitOfMeasure;
+
+                        aircraftInfo.mtowStrSpanish = String.format(LocaleUtils.SPANISH, "%,.0f", aircraftInfo.mtow) +  " "
+                            + aircraftInfo.mtowUnitOfMeasure;
+
                     }
                     else {
+
                     	aircraftInfo.mtow = ar.getMtowOverride()*ReportHelper.TO_KG/1000.0;
-                        aircraftInfo.mtowStr = String.format(THREE_DECIMALS, aircraftInfo.mtow) +  " " 
+                        aircraftInfo.mtowStr = String.format(THREE_DECIMALS, aircraftInfo.mtow) +  " "
                         		+ aircraftInfo.mtowUnitOfMeasure;
+                        aircraftInfo.mtowStrSpanish = String.format(LocaleUtils.SPANISH, THREE_DECIMALS, aircraftInfo.mtow) +  " "
+                            + aircraftInfo.mtowUnitOfMeasure;
                     }
-                    
+
                     invoiceData.aircraftInfoList.add(aircraftInfo);
 
 	        		invoiceData.global.unifiedTaxTotalCharges += aircraftInfo.unifiedTaxCharges;
@@ -1384,13 +1393,13 @@ public class AviationInvoiceCreator {
         bl.setBillingCenter(currentUser != null ? currentUser.getBillingCenter() : null);
         bl.setInvoicePeriodOrDate(endDateInclusive);
         if (unifiedTaxInvoice) {
-        	
+
         	bl.setInvoiceType(InvoiceType.UNIFIED_TAX.toValue());
-        	
+
             Set<UnifiedTaxCharges> unifiedTaxCharges = new HashSet<UnifiedTaxCharges>();
-            
+
             for (AircraftInfo aircraftInfo : invoiceData.aircraftInfoList) {
-            	
+
             	UnifiedTaxCharges charge = new UnifiedTaxCharges();
             	charge.setAmount(aircraftInfo.unifiedTaxCharges);
             	charge.setPercentage(aircraftInfo.discountPercentage);
@@ -1399,8 +1408,8 @@ public class AviationInvoiceCreator {
             	charge.setAircraftRegistration(ar);
             	unifiedTaxCharges.add(charge);
             }
-            
-            bl.setUnifiedTaxCharges(unifiedTaxCharges);                  	
+
+            bl.setUnifiedTaxCharges(unifiedTaxCharges);
         }
         else {
 	        bl.setInvoiceType(ChargeSelection.ONLY_PAX == chargeSelection ?
@@ -1444,11 +1453,11 @@ public class AviationInvoiceCreator {
         // if not in preview mode, link flights to this ledger entry
         if (!preview) {
         	if (unifiedTaxInvoice) {
-        		
+
                 List<FlightMovement> flightMovements = flightMovementService.findAllFlightMovementByAccountAndDate(account.getId(), "PENDING", startDate, endDateInclusive);
                 if (flightMovements != null) {
                 	for (final FlightMovement fm: flightMovements) {
-                	
+
                 		if (flightMovementService.checkIfUnifiedTaxFlight(fm)) {
 
                 	        fm.setEnrouteInvoiceId(billingLedger.getId());
@@ -1458,11 +1467,11 @@ public class AviationInvoiceCreator {
                 	        reportHelper.updateFlightStatusToMatchInvoice(billingLedger, fm);
                 	        LOG.debug("Flight movement #{} regNum={}, updated status={}", fm.getId(),
                 	            fm.getItem18RegNum(), fm.getStatus());
-                			
-                			// fm.setStatus(FlightMovementStatus.INVOICED);                            
+
+                			// fm.setStatus(FlightMovementStatus.INVOICED);
                 		}
                 	}
-                }   
+                }
         	}
         	else
         		accountFlights.forEach(fm -> linkFlightMovementAndUpdateStatus(fm, billingLedger, flightInfoMap));
@@ -1709,11 +1718,11 @@ public class AviationInvoiceCreator {
         }
 
         public AircraftInfo processAircraftRegistration(final AircraftRegistration ar) {
-            
+
         	//Convert MTOW from Short Tons to KG
             double mtow = ar.getMtowOverride();
             mtow = mtow * ReportHelper.TO_KG;
-            
+
             /*
             if (mtowUnitOfMeasure.equalsIgnoreCase("KG")) {
                 mtow = mtow * ReportHelper.TO_KG;
@@ -1723,7 +1732,7 @@ public class AviationInvoiceCreator {
             vars.put(CostFormulaVar.MTOW.varName(), mtow);
 
             AviationInvoiceData.AircraftInfo aircraftInfo = new AviationInvoiceData.AircraftInfo();
-            
+
             aircraftInfo.registrationNumber = ar.getRegistrationNumber();
             aircraftInfo.manufacturer = ar.getAircraftType().getManufacturer();
             aircraftInfo.manufactureYearStr = reportHelper.formatYear(ar.getAircraftServiceDate());
@@ -1777,7 +1786,7 @@ public class AviationInvoiceCreator {
 
                 if(previewMode == false){
                     aircraftRegistrationService.updateAircraftRegistrationCOAByIdAndDates(
-                        ar.getId(), startDate, endDateInclusive);                    
+                        ar.getId(), startDate, endDateInclusive);
                 }
             }
 
