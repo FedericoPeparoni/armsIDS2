@@ -7,6 +7,8 @@ import { CRUDFileUploadService } from '../../../angular-ids-project/src/helpers/
 
 export let endpoint: string = 'aircraft-registrations';
 
+export let endpointCharges: string = 'unified-tax-charges';
+
 export class AircraftRegistrationService extends CRUDFileUploadService {
 
   protected restangular: restangular.IService;
@@ -125,8 +127,7 @@ export class AircraftRegistrationService extends CRUDFileUploadService {
     }
   }
 
-
-  public getAircraftRegistrationByInvoiceId(invoiceId: number): ng.IPromise<any> {
-    return this.restangular.one(`${endpoint}/getAircraftRegistrationByInvoiceId/${invoiceId}`).get();
+  public getAircraftRegistrationByBillingLedgerId(invoiceId: number): ng.IPromise<any> {
+    return this.restangular.one(`${endpointCharges}/getAircraftRegistrationsByBillingLedgerId/${invoiceId}`).get();
   }
 }

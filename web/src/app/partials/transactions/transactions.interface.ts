@@ -8,6 +8,7 @@ import { IExtendableError } from '../../angular-ids-project/src/helpers/interfac
 import { IExternalChargeCategory } from '../external-charge-category/external-charge-category.interface';
 import { IActiveOrganization } from '../organization/organization.interface';
 import { IBankAccount } from '../bank-account-management/bank-account-management.interface';
+import { IAircraftRegistration } from '../aircraft-registration/aircraft-registration.interface';
 
 export interface ITransaction {
   id?: number;
@@ -70,6 +71,7 @@ export interface IAdjustmentCharge {
   transaction_id: ITransaction;
   external_accounting_system_identifier?: string;
   external_charge_category_name?: string;
+  registration_number?: string ;
 }
 
 export interface ITransactionApprovals {
@@ -107,6 +109,7 @@ export interface ITransactionsScope extends ng.IScope {
   paymentExchangeRate: string;
   form: IEditableForm;
   charge: IAdjustmentCharge;
+  aircraftRegistration : IAircraftRegistration;
   charges: Array<IAdjustmentCharge>;
   addCharges: Function;
   editCharges: Function;

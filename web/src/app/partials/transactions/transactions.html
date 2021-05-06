@@ -171,7 +171,7 @@
                             <!-- Adjusting, continue after selecting item for adjustment -->
                             <button translate ng-if="editable.payment_mechanism === 'adjustment' && !excessToBePaid" class="btn btn-primary btn-complete pull-right"
                                 ng-click="showChargeWizard(editable); invoiceAdjusted.invoice_type !== 'non-aviation' ? getFlightMovementsByInvoiceId(invoiceAdjusted.id)  : getLineItemsByInvoiceId(invoiceAdjusted.id); form.$setUntouched();
-                                invoiceAdjusted.invoice_type !== 'non-aviation' && invoiceAdjusted.invoice_type === 'unified-tax' ? getAircraftRegistrationByInvoiceId(invoiceAdjusted.id)  : getLineItemsByInvoiceId(invoiceAdjusted.id)"
+                                invoiceAdjusted.invoice_type !== 'non-aviation' && invoiceAdjusted.invoice_type === 'unified-tax' ? getAircraftRegistrationByBillingLedgerId(invoiceAdjusted.id)  : getLineItemsByInvoiceId(invoiceAdjusted.id)"
                                 ng-disabled="!invoiceChecked">Continue</button>
 
                             <!-- Adjusting, unpaid invoices selected, complete adjustment -->
@@ -340,7 +340,8 @@
                                     <tbody>
                                         <tr ng-click="editCharges(item, $index)" ng-repeat="item in charges track by $index">
                                             <td ng-if="invoiceAdjusted.invoice_type === 'non-aviation'">{{ item.aerodrome }}</td>
-                                            <td ng-if="invoiceAdjusted.invoice_type !== 'non-aviation'">{{ item.flight_id }}</td>
+                                            <td ng-if="invoiceAdjusted.invoice_type !== 'non-aviation' && invoiceAdjusted.invoice_type !== 'unified-tax'">{{ item.flight_id }}</td>
+                                            <td ng-if="invoiceAdjusted.invoice_type !== 'non-aviation' && invoiceAdjusted.invoice_type === 'unified-tax'">{{item.registration_number}}</td>
                                             <td>{{ item.charge_description | translate }}</td>
                                             <td class="text-right">{{ item.charge_amount | number : 2 }}</td>
                                         </tr>
@@ -395,7 +396,7 @@
                                    <div class="row" ng-if="invoiceAdjusted.invoice_type !== 'non-aviation' && invoiceAdjusted.invoice_type === 'unified-tax'">
                                     <div class="col-xs-12 col-md-6">
                                         <label translate for="registration_number">Registration Number *</label>
-                                        <input id="registration_number" name="registration_number" class="form-control" type="text" ng-model="charge.registration_number" uppercase-input
+                                        <input id="registration_number" name="registration_number" class="form-control" type="text" ng-model="aircraftRegistration.registration_number" uppercase-input
                                             required ng-disabled="editable.transaction_type.name === 'credit'" />
                                     </div>
                                     <div class="col-xs-12 col-md-6">
@@ -495,7 +496,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr ng-click="setEditable(item)" ng-class="{'highlight': editable.id === item.id}" ng-repeat="item in listAircraftRegstration">
+                                                        <tr ng-click="setAircraftRegistration(item)" ng-class="{'highlight': editable.id === item.id}" ng-repeat="item in listAircraftRegstration">
                                                             <td class="text-nowrap">{{ item.registration_number }}</td>
                                                             <td class="text-nowrap">{{ item.registration_start_date | dateConverter }}</td>
                                                             <td class="text-nowrap">{{ item.registration_expiry_date | dateConverter }}</td>

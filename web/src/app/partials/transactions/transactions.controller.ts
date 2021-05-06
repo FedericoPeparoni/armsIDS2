@@ -13,6 +13,7 @@ import { ICatalogueServiceChargeTypeSpring, ICatalogueServiceChargeType } from '
 import { IFlightMovement } from '../flight-movement-management/flight-movement-management.interface';
 import { IInvoiceLineItem } from '../line-item/line-item.interface';
 import { IBankAccount } from '../bank-account-management/bank-account-management.interface';
+import {IAircraftRegistration} from '../aircraft-registration/aircraft-registration.interface';
 
 // services
 import { TransactionsService } from './service/transactions.service';
@@ -34,7 +35,7 @@ import { AircraftRegistrationService } from '../aircraft-registration/service/ai
 import { SysConfigConstants } from '../system-configuration/system-configuration.constants';
 import { ITransactionType } from '../transaction-types/transaction-types.interface';
 import { TransactionTypesService } from '../transaction-types/service/transaction-types.service';
-import { IAircraftRegistration } from '../aircraft-registration/aircraft-registration.interface';
+
 
 
 export class TransactionsController extends CRUDFileUploadController {
@@ -128,7 +129,27 @@ export class TransactionsController extends CRUDFileUploadController {
       flight_id: null,
       charge_description: null,
       other_description: null,
-      charge_amount: null
+      charge_amount: null,
+      registration_number: null
+    };
+
+
+    $scope.aircraftRegistration = {
+      registration_number: null,
+      registration_start_date: null,
+      registration_expiry_date: null,
+      mtow_override: null,
+      country_override: null,
+      account: null,
+      aircraft_type: null,
+      country_of_registration: null,
+      created_by_self_care: null,
+      coa_expiry_date: null,
+      coa_issue_date: null,
+      aircraft_service_date: null,
+      is_local: null,
+      aircraft_scope : null
+
     };
 
     $scope.exportSupport = false;
@@ -200,6 +221,11 @@ export class TransactionsController extends CRUDFileUploadController {
 
     };
 
+    $scope.setAircraftRegistration = (item : IAircraftRegistration) => {
+        $scope.aircraftRegistration =  item ;
+        $scope.charge.registration_number = item.registration_number;
+       }
+
     $scope.setAerodrome = (item: IInvoiceLineItem) => {
       $scope.charge.aerodrome = item.aerodrome.aerodrome_name;
       $scope.charge.charge_description = item.service_charge_catalogue.description;
@@ -208,7 +234,7 @@ export class TransactionsController extends CRUDFileUploadController {
 
     $scope.getLineItemsByInvoiceId = (invoiceId: number) => this.getLineItemsByInvoiceId(invoiceId);
     $scope.getFlightMovementsByInvoiceId = (invoiceId: number) => this.getFlightMovementsByInvoiceId(invoiceId);
-    $scope.getAircraftRegistrationByInvoiceId = (invoiceId: number) => this.getAircraftRegistrationByInvoiceId(invoiceId);
+    $scope.getAircraftRegistrationByBillingLedgerId = (invoiceId: number) => this.getAircraftRegistrationByBillingLedgerId(invoiceId);
 
     // define scope payment mechanism functions
     $scope.isPaymentMechanism = (...mechanisms: Array<string>) => this.isPaymentMechanism(mechanisms);
@@ -1163,9 +1189,9 @@ export class TransactionsController extends CRUDFileUploadController {
   }
 
   //federico
- private getAircraftRegistrationByInvoiceId(invoiceId: number): ng.IPromise<Array<IAircraftRegistration>> {
-  console.log('aircraftregistration');
-    return this.aircraftRegistrationService.getAircraftRegistrationByInvoiceId(invoiceId)
+ private getAircraftRegistrationByBillingLedgerId(invoiceId: number): ng.IPromise<Array<IAircraftRegistration>> {
+  console.log('aircraftregistration '+ invoiceId);
+    return this.aircraftRegistrationService.getAircraftRegistrationByBillingLedgerId(invoiceId)
     .then((listAircraftRegstration: Array<IAircraftRegistration>) => this.$scope.listAircraftRegstration = listAircraftRegstration);
 
      }
