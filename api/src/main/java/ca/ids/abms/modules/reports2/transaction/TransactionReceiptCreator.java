@@ -371,12 +371,19 @@ public class TransactionReceiptCreator {
             xx.invoiceDateStr = reportHelper.formatDateUtc (transactionPayment.getBillingLedger().getInvoiceDateOfIssue(), dateFormatter);
 
             Currency paymentCurrency = transactionPayment.getCurrency();
-            xx.localAmount = roundingUtils.calculateSingleRoundedValue(Math.abs(transactionPayment.getAmount()), paymentCurrency, aviation);
+            
+            xx.localAmount = roundingUtils.calculateSingleRoundedValue(Math.abs(transactionPayment.getAmount()), paymentCurrency, aviation);            
             xx.localAmountStr = reportHelper.formatCurrency (xx.localAmount, paymentCurrency);
             xx.localAmountStrWithCurrencySymbol = reportHelper.formatCurrencyWithSymbol (xx.localAmount, paymentCurrency);
 
+/*            
             Double paymentAmount = cachedCurrencyConverter.convertCurrency(transactionPayment.getAmount(), paymentCurrency, transactionPaymentCurrency);
             xx.paymentAmount = roundingUtils.calculateSingleRoundedValue(Math.abs(paymentAmount), transactionPaymentCurrency, aviation);
+*/          
+            double percentage = transactionPayment.getAmount() / transaction.getAmount();
+            xx.paymentAmount = data.global.paymentAmount * percentage;
+            xx.paymentAmount = roundingUtils.calculateSingleRoundedValue(Math.abs(xx.paymentAmount), paymentCurrency, aviation);
+            
             xx.paymentAmountStr = reportHelper.formatCurrency (xx.paymentAmount, transactionPaymentCurrency);
             xx.paymentAmountStrWithCurrencySymbol = reportHelper.formatCurrencyWithSymbol (xx.paymentAmount, transactionPaymentCurrency);
 
