@@ -160,13 +160,13 @@
                     <property name="nativeDataType">12</property>
                 </structure>
             </list-property>
-            <xml-property name="queryText"><![CDATA[select 
+            <xml-property name="queryText"><![CDATA[select
 	id,
 	name,
 	alias
-from 
+from
 	accounts
-where 
+where
 	id=?]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
@@ -600,10 +600,10 @@ where
                     <property name="nativeDataType">12</property>
                 </structure>
             </list-property>
-            <xml-property name="queryText"><![CDATA[SELECT a.id                               AS account_id, 
-       a.NAME                             AS account_name, 
-       a.aviation_billing_mailing_address AS aviation_billing_mailing_address, 
-       COALESCE (x.opening_balance, 0)    AS opening_balance, 
+            <xml-property name="queryText"><![CDATA[SELECT a.id                               AS account_id,
+       a.NAME                             AS account_name,
+       a.aviation_billing_mailing_address AS aviation_billing_mailing_address,
+       COALESCE (x.opening_balance, 0)    AS opening_balance,
        x.transaction_type_id 			  AS transaction_type_id,
        x.description					  AS description,
        x.symbol 						  AS symbol,
@@ -616,21 +616,21 @@ where
        x.exchange_rate_to_usd			  AS exchange_rate_to_usd,
        x.invoice_type                     AS billing_ledgers_invoice_type,
        x.billing_centers_name           AS billing_centers_name
-FROM   accounts a 
+FROM   accounts a
        LEFT OUTER JOIN (
-       SELECT DISTINCT a.id                    		AS account_id, 
-                       original.latest_balance 		AS opening_balance, 
-                       original.id             		AS opening_balance_transaction_id, 
-                       CASE 
-                           WHEN original.id IS NOT NULL 
-                           OR t.id IS NOT NULL THEN 
-                                c.currency_code 
-                           ELSE NULL 
-                           END                  	AS symbol, 
-                        t.id                    	AS transaction_id, 
-                        t.transaction_date_time 	AS transaction_date_time, 
-                        t.amount                	AS amount, 
-                        t.balance               	AS balance, 
+       SELECT DISTINCT a.id                    		AS account_id,
+                       original.latest_balance 		AS opening_balance,
+                       original.id             		AS opening_balance_transaction_id,
+                       CASE
+                           WHEN original.id IS NOT NULL
+                           OR t.id IS NOT NULL THEN
+                                c.currency_code
+                           ELSE NULL
+                           END                  	AS symbol,
+                        t.id                    	AS transaction_id,
+                        t.transaction_date_time 	AS transaction_date_time,
+                        t.amount                	AS amount,
+                        t.balance               	AS balance,
                         t.transaction_type_id 		AS transaction_type_id,
                         t.description				AS description,
                         t.payment_mechanism			AS payment_mechanism,
@@ -639,59 +639,61 @@ FROM   accounts a
                         tt.NAME                 	AS transaction_type,
                         t.invoice_type              AS invoice_type,
                         t.billing_centers_name      AS billing_centers_name
-                        FROM   abms.accounts a 
-                               CROSS JOIN abms.currencies c 
-                               LEFT OUTER JOIN (SELECT t.id, 
-                                                       t.account_id, 
-                                                       t.currency_id, 
-                                                       t.balance latest_balance 
-                                                FROM   abms.transactions t 
-                               JOIN (SELECT account_id, 
-                                            currency_id, 
-                                            Max(id) id 
-                                     FROM   abms.transactions 
-                                   
+                        FROM   abms.accounts a
+                               CROSS JOIN abms.currencies c
+                               LEFT OUTER JOIN (SELECT t.id,
+                                                       t.account_id,
+                                                       t.currency_id,
+                                                       t.balance latest_balance
+                                                FROM   abms.transactions t
+                               JOIN (SELECT account_id,
+                                            currency_id,
+                                            Max(id) id
+                                     FROM   abms.transactions
+
                                 WHERE  transaction_date_time < ?
-                                   
-                                     GROUP  BY account_id, 
-                                               currency_id 
-                                     ORDER  BY account_id) t1 
-                                 ON T.id = t1.id) AS original 
-                                            ON original.account_id = a.id 
-                                               AND original.currency_id = c.id 
-                               LEFT OUTER JOIN 
+
+                                     GROUP  BY account_id,
+                                               currency_id
+                                     ORDER  BY account_id) t1
+                                 ON T.id = t1.id) AS original
+                                            ON original.account_id = a.id
+                                               AND original.currency_id = c.id
+                               LEFT OUTER JOIN
                                (
-                               
+
 SELECT *
-  FROM (                               
+  FROM (
 SELECT t.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.balance, bl.invoice_type, t.payment_mechanism, t.payment_reference_number, t.currency_id, t.transaction_type_id, t.id, t.description, t.exchange_rate,  be.name  AS billing_centers_name
 FROM   abms.transactions t
 INNER JOIN abms.billing_ledgers bl ON bl.invoice_number = t.payment_reference_number
-INNER JOIN abms.billing_centers be ON bl.billing_center_id = be.id  
+INNER JOIN abms.billing_centers be ON bl.billing_center_id = be.id
 UNION
 SELECT  bl.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.balance, bl.invoice_type, t.payment_mechanism, t.payment_reference_number, t.currency_id, t.transaction_type_id, t.id, t.description, t.exchange_rate, be.name  AS billing_centers_name
-FROM abms.billing_ledgers bl 
+FROM abms.billing_ledgers bl
 INNER JOIN abms.transaction_payments tp ON bl.id = tp.billing_ledger_id
-INNER JOIN abms.transactions t ON tp.transaction_id = t.id                                
+INNER JOIN abms.transactions t ON tp.transaction_id = t.id
 INNER JOIN abms.billing_centers be ON bl.billing_center_id = be.id
-) AS t 
-                                WHERE  t.transaction_date_time 
+) AS t
+                                WHERE  t.transaction_date_time
                                        >= ?
                                        AND t.transaction_date_time <= ?
-             
-                             ) AS T 
-                                            ON a.id = t.account_id 
-                                               AND T.currency_id = c.id AND T.invoice_type='unified-tax'
-                               LEFT OUTER JOIN abms.transaction_types tt 
-                                            ON tt.id = T.transaction_type_id 
-                        WHERE  ( original.latest_balance IS NOT NULL 
-                                  OR t.id IS NOT NULL )) x 
+
+                             ) AS T
+                                            ON a.id = t.account_id
+                                               AND T.currency_id = c.id AND
+                                               ((T.invoice_type='unified-tax' AND T.payment_mechanism = 'invoice' ) OR  (T.payment_mechanism = 'adjustment' OR  T.payment_mechanism = 'cash' ))
+
+                               LEFT OUTER JOIN abms.transaction_types tt
+                                            ON tt.id = T.transaction_type_id
+                        WHERE  ( original.latest_balance IS NOT NULL
+                                  OR t.id IS NOT NULL )) x
                     ON a.id = x.account_id
 
-WHERE  a.id = any(?::int[]) 
+WHERE  a.id = any(?::int[])
 
-ORDER  BY a.id, 
-          transaction_id, 
+ORDER  BY a.id,
+          transaction_id,
           symbol]]></xml-property>
         </oda-data-set>
         <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="aircraft" id="1561">
