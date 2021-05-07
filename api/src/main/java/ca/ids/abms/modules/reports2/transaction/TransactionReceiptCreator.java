@@ -433,6 +433,7 @@ public class TransactionReceiptCreator {
         switch (invoiceType) {
             case AVIATION_IATA:
             case AVIATION_NONIATA:
+            case UNIFIED_TAX:
                 data.global.isAviation = true;
                 break;
             default:
