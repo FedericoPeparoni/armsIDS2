@@ -66,6 +66,7 @@ public class CreditDebitNoteData {
         public @XmlElement(nillable = true) Integer id;
         public @XmlElement(nillable = true) String dateStr;
         public @XmlElement(nillable = true) String flightId;
+        public @XmlElement(nillable = true) String registrationNumber;
         public @XmlElement(nillable = true) String aerodrome;
         public @XmlElement(nillable = true) String chargeDescription;
         public @XmlElement(nillable = true) String chargeDescriptionSpanish;
