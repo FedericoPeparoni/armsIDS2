@@ -281,6 +281,24 @@ where
                     <text-property name="heading">aviation_billing_mailing_address</text-property>
                 </structure>
                 <structure>
+                    <property name="columnName">person_name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">person_name</text-property>
+                    <text-property name="heading">person_name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">phone_number</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">phone_number</text-property>
+                    <text-property name="heading">phone_number</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">email_address</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">email_address</text-property>
+                    <text-property name="heading">email_address</text-property>
+                </structure>
+                <structure>
                     <property name="columnName">opening_balance</property>
                     <property name="analysis">measure</property>
                     <text-property name="displayName">opening_balance</text-property>
@@ -420,66 +438,81 @@ where
                     </structure>
                     <structure>
                         <property name="position">4</property>
-                        <property name="name">opening_balance</property>
-                        <property name="dataType">float</property>
+                        <property name="name">person_name</property>
+                        <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">5</property>
-                        <property name="name">transaction_type_id</property>
-                        <property name="dataType">integer</property>
+                        <property name="name">phone_number</property>
+                        <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">6</property>
-                        <property name="name">description</property>
+                        <property name="name">email_address</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">7</property>
-                        <property name="name">symbol</property>
-                        <property name="dataType">string</property>
+                        <property name="name">opening_balance</property>
+                        <property name="dataType">float</property>
                     </structure>
                     <structure>
                         <property name="position">8</property>
-                        <property name="name">payment_mechanism</property>
-                        <property name="dataType">string</property>
+                        <property name="name">transaction_type_id</property>
+                        <property name="dataType">integer</property>
                     </structure>
                     <structure>
                         <property name="position">9</property>
-                        <property name="name">payment_reference_number</property>
+                        <property name="name">description</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">10</property>
-                        <property name="name">balance</property>
-                        <property name="dataType">float</property>
+                        <property name="name">symbol</property>
+                        <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">11</property>
-                        <property name="name">amount</property>
-                        <property name="dataType">float</property>
+                        <property name="name">payment_mechanism</property>
+                        <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">12</property>
-                        <property name="name">transaction_type</property>
+                        <property name="name">payment_reference_number</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">13</property>
-                        <property name="name">transaction_date_time</property>
-                        <property name="dataType">date-time</property>
+                        <property name="name">balance</property>
+                        <property name="dataType">float</property>
                     </structure>
                     <structure>
                         <property name="position">14</property>
-                        <property name="name">exchange_rate_to_usd</property>
+                        <property name="name">amount</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
                         <property name="position">15</property>
-                        <property name="name">billing_ledgers_invoice_type</property>
+                        <property name="name">transaction_type</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">16</property>
+                        <property name="name">transaction_date_time</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">exchange_rate_to_usd</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">18</property>
+                        <property name="name">billing_ledgers_invoice_type</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">19</property>
                         <property name="name">billing_centers_name</property>
                         <property name="dataType">string</property>
                     </structure>
@@ -510,90 +543,111 @@ where
                 </structure>
                 <structure>
                     <property name="position">4</property>
+                    <property name="name">person_name</property>
+                    <property name="nativeName">person_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">phone_number</property>
+                    <property name="nativeName">phone_number</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">email_address</property>
+                    <property name="nativeName">email_address</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
                     <property name="name">opening_balance</property>
                     <property name="nativeName">opening_balance</property>
                     <property name="dataType">float</property>
                     <property name="nativeDataType">8</property>
                 </structure>
                 <structure>
-                    <property name="position">5</property>
+                    <property name="position">8</property>
                     <property name="name">transaction_type_id</property>
                     <property name="nativeName">transaction_type_id</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">6</property>
+                    <property name="position">9</property>
                     <property name="name">description</property>
                     <property name="nativeName">description</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">7</property>
+                    <property name="position">10</property>
                     <property name="name">symbol</property>
                     <property name="nativeName">symbol</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">8</property>
+                    <property name="position">11</property>
                     <property name="name">payment_mechanism</property>
                     <property name="nativeName">payment_mechanism</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">9</property>
+                    <property name="position">12</property>
                     <property name="name">payment_reference_number</property>
                     <property name="nativeName">payment_reference_number</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">10</property>
+                    <property name="position">13</property>
                     <property name="name">balance</property>
                     <property name="nativeName">balance</property>
                     <property name="dataType">float</property>
                     <property name="nativeDataType">8</property>
                 </structure>
                 <structure>
-                    <property name="position">11</property>
+                    <property name="position">14</property>
                     <property name="name">amount</property>
                     <property name="nativeName">amount</property>
                     <property name="dataType">float</property>
                     <property name="nativeDataType">8</property>
                 </structure>
                 <structure>
-                    <property name="position">12</property>
+                    <property name="position">15</property>
                     <property name="name">transaction_type</property>
                     <property name="nativeName">transaction_type</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">13</property>
+                    <property name="position">16</property>
                     <property name="name">transaction_date_time</property>
                     <property name="nativeName">transaction_date_time</property>
                     <property name="dataType">date-time</property>
                     <property name="nativeDataType">93</property>
                 </structure>
                 <structure>
-                    <property name="position">14</property>
+                    <property name="position">17</property>
                     <property name="name">exchange_rate_to_usd</property>
                     <property name="nativeName">exchange_rate_to_usd</property>
                     <property name="dataType">float</property>
                     <property name="nativeDataType">8</property>
                 </structure>
                 <structure>
-                    <property name="position">15</property>
+                    <property name="position">18</property>
                     <property name="name">billing_ledgers_invoice_type</property>
                     <property name="nativeName">billing_ledgers_invoice_type</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">16</property>
+                    <property name="position">19</property>
                     <property name="name">billing_centers_name</property>
                     <property name="nativeName">billing_centers_name</property>
                     <property name="dataType">string</property>
@@ -602,7 +656,12 @@ where
             </list-property>
             <xml-property name="queryText"><![CDATA[SELECT a.id                               AS account_id,
        a.NAME                             AS account_name,
+       
        a.aviation_billing_mailing_address AS aviation_billing_mailing_address,
+              a.aviation_billing_contact_person_name AS person_name,
+	   a.aviation_billing_phone_number        AS phone_number,
+	   a.aviation_billing_email_address       AS email_address,
+	   
        COALESCE (x.opening_balance, 0)    AS opening_balance,
        x.transaction_type_id 			  AS transaction_type_id,
        x.description					  AS description,
@@ -1004,7 +1063,7 @@ WHERE  abms.accounts.id = ?]]></xml-property>
                         <property name="textUnderline">underline</property>
                         <property name="textAlign">center</property>
                         <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[UNIFIED TAX]]></text-property>
+                        <text-property name="content"><![CDATA[REPORTE DE TASA UNIFICADA]]></text-property>
                     </text>
                 </cell>
             </row>
@@ -1016,9 +1075,9 @@ WHERE  abms.accounts.id = ?]]></xml-property>
                         <expression name="valueExpr">var dt1=Formatter.format(BirtDateTime.now(), "yyyy-MM-dd");&#13;
 var dt2=Formatter.format(params["todate"], "yyyy-MM-dd");&#13;
 var dt3=Formatter.format(params["fromdate"], "yyyy-MM-dd");&#13;
-"Generated: "  + dt1 +  "&lt;br>" +&#13;
-"From: " + dt3 +  "&lt;br>" +&#13;
-"To: " + dt2</expression>
+"Creado el: "  + dt1 +  "&lt;br>" +&#13;
+"Desde de: " + dt3 +  "&lt;br>" +&#13;
+"Al: " + dt2</expression>
                         <property name="contentType">html</property>
                     </text-data>
                 </cell>
@@ -1220,6 +1279,27 @@ dataSetRow["amount"]&#13;
                     <property name="dataType">string</property>
                     <property name="allowExport">true</property>
                 </structure>
+                <structure>
+                    <property name="name">person_name</property>
+                    <text-property name="displayName">person_name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["person_name"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">phone_number</property>
+                    <text-property name="displayName">phone_number</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["phone_number"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">email_address</property>
+                    <text-property name="displayName">email_address</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["email_address"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
             </list-property>
             <column id="1167">
                 <property name="width">100%</property>
@@ -1260,6 +1340,8 @@ dataSetRow["amount"]&#13;
                 <header>
                     <row id="1398">
                         <cell id="1399">
+                            <property name="colSpan">3</property>
+                            <property name="rowSpan">1</property>
                             <data id="1408">
                                 <property name="backgroundAttachment">scroll</property>
                                 <property name="backgroundPositionX">0%</property>
@@ -1312,8 +1394,6 @@ dataSetRow["amount"]&#13;
                                 <property name="resultSetColumn">account_name_1</property>
                             </data>
                         </cell>
-                        <cell id="1400"/>
-                        <cell id="1638"/>
                         <cell id="1401"/>
                         <cell id="1402"/>
                         <cell id="1485"/>
@@ -1323,6 +1403,23 @@ dataSetRow["amount"]&#13;
                     </row>
                     <row id="1355">
                         <cell id="1356">
+                            <property name="colSpan">3</property>
+                            <property name="rowSpan">1</property>
+                            <data id="1686">
+                                <property name="resultSetColumn">person_name</property>
+                            </data>
+                        </cell>
+                        <cell id="1358"/>
+                        <cell id="1359"/>
+                        <cell id="1486"/>
+                        <cell id="1360"/>
+                        <cell id="1361"/>
+                        <cell id="1362"/>
+                    </row>
+                    <row id="1656">
+                        <cell id="1657">
+                            <property name="colSpan">3</property>
+                            <property name="rowSpan">1</property>
                             <data id="1407">
                                 <property name="backgroundAttachment">scroll</property>
                                 <property name="backgroundPositionX">0%</property>
@@ -1375,16 +1472,48 @@ dataSetRow["amount"]&#13;
                                 <property name="resultSetColumn">aviation_billing_mailing_address</property>
                             </data>
                         </cell>
-                        <cell id="1357"/>
-                        <cell id="1639"/>
-                        <cell id="1358"/>
-                        <cell id="1359"/>
-                        <cell id="1486"/>
-                        <cell id="1360"/>
-                        <cell id="1361"/>
-                        <cell id="1362"/>
+                        <cell id="1660"/>
+                        <cell id="1661"/>
+                        <cell id="1662"/>
+                        <cell id="1663"/>
+                        <cell id="1664"/>
+                        <cell id="1665"/>
+                    </row>
+                    <row id="1666">
+                        <cell id="1667">
+                            <property name="colSpan">3</property>
+                            <property name="rowSpan">1</property>
+                            <data id="1687">
+                                <property name="resultSetColumn">phone_number</property>
+                            </data>
+                        </cell>
+                        <cell id="1670"/>
+                        <cell id="1671"/>
+                        <cell id="1672"/>
+                        <cell id="1673"/>
+                        <cell id="1674"/>
+                        <cell id="1675"/>
+                    </row>
+                    <row id="1676">
+                        <cell id="1677">
+                            <property name="colSpan">3</property>
+                            <property name="rowSpan">1</property>
+                            <data id="1688">
+                                <property name="resultSetColumn">email_address</property>
+                            </data>
+                        </cell>
+                        <cell id="1680"/>
+                        <cell id="1681"/>
+                        <cell id="1682"/>
+                        <cell id="1683"/>
+                        <cell id="1684"/>
+                        <cell id="1685"/>
                     </row>
                     <row id="1551">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">medium</property>
                         <cell id="1552">
                             <property name="colSpan">9</property>
                             <property name="rowSpan">1</property>
