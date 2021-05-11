@@ -9,6 +9,8 @@ public class ChargesAdjustmentViewModel {
     private LocalDateTime date;
 
     private String flightId;
+    
+    private String registrationNumber;
 
     private String aerodrome;
 
@@ -103,4 +105,13 @@ public class ChargesAdjustmentViewModel {
     public void setBillingLedgerId(Integer billingLedgerId) {
         this.billingLedgerId = billingLedgerId;
     }
+
+	public String getRegistrationNumber() {
+		return registrationNumber;
+	}
+
+	public void setRegistrationNumber(String registrationNumber) {
+		this.registrationNumber = registrationNumber;
+	}
+
 }

@@ -2454,7 +2454,10 @@ databaseChangeLog:
         author: Alessandro Gallinella
         file: 20210505210931_alert_unifiedtax_charges_permissions.sql
         relativeToChangelogFile: true
-
+    - include:
+        author: Federico Peparoni
+        file: 20210511210930_alter_charges_adjustements.sql
+        relativeToChangelogFile: true
 
 
 

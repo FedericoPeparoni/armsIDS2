@@ -22,6 +22,9 @@ public class ChargesAdjustment implements Serializable {
 
     /* Field for aviation invoice only */
     private String flightId;
+    
+    /* Field for unified-tax invoice only */
+    private String registrationNumber;
 
     /* Field for non-aviation invoice only */
     private String aerodrome;
@@ -140,16 +143,7 @@ public class ChargesAdjustment implements Serializable {
         return chargeAmount != null ? chargeAmount.equals(that.chargeAmount) : that.chargeAmount == null;
     }
 
-    @Override
-    public int hashCode() {
-        int result = date != null ? date.hashCode() : 0;
-        result = 31 * result + (id != null ? id.hashCode() : 0);
-        result = 31 * result + (flightId != null ? flightId.hashCode() : 0);
-        result = 31 * result + (aerodrome != null ? aerodrome.hashCode() : 0);
-        result = 31 * result + (chargeDescription != null ? chargeDescription.hashCode() : 0);
-        result = 31 * result + (chargeAmount != null ? chargeAmount.hashCode() : 0);
-        return result;
-    }
+  
 
     @Override
     public String toString() {
@@ -170,4 +164,12 @@ public class ChargesAdjustment implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
+
+	public String getRegistrationNumber() {
+		return registrationNumber;
+	}
+
+	public void setRegistrationNumber(String registrationNumber) {
+		this.registrationNumber = registrationNumber;
+	}
 }
