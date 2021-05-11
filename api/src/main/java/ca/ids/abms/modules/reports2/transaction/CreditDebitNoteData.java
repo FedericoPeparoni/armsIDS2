@@ -63,6 +63,15 @@ public class CreditDebitNoteData {
 
     /** Line items */
     public static final class LineItem {
+        //public static @XmlElement(nillable = true) String Discriminator;
+        public static /*@XmlElement(nillable = true)*/ String headerFlightIDSpanish="ID de Vuelo";
+        public static /*@XmlElement(nillable = true)*/ String headerFlightID="Flight ID";
+        public static /*@XmlElement(nillable = true)*/ String headerRegistrationNumberSpanish="Registration Number";
+        public static /*@XmlElement(nillable = true)*/ String headerRegistrationNumber="RegistrationNumber";
+        public @XmlElement(nillable = true) String header;
+        public @XmlElement(nillable = true) String headerSpanish;
+
+
         public @XmlElement(nillable = true) Integer id;
         public @XmlElement(nillable = true) String dateStr;
         public @XmlElement(nillable = true) String flightId;
@@ -102,4 +111,12 @@ public class CreditDebitNoteData {
     @XmlElementWrapper
     @XmlElement (name="overduePenaltyInvoice", nillable = true)
     public List <OverduePenaltyInvoice> overduePenaltyInvoices;
+
+
+    public enum  Discriminator {
+        FLIGHT_ID,
+        REGISTRATION_NUMBER,
+        OTHER
+
+    }
 }

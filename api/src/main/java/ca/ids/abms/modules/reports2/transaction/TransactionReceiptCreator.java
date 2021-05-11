@@ -553,9 +553,54 @@ public class TransactionReceiptCreator {
         data.global.billingName = account.getAviationBillingContactPersonName();
         data.global.billingAddress = account.getAviationBillingMailingAddress();
         data.global.billingContactTel = account.getAviationBillingPhoneNumber();
+
+
+
+        CreditDebitNoteData.Discriminator discFLIGHT_ID = null;
+        CreditDebitNoteData.Discriminator discREGISTRATION_NUMBER = null;
+        if(adjustments.stream().filter(adjustment -> {
+            if(adjustment.getFlightId() != null){
+                return true;
+            }else if(adjustment.getRegistrationNumber() == null){
+                return false;
+            }else {
+                return false;
+            }
+        }).findAny().isPresent()){
+            discFLIGHT_ID = CreditDebitNoteData.Discriminator.FLIGHT_ID;
+        }
+
+        if(adjustments.stream().filter(adjustment -> {
+            if(adjustment.getRegistrationNumber() != null){
+                return true;
+            }
+            else if(adjustment.getFlightId() == null){
+                return false;
+            }else if(adjustment.getRegistrationNumber() != null){
+                return true;
+            }else {
+                return false;
+            }
+        }).findAny().isPresent()){
+            discREGISTRATION_NUMBER = CreditDebitNoteData.Discriminator.REGISTRATION_NUMBER;
+        }
+
+
+        CreditDebitNoteData.Discriminator finalDiscREGISTRATION_NUMBER = discREGISTRATION_NUMBER;
+        CreditDebitNoteData.Discriminator finalDiscFLIGHT_ID = discFLIGHT_ID;
         data.lineItemList = adjustments.stream().map (adjustment -> {
 
             final CreditDebitNoteData.LineItem item = new CreditDebitNoteData.LineItem();
+
+            if(finalDiscREGISTRATION_NUMBER == null && finalDiscFLIGHT_ID != null){
+                item.header = CreditDebitNoteData.LineItem.headerFlightID;
+                item.headerSpanish = CreditDebitNoteData.LineItem.headerFlightIDSpanish;
+            }else if(finalDiscREGISTRATION_NUMBER != null && finalDiscFLIGHT_ID == null){
+                item.header = CreditDebitNoteData.LineItem.headerRegistrationNumber;
+                item.headerSpanish = CreditDebitNoteData.LineItem.headerRegistrationNumberSpanish;
+            }
+
+
             item.id = adjustment.getId();
             item.dateStr = reportHelper.formatDateUtc (adjustment.getDate() == null ? ldtNow : adjustment.getDate(),
                 dateFormatter);
