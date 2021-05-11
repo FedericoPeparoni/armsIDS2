@@ -66,8 +66,8 @@ public class CreditDebitNoteData {
         //public static @XmlElement(nillable = true) String Discriminator;
         public static /*@XmlElement(nillable = true)*/ String headerFlightIDSpanish="ID de Vuelo";
         public static /*@XmlElement(nillable = true)*/ String headerFlightID="Flight ID";
-        public static /*@XmlElement(nillable = true)*/ String headerRegistrationNumberSpanish="Registration Number";
-        public static /*@XmlElement(nillable = true)*/ String headerRegistrationNumber="RegistrationNumber";
+        public static /*@XmlElement(nillable = true)*/ String headerRegistrationNumberSpanish="Registro de Matrícula";
+        public static /*@XmlElement(nillable = true)*/ String headerRegistrationNumber="Registration Number";
         public @XmlElement(nillable = true) String header;
         public @XmlElement(nillable = true) String headerSpanish;
 
