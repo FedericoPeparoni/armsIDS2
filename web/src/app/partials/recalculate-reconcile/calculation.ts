@@ -137,12 +137,11 @@ export class Calculation implements ICalculation {
             for (let i = 0, len = paramsArr.length; i < len; i++) {
                 const obj = paramsArr[i].split('=');
 
-                if (obj[0] === "unifiedTaxInvoiceError") {
+                if (obj[0] === 'unifiedTaxInvoiceError') {
                     const items: string[] = obj[1].split('#');
-                    var err : IUnifiedTaxError = {"account_name":items[0], "registration":items[1], "reason":items[2]};
+                    var err : IUnifiedTaxError = {'account_name':items[0], 'registration':items[1], 'reason':items[2]};
                     job.unifiedTaxErrors.push(err);
-                }
-                else {
+                } else {
                     job[obj[0]] = obj[1];
                 }
             }

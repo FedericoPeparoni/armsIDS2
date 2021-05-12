@@ -312,7 +312,7 @@
             <div class="box-content">
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="feedback" style="width: 500px;">
+                        <div class="feedback" style="width: 600px;">
                             <u translate>Generate/Preview Invoice</u>
                             <span class="btn btn-sm pull-right" ng-show="processing === false"
                                 ng-click="generateJob = null;">X</span>
@@ -345,7 +345,7 @@
                                             ng-repeat="item in generateJob.unifiedTaxErrors">
                                             <td class="text-nowrap">{{ item.account_name}}</td>
                                             <td class="text-nowrap">{{ item.registration }}</td>
-                                            <td class="text-nowrap">{{ item.reason }}</td>
+                                            <td translate class="text-nowrap">{{ item.reason }}</td>
                                         </tr>
                                         <tr ng-show="!generateJob.unifiedTaxErrors.length">
                                             <td class="text-center" colspan="7" translate>There are no unified tax invoice errors
