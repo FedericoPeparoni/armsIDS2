@@ -169,13 +169,7 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
 		}
 
 		Timestamp timestampManufacture = Timestamp.valueOf(yearManufacture);
-		UnifiedTax unifiedTax = unifiedTaxRepository.findByValidityAndManifactureYear(unifiedTaxValidity.getId(), timestampManufacture);
-		if (unifiedTax == null) {
-			throw ExceptionFactory.persistenceDataManagement(
-					new IllegalArgumentException("No unified tax is available in the database for the specified aircraft manufacture year"),
-					ErrorConstants.ERR_NO_UNIFIED_TAX);
-		}
-		
+		UnifiedTax unifiedTax = unifiedTaxRepository.findByValidityAndManifactureYear(unifiedTaxValidity.getId(), timestampManufacture);		
 		return unifiedTax;
 	}
 
