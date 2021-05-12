@@ -1,7 +1,9 @@
 package ca.ids.abms.modules.jobs.impl;
 
 import ca.ids.abms.modules.jobs.JobMessage;
+import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxInvoiceError;
 
+import java.util.List;
 import java.util.Observer;
 
 public class InvoiceProgressCounter extends StepSummary {
@@ -22,9 +24,10 @@ public class InvoiceProgressCounter extends StepSummary {
 
     private int unifiedTaxAircraftTotal;
     
+    private List <UnifiedTaxInvoiceError> unifiedTaxInvoiceErrorList = null;
+    
     public InvoiceProgressCounter(int itemsToProcess) {
         super(itemsToProcess);
-
     }
 
     public InvoiceProgressCounter(int itemsToProcess, final Observer observer) {
@@ -106,6 +109,10 @@ public class InvoiceProgressCounter extends StepSummary {
         return unifiedTaxAircraftNumber;
     }
 
+    public void setUnifiedTaxInvoiceErrorList(List <UnifiedTaxInvoiceError> unifiedTaxInvoiceErrorList) {
+    	this.unifiedTaxInvoiceErrorList= unifiedTaxInvoiceErrorList; 
+    }
+    
     @Override
     public void update() {
         final  JobMessage.Builder jmb = new JobMessage.Builder().setMessage(message);
@@ -122,6 +129,13 @@ public class InvoiceProgressCounter extends StepSummary {
             jmb.addVariable("unifiedTaxAircraftTotal", unifiedTaxAircraftTotal).addVariable("unifiedTaxAircraftNumber", unifiedTaxAircraftNumber);
 		}
         
+        if (unifiedTaxInvoiceErrorList != null) {
+        	
+        	for (UnifiedTaxInvoiceError err : unifiedTaxInvoiceErrorList) {
+        		jmb.addVariable("unifiedTaxInvoiceError", err.toString());
+        	}
+        }
+
         super.setMessage(jmb.build());
         super.update();
     }

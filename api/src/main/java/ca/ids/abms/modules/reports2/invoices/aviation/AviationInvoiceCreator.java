@@ -38,6 +38,7 @@ import ca.ids.abms.modules.transactions.TransactionService;
 import ca.ids.abms.modules.translation.Translation;
 import ca.ids.abms.modules.unifiedtaxes.UnifiedTax;
 import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxCharges;
+import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxInvoiceError;
 import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxService;
 import ca.ids.abms.modules.users.User;
 import ca.ids.abms.modules.util.models.CurrencyUtils;
@@ -199,6 +200,7 @@ public class AviationInvoiceCreator {
     public AviationInvoice createInvoice(final Account account,
                                          final List <FlightMovement> accountFlights,
                                          final List <AircraftRegistration> aircraftRegistrationsToInvoiceByUnifiedTax,
+                                         final List <UnifiedTaxInvoiceError> unifiedTaxInvoiceErrors,                                         
                                          final InvoicePaymentParameters payment,
                                          final ChargeSelection chargeSelection,
                                          final FlightmovementCategory flightmovementCategory,
@@ -221,9 +223,6 @@ public class AviationInvoiceCreator {
 
         if(aircraftRegistrationsToInvoiceByUnifiedTax != null){
             aviationInvoiceCurrency = account.getInvoiceCurrency();
-            //aviationInvoiceCurrency = flightmovementCategory.
-            //targetCurrency = account.getInvoiceCurrency();
-            //targetCurrency = usdCurrency;
             targetCurrency = account.getInvoiceCurrency();
         }else if (do_checkIfAviationInvoicingIsByFlightmovementCategory()) {
 
@@ -255,7 +254,9 @@ public class AviationInvoiceCreator {
 
         // create invoice data, total amount and amount due formatted below
         final AviationInvoiceData invoiceData = this.do_createInvoiceData(
-            account, accountFlights, aircraftRegistrationsToInvoiceByUnifiedTax, chargeSelection, payment, aviationInvoiceCurrency, counter, invoicePermits
+            account, accountFlights, aircraftRegistrationsToInvoiceByUnifiedTax, 
+            unifiedTaxInvoiceErrors,
+            chargeSelection, payment, aviationInvoiceCurrency, counter, invoicePermits
         );
 
         if(chargeSelection != ONLY_PAX || invoiceData.invoiceGenerationAllowed) {
@@ -348,6 +349,7 @@ public class AviationInvoiceCreator {
     private AviationInvoiceData do_createInvoiceData(final Account account,
                                                      final List <FlightMovement> accountFlights,
                                                      final List <AircraftRegistration> aircraftRegistrationsToInvoiceByUnifiedTax,
+                                                     List <UnifiedTaxInvoiceError> unifiedTaxInvoiceErrors,
                                                      final ChargeSelection chargesIncluded,
                                                      final InvoicePaymentParameters payment,
                                                      final Currency aviationInvoiceCurrency,
@@ -460,7 +462,6 @@ public class AviationInvoiceCreator {
 		    }
 		}
 
-
         invoiceData.global.unifiedTaxTotalCharges= 0.0;
         invoiceData.aircraftInfoList = new ArrayList<>();
 
@@ -470,17 +471,18 @@ public class AviationInvoiceCreator {
             AtomicInteger countUnifiedTaxAircraftTotal = new AtomicInteger(0);
 
             UnifiedTaxProcess unifiedTaxProcess = new UnifiedTaxProcess(account, startDate, endDateInclusive, aviationInvoiceCurrency, billingInterval,countUnifiedTaxAircraftTotal, unifiedTaxService, currencyUtils, preview);
-
+            
         	//totalAmount
         	for (final AircraftRegistration ar: aircraftRegistrationsToInvoiceByUnifiedTax) {
 	        	// TODO: manage counter update
 
+        		// check if the unified tax has been already paid for the aircraft registration
         		if (do_checkIfUnifiedTaxAlreadyPaid(ar))
         			continue;
 
+        		// TODO: check if the aircraft registration is eligible for the unified tax
+        		
 	        	if (ar.getAircraftServiceDate()!=null) {
-
-	        		// check if the unified tax has been already paid for the aircraft registration
 
                     final AviationInvoiceData.AircraftInfo aircraftInfo = unifiedTaxProcess.processAircraftRegistration(ar);
                     aircraftInfo.customerName = invoiceData.global.accountName;
@@ -489,7 +491,6 @@ public class AviationInvoiceCreator {
                     aircraftInfo.invoiceExpiration = invoiceData.global.invoiceDueDateStr;
 
                     aircraftInfo.mtowUnitOfMeasure = reportHelper.getMTOWUnitOfMeasure();
-
 
                     if (mtowUnitOfMeasure.equalsIgnoreCase("KG")) {
                         aircraftInfo.mtow = ar.getMtowOverride()*ReportHelper.TO_KG;
@@ -501,7 +502,6 @@ public class AviationInvoiceCreator {
 
                     }
                     else {
-
                     	aircraftInfo.mtow = ar.getMtowOverride()*ReportHelper.TO_KG/1000.0;
                         aircraftInfo.mtowStr = String.format(THREE_DECIMALS, aircraftInfo.mtow) +  " "
                         		+ aircraftInfo.mtowUnitOfMeasure;
@@ -512,6 +512,10 @@ public class AviationInvoiceCreator {
                     invoiceData.aircraftInfoList.add(aircraftInfo);
 
 	        		invoiceData.global.unifiedTaxTotalCharges += aircraftInfo.unifiedTaxCharges;
+	        	}
+	        	else {
+	        		// manage "Missing Aircraft Service Date" error
+	        		unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(account, ar, "Missing Aircraft Service Date"));
 	        	}
 	        }
             invoiceData.global.unifiedTaxAircraftTotal = countUnifiedTaxAircraftTotal.get();
@@ -1455,6 +1459,9 @@ public class AviationInvoiceCreator {
         	if (unifiedTaxInvoice) {
 
                 List<FlightMovement> flightMovements = flightMovementService.findAllFlightMovementByAccountAndDate(account.getId(), "PENDING", startDate, endDateInclusive);
+                List<FlightMovement> flightMovementsIncomplete = flightMovementService.findAllFlightMovementByAccountAndDate(account.getId(), "INCOMPLETE", startDate, endDateInclusive);
+                flightMovements.addAll(flightMovementsIncomplete);
+
                 if (flightMovements != null) {
                 	for (final FlightMovement fm: flightMovements) {
 
@@ -1468,7 +1475,11 @@ public class AviationInvoiceCreator {
                 	        LOG.debug("Flight movement #{} regNum={}, updated status={}", fm.getId(),
                 	            fm.getItem18RegNum(), fm.getStatus());
 
-                			// fm.setStatus(FlightMovementStatus.INVOICED);
+                	        // flightMovementService.validateFlightMovementByID(fm.getId());
+                			
+                	        // force the FlightMovementStatus to INVOICED
+                	        fm.setStatus(FlightMovementStatus.INVOICED);
+                	        fm.setResolutionErrors("");
                 		}
                 	}
                 }

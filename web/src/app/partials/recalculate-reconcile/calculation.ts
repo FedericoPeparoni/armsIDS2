@@ -1,5 +1,5 @@
 // interfaces
-import { IJobStatus } from '../aviation-billing-engine/aviation-billing-engine.interface';
+import { IJobStatus, IUnifiedTaxError } from '../aviation-billing-engine/aviation-billing-engine.interface';
 import { IRestangularResponse } from '../../angular-ids-project/src/helpers/interfaces/restangularError.interface';
 import { IAviationBillingEngine } from '../aviation-billing-engine/aviation-billing-engine.interface';
 import { ICalculation } from './calculation.interface';
@@ -133,10 +133,18 @@ export class Calculation implements ICalculation {
         if (job.variables) {
             const paramsArr: string[] = job.variables.split(';');
 
+            job.unifiedTaxErrors = new Array<IUnifiedTaxError>();
             for (let i = 0, len = paramsArr.length; i < len; i++) {
                 const obj = paramsArr[i].split('=');
 
-                job[obj[0]] = obj[1];
+                if (obj[0] === "unifiedTaxInvoiceError") {
+                    const items: string[] = obj[1].split('#');
+                    var err : IUnifiedTaxError = {"account_name":items[0], "registration":items[1], "reason":items[2]};
+                    job.unifiedTaxErrors.push(err);
+                }
+                else {
+                    job[obj[0]] = obj[1];
+                }
             }
         }
 

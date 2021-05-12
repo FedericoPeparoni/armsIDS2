@@ -42,6 +42,12 @@ export interface IIncompleteFlights {
   status: string;
 }
 
+export interface IUnifiedTaxError {
+  account_name: string;
+  registration: string;
+  reason: string;
+}
+
 export interface IAviationBillingEngineScope extends ng.IScope {
   invoiceByFmCategory: boolean;
   listOfAccounts: Array<IAccountMinimal>;
@@ -99,4 +105,5 @@ export interface IJobStatus {
   steps_est_time: string;
   message: string;
   flights: string;
+  unifiedTaxErrors: Array<IUnifiedTaxError>;
 }

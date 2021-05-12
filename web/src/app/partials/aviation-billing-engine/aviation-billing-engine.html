@@ -304,6 +304,7 @@
         </div>
     </div>
 </div>
+
 <div class="row margin-top-20" ng-show="generateJob && generateJob.job_execution_status !== 'CANCELED'">
     <div class="col-xs-12">
         <div class="box-container">
@@ -328,6 +329,32 @@
                             <span translate>Message:</span>
                             <span ng-show="generateJob.message">&nbsp;<span translate>{{ generateJob.message }}</span></span>
                             <span ng-show="!generateJob.message">&nbsp;<span translate>Initializing ...</span></span>
+
+                            <br>
+                            <div class="table-responsive" ng-show="generateJob.unifiedTaxErrors.length">
+                                <table class="table table-striped table-bordered table-hover table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th translate class="text-nowrap" sort="account">Account</th>
+                                            <th translate class="text-nowrap">Registration Number</th>
+                                            <th translate class="text-nowrap">Reason of Missed Invoice</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            ng-repeat="item in generateJob.unifiedTaxErrors">
+                                            <td class="text-nowrap">{{ item.account_name}}</td>
+                                            <td class="text-nowrap">{{ item.registration }}</td>
+                                            <td class="text-nowrap">{{ item.reason }}</td>
+                                        </tr>
+                                        <tr ng-show="!generateJob.unifiedTaxErrors.length">
+                                            <td class="text-center" colspan="7" translate>There are no unified tax invoice errors
+                                                movements</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+    
 
                             <br>
                             <span ng-show="generateJob.accountName">
@@ -358,6 +385,7 @@
         </div>
     </div>
 </div>
+
 <div class="row" ng-show="preview">
     <div class="col-sm-12 preview-oauth2-container">
         <button class="btn btn-xs preview-oauth2-close" ng-click="hide = true; preview = null;">

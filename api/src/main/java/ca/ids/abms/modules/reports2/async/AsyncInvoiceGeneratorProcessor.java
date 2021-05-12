@@ -7,6 +7,7 @@ import ca.ids.abms.modules.jobs.ItemProcessor;
 import ca.ids.abms.modules.reports2.common.ReportHelper;
 import ca.ids.abms.modules.reports2.invoices.aviation.AviationInvoice;
 import ca.ids.abms.modules.reports2.invoices.aviation.AviationInvoiceService;
+import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxInvoiceError;
 import ca.ids.abms.modules.users.User;
 import org.springframework.stereotype.Component;
 
@@ -43,6 +44,8 @@ public class AsyncInvoiceGeneratorProcessor implements ItemProcessor<AsyncInvoic
 
         // Process an account per time and notify if some error has been found
         final List <AviationInvoice> invoiceList = new ArrayList<>();
+        final List <UnifiedTaxInvoiceError> unifiedTaxInvoiceErrorList = new ArrayList<>();
+        
         scope.getInvoiceProgressCounter().setMessage("Generating the invoices");
         if(scope.getAccountIdList() != null) {
             scope.getInvoiceProgressCounter().resetAccountsTotal(scope.getAccountIdList().size());
@@ -51,9 +54,9 @@ public class AsyncInvoiceGeneratorProcessor implements ItemProcessor<AsyncInvoic
                 Boolean result;
                 scope.getInvoiceProgressCounter().increaseAccountNumber();
                 if(scope.getPreview()) {
-                    result  = aviationInvoiceService.previewAccount(scope, accountId, invoiceList, flightmovementCategory, currentUser);
+                    result  = aviationInvoiceService.previewAccount(scope, accountId, invoiceList, unifiedTaxInvoiceErrorList, flightmovementCategory, currentUser);
                 } else {
-                    result  = aviationInvoiceService.processAccount(scope, accountId, invoiceList, flightmovementCategory, currentUser);
+                    result  = aviationInvoiceService.processAccount(scope, accountId, invoiceList, unifiedTaxInvoiceErrorList, flightmovementCategory, currentUser);
                 }
                 if(result) {
                     scope.getInvoiceProgressCounter().increaseProcessed();
@@ -63,6 +66,7 @@ public class AsyncInvoiceGeneratorProcessor implements ItemProcessor<AsyncInvoic
             }
         }
         scope.getInvoiceProgressCounter().resetAccountsTotal(0);
+        scope.setUnifiedTaxInvoiceErrorList(unifiedTaxInvoiceErrorList);
         
         if (scope.getPreview() || InvoiceStateType.PUBLISHED.equals(aviationInvoiceService.getInitialLedgerState(true))) {
             scope.getInvoiceProgressCounter().setMessage("Joining the invoices in a unique document");

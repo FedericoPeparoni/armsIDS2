@@ -5,6 +5,7 @@ import ca.ids.abms.modules.billings.BillingLedger;
 import ca.ids.abms.modules.flightmovements.FlightMovement;
 import ca.ids.abms.modules.reports2.common.ReportDocument;
 import ca.ids.abms.modules.transactions.Transaction;
+import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxInvoiceError;
 
 import java.util.List;
 
@@ -34,6 +35,10 @@ public class AviationInvoice {
         return transactionDocument;
     }
 
+    public List <UnifiedTaxInvoiceError> unifiedTaxInvoiceErrors() {
+    	return unifiedTaxInvoiceErrorList;
+    }
+    
     public AviationInvoice (
             final Account account,
             final List <FlightMovement> flightList,
@@ -65,6 +70,10 @@ public class AviationInvoice {
         this.transactionDocument = transactionDocument;
     }
 
+    public void setUnifiedtaxErrors(List <UnifiedTaxInvoiceError> errors) {
+    	 this.unifiedTaxInvoiceErrorList= errors; 
+    }
+    
     // ---------------- private ---------
     private final Account account;
     private final List <FlightMovement> flightList;
@@ -75,5 +84,5 @@ public class AviationInvoice {
 
     private Transaction transaction;
     private ReportDocument transactionDocument;
-
+    private List <UnifiedTaxInvoiceError> unifiedTaxInvoiceErrorList;
 }

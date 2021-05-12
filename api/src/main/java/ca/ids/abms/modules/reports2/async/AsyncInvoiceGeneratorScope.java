@@ -5,6 +5,7 @@ import ca.ids.abms.modules.reports2.common.ReportDocument;
 import ca.ids.abms.modules.reports2.common.ReportFormat;
 import ca.ids.abms.modules.reports2.invoices.aviation.BillingInterval;
 import ca.ids.abms.modules.reports2.invoices.iata.IataInvoiceItemOrder;
+import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxInvoiceError;
 import ca.ids.abms.modules.users.User;
 
 import java.time.LocalDateTime;
@@ -27,6 +28,8 @@ public class AsyncInvoiceGeneratorScope {
 
     private InvoiceProgressCounter invoiceProgressCounter;
     private ReportDocument result;
+    
+    List <UnifiedTaxInvoiceError> unifiedTaxInvoiceErrorList;
 
     public AsyncInvoiceGeneratorScope(Boolean userBillingCenterOnly, ReportFormat format, Boolean preview,
                                       List<Integer> accountIdList, Integer flightCategory, BillingInterval billingInterval,
@@ -157,6 +160,14 @@ public class AsyncInvoiceGeneratorScope {
         this.iataInvoiceItemOrder = iataInvoiceItemOrder;
     }
 
+    public List<UnifiedTaxInvoiceError> getUnifiedTaxInvoiceErrorList() {
+    	return unifiedTaxInvoiceErrorList;
+    }
+
+    public void setUnifiedTaxInvoiceErrorList(List<UnifiedTaxInvoiceError> unifiedTaxInvoiceErrorList) {
+    	this.unifiedTaxInvoiceErrorList = unifiedTaxInvoiceErrorList;
+    }
+   
     @Override
     public String toString() {
         return "AsyncInvoiceGeneratorScope{" +

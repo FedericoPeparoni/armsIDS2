@@ -3,10 +3,13 @@ package ca.ids.abms.modules.reports2.async;
 import ca.ids.abms.modules.jobs.ItemProcessor;
 import ca.ids.abms.modules.jobs.ItemWriter;
 import ca.ids.abms.modules.jobs.JobInterruptedException;
+import ca.ids.abms.modules.jobs.JobMessage;
 import ca.ids.abms.modules.jobs.Step;
 import ca.ids.abms.modules.jobs.impl.InvoiceProgressCounter;
 import ca.ids.abms.modules.jobs.impl.JobParameter;
 import ca.ids.abms.modules.jobs.impl.JobParameters;
+import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxInvoiceError;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.StaleStateException;
 import org.hibernate.exception.LockAcquisitionException;
@@ -38,8 +41,16 @@ public class AsyncInvoiceGeneratorStep extends Step<AsyncInvoiceGeneratorScope> 
             try {
                 itemProcessor.processItem(scope);
                 if (itemWriter != null) itemWriter.write(scope);
-                scope.getInvoiceProgressCounter().setMessage("Task completed");
-                scope.getInvoiceProgressCounter().sendNoItemToProcess();
+
+            	InvoiceProgressCounter counter = scope.getInvoiceProgressCounter();                
+                counter.setMessage("Task completed");
+                counter.sendNoItemToProcess();
+                
+                if (CollectionUtils.isNotEmpty(scope.unifiedTaxInvoiceErrorList)) {                	
+                	counter.setMessage("Task completed with unified tax missed invoices");
+                	counter.setUnifiedTaxInvoiceErrorList(scope.unifiedTaxInvoiceErrorList);
+                }
+                
             } catch (JobInterruptedException e) {
                 LOG.debug("The job has been interrupted: {}", e.getLocalizedMessage());
                 throw e;
