@@ -7492,7 +7492,82 @@ select add_languages_by_json('[
     "val": "Escuelas de Entrenamiento",
     "part": "frontend",
     "created_by": "system"
+  },
+
+{
+    "code": "en",
+    "token": "Reason of Missed Invoice",
+    "val": "Reason of Missed Invoice",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "Reason of Missed Invoice",
+    "val": "Razón de Factura Fallada",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "en",
+    "token": "Missing Aircraft Service Date",
+    "val": "Missing Aircraft Service Date",
+    "part": "backend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "Missing Aircraft Service Date",
+    "val": "Falta la fecha de servicio de la aeronave",
+    "part": "backend",
+    "created_by": "system"
+  },
+
+
+{
+    "code": "en",
+    "token": "Aircraft alreay invoiced",
+    "val": "Aircraft alreay invoiced",
+    "part": "backend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "Aircraft alreay invoiced",
+    "val": "Aeronave ya facturada",
+    "part": "backend",
+    "created_by": "system"
+  },
+
+
+{
+    "code": "en",
+    "token": "Missing applicable tax for the Aircraft Service Date",
+    "val": "Missing applicable tax for the Aircraft Service Date",
+    "part": "backend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "Missing applicable tax for the Aircraft Service Date",
+    "val": "Falta el impuesto aplicable para los datos de servicio de la aeronave",
+    "part": "backend",
+    "created_by": "system"
   }
+
+
+
+
+
+
+
+
+
 
 
 ]');
