@@ -7356,7 +7356,7 @@ select add_languages_by_json('[
     "part": "frontend",
     "created_by": "system"
   },
-									
+
 {
     "code": "es",
     "token": "Account Type Discount (%)",
@@ -7514,7 +7514,7 @@ select add_languages_by_json('[
     "code": "en",
     "token": "Missing Aircraft Service Date",
     "val": "Missing Aircraft Service Date",
-    "part": "backend",
+    "part": "frontend",
     "created_by": "system"
   },
 
@@ -7522,7 +7522,7 @@ select add_languages_by_json('[
     "code": "es",
     "token": "Missing Aircraft Service Date",
     "val": "Falta la fecha de servicio de la aeronave",
-    "part": "backend",
+    "part": "frontend",
     "created_by": "system"
   },
 
@@ -7531,7 +7531,7 @@ select add_languages_by_json('[
     "code": "en",
     "token": "Aircraft alreay invoiced",
     "val": "Aircraft alreay invoiced",
-    "part": "backend",
+    "part": "frontend",
     "created_by": "system"
   },
 
@@ -7539,7 +7539,7 @@ select add_languages_by_json('[
     "code": "es",
     "token": "Aircraft alreay invoiced",
     "val": "Aeronave ya facturada",
-    "part": "backend",
+    "part": "frontend",
     "created_by": "system"
   },
 
@@ -7548,7 +7548,7 @@ select add_languages_by_json('[
     "code": "en",
     "token": "Missing applicable tax for the Aircraft Service Date",
     "val": "Missing applicable tax for the Aircraft Service Date",
-    "part": "backend",
+    "part": "frontend",
     "created_by": "system"
   },
 
@@ -7556,7 +7556,7 @@ select add_languages_by_json('[
     "code": "es",
     "token": "Missing applicable tax for the Aircraft Service Date",
     "val": "Falta el impuesto aplicable para los datos de servicio de la aeronave",
-    "part": "backend",
+    "part": "frontend",
     "created_by": "system"
   }
 
