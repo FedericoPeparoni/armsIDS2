@@ -331,12 +331,25 @@ public class AviationInvoiceService {
         for (AircraftRegistration ar : account.getAircraftRegistrations()) {
         	if (!isUnifiedTaxPaid(ar, startDate, endDateInclusive)) {
         		if (ar.getAircraftServiceDate() != null) {
-        			toInvoice.add(ar);
+
+        			LocalDateTime yearManufacture = ar.getAircraftServiceDate();
+                    UnifiedTax ut = unifiedTaxService.findUnifiedTaxByValidityYearAndManufactureYear(
+                    		startDate, yearManufacture);
+                    if (ut == null) {
+                    	unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(
+                    			account, ar, "Missing applicable tax for the Aircraft Service Date"));                    	
+                    }
+                    else
+                    	toInvoice.add(ar);
         		}
         		else {
 	        		// manage "Missing Aircraft Service Date" error
 	        		unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(account, ar, "Missing Aircraft Service Date"));        			
         		}
+        	}
+        	else {
+        		// manage "Already invoiced" error
+        		unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(account, ar, "Aircraft alreay invoiced"));        			        		
         	}
         }
 

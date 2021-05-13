@@ -477,8 +477,10 @@ public class AviationInvoiceCreator {
 	        	// TODO: manage counter update
 
         		// check if the unified tax has been already paid for the aircraft registration
-        		if (do_checkIfUnifiedTaxAlreadyPaid(ar))
+        		if (do_checkIfUnifiedTaxAlreadyPaid(ar)) {
+        			unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(account, ar, "Unified Tax already paid"));
         			continue;
+        		}
 
         		// TODO: check if the aircraft registration is eligible for the unified tax
         		
