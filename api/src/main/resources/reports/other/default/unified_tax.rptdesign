@@ -1416,6 +1416,12 @@ dataSetRow["amount"]&#13;
                         <cell id="1405"/>
                     </row>
                     <row id="1355">
+                        <list-property name="visibility">
+                            <structure>
+                                <property name="format">all</property>
+                                <expression name="valueExpr" type="javascript">row["person_name"].length == 0</expression>
+                            </structure>
+                        </list-property>
                         <cell id="1356">
                             <property name="colSpan">3</property>
                             <property name="rowSpan">1</property>
@@ -1431,6 +1437,12 @@ dataSetRow["amount"]&#13;
                         <cell id="1362"/>
                     </row>
                     <row id="1656">
+                        <list-property name="visibility">
+                            <structure>
+                                <property name="format">all</property>
+                                <expression name="valueExpr" type="javascript">row["aviation_billing_mailing_address"].length == 0</expression>
+                            </structure>
+                        </list-property>
                         <cell id="1657">
                             <property name="colSpan">3</property>
                             <property name="rowSpan">1</property>
@@ -1494,6 +1506,12 @@ dataSetRow["amount"]&#13;
                         <cell id="1665"/>
                     </row>
                     <row id="1666">
+                        <list-property name="visibility">
+                            <structure>
+                                <property name="format">all</property>
+                                <expression name="valueExpr" type="javascript">row["phone_number"].length == 0</expression>
+                            </structure>
+                        </list-property>
                         <cell id="1667">
                             <property name="colSpan">3</property>
                             <property name="rowSpan">1</property>
@@ -1509,6 +1527,12 @@ dataSetRow["amount"]&#13;
                         <cell id="1675"/>
                     </row>
                     <row id="1676">
+                        <list-property name="visibility">
+                            <structure>
+                                <property name="format">all</property>
+                                <expression name="valueExpr" type="javascript">row["email_address"].length == 0</expression>
+                            </structure>
+                        </list-property>
                         <cell id="1677">
                             <property name="colSpan">3</property>
                             <property name="rowSpan">1</property>
