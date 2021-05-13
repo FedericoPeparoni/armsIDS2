@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
     <property name="createdBy">Eclipse BIRT Designer Version 4.7.0.v201706222054</property>
-    <list-property name="propertyBindings">
-        <structure>
-            <property name="name">queryText</property>
-            <property name="id">1561</property>
-        </structure>
-        <structure>
-            <property name="name">queryTimeOut</property>
-            <property name="id">1561</property>
-        </structure>
-        <structure>
-            <property name="name">rowFetchSize</property>
-            <property name="id">1561</property>
-        </structure>
-    </list-property>
     <property name="units">in</property>
     <property name="iconFile">/templates/blank_report.gif</property>
     <property name="bidiLayoutOrientation">ltr</property>
@@ -860,12 +846,12 @@ ORDER  BY a.id,
                     <structure>
                         <property name="position">7</property>
                         <property name="name">mtow_ton</property>
-                        <property name="dataType">float</property>
+                        <property name="dataType">decimal</property>
                     </structure>
                     <structure>
                         <property name="position">8</property>
                         <property name="name">mtow_ton_kg</property>
-                        <property name="dataType">float</property>
+                        <property name="dataType">decimal</property>
                     </structure>
                     <structure>
                         <property name="position">9</property>
@@ -922,14 +908,14 @@ ORDER  BY a.id,
                     <property name="position">7</property>
                     <property name="name">mtow_ton</property>
                     <property name="nativeName">mtow_ton</property>
-                    <property name="dataType">float</property>
+                    <property name="dataType">decimal</property>
                     <property name="nativeDataType">8</property>
                 </structure>
                 <structure>
                     <property name="position">8</property>
                     <property name="name">mtow_ton_kg</property>
                     <property name="nativeName">mtow_ton_kg</property>
-                    <property name="dataType">float</property>
+                    <property name="dataType">decimal</property>
                     <property name="nativeDataType">8</property>
                 </structure>
                 <structure>
@@ -940,7 +926,7 @@ ORDER  BY a.id,
                     <property name="nativeDataType">12</property>
                 </structure>
             </list-property>
-            <xml-property name="queryText"><![CDATA[SELECT  abms.accounts.id AS account_id, abms.accounts.name AS customer_name , abms.aircraft_registrations.registration_number AS aircraft_registration_name, abms.aircraft_registrations.aircraft_service_date AS date_manufacture, abms.aircraft_types.aircraft_type AS aircraft_type, abms.aircraft_types.manufacturer AS aircraft_manufacturer, (abms.aircraft_registrations.mtow_override / 1.102) AS mtow_ton  , (abms.aircraft_registrations.mtow_override * 907) AS mtow_ton_kg, abms.aircraft_registrations.aircraft_scope AS agricultural_flight_school
+            <xml-property name="queryText"><![CDATA[SELECT  abms.accounts.id AS account_id, abms.accounts.name AS customer_name , abms.aircraft_registrations.registration_number AS aircraft_registration_name, abms.aircraft_registrations.aircraft_service_date AS date_manufacture, abms.aircraft_types.aircraft_type AS aircraft_type, abms.aircraft_types.manufacturer AS aircraft_manufacturer, (abms.aircraft_registrations.mtow_override / 1.102) AS mtow_ton  , (abms.aircraft_registrations.mtow_override * 907.18474) AS mtow_ton_kg, abms.aircraft_registrations.aircraft_scope AS agricultural_flight_school
 FROM abms.accounts
 INNER JOIN abms.aircraft_registrations ON abms.accounts.id=abms.aircraft_registrations.account_id
 INNER JOIN abms.aircraft_types ON abms.aircraft_types.id=abms.aircraft_registrations.aircraft_type_id
@@ -1593,7 +1579,7 @@ dataSetRow["amount"]&#13;
                                         <property name="name">mtow_ton</property>
                                         <text-property name="displayName">mtow_ton</text-property>
                                         <expression name="expression" type="javascript">dataSetRow["mtow_ton"]</expression>
-                                        <property name="dataType">float</property>
+                                        <property name="dataType">decimal</property>
                                         <property name="allowExport">true</property>
                                     </structure>
                                     <structure>
@@ -1614,7 +1600,7 @@ dataSetRow["amount"]&#13;
                                         <property name="name">mtow_ton_kg</property>
                                         <text-property name="displayName">mtow_ton_kg</text-property>
                                         <expression name="expression" type="javascript">dataSetRow["mtow_ton_kg"]</expression>
-                                        <property name="dataType">float</property>
+                                        <property name="dataType">decimal</property>
                                         <property name="allowExport">true</property>
                                     </structure>
                                 </list-property>
@@ -1721,7 +1707,7 @@ dataSetRow["amount"]&#13;
                                             <data id="1655">
                                                 <structure name="numberFormat">
                                                     <property name="category">Fixed</property>
-                                                    <property name="pattern">###0.00{RoundingMode=HALF_UP}</property>
+                                                    <property name="pattern">###0.0{RoundingMode=HALF_UP}</property>
                                                 </structure>
                                                 <property name="resultSetColumn">mtow_ton</property>
                                             </data>
