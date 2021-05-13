@@ -926,7 +926,7 @@ ORDER  BY a.id,
                     <property name="nativeDataType">12</property>
                 </structure>
             </list-property>
-            <xml-property name="queryText"><![CDATA[SELECT  abms.accounts.id AS account_id, abms.accounts.name AS customer_name , abms.aircraft_registrations.registration_number AS aircraft_registration_name, abms.aircraft_registrations.aircraft_service_date AS date_manufacture, abms.aircraft_types.aircraft_type AS aircraft_type, abms.aircraft_types.manufacturer AS aircraft_manufacturer, (abms.aircraft_registrations.mtow_override / 1.102) AS mtow_ton  , (abms.aircraft_registrations.mtow_override * 907.18474) AS mtow_ton_kg, abms.aircraft_registrations.aircraft_scope AS agricultural_flight_school
+            <xml-property name="queryText"><![CDATA[SELECT  abms.accounts.id AS account_id, abms.accounts.name AS customer_name , abms.aircraft_registrations.registration_number AS aircraft_registration_name, abms.aircraft_registrations.aircraft_service_date AS date_manufacture, abms.aircraft_types.aircraft_type AS aircraft_type, abms.aircraft_types.manufacturer AS aircraft_manufacturer, ((abms.aircraft_registrations.mtow_override * 907.18474) /1000) AS mtow_ton  , (abms.aircraft_registrations.mtow_override * 907.18474) AS mtow_ton_kg, abms.aircraft_registrations.aircraft_scope AS agricultural_flight_school
 FROM abms.accounts
 INNER JOIN abms.aircraft_registrations ON abms.accounts.id=abms.aircraft_registrations.account_id
 INNER JOIN abms.aircraft_types ON abms.aircraft_types.id=abms.aircraft_registrations.aircraft_type_id
@@ -1391,7 +1391,7 @@ dataSetRow["amount"]&#13;
                         <list-property name="visibility">
                             <structure>
                                 <property name="format">all</property>
-                                <expression name="valueExpr" type="javascript">row["person_name"].length == 0</expression>
+                                <expression name="valueExpr" type="javascript">row["person_name"] == null || row["person_name"].length == 0</expression>
                             </structure>
                         </list-property>
                         <cell id="1356">
@@ -1418,7 +1418,7 @@ dataSetRow["amount"]&#13;
                         <list-property name="visibility">
                             <structure>
                                 <property name="format">all</property>
-                                <expression name="valueExpr" type="javascript">row["aviation_billing_mailing_address"].length == 0</expression>
+                                <expression name="valueExpr" type="javascript">row["aviation_billing_mailing_address"] == null || row["aviation_billing_mailing_address"].length == 0</expression>
                             </structure>
                         </list-property>
                         <cell id="1657">
@@ -1487,7 +1487,7 @@ dataSetRow["amount"]&#13;
                         <list-property name="visibility">
                             <structure>
                                 <property name="format">all</property>
-                                <expression name="valueExpr" type="javascript">row["phone_number"].length == 0</expression>
+                                <expression name="valueExpr" type="javascript">row["phone_number"] == null || row["phone_number"].length == 0</expression>
                             </structure>
                         </list-property>
                         <cell id="1667">
@@ -1508,7 +1508,7 @@ dataSetRow["amount"]&#13;
                         <list-property name="visibility">
                             <structure>
                                 <property name="format">all</property>
-                                <expression name="valueExpr" type="javascript">row["email_address"].length == 0</expression>
+                                <expression name="valueExpr" type="javascript">row["email_address"] == null || row["email_address"].length == 0</expression>
                             </structure>
                         </list-property>
                         <cell id="1677">

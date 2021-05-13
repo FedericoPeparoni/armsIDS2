@@ -1419,7 +1419,7 @@ dataSetRow["amount"]&#13;
                         <list-property name="visibility">
                             <structure>
                                 <property name="format">all</property>
-                                <expression name="valueExpr" type="javascript">row["person_name"].length == 0</expression>
+                                <expression name="valueExpr" type="javascript">row["person_name"] == null || row["person_name"].length == 0</expression>
                             </structure>
                         </list-property>
                         <cell id="1356">
@@ -1440,7 +1440,7 @@ dataSetRow["amount"]&#13;
                         <list-property name="visibility">
                             <structure>
                                 <property name="format">all</property>
-                                <expression name="valueExpr" type="javascript">row["aviation_billing_mailing_address"].length == 0</expression>
+                                <expression name="valueExpr" type="javascript">row["aviation_billing_mailing_address"] == null || row["aviation_billing_mailing_address"].length == 0</expression>
                             </structure>
                         </list-property>
                         <cell id="1657">
@@ -1509,7 +1509,7 @@ dataSetRow["amount"]&#13;
                         <list-property name="visibility">
                             <structure>
                                 <property name="format">all</property>
-                                <expression name="valueExpr" type="javascript">row["phone_number"].length == 0</expression>
+                                <expression name="valueExpr" type="javascript">row["phone_number"] == null || row["phone_number"].length == 0</expression>
                             </structure>
                         </list-property>
                         <cell id="1667">
@@ -1530,7 +1530,7 @@ dataSetRow["amount"]&#13;
                         <list-property name="visibility">
                             <structure>
                                 <property name="format">all</property>
-                                <expression name="valueExpr" type="javascript">row["email_address"].length == 0</expression>
+                                <expression name="valueExpr" type="javascript">row["email_address"] == null || row["email_address"].length == 0</expression>
                             </structure>
                         </list-property>
                         <cell id="1677">
