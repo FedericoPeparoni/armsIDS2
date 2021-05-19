@@ -53652,7 +53652,7 @@ select add_languages_by_json('[
   {
     "token": "Open",
     "code": "es",
-    "val": "Abrir",
+    "val": "Abierto",
     "created_by": "system",
     "part": "frontend"
   },
@@ -53694,7 +53694,7 @@ select add_languages_by_json('[
   {
     "token": "open",
     "code": "es",
-    "val": "abrir",
+    "val": "Abierto",
     "created_by": "system",
     "part": "frontend"
   },
