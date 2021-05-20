@@ -2,6 +2,7 @@ package ca.ids.abms.modules.unifiedtaxes;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +67,7 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
 		}
 		
     	if (entity.getToManufactureYear() != null) {
-    		LocalDateTime lastDayOfYear = entity.getToManufactureYear().with(TemporalAdjusters.lastDayOfYear());
+    		LocalDateTime lastDayOfYear = entity.getToManufactureYear().with(TemporalAdjusters.firstDayOfNextYear()).minus(1, ChronoUnit.MILLIS);
     		entity.setToManufactureYear(lastDayOfYear);
     	}
 
@@ -117,7 +118,7 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
 		}
 
     	if (entity.getToManufactureYear() != null) {
-    		LocalDateTime lastDayOfYear = entity.getToManufactureYear().with(TemporalAdjusters.lastDayOfYear());
+    		LocalDateTime lastDayOfYear = entity.getToManufactureYear().with(TemporalAdjusters.firstDayOfNextYear()).minus(1, ChronoUnit.MILLIS);
     		entity.setToManufactureYear(lastDayOfYear);
     	}
 		

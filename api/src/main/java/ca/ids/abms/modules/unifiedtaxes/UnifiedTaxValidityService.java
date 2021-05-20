@@ -2,6 +2,7 @@ package ca.ids.abms.modules.unifiedtaxes;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class UnifiedTaxValidityService extends AbmsCrudService<UnifiedTaxValidit
     public UnifiedTaxValidity create(final UnifiedTaxValidity entity) {
 
     	if (entity.getToValidityYear() != null) {
-    		LocalDateTime lastDayOfYear = entity.getToValidityYear().with(TemporalAdjusters.lastDayOfYear());
+    		LocalDateTime lastDayOfYear = entity.getToValidityYear().with(TemporalAdjusters.firstDayOfNextYear()).minus(1, ChronoUnit.MILLIS);
     		entity.setToValidityYear(lastDayOfYear);
     	}
     	
@@ -63,7 +64,7 @@ public class UnifiedTaxValidityService extends AbmsCrudService<UnifiedTaxValidit
     public UnifiedTaxValidity update(final Integer id, final UnifiedTaxValidity entity) {
 
     	if (entity.getToValidityYear() != null) {
-    		LocalDateTime lastDayOfYear = entity.getToValidityYear().with(TemporalAdjusters.lastDayOfYear());
+    		LocalDateTime lastDayOfYear = entity.getToValidityYear().with(TemporalAdjusters.firstDayOfNextYear()).minus(1, ChronoUnit.MILLIS);
     		entity.setToValidityYear(lastDayOfYear);
     	}
     	
