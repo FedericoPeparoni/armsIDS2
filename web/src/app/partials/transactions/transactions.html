@@ -397,7 +397,7 @@
                                     <div class="col-xs-12 col-md-6">
                                         <label translate for="registration_number">Registration Number *</label>
                                         <input id="registration_number" name="registration_number" class="form-control" type="text" ng-model="aircraftRegistration.registration_number" uppercase-input
-                                            required ng-disabled="editable.transaction_type.name === 'credit'" />
+                                            required ng-disabled="invoiceAdjusted.invoice_type != 'unified-tax' && editable.transaction_type.name === 'credit'" />
                                     </div>
                                     <div class="col-xs-12 col-md-6">
                                         <label for="charge-amount"><span translate>Charge Amount</span> ({{ invoiceAdjusted.invoice_currency.currency_code }}) *</label>
@@ -412,7 +412,7 @@
                                             ng-model="charge.charge_description"
                                             ng-change="setExternalSystemIdentifiers(charge.charge_description)"
                                             ng-options="item.description as (item.description | translate) for item in chargeTypes"
-                                            ng-disabled="editable.transaction_type.name === 'credit' && editable.payment_mechanism === 'adjustment' && !charge.flight_id">
+                                            ng-disabled="editable.transaction_type.name === 'credit' && editable.payment_mechanism === 'adjustment' && (invoiceAdjusted.invoice_type != 'unified-tax' && !charge.flight_id)">
                                         </select>
                                     </div>
                                 </div>
