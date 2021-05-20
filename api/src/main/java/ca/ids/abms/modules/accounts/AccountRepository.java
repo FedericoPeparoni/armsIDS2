@@ -54,7 +54,7 @@ public interface AccountRepository extends ABMSRepository<Account, Integer> {
                  "JOIN a.accountType act " +
                  "WHERE a.active = true " +
                  "AND a.cashAccount = false " +
-                 "AND act.name in ('GeneralAviation','Airline','Charter') " +
+                 "AND act.name in ('GeneralAviation','Airline','Charter','Unified Tax') " +
                  "ORDER BY a.name")
     List<Account> findAllActiveCreditMinimalReturnAviation();
 
