@@ -105,7 +105,6 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
   }
 
   private refreshOverride():  ng.IPromise<any>{
-    this.refreshOverrideUnifiedTax();
     return this.refreshOverrideUnifiedTaxValidity();
   }
 
@@ -208,16 +207,13 @@ export class UnifiedTaxManagementController extends CRUDFormControllerUserServic
       });
     this.$scope.selectedValidity = validity;
     this.editValidity(validity);
-    console.log(validity.to_validity_year);
   }
 
   protected createValidity(data: Object): ng.IPromise<any> {
     this.service = this.serviceValidity;
-    (<any>data).to_validity_year = moment((<any>data).to_validity_year).endOf("year").toDate();
     var toRet = super.create(data);
     this.refreshOverrideUnifiedTaxValidity();
     this.resetValidity();
-    console.log(data);
     return toRet;
   }
 
