@@ -329,28 +329,37 @@ public class AviationInvoiceService {
         List<AircraftRegistration> toInvoice = new ArrayList<AircraftRegistration>();
 
         for (AircraftRegistration ar : account.getAircraftRegistrations()) {
-        	if (!isUnifiedTaxPaid(ar, startDate, endDateInclusive)) {
-        		if (ar.getAircraftServiceDate() != null) {
+        	        	
+        	// SMALL_AIRCRAFT_MAX_WEIGHT is expressed in KG
+            Integer maxWeight = systemConfigurationService.getIntOrZero(SystemConfigurationItemName.SMALL_AIRCRAFT_MAX_WEIGHT);
+            
+            // MTOW stored in small tones in the DB ==> need to convert it to KG
+        	double aMtow = ar.getMtowOverride()* ReportHelper.TO_KG;
 
-        			LocalDateTime yearManufacture = ar.getAircraftServiceDate();
-                    UnifiedTax ut = unifiedTaxService.findUnifiedTaxByValidityYearAndManufactureYear(
-                    		startDate, yearManufacture);
-                    if (ut == null) {
-                    	unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(
-                    			account, ar, "Missing applicable tax for the Aircraft Service Date"));                    	
-                    }
-                    else
-                    	toInvoice.add(ar);
-        		}
-        		else {
-	        		// manage "Missing Aircraft Service Date" error
-	        		unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(account, ar, "Missing Aircraft Service Date"));        			
-        		}
-        	}
-        	else {
-        		// manage "Already invoiced" error
-        		unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(account, ar, "Aircraft alreay invoiced"));        			        		
-        	}
+            if (aMtow <= maxWeight) {
+	        	if (!isUnifiedTaxPaid(ar, startDate, endDateInclusive)) {
+	        		if (ar.getAircraftServiceDate() != null) {
+	
+	        			LocalDateTime yearManufacture = ar.getAircraftServiceDate();
+	                    UnifiedTax ut = unifiedTaxService.findUnifiedTaxByValidityYearAndManufactureYear(
+	                    		startDate, yearManufacture);
+	                    if (ut == null) {
+	                    	unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(
+	                    			account, ar, "Missing applicable tax for the Aircraft Service Date"));                    	
+	                    }
+	                    else
+	                    	toInvoice.add(ar);
+	        		}
+	        		else {
+		        		// manage "Missing Aircraft Service Date" error
+		        		unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(account, ar, "Missing Aircraft Service Date"));        			
+	        		}
+	        	}
+	        	else {
+	        		// manage "Already invoiced" error
+	        		unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(account, ar, "Aircraft alreay invoiced"));        			        		
+	        	}
+            }
         }
 
         if (counter != null) {
