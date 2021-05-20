@@ -200,7 +200,7 @@ public class AviationInvoiceCreator {
     public AviationInvoice createInvoice(final Account account,
                                          final List <FlightMovement> accountFlights,
                                          final List <AircraftRegistration> aircraftRegistrationsToInvoiceByUnifiedTax,
-                                         final List <UnifiedTaxInvoiceError> unifiedTaxInvoiceErrors,                                         
+                                         final List <UnifiedTaxInvoiceError> unifiedTaxInvoiceErrors,
                                          final InvoicePaymentParameters payment,
                                          final ChargeSelection chargeSelection,
                                          final FlightmovementCategory flightmovementCategory,
@@ -254,7 +254,7 @@ public class AviationInvoiceCreator {
 
         // create invoice data, total amount and amount due formatted below
         final AviationInvoiceData invoiceData = this.do_createInvoiceData(
-            account, accountFlights, aircraftRegistrationsToInvoiceByUnifiedTax, 
+            account, accountFlights, aircraftRegistrationsToInvoiceByUnifiedTax,
             unifiedTaxInvoiceErrors,
             chargeSelection, payment, aviationInvoiceCurrency, counter, invoicePermits
         );
@@ -369,30 +369,42 @@ public class AviationInvoiceCreator {
         invoiceData.global.invoiceDateStr = reportHelper.formatDateUtc(endDateInclusive, dateFormatter);
         invoiceData.global.invoiceDateOfIssueStr = reportHelper.formatDateUtc(ldtNow, dateFormatter);
         invoiceData.global.invoiceDueDateStr = reportHelper.formatDateUtc(ldtNow.plusDays(account.getPaymentTerms()), dateFormatter);
+
+        Locale localeES = new Locale ("es" , "ES");
         if (billingInterval != null) {
             switch (billingInterval) {
             case MONTHLY:
                 invoiceData.global.invoiceBillingPeriod = String.format("%s-%s", StringUtils.capitalize(endDateInclusive.getMonth().name().toLowerCase()), endDateInclusive.getYear());
 
-                Locale localeES = new Locale ("es" , "ES");
                 invoiceData.global.invoiceBillingPeriodSpanish = String.format("%s-%s", StringUtils.capitalize(endDateInclusive.getMonth().getDisplayName(TextStyle.FULL, localeES).toLowerCase()), endDateInclusive.getYear());
                 break;
             case WEEKLY:
                 invoiceData.global.invoiceBillingPeriod = String.format("%s - %s", reportHelper.formatDateUtc(endDateInclusive.minusDays(6), dateFormatter), invoiceData.global.invoiceDateStr);
+
+                invoiceData.global.invoiceBillingPeriodSpanish = String.format("%s - %s", reportHelper.formatDateUtc(endDateInclusive.minusDays(6), dateFormatter), invoiceData.global.invoiceDateStr);
                 break;
             case OPEN:
                 invoiceData.global.invoiceBillingPeriod = String.format("%s - %s", reportHelper.formatDateUtc(startDate, dateFormatter), invoiceData.global.invoiceDateStr);
+
+                invoiceData.global.invoiceBillingPeriodSpanish =  String.format("%s - %s", reportHelper.formatDateUtc(startDate, dateFormatter), invoiceData.global.invoiceDateStr);
+
                 break;
             case ANNUALLY:
             case PARTIALLY:
                 invoiceData.global.invoiceBillingPeriod = String.format("%s - %s", reportHelper.formatDateUtc(startDate, dateFormatter), invoiceData.global.invoiceDateStr);
+                invoiceData.global.invoiceBillingPeriodSpanish  = String.format("%s - %s", reportHelper.formatDateUtc(startDate, dateFormatter), invoiceData.global.invoiceDateStr);
+
                 break;
             default:
                 invoiceData.global.invoiceBillingPeriod = invoiceData.global.invoiceDateStr;
+                invoiceData.global.invoiceBillingPeriodSpanish = invoiceData.global.invoiceDateStr;
+
                 break;
             }
         } else {
             invoiceData.global.invoiceBillingPeriod = invoiceData.global.invoiceDateStr;
+            invoiceData.global.invoiceBillingPeriodSpanish = invoiceData.global.invoiceDateStr;
+
         }
 
         // operator account data
@@ -471,7 +483,7 @@ public class AviationInvoiceCreator {
             AtomicInteger countUnifiedTaxAircraftTotal = new AtomicInteger(0);
 
             UnifiedTaxProcess unifiedTaxProcess = new UnifiedTaxProcess(account, startDate, endDateInclusive, aviationInvoiceCurrency, billingInterval,countUnifiedTaxAircraftTotal, unifiedTaxService, currencyUtils, preview);
-            
+
         	//totalAmount
         	for (final AircraftRegistration ar: aircraftRegistrationsToInvoiceByUnifiedTax) {
 	        	// TODO: manage counter update
@@ -483,13 +495,13 @@ public class AviationInvoiceCreator {
         		}
 
         		// TODO: check if the aircraft registration is eligible for the unified tax
-        		
+
 	        	if (ar.getAircraftServiceDate()!=null) {
 
                     final AviationInvoiceData.AircraftInfo aircraftInfo = unifiedTaxProcess.processAircraftRegistration(ar, unifiedTaxInvoiceErrors);
                     if (aircraftInfo == null)
                     	continue;
-                    
+
                     aircraftInfo.customerName = invoiceData.global.accountName;
                     aircraftInfo.company = invoiceData.global.billingName;
                     aircraftInfo.invoicePeriod = invoiceData.global.invoiceBillingPeriod;
@@ -1397,7 +1409,7 @@ public class AviationInvoiceCreator {
                 	            fm.getItem18RegNum(), fm.getStatus());
 
                 	        // flightMovementService.validateFlightMovementByID(fm.getId());
-                			
+
                 	        // force the FlightMovementStatus to INVOICED
                 	        fm.setStatus(FlightMovementStatus.INVOICED);
                 	        fm.setResolutionErrors("");
@@ -1667,13 +1679,13 @@ public class AviationInvoiceCreator {
 
             //Init Map
             LocalDateTime yearManufacture = ar.getAircraftServiceDate();
-            
+
             UnifiedTax ut = unifiedTaxService.findUnifiedTaxByValidityYearAndManufactureYear(startDate, yearManufacture);
             if (ut == null) {
             	unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(account, ar, "Missing applicable tax for the Aircraft Service Date"));
             	return null;
             }
-            
+
             //getChargeFormula
             String chargeFormula = ut.getChargeFormula();
 
