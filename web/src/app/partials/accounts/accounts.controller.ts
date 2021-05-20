@@ -96,7 +96,8 @@ export class AccountsController extends CRUDFormControllerUserService {
     $scope.getAllNotifications = () => this.getAllNotifications();
     $scope.setEmpty = () => this.setEmpty();
 
-    $scope.checkCreditLimit = () => this.checkCreditLimit();
+    $scope.setCreditLimitRange = () => this.setCreditLimitRange();
+    $scope.setDefaultCreditLimit = () => this.setDefaultCreditLimit();
 
     // set scope value for require external system identifier
     $scope.requireExternalSystemId = this.requireExternalSystemId();
@@ -132,7 +133,7 @@ export class AccountsController extends CRUDFormControllerUserService {
   }
 
   private setDefaultFields(): void {
-    this.checkCreditLimit();
+    this.setDefaultCreditLimit();
     this.setAccountType();
     this.$scope.editable.payment_terms = <number>this.systemConfigurationService.getValueByName(<any>SysConfigConstants.DEFAULT_ACCOUNT_PAYMENT_TERMS);
     this.$scope.editable.monthly_overdue_penalty_rate = <number>this.systemConfigurationService.getValueByName(<any>SysConfigConstants.DEFAULT_ACCOUNT_MONTHLY_PENALTY);
@@ -145,18 +146,29 @@ export class AccountsController extends CRUDFormControllerUserService {
     }
   }
 
-  private checkCreditLimit(): void {
+  private setCreditLimitRange(): void {
     if (this.$scope.editable.cash_account === true) {
-      this.$scope.editable.credit_limit = 0;
       this.$scope.minCreditLimit = 0;
       this.$scope.maxCreditLimit = 0;
     } else {
-      this.$scope.editable.credit_limit = <number>this.systemConfigurationService.getValueByName(<any>SysConfigConstants.DEFAULT_ACCOUNT_CREDIT_LIMIT);
       this.$scope.minCreditLimit = <number>this.systemConfigurationService.getValueByName(<any>SysConfigConstants.DEFAULT_ACCOUNT_MIN_CREDIT_NOTE);
       this.$scope.maxCreditLimit = <number>this.systemConfigurationService.getValueByName(<any>SysConfigConstants.DEFAULT_ACCOUNT_MAX_CREDIT_NOTE);
     }
   }
 
+  private setDefaultCreditLimit(): void {
+    if (this.$scope.editable.cash_account === true) {
+      this.$scope.minCreditLimit = 0;
+      this.$scope.maxCreditLimit = 0;
+      this.$scope.editable.credit_limit = 0;
+    } else {
+      this.$scope.minCreditLimit = <number>this.systemConfigurationService.getValueByName(<any>SysConfigConstants.DEFAULT_ACCOUNT_MIN_CREDIT_NOTE);
+      this.$scope.maxCreditLimit = <number>this.systemConfigurationService.getValueByName(<any>SysConfigConstants.DEFAULT_ACCOUNT_MAX_CREDIT_NOTE);
+      this.$scope.editable.credit_limit = <number>this.systemConfigurationService.getValueByName(<any>SysConfigConstants.DEFAULT_ACCOUNT_CREDIT_LIMIT);
+    }
+  }
+
+  
   private getFilterParameters(): void {
     this.$scope.filterParameters = {
       filter: this.$scope.filter,
