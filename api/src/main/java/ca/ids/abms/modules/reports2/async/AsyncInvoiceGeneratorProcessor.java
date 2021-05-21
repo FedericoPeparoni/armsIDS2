@@ -7,7 +7,10 @@ import ca.ids.abms.modules.jobs.ItemProcessor;
 import ca.ids.abms.modules.reports2.common.ReportHelper;
 import ca.ids.abms.modules.reports2.invoices.aviation.AviationInvoice;
 import ca.ids.abms.modules.reports2.invoices.aviation.AviationInvoiceService;
+import ca.ids.abms.modules.reports2.invoices.aviation.BillingInterval;
 import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxInvoiceError;
+import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxValidity;
+import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxValidityService;
 import ca.ids.abms.modules.users.User;
 import org.springframework.stereotype.Component;
 
@@ -22,9 +25,12 @@ import static ca.ids.abms.util.MiscUtils.nvl;
 public class AsyncInvoiceGeneratorProcessor implements ItemProcessor<AsyncInvoiceGeneratorScope> {
 
     private final AviationInvoiceService aviationInvoiceService;
+    private final UnifiedTaxValidityService unifiedTaxValidityService;
 
-    public AsyncInvoiceGeneratorProcessor(final AviationInvoiceService aviationInvoiceService) {
+    public AsyncInvoiceGeneratorProcessor(final AviationInvoiceService aviationInvoiceService,
+    									  final UnifiedTaxValidityService unifiedTaxValidityService) {
         this.aviationInvoiceService = aviationInvoiceService;
+		this.unifiedTaxValidityService = unifiedTaxValidityService;
     }
     
     public AsyncInvoiceGeneratorScope processItem (final AsyncInvoiceGeneratorScope scope) {
@@ -33,6 +39,17 @@ public class AsyncInvoiceGeneratorProcessor implements ItemProcessor<AsyncInvoic
             throw ExceptionFactory.getMissingBillingCenterOfCurrentUserException (ReportHelper.class, currentUser.getId().toString(), currentUser.getLogin());
         }
 
+        
+    	final boolean unifiedTaxInvoice = scope.getBillingInterval() == BillingInterval.UNIFIED_TAX_ANNUALLY || 
+				  scope.getBillingInterval() == BillingInterval.UNIFIED_TAX_PARTIALLY;
+
+    	if (unifiedTaxInvoice) {
+    		UnifiedTaxValidity validityDate = unifiedTaxValidityService.findUnifiedTaxValidityByYear(scope.getStartDate());
+    		if (validityDate == null) {
+    			throw new RuntimeException("The Specified validity year is not available in the database");
+    		}
+    	}
+        
         final FlightmovementCategory flightmovementCategory;
         if (scope.getFlightCategory() != null) {
             flightmovementCategory = aviationInvoiceService.findFlightMovementCategory(scope.getFlightCategory());
