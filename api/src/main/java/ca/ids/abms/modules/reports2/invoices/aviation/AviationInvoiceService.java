@@ -161,7 +161,8 @@ public class AviationInvoiceService {
         final List<Account> sortedAccounts = this.sortAccounts(accountFlightMap.keySet());
         final List<AviationInvoice> invoiceList = new ArrayList<>();
         for (final Account account : sortedAccounts) {
-            generateAviationInvoice(account, invoiceCreator, accountFlightMap.get(account), null, null, invoiceList, flightmovementCategory,
+            generateAviationInvoice(account, invoiceCreator, accountFlightMap.get(account), 
+            	false, null, null, invoiceList, flightmovementCategory,
                 currentUser, ipAddress, null, preview);
         }
 
@@ -383,6 +384,7 @@ public class AviationInvoiceService {
     public void generateAviationInvoice (final Account account,
                                          final AviationInvoiceCreator invoiceCreator,
                                          final List<FlightMovement> accountFlights,
+                                         final boolean unifiedTaxInvoice,
                                          final List<AircraftRegistration> aircraftRegistrationsToInvoiceByUnifiedTax,
                                          final List <UnifiedTaxInvoiceError> unifiedTaxInvoiceErrors,
                                          final List<AviationInvoice> invoicesList,
@@ -396,7 +398,7 @@ public class AviationInvoiceService {
             LOG.debug("The account {} requires a separate invoice for the passenger charges.", account.getName());
 
             final AviationInvoice onlyEnrouteInvoice = invoiceCreator.createInvoice(
-            		account, accountFlights, aircraftRegistrationsToInvoiceByUnifiedTax, 
+            		account, accountFlights, unifiedTaxInvoice, aircraftRegistrationsToInvoiceByUnifiedTax, 
             		unifiedTaxInvoiceErrors, null, ONLY_ENROUTE, flightmovementCategory, counter, null, null);
             
             if (onlyEnrouteInvoice != null) {
@@ -405,7 +407,7 @@ public class AviationInvoiceService {
                     userEventLogService.createInvoiceUserEventLogAsync(ipAddress, String.valueOf(onlyEnrouteInvoice.billingLedger().getId()), currentUser);
                 }
             }
-            final AviationInvoice onlyPaxInvoice = invoiceCreator.createInvoice(account, accountFlights, aircraftRegistrationsToInvoiceByUnifiedTax, unifiedTaxInvoiceErrors, null, ONLY_PAX, flightmovementCategory, counter, null, null);
+            final AviationInvoice onlyPaxInvoice = invoiceCreator.createInvoice(account, accountFlights, unifiedTaxInvoice, aircraftRegistrationsToInvoiceByUnifiedTax, unifiedTaxInvoiceErrors, null, ONLY_PAX, flightmovementCategory, counter, null, null);
             if (onlyPaxInvoice != null) {
                 invoicesList.add(onlyPaxInvoice);
                 if(!preview) {
@@ -414,7 +416,11 @@ public class AviationInvoiceService {
             }
         } else {
             LOG.debug("The account {} requires an unique invoice for all charges.", account.getName());
-            final AviationInvoice invoice = invoiceCreator.createInvoice(account, accountFlights, aircraftRegistrationsToInvoiceByUnifiedTax, unifiedTaxInvoiceErrors, null, ALL, flightmovementCategory, counter, null, null);
+            final AviationInvoice invoice = invoiceCreator.createInvoice(
+            		account, accountFlights, 
+            		unifiedTaxInvoice, aircraftRegistrationsToInvoiceByUnifiedTax, 
+            		unifiedTaxInvoiceErrors, null, ALL, flightmovementCategory, counter, null, null);
+            
             if (invoice != null) {
                 invoicesList.add(invoice);
                 if(!preview) {
@@ -572,9 +578,9 @@ public class AviationInvoiceService {
 
         AviationInvoice invoice;
         if (supportPassengerCharges && (Boolean.FALSE.equals(account.getSeparatePaxInvoice()) || !ReportFormat.pdf.equals(reportFormat))) {
-            invoice = invoiceCreator.createInvoice(account, accountFlights, null, null, payment, ALL, flightmovementCategory, null, invoicePermits, selectedInvoiceCurrency);
+            invoice = invoiceCreator.createInvoice(account, accountFlights, false, null, null, payment, ALL, flightmovementCategory, null, invoicePermits, selectedInvoiceCurrency);
         } else {
-            invoice = invoiceCreator.createInvoice(account, accountFlights, null, null, payment, ONLY_ENROUTE, flightmovementCategory, null, invoicePermits, selectedInvoiceCurrency);
+            invoice = invoiceCreator.createInvoice(account, accountFlights, false, null, null, payment, ONLY_ENROUTE, flightmovementCategory, null, invoicePermits, selectedInvoiceCurrency);
         }
 
         /* Create the passenger charges invoice, if required */
@@ -611,7 +617,7 @@ public class AviationInvoiceService {
                 reportHelper.getCurrentUser(),
                 aviationInvoiceChargeProviders);
 
-            paxInvoice = paxInvoiceCreator.createInvoice(account, accountFlights, null, null, null, ONLY_PAX, flightmovementCategory, null, null, selectedInvoiceCurrency);
+            paxInvoice = paxInvoiceCreator.createInvoice(account, accountFlights, false, null, null, null, ONLY_PAX, flightmovementCategory, null, null, selectedInvoiceCurrency);
         } else {
             LOG.debug("The account {} requires an unique invoice for all charges.", account.getName());
         }
@@ -1130,7 +1136,11 @@ public class AviationInvoiceService {
 
     Account account = accountService.getOne(accountId);
     boolean unifiedTaxAccount = account.getAccountType().getName().equals("Unified Tax");
-    if (unifiedTaxAccount) {
+    
+	final boolean unifiedTaxInvoice = scope.getBillingInterval() == BillingInterval.UNIFIED_TAX_ANNUALLY || 
+									  scope.getBillingInterval() == BillingInterval.UNIFIED_TAX_PARTIALLY;
+
+    if (unifiedTaxAccount && unifiedTaxInvoice) {
         List<AircraftRegistration> registrationsToInvoice = getAircraftRegistrationToInvoice(
         		scope.getBillingInterval(), scope.getStartDate(), scope.getEndDateInclusive(),
         		scope.getUserBillingCenterOnly(), account, currentUser, scope.getInvoiceProgressCounter(),
@@ -1138,7 +1148,7 @@ public class AviationInvoiceService {
 
         if (!registrationsToInvoice.isEmpty()) {
             this.generateAviationInvoice(account, invoiceCreator, 
-            		new ArrayList<FlightMovement>(), registrationsToInvoice, 
+            		new ArrayList<FlightMovement>(), unifiedTaxInvoice, registrationsToInvoice, 
             		unifiedTaxInvoiceErrors, invoiceList, flightmovementCategory,
             		currentUser, scope.getIpAddress(), scope.getInvoiceProgressCounter(), scope.getPreview());
             
@@ -1176,7 +1186,7 @@ public class AviationInvoiceService {
 
     try {
         if (!accountFlightMap.isEmpty()) {
-            this.generateAviationInvoice(sortedAccounts.get(0), invoiceCreator, lockedList, null, null, invoiceList, flightmovementCategory,
+            this.generateAviationInvoice(sortedAccounts.get(0), invoiceCreator, lockedList, false, null, null, invoiceList, flightmovementCategory,
                 currentUser, scope.getIpAddress(), scope.getInvoiceProgressCounter(), scope.getPreview());
                 accountProcessed = true;
             } else {
@@ -1202,14 +1212,17 @@ public class AviationInvoiceService {
 
         Account account = accountService.getOne(accountId);
         boolean unifiedTaxAccount = account.getAccountType().getName().equals("Unified Tax");
-        if (unifiedTaxAccount) {
+    	final boolean unifiedTaxInvoice = scope.getBillingInterval() == BillingInterval.UNIFIED_TAX_ANNUALLY || 
+    									  scope.getBillingInterval() == BillingInterval.UNIFIED_TAX_PARTIALLY;
+
+    	if (unifiedTaxAccount && unifiedTaxInvoice) {
         	List<AircraftRegistration> registrationsToInvoice = getAircraftRegistrationToInvoice(
         			scope.getBillingInterval(), scope.getStartDate(), scope.getEndDateInclusive(),
                     scope.getUserBillingCenterOnly(), account, currentUser, scope.getInvoiceProgressCounter(),
                     unifiedTaxInvoiceErrors);
 
     		if (!registrationsToInvoice.isEmpty()) {
-                this.generateAviationInvoice(account, invoiceCreator, null, 
+                this.generateAviationInvoice(account, invoiceCreator, null, unifiedTaxInvoice,
                 		registrationsToInvoice, unifiedTaxInvoiceErrors, invoiceList, flightmovementCategory,
                         currentUser, scope.getIpAddress(), scope.getInvoiceProgressCounter(), scope.getPreview());
                         accountProcessed = true;
@@ -1233,8 +1246,10 @@ public class AviationInvoiceService {
 
         try {
         	if(!accountFlightMap.isEmpty()) {
-                this.generateAviationInvoice(sortedAccounts.get(0), invoiceCreator, accountFlightMap.get(sortedAccounts.get(0)), null, null, invoiceList, flightmovementCategory,
-                currentUser, scope.getIpAddress(), scope.getInvoiceProgressCounter(), scope.getPreview());
+                this.generateAviationInvoice(sortedAccounts.get(0), invoiceCreator, accountFlightMap.get(sortedAccounts.get(0)), 
+                							 false, null, null, invoiceList, flightmovementCategory,
+                							 currentUser, scope.getIpAddress(), scope.getInvoiceProgressCounter(), 
+                							 scope.getPreview());
                 accountProcessed = true;
             } else {
                 LOG.debug("Account {} have been discarded because don't have billable flights", accountIds.get(0));

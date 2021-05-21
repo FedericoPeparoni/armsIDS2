@@ -32,7 +32,8 @@ public class AviationInvoiceDocumentCreator {
      */
     @SuppressWarnings("squid:S3776")
     public ReportDocument create (final AviationInvoiceData data, final ReportFormat reportFormat,
-                                  final ChargeSelection chargeSelection, final Boolean cashAccount, final Boolean unifiedTaxAccount, final Boolean pointOfSale) {
+                                  final ChargeSelection chargeSelection, final Boolean cashAccount, 
+                                  final Boolean unifiedTaxInvoice, final Boolean pointOfSale) {
         switch (reportFormat) {
         case json:
             return reportDocumentCreator.createJsonDocument (data.global.invoiceName, data);
@@ -49,7 +50,7 @@ public class AviationInvoiceDocumentCreator {
             boolean isTTCAA = billingOrgCode == BillingOrgCode.TTCAA;
             boolean isCADSUR = billingOrgCode == BillingOrgCode.CADSUR;
             
-            if (unifiedTaxAccount) {
+            if (unifiedTaxInvoice) {
                 return reportDocumentCreator.createXmlBasedInvoiceDocument(data.global.invoiceName, data, reportFormat, InvoiceTemplateCategory.AVIATION_INVOICE_UNIFIED_TAX);
             }
             
