@@ -159,7 +159,7 @@ public class AviationInvoiceCreator {
         this.endDateInclusive = endDateInclusive;
         this.billingInterval = billingInterval;
 
-            if(billingInterval == BillingInterval.PARTIALLY || billingInterval == BillingInterval.ANNUALLY){
+            if(billingInterval == BillingInterval.UNIFIED_TAX_PARTIALLY || billingInterval == BillingInterval.UNIFIED_TAX_ANNUALLY){
                 //Now
                 this.cachedCurrencyConverter = new CachedCurrencyConverter(currencyUtils, ldtNow);
             }else{
@@ -199,6 +199,7 @@ public class AviationInvoiceCreator {
      */
     public AviationInvoice createInvoice(final Account account,
                                          final List <FlightMovement> accountFlights,
+                                         final boolean unifiedTaxInvoice,
                                          final List <AircraftRegistration> aircraftRegistrationsToInvoiceByUnifiedTax,
                                          final List <UnifiedTaxInvoiceError> unifiedTaxInvoiceErrors,
                                          final InvoicePaymentParameters payment,
@@ -262,7 +263,8 @@ public class AviationInvoiceCreator {
         if(chargeSelection != ONLY_PAX || invoiceData.invoiceGenerationAllowed) {
 
             final boolean cashAccount = account.getCashAccount();
-            final boolean unifiedTaxAccount = account.getAccountType().getName().equals("Unified Tax");
+            // final boolean unifiedTaxAccount = account.getAccountType().getName().equals("Unified Tax");
+            
 
             // create billing ledger, non-rounded total amount required in invoiceData
             final BillingLedger billingLedger = do_createBillingLedger(account, invoiceData, accountFlights,
@@ -283,7 +285,9 @@ public class AviationInvoiceCreator {
             }
 
             // Create PDF file
-            final ReportDocument reportDocument = this.aviationInvoiceDocumentCreator.create(invoiceData, reportFormat, chargeSelection, cashAccount, unifiedTaxAccount, pointOfSale);
+            final ReportDocument reportDocument = this.aviationInvoiceDocumentCreator.create(
+            		invoiceData, reportFormat, chargeSelection, 
+            		cashAccount, unifiedTaxInvoice, pointOfSale);
 
             // save PDF file in billing ledger
             reportHelper.setReportDocument(billingLedger, reportDocument);
@@ -320,7 +324,7 @@ public class AviationInvoiceCreator {
 
     private boolean do_checkIfAviationInvoicingIsByFlightmovementCategory() {
 
-    	if (billingInterval == BillingInterval.PARTIALLY || billingInterval == BillingInterval.ANNUALLY)
+    	if (billingInterval == BillingInterval.UNIFIED_TAX_PARTIALLY || billingInterval == BillingInterval.UNIFIED_TAX_ANNUALLY)
     		return false;
 
     	final SystemConfiguration aviationInvoiceCurrencyItem = systemConfigurationService.getOneByItemName(SystemConfigurationItemName.INVOICE_CURRENCY_ENROUTE);
@@ -389,8 +393,8 @@ public class AviationInvoiceCreator {
                 invoiceData.global.invoiceBillingPeriodSpanish =  String.format("%s - %s", reportHelper.formatDateUtc(startDate, dateFormatter), invoiceData.global.invoiceDateStr);
 
                 break;
-            case ANNUALLY:
-            case PARTIALLY:
+            case UNIFIED_TAX_ANNUALLY:
+            case UNIFIED_TAX_PARTIALLY:
                 invoiceData.global.invoiceBillingPeriod = String.format("%s - %s", reportHelper.formatDateUtc(startDate, dateFormatter), invoiceData.global.invoiceDateStr);
                 invoiceData.global.invoiceBillingPeriodSpanish  = String.format("%s - %s", reportHelper.formatDateUtc(startDate, dateFormatter), invoiceData.global.invoiceDateStr);
 
@@ -1225,7 +1229,7 @@ public class AviationInvoiceCreator {
 
         Double amountDueAnsp = null;
         Double amountDueUsd = null;
-        if (billingInterval == BillingInterval.ANNUALLY || billingInterval == BillingInterval.PARTIALLY) {
+        if (billingInterval == BillingInterval.UNIFIED_TAX_ANNUALLY || billingInterval == BillingInterval.UNIFIED_TAX_PARTIALLY) {
             amountDueAnsp = cachedCurrencyConverter.toANSPCurrency(amountDue, invoiceCurrency);
             amountDueUsd = cachedCurrencyConverter.toANSPCurrency(amountDue, invoiceCurrency);
         }else{
@@ -1310,7 +1314,7 @@ public class AviationInvoiceCreator {
 		final double exchangeRate;
 		final double exchangeRateToAnsp;
 
-		final boolean unifiedTaxInvoice = billingInterval == BillingInterval.ANNUALLY || billingInterval == BillingInterval.PARTIALLY;
+		final boolean unifiedTaxInvoice = billingInterval == BillingInterval.UNIFIED_TAX_ANNUALLY || billingInterval == BillingInterval.UNIFIED_TAX_PARTIALLY;
 		if (unifiedTaxInvoice) {
  			exchangeRate = currencyUtils.getApplicableRate(invoiceCurrency, targetCurrency, startDate);
 			exchangeRateToAnsp = currencyUtils.getApplicableRate (invoiceCurrency, anspCurrency, startDate);
@@ -1704,7 +1708,7 @@ public class AviationInvoiceCreator {
 
                 aircraftInfo.unifiedTaxCharges = taxAmount;
 
-                if (billingInterval.equals(BillingInterval.PARTIALLY)){
+                if (billingInterval.equals(BillingInterval.UNIFIED_TAX_PARTIALLY)){
                     Integer monthsLeft = 0;
                     monthsLeft = 12 - startDate.getMonthValue() + 1; //+1 perchè deve essere incluso il mese start Date;
                     aircraftInfo.unifiedTaxCharges = (aircraftInfo.unifiedTaxCharges / 12.0) * monthsLeft;

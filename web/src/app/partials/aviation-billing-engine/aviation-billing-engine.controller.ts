@@ -315,12 +315,12 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
       this.$scope.editable.processEndDate = this.lastDateOfMonth();
       this.$scope.editable.endDateInclusive = this.lastDateOfMonth();
     }
-    else if (this.$scope.editable.billing_interval === 'ANNUALLY') {
+    else if (this.$scope.editable.billing_interval === 'UNIFIED_TAX_ANNUALLY') {
       this.$scope.editable.processStartDate = this.firstDateOfYear();
       this.$scope.editable.processEndDate = this.lastDateOfYear();
       this.$scope.editable.endDateInclusive = this.lastDateOfYear();
     }
-    else if (this.$scope.editable.billing_interval === 'PARTIALLY') {
+    else if (this.$scope.editable.billing_interval === 'UNIFIED_TAX_PARTIALLY') {
       this.$scope.editable.processStartDate = this.firstDateOfMonth();
       this.$scope.editable.processEndDate = this.lastDateOfYear();
       this.$scope.editable.endDateInclusive = this.lastDateOfYear();
@@ -346,10 +346,10 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
       this.$scope.editable.end_date = this.lastDateOfMonth();
 
     }
-    else if (this.$scope.editable.billing_interval === 'ANNUALLY') {
+    else if (this.$scope.editable.billing_interval === 'UNIFIED_TAX_ANNUALLY') {
       this.setAnnuallyDates();
     }
-    else if (this.$scope.editable.billing_interval === 'PARTIALLY') {
+    else if (this.$scope.editable.billing_interval === 'UNIFIED_TAX_PARTIALLY') {
       this.setPartiallyDates();
       this.setDefaultPartiallyDate();
     }
@@ -489,10 +489,10 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
       if (this.$scope.editable.billing_interval === 'MONTHLY') {
         this.setMonthlyDates();
       }
-      else if (this.$scope.editable.billing_interval === 'ANNUALLY') {
+      else if (this.$scope.editable.billing_interval === 'UNIFIED_TAX_ANNUALLY') {
         this.setAnnuallyDates();
       }
-      else if (this.$scope.editable.billing_interval === 'PARTIALLY') {
+      else if (this.$scope.editable.billing_interval === 'UNIFIED_TAX_PARTIALLY') {
         this.setPartiallyDates();
       }/*else if (this.$scope.editable.billing_interval === 'OPEN') {
         this.setOpenDates();
@@ -511,7 +511,7 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
    */
   private setIntervalPeriodForUnifiedTax(accountType: number): void  {
     if (accountType === 8){
-      this.$scope.editable.billing_interval = 'ANNUALLY';
+      this.$scope.editable.billing_interval = 'UNIFIED_TAX_ANNUALLY';
     }
   }
 
@@ -555,8 +555,9 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
     dateDisabled: (data: any): boolean => {
       let date = data.date,
         mode = data.mode;
+        let previusYear = (moment().year() - 1);
       let nextYear = (moment().year() + 1);
-      return mode === 'year' && (date.getFullYear() > nextYear );
+      return mode === 'year' && (date.getFullYear() > nextYear || date.getFullYear() < previusYear );
     }
 
   };
