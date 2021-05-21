@@ -29,8 +29,8 @@
                                 ng-model="editable.billing_interval" ng-change="setMonthlyDates()" required>
                                 <option ng-if="editable.account_type != 8" translate value="WEEKLY">Weekly</option>
                                 <option ng-if="editable.account_type != 8" translate value="MONTHLY">Monthly</option>
-                                <option ng-if="editable.account_type === 8" translate value="ANNUALLY">Annual</option>
-                                <option ng-if="editable.account_type === 8" translate value="PARTIALLY">Partial
+                                <option ng-if="editable.account_type === 8" translate value="UNIFIED_TAX_ANNUALLY">Annual</option>
+                                <option ng-if="editable.account_type === 8" translate value="UNIFIED_TAX_PARTIALLY">Partial
                                 </option>
                                 <option ng-if="editable.account_type != 8" translate value="OPEN">Open</option>
                             </select>
@@ -68,7 +68,7 @@
                                     </span>
                                 </p>
                             </div>
-                            <div ng-show="editable.billing_interval === 'ANNUALLY'">
+                            <div ng-show="editable.billing_interval === 'UNIFIED_TAX_ANNUALLY'">
                                 <label for="billing_period_annually">
                                     {{ 'Billing period *' | translate }} (<span translate>yyyy</span>)
                                 </label>
@@ -84,7 +84,7 @@
                                     </span>
                                 </p>
                             </div>
-                            <div ng-show="editable.billing_interval === 'PARTIALLY'">
+                            <div ng-show="editable.billing_interval === 'UNIFIED_TAX_PARTIALLY'">
                                 <label for="billing_period_partially">
                                     {{ 'Billing period *' | translate }} (<span translate>yyyy-MM</span>)
                                 </label>
