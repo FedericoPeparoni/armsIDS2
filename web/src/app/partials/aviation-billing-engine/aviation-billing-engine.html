@@ -323,12 +323,12 @@
                             <span translate>Started:</span>
                             <span>&nbsp;{{ generateJob.start_time | dateConverter: 'HH:mm' }}</span>
                             <br>
-                            <span translate>Status:</span>&nbsp;
-                            <span translate>{{ generateJob.job_execution_status }}</span>
+                            <span class="highlightBold" translate>Status:</span>&nbsp;
+                            <span class="highlightBold" translate>{{ generateJob.job_execution_status }}</span>
                             <br>
-                            <span translate>Message:</span>
-                            <span ng-show="generateJob.message">&nbsp;<span translate>{{ generateJob.message }}</span></span>
-                            <span ng-show="!generateJob.message">&nbsp;<span translate>Initializing ...</span></span>
+                            <span class="highlightBold" translate>Message:</span>
+                            <span class="highlightBold" ng-show="generateJob.message">&nbsp;<span translate>{{ generateJob.message }}</span></span>
+                            <span class="highlightBold" ng-show="!generateJob.message">&nbsp;<span translate>Initializing ...</span></span>
 
                             <br>
                             <div class="table-responsive" ng-show="generateJob.unifiedTaxErrors.length">
@@ -354,7 +354,7 @@
                                     </tbody>
                                 </table>
                             </div>
-    
+
 
                             <br>
                             <span ng-show="generateJob.accountName">
@@ -396,3 +396,4 @@
         </div>
     </div>
 </div>
+
