@@ -555,8 +555,9 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
     dateDisabled: (data: any): boolean => {
       let date = data.date,
         mode = data.mode;
+        let previusYear = (moment().year() - 1);
       let nextYear = (moment().year() + 1);
-      return mode === 'year' && (date.getFullYear() > nextYear );
+      return mode === 'year' && (date.getFullYear() > nextYear || date.getFullYear() < previusYear );
     }
 
   };

@@ -80,6 +80,10 @@ export class TransactionsService extends CRUDFileUploadService {
     return this.restangular.one(`${endpoint}/getTransactionPaymentsByTransactionId/${transactionId}`).get();
   }
 
+  public getAircraftRegistrationByBillingLedgerId(invoiceId: number): ng.IPromise<any> {
+    return this.restangular.one(`${endpoint}getAircraftRegistrationBillingLedgerId/${invoiceId}`).get();
+  }
+
   public getModel(): ITransaction {
     return this._mod;
   }
