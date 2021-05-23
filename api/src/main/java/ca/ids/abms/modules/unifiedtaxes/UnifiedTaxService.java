@@ -2,18 +2,14 @@ package ca.ids.abms.modules.unifiedtaxes;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import ca.ids.abms.modules.flightmovements.category.FlightmovementCategory;
 import ca.ids.abms.modules.flightmovements.enumerate.CostFormulaVar;
 import ca.ids.abms.modules.formulas.FormulaEvaluator;
-import ca.ids.abms.modules.formulas.enroute.EnrouteAirNavigationChargeCategory;
-import ca.ids.abms.modules.formulas.enroute.EnrouteAirNavigationChargeFormula;
-import ca.ids.abms.modules.formulas.enroute.EnrouteAirNavigationChargeFormulaValidationViewModel;
 import ca.ids.abms.modules.formulas.unifiedtax.UnifiedTaxChargeFormulaValidationViewModel;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Service;
@@ -67,8 +63,9 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
 		}
 		
     	if (entity.getToManufactureYear() != null) {
-    		LocalDateTime lastDayOfYear = entity.getToManufactureYear().with(TemporalAdjusters.firstDayOfNextYear()).minus(1, ChronoUnit.MILLIS);
-    		entity.setToManufactureYear(lastDayOfYear);
+    		LocalDateTime lastDayOfYear = entity.getToManufactureYear().with(TemporalAdjusters.lastDayOfYear());
+    		lastDayOfYear = lastDayOfYear.with(LocalTime.MAX);
+    		entity.setToManufactureYear(lastDayOfYear);    		
     	}
 
 		UnifiedTaxValidity validity = unifiedTaxValidityService.findOne(entity.getValidity().getId());
@@ -117,9 +114,10 @@ public class UnifiedTaxService extends AbmsCrudService<UnifiedTax, Integer> {
 					ErrorConstants.ERR_DATE_START);
 		}
 
-    	if (entity.getToManufactureYear() != null) {
-    		LocalDateTime lastDayOfYear = entity.getToManufactureYear().with(TemporalAdjusters.firstDayOfNextYear()).minus(1, ChronoUnit.MILLIS);
-    		entity.setToManufactureYear(lastDayOfYear);
+    	if (entity.getToManufactureYear() != null) {    		
+    		LocalDateTime lastDayOfYear = entity.getToManufactureYear().with(TemporalAdjusters.lastDayOfYear());
+    		lastDayOfYear = lastDayOfYear.with(LocalTime.MAX);
+    		entity.setToManufactureYear(lastDayOfYear);    		    		
     	}
 		
 		UnifiedTaxValidity validity = unifiedTaxValidityService.findOne(entity.getValidity().getId());
