@@ -1732,8 +1732,22 @@ public class AviationInvoiceCreator {
                 aircraftInfo.unifiedTaxCharges = zeroToNull(aircraftRegisterCurrencyConverter.convertCurrency(aircraftInfo.unifiedTaxCharges, anspCurrency, account.getInvoiceCurrency()));
 
                 if(previewMode == false){
+                	LocalDateTime coaIssueDate = ar.getCoaIssueDate();
+                	LocalDateTime coaExpireDate = ar.getCoaExpiryDate();
+                	
+                	LocalDateTime newCoaIssueDate = startDate;
+                	LocalDateTime newCoaExpiryeDate = endDateInclusive;
+                		
+                	if (coaIssueDate != null && endDateInclusive.getYear() == coaIssueDate.getYear() - 1) {
+                		newCoaExpiryeDate = coaExpireDate;
+                	} 
+                	
+                	if (coaExpireDate != null && endDateInclusive.getYear() == coaExpireDate.getYear() + 1) {
+                		newCoaIssueDate = coaIssueDate;
+                	} 
+                	
                     aircraftRegistrationService.updateAircraftRegistrationCOAByIdAndDates(
-                        ar.getId(), startDate, endDateInclusive);
+                        ar.getId(), newCoaIssueDate, newCoaExpiryeDate);
                 }
             }
 
