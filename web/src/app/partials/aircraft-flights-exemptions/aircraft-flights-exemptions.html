@@ -34,6 +34,7 @@
                                         <th class="text-nowrap" sort="internationalPax">{{'International PAX Fees Exempt' | translate}} (%)</th>
                                         <th class="text-nowrap" sort="domesticPax">{{'Domestic PAX Fees Exempt' | translate}} (%)</th>
                                         <th class="text-nowrap" sort="extendedHours" ng-if="shouldShowCharge('extendedHours')">{{'Extended Hours Fees Exempt' | translate}} (%)</th>
+                                        <th class="text-nowrap" sort="unifiedTax">{{'Unified Tax Fees Exempt' | translate}}&nbsp;(%)</th>
                                         <th class="text-nowrap" sort="flightNotes">{{'Flight Notes' | translate}} (%)</th>
                                         <th class="text-nowrap" sort="exemptionStartDate">{{'Exemption Start Date' | translate}} (%)</th>
                                         <th class="text-nowrap" sort="exemptionEndDate">{{'Exemption End Date' | translate}} (%)</th>
@@ -52,6 +53,7 @@
                                         <td class="text-nowrap">{{ item.international_pax | number: 2 }}</td>
                                         <td class="text-nowrap">{{ item.domestic_pax | number: 2 }}</td>
                                         <td class="text-nowrap" ng-if="shouldShowCharge('extendedHours')">{{ item.extended_hours | number: 2 }}</td>
+                                        <td class="text-nowrap">{{ item.unified_tax | number: 2 }}</td>
                                         <td class="text-nowrap">{{ item.flight_notes }}</td>
                                         <td class="text-nowrap">{{ item.exemption_start_date | dateConverter }}</td>
                                         <td class="text-nowrap">{{ item.exemption_end_date | dateConverter }}</td>
@@ -161,6 +163,12 @@
                                 <input id="extended-hours" name="extendedHours" class="form-control" ng-model="editable.extended_hours"
                                     type="number" max="100" min="0" step="1" required>
                                 </input >
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="unified-tax">{{'Unified Tax Fees Exempt' | translate}} * (%)</label>
+                                <input id="unified-tax" name="unifiedTax" class="form-control" ng-model="editable.unified_tax"
+                                    type="number" max="100" min="0" step="1" required>
+                                </input>
                             </div>
                         </div>
                         <div class="row">

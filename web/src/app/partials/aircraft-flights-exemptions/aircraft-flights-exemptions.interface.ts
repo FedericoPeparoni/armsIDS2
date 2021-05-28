@@ -12,6 +12,7 @@ export interface IAircraftFlightsExemptions {
   parking_fees_exempt: number;
   international_pax: number;
   domestic_pax: number;
+  unified_tax: number;
   extended_hours: number;
   flight_notes: string;
   exemption_start_date: string;
