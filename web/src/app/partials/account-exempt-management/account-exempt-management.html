@@ -18,7 +18,7 @@
                         <div class="table-responsive"
                             export-table sort-query-string="getSortQueryString()" back-end-export="true" service="accountExemptManagementService"
                             query-string="filterParameters">
-                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString" 
+                            <table class="table table-striped table-bordered table-hover table-condensed" sort-query-string="getSortQueryString"
                                 table-sort="refresh()">
                                 <thead>
                                     <tr>
@@ -32,11 +32,12 @@
                                     <th class="text-nowrap" sort="internationalPax">{{'International PAX Fees Exempt' | translate}}&nbsp;(%)</th>
                                     <th class="text-nowrap" sort="domesticPax">{{'Domestic PAX Fees Exempt' | translate}}&nbsp;(%)</th>
                                     <th class="text-nowrap" sort="extendedHours" ng-if="shouldShowCharge('extendedHours')">{{'Extended Hours Fees Exempt' | translate}}&nbsp;(%)</th>
+                                    <th class="text-nowrap" sort="domesticPax">{{'Unified Tax Fees Exempt' | translate}}&nbsp;(%)</th>
                                     <th class="text-nowrap" sort="flightNotes">{{'Flight Notes' | translate}}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-click="edit(item); form.$setUntouched(); preview(item);" ng-repeat="item in list" 
+                                <tr ng-click="edit(item); form.$setUntouched(); preview(item);" ng-repeat="item in list"
                                     ng-class="{'highlight': editable.id === item.id}">
                                     <td class="text-nowrap">{{ item.account_name }}</td>
                                     <td class="text-nowrap">{{ item.enroute | number: 2 }}</td>
@@ -48,6 +49,7 @@
                                     <td class="text-nowrap">{{ item.international_pax | number: 2 }}</td>
                                     <td class="text-nowrap">{{ item.domestic_pax | number: 2 }}</td>
                                     <td class="text-nowrap" ng-if="shouldShowCharge('extendedHours')">{{ item.extended_hours | number: 2 }}</td>
+                                    <td class="text-nowrap">{{ item.unified_tax | number: 2 }}</td>
                                     <td class="text-nowrap">{{ item.flight_notes }}</td>
                                 </tr>
                                 <tr ng-show="!list.length">
@@ -94,7 +96,7 @@
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <label for="approach_fees_exempt">{{'Approach Fees Exempt' | translate}} * (%)</label>
-                                <input id="approach_fees_exempt" name="approachFeesExempt" class="form-control" 
+                                <input id="approach_fees_exempt" name="approachFeesExempt" class="form-control"
                                     ng-model="editable.approach_fees_exempt" type="number" max="100" min="0" step="1" required>
                                 </input>
                             </div>
@@ -147,6 +149,12 @@
                                 <input id="extended-hours" name="extendedHours" class="form-control" ng-model="editable.extended_hours"
                                     type="number" max="100" min="0" step="1" required>
                                 </input >
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="unified-tax">{{'Unified Tax Fees Exempt' | translate}} * (%)</label>
+                                <input id="unified-tax" name="unifiedTax" class="form-control" ng-model="editable.unified_tax"
+                                    type="number" max="100" min="0" step="1" required>
+                                </input>
                             </div>
                         </div>
                         <div class="row">

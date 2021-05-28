@@ -13,6 +13,7 @@ export interface IAccountExemptManagement {
   international_pax: number;
   domestic_pax: number;
   extended_hours: number;
+  unified_tax: number;
   flight_notes: string;
 }
 

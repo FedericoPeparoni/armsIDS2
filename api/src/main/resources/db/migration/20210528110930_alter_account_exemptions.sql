@@ -1,0 +1,1 @@
+ALTER TABLE account_exemptions ADD COLUMN unified_tax double precision NOT NULL DEFAULT 0;
