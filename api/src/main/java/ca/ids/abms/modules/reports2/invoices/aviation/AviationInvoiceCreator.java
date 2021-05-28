@@ -46,6 +46,7 @@ import ca.ids.abms.modules.utilities.invoices.InvoiceSequenceNumberHelper;
 import ca.ids.abms.plugins.kcaa.aatis.modules.permitnumber.KcaaAatisPermitNumber;
 import ca.ids.abms.util.LocaleUtils;
 import ca.ids.abms.util.MiscUtils;
+import com.google.common.util.concurrent.AtomicDouble;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -264,7 +265,7 @@ public class AviationInvoiceCreator {
 
             final boolean cashAccount = account.getCashAccount();
             // final boolean unifiedTaxAccount = account.getAccountType().getName().equals("Unified Tax");
-            
+
 
             // create billing ledger, non-rounded total amount required in invoiceData
             final BillingLedger billingLedger = do_createBillingLedger(account, invoiceData, accountFlights,
@@ -286,7 +287,7 @@ public class AviationInvoiceCreator {
 
             // Create PDF file
             final ReportDocument reportDocument = this.aviationInvoiceDocumentCreator.create(
-            		invoiceData, reportFormat, chargeSelection, 
+            		invoiceData, reportFormat, chargeSelection,
             		cashAccount, unifiedTaxInvoice, pointOfSale);
 
             // save PDF file in billing ledger
@@ -479,14 +480,19 @@ public class AviationInvoiceCreator {
 		}
 
         invoiceData.global.unifiedTaxTotalCharges= 0.0;
+        invoiceData.global.unifiedTaxTotalDiscountCharges= 0.0;
         invoiceData.aircraftInfoList = new ArrayList<>();
 
         if (aircraftRegistrationsToInvoiceByUnifiedTax != null) {
 
         	//invoiceData.global.unifiedTaxAircraftTotal = aircraftRegistrationsToInvoiceByUnifiedTax.size();
-            AtomicInteger countUnifiedTaxAircraftTotal = new AtomicInteger(0);
+            AtomicInteger countUnifiedTaxAircraftTotalWithoutDiscount = new AtomicInteger(0);
+            AtomicInteger countUnifiedTaxAircraftTotalWithDiscount = new AtomicInteger(0);
+            AtomicDouble countUnifiedTaxDiscount = new AtomicDouble(0);
 
-            UnifiedTaxProcess unifiedTaxProcess = new UnifiedTaxProcess(account, startDate, endDateInclusive, aviationInvoiceCurrency, billingInterval,countUnifiedTaxAircraftTotal, unifiedTaxService, currencyUtils, preview);
+            UnifiedTaxProcess unifiedTaxProcess = new UnifiedTaxProcess(account, startDate, endDateInclusive, aviationInvoiceCurrency, billingInterval,
+                countUnifiedTaxAircraftTotalWithoutDiscount, countUnifiedTaxAircraftTotalWithDiscount, countUnifiedTaxDiscount,
+                unifiedTaxService, currencyUtils, preview);
 
         	//totalAmount
         	for (final AircraftRegistration ar: aircraftRegistrationsToInvoiceByUnifiedTax) {
@@ -532,6 +538,7 @@ public class AviationInvoiceCreator {
 
                     invoiceData.aircraftInfoList.add(aircraftInfo);
 
+                    //Senza sconto
 	        		invoiceData.global.unifiedTaxTotalCharges += aircraftInfo.unifiedTaxCharges;
 	        	}
 	        	else {
@@ -539,7 +546,12 @@ public class AviationInvoiceCreator {
 	        		unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(account, ar, "Missing Aircraft Service Date"));
 	        	}
 	        }
-            invoiceData.global.unifiedTaxAircraftTotal = countUnifiedTaxAircraftTotal.get();
+
+
+            invoiceData.global.unifiedTaxAircraftTotal = countUnifiedTaxAircraftTotalWithoutDiscount.get() + countUnifiedTaxAircraftTotalWithDiscount.get();;
+            invoiceData.global.unifiedTaxDiscountAircraftTotal = countUnifiedTaxAircraftTotalWithDiscount.get();
+            invoiceData.global.unifiedTaxTotalDiscountCharges = countUnifiedTaxDiscount.get();
+
         }
 
         if (invoiceData.invoiceGenerationAllowed) {
@@ -682,7 +694,10 @@ public class AviationInvoiceCreator {
 
             // UNIFIED TAX amount summed to total charges
             invoiceData.global.unifiedTaxTotalChargesStr = reportHelper.formatCurrency(invoiceData.global.unifiedTaxTotalCharges, aviationInvoiceCurrency);
-            totalCharges += invoiceData.global.unifiedTaxTotalCharges;
+            invoiceData.global.unifiedTaxTotalDiscountChargesStr = reportHelper.formatCurrency(invoiceData.global.unifiedTaxTotalDiscountCharges, aviationInvoiceCurrency);
+
+            //unifiedtax - discount
+            totalCharges += invoiceData.global.unifiedTaxTotalCharges - invoiceData.global.unifiedTaxTotalDiscountCharges;
 
             invoiceData.global.enrouteCharges = totalEnrouteCharges;
             invoiceData.global.enrouteChargesStr = reportHelper.formatCurrency(invoiceData.global.enrouteCharges, aviationInvoiceCurrency);
@@ -1631,7 +1646,11 @@ public class AviationInvoiceCreator {
         private LocalDateTime endDateInclusive;
         private Currency aviationInvoiceCurrency;
         private BillingInterval billingInterval;
-        private AtomicInteger countAircraftRegistration;
+
+        private AtomicInteger countUnifiedTaxAircraftTotalWithoutDiscount;
+        private AtomicInteger countUnifiedTaxAircraftTotalWithDiscount;
+        private AtomicDouble countUnifiedTaxDiscount;
+
         private UnifiedTaxService unifiedTaxService;
         private boolean previewMode;
         private CachedCurrencyConverter aircraftRegisterCurrencyConverter;
@@ -1645,7 +1664,9 @@ public class AviationInvoiceCreator {
                                  final LocalDateTime endDateInclusive,
                                  final Currency aviationInvoiceCurrency,
                                  final BillingInterval billingInterval,
-                                 final AtomicInteger countAircraftRegistration,
+                                 final AtomicInteger countUnifiedTaxAircraftTotalWithoutDiscount,
+                                 final AtomicInteger countUnifiedTaxAircraftTotalWithDiscount,
+                                 final AtomicDouble countUnifiedTaxDiscount,
                                  final UnifiedTaxService unifiedTaxService,
                                  final CurrencyUtils currencyUtils,
                                  boolean previewMode){
@@ -1654,7 +1675,11 @@ public class AviationInvoiceCreator {
             this.endDateInclusive = endDateInclusive;
             this.aviationInvoiceCurrency = aviationInvoiceCurrency;
             this.billingInterval = billingInterval;
-            this.countAircraftRegistration = countAircraftRegistration;
+
+            this.countUnifiedTaxAircraftTotalWithoutDiscount = countUnifiedTaxAircraftTotalWithoutDiscount;
+            this.countUnifiedTaxAircraftTotalWithDiscount = countUnifiedTaxAircraftTotalWithDiscount;
+            this.countUnifiedTaxDiscount = countUnifiedTaxDiscount;
+
             this.unifiedTaxService = unifiedTaxService;
             this.previewMode = previewMode;
             this.currencyUtils = currencyUtils;
@@ -1716,36 +1741,53 @@ public class AviationInvoiceCreator {
 
                 if(ar.getAircraftScope()!=null && ar.getAircraftScope().equals(AircraftScope.FLIGHT_SCHOOL.toValue())){
                     final Double discount = systemConfigurationService.getDouble(SystemConfigurationItemName.UNIFIED_TAX_FLIGHT_SCHOOL_DISCOUNT, 0d);
-                    aircraftInfo.unifiedTaxCharges = aircraftInfo.unifiedTaxCharges - aircraftInfo.unifiedTaxCharges * discount / 100;
+                    aircraftInfo.unifiedTaxCharges = aircraftInfo.unifiedTaxCharges /*- aircraftInfo.unifiedTaxCharges * discount / 100*/;
+                    aircraftInfo.discountAmount = aircraftInfo.unifiedTaxCharges * discount / 100;
                     aircraftInfo.discountPercentage = discount;
+                    countUnifiedTaxDiscount.addAndGet(aircraftInfo.discountAmount);
+                    countUnifiedTaxAircraftTotalWithDiscount.incrementAndGet();
+
+                    aircraftInfo.discountAmountStr = reportHelper.formatCurrency(aircraftInfo.discountAmount, aviationInvoiceCurrency);
+                    aircraftInfo.discountPercentageStr = reportHelper.formatCurrency(aircraftInfo.discountPercentage, aviationInvoiceCurrency);
 
                 }else if(ar.getAircraftScope()!=null && ar.getAircraftScope().equals(AircraftScope.AGRICULTURE.toValue())){
                     final Double discount = systemConfigurationService.getDouble(SystemConfigurationItemName.UNIFIED_TAX_AGRICULTURAL_DISCOUNT, 0d);
-                    aircraftInfo.unifiedTaxCharges = aircraftInfo.unifiedTaxCharges - aircraftInfo.unifiedTaxCharges * discount / 100;
+                    aircraftInfo.unifiedTaxCharges = aircraftInfo.unifiedTaxCharges /*- aircraftInfo.unifiedTaxCharges * discount / 100*/;
+                    aircraftInfo.discountAmount = aircraftInfo.unifiedTaxCharges * discount / 100;
                     aircraftInfo.discountPercentage = discount;
+                    countUnifiedTaxDiscount.addAndGet(aircraftInfo.discountAmount);
+                    countUnifiedTaxAircraftTotalWithDiscount.incrementAndGet();
+
+                    aircraftInfo.discountAmountStr = reportHelper.formatCurrency(aircraftInfo.discountAmount, aviationInvoiceCurrency);
+                    aircraftInfo.discountPercentageStr = reportHelper.formatCurrency(aircraftInfo.discountPercentage, aviationInvoiceCurrency);
                 } else {
                     aircraftInfo.discountPercentage = 0d;
+                    aircraftInfo.discountAmount = 0d;
+                    countUnifiedTaxAircraftTotalWithoutDiscount.incrementAndGet();
+
+                    aircraftInfo.discountAmountStr = reportHelper.formatCurrency(aircraftInfo.discountAmount, aviationInvoiceCurrency);
+                    aircraftInfo.discountPercentageStr = reportHelper.formatCurrency(aircraftInfo.discountPercentage, aviationInvoiceCurrency);
                 }
 
-                countAircraftRegistration.incrementAndGet();
+
 
                 aircraftInfo.unifiedTaxCharges = zeroToNull(aircraftRegisterCurrencyConverter.convertCurrency(aircraftInfo.unifiedTaxCharges, anspCurrency, account.getInvoiceCurrency()));
 
                 if(previewMode == false){
                 	LocalDateTime coaIssueDate = ar.getCoaIssueDate();
                 	LocalDateTime coaExpireDate = ar.getCoaExpiryDate();
-                	
+
                 	LocalDateTime newCoaIssueDate = startDate;
                 	LocalDateTime newCoaExpiryeDate = endDateInclusive;
-                		
+
                 	if (coaIssueDate != null && endDateInclusive.getYear() == coaIssueDate.getYear() - 1) {
                 		newCoaExpiryeDate = coaExpireDate;
-                	} 
-                	
+                	}
+
                 	if (coaExpireDate != null && endDateInclusive.getYear() == coaExpireDate.getYear() + 1) {
                 		newCoaIssueDate = coaIssueDate;
-                	} 
-                	
+                	}
+
                     aircraftRegistrationService.updateAircraftRegistrationCOAByIdAndDates(
                         ar.getId(), newCoaIssueDate, newCoaExpiryeDate);
                 }
