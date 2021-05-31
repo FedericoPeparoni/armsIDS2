@@ -1069,7 +1069,7 @@ var dt3=Formatter.format(params["fromdate"], "yyyy-MM-dd");&#13;
                 </cell>
             </row>
         </grid>
-        <table id="1154">
+        <table name="Table User" id="1154">
             <property name="width">100%</property>
             <property name="dataSet">statement</property>
             <list-property name="boundDataColumns">
@@ -1315,7 +1315,7 @@ dataSetRow["amount"]&#13;
                 <property name="width">100%</property>
             </column>
             <group id="1354">
-                <property name="groupName">NewTableGroup1</property>
+                <property name="groupName">User Detail</property>
                 <expression name="keyExpr" type="javascript">row["account_name"]</expression>
                 <structure name="toc">
                     <expression name="expressionValue" type="javascript">row["account_name"]</expression>
@@ -1533,7 +1533,7 @@ dataSetRow["amount"]&#13;
                         <cell id="1552">
                             <property name="colSpan">9</property>
                             <property name="rowSpan">1</property>
-                            <table id="1562">
+                            <table name="Table Aircraft" id="1562">
                                 <property name="dataSet">aircraft</property>
                                 <list-property name="paramBindings">
                                     <structure>
