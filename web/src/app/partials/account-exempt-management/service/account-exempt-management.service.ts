@@ -24,6 +24,7 @@ export class AccountExemptManagementService extends CRUDService {
     international_pax: 0,
     domestic_pax: 0,
     extended_hours: 0,
+    unified_tax: 0,
     flight_notes: null
   };
 

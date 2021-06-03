@@ -60,8 +60,14 @@ public class AircraftFlightsExemptionViewModel extends VersionedViewModel {
     @Max(100)
     @Min(0)
     private Double extendedHours;
-
+    
     @NotNull
+    @Max(100)
+    @Min(0)
+    private Double unifiedTax;
+
+
+	@NotNull
     private String flightNotes;
 
     @NotNull
@@ -181,6 +187,14 @@ public class AircraftFlightsExemptionViewModel extends VersionedViewModel {
     public void setExemptionEndDate(LocalDateTime exemptionEndDate) {
         this.exemptionEndDate = exemptionEndDate;
     }
+    
+    public Double getUnifiedTax() {
+		return unifiedTax;
+	}
+
+	public void setUnifiedTax(Double unifiedTax) {
+		this.unifiedTax = unifiedTax;
+	}
 
     public Double getExtendedHours() {
         return extendedHours;

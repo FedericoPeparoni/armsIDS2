@@ -22,6 +22,7 @@ export class AircraftFlightsExemptionsService extends CRUDService {
   parking_fees_exempt: 0,
   international_pax: 0,
   domestic_pax: 0,
+  unified_tax: 0,
   extended_hours: 0,
   flight_notes: null,
   exemption_start_date: null,

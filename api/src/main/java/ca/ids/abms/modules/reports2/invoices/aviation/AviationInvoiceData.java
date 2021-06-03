@@ -239,10 +239,18 @@ public class AviationInvoiceData {
         public @XmlElement(nillable = true) Integer overflightTotalFlights;
 
         // Unified Tax category
+        //public @XmlElement(nillable = true) String unifiedTaxChargesStr;
+        // Senza sconto
+        public @XmlElement(nillable = true) Integer unifiedTaxAircraftTotal;
+        // Senza sconto
         public @XmlElement(nillable = true) Double unifiedTaxTotalCharges;
         public @XmlElement(nillable = true) String unifiedTaxTotalChargesStr;
-        //public @XmlElement(nillable = true) String unifiedTaxChargesStr;
-        public @XmlElement(nillable = true) Integer unifiedTaxAircraftTotal;
+        //Con sconto
+        public @XmlElement(nillable = true) Integer unifiedTaxDiscountAircraftTotal;
+        public @XmlElement(nillable = true) Double unifiedTaxTotalDiscountCharges;
+        public @XmlElement(nillable = true) String unifiedTaxTotalDiscountChargesStr;
+
+
 
 
         // FIXME: these should be a booleans, also in all BIRT templates & XML files
@@ -412,6 +420,11 @@ public class AviationInvoiceData {
         public @XmlElement String manufactureYearStr;
 
         public @XmlElement Double discountPercentage;
+        public @XmlElement Double discountAmount;
+        public @XmlElement String discountPercentageStr;
+        public @XmlElement String discountAmountStr;
+        public @XmlElement String discountPercentageStrSpanish;
+        public @XmlElement String discountAmountStrSpanish;
     }
 
     @XmlElementWrapper

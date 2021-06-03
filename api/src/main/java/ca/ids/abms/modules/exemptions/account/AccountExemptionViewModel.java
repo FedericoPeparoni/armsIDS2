@@ -60,8 +60,14 @@ public class AccountExemptionViewModel extends VersionedViewModel {
     @Max(100)
     @Min(0)
     private Double extendedHours;
+    
+    @NotNull
+    @Max(100)
+    @Min(0)
+    private Double unifiedTax;
 
-    @Size(max = 255)
+
+	@Size(max = 255)
     private String flightNotes;
 
     public Integer getId() {
@@ -159,6 +165,14 @@ public class AccountExemptionViewModel extends VersionedViewModel {
     public void setExtendedHours(Double extendedHours) {
         this.extendedHours = extendedHours;
     }
+    
+    public Double getUnifiedTax() {
+		return unifiedTax;
+	}
+
+	public void setUnifiedTax(Double unifiedTax) {
+		this.unifiedTax = unifiedTax;
+	}
 
     public String getFlightNotes() {
         return flightNotes;

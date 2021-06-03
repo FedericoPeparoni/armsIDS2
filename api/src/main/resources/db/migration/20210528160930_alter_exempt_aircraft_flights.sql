@@ -1,0 +1,1 @@
+ALTER TABLE exempt_aircraft_flights ADD COLUMN unified_tax double precision NOT NULL DEFAULT 0;

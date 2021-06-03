@@ -72,8 +72,15 @@ public class AccountExemption extends VersionedAuditedEntity implements Exemptio
     @Max(100)
     @Min(0)
     private Double extendedHours;
+    
+    @NotNull
+    @Max(100)
+    @Min(0)
+    private Double unifiedTax;
 
-    @Size(max = 255)
+ 
+
+	@Size(max = 255)
     @SearchableText
     @NotNull
     private String flightNotes;
@@ -165,6 +172,14 @@ public class AccountExemption extends VersionedAuditedEntity implements Exemptio
     public void setExtendedHours(Double extendedHours) {
         this.extendedHours = extendedHours;
     }
+    
+    public Double getUnifiedTax() {
+ 		return unifiedTax;
+ 	}
+
+ 	public void setUnifiedTax(Double unifiedTax) {
+ 		this.unifiedTax = unifiedTax;
+ 	}
 
     public String getFlightNotes() {
         return flightNotes;

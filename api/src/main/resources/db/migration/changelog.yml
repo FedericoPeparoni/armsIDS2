@@ -2458,8 +2458,14 @@ databaseChangeLog:
         author: Federico Peparoni
         file: 20210511210930_alter_charges_adjustements.sql
         relativeToChangelogFile: true
-
-
+    - include:
+        author: Federico Peparoni
+        file: 20210528110930_alter_account_exemptions.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Federico Peparoni
+        file: 20210528160930_alter_exempt_aircraft_flights.sql
+        relativeToChangelogFile: true
 
 
       
