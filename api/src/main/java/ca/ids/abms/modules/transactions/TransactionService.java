@@ -9,6 +9,7 @@ import ca.ids.abms.config.db.FiltersSpecification;
 import ca.ids.abms.config.db.JoinFilter;
 import ca.ids.abms.config.error.*;
 import ca.ids.abms.modules.accounts.AccountService;
+import ca.ids.abms.modules.aircraft.AircraftRegistration;
 import ca.ids.abms.modules.bankcode.BankCodeService;
 import ca.ids.abms.modules.billingcenters.BillingCenter;
 import ca.ids.abms.modules.billings.*;
@@ -63,6 +64,7 @@ import ca.ids.abms.modules.reports2.transaction.TransactionReceiptCreator;
 import ca.ids.abms.modules.system.SystemConfigurationService;
 import ca.ids.abms.modules.system.summary.SystemConfigurationItemName;
 import ca.ids.abms.modules.translation.Translation;
+import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxChargesService;
 import ca.ids.abms.modules.util.models.Calculation;
 import ca.ids.abms.modules.util.models.Calculation.MathOperator;
 import ca.ids.abms.modules.util.models.CurrencyUtils;
@@ -116,6 +118,7 @@ public class TransactionService extends AbstractPluginService<TransactionService
     private final WhitelistingUtils whitelistingUtils;
     private final FlightMovementBuilder flightMovementBuilder;
     private final FlightMovementRepositoryUtility flightMovementRepositoryUtility;
+    private final UnifiedTaxChargesService unifiedTaxChargesService;
 
     @SuppressWarnings("squid:S00107") // Methods should not have too many parameters
     public TransactionService(
@@ -147,7 +150,8 @@ public class TransactionService extends AbstractPluginService<TransactionService
         final InterestRateService interestRateService,
         final WhitelistingUtils whitelistingUtils,
         final FlightMovementBuilder flightMovementBuilder,
-        final FlightMovementRepositoryUtility flightMovementRepositoryUtility) {
+        final FlightMovementRepositoryUtility flightMovementRepositoryUtility,
+        final UnifiedTaxChargesService unifiedTaxChargesService) {
 
         this.transactionRepository = transactionRepository;
         this.transactionTypeRepository = transactionTypeRepository;
@@ -178,6 +182,7 @@ public class TransactionService extends AbstractPluginService<TransactionService
         this.whitelistingUtils = whitelistingUtils;
         this.flightMovementBuilder = flightMovementBuilder;
         this.flightMovementRepositoryUtility = flightMovementRepositoryUtility;
+        this.unifiedTaxChargesService= unifiedTaxChargesService;
     }
 
     @Transactional(readOnly = true)
@@ -540,6 +545,7 @@ public class TransactionService extends AbstractPluginService<TransactionService
 
                         //totalAmountLeft - billingLedgerPayment
                         totalAmountLeft = Calculation.operation(totalAmountLeft, billingLedgerPayment, MathOperator.SUBTRACT, currency);
+                        //totalAmountLeft = totalAmountLeft - billingLedgerPayment;
 
                     } else {
                         // use all total amount left to do a partial payment of the invoice
@@ -1468,6 +1474,31 @@ public class TransactionService extends AbstractPluginService<TransactionService
             newInvoiceCreator().createTransactionCreditNote(resultTransaction, transaction.getChargesAdjustment(),
                 transaction.getBillingLedgerIds());
 
+            // EANA 1.5.3 SAT issue:  
+            // When voiding a unified Tax Invoice with a Credit Note 
+            // (No other payments against the invoice, just the Credit Note for the total amount) 
+            // the dates of the CoA needs to be null            
+            if (billingLedgersPaymentAmounts.size() == 1) {
+            	
+            	Iterator<Map.Entry<Integer, Double>> iterator = billingLedgersPaymentAmounts.entrySet().iterator();
+            	Map.Entry<Integer, Double> billingLedgerPaymentAmount = iterator.next();
+            	
+            	BillingLedger bl = billingLedgerService.findOne(billingLedgerPaymentAmount.getKey());
+            	if (bl != null) {
+            		if (bl.getInvoiceType().equals(InvoiceType.UNIFIED_TAX.toValue())) {
+            			if (bl.getInvoiceAmount() == -billingLedgerPaymentAmount.getValue()) {
+            				List<AircraftRegistration> aircraftRegistrations = 
+            						unifiedTaxChargesService.getAircraftRegistrationsByBillingLedgerId(bl.getId());
+            				
+            				for (AircraftRegistration ar : aircraftRegistrations) {
+            					ar.setCoaIssueDate(null);
+            					ar.setCoaExpiryDate(null);
+            				}
+            			}
+            		} 
+            	}            	
+            }
+            
             // broadcast created note created event
             creditNoteCreated(resultTransaction);
 
@@ -1488,6 +1519,7 @@ public class TransactionService extends AbstractPluginService<TransactionService
         Transaction resultTransaction;
         validateTransactionInputData(transaction, false);
 
+        // billingLedgersPaymentAmounts are in the transaction currency
         final HashMap<Integer,Double> billingLedgersPaymentAmounts = doCalculateAmountForTransactionPayments(transaction);
 
         //validate if account credit can be created by credit transaction
@@ -1637,9 +1669,14 @@ public class TransactionService extends AbstractPluginService<TransactionService
         // resolve transaction amounts so they contain appropriate decimal places for defined currency
         transaction.setPaymentAmount(Calculation.truncate(transaction.getPaymentAmount(),
             transactionPaymentCurrency.getDecimalPlaces() != null ? transactionPaymentCurrency.getDecimalPlaces() : 2));
+
+/*        
         transaction.setAmount(Calculation.truncate(transaction.getAmount(),
             transactionCurrency.getDecimalPlaces() != null ? transactionCurrency.getDecimalPlaces() : 2));
-
+*/
+        Double transactionAmount = Calculation.truncate(transaction.getAmount(),
+                transactionCurrency.getDecimalPlaces() != null ? transactionCurrency.getDecimalPlaces() : 2);
+        
         // calculate transaction amounts using exchange amount service (same method used by front-end)
         // truncate to currency decimal places for even comparison
         final Double localAmount = currencyExchangeRateService.getExchangeAmount(exchangeRate, transaction.getPaymentAmount(),
@@ -1649,7 +1686,7 @@ public class TransactionService extends AbstractPluginService<TransactionService
 
         // validate if both calculated amounts differ from supplied amount
         // only need one to match for validation
-        if (!transaction.getAmount().equals(localAmount) && !transaction.getPaymentAmount().equals(paymentAmount))
+        if (/*!transaction.getAmount().equals(localAmount) */ !transactionAmount.equals(localAmount) && !transaction.getPaymentAmount().equals(paymentAmount))
             throw new CustomParametrizedException(String.format(
                 "The system has calculated that the local amount should be" +
                 " %s " + INSTEAD_OF + " %s " +
