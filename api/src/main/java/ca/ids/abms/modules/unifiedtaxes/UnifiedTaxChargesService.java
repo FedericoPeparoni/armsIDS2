@@ -1,5 +1,6 @@
 package ca.ids.abms.modules.unifiedtaxes;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.ids.abms.modules.aircraft.AircraftRegistration;
+import ca.ids.abms.modules.billings.BillingLedger;
 import ca.ids.abms.modules.common.services.AbmsCrudService;
 
 @Service
@@ -44,10 +46,9 @@ public class UnifiedTaxChargesService  {
 	}	
     
     
-    
-    
-    
-    
-    
-    
+    @Transactional(readOnly = true)
+	public List<BillingLedger> getBillingLedgerByRegistrationNumberAndDate(String registrationNumber, LocalDateTime date) {
+		return unifiedTaxChargesRepository.getBillingLedgerByRegistrationNumberAndDate(registrationNumber, date);
+	}	
+   
 }

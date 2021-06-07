@@ -1358,7 +1358,10 @@ public class AviationInvoiceCreator {
 
             	UnifiedTaxCharges charge = new UnifiedTaxCharges();
             	charge.setAmount(aircraftInfo.unifiedTaxCharges);
-            	charge.setPercentage(aircraftInfo.discountPercentage);
+            	charge.setDiscountPercentage(aircraftInfo.discountPercentage);
+            	charge.setStartDate(startDate);
+            	charge.setEndDate(endDateInclusive);
+            	
             	String registrationNumber = aircraftInfo.registrationNumber;
             	AircraftRegistration ar = aircraftRegistrationService.findAircraftRegistrationByRegistrationNumber(registrationNumber, null);
             	charge.setAircraftRegistration(ar);

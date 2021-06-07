@@ -2466,6 +2466,10 @@ databaseChangeLog:
         author: Federico Peparoni
         file: 20210528160930_alter_exempt_aircraft_flights.sql
         relativeToChangelogFile: true
+    - include:
+        author: Antonio Monteleone
+        file: 20210606180000_alter_unified_tax_charges.sql
+        relativeToChangelogFile: true
 
 
       
