@@ -34,6 +34,7 @@ import ca.ids.abms.modules.aerodromes.Aerodrome;
 import ca.ids.abms.modules.aerodromes.AerodromeCategory;
 import ca.ids.abms.modules.aircraft.AircraftRegistration;
 import ca.ids.abms.modules.aircraft.AircraftRegistrationService;
+import ca.ids.abms.modules.billings.BillingLedger;
 import ca.ids.abms.modules.countries.Country;
 import ca.ids.abms.modules.countries.CountryService;
 import ca.ids.abms.modules.countries.RegionalCountryService;
@@ -65,6 +66,7 @@ import ca.ids.abms.modules.spatiareader.dto.FplObjectDto;
 import ca.ids.abms.modules.system.SystemConfiguration;
 import ca.ids.abms.modules.system.SystemConfigurationService;
 import ca.ids.abms.modules.system.summary.SystemConfigurationItemName;
+import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxChargesService;
 import ca.ids.abms.modules.unspecified.UnspecifiedDepartureDestinationLocation;
 import ca.ids.abms.modules.util.models.ApplicationConstants;
 import ca.ids.abms.modules.util.models.CurrencyUtils;
@@ -99,6 +101,8 @@ public class FlightMovementValidator {
     private final AverageMtowFactorService averageMtowFactorService;
 
     private final FlightmovementCategoryService flightmovementCategoryService;
+    
+    private final UnifiedTaxChargesService unifiedTaxChargesService;
 
     @SuppressWarnings("squid:S00107")
     public FlightMovementValidator(
@@ -113,7 +117,8 @@ public class FlightMovementValidator {
         final KCAAFlightUtility kcaaFlightUtility,
         final EnrouteAirNavigationChargeFormulaService enrouteAirNavigationChargeFormulaService,
         final AverageMtowFactorService averageMtowFactorService,
-        final FlightmovementCategoryService flightmovementCategoryService
+        final FlightmovementCategoryService flightmovementCategoryService,
+        final UnifiedTaxChargesService unifiedTaxChargesService
     ) {
         this.systemConfigurationService = systemConfigurationService;
         this.flightMovementAerodromeService = flightMovementAerodromeService;
@@ -127,6 +132,7 @@ public class FlightMovementValidator {
         this.enrouteAirNavigationChargeFormulaService = enrouteAirNavigationChargeFormulaService;
         this.averageMtowFactorService = averageMtowFactorService;
         this.flightmovementCategoryService = flightmovementCategoryService;
+        this.unifiedTaxChargesService = unifiedTaxChargesService;
     }
 
     /**
@@ -384,8 +390,21 @@ public class FlightMovementValidator {
             flightMovementValidationViewModel.setStatus(FlightMovementStatus.INCOMPLETE);
         }
         else {
-        	if (isUnifiedtaxFlightMovement && isUnifiedtaxFlightMovementInvoiced)
+        	if (isUnifiedtaxFlightMovement && isUnifiedtaxFlightMovementInvoiced) {
         		flightMovementValidationViewModel.setStatus(FlightMovementStatus.INVOICED);
+        		
+        		final String aircraftRegNum = flightMovement.getItem18RegNum();
+      		  	if (aircraftRegNum != null) {
+      		  		List<BillingLedger> billingLedgers = unifiedTaxChargesService.getBillingLedgerByRegistrationNumberAndDate(
+        				aircraftRegNum, flightMovement.getDateOfFlight());
+      		  		
+      		  		if (!billingLedgers.isEmpty()) {
+	      		  		flightMovement.setEnrouteInvoiceId(billingLedgers.get(0).getId());
+	      		  		flightMovement.setPassengerInvoiceId(billingLedgers.get(0).getId());
+	      		  		flightMovement.setOtherInvoiceId(billingLedgers.get(0).getId());
+      		  		}
+      		  	}
+        	}
         	else
         		flightMovementValidationViewModel.setStatus(FlightMovementStatus.PENDING);
         }
