@@ -362,6 +362,12 @@ where
                     <text-property name="displayName">billing_centers_name</text-property>
                     <text-property name="heading">billing_centers_name</text-property>
                 </structure>
+                <structure>
+                    <property name="columnName">billing_invoice_number</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">billing_invoice_number</text-property>
+                    <text-property name="heading">billing_invoice_number</text-property>
+                </structure>
             </list-property>
             <list-property name="parameters">
                 <structure>
@@ -502,6 +508,11 @@ where
                         <property name="name">billing_centers_name</property>
                         <property name="dataType">string</property>
                     </structure>
+                    <structure>
+                        <property name="position">20</property>
+                        <property name="name">billing_invoice_number</property>
+                        <property name="dataType">string</property>
+                    </structure>
                 </list-property>
             </structure>
             <property name="dataSource">Data Source</property>
@@ -639,6 +650,13 @@ where
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
+                <structure>
+                    <property name="position">20</property>
+                    <property name="name">billing_invoice_number</property>
+                    <property name="nativeName">billing_invoice_number</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
             </list-property>
             <xml-property name="queryText"><![CDATA[SELECT a.id                               AS account_id,
        a.NAME                             AS account_name,
@@ -660,7 +678,8 @@ where
        x.transaction_date_time 			  AS transaction_date_time,
        x.exchange_rate_to_usd			  AS exchange_rate_to_usd,
        x.invoice_type                     AS billing_ledgers_invoice_type,
-       x.billing_centers_name           AS billing_centers_name
+       x.billing_centers_name           AS billing_centers_name,
+       x.billing_invoice_number           AS billing_invoice_number
 FROM   accounts a
        LEFT OUTER JOIN (
        SELECT DISTINCT a.id                    		AS account_id,
@@ -683,7 +702,8 @@ FROM   accounts a
                         t.exchange_rate		 		AS exchange_rate_to_usd,
                         tt.NAME                 	AS transaction_type,
                         t.invoice_type              AS invoice_type,
-                        t.billing_centers_name      AS billing_centers_name
+                        t.billing_centers_name      AS billing_centers_name,
+                        t.billing_invoice_number      AS billing_invoice_number
                         FROM   abms.accounts a
                                CROSS JOIN abms.currencies c
                                LEFT OUTER JOIN (SELECT t.id,
@@ -709,12 +729,12 @@ FROM   accounts a
 
 SELECT *
   FROM (
-SELECT t.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.balance, bl.invoice_type, t.payment_mechanism, t.payment_reference_number, t.currency_id, t.transaction_type_id, t.id, t.description, t.exchange_rate,  be.name  AS billing_centers_name
+SELECT t.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.balance, bl.invoice_type, t.payment_mechanism, t.payment_reference_number, t.currency_id, t.transaction_type_id, t.id, t.description, t.exchange_rate,  be.name  AS billing_centers_name, bl.invoice_number AS billing_invoice_number
 FROM   abms.transactions t
 INNER JOIN abms.billing_ledgers bl ON bl.invoice_number = t.payment_reference_number
 INNER JOIN abms.billing_centers be ON bl.billing_center_id = be.id
 UNION
-SELECT  bl.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.balance, bl.invoice_type, t.payment_mechanism, t.payment_reference_number, t.currency_id, t.transaction_type_id, t.id, t.description, t.exchange_rate, be.name  AS billing_centers_name
+SELECT  bl.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.balance, bl.invoice_type, t.payment_mechanism, t.payment_reference_number, t.currency_id, t.transaction_type_id, t.id, t.description, t.exchange_rate, be.name  AS billing_centers_name, bl.invoice_number AS billing_invoice_number
 FROM abms.billing_ledgers bl
 INNER JOIN abms.transaction_payments tp ON bl.id = tp.billing_ledger_id
 INNER JOIN abms.transactions t ON tp.transaction_id = t.id
@@ -727,7 +747,7 @@ INNER JOIN abms.billing_centers be ON bl.billing_center_id = be.id
                              ) AS T
                                             ON a.id = t.account_id
                                                AND T.currency_id = c.id AND
-                                               ((T.invoice_type='unified-tax' AND T.payment_mechanism = 'invoice' ) OR  (T.payment_mechanism = 'adjustment' OR  T.payment_mechanism = 'cash' ))
+                                               ((T.invoice_type='unified-tax' AND T.payment_mechanism = 'invoice' ) OR  (T.invoice_type!='unified-tax'))
 
                                LEFT OUTER JOIN abms.transaction_types tt
                                             ON tt.id = T.transaction_type_id
@@ -1063,7 +1083,7 @@ var dt2=Formatter.format(params["todate"], "yyyy-MM-dd");&#13;
 var dt3=Formatter.format(params["fromdate"], "yyyy-MM-dd");&#13;
 "Creado el: "  + dt1 +  "&lt;br>" +&#13;
 "Desde de: " + dt3 +  "&lt;br>" +&#13;
-"Al: " + dt2</expression>
+"Al Hasta: " + dt2</expression>
                         <property name="contentType">html</property>
                     </text-data>
                 </cell>
@@ -1286,6 +1306,13 @@ dataSetRow["amount"]&#13;
                     <property name="dataType">string</property>
                     <property name="allowExport">true</property>
                 </structure>
+                <structure>
+                    <property name="name">billing_invoice_number</property>
+                    <text-property name="displayName">billing_invoice_number</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["billing_invoice_number"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
             </list-property>
             <column id="1167">
                 <property name="width">100%</property>
@@ -1303,6 +1330,9 @@ dataSetRow["amount"]&#13;
                 <property name="width">100%</property>
             </column>
             <column id="1494">
+                <property name="width">80%</property>
+            </column>
+            <column id="1703">
                 <property name="width">80%</property>
             </column>
             <column id="1205">
@@ -1383,6 +1413,7 @@ dataSetRow["amount"]&#13;
                         <cell id="1401"/>
                         <cell id="1402"/>
                         <cell id="1485"/>
+                        <cell id="1689"/>
                         <cell id="1403"/>
                         <cell id="1404"/>
                         <cell id="1405"/>
@@ -1410,6 +1441,7 @@ dataSetRow["amount"]&#13;
                         <cell id="1358"/>
                         <cell id="1359"/>
                         <cell id="1486"/>
+                        <cell id="1690"/>
                         <cell id="1360"/>
                         <cell id="1361"/>
                         <cell id="1362"/>
@@ -1479,6 +1511,7 @@ dataSetRow["amount"]&#13;
                         <cell id="1660"/>
                         <cell id="1661"/>
                         <cell id="1662"/>
+                        <cell id="1691"/>
                         <cell id="1663"/>
                         <cell id="1664"/>
                         <cell id="1665"/>
@@ -1500,6 +1533,7 @@ dataSetRow["amount"]&#13;
                         <cell id="1670"/>
                         <cell id="1671"/>
                         <cell id="1672"/>
+                        <cell id="1692"/>
                         <cell id="1673"/>
                         <cell id="1674"/>
                         <cell id="1675"/>
@@ -1521,6 +1555,7 @@ dataSetRow["amount"]&#13;
                         <cell id="1680"/>
                         <cell id="1681"/>
                         <cell id="1682"/>
+                        <cell id="1693"/>
                         <cell id="1683"/>
                         <cell id="1684"/>
                         <cell id="1685"/>
@@ -1531,7 +1566,7 @@ dataSetRow["amount"]&#13;
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">medium</property>
                         <cell id="1552">
-                            <property name="colSpan">9</property>
+                            <property name="colSpan">10</property>
                             <property name="rowSpan">1</property>
                             <table name="Table Aircraft" id="1562">
                                 <property name="dataSet">aircraft</property>
@@ -1741,6 +1776,7 @@ dataSetRow["amount"]&#13;
                         <cell id="1631"/>
                         <cell id="1632"/>
                         <cell id="1633"/>
+                        <cell id="1695"/>
                         <cell id="1634"/>
                         <cell id="1635"/>
                         <cell id="1636"/>
@@ -1793,6 +1829,13 @@ dataSetRow["amount"]&#13;
                                 <text-property name="content"><![CDATA[Moneda]]></text-property>
                             </text>
                         </cell>
+                        <cell id="1696">
+                            <text id="1704">
+                                <property name="fontWeight">bold</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Fect. Ref]]></text-property>
+                            </text>
+                        </cell>
                         <cell id="1378">
                             <text id="1498">
                                 <property name="fontWeight">bold</property>
@@ -1842,6 +1885,7 @@ dataSetRow["amount"]&#13;
                                 <property name="resultSetColumn">symbol</property>
                             </data>
                         </cell>
+                        <cell id="1697"/>
                         <cell id="1532"/>
                         <cell id="1533"/>
                         <cell id="1534"/>
@@ -1855,6 +1899,7 @@ dataSetRow["amount"]&#13;
                         <cell id="1539"/>
                         <cell id="1540"/>
                         <cell id="1541"/>
+                        <cell id="1701"/>
                         <cell id="1542"/>
                         <cell id="1543"/>
                         <cell id="1544"/>
@@ -1941,6 +1986,7 @@ dataSetRow["amount"]&#13;
                                 <property name="resultSetColumn">symbol1</property>
                             </data>
                         </cell>
+                        <cell id="1698"/>
                         <cell id="1506"/>
                         <cell id="1507"/>
                         <cell id="1508">
@@ -1971,6 +2017,7 @@ dataSetRow["amount"]&#13;
                         <cell id="1513"/>
                         <cell id="1514"/>
                         <cell id="1515"/>
+                        <cell id="1700"/>
                         <cell id="1516"/>
                         <cell id="1517"/>
                         <cell id="1518"/>
@@ -2067,6 +2114,11 @@ dataSetRow["amount"]&#13;
                             <property name="resultSetColumn">symbol1</property>
                         </data>
                     </cell>
+                    <cell id="1699">
+                        <data id="1705">
+                            <property name="resultSetColumn">billing_invoice_number</property>
+                        </data>
+                    </cell>
                     <cell id="1202">
                         <data id="1234">
                             <structure name="numberFormat">
@@ -2113,6 +2165,7 @@ dataSetRow["amount"]&#13;
                     <cell id="1197"/>
                     <cell id="1221"/>
                     <cell id="1493"/>
+                    <cell id="1702"/>
                     <cell id="1204"/>
                     <cell id="1211"/>
                     <cell id="1166"/>
