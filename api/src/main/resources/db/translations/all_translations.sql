@@ -50684,7 +50684,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Coa Issue Date",
-    "val": "CoA Fecha de Caducidad",
+    "val": "CoA Fecha de Inicio",
     "part": "frontend",
     "created_by": "system"
   },
@@ -53405,16 +53405,16 @@ select add_languages_by_json('[
     "part": "frontend"
   },
   {
-    "token": "Local",
+    "token": "Consider Foreign as Local",
     "code": "en",
-    "val": "Local",
+    "val": "Consider Foreign as Local",
     "created_by": "system",
     "part": "frontend"
   },
   {
-    "token": "Local",
+    "token": "Consider Foreign as Local",
     "code": "es",
-    "val": "Local",
+    "val": "Considere al Extranjero como Local",
     "created_by": "system",
     "part": "frontend"
   },

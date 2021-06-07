@@ -30,6 +30,7 @@ public class CustomParametrizedException extends RuntimeException implements Cus
 
     private List<FieldErrorDTO> fields = null;
 
+
     private ErrorVariables errorMessageVariables;
     private ErrorVariables detailMessageVariables;
 
@@ -54,6 +55,12 @@ public class CustomParametrizedException extends RuntimeException implements Cus
     public CustomParametrizedException(ErrorConstants message, Throwable cause, String... params) {
         super(message.toValue(), cause);
         this.params = params;
+        this.errorDescription = cause.getLocalizedMessage();
+    }
+    public CustomParametrizedException(ErrorConstants message, Throwable cause,ErrorVariables errorVariables  ) {
+        super(message.toValue(), cause);
+        this.params = null;
+        this.detailMessageVariables = errorVariables;
         this.errorDescription = cause.getLocalizedMessage();
     }
 
@@ -90,7 +97,7 @@ public class CustomParametrizedException extends RuntimeException implements Cus
         this.errorDescription = description.toValue() + " : " + flight;
     }
 
-    
+
     public CustomParametrizedException(String value, Exception exception) {
         super(value, exception);
         this.errorDescription = value + exception.getLocalizedMessage();
@@ -220,5 +227,6 @@ public class CustomParametrizedException extends RuntimeException implements Cus
 
         return errorBuilder.translate().build();
     }
+
 
 }

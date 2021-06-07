@@ -4,6 +4,7 @@ import ca.ids.abms.config.db.FiltersSpecification;
 import ca.ids.abms.config.error.CustomParametrizedException;
 import ca.ids.abms.config.error.ErrorConstants;
 import ca.ids.abms.config.error.ErrorDTO;
+import ca.ids.abms.config.error.ErrorVariables;
 import ca.ids.abms.config.error.ExceptionFactory;
 import ca.ids.abms.modules.accounts.Account;
 import ca.ids.abms.modules.accounts.AccountRepository;
@@ -115,7 +116,7 @@ public class AircraftRegistrationService {
         }
         return ar;
     }
-    
+
     @Transactional(readOnly = true)
     public AircraftRegistration findAircraftRegistrationByRegNumber(String registrationNumber) {
         AircraftRegistration ar = null;
@@ -243,7 +244,8 @@ public class AircraftRegistrationService {
             if (overlaps != null && !overlaps.isEmpty()) {
                 LOG.debug("Bad request: overlapped dates for aircraft registration number : {}", atReNum);
                 throw new CustomParametrizedException(ErrorConstants.ERR_UNIQUENESS_VIOLATION,
-                    new Exception("Overlapped dates for aircraft registration number: " + atReNum));
+                    new Exception("Overlapped dates for aircraft registration number: {{RegistrationNumber}}"), new ErrorVariables(){{
+                        addEntry("RegistrationNumber", atReNum);}});
             }
         } else {
             LOG.debug("Bad request: expiring date is overlapped starting date");
