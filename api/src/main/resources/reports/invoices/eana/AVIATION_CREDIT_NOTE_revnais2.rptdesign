@@ -991,7 +991,6 @@
                         <property name="position">8</property>
                         <property name="name">chargeDescriptionSpanish</property>
                         <property name="dataType">string</property>
-                        <property name="nativeDataType">12</property>
                     </structure>
                     <structure>
                         <property name="position">9</property>
