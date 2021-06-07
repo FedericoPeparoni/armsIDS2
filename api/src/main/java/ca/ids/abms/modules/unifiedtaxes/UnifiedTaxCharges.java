@@ -38,7 +38,13 @@ public class UnifiedTaxCharges extends VersionedAuditedEntity {
 
 	@Column(name = "percentage")
     private double percentage;
+	
+	@Column(name = "start_date")
+    private LocalDateTime startDate;
 
+	@Column(name = "end_date")
+    private LocalDateTime endDate;
+	
 	 @ManyToOne
 	    @JoinColumn(name = "aircraft_registration_id")
 	private AircraftRegistration aircraftRegistration;
@@ -63,14 +69,30 @@ public class UnifiedTaxCharges extends VersionedAuditedEntity {
 		this.amount = amount;
 	}
 
-	public double getPercentage() {
+	public LocalDateTime getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(LocalDateTime startDate) {
+		this.startDate = startDate;
+	}
+
+	public LocalDateTime getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(LocalDateTime endDate) {
+		this.endDate = endDate;
+	}
+	
+	public double getDiscountPercentage() {
 		return percentage;
 	}
 
-	public void setPercentage(double percentage) {
+	public void setDiscountPercentage(double percentage) {
 		this.percentage = percentage;
 	}
-
+	
 	public AircraftRegistration getAircraftRegistration() {
 		return aircraftRegistration;
 	}

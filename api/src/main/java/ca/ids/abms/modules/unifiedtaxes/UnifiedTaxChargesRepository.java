@@ -1,5 +1,6 @@
 package ca.ids.abms.modules.unifiedtaxes;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -15,6 +16,9 @@ public interface UnifiedTaxChargesRepository extends ABMSRepository<UnifiedTaxCh
 	
     @Query("SELECT ar FROM UnifiedTaxCharges utc INNER JOIN utc.aircraftRegistration ar INNER JOIN utc.billingLedger bl WHERE bl.id = :billingLedgerId")
     List<AircraftRegistration> getAircraftRegistrationsByBillingLedgerId(@Param("billingLedgerId") Integer billingLedgerId); 
+
+    @Query("SELECT bl FROM UnifiedTaxCharges utc INNER JOIN utc.aircraftRegistration ar INNER JOIN utc.billingLedger bl WHERE ar.registrationNumber = :registrationNumber AND utc.startDate >= :date AND :date <= utc.endDate")     
+    List<BillingLedger> getBillingLedgerByRegistrationNumberAndDate(@Param("registrationNumber") String registrationNumber, @Param("date") LocalDateTime date);
 }
 
 

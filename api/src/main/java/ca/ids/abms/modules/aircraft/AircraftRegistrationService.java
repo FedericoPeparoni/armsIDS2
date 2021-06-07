@@ -8,6 +8,9 @@ import ca.ids.abms.config.error.ExceptionFactory;
 import ca.ids.abms.modules.accounts.Account;
 import ca.ids.abms.modules.accounts.AccountRepository;
 import ca.ids.abms.modules.countries.Country;
+import ca.ids.abms.modules.countries.CountryService;
+import ca.ids.abms.modules.system.SystemConfigurationService;
+import ca.ids.abms.modules.system.summary.SystemConfigurationItemName;
 import ca.ids.abms.modules.util.models.ModelUtils;
 import ca.ids.abms.util.StringUtils;
 import ca.ids.abms.util.converter.JSR310DateConverters;
@@ -34,13 +37,19 @@ public class AircraftRegistrationService {
     private final AccountRepository accountRepository;
     private final AircraftRegistrationRepository aircraftRegistrationRepository;
     private final AircraftRegistrationPrefixRepository aircraftRegistrationPrefixRepository;
+    private final CountryService countryService;
+    private final SystemConfigurationService systemConfigurationService;
 
     public AircraftRegistrationService(final AccountRepository accountRepository,
                                        final AircraftRegistrationRepository aircraftRegistrationRepository,
-                                       final AircraftRegistrationPrefixRepository aircraftRegistrationPrefixRepository) {
+                                       final AircraftRegistrationPrefixRepository aircraftRegistrationPrefixRepository,
+                                       final CountryService countryService,
+                                       final SystemConfigurationService systemConfigurationService) {
         this.accountRepository = accountRepository;
         this.aircraftRegistrationRepository = aircraftRegistrationRepository;
         this.aircraftRegistrationPrefixRepository = aircraftRegistrationPrefixRepository;
+        this.countryService = countryService;
+        this.systemConfigurationService = systemConfigurationService;
     }
 
     @Transactional(readOnly = true)
@@ -255,4 +264,22 @@ public class AircraftRegistrationService {
     public long countAllForSelfCareAccounts() {
         return aircraftRegistrationRepository.countAllForSelfCareAccounts();
     }
+    
+    public Country findCountryByRegistrationNumberPrefix(String aRegistrationNumber) {
+        if (aRegistrationNumber == null) {
+            return null;
+        }
+        return countryService.findCountryByPrefix(aRegistrationNumber);
+    }
+
+    public boolean isaForeignAircraft(AircraftRegistration ar) {
+    	Country country = findCountryByRegistrationNumberPrefix(ar.getRegistrationNumber());
+    	if (country != null) {
+    		String anspCountryCode = systemConfigurationService.getString(SystemConfigurationItemName.ANSP_COUNTRY_CODE);
+    		if (country.getCountryCode().equals(anspCountryCode))
+    			return false;
+    	}
+    	return true;
+    }
+    
 }

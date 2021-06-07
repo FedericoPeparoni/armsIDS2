@@ -14,6 +14,7 @@ import ca.ids.abms.modules.billings.BillingLedger;
 import ca.ids.abms.modules.billings.BillingLedgerRepository;
 import ca.ids.abms.modules.billings.BillingLedgerService;
 import ca.ids.abms.modules.common.enumerators.InvoiceStateType;
+import ca.ids.abms.modules.countries.Country;
 import ca.ids.abms.modules.flightmovements.FlightMovement;
 import ca.ids.abms.modules.flightmovements.FlightMovementRepository;
 import ca.ids.abms.modules.flightmovements.FlightMovementRepositoryUtility;
@@ -298,7 +299,7 @@ public class AviationInvoiceService {
         // validate list is not empty
         return accountFlightMap;
     }
-
+    
     /**
      * Find all aircraft registrations that can be invoiced for the provided unified tax account .
 +     */
@@ -330,14 +331,19 @@ public class AviationInvoiceService {
         List<AircraftRegistration> toInvoice = new ArrayList<AircraftRegistration>();
 
         for (AircraftRegistration ar : account.getAircraftRegistrations()) {
-        	        	
+        	    
+        	// Foreign aircraft with the "Local" flag set at FALSE must be skipped
+        	if  (aircraftRegistrationService.isaForeignAircraft(ar) && !ar.getIsLocal())
+        		continue;
+
         	// SMALL_AIRCRAFT_MAX_WEIGHT is expressed in KG
             Integer maxWeight = systemConfigurationService.getIntOrZero(SystemConfigurationItemName.SMALL_AIRCRAFT_MAX_WEIGHT);
             
             // MTOW stored in small tones in the DB ==> need to convert it to KG
         	double aMtow = ar.getMtowOverride()* ReportHelper.TO_KG;
 
-            if (aMtow <= maxWeight) {
+            if (aMtow >= 501 && aMtow <= maxWeight) {
+            	            	
 	        	if (!isUnifiedTaxPaid(ar, startDate, endDateInclusive)) {
 	        		if (ar.getAircraftServiceDate() != null) {
 	
