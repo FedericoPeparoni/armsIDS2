@@ -43,7 +43,7 @@ public class AircraftRegistrationServiceTest {
         at.setId(1);
         aircraftRegistration.setAircraftType(at);
         aircraftRegistration.setAccount(mockAccount());
-        
+
         AircraftRegistrationPrefix prefix = new AircraftRegistrationPrefix();
         prefix.setAircraftRegistrationPrefix("I");
         List<AircraftRegistrationPrefix> prefixes = new ArrayList<>();
@@ -96,7 +96,7 @@ public class AircraftRegistrationServiceTest {
         aircraftRegistrationRepository = mock(AircraftRegistrationRepository.class);
         aircraftRegistrationPrefixRepository = mock(AircraftRegistrationPrefixRepository.class);
         aircraftRegistrationService = new AircraftRegistrationService(accountRepository, aircraftRegistrationRepository,
-            aircraftRegistrationPrefixRepository);
+            aircraftRegistrationPrefixRepository, null, null);
 
         when(accountRepository.getOne(anyInt()))
             .thenReturn(new Account());

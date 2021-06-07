@@ -65,14 +65,14 @@ public class FlightMovementBuilderUtilityTest {
     private NotificationEventTypeRepository notificationEventTypeRepository;
     @Mock
     private FlightMovementRepository flightMovementRepository;
-    
+
 
     @Before
     public void init(){
         AccountService accountService = new AccountService(accountRepository, accountExemptionRepository, flightMovementRepository, mock(BillingLedgerRepository.class),
             accountEventMapRepository, notificationEventTypeRepository, mock(SelfCarePortalInactivityExpiryNoticesService.class), mock(QuerySubmissionService.class));
 
-        AircraftRegistrationService aircraftRegistrationService = new AircraftRegistrationService(accountRepository, aircraftRegistrationRepository, aircraftRegistrationPrefixRepository);
+        AircraftRegistrationService aircraftRegistrationService = new AircraftRegistrationService(accountRepository, aircraftRegistrationRepository, aircraftRegistrationPrefixRepository, null, null);
 
         FlightMovementAircraftService flightMovementAircraftService = new FlightMovementAircraftService(
             aircraftTypeService, aircraftRegistrationService, unspecifiedAircrafttypeService, flightMovementRepository);
@@ -94,7 +94,7 @@ public class FlightMovementBuilderUtilityTest {
             .thenReturn (buildRegList (buildAccount ("found_by_reg_num")));
         when(accountRepository.getOne(anyInt()))
             .thenReturn (buildAccount ("found_by_account_id"));
-        
+
         final FlightMovement fm = new FlightMovement();
         fm.setItem18Operator("OPR");
         fm.setFlightId("ICAO_FLIGHT");
@@ -104,7 +104,7 @@ public class FlightMovementBuilderUtilityTest {
 
         // item18_operator => account.opr_identifier
         assertThat (resolveAccount (fm).getName()).isEqualTo("found_by_opr");
-        
+
         // item18_operator => account.icao_code
         fm.setItem18Operator("ICA");
         assertThat (resolveAccount (fm).getName()).isEqualTo("found_by_icao_code");
@@ -113,22 +113,22 @@ public class FlightMovementBuilderUtilityTest {
         fm.setItem18Operator("INVALID");
         fm.setItem18RegNum("REG01");
         assertThat (resolveAccount (fm).getName()).isEqualTo("found_by_reg_num");
-        
+
         // flight_id
         fm.setFlightId("ICA1234");
         fm.setItem18RegNum("TEST");
         assertThat (resolveAccount (fm).getName()).isEqualTo("found_by_icao_code");
- 
+
         // flight_id
         fm.setFlightId("INVALID");
         assertThat (resolveAccount (fm)).isNull();
- 
-        
+
+
         // account id
         fm.setFlightId("INVALID");
         assertThat (resolveAccount (fm)).isNull();
     }
-    
+
     private Account resolveAccount (final FlightMovement fm) {
         return this.flightMovementBuilderUtility.resolveAccountForFlightMovement(fm);
     }
@@ -139,7 +139,7 @@ public class FlightMovementBuilderUtilityTest {
         account.setName(name);
         return account;
     }
-    
+
     private List <AircraftRegistration> buildRegList (final Account account) {
         final AircraftRegistration x = new AircraftRegistration();
         x.setAccount (account);

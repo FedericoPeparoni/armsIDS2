@@ -71,7 +71,7 @@ public class FlightMovementValidatorTest {
         flightMovementValidator = new FlightMovementValidator(systemConfigurationService, flightMovementAerodromeService,
             currencyExchangeRateService, flightMovementBuilderUtility, currencyUtils, countryService,
             regionalCountryService, aircraftRegistrationService, kcaaFlightUtility,
-            enrouteAirNavigationChargeFormulaService, averageMtowFactorService, flightmovementCategoryService);
+            enrouteAirNavigationChargeFormulaService, averageMtowFactorService, flightmovementCategoryService, null);
     }
 
     @Test
@@ -149,7 +149,7 @@ public class FlightMovementValidatorTest {
         Assert.assertTrue(fvm != null && fvm.getIssues() != null);
         Assert.assertTrue(fvm.getIssues().contains(FlightMovementValidatorIssue.RADAR_SUMMARY_MISSING));
         Assert.assertFalse(fvm.getStatus() != null && fvm.getStatus().equals(FlightMovementStatus.PENDING));
- 
+
         sc1.setCurrentValue("40000");
         fvm = flightMovementValidator.validateFlightMovementStatus(fm,false);
         Assert.assertTrue(fvm != null && fvm.getIssues() != null);

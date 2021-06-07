@@ -105,7 +105,7 @@ public class TransactionServiceTest extends TranslationRequired {
         when(systemConfigurationService.getString(SystemConfigurationItemName.ORGANISATION_NAME)).thenReturn("EANA");
         when(systemConfigurationService.getCurrentValue(eq(SystemConfigurationItemName.APPLY_INTEREST_PENALTY_ON)))
             .thenReturn("Next invoice");
-        
+
         CurrencyUtils currencyUtils = new CurrencyUtils(currencyService,
             new CurrencyExchangeRateService(currencyRepository, currencyExchangeRateRepository, null), systemConfigurationService);
 
@@ -144,7 +144,7 @@ public class TransactionServiceTest extends TranslationRequired {
             interestInvoiceService,
             interestRateService,
             whitelistingUtils,
-            flightMovementBuilder, flightMovementRepositoryUtility);
+            flightMovementBuilder, flightMovementRepositoryUtility, null);
 
         when(currencyRepository.getANSPCurrency()).thenReturn(currencyRates.get("BWP").getCurrency());
         when(currencyRepository.findByCurrencyCode(eq("USD"))).thenReturn(currencyRates.get("USD").getCurrency());
@@ -165,7 +165,7 @@ public class TransactionServiceTest extends TranslationRequired {
         when(currencyRepository.getOne(eq(2))).thenReturn(currencyRates.get("BWP").getCurrency());
         when(currencyRepository.getOne(eq(3))).thenReturn(currencyRates.get("CAD").getCurrency());
         when(currencyRepository.getOne(eq(4))).thenReturn(currencyRates.get("EUR").getCurrency());
-       
+
     }
 
     @Test
@@ -782,7 +782,7 @@ public class TransactionServiceTest extends TranslationRequired {
         user.setBillingCenter(getBillingCenterMock());
         return user;
     }
-    
+
     private List<CurrencyExchangeRate> buildRates (final CurrencyExchangeRate cer) {
         final List<CurrencyExchangeRate> items = new ArrayList<>(1);
         items.add(cer);
