@@ -7350,7 +7350,7 @@ select add_languages_by_json('[
     "part": "frontend",
     "created_by": "system"
   },
-									
+
 {
     "code": "es",
     "token": "Account Type Discount (%)",
@@ -7406,6 +7406,22 @@ select add_languages_by_json('[
     "token": "Unified Tax Applicable *",
     "val": "No hay datos de impuestos unificados *",
     "part": "frontend",
+    "created_by": "system"
+  }
+,
+{
+    "code": "en",
+    "token": "Unified Tax",
+    "val": "Unified Tax",
+    "part": "backend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "Unified Tax",
+    "val": "Tasa Unificada",
+    "part": "backend",
     "created_by": "system"
   }
 
