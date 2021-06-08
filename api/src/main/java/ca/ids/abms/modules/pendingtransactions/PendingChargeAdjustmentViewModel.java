@@ -19,6 +19,9 @@ public class PendingChargeAdjustmentViewModel {
 
     /* Field for aviation invoice only */
     private String flightId;
+    
+    /* Field for unified-tax invoice only */
+    private String registrationNumber;
 
     /* Field for non-aviation invoice only */
     private String aerodrome;
@@ -72,8 +75,17 @@ public class PendingChargeAdjustmentViewModel {
     public void setFlightId(String flightId) {
         this.flightId = flightId;
     }
+    
 
-    public String getAerodrome() {
+    public String getRegistrationNumber() {
+		return registrationNumber;
+	}
+
+	public void setRegistrationNumber(String registrationNumber) {
+		this.registrationNumber = registrationNumber;
+	}
+
+	public String getAerodrome() {
         return aerodrome;
     }
 
