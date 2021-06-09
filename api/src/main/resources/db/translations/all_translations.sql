@@ -53405,16 +53405,16 @@ select add_languages_by_json('[
     "part": "frontend"
   },
   {
-    "token": "Consider Foreign as Local",
+    "token": "Local",
     "code": "en",
-    "val": "Consider Foreign as Local",
+    "val": "Local",
     "created_by": "system",
     "part": "frontend"
   },
   {
-    "token": "Consider Foreign as Local",
+    "token": "Local",
     "code": "es",
-    "val": "Considere al Extranjero como Local",
+    "val": "Local",
     "created_by": "system",
     "part": "frontend"
   },
