@@ -681,7 +681,7 @@ where
        x.billing_centers_name           AS billing_centers_name,
        x.billing_invoice_number           AS billing_invoice_number
 FROM   accounts a
-       LEFT OUTER JOIN (
+       INNER JOIN (
        SELECT DISTINCT a.id                    		AS account_id,
                        original.latest_balance 		AS opening_balance,
                        original.id             		AS opening_balance_transaction_id,
@@ -729,10 +729,11 @@ FROM   accounts a
 
 SELECT *
   FROM (
-SELECT t.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.balance, bl.invoice_type, t.payment_mechanism, t.payment_reference_number, t.currency_id, t.transaction_type_id, t.id, t.description, t.exchange_rate,  be.name  AS billing_centers_name, bl.invoice_number AS billing_invoice_number
+SELECT t.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.balance, bl.invoice_type, t.payment_mechanism, t.payment_reference_number, t.currency_id, t.transaction_type_id, t.id, t.description, t.exchange_rate,  be.name  AS billing_centers_name, ('') AS billing_invoice_number
 FROM   abms.transactions t
 INNER JOIN abms.billing_ledgers bl ON bl.invoice_number = t.payment_reference_number
 INNER JOIN abms.billing_centers be ON bl.billing_center_id = be.id
+
 UNION
 SELECT  bl.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.balance, bl.invoice_type, t.payment_mechanism, t.payment_reference_number, t.currency_id, t.transaction_type_id, t.id, t.description, t.exchange_rate, be.name  AS billing_centers_name, bl.invoice_number AS billing_invoice_number
 FROM abms.billing_ledgers bl
@@ -746,13 +747,12 @@ INNER JOIN abms.billing_centers be ON bl.billing_center_id = be.id
 
                              ) AS T
                                             ON a.id = t.account_id
-                                               AND T.currency_id = c.id AND
-                                               ((T.invoice_type='unified-tax' AND T.payment_mechanism = 'invoice' ) OR  (T.invoice_type!='unified-tax'))
+                                               AND T.currency_id = c.id
 
                                LEFT OUTER JOIN abms.transaction_types tt
                                             ON tt.id = T.transaction_type_id
-                        WHERE  ( original.latest_balance IS NOT NULL
-                                  OR t.id IS NOT NULL )) x
+                        WHERE  ( original.latest_balance IS NOT NULL  AND
+                                               ((T.invoice_type='unified-tax' AND (T.payment_mechanism='invoice' OR  T.payment_mechanism='adjustment' OR T.payment_mechanism='wire' OR T.payment_mechanism='cash' OR T.payment_mechanism='debit' OR T.payment_mechanism='credit' OR T.payment_mechanism='cheque' ) )) OR t.id IS NOT NULL )) x 
                     ON a.id = x.account_id
 
 WHERE  a.id = any(?::int[])
