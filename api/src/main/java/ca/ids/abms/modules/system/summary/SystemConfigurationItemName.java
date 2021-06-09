@@ -108,6 +108,7 @@ public class SystemConfigurationItemName {
     public static final String INVOICE_CURRENCY_ENROUTE = "Invoice currency for enroute charges";
     public static final String BACKDATE_PAYMENT_ALLOWED = "Backdate payment allowed";
     public static final String SMALL_AIRCRAFT_MAX_WEIGHT = "Small aircraft maximum weight";
+    public static final String SMALL_AIRCRAFT_MIN_WEIGHT = "Small aircraft minimum weight";
     public static final String EXEMPT_SMALL_AC_WITH_VALID_AOC_ENROUTE = "Exempt small AC with valid AOC - enroute";
     public static final String EXEMPT_SMALL_AC_WITH_VALID_AOC_APPROACH = "Exempt small AC with valid AOC - approach";
     public static final String EXEMPT_SMALL_AC_WITH_VALID_AOC_AERODROME = "Exempt small AC with valid AOC - aerodrome";
