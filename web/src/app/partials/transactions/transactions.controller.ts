@@ -1188,9 +1188,8 @@ export class TransactionsController extends CRUDFileUploadController {
       .then((lineItems: Array<IInvoiceLineItem>) => this.$scope.lineItems = lineItems);
   }
 
-  //federico
+  // for unified-tax invoices
  private getAircraftRegistrationByBillingLedgerId(invoiceId: number): ng.IPromise<Array<IAircraftRegistration>> {
-  console.log('aircraftregistration '+ invoiceId);
     return this.aircraftRegistrationService.getAircraftRegistrationByBillingLedgerId(invoiceId)
     .then((listAircraftRegstration: Array<IAircraftRegistration>) => this.$scope.listAircraftRegstration = listAircraftRegstration);
 

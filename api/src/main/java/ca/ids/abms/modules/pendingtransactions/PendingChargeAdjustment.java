@@ -28,7 +28,10 @@ public class PendingChargeAdjustment extends AuditedEntity {
 
     /* Field for aviation invoice only */
     private String flightId;
-
+    
+    /* Field for unified-tax invoice only */
+    private String registrationNumber;
+    
     /* Field for non-aviation invoice only */
     private String aerodrome;
 
@@ -85,7 +88,16 @@ public class PendingChargeAdjustment extends AuditedEntity {
         this.flightId = flightId;
     }
 
-    public String getAerodrome() {
+    
+    public String getRegistrationNumber() {
+		return registrationNumber;
+	}
+
+	public void setRegistrationNumber(String registrationNumber) {
+		this.registrationNumber = registrationNumber;
+	}
+
+	public String getAerodrome() {
         return aerodrome;
     }
 

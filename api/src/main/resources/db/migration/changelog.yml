@@ -2470,6 +2470,12 @@ databaseChangeLog:
         author: Antonio Monteleone
         file: 20210606180000_alter_unified_tax_charges.sql
         relativeToChangelogFile: true
-
-
+    - include:
+        author: Federico Peparoni
+        file: 2021060812930_alter_pending_charge_adjustments.sql
+        relativeToChangelogFile: true
+    - include:
+        author: Federico Peparoni
+        file: 202106091430_system_configuration_small_aircraft.sql
+        relativeToChangelogFile: true
       

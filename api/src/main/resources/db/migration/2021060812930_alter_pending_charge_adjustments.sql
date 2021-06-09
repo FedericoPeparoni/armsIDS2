@@ -1,0 +1,1 @@
+ALTER TABLE pending_charge_adjustments ADD COLUMN registration_number character varying(30);

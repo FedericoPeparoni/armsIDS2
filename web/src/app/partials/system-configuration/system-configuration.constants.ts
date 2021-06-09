@@ -112,6 +112,7 @@ export enum SysConfigConstants {
   EXTENDED_PSCR_CARGO_INFORMATION_SUPPORT = <any>'Extended PSCR cargo information support',
   CARGO_DISPLAY_UNITS = <any>'Cargo display units',
   SMALL_AIRCRAFT_MAXIMUM_WEIGHT = <any>'Small aircraft maximum weight',
+  SMALL_AIRCRAFT_MINIMUN_WEIGHT = <any>'Small aircraft minimum weight',
   MARK_ZERO_FLIGHT_COSTS_AS_PAID = <any>'Mark zero flight costs as paid',
   EXTENDED_HOURS_SURCHARGE_SUPPORT = <any>'Extended hours surcharge support',
   PROFORMA_INVOICE_SUPPORT = <any>'Proforma invoice support',
