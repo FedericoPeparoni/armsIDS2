@@ -1204,20 +1204,18 @@ public class FlightMovementValidator {
 
             AircraftRegistration ar = aircraftRegistrationService.findAircraftRegistrationByRegNumber(item18RegNum);
             if (ar != null) {
-            	// SMALL_AIRCRAFT_MAX_WEIGHT is expressed in KG
+            	// SMALL_AIRCRAFT_MAX_WEIGHT and SMALL_AIRCRAFT_MIN_WEIGHT are expressed in KG
                 Integer maxWeight = systemConfigurationService.getIntOrZero(SystemConfigurationItemName.SMALL_AIRCRAFT_MAX_WEIGHT);
+                Integer minWeight = systemConfigurationService.getIntOrZero(SystemConfigurationItemName.SMALL_AIRCRAFT_MIN_WEIGHT);
                 
                 // MTOW stored in small tones in the DB ==> need to convert it to KG
             	aMtow = ar.getMtowOverride()* ReportHelper.TO_KG;
 
-                if (aMtow <= maxWeight) {
+                if (aMtow >= minWeight && aMtow <= maxWeight) {
                 	
-                	boolean isDomesticOrLocal = (ar.getIsLocal()) || 
-                		(flightMovement.getFlightCategoryNationality().equals(FlightmovementCategoryNationality.NATIONAL));
-                    
-                	if (isDomesticOrLocal) {
+                	// Foreign aircraft with the "Local" flag set at FALSE must be skipped
+                	if  (!aircraftRegistrationService.isaForeignAircraft(ar) || ar.getIsLocal())
                 		return true;
-                	}
                 }
             }
         }

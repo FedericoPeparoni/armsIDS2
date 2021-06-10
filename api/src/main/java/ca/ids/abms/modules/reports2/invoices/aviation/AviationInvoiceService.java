@@ -336,13 +336,14 @@ public class AviationInvoiceService {
         	if  (aircraftRegistrationService.isaForeignAircraft(ar) && !ar.getIsLocal())
         		continue;
 
-        	// SMALL_AIRCRAFT_MAX_WEIGHT is expressed in KG
+        	// SMALL_AIRCRAFT_MAX_WEIGHT and SMALL_AIRCRAFT_MIN_WEIGHT are expressed in KG
             Integer maxWeight = systemConfigurationService.getIntOrZero(SystemConfigurationItemName.SMALL_AIRCRAFT_MAX_WEIGHT);
+            Integer minWeight = systemConfigurationService.getIntOrZero(SystemConfigurationItemName.SMALL_AIRCRAFT_MIN_WEIGHT);
             
             // MTOW stored in small tones in the DB ==> need to convert it to KG
         	double aMtow = ar.getMtowOverride()* ReportHelper.TO_KG;
 
-            if (aMtow >= 501 && aMtow <= maxWeight) {
+            if (aMtow >= minWeight && aMtow <= maxWeight) {
             	            	
 	        	if (!isUnifiedTaxPaid(ar, startDate, endDateInclusive)) {
 	        		if (ar.getAircraftServiceDate() != null) {
