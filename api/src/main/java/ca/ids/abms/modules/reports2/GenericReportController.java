@@ -4,6 +4,8 @@ import ca.ids.abms.config.error.CustomParametrizedException;
 import ca.ids.abms.config.error.ErrorConstants;
 import ca.ids.abms.modules.reports2.common.BirtReportCreator;
 import ca.ids.abms.modules.reports2.common.ReportFormat;
+import ca.ids.abms.modules.system.SystemConfigurationService;
+import ca.ids.abms.modules.system.summary.SystemConfigurationItemName;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.birt.report.model.api.DesignFileException;
@@ -43,9 +45,12 @@ public class GenericReportController {
     private static final Logger LOG = LoggerFactory.getLogger(GenericReportController.class);
 
     private final BirtReportCreator birtReportCreator;
+    
+    private final SystemConfigurationService systemConfigurationService;
 
-    public GenericReportController(final BirtReportCreator birtReportCreator) {
+    public GenericReportController(final BirtReportCreator birtReportCreator,  final SystemConfigurationService systemConfigurationService ) {
         this.birtReportCreator = birtReportCreator;
+        this.systemConfigurationService = systemConfigurationService;
     }
 
     // TODO: add permission annotations
@@ -83,7 +88,7 @@ public class GenericReportController {
             throw new CustomParametrizedException("Invalid template name");
         }
 
-        final String fileName = Paths.get(partialName).getFileName().toString().concat(format.fileNameSuffix());
+        String fileName = Paths.get(partialName).getFileName().toString().concat(format.fileNameSuffix());
 
         final Map <String, Object> params = new HashMap<>();
         if (bodyParams != null) {
@@ -108,6 +113,12 @@ public class GenericReportController {
             }
         }
         try {
+        	//EANA:When downloading the report, the file name is in english (Unified Tax.pdf) 
+        	//EANA has asksed to have it in Spanish
+        	final String organisationName = systemConfigurationService.getString(SystemConfigurationItemName.ORGANISATION_NAME, null);
+        	if(organisationName.equals("EANA") && partialName.equals("unified_tax")){
+                fileName = "tasa_unificada".concat(format.fileNameSuffix());
+            }
             LOG.debug("Trying to generate the report {} with parameters: {}", partialName, params);
             final byte[] document = birtReportCreator.createOtherReport(partialName, params, format);
             if (document != null && document.length > 0) {

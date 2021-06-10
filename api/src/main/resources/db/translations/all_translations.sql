@@ -56974,5 +56974,33 @@ select add_languages_by_json('[
     "val": "Peso mínimo de aire pequeño (kg)",
     "part": "frontend",
     "created_by": "system"
+  },
+  {
+    "code": "en",
+    "token": "Unified Tax Report",
+    "val": "Unified Tax Report",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "es",
+    "token": "Unified Tax Report",
+    "val": "Informe de Tasa Unificada",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "en",
+    "token": "Revenue Report",
+    "val": "Revenue Report",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "es",
+    "token": "Revenue Report",
+    "val": "Informe de Ingresos",
+    "part": "frontend",
+    "created_by": "system"
   }
 ]');
