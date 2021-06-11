@@ -241,12 +241,12 @@ public class AviationInvoiceData {
         // Unified Tax category
         //public @XmlElement(nillable = true) String unifiedTaxChargesStr;
         // Senza sconto
-        public @XmlElement(nillable = true) Integer unifiedTaxAircraftTotal;
+        public @XmlElement(nillable = true) Integer unifiedTaxAircraftTotalNumber;
         // Senza sconto
         public @XmlElement(nillable = true) Double unifiedTaxTotalCharges;
         public @XmlElement(nillable = true) String unifiedTaxTotalChargesStr;
         //Con sconto
-        public @XmlElement(nillable = true) Integer unifiedTaxDiscountAircraftTotal;
+        public @XmlElement(nillable = true) Integer unifiedTaxDiscountAircraftTotalNumber;
         public @XmlElement(nillable = true) Double unifiedTaxTotalDiscountCharges;
         public @XmlElement(nillable = true) String unifiedTaxTotalDiscountChargesStr;
 
@@ -408,6 +408,7 @@ public class AviationInvoiceData {
         public @XmlElement String invoicePeriod;
         public @XmlElement String invoiceExpiration;
 
+        //Senza sconto
         public @XmlElement Double unifiedTaxCharges = 0d;
 
         public @XmlElement String registrationNumber;
@@ -425,6 +426,14 @@ public class AviationInvoiceData {
         public @XmlElement String discountAmountStr;
         public @XmlElement String discountPercentageStrSpanish;
         public @XmlElement String discountAmountStrSpanish;
+
+        public @XmlElement String discounType;
+        public @XmlElement String discounTypeStr;
+        public @XmlElement String discounTypeStrSpanish;
+
+        public @XmlElement String discountedAmountStr;
+        public @XmlElement String discountedAmountStrSpanish;
+
     }
 
     @XmlElementWrapper
