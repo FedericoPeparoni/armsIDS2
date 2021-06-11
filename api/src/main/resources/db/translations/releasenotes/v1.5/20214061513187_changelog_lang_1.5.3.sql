@@ -143,9 +143,41 @@ select add_languages_by_json('[
     "val": "Validando la lista de movimientos de vuelos",
     "part": "backend",
     "created_by": "system"
+  },
+
+
+{
+    "code": "en",
+    "token": "flight-school",
+    "val": "Flight school",
+    "part": "backend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "flight-school",
+    "val": "Entrenamiento",
+    "part": "backend",
+    "created_by": "system"
+  },
+
+
+{
+    "code": "en",
+    "token": "agriculture",
+    "val": "Agriculture",
+    "part": "backend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "agriculture",
+    "val": "Agricultura",
+    "part": "backend",
+    "created_by": "system"
   }
-
-
 
 
 ]');
