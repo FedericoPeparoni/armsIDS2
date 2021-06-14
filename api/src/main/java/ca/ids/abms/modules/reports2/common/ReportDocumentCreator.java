@@ -109,6 +109,12 @@ public class ReportDocumentCreator {
      */
     private <T> void writeCsv(final List<T> data, final Class<T> clazz, final OutputStream outputStream, boolean exportFromTable) {
         try (final InputStream inputStream = csvWriter.createStream (data, clazz, exportFromTable)){
+
+            outputStream.write('\ufeef'); // emits 0xef
+            outputStream.write('\ufebb'); // emits 0xbb
+            outputStream.write('\ufebf'); // emits 0xbf
+
+
             IOUtils.copy (inputStream, outputStream);
         } catch (final RuntimeException x) {
             // Catch any runtime exceptions separately and throw as-is we DO NOT want them lumped together with
