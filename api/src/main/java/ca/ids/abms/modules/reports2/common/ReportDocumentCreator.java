@@ -156,7 +156,7 @@ public class ReportDocumentCreator {
         ut.addSources(values.stream().map(d->(InputStream)new ByteArrayInputStream (d.data())).collect (Collectors.toList()));
         ut.setDestinationStream (out);
         try {
-            ut.mergeDocuments(MemoryUsageSetting.setupMixed(1024L * 128L));
+            ut.mergeDocuments(MemoryUsageSetting.setupMixed(1024L * 512L));
             return do_createReportDocument (bundleName, ReportFormat.pdf, out.toByteArray());
         } catch (final IOException x) {
             throw new CustomParametrizedException("Failed to combine multiple PDF files into one" + ": " + x.getMessage(), x);
