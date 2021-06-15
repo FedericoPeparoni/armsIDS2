@@ -75,7 +75,7 @@
                                 <label translate for="payment-reference-number">Payment Reference Number</label>
                                 <span ng-show="editable.transaction_type.name !== 'debit' && editable.payment_mechanism !== 'cash' && editable.payment_mechanism !== 'adjustment'"> *</span>
                                 <input id="payment-reference-number" name="paymentReferenceNumber" class="form-control text-capitalize" type="text" ng-model="editable.payment_reference_number"
-                                    ng-disabled="editable.transaction_type.name === 'debit' || editable.payment_mechanism === 'cash' || editable.payment_mechanism === 'adjustment'"
+                                    ng-disabled="editable.transaction_type.name === 'debit' || editable.payment_mechanism === 'cash' || editable.payment_mechanism === 'adjustment'" autocomplete="cc-csc"
                                     required/>
                             </div>
                             <div class="col-xs-12 col-md-3" ng-if="activeOrg.isKcaa">
