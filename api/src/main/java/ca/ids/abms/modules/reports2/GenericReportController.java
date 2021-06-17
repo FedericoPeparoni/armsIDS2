@@ -117,7 +117,7 @@ public class GenericReportController {
         	//EANA has asksed to have it in Spanish
         	final String organisationName = systemConfigurationService.getString(SystemConfigurationItemName.ORGANISATION_NAME, null);
         	if(organisationName.equals("EANA") && partialName.equals("unified_tax")){
-                fileName = "tasa_unificada".concat(format.fileNameSuffix());
+                fileName = "Report_TU".concat(format.fileNameSuffix());
             }
             LOG.debug("Trying to generate the report {} with parameters: {}", partialName, params);
             final byte[] document = birtReportCreator.createOtherReport(partialName, params, format);
