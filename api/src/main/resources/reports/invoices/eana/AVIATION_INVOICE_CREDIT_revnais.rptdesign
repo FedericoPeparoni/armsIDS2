@@ -4211,7 +4211,8 @@ Website: www.eana.com.ar]]></text-property>
                         <property name="fontWeight">bold</property>
                         <property name="textAlign">left</property>
                         <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[CUIT 30-71515195-9]]></text-property>
+                        <text-property name="content"><![CDATA[CUIT 30-71515195-9
+]]></text-property>
                     </text>
                 </cell>
             </row>
@@ -9002,8 +9003,9 @@ USD/ARS]]></text-property>
                 <structure>
                     <property name="name">departureTimeStr</property>
                     <text-property name="displayName">departureTimeStr</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["departureTimeStr"]</expression>
+                    <expression name="expression" type="javascript">dataSetRow["actualDepartureTimeStr"]||dataSetRow["departureTimeStr"]</expression>
                     <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
                 </structure>
                 <structure>
                     <property name="name">taspChargesStr</property>
@@ -9199,10 +9201,6 @@ USD/ARS]]></text-property>
                 <property name="fontSize">9pt</property>
                 <property name="width">0.3in</property>
             </column>
-            <column id="3216">
-                <property name="fontSize">9pt</property>
-                <property name="width">0.3in</property>
-            </column>
             <column id="1631">
                 <property name="fontSize">9pt</property>
                 <property name="width">0.3in</property>
@@ -9251,14 +9249,14 @@ USD/ARS]]></text-property>
             <header>
                 <row id="1799">
                     <cell id="1800">
-                        <property name="colSpan">19</property>
+                        <property name="colSpan">18</property>
                         <property name="rowSpan">1</property>
                     </cell>
                 </row>
                 <row id="1647">
                     <property name="height">0.3229166666666667in</property>
                     <cell id="1648">
-                        <property name="colSpan">19</property>
+                        <property name="colSpan">18</property>
                         <property name="rowSpan">1</property>
                         <property name="backgroundColor">#0072BC</property>
                         <data id="1995">
@@ -9318,7 +9316,7 @@ USD/ARS]]></text-property>
                 <row id="1635">
                     <property name="height">0.23958333333333334in</property>
                     <cell id="1636">
-                        <property name="colSpan">19</property>
+                        <property name="colSpan">18</property>
                         <property name="rowSpan">1</property>
                     </cell>
                 </row>
@@ -9884,67 +9882,7 @@ USD/ARS]]></text-property>
                             <property name="showIfBlank">false</property>
                             <property name="canShrink">false</property>
                             <property name="overflow">hidden</property>
-                            <text-property name="text">Hora Desp. Propuesta</text-property>
-                        </label>
-                    </cell>
-                    <cell id="3213">
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <label id="3217">
-                            <property name="backgroundAttachment">scroll</property>
-                            <property name="backgroundPositionX">0%</property>
-                            <property name="backgroundPositionY">0%</property>
-                            <property name="backgroundRepeat">repeat</property>
-                            <property name="fontFamily">"Tahoma"</property>
-                            <property name="fontSize">9pt</property>
-                            <property name="fontWeight">normal</property>
-                            <property name="fontStyle">normal</property>
-                            <property name="fontVariant">normal</property>
-                            <property name="color">black</property>
-                            <property name="textLineThrough">none</property>
-                            <property name="textOverline">none</property>
-                            <property name="textUnderline">none</property>
-                            <property name="borderBottomColor">black</property>
-                            <property name="borderBottomStyle">none</property>
-                            <property name="borderBottomWidth">medium</property>
-                            <property name="borderLeftColor">black</property>
-                            <property name="borderLeftStyle">none</property>
-                            <property name="borderLeftWidth">medium</property>
-                            <property name="borderRightColor">black</property>
-                            <property name="borderRightStyle">none</property>
-                            <property name="borderRightWidth">medium</property>
-                            <property name="borderTopColor">black</property>
-                            <property name="borderTopStyle">none</property>
-                            <property name="borderTopWidth">medium</property>
-                            <property name="marginTop">0pt</property>
-                            <property name="marginLeft">0pt</property>
-                            <property name="marginBottom">0pt</property>
-                            <property name="marginRight">0pt</property>
-                            <property name="paddingTop">1pt</property>
-                            <property name="paddingLeft">1pt</property>
-                            <property name="paddingBottom">1pt</property>
-                            <property name="paddingRight">1pt</property>
-                            <property name="textAlign">center</property>
-                            <property name="letterSpacing">normal</property>
-                            <property name="lineHeight">normal</property>
-                            <property name="orphans">2</property>
-                            <property name="textTransform">none</property>
-                            <property name="widows">2</property>
-                            <property name="wordSpacing">normal</property>
-                            <property name="display">block</property>
-                            <property name="pageBreakAfter">auto</property>
-                            <property name="pageBreakBefore">auto</property>
-                            <property name="pageBreakInside">auto</property>
-                            <property name="showIfBlank">false</property>
-                            <property name="canShrink">false</property>
-                            <property name="overflow">hidden</property>
-                            <text-property name="text">Hora Desp. Real</text-property>
+                            <text-property name="text">Hora Desp. Est./Real</text-property>
                         </label>
                     </cell>
                     <cell id="1596">
@@ -11072,53 +11010,6 @@ USD/ARS]]></text-property>
                             <property name="resultSetColumn">departureTimeStr</property>
                         </data>
                     </cell>
-                    <cell id="3214">
-                        <property name="backgroundAttachment">scroll</property>
-                        <property name="backgroundPositionX">0%</property>
-                        <property name="backgroundPositionY">0%</property>
-                        <property name="backgroundRepeat">repeat</property>
-                        <property name="fontFamily">"Tahoma"</property>
-                        <property name="fontSize">10pt</property>
-                        <property name="fontWeight">normal</property>
-                        <property name="fontStyle">normal</property>
-                        <property name="fontVariant">normal</property>
-                        <property name="color">black</property>
-                        <property name="textLineThrough">none</property>
-                        <property name="textOverline">none</property>
-                        <property name="textUnderline">none</property>
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <property name="marginTop">0pt</property>
-                        <property name="marginLeft">0pt</property>
-                        <property name="marginBottom">0pt</property>
-                        <property name="marginRight">0pt</property>
-                        <property name="paddingLeft">1pt</property>
-                        <property name="paddingBottom">1pt</property>
-                        <property name="paddingRight">1pt</property>
-                        <property name="textAlign">center</property>
-                        <property name="letterSpacing">normal</property>
-                        <property name="lineHeight">normal</property>
-                        <property name="orphans">2</property>
-                        <property name="textTransform">none</property>
-                        <property name="widows">2</property>
-                        <property name="wordSpacing">normal</property>
-                        <property name="display">block</property>
-                        <property name="pageBreakAfter">auto</property>
-                        <property name="pageBreakBefore">auto</property>
-                        <property name="pageBreakInside">auto</property>
-                        <property name="showIfBlank">false</property>
-                        <property name="canShrink">false</property>
-                        <property name="overflow">hidden</property>
-                        <data id="3218">
-                            <property name="resultSetColumn">actualDepartureTime</property>
-                        </data>
-                    </cell>
                     <cell id="1608">
                         <property name="backgroundAttachment">scroll</property>
                         <property name="backgroundPositionX">0%</property>
@@ -11655,7 +11546,6 @@ USD/ARS]]></text-property>
                     <cell id="1618"/>
                     <cell id="1619"/>
                     <cell id="1921"/>
-                    <cell id="3215"/>
                     <cell id="1620">
                         <label id="2081">
                             <property name="backgroundAttachment">scroll</property>
