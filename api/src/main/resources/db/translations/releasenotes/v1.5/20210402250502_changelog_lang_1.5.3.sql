@@ -50,8 +50,8 @@ select add_languages_by_json('[
   },
   {
     "code": "es",
-    "token": "I am accepting responsibility for all aviation charges for that aircraft over the ANSP’s FIR for the period of the registration",
-    "val": "Acepto la responsabilidad de todas las tasas de aviación de esa aeronave sobre la FIR del ANSP para el periodo de inscripción",
+    "token": "I am accepting responsibility for all aviation charges for that aircraft over the ANSPâ€™s FIR for the period of the registration",
+    "val": "Acepto la responsabilidad de todas las tasas de aviaciÃ³n de esa aeronave sobre la FIR del ANSP para el periodo de inscripciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
@@ -65,7 +65,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Update from Web",
-    "val": "Actualización de la Web",
+    "val": "ActualizaciÃ³n de la Web",
     "part": "frontend",
     "created_by": "system"
   },
@@ -86,21 +86,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Departure Aerodrome",
-    "val": "Aeródromo de Despegue",
+    "val": "AerÃ³dromo de Despegue",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Destination Aerodrome",
-    "val": "Aeródromo de Destino",
+    "val": "AerÃ³dromo de Destino",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Addition",
-    "val": "Adición",
+    "val": "AdiciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
@@ -121,126 +121,126 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aerodrome *",
-    "val": "Aeródromo *",
+    "val": "AerÃ³dromo *",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aerodrome Charges",
-    "val": "Cargos de Aeródromo",
+    "val": "Cargos de AerÃ³dromo",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "aerodrome_charges",
-    "val": "Cargos de Aeródromo",
+    "val": "Cargos de AerÃ³dromo",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Unknown Departure Aerodrome",
-    "val": "Aeródromo de Despegue Desconoscido",
+    "val": "AerÃ³dromo de Despegue Desconoscido",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Item 18 Destination Aerodrome",
-    "val": "Item 18 Aeródromo de Destino",
+    "val": "Item 18 AerÃ³dromo de Destino",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Unknown Destination Aerodrome",
-    "val": "Aeródromo de Destino Desconoscido",
+    "val": "AerÃ³dromo de Destino Desconoscido",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aerodrome Category Management",
-    "val": "Gestión de la Categoría de Aeródromo",
+    "val": "GestiÃ³n de la CategorÃ­a de AerÃ³dromo",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_AERODROME_CATEGORY_DELETION",
-    "val": "El Borrado de la Categoría de Aeródromo ha Fallado",
+    "val": "El Borrado de la CategorÃ­a de AerÃ³dromo ha Fallado",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aerodrome category deletion is failed",
-    "val": "El Borrado de la Categoría de Aeródromo ha Fallado",
+    "val": "El Borrado de la CategorÃ­a de AerÃ³dromo ha Fallado",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Departure_Aerodrome",
-    "val": "Aeródromo de Despegue ",
+    "val": "AerÃ³dromo de Despegue ",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Item 18 Departure Aerodrome",
-    "val": "Item 18 Aeródromo de Despegue ",
+    "val": "Item 18 AerÃ³dromo de Despegue ",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "UNKNOWN_AERODROME_ITEM18",
-    "val": "Item 18 Aeródromo Desconoscido",
+    "val": "Item 18 AerÃ³dromo Desconoscido",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Wrong Aerodrome - Recalculation doesn''t affect the FM status",
-    "val": "Aeródromo erróneo - El recálculo no afecta al estado de FM",
+    "val": "AerÃ³dromo errÃ³neo - El recÃ¡lculo no afecta al estado de FM",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Wrong Aerodrome - recalculation doesn''t affect the FM status",
-    "val": "Aeródromo erróneo - El recálculo no afecta al estado de FM",
+    "val": "AerÃ³dromo errÃ³neo - El recÃ¡lculo no afecta al estado de FM",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "International aerodrome charges currency",
-    "val": "Tasas de Aeródromo - Moneda Internacional",
+    "val": "Tasas de AerÃ³dromo - Moneda Internacional",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Domestic aerodrome charges currency",
-    "val": "Tasas de Aeródromo - Moneda Domestico",
+    "val": "Tasas de AerÃ³dromo - Moneda Domestico",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aerodrome prefix already exists",
-    "val": "Prefijo de Aeródromo ya existe",
+    "val": "Prefijo de AerÃ³dromo ya existe",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Regional aerodrome charges currency",
-    "val": "Tasas de Aeródromo - Moneda Regional",
+    "val": "Tasas de AerÃ³dromo - Moneda Regional",
     "part": "frontend",
     "created_by": "system"
   },
@@ -254,70 +254,70 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aerodromes",
-    "val": "Aeródromos",
+    "val": "AerÃ³dromos",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Domestic Aerodromes",
-    "val": "Aeródromos Domésticos",
+    "val": "AerÃ³dromos DomÃ©sticos",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aerodromes",
-    "val": "Aeródromos",
+    "val": "AerÃ³dromos",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Departure Airport",
-    "val": "Aeródromo de Despegue",
+    "val": "AerÃ³dromo de Despegue",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "All Available Airspaces",
-    "val": "Todos los Espacios Aéreos Disponibles",
+    "val": "Todos los Espacios AÃ©reos Disponibles",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Add Airspace",
-    "val": "Agregar Espacio aéreoA",
+    "val": "Agregar Espacio aÃ©reoA",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "AIRCRAFT_REGISTRATION",
-    "val": "Matrícula Aeronave",
+    "val": "MatrÃ­cula Aeronave",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "air traffic statistics",
-    "val": "Estadísticas de Tráfico Aéreo",
+    "val": "EstadÃ­sticas de TrÃ¡fico AÃ©reo",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Air Traffic Stats",
-    "val": "Estadísticas de Tráfico Aéreo",
+    "val": "EstadÃ­sticas de TrÃ¡fico AÃ©reo",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Fixed adjustment debit note payment",
-    "val": "Pago de la Nota de Débito de Ajuste Fijo",
+    "val": "Pago de la Nota de DÃ©bito de Ajuste Fijo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -331,28 +331,28 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "VALIDATION_ERROR",
-    "val": "Faltan algunos datos o no son válidos",
+    "val": "Faltan algunos datos o no son vÃ¡lidos",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Some data are missing or not valid",
-    "val": "Faltan algunos datos o no son válidos",
+    "val": "Faltan algunos datos o no son vÃ¡lidos",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Data Analysis & Statistics",
-    "val": "Análisis y Estadística",
+    "val": "AnÃ¡lisis y EstadÃ­stica",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Current fiscal year",
-    "val": "Año Fiscal Vigente",
+    "val": "AÃ±o Fiscal Vigente",
     "part": "frontend",
     "created_by": "system"
   },
@@ -436,14 +436,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Application Management",
-    "val": "Gestión Aplicación",
+    "val": "GestiÃ³n AplicaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Scope Application",
-    "val": "Ámbito de Aplicación",
+    "val": "Ã�mbito de AplicaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
@@ -478,7 +478,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ORPHAN_ITEM",
-    "val": "Registro huérfano. No pudo coincidir con un movimiento de vuelo",
+    "val": "Registro huÃ©rfano. No pudo coincidir con un movimiento de vuelo",
     "part": "backend",
     "created_by": "system"
   },
@@ -527,7 +527,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aircraft Registrations *",
-    "val": "Registro de Matrículas *",
+    "val": "Registro de MatrÃ­culas *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -548,14 +548,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Navaid Calibration",
-    "val": "Calibración de Ayuda a la Navegación",
+    "val": "CalibraciÃ³n de Ayuda a la NavegaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "FLTCK",
-    "val": "Calibración de Ayuda a la Navegación",
+    "val": "CalibraciÃ³n de Ayuda a la NavegaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
@@ -569,7 +569,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Infant:",
-    "val": "Niños",
+    "val": "NiÃ±os",
     "part": "frontend",
     "created_by": "system"
   },
@@ -590,7 +590,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Expired Or Missing CoA For Small Aircraft",
-    "val": "CoA vecnido o faltante para aeronaves pequeñas",
+    "val": "CoA vecnido o faltante para aeronaves pequeÃ±as",
     "part": "frontend",
     "created_by": "system"
   },
@@ -674,28 +674,28 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Max Amount",
-    "val": "Monto Máximo",
+    "val": "Monto MÃ¡ximo",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Maximum Amount *",
-    "val": "Monto Máximo *",
+    "val": "Monto MÃ¡ximo *",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Min Amount",
-    "val": "Monto Mínimo",
+    "val": "Monto MÃ­nimo",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Minimum Amount *",
-    "val": "Monto Mínimo *",
+    "val": "Monto MÃ­nimo *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -716,14 +716,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "External Charge Category",
-    "val": "Categoría de Carga Externa",
+    "val": "CategorÃ­a de Carga Externa",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Upload Aircraft Registrations",
-    "val": "Cargar un Archivo de Matrículas",
+    "val": "Cargar un Archivo de MatrÃ­culas",
     "part": "frontend",
     "created_by": "system"
   },
@@ -737,35 +737,35 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approach fee as ADAP",
-    "val": "Tasa de Aproximación como ADAP",
+    "val": "Tasa de AproximaciÃ³n como ADAP",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Charge Description",
-    "val": "Descripción de la Tasa",
+    "val": "DescripciÃ³n de la Tasa",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Service Charge Catalogue",
-    "val": "Catálogo de Tasas de Servicio",
+    "val": "CatÃ¡logo de Tasas de Servicio",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "P.SCC.TITLE",
-    "val": "Catálogo de Tasas de Servicio",
+    "val": "CatÃ¡logo de Tasas de Servicio",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "service charge catalogues",
-    "val": "Catálogo de Tasas de Servicio",
+    "val": "CatÃ¡logo de Tasas de Servicio",
     "part": "frontend",
     "created_by": "system"
   },
@@ -800,7 +800,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approach charges",
-    "val": "Cargas de aproximación",
+    "val": "Cargas de aproximaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
@@ -835,7 +835,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aerodrome Charges (%)",
-    "val": "Cargas por Aeródromo (%)",
+    "val": "Cargas por AerÃ³dromo (%)",
     "part": "frontend",
     "created_by": "system"
   },
@@ -905,56 +905,56 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Charges and Formulas",
-    "val": "Cargas y Fórmulas",
+    "val": "Cargas y FÃ³rmulas",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Service Charge Catalogue *",
-    "val": "Catálogo de Tasas de Servicio *",
+    "val": "CatÃ¡logo de Tasas de Servicio *",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "MTOW Category",
-    "val": "Categoría de MTOW",
+    "val": "CategorÃ­a de MTOW",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "MTOW Category",
-    "val": "Categoría de MTOW",
+    "val": "CategorÃ­a de MTOW",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Wake Turbulence",
-    "val": "Categoría de Turbulencia",
+    "val": "CategorÃ­a de Turbulencia",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aerodrome Category",
-    "val": "Categoría de Aeródromo ",
+    "val": "CategorÃ­a de AerÃ³dromo ",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aerodrome Category *",
-    "val": "Categoría del Aeródromo *",
+    "val": "CategorÃ­a del AerÃ³dromo *",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Coa Issue Date",
-    "val": "CoA Fecha de Caducidad",
+    "val": "CoA Fecha de Inicio",
     "part": "frontend",
     "created_by": "system"
   },
@@ -968,14 +968,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ERR_BILLING_CENTER_HAS_NO_AERODROMES",
-    "val": "Centro de facturación no tiene aeródromos asociado",
+    "val": "Centro de facturaciÃ³n no tiene aerÃ³dromos asociado",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Billing center has no aerodromes associated with it",
-    "val": "Centro de facturación no tiene aeródromos asociado",
+    "val": "Centro de facturaciÃ³n no tiene aerÃ³dromos asociado",
     "part": "backend",
     "created_by": "system"
   },
@@ -1031,7 +1031,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "EXPIRED_OR_MISSING_COA_FOR_SMALL_AIRCRAFT",
-    "val": "COA EXPIRADO_O_FALTANTE_PARA_AERONAVES_PEQUEÑAS",
+    "val": "COA EXPIRADO_O_FALTANTE_PARA_AERONAVES_PEQUEÃ‘AS",
     "part": "frontend",
     "created_by": "system"
   },
@@ -1045,21 +1045,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ERR_UNIQUENESS_VIOLATION_FLIGHT_TYPE_VALUE",
-    "val": "La combinación de Tipo de Elemento de Vuelo y Valor de Vuelo ya existe",
+    "val": "La combinaciÃ³n de Tipo de Elemento de Vuelo y Valor de Vuelo ya existe",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Combination of Flight Item Type and Flight Value already exists",
-    "val": "La combinación de Tipo de Elemento de Vuelo y Valor de Vuelo ya existe",
+    "val": "La combinaciÃ³n de Tipo de Elemento de Vuelo y Valor de Vuelo ya existe",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Combine aerodrome and approach charges",
-    "val": "Combinar las tasas de aeródromo y de aproximación",
+    "val": "Combinar las tasas de aerÃ³dromo y de aproximaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
@@ -1073,7 +1073,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Retail Space Concessions",
-    "val": "Concesión de espacio comercial",
+    "val": "ConcesiÃ³n de espacio comercial",
     "part": "frontend",
     "created_by": "system"
   },
@@ -1087,140 +1087,140 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Self-care portal password",
-    "val": "Contraseña para portal Self-Care",
+    "val": "ContraseÃ±a para portal Self-Care",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Password requires a uppercase character",
-    "val": "Contraseña requiere un carácter en mayúscula",
+    "val": "ContraseÃ±a requiere un carÃ¡cter en mayÃºscula",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Password requires a lowercase character",
-    "val": "Contraseña requiere un carácter en minúscula",
+    "val": "ContraseÃ±a requiere un carÃ¡cter en minÃºscula",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aerodrome Fees Exempt",
-    "val": "Exención de Tasas de Aeródromo",
+    "val": "ExenciÃ³n de Tasas de AerÃ³dromo",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aerodrome Fees Exempt *",
-    "val": "Exención de Tasas de Aeródromo *",
+    "val": "ExenciÃ³n de Tasas de AerÃ³dromo *",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Approach Fees Exempt",
-    "val": "Tasas de Aproximación Exentas",
+    "val": "Tasas de AproximaciÃ³n Exentas",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Approach Fees Exempt *",
-    "val": "Tasas de Aproximación Exentas *",
+    "val": "Tasas de AproximaciÃ³n Exentas *",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Late Departure Fees Exempt",
-    "val": "Exención de Tasas por Salida Tardía",
+    "val": "ExenciÃ³n de Tasas por Salida TardÃ­a",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Late Departure Fees Exempt *",
-    "val": "Exención de Tasas por Salida Tardía *",
+    "val": "ExenciÃ³n de Tasas por Salida TardÃ­a *",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Parking Fees Exempt",
-    "val": "Exención de Tasas de Aparcamiento",
+    "val": "ExenciÃ³n de Tasas de Aparcamiento",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Parking Fees Exempt *",
-    "val": "Exención de Tasas de Aparcamiento*",
+    "val": "ExenciÃ³n de Tasas de Aparcamiento*",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Late Arrival Fees Exempt",
-    "val": "Exención de Tasas por Llegada Tardía",
+    "val": "ExenciÃ³n de Tasas por Llegada TardÃ­a",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Late Arrival Fees Exempt *",
-    "val": "Exención de Tasas por Llegada Tardía *",
+    "val": "ExenciÃ³n de Tasas por Llegada TardÃ­a *",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "International PAX Fees Exempt",
-    "val": "Exención de Tasas para Pasajeros Internacionales",
+    "val": "ExenciÃ³n de Tasas para Pasajeros Internacionales",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "International PAX Fees Exempt *",
-    "val": "Exención de Tasas para Pasajeros Internacionales *",
+    "val": "ExenciÃ³n de Tasas para Pasajeros Internacionales *",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Domestic PAX Fees Exempt",
-    "val": "Exención de Tasas para Pasajeros Nacionales",
+    "val": "ExenciÃ³n de Tasas para Pasajeros Nacionales",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Domextic PAX Fees Exempt",
-    "val": "Exención de Tasas para Pasajeros Nacionales",
+    "val": "ExenciÃ³n de Tasas para Pasajeros Nacionales",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Domestic PAX Fees Exempt *",
-    "val": "Exención de Tasas para Pasajeros Nacionales *",
+    "val": "ExenciÃ³n de Tasas para Pasajeros Nacionales *",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Enroute Fees Exempt",
-    "val": "Exención de Tasas en Ruta",
+    "val": "ExenciÃ³n de Tasas en Ruta",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Enroute Fees Exempt *",
-    "val": "Exención de Tasas en Ruta *",
+    "val": "ExenciÃ³n de Tasas en Ruta *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -1234,14 +1234,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Enroute Air Navigation Charges",
-    "val": "Tasas de Navegación Aérea en Ruta",
+    "val": "Tasas de NavegaciÃ³n AÃ©rea en Ruta",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "P.EAN.TITLE",
-    "val": "Tasas de Navegación Aérea en Ruta",
+    "val": "Tasas de NavegaciÃ³n AÃ©rea en Ruta",
     "part": "frontend",
     "created_by": "system"
   },
@@ -1255,7 +1255,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Create New Transaction Approval Workflow Steps",
-    "val": "Crear nuevos pasos de flujo de aprobación de transacciones",
+    "val": "Crear nuevos pasos de flujo de aprobaciÃ³n de transacciones",
     "part": "frontend",
     "created_by": "system"
   },
@@ -1269,7 +1269,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Create a Repositioning Aerodrome Cluster",
-    "val": "Crear un Reposicionamiento de los Grupos de Aeródromos",
+    "val": "Crear un Reposicionamiento de los Grupos de AerÃ³dromos",
     "part": "frontend",
     "created_by": "system"
   },
@@ -1311,14 +1311,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Create a Flight Reassignment",
-    "val": "Crear una Reasignación de Vuelo",
+    "val": "Crear una ReasignaciÃ³n de Vuelo",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Create an Aerodrome Service Outage",
-    "val": "Crear una Interrupción del Servicio del Aeródromo",
+    "val": "Crear una InterrupciÃ³n del Servicio del AerÃ³dromo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -1346,14 +1346,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ERR_MISSING_BILLING_CENTER_OF_CURRENT_USER",
-    "val": "Usuario corriente no tiene un centro de facturación asignado",
+    "val": "Usuario corriente no tiene un centro de facturaciÃ³n asignado",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Current user account doesn''t have a billing center assigned",
-    "val": "Usuario corriente no tiene un centro de facturación asignado",
+    "val": "Usuario corriente no tiene un centro de facturaciÃ³n asignado",
     "part": "backend",
     "created_by": "system"
   },
@@ -1367,91 +1367,91 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ERR_CREDIT_RANGE",
-    "val": "Cuenta predeterminada límite de crédito (%.0f) debe estar dentro del rango de mínimo (%.0f) y la máxima nota de crédito cantidades (%.0f).",
+    "val": "Cuenta predeterminada lÃ­mite de crÃ©dito (%.0f) debe estar dentro del rango de mÃ­nimo (%.0f) y la mÃ¡xima nota de crÃ©dito cantidades (%.0f).",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Default account credit limit (%.0f) should be within the range of minimum (%.0f) and maximum credit note amounts (%.0f).",
-    "val": "Cuenta predeterminada límite de crédito (%.0f) debe estar dentro del rango de mínimo (%.0f) y la máxima nota de crédito cantidades (%.0f).",
+    "val": "Cuenta predeterminada lÃ­mite de crÃ©dito (%.0f) debe estar dentro del rango de mÃ­nimo (%.0f) y la mÃ¡xima nota de crÃ©dito cantidades (%.0f).",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_CREDIT_NULL",
-    "val": "Cuenta predeterminada límite de crédito no puede ser null",
+    "val": "Cuenta predeterminada lÃ­mite de crÃ©dito no puede ser null",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Default account credit limit can not be null",
-    "val": "Cuenta predeterminada límite de crédito no puede ser null",
+    "val": "Cuenta predeterminada lÃ­mite de crÃ©dito no puede ser null",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Default account maximum credit note amount (%.0f) should be greater than minimum amount",
-    "val": "Cuenta predeterminada máxima nota de crédito cantidad (%.0f) debe ser mayor que la cantidad mínima",
+    "val": "Cuenta predeterminada mÃ¡xima nota de crÃ©dito cantidad (%.0f) debe ser mayor que la cantidad mÃ­nima",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_CREDIT_MAX_HIGH",
-    "val": "Cuenta predeterminada máxima nota de crédito cantidad (%.0f) debe ser mayor que la cantidad mínima (%.0f)",
+    "val": "Cuenta predeterminada mÃ¡xima nota de crÃ©dito cantidad (%.0f) debe ser mayor que la cantidad mÃ­nima (%.0f)",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Default account maximum credit note amount (%.0f) should be greater than minimum amount (%.0f)",
-    "val": "Cuenta predeterminada máxima nota de crédito cantidad (%.0f) debe ser mayor que la cantidad mínima (%.0f)",
+    "val": "Cuenta predeterminada mÃ¡xima nota de crÃ©dito cantidad (%.0f) debe ser mayor que la cantidad mÃ­nima (%.0f)",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_CREDIT_MAX_NULL",
-    "val": "Cuenta predeterminada máxima nota de crédito cantidad no puede ser null",
+    "val": "Cuenta predeterminada mÃ¡xima nota de crÃ©dito cantidad no puede ser null",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Default account maximum credit note amount can not be null",
-    "val": "Cuenta predeterminada máxima nota de crédito cantidad no puede ser null",
+    "val": "Cuenta predeterminada mÃ¡xima nota de crÃ©dito cantidad no puede ser null",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_CREDIT_MIN_NULL",
-    "val": "Cuenta predeterminada mínimo de nota de crédito cantidad no puede ser null",
+    "val": "Cuenta predeterminada mÃ­nimo de nota de crÃ©dito cantidad no puede ser null",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Default account minimum credit note amount can not be null",
-    "val": "Importe mínimo de nota de crédito de la Cuenta no puede ser null",
+    "val": "Importe mÃ­nimo de nota de crÃ©dito de la Cuenta no puede ser null",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_CREDIT_MIN_ZERO",
-    "val": "Importe mínimo o importe máximo para nota de crédito de la cuenta por defecto no puede ser inferior a 0",
+    "val": "Importe mÃ­nimo o importe mÃ¡ximo para nota de crÃ©dito de la cuenta por defecto no puede ser inferior a 0",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Default account minimum credit note amount or Default account maximum credit note amount can not be less than 0",
-    "val": "Importe mínimo o importe máximo para nota de crédito de la cuenta por defecto no puede ser inferior a 0",
+    "val": "Importe mÃ­nimo o importe mÃ¡ximo para nota de crÃ©dito de la cuenta por defecto no puede ser inferior a 0",
     "part": "backend",
     "created_by": "system"
   },
@@ -1472,28 +1472,28 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Accounts Exempt Management",
-    "val": "Gestión de Cuentas Exentas",
+    "val": "GestiÃ³n de Cuentas Exentas",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Invalid file",
-    "val": "Archivo no válido",
+    "val": "Archivo no vÃ¡lido",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Search and Rescue",
-    "val": "Búsqueda y Rescate",
+    "val": "BÃºsqueda y Rescate",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "SAR",
-    "val": "Búsqueda y Rescate",
+    "val": "BÃºsqueda y Rescate",
     "part": "frontend",
     "created_by": "system"
   },
@@ -1514,7 +1514,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Credit and Debit Notes Report",
-    "val": "Informe de Notas de Crédito y Débito",
+    "val": "Informe de Notas de CrÃ©dito y DÃ©bito",
     "part": "frontend",
     "created_by": "system"
   },
@@ -1535,21 +1535,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Country Management",
-    "val": "Gestión del País",
+    "val": "GestiÃ³n del PaÃ­s",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "of the Billing Ledger",
-    "val": "del Libro de Facturación",
+    "val": "del Libro de FacturaciÃ³n",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Flight Crew *",
-    "val": "Tripulación de Vuelo *",
+    "val": "TripulaciÃ³n de Vuelo *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -1570,21 +1570,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aircraft Registration",
-    "val": "Matrícula de Aeronave",
+    "val": "MatrÃ­cula de Aeronave",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aircraft Registration Report",
-    "val": "Informe de Matrícula de Aeronave",
+    "val": "Informe de MatrÃ­cula de Aeronave",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aircraft Registration Tracking Report",
-    "val": "Informe de Seguimiento de Matrícula",
+    "val": "Informe de Seguimiento de MatrÃ­cula",
     "part": "frontend",
     "created_by": "system"
   },
@@ -1626,7 +1626,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Return Smaller of Two Numbers",
-    "val": "Devolver el menor de dos números",
+    "val": "Devolver el menor de dos nÃºmeros",
     "part": "frontend",
     "created_by": "system"
   },
@@ -1668,140 +1668,140 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Returns the larger of two numbers",
-    "val": "Devolver el mayor de dos números",
+    "val": "Devolver el mayor de dos nÃºmeros",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Returns the smaller of two numbers",
-    "val": "Devolver el menor de dos números",
+    "val": "Devolver el menor de dos nÃºmeros",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Returns the absolute value of a number",
-    "val": "Devolver el valor absoluto de un número",
+    "val": "Devolver el valor absoluto de un nÃºmero",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Returns the largest integer less than or equal to the specified number",
-    "val": "Devolver el valor entero inferior más cercano al valor especificado",
+    "val": "Devolver el valor entero inferior mÃ¡s cercano al valor especificado",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Returns the smaller integer greater than or equal to the specified number",
-    "val": "Devolver el valor entero superior más cercano al valor especificado",
+    "val": "Devolver el valor entero superior mÃ¡s cercano al valor especificado",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Returns the square root of a number",
-    "val": "Devolver la raíz cuadrada de un número",
+    "val": "Devolver la raÃ­z cuadrada de un nÃºmero",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Returns a specified number raised to the power of 2",
-    "val": "Devolver un determinado número elevado a la potencia de 2",
+    "val": "Devolver un determinado nÃºmero elevado a la potencia de 2",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Returns a specified number raised to the specified power",
-    "val": "Devolver un determinado número elevado a la potencia especificada",
+    "val": "Devolver un determinado nÃºmero elevado a la potencia especificada",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Different currencies for international and domestic approach fees",
-    "val": "Diferentes monedas para las tasas de aproximación internacional y nacional",
+    "val": "Diferentes monedas para las tasas de aproximaciÃ³n internacional y nacional",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Originator AFTN address",
-    "val": "Dirección AFTN del Originador",
+    "val": "DirecciÃ³n AFTN del Originador",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aviation Billing Email Address",
-    "val": "Dirección de Correo Electrónico para Facturación Aeronáutica",
+    "val": "DirecciÃ³n de Correo ElectrÃ³nico para FacturaciÃ³n AeronÃ¡utica",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Non-Aviation Billing Email Address",
-    "val": "Dirección de Correo Electrónico para Facturación No-Aeronáutica",
+    "val": "DirecciÃ³n de Correo ElectrÃ³nico para FacturaciÃ³n No-AeronÃ¡utica",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aviation Billing Mailing Address",
-    "val": "Dirección para Facturación Aeronáutica",
+    "val": "DirecciÃ³n para FacturaciÃ³n AeronÃ¡utica",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Non-Aviation Billing Mailing Address",
-    "val": "Dirección para Facturación No-Aeronáutica",
+    "val": "DirecciÃ³n para FacturaciÃ³n No-AeronÃ¡utica",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Maximum international crossing distance",
-    "val": "Distancia de Cruce máxima Internacional",
+    "val": "Distancia de Cruce mÃ¡xima Internacional",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Maximum domestic crossing distance",
-    "val": "Distancia de Cruce máxima Nacional",
+    "val": "Distancia de Cruce mÃ¡xima Nacional",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Maximum regional crossing distance",
-    "val": "Distancia de Cruce máxima Regional",
+    "val": "Distancia de Cruce mÃ¡xima Regional",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Minimum international crossing distance",
-    "val": "Distancia de Cruce mínima Internacional",
+    "val": "Distancia de Cruce mÃ­nima Internacional",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Minimum domestic crossing distance",
-    "val": "Distancia de Cruce mínima Nacional",
+    "val": "Distancia de Cruce mÃ­nima Nacional",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Minimum regional crossing distance",
-    "val": "Distancia de Cruce mínima Regional",
+    "val": "Distancia de Cruce mÃ­nima Regional",
     "part": "frontend",
     "created_by": "system"
   },
@@ -1829,7 +1829,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Edit Service Charge Catalogue",
-    "val": "Editar Cargas de Catálogo de Servicios",
+    "val": "Editar Cargas de CatÃ¡logo de Servicios",
     "part": "frontend",
     "created_by": "system"
   },
@@ -1843,7 +1843,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Edit an Aerodrome Category",
-    "val": "Editar una Categoría de Aeródromo",
+    "val": "Editar una CategorÃ­a de AerÃ³dromo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -1920,7 +1920,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Edit a Repositioning Aerodrome Cluster",
-    "val": "Editar un Reposicionamiento de los Grupos de Aeródromos",
+    "val": "Editar un Reposicionamiento de los Grupos de AerÃ³dromos",
     "part": "frontend",
     "created_by": "system"
   },
@@ -1934,49 +1934,49 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "departure Aerodrome",
-    "val": "Aeródromo de Salida",
+    "val": "AerÃ³dromo de Salida",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_AERODROME_VALIDATION",
-    "val": "Aeródromo no válido",
+    "val": "AerÃ³dromo no vÃ¡lido",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aerodrome not valid",
-    "val": "Aeródromo no válido",
+    "val": "AerÃ³dromo no vÃ¡lido",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aerodrome is required",
-    "val": "El Aeródromo es necesario",
+    "val": "El AerÃ³dromo es necesario",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Arrival Airport",
-    "val": "Aeródromo de Destino",
+    "val": "AerÃ³dromo de Destino",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_CONCURRENCY_FAILURE",
-    "val": "El artículo ha sido modificado mientras tanto",
+    "val": "El artÃ­culo ha sido modificado mientras tanto",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "The item has been modified in the meantime",
-    "val": "El artículo ha sido modificado mientras tanto",
+    "val": "El artÃ­culo ha sido modificado mientras tanto",
     "part": "backend",
     "created_by": "system"
   },
@@ -2053,21 +2053,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approach fees label",
-    "val": "Etiqueta de las Tasas de Aproximación",
+    "val": "Etiqueta de las Tasas de AproximaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Approach Charges",
-    "val": "Tasas de Aproximación",
+    "val": "Tasas de AproximaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "approach_charges",
-    "val": "Tasas de Aproximación",
+    "val": "Tasas de AproximaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
@@ -2081,21 +2081,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Maximum accounts per web user",
-    "val": "Cuentas máximas por usuario de Self-Care",
+    "val": "Cuentas mÃ¡ximas por usuario de Self-Care",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "The email has been successfully sent",
-    "val": "El mensaje electrónico se envió satisfactoriamente",
+    "val": "El mensaje electrÃ³nico se enviÃ³ satisfactoriamente",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Approach Discount Amount should be should within 0-100%",
-    "val": "El monto de descuento de Aproximación debe ser dentro de 0-100%",
+    "val": "El monto de descuento de AproximaciÃ³n debe ser dentro de 0-100%",
     "part": "frontend",
     "created_by": "system"
   },
@@ -2144,14 +2144,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Recalculation",
-    "val": "Recálculo",
+    "val": "RecÃ¡lculo",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "repositioning aerodrome clusters",
-    "val": "Reposicionamiento de Grupos de Aeródromos",
+    "val": "Reposicionamiento de Grupos de AerÃ³dromos",
     "part": "frontend",
     "created_by": "system"
   },
@@ -2242,7 +2242,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "User has been created, please verify it within 24 hours by clicking the activation link that has been send to your email",
-    "val": "El usuario ha sido creado, por favor verifiquelo dentro de las proximas 24 horas accediendo al link de activación que se envió a su correo electrónico.",
+    "val": "El usuario ha sido creado, por favor verifiquelo dentro de las proximas 24 horas accediendo al link de activaciÃ³n que se enviÃ³ a su correo electrÃ³nico.",
     "part": "frontend",
     "created_by": "system"
   },
@@ -2270,28 +2270,28 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Rejected Items - Error found in the application: cannot perform the operation '' cannot be fixed",
-    "val": "Elementos rechazados - Error de aplicación: no se puede realizar la operación de corrección",
+    "val": "Elementos rechazados - Error de aplicaciÃ³n: no se puede realizar la operaciÃ³n de correcciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "black listed override",
-    "val": "anulación de la lista negra",
+    "val": "anulaciÃ³n de la lista negra",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "against the current version",
-    "val": "contra de la versión actual",
+    "val": "contra de la versiÃ³n actual",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Enroute Air Navigation Charges Management",
-    "val": "Gestión de las Tasas de Navegación Aérea en Ruta",
+    "val": "GestiÃ³n de las Tasas de NavegaciÃ³n AÃ©rea en Ruta",
     "part": "frontend",
     "created_by": "system"
   },
@@ -2305,21 +2305,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Domestic approach charges currency",
-    "val": "Moneda de Tasas Aproximación Nacional",
+    "val": "Moneda de Tasas AproximaciÃ³n Nacional",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "International approach charges currency",
-    "val": "Moneda de Tasas Aproximación Internacional",
+    "val": "Moneda de Tasas AproximaciÃ³n Internacional",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Regional approach charges currency",
-    "val": "Moneda de Tasas Aproximación Regional",
+    "val": "Moneda de Tasas AproximaciÃ³n Regional",
     "part": "frontend",
     "created_by": "system"
   },
@@ -2340,21 +2340,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Select an Airspace",
-    "val": "Seleccionar un espacio aéreo",
+    "val": "Seleccionar un espacio aÃ©reo",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Are you sure you want to update the exchange rate of currencies?",
-    "val": "Está seguro que desea actualizar la tasa de cambio de las monedas.",
+    "val": "EstÃ¡ seguro que desea actualizar la tasa de cambio de las monedas.",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Are you sure? This will delete any existing Transaction Workflow Steps.",
-    "val": "Estás seguro? Esto eliminará cualquier  Pasos existentes del Flujo de aprobación de Transacción",
+    "val": "EstÃ¡s seguro? Esto eliminarÃ¡ cualquier  Pasos existentes del Flujo de aprobaciÃ³n de TransacciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
@@ -2375,7 +2375,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cached Events",
-    "val": "Eventos en Caché",
+    "val": "Eventos en CachÃ©",
     "part": "frontend",
     "created_by": "system"
   },
@@ -2389,56 +2389,56 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Exemption End Date",
-    "val": "Fecha de fin de la exención",
+    "val": "Fecha de fin de la exenciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Exemption Start Date",
-    "val": "Fecha de inicio de la exención",
+    "val": "Fecha de inicio de la exenciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Exempt small AC with valid AOC - aerodrome",
-    "val": "Aeronaves pequeñas exentas con CoA válido - Aeródromo",
+    "val": "Aeronaves pequeÃ±as exentas con CoA vÃ¡lido - AerÃ³dromo",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Exempt small AC with valid AOC - enroute",
-    "val": "Aeronaves pequeñas exentas con CoA válido - En Ruta",
+    "val": "Aeronaves pequeÃ±as exentas con CoA vÃ¡lido - En Ruta",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Exempt small AC with valid AOC - approach",
-    "val": "Aeronaves pequeñas exentas con CoA válido - Aproximación",
+    "val": "Aeronaves pequeÃ±as exentas con CoA vÃ¡lido - AproximaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Exempt small AC with valid AOC - passenger",
-    "val": "Aeronaves pequeñas exentas con CoA válido - Pasajero",
+    "val": "Aeronaves pequeÃ±as exentas con CoA vÃ¡lido - Pasajero",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Exempt Aircraft Registration",
-    "val": "Matrícula Exentas",
+    "val": "MatrÃ­cula Exentas",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Exempt Flight Status Management",
-    "val": "Gestión de Exención de estado de vuelos",
+    "val": "GestiÃ³n de ExenciÃ³n de estado de vuelos",
     "part": "frontend",
     "created_by": "system"
   },
@@ -2452,14 +2452,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Exempt Flight Route Management",
-    "val": "Gestión de Exención de Ruta ",
+    "val": "GestiÃ³n de ExenciÃ³n de Ruta ",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Exempt Aircraft Management",
-    "val": "Gestión de Exención de Aeronaves",
+    "val": "GestiÃ³n de ExenciÃ³n de Aeronaves",
     "part": "frontend",
     "created_by": "system"
   },
@@ -2501,21 +2501,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "aircraft parking exemption",
-    "val": "Exención de Estacionamiento de Aeronaves",
+    "val": "ExenciÃ³n de Estacionamiento de Aeronaves",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aircraft Parking Exemption *",
-    "val": "Exención de Estacionamiento de Aeronaves",
+    "val": "ExenciÃ³n de Estacionamiento de Aeronaves",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Bidirectional Fees Exempt",
-    "val": "Exención de Tasas Bidireccionales",
+    "val": "ExenciÃ³n de Tasas Bidireccionales",
     "part": "frontend",
     "created_by": "system"
   },
@@ -2606,14 +2606,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Require invoice manual approval",
-    "val": "Requerir la aprobación manual de la factura",
+    "val": "Requerir la aprobaciÃ³n manual de la factura",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Require invoice manual publishing",
-    "val": "Requerir la publicación manual de la factura",
+    "val": "Requerir la publicaciÃ³n manual de la factura",
     "part": "frontend",
     "created_by": "system"
   },
@@ -2627,7 +2627,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "IATA invoicing support",
-    "val": "Soporte a Facturación IATA",
+    "val": "Soporte a FacturaciÃ³n IATA",
     "part": "frontend",
     "created_by": "system"
   },
@@ -2641,21 +2641,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Credit Facilities",
-    "val": "Facilidades de Crédito",
+    "val": "Facilidades de CrÃ©dito",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Missing navdb aerodromes",
-    "val": "Aeródromos faltante en NavDB",
+    "val": "AerÃ³dromos faltante en NavDB",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "MISSING_INFORMATION_FOR_CREATE_UNSPECIFIED_LOCATION",
-    "val": "Falta información para crear una ubicación desconoscida",
+    "val": "Falta informaciÃ³n para crear una ubicaciÃ³n desconoscida",
     "part": "backend",
     "created_by": "system"
   },
@@ -2690,7 +2690,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "MISSING_PASSENGER_DOMESTIC_DATA",
-    "val": "FALTAN_DATOS_DE_PASAJEROS_DOMÉSTICOS",
+    "val": "FALTAN_DATOS_DE_PASAJEROS_DOMÃ‰STICOS",
     "part": "frontend",
     "created_by": "system"
   },
@@ -2704,7 +2704,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "MISSING_PASSENGER_SERVICE_CHARGE_RETURN",
-    "val": "FALTA_DEVOLUCIÓN_DEL_CARGO_DEL_SERVICIO_DE_PASAJEROS",
+    "val": "FALTA_DEVOLUCIÃ“N_DEL_CARGO_DEL_SERVICIO_DE_PASAJEROS",
     "part": "frontend",
     "created_by": "system"
   },
@@ -2739,7 +2739,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "missing day of flight",
-    "val": "Día de vuelo faltante",
+    "val": "DÃ­a de vuelo faltante",
     "part": "backend",
     "created_by": "system"
   },
@@ -2795,7 +2795,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Invalid start date",
-    "val": "Fecha de inicio no válida",
+    "val": "Fecha de inicio no vÃ¡lida",
     "part": "backend",
     "created_by": "system"
   },
@@ -2809,21 +2809,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "CoA Date of Renewal",
-    "val": "Fecha de renovación de CoA",
+    "val": "Fecha de renovaciÃ³n de CoA",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Renewal date",
-    "val": "Fecha de renovación",
+    "val": "Fecha de renovaciÃ³n",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aircraft Registrations filtering",
-    "val": "Filtración de Matrículas",
+    "val": "FiltraciÃ³n de MatrÃ­culas",
     "part": "frontend",
     "created_by": "system"
   },
@@ -2900,27 +2900,27 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "overflight/foreign Formula",
-    "val": "Fórmula Sobrevuelo/Extranjero",
+    "val": "FÃ³rmula Sobrevuelo/Extranjero",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "overflight/national Formula",
-    "val": "Fórmula Sobrevuelo/Nacional",
+    "val": "FÃ³rmula Sobrevuelo/Nacional",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Enroute Formulas",
-    "val": "Fórmulas En Ruta",
+    "val": "FÃ³rmulas En Ruta",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
-    "token": "FPL – validate CRONOS flight level",
+    "token": "FPL â€“ validate CRONOS flight level",
     "val": "FPL - validar el nivel de vuelo CRONOS",
     "part": "frontend",
     "created_by": "system"
@@ -2949,35 +2949,35 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Generate error for small AC with missing or invalid AOC",
-    "val": "Generar error para aviones pequeños con CoA faltante o inválido",
+    "val": "Generar error para aviones pequeÃ±os con CoA faltante o invÃ¡lido",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Management",
-    "val": "Gestión",
+    "val": "GestiÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Group Management",
-    "val": "Gestión de Grupos",
+    "val": "GestiÃ³n de Grupos",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Group by Fiscal Year",
-    "val": "Agrupar para el Año Fiscal",
+    "val": "Agrupar para el AÃ±o Fiscal",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Group by aerodrome",
-    "val": "Agrupar por aeródromo",
+    "val": "Agrupar por aerÃ³dromo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -2998,7 +2998,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "has status",
-    "val": "Factura creada con éxito",
+    "val": "Factura creada con Ã©xito",
     "part": "backend",
     "created_by": "system"
   },
@@ -3061,14 +3061,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ERR_INVOICE_NOVALID",
-    "val": "Las facturas IATA no pueden generarse para los períodos de facturación actuales o futuros. Por favor, seleccione un periodo de facturación válido de la factura IATA.",
+    "val": "Las facturas IATA no pueden generarse para los perÃ­odos de facturaciÃ³n actuales o futuros. Por favor, seleccione un periodo de facturaciÃ³n vÃ¡lido de la factura IATA.",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "IATA invoices cannot be generated for the current or future billing periods. Please choose a valid IATA invoice billing period.",
-    "val": "Las facturas IATA no pueden generarse para los períodos de facturación actuales o futuros. Por favor, seleccione un periodo de facturación válido de la factura IATA.",
+    "val": "Las facturas IATA no pueden generarse para los perÃ­odos de facturaciÃ³n actuales o futuros. Por favor, seleccione un periodo de facturaciÃ³n vÃ¡lido de la factura IATA.",
     "part": "backend",
     "created_by": "system"
   },
@@ -3096,21 +3096,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Flight Id/Registration Number",
-    "val": "ID de Vuelo/Matrícula",
+    "val": "ID de Vuelo/MatrÃ­cula",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Unique Record Id",
-    "val": "Identificador Único de Registro ",
+    "val": "Identificador Ãšnico de Registro ",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Unique Record Identifier",
-    "val": "Identificador Único de Registro ",
+    "val": "Identificador Ãšnico de Registro ",
     "part": "frontend",
     "created_by": "system"
   },
@@ -3166,7 +3166,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Revenue lost to exemptions report",
-    "val": "Informe de Pérdida de Ingresos por Exenciones",
+    "val": "Informe de PÃ©rdida de Ingresos por Exenciones",
     "part": "frontend",
     "created_by": "system"
   },
@@ -3194,7 +3194,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "International Passenger Fee - Child *",
-    "val": "Tarifa de Pasajeros Internacional - Niño *",
+    "val": "Tarifa de Pasajeros Internacional - NiÃ±o *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -3229,21 +3229,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "international_arrival_formula",
-    "val": "Fórmula Llegada Internacional",
+    "val": "FÃ³rmula Llegada Internacional",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "int_arr_d_factor_formula",
-    "val": "Fórmula Llegada Internacional (D)",
+    "val": "FÃ³rmula Llegada Internacional (D)",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "International late arrival/departure charges currency",
-    "val": "Moneda de llaegada/salida Internacional tardía",
+    "val": "Moneda de llaegada/salida Internacional tardÃ­a",
     "part": "frontend",
     "created_by": "system"
   },
@@ -3264,28 +3264,28 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "international_departure_formula",
-    "val": "Fórmula Despegue Internacional",
+    "val": "FÃ³rmula Despegue Internacional",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "International Departure (D)",
-    "val": "Fórmula Despegue Internacional (D)",
+    "val": "FÃ³rmula Despegue Internacional (D)",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "int_dep_d_factor_formula",
-    "val": "Fórmula Despegue Internacional (D)",
+    "val": "FÃ³rmula Despegue Internacional (D)",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "international_overflight_formula",
-    "val": "Fórmula Sobrevuelos",
+    "val": "FÃ³rmula Sobrevuelos",
     "part": "frontend",
     "created_by": "system"
   },
@@ -3299,35 +3299,35 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "International Overflight (D)",
-    "val": "Fórmula Sobrevuelo Internacional (D)",
+    "val": "FÃ³rmula Sobrevuelo Internacional (D)",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "int_ovr_d_factor_formula",
-    "val": "Fórmula Sobrevuelo Internacional (D)",
+    "val": "FÃ³rmula Sobrevuelo Internacional (D)",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "invalid or empty MTOW",
-    "val": "MTOW inválido o vacío",
+    "val": "MTOW invÃ¡lido o vacÃ­o",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_CURRENCY_UPDATING",
-    "val": "No se permite la actualización del tipo de cambio del USD",
+    "val": "No se permite la actualizaciÃ³n del tipo de cambio del USD",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Updating USD exchange rate is not allowed",
-    "val": "No se permite la actualización del tipo de cambio del USD",
+    "val": "No se permite la actualizaciÃ³n del tipo de cambio del USD",
     "part": "backend",
     "created_by": "system"
   },
@@ -3348,7 +3348,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approval Under",
-    "val": "La Aprobación Abajo De",
+    "val": "La AprobaciÃ³n Abajo De",
     "part": "frontend",
     "created_by": "system"
   },
@@ -3362,63 +3362,63 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aviation Billing Engine",
-    "val": "Motor de Facturación de Aviación ",
+    "val": "Motor de FacturaciÃ³n de AviaciÃ³n ",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aviation invoice",
-    "val": "Factura de Aviación",
+    "val": "Factura de AviaciÃ³n",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aviation invoice",
-    "val": "Factura de Aviación",
+    "val": "Factura de AviaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aviation invoices",
-    "val": "Factura de Aviación",
+    "val": "Factura de AviaciÃ³n",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aviation invoices PREVIEW",
-    "val": "Vista Previa de Factura de Aviación",
+    "val": "Vista Previa de Factura de AviaciÃ³n",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aviation invoices cannot be generated for the current or future billing periods.",
-    "val": "Las facturas de aviación no pueden generarse para los períodos de facturación actuales o futuros.",
+    "val": "Las facturas de aviaciÃ³n no pueden generarse para los perÃ­odos de facturaciÃ³n actuales o futuros.",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_AV_NOGEN",
-    "val": "Las facturas de aviación no pueden generarse para los períodos de facturación actuales o futuros. Por favor, seleccione un periodo de facturación válido.",
+    "val": "Las facturas de aviaciÃ³n no pueden generarse para los perÃ­odos de facturaciÃ³n actuales o futuros. Por favor, seleccione un periodo de facturaciÃ³n vÃ¡lido.",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aviation invoices cannot be generated for the current or future billing periods. Please choose a valid Aviation invoice billing period.",
-    "val": "Las facturas de aviación no pueden generarse para los períodos de facturación actuales o futuros. Por favor, seleccione un periodo de facturación válido.",
+    "val": "Las facturas de aviaciÃ³n no pueden generarse para los perÃ­odos de facturaciÃ³n actuales o futuros. Por favor, seleccione un periodo de facturaciÃ³n vÃ¡lido.",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "General Aviation",
-    "val": "Aviación General",
+    "val": "AviaciÃ³n General",
     "part": "frontend",
     "created_by": "system"
   },
@@ -3439,49 +3439,49 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "CONNECTION_ERROR",
-    "val": "La conexión con sistemas externos no está funcionando",
+    "val": "La conexiÃ³n con sistemas externos no estÃ¡ funcionando",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "The connection with external systems is not working fine",
-    "val": "La conexión con sistemas externos no está funcionando",
+    "val": "La conexiÃ³n con sistemas externos no estÃ¡ funcionando",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_PASSWORD_MINIMUM_LENGTH",
-    "val": "La contraseña no cumple la longitud mínima",
+    "val": "La contraseÃ±a no cumple la longitud mÃ­nima",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "The password does not meet the minimum length",
-    "val": "La contraseña no cumple la longitud mínima",
+    "val": "La contraseÃ±a no cumple la longitud mÃ­nima",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Password does not meet minimum length",
-    "val": "La contraseña no cumple la longitud mínima",
+    "val": "La contraseÃ±a no cumple la longitud mÃ­nima",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Password does not meet criteria. Password will not change",
-    "val": "La contraseña no cumple los criterios. La contraseña no se actualiza",
+    "val": "La contraseÃ±a no cumple los criterios. La contraseÃ±a no se actualiza",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "The temporary password has been sent to your email. Please update your password when you login.",
-    "val": "La contraseña temporanea se envió a su correo electrónico. Por favor, actualice su contraseña cuando inicie sesión.",
+    "val": "La contraseÃ±a temporanea se enviÃ³ a su correo electrÃ³nico. Por favor, actualice su contraseÃ±a cuando inicie sesiÃ³n.",
     "part": "frontend",
     "created_by": "system"
   },
@@ -3537,21 +3537,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Description for Other Charges *",
-    "val": "Descripción de Otras Cargas *",
+    "val": "DescripciÃ³n de Otras Cargas *",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "DEF_ERR_MAPPING",
-    "val": "La estructura de datos no es reconocida por la aplicación",
+    "val": "La estructura de datos no es reconocida por la aplicaciÃ³n",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "The data structure is not recognized by the application",
-    "val": "La estructura de datos no es reconocida por la aplicación",
+    "val": "La estructura de datos no es reconocida por la aplicaciÃ³n",
     "part": "backend",
     "created_by": "system"
   },
@@ -3572,21 +3572,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Billing Ledger with id %d doesn''t exist. Please provide a valid ID",
-    "val": "La Factura con ID %d no existe. Por favor proporcionar un ID Válido",
+    "val": "La Factura con ID %d no existe. Por favor proporcionar un ID VÃ¡lido",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Billing Centre Management",
-    "val": "Gestión del Centro de Facturación",
+    "val": "GestiÃ³n del Centro de FacturaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "billing centers",
-    "val": "Centros de Facturación",
+    "val": "Centros de FacturaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
@@ -3607,7 +3607,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ERR_INVOICE_PAYMENT_DATE_BEFORE_ISSUE_DATE",
-    "val": "La Fecha de pago es anterior a la Fecha emisión de la factura.",
+    "val": "La Fecha de pago es anterior a la Fecha emisiÃ³n de la factura.",
     "part": "backend",
     "created_by": "system"
   },
@@ -3621,28 +3621,28 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ERR_RENEWAL_EXPIRY_DATE",
-    "val": "La fecha de Renovación no puede ser anterior a la expiración",
+    "val": "La fecha de RenovaciÃ³n no puede ser anterior a la expiraciÃ³n",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "The renewal date is not before the expiry",
-    "val": "La fecha de Renovación no puede ser anterior a la expiración",
+    "val": "La fecha de RenovaciÃ³n no puede ser anterior a la expiraciÃ³n",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_MSG_DATE",
-    "val": "La fecha del vuelo no está especificada. ",
+    "val": "La fecha del vuelo no estÃ¡ especificada. ",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "The date of flight is not specified. ",
-    "val": "La fecha del vuelo no está especificada. ",
+    "val": "La fecha del vuelo no estÃ¡ especificada. ",
     "part": "backend",
     "created_by": "system"
   },
@@ -3663,14 +3663,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Generating the invoices",
-    "val": "Generación de Facturas",
+    "val": "GeneraciÃ³n de Facturas",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Airspace Management",
-    "val": "Gestión de Espacio Aéreo",
+    "val": "GestiÃ³n de Espacio AÃ©reo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -3684,21 +3684,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Internationalization",
-    "val": "Internacionalización",
+    "val": "InternacionalizaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Late Arrival Charges",
-    "val": "Cargos de Llegada Tardía",
+    "val": "Cargos de Llegada TardÃ­a",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "late_arrival_charges",
-    "val": "Cargos de Llegada Tardía",
+    "val": "Cargos de Llegada TardÃ­a",
     "part": "frontend",
     "created_by": "system"
   },
@@ -3712,7 +3712,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Humanitarian Mission",
-    "val": "Misión Humanitaria",
+    "val": "MisiÃ³n Humanitaria",
     "part": "frontend",
     "created_by": "system"
   },
@@ -3726,7 +3726,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Invalid transaction currency",
-    "val": "La moneda de la transacción no es válida",
+    "val": "La moneda de la transacciÃ³n no es vÃ¡lida",
     "part": "backend",
     "created_by": "system"
   },
@@ -3740,14 +3740,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "TIMEOUT_ERROR",
-    "val": "La operación duró demasiado tiempo",
+    "val": "La operaciÃ³n durÃ³ demasiado tiempo",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "The operation took to long",
-    "val": "La operación duró demasiado tiempo",
+    "val": "La operaciÃ³n durÃ³ demasiado tiempo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -3761,21 +3761,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Route caching retention",
-    "val": "Retención de rutas en caché",
+    "val": "RetenciÃ³n de rutas en cachÃ©",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_NO_DEP",
-    "val": "No se especifica el Aeródromo de Salida",
+    "val": "No se especifica el AerÃ³dromo de Salida",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Departure is not specified",
-    "val": "No se especifica el Aeródromo de Salida",
+    "val": "No se especifica el AerÃ³dromo de Salida",
     "part": "backend",
     "created_by": "system"
   },
@@ -3796,28 +3796,28 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ERR_HQ_BILLING_CENTER_NOT_FOUND",
-    "val": "El centro de facturación HQ no está definido",
+    "val": "El centro de facturaciÃ³n HQ no estÃ¡ definido",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "HQ Billing center is not defined",
-    "val": "El centro de facturación HQ no está definido",
+    "val": "El centro de facturaciÃ³n HQ no estÃ¡ definido",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_OVERLAPPED_EXC_RATE",
-    "val": "Un tipo de cambio en el período puede ser solapado",
+    "val": "Un tipo de cambio en el perÃ­odo puede ser solapado",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "An exchange rate in the period may be overlapped",
-    "val": "Un tipo de cambio en el período puede ser solapado",
+    "val": "Un tipo de cambio en el perÃ­odo puede ser solapado",
     "part": "backend",
     "created_by": "system"
   },
@@ -3845,56 +3845,56 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Air Navigation Charges",
-    "val": "Tasas de Navegación Aérea",
+    "val": "Tasas de NavegaciÃ³n AÃ©rea",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_ANSP_MODIFY",
-    "val": "La moneda de las tasas de navegación aérea no puede modificarse si hay movimientos de vuelo con tasas de navegación aérea distintas de cero.",
+    "val": "La moneda de las tasas de navegaciÃ³n aÃ©rea no puede modificarse si hay movimientos de vuelo con tasas de navegaciÃ³n aÃ©rea distintas de cero.",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Air navigation charges currency can not be modified if there are flight movements with non-zero air navigation charges.",
-    "val": "La moneda de las tasas de navegación aérea no puede modificarse si hay movimientos de vuelo con tasas de navegación aérea distintas de cero.",
+    "val": "La moneda de las tasas de navegaciÃ³n aÃ©rea no puede modificarse si hay movimientos de vuelo con tasas de navegaciÃ³n aÃ©rea distintas de cero.",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_ANSP_CURRENCY_NULL",
-    "val": "La moneda de las tasas de navegación aérea no puede ser nula",
+    "val": "La moneda de las tasas de navegaciÃ³n aÃ©rea no puede ser nula",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Air navigation charges currency can not be null",
-    "val": "La moneda de las tasas de navegación aérea no puede ser nula",
+    "val": "La moneda de las tasas de navegaciÃ³n aÃ©rea no puede ser nula",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "enroute air navigation charges",
-    "val": "Tasas de navegación aérea en ruta",
+    "val": "Tasas de navegaciÃ³n aÃ©rea en ruta",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "MTOW Upper Limit",
-    "val": "Límite Superior de MTOW",
+    "val": "LÃ­mite Superior de MTOW",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Whitelist Last Activity",
-    "val": "Última Actividad de Lista Blanca",
+    "val": "Ãšltima Actividad de Lista Blanca",
     "part": "frontend",
     "created_by": "system"
   },
@@ -3999,7 +3999,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Air Traffic Data",
-    "val": "Datos de Tráfico Aéreo",
+    "val": "Datos de TrÃ¡fico AÃ©reo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4013,7 +4013,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "airspaces",
-    "val": "Espacios Aéreos",
+    "val": "Espacios AÃ©reos",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4062,14 +4062,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Map Measurment Tool",
-    "val": " Herramienta de Medición de la Mapa",
+    "val": " Herramienta de MediciÃ³n de la Mapa",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Successfully marked PENDING zero cost flights as PAID",
-    "val": "Marcado con éxito Vuelos PENDIENTES de costo cero como PAGADO",
+    "val": "Marcado con Ã©xito Vuelos PENDIENTES de costo cero como PAGADO",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4083,14 +4083,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Maximum web users per account",
-    "val": "Máximo de usuarios web por cuenta",
+    "val": "MÃ¡ximo de usuarios web por cuenta",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Medical Flight",
-    "val": "Vuelo Médicos",
+    "val": "Vuelo MÃ©dicos",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4104,14 +4104,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "invoice delivery method",
-    "val": "método de envío de la factura",
+    "val": "mÃ©todo de envÃ­o de la factura",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Military, Customs or Police",
-    "val": "Militar, Aduanas o Policía",
+    "val": "Militar, Aduanas o PolicÃ­a",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4153,14 +4153,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approach Currency",
-    "val": "Moneda de Aproximación",
+    "val": "Moneda de AproximaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Air navigation charges currency",
-    "val": "Moneda de las Tasas de Navegación Aérea",
+    "val": "Moneda de las Tasas de NavegaciÃ³n AÃ©rea",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4181,21 +4181,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aerodrome Currency",
-    "val": "Moneda de Aeródromo",
+    "val": "Moneda de AerÃ³dromo",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Domestic late arrival/departure charges currency",
-    "val": "Moneda de llegada/salida tardía nacional",
+    "val": "Moneda de llegada/salida tardÃ­a nacional",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Regional late arrival/departure charges currency",
-    "val": "Moneda de llegada/salida tardía regional",
+    "val": "Moneda de llegada/salida tardÃ­a regional",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4216,7 +4216,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approach Discount Amount",
-    "val": "Descuento al Monto de Aproximación",
+    "val": "Descuento al Monto de AproximaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4230,14 +4230,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Deletion Reason",
-    "val": "Razón de la eliminación",
+    "val": "RazÃ³n de la eliminaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Incomplete Flight Reason",
-    "val": "Razón de vuelo incompleto",
+    "val": "RazÃ³n de vuelo incompleto",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4251,7 +4251,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Flight movement editing - EET should be mandatory for domestic and arrivals",
-    "val": "Movimiento de Vuelo - la información EET debe ser obligatoria en vuelos nacionales y en llegadas",
+    "val": "Movimiento de Vuelo - la informaciÃ³n EET debe ser obligatoria en vuelos nacionales y en llegadas",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4272,7 +4272,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Flight Movements Rejected due to DEF_ERR_ALREADY_EXISTS",
-    "val": "Movimientos de vuelo rechazados porqué ya existe",
+    "val": "Movimientos de vuelo rechazados porquÃ© ya existe",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4335,7 +4335,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approval Level Filter",
-    "val": "Filtro de Nivel de Aprobación",
+    "val": "Filtro de Nivel de AprobaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4356,28 +4356,28 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "INVALID_FLIGHT_LEVEL",
-    "val": "Nivel de Vuelo Inválido",
+    "val": "Nivel de Vuelo InvÃ¡lido",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Non-Aviation Billing Engine",
-    "val": "Motor de facturación No-Aviación",
+    "val": "Motor de facturaciÃ³n No-AviaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Non aviation invoice",
-    "val": "Factura de No-Aviación",
+    "val": "Factura de No-AviaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Non-aviation invoice",
-    "val": "Factura de No-Aviación",
+    "val": "Factura de No-AviaciÃ³n",
     "part": "backend",
     "created_by": "system"
   },
@@ -4398,7 +4398,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "invalid or missing free parking duration",
-    "val": "no es válido o falta la duración de aparcamiento gratuito",
+    "val": "no es vÃ¡lido o falta la duraciÃ³n de aparcamiento gratuito",
     "part": "backend",
     "created_by": "system"
   },
@@ -4412,28 +4412,28 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ERR_UNSPECIFIED_LOCATION_ID_DUPLICATED",
-    "val": " El identificador de texto de los lugares desconoscidos y/o el identificador del aeródromo está duplicado",
+    "val": " El identificador de texto de los lugares desconoscidos y/o el identificador del aerÃ³dromo estÃ¡ duplicado",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Unspecified Location text identifier or/and aerodrome identifier is duplicated",
-    "val": " El identificador de texto de los lugares desconoscidos y/o el identificador del aeródromo está duplicado",
+    "val": " El identificador de texto de los lugares desconoscidos y/o el identificador del aerÃ³dromo estÃ¡ duplicado",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "No billable flight movements have been found",
-    "val": "No se ha encontrado ningún movimiento de vuelo facturable",
+    "val": "No se ha encontrado ningÃºn movimiento de vuelo facturable",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "There are no Transaction Approvals related to this transaction",
-    "val": "No hay aprobaciones de transacciones relacionadas con esta operación",
+    "val": "No hay aprobaciones de transacciones relacionadas con esta operaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4447,14 +4447,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "There are no Aircraft Registration data",
-    "val": "No hay datos de Matrículas",
+    "val": "No hay datos de MatrÃ­culas",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "There are no Passenger Service Charge Return data",
-    "val": "No hay datos sobre la devolución de la tasa de servicio a los pasajeros",
+    "val": "No hay datos sobre la devoluciÃ³n de la tasa de servicio a los pasajeros",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4496,21 +4496,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "There are no Domestic Aerodromes data",
-    "val": "No hay datos de Aeródromos Nacionales",
+    "val": "No hay datos de AerÃ³dromos Nacionales",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "There are no Rejected Items data",
-    "val": "No hay datos de artículos rechazados",
+    "val": "No hay datos de artÃ­culos rechazados",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "There are no Enroute Air Navigation Charges data",
-    "val": "No hay datos de tasas de navegación aérea en ruta",
+    "val": "No hay datos de tasas de navegaciÃ³n aÃ©rea en ruta",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4545,7 +4545,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "There are no Billing Centres data",
-    "val": "No hay datos de Centros de Facturación",
+    "val": "No hay datos de Centros de FacturaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4587,28 +4587,28 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "There are no Aerodrome Categories data",
-    "val": "No hay datos de las categorías de aeródromos",
+    "val": "No hay datos de las categorÃ­as de aerÃ³dromos",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "There are no Service Charge Catalogue data",
-    "val": "No hay datos del Catálogo de Tasas de Servicio",
+    "val": "No hay datos del CatÃ¡logo de Tasas de Servicio",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_MISSINDG_REPORT_TEMPLATE",
-    "val": "No se generará ningún informe porque faltan uno o más archivos para ansp",
+    "val": "No se generarÃ¡ ningÃºn informe porque faltan uno o mÃ¡s archivos para ansp",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "No report will be generated because one or more files for ansp are missing",
-    "val": "No se generará ningún informe porque faltan uno o más archivos para ansp",
+    "val": "No se generarÃ¡ ningÃºn informe porque faltan uno o mÃ¡s archivos para ansp",
     "part": "backend",
     "created_by": "system"
   },
@@ -4622,7 +4622,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "There is no Country Management data",
-    "val": "No hay datos sobre la gestión de los países",
+    "val": "No hay datos sobre la gestiÃ³n de los paÃ­ses",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4671,35 +4671,35 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "There are no pending IATA flights for the selected account and billing period, and associated with airports managed by the current billing center. Either no such flights are registered in the database, or their charges haven''t been calculated yet, or they have already been invoiced, paid or canceled.",
-    "val": "No hay vuelos IATA pendientes para la cuenta y el periodo de facturación seleccionados, y asociados a aeropuertos gestionados por el centro de facturación actual. O bien no hay vuelos de este tipo registrados en la base de datos, o bien sus cargos no se han calculado todavía, o bien ya se han facturado, pagado o cancelado.",
+    "val": "No hay vuelos IATA pendientes para la cuenta y el periodo de facturaciÃ³n seleccionados, y asociados a aeropuertos gestionados por el centro de facturaciÃ³n actual. O bien no hay vuelos de este tipo registrados en la base de datos, o bien sus cargos no se han calculado todavÃ­a, o bien ya se han facturado, pagado o cancelado.",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "There are no pending IATA flights for the selected account and billing period, and associated with airports managed by the current billing center. Either no such flights are registered in the database, or their charges haven''t been calculated yet, or they have already been invoiced, paid, canceled or declined.",
-    "val": "No hay vuelos IATA pendientes para la cuenta y el periodo de facturación seleccionados, y asociados a aeropuertos gestionados por el centro de facturación actual. O bien no hay vuelos de este tipo registrados en la base de datos, o bien sus cargos no se han calculado todavía, o bien ya se han facturado, pagado o cancelado.",
+    "val": "No hay vuelos IATA pendientes para la cuenta y el periodo de facturaciÃ³n seleccionados, y asociados a aeropuertos gestionados por el centro de facturaciÃ³n actual. O bien no hay vuelos de este tipo registrados en la base de datos, o bien sus cargos no se han calculado todavÃ­a, o bien ya se han facturado, pagado o cancelado.",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_INVOICE_NOPEND",
-    "val": "No hay vuelos IATA pendientes para la cuenta y el periodo de facturación seleccionados. O bien no hay vuelos de este tipo registrados en la base de datos, o bien sus cargos no se han calculado todavía, o bien ya han sido facturados, pagados o cancelados.",
+    "val": "No hay vuelos IATA pendientes para la cuenta y el periodo de facturaciÃ³n seleccionados. O bien no hay vuelos de este tipo registrados en la base de datos, o bien sus cargos no se han calculado todavÃ­a, o bien ya han sido facturados, pagados o cancelados.",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "There are no pending IATA flights for the selected account and billing period. Either no such flights are registered in the database, or their charges haven''t been calculated yet, or they have already been invoiced, paid or canceled.",
-    "val": "No hay vuelos IATA pendientes para la cuenta y el periodo de facturación seleccionados. O bien no hay vuelos de este tipo registrados en la base de datos, o bien sus cargos no se han calculado todavía, o bien ya han sido facturados, pagados o cancelados.",
+    "val": "No hay vuelos IATA pendientes para la cuenta y el periodo de facturaciÃ³n seleccionados. O bien no hay vuelos de este tipo registrados en la base de datos, o bien sus cargos no se han calculado todavÃ­a, o bien ya han sido facturados, pagados o cancelados.",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "There are no pending IATA flights for the selected account and billing period. Either no such flights are registered in the database, or their charges haven''t been calculated yet, or they have already been invoiced, paid, canceled or declined.",
-    "val": "No hay vuelos IATA pendientes para la cuenta y el periodo de facturación seleccionados. O bien no hay vuelos de este tipo registrados en la base de datos, o bien sus cargos no se han calculado todavía, o bien ya han sido facturados, pagados o cancelados.",
+    "val": "No hay vuelos IATA pendientes para la cuenta y el periodo de facturaciÃ³n seleccionados. O bien no hay vuelos de este tipo registrados en la base de datos, o bien sus cargos no se han calculado todavÃ­a, o bien ya han sido facturados, pagados o cancelados.",
     "part": "backend",
     "created_by": "system"
   },
@@ -4713,7 +4713,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "There are no Transaction Approval Workflow Steps",
-    "val": "No hay pasos de flujo de trabajo de aprobación de transacciones",
+    "val": "No hay pasos de flujo de trabajo de aprobaciÃ³n de transacciones",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4734,14 +4734,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "There are no Transaction Payments related to this transaction",
-    "val": "No hay Pagos relacionados con esta transacción",
+    "val": "No hay Pagos relacionados con esta transacciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "There are no Regional Countries data",
-    "val": "No hay datos de los Países Regionales",
+    "val": "No hay datos de los PaÃ­ses Regionales",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4755,14 +4755,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "There are no Repositioning Aerodrome Clusters data",
-    "val": "No hay datos de Reposicionamiento de los Grupos de Aeródromos",
+    "val": "No hay datos de Reposicionamiento de los Grupos de AerÃ³dromos",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "There are no results related to the selected cached event.",
-    "val": "No hay resultados relacionados con el evento seleccionado en la caché.",
+    "val": "No hay resultados relacionados con el evento seleccionado en la cachÃ©.",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4839,14 +4839,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ERR_NO_AERO",
-    "val": "Aeródromos no reconoscidos",
+    "val": "AerÃ³dromos no reconoscidos",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Unrecognized aerodromes; ",
-    "val": "Aeródromos no reconoscidos",
+    "val": "AerÃ³dromos no reconoscidos",
     "part": "backend",
     "created_by": "system"
   },
@@ -4867,21 +4867,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "No relevant flights found using the billing center",
-    "val": "No se encontran vuelos relevantes para el centro de facturación",
+    "val": "No se encontran vuelos relevantes para el centro de facturaciÃ³n",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_NO_FLIGHTS",
-    "val": "No se encontran vuelos relevantes para el centro de facturación",
+    "val": "No se encontran vuelos relevantes para el centro de facturaciÃ³n",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "No relevant flights found using the billing center ",
-    "val": "No se encontran vuelos relevantes para el centro de facturación",
+    "val": "No se encontran vuelos relevantes para el centro de facturaciÃ³n",
     "part": "backend",
     "created_by": "system"
   },
@@ -4895,7 +4895,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "No relevant flights found using the billing center Head Office",
-    "val": "No se han encontrado vuelos relevantes utilizando el centro de facturación Oficina central",
+    "val": "No se han encontrado vuelos relevantes utilizando el centro de facturaciÃ³n Oficina central",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4909,7 +4909,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "No billable flight movements has been found",
-    "val": "No se ha encontrado ningún movimiento de vuelo facturable",
+    "val": "No se ha encontrado ningÃºn movimiento de vuelo facturable",
     "part": "backend",
     "created_by": "system"
   },
@@ -4923,7 +4923,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Failed to retrieve airspaces from NavDB",
-    "val": "Fallo al recuperar espacios aéreos de NavDB",
+    "val": "Fallo al recuperar espacios aÃ©reos de NavDB",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4937,35 +4937,35 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "STALE_VERSION",
-    "val": "No se puede actualizar el artículo porque ha sido modificado mientras tanto",
+    "val": "No se puede actualizar el artÃ­culo porque ha sido modificado mientras tanto",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Cannot update the item because it has been modified in the meantime",
-    "val": "No se puede actualizar el artículo porque ha sido modificado mientras tanto",
+    "val": "No se puede actualizar el artÃ­culo porque ha sido modificado mientras tanto",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_FPL_FML_IRREGULAR_MATCHING",
-    "val": "No se puede actualizar la clave lógica  porque otro elemento con la misma clave ya existe",
+    "val": "No se puede actualizar la clave lÃ³gica  porque otro elemento con la misma clave ya existe",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Cannot update the logical key because another item with the same key already exists",
-    "val": "No se puede actualizar la clave lógica  porque otro elemento con la misma clave ya existe",
+    "val": "No se puede actualizar la clave lÃ³gica  porque otro elemento con la misma clave ya existe",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Cannot update or create flight movement Error: generic error Description: null",
-    "val": "No se puede actualizar o crear un movimiento de vuelo Error genérico",
+    "val": "No se puede actualizar o crear un movimiento de vuelo Error genÃ©rico",
     "part": "frontend",
     "created_by": "system"
   },
@@ -5007,14 +5007,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ERR_EMAIL_SERVICE_MISCONFIGURATION",
-    "val": "No se puede continuar ya que el servicio de correo electrónico requerido no es configurado.",
+    "val": "No se puede continuar ya que el servicio de correo electrÃ³nico requerido no es configurado.",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_EMAIL_SERVICE_UNAVAILABLE",
-    "val": "No se puede continuar ya que el servicio de correo electrónico requerido no es disponible actualmente.",
+    "val": "No se puede continuar ya que el servicio de correo electrÃ³nico requerido no es disponible actualmente.",
     "part": "backend",
     "created_by": "system"
   },
@@ -5035,14 +5035,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot create credit transaction",
-    "val": "No se puede crear una transacción de crédito",
+    "val": "No se puede crear una transacciÃ³n de crÃ©dito",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "can''t create transaction payment for invoice",
-    "val": "No se puede crear la transacción de pago para la factura",
+    "val": "No se puede crear la transacciÃ³n de pago para la factura",
     "part": "backend",
     "created_by": "system"
   },
@@ -5084,14 +5084,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot create a credit note because the referred invoice is missing",
-    "val": "No se puede crear una nota de crédito porque falta la factura referida",
+    "val": "No se puede crear una nota de crÃ©dito porque falta la factura referida",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Unable to find the Organizazion name, please check the System Configuration.",
-    "val": "No se puede encontrar el nombre de la Organización, por favor, compruebe la configuración del sistema.",
+    "val": "No se puede encontrar el nombre de la OrganizaciÃ³n, por favor, compruebe la configuraciÃ³n del sistema.",
     "part": "backend",
     "created_by": "system"
   },
@@ -5105,21 +5105,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Cannot modify flight movement created from ATC log or tower logs or radar summaries",
-    "val": "No se puede modificar el movimiento del vuelo creado a partir del registro ATC o de los registros de la torre o de los resúmenes del radar",
+    "val": "No se puede modificar el movimiento del vuelo creado a partir del registro ATC o de los registros de la torre o de los resÃºmenes del radar",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Cannot retrieve the ICAO code due to unknown operator",
-    "val": "No se puede recuperar el código OACI. Operador desconocido",
+    "val": "No se puede recuperar el cÃ³digo OACI. Operador desconocido",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Cannot retrieve the country due to unknown prefix",
-    "val": "No se puede recuperar el país. Prefijo desconocido",
+    "val": "No se puede recuperar el paÃ­s. Prefijo desconocido",
     "part": "backend",
     "created_by": "system"
   },
@@ -5147,21 +5147,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Can''t generate Non-Aviation Invocies",
-    "val": "No se pueden generar facturas de no-aviación",
+    "val": "No se pueden generar facturas de no-aviaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "can''t generate Non-Aviation Invocies",
-    "val": "No se pueden generar facturas de no-aviación",
+    "val": "No se pueden generar facturas de no-aviaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Non-scheduled Air Service",
-    "val": "Servicio aéreo no regular",
+    "val": "Servicio aÃ©reo no regular",
     "part": "frontend",
     "created_by": "system"
   },
@@ -5175,161 +5175,161 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Invalid charge basis in service charge",
-    "val": "Base de carga no válida en la tasa de servicio",
+    "val": "Base de carga no vÃ¡lida en la tasa de servicio",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "invalid currency, expecting",
-    "val": "moneda no válida, esperando",
+    "val": "moneda no vÃ¡lida, esperando",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "invalid amount, expecting",
-    "val": "cantidad no válida, esperando",
+    "val": "cantidad no vÃ¡lida, esperando",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "invalid negative charge",
-    "val": "carga negativa no válida",
+    "val": "carga negativa no vÃ¡lida",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Invalid Aviation invoice billing period.",
-    "val": "Período de facturación de aviación no válido.",
+    "val": "PerÃ­odo de facturaciÃ³n de aviaciÃ³n no vÃ¡lido.",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Invalid invoice category",
-    "val": "Categoría de factura no válida",
+    "val": "CategorÃ­a de factura no vÃ¡lida",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Invalid invoice currency",
-    "val": "Moneda de la factura no válida",
+    "val": "Moneda de la factura no vÃ¡lida",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Invalid payment due date",
-    "val": "Fecha de vencimiento del pago no válida",
+    "val": "Fecha de vencimiento del pago no vÃ¡lida",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Invalid FPL Object #",
-    "val": "Objeto FPL no válido #",
+    "val": "Objeto FPL no vÃ¡lido #",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "invalid start time, expecting",
-    "val": "hora de inicio no válida, esperando",
+    "val": "hora de inicio no vÃ¡lida, esperando",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Invalid IATA invoice billing period.",
-    "val": "Periodo de facturación IATA no válido.",
+    "val": "Periodo de facturaciÃ³n IATA no vÃ¡lido.",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Invalid account data",
-    "val": "Datos de Cuenta no válidos",
+    "val": "Datos de Cuenta no vÃ¡lidos",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Invalid payment mechanism value for credit transaction",
-    "val": "Mecanismo de pago no válido para la operación de crédito",
+    "val": "Mecanismo de pago no vÃ¡lido para la operaciÃ³n de crÃ©dito",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Invalid payment mechanism value for debit transaction",
-    "val": "Mecanismo de pago no válido para la operación de débito",
+    "val": "Mecanismo de pago no vÃ¡lido para la operaciÃ³n de dÃ©bito",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "invalid payment mechanism, must be \"cash\", \"credit\", \"debit\", \"cheque\", or \"wire\"",
-    "val": "Mecanismo de pago no válido. Debe ser \"efectivo\", \"crédito\", \"débito\", \"cheque\" o \"transferencia\".",
+    "val": "Mecanismo de pago no vÃ¡lido. Debe ser \"efectivo\", \"crÃ©dito\", \"dÃ©bito\", \"cheque\" o \"transferencia\".",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "invalid negative MTOW",
-    "val": "MTOW negativo no válido",
+    "val": "MTOW negativo no vÃ¡lido",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Invalid username and/or password. Please try again",
-    "val": "Nombre de usuario y/o contraseña no válidos. Por favor, inténtelo de nuevo",
+    "val": "Nombre de usuario y/o contraseÃ±a no vÃ¡lidos. Por favor, intÃ©ntelo de nuevo",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "invalid/unsupported crossing distance precedence",
-    "val": "Precedencia de la distancia de cruce no válida/no admitida",
+    "val": "Precedencia de la distancia de cruce no vÃ¡lida/no admitida",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "invalid or missing charges basis, expecting one of:",
-    "val": "Base de cargos inválida o faltante, esperando una de:",
+    "val": "Base de cargos invÃ¡lida o faltante, esperando una de:",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "DEF_ERR_DATE_TIME",
-    "val": "Rango inválido para la fecha o la hora",
+    "val": "Rango invÃ¡lido para la fecha o la hora",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Invalid range for date or time",
-    "val": "Rango inválido para la fecha o la hora",
+    "val": "Rango invÃ¡lido para la fecha o la hora",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "invalid empty or non-numeric charge",
-    "val": "Carga vacía o no numérica no válida",
+    "val": "Carga vacÃ­a o no numÃ©rica no vÃ¡lida",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "invalid empty or non-numeric MTOW",
-    "val": "MTOW vacío o no numérico no válido",
+    "val": "MTOW vacÃ­o o no numÃ©rico no vÃ¡lido",
     "part": "backend",
     "created_by": "system"
   },
@@ -5364,14 +5364,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Organization Name missing",
-    "val": "Falta el nombre de la Organización",
+    "val": "Falta el nombre de la OrganizaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Organisation name.  Used to determine site-specific processing.",
-    "val": "Nombre de la organización.  Se utiliza para determinar la especificación del sitio.",
+    "val": "Nombre de la organizaciÃ³n.  Se utiliza para determinar la especificaciÃ³n del sitio.",
     "part": "frontend",
     "created_by": "system"
   },
@@ -5413,91 +5413,91 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Recurring charge end notification",
-    "val": "Notificación de finalización de cargos recurrentes",
+    "val": "NotificaciÃ³n de finalizaciÃ³n de cargos recurrentes",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Number of FIR Entry Points",
-    "val": "Número de puntos de entrada de FIR",
+    "val": "NÃºmero de puntos de entrada de FIR",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Payment reference number is required",
-    "val": "Se requiere el número de referencia del pago",
+    "val": "Se requiere el nÃºmero de referencia del pago",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "registration number",
-    "val": "matrícula",
+    "val": "matrÃ­cula",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Registration Number *",
-    "val": "Matrícula *",
+    "val": "MatrÃ­cula *",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Registration number should be alphanumeric with the length between 2 and 7 characters",
-    "val": "Matrícula debe ser alfanumérica con la longitud de entre 2 y 7 caracteres",
+    "val": "MatrÃ­cula debe ser alfanumÃ©rica con la longitud de entre 2 y 7 caracteres",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_REG_LENGTH",
-    "val": "Matrícula debe ser alfanumérica con la longitud de entre 2 y 7 caracteres",
+    "val": "MatrÃ­cula debe ser alfanumÃ©rica con la longitud de entre 2 y 7 caracteres",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Registration number should be alphanumeric with the length between 2 and 7 characters  : ",
-    "val": "Matrícula debe ser alfanumérica con la longitud de entre 2 y 7 caracteres",
+    "val": "MatrÃ­cula debe ser alfanumÃ©rica con la longitud de entre 2 y 7 caracteres",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Registration number is too short",
-    "val": "Matrícula es demasiado corta",
+    "val": "MatrÃ­cula es demasiado corta",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_SHORT_REG",
-    "val": "Matrícula es demasiado corta",
+    "val": "MatrÃ­cula es demasiado corta",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Registration number is too short : ",
-    "val": "Matrícula es demasiado corta",
+    "val": "MatrÃ­cula es demasiado corta",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Registration number and country of registration match error. Override country of registration to continue.",
-    "val": "La matrícula y el país de registro no coinciden. Anule el país de registro para continuar.",
+    "val": "La matrÃ­cula y el paÃ­s de registro no coinciden. Anule el paÃ­s de registro para continuar.",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "SMS from number",
-    "val": "Número desde que se envía el SMS",
+    "val": "NÃºmero desde que se envÃ­a el SMS",
     "part": "frontend",
     "created_by": "system"
   },
@@ -5525,14 +5525,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Forgot password?",
-    "val": "¿Olvidaste la contraseña?",
+    "val": "Â¿Olvidaste la contraseÃ±a?",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "operator Icao Code",
-    "val": " Código Oaci operador",
+    "val": " CÃ³digo Oaci operador",
     "part": "frontend",
     "created_by": "system"
   },
@@ -5567,14 +5567,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Regional Countries",
-    "val": "Países Regionales",
+    "val": "PaÃ­ses Regionales",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "P.RGC.TITLE",
-    "val": "Países Regionales",
+    "val": "PaÃ­ses Regionales",
     "part": "frontend",
     "created_by": "system"
   },
@@ -5602,21 +5602,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Exempt Landing Passengers At Domestic Airport",
-    "val": "Exención de los pasajeros que aterrizan en el aeropuerto nacional",
+    "val": "ExenciÃ³n de los pasajeros que aterrizan en el aeropuerto nacional",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Exempt Arriving Passengers At Domestic Airport",
-    "val": "Exención de los pasajeros que llegan en el aeropuerto nacional",
+    "val": "ExenciÃ³n de los pasajeros que llegan en el aeropuerto nacional",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Exempt Departing Passengers From Domestic Airport",
-    "val": "Exención de los pasajeros que salen del aeropuerto nacional",
+    "val": "ExenciÃ³n de los pasajeros que salen del aeropuerto nacional",
     "part": "frontend",
     "created_by": "system"
   },
@@ -5686,7 +5686,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Small aircraft withough valid CoA",
-    "val": "Aeronave pequeña sin CoA válido",
+    "val": "Aeronave pequeÃ±a sin CoA vÃ¡lido",
     "part": "frontend",
     "created_by": "system"
   },
@@ -5721,21 +5721,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Default billing period for IATA invoices",
-    "val": "Periodo predeterminado de facturación IATA",
+    "val": "Periodo predeterminado de facturaciÃ³n IATA",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Default billing period for NON-IATA invoices",
-    "val": "Periodo predeterminado de facturación NO-IATA",
+    "val": "Periodo predeterminado de facturaciÃ³n NO-IATA",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Allow non-standard flight id",
-    "val": "Permitir ID de vuelo no estándar",
+    "val": "Permitir ID de vuelo no estÃ¡ndar",
     "part": "frontend",
     "created_by": "system"
   },
@@ -5763,7 +5763,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Small aircraft maximum weight",
-    "val": "Peso máximo de aeronave pequeña",
+    "val": "Peso mÃ¡ximo de aeronave pequeÃ±a",
     "part": "frontend",
     "created_by": "system"
   },
@@ -5805,7 +5805,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Invoice Template Management",
-    "val": "Gestión de Plantilla de Factura ",
+    "val": "GestiÃ³n de Plantilla de Factura ",
     "part": "frontend",
     "created_by": "system"
   },
@@ -5833,7 +5833,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Default country",
-    "val": "País predeterminado",
+    "val": "PaÃ­s predeterminado",
     "part": "frontend",
     "created_by": "system"
   },
@@ -5854,28 +5854,28 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Please indicate which fees are exempt and why",
-    "val": "Por favor indicar cual tasas son exentas y por qué",
+    "val": "Por favor indicar cual tasas son exentas y por quÃ©",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Please enter you email",
-    "val": "Por favor, introduzca su correo electrónico",
+    "val": "Por favor, introduzca su correo electrÃ³nico",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Please choose a valid Aviation invoice billing period.",
-    "val": "Por favor, elija un período de facturación de Aviación válido.",
+    "val": "Por favor, elija un perÃ­odo de facturaciÃ³n de AviaciÃ³n vÃ¡lido.",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Please enter your email",
-    "val": "Por favor, introduzca su correo electrónico",
+    "val": "Por favor, introduzca su correo electrÃ³nico",
     "part": "frontend",
     "created_by": "system"
   },
@@ -5910,21 +5910,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Percentage of EET to be used for flight match",
-    "val": "Porcentaje de EET que se utilizará para la Fusión de Vuelos",
+    "val": "Porcentaje de EET que se utilizarÃ¡ para la FusiÃ³n de Vuelos",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Percent Resolved",
-    "val": "Porcentaje de Resolución",
+    "val": "Porcentaje de ResoluciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Default account parking exemption",
-    "val": "Exención de Estacionamiento de Cuentas por Defecto",
+    "val": "ExenciÃ³n de Estacionamiento de Cuentas por Defecto",
     "part": "frontend",
     "created_by": "system"
   },
@@ -5966,21 +5966,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Preconfigured revenue and air traffic statistics",
-    "val": "Estadísticas preconfiguradas de ingresos y tráfico aéreo",
+    "val": "EstadÃ­sticas preconfiguradas de ingresos y trÃ¡fico aÃ©reo",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aircraft Registration Prefixes",
-    "val": "Prefijo de Matrícula de Aeronave",
+    "val": "Prefijo de MatrÃ­cula de Aeronave",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aircraft Registration Prefixes *",
-    "val": "Prefijo de Matrícula de Aeronave *",
+    "val": "Prefijo de MatrÃ­cula de Aeronave *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6001,35 +6001,35 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Enroute Charges Currency",
-    "val": "Moneda de Protección al Vuelo",
+    "val": "Moneda de ProtecciÃ³n al Vuelo",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Invoice publication",
-    "val": "Publicación de Factura",
+    "val": "PublicaciÃ³n de Factura",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Job Title",
-    "val": "Título de Trabajo",
+    "val": "TÃ­tulo de Trabajo",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Point Of Sale Invoice Generation",
-    "val": "Punto de venta - Generación de facturas",
+    "val": "Punto de venta - GeneraciÃ³n de facturas",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "P.PIG.TITLE",
-    "val": "Punto de venta - Generación de facturas",
+    "val": "Punto de venta - GeneraciÃ³n de facturas",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6064,21 +6064,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "radar summaries",
-    "val": "resúmenes del radar",
+    "val": "resÃºmenes del radar",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Minimum range for flight match",
-    "val": "Rango Mínimo para Fusión de Vuelos",
+    "val": "Rango MÃ­nimo para FusiÃ³n de Vuelos",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Undeletion Reason is required",
-    "val": "Razón de Recuperación es requerida",
+    "val": "RazÃ³n de RecuperaciÃ³n es requerida",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6099,7 +6099,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Rejected Approval",
-    "val": "Aprobación Rechazada",
+    "val": "AprobaciÃ³n Rechazada",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6113,35 +6113,35 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aviation invoice total rounding",
-    "val": "Redondeo del Total de la Factura de Aviación",
+    "val": "Redondeo del Total de la Factura de AviaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Non-aviation invoice total rounding",
-    "val": "Redondeo del Total de la Factura de No-Aviación",
+    "val": "Redondeo del Total de la Factura de No-AviaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Repeat Password *",
-    "val": "Repetir la contraseña *",
+    "val": "Repetir la contraseÃ±a *",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Regional Country Management",
-    "val": "Gestión de Países Regionales",
+    "val": "GestiÃ³n de PaÃ­ses Regionales",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "regional_arrival_formula",
-    "val": "fórmula_de_llegada_regional",
+    "val": "fÃ³rmula_de_llegada_regional",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6225,21 +6225,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aircraft Registrations",
-    "val": "Registro de Matrícula",
+    "val": "Registro de MatrÃ­cula",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "P.ACR.TITLE",
-    "val": "Registro de Matrícula",
+    "val": "Registro de MatrÃ­cula",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Atc log - cannot parse the date exception",
-    "val": "Registro de ATC: excepción - no se puede analizar la fecha",
+    "val": "Registro de ATC: excepciÃ³n - no se puede analizar la fecha",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6253,42 +6253,42 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Tenant",
-    "val": "Arrendatario ",
+    "val": "ArrendatarioÂ ",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Repositioning Aerodrome Clusters",
-    "val": "Reposicionamiento de los Grupos de Aeródromos",
+    "val": "Reposicionamiento de los Grupos de AerÃ³dromos",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "P.RAC.TITLE",
-    "val": "Reposicionamiento de los Grupos de Aeródromos",
+    "val": "Reposicionamiento de los Grupos de AerÃ³dromos",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Approval Request",
-    "val": "Solicitud de Aprobación",
+    "val": "Solicitud de AprobaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Require service charge catalogue external system id",
-    "val": "Requerir el ID del sistema externo del catálogo de tarifas de servicio",
+    "val": "Requerir el ID del sistema externo del catÃ¡logo de tarifas de servicio",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Require invoice manual backendroval",
-    "val": "Requerir aprobación manual de factura",
+    "val": "Requerir aprobaciÃ³n manual de factura",
     "part": "backend",
     "created_by": "system"
   },
@@ -6302,7 +6302,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Require aerodrome external system id",
-    "val": "Requerir ID del sistema externo del aeródromo",
+    "val": "Requerir ID del sistema externo del aerÃ³dromo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6316,28 +6316,28 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Require admin approval for self-care accounts",
-    "val": "Exigir la aprobación de la administración para las cuentas de SelfCare",
+    "val": "Exigir la aprobaciÃ³n de la administraciÃ³n para las cuentas de SelfCare",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Require email verification on user registration",
-    "val": "Exigir la verificación por correo electrónico en el registro de usuarios",
+    "val": "Exigir la verificaciÃ³n por correo electrÃ³nico en el registro de usuarios",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Require admin approval for self-care aircraft registration",
-    "val": "Exigir la aprobación de la administración para el registro de aeronaves desde del SelfCare",
+    "val": "Exigir la aprobaciÃ³n de la administraciÃ³n para el registro de aeronaves desde del SelfCare",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Require admin approval for self-care flight schedules",
-    "val": "Exigir la aprobación de la administración para los horarios de los vuelos desde del SelfCare",
+    "val": "Exigir la aprobaciÃ³n de la administraciÃ³n para los horarios de los vuelos desde del SelfCare",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6372,21 +6372,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Departing Children From Domestic Airport",
-    "val": "Salida de Niños desde de Aeropuerto Doméstico",
+    "val": "Salida de NiÃ±os desde de Aeropuerto DomÃ©stico",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Late Departure Charges",
-    "val": "Cargos por salida tardía",
+    "val": "Cargos por salida tardÃ­a",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "late_departure_charges",
-    "val": "Cargos por salida tardía",
+    "val": "Cargos por salida tardÃ­a",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6400,14 +6400,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "occurs more than once",
-    "val": "ocurre más de una vez",
+    "val": "ocurre mÃ¡s de una vez",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Deletion Reason is required",
-    "val": "Se requiere un motivo para la eliminación",
+    "val": "Se requiere un motivo para la eliminaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6428,28 +6428,28 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Are you sure you want to update the retention number?",
-    "val": "¿Está seguro de que quiere actualizar el número de retención?",
+    "val": "Â¿EstÃ¡ seguro de que quiere actualizar el nÃºmero de retenciÃ³n?",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Are you sure you want to clear the current cache?",
-    "val": "¿Estás seguro de que quieres borrar la caché actual?",
+    "val": "Â¿EstÃ¡s seguro de que quieres borrar la cachÃ© actual?",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Are you sure you want to pay this invoice?",
-    "val": "¿Está seguro de que quiere pagar esta factura?",
+    "val": "Â¿EstÃ¡ seguro de que quiere pagar esta factura?",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "If you are creating a file in Excel, the first row must contain non-blank data otherwise Excel will remove any completely empty rows or columns",
-    "val": "Si está creando un archivo en Excel, la primera fila debe contener datos que no estén en blanco; de lo contrario, Excel eliminará las filas o columnas completamente vacías",
+    "val": "Si estÃ¡ creando un archivo en Excel, la primera fila debe contener datos que no estÃ©n en blanco; de lo contrario, Excel eliminarÃ¡ las filas o columnas completamente vacÃ­as",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6484,7 +6484,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Approval request rejection response",
-    "val": "Respuesta de rechazo a la solicitud de aprobación",
+    "val": "Respuesta de rechazo a la solicitud de aprobaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6498,49 +6498,49 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Only line items based on recurring charges are allowed",
-    "val": "Sólo se permiten las partidas basadas en gastos recurrentes",
+    "val": "SÃ³lo se permiten las partidas basadas en gastos recurrentes",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Resolution Errors",
-    "val": "Resolución de errores",
+    "val": "ResoluciÃ³n de errores",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Overlapped dates for aircraft registration number",
-    "val": "Fechas superpuestas para la Matrícula",
+    "val": "Fechas superpuestas para la MatrÃ­cula",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "ERR_DATE_OVERLAP",
-    "val": "Fechas superpuestas para la Matrícula:",
+    "val": "Fechas superpuestas para la MatrÃ­cula:",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Overlapped dates for aircraft registration number : ",
-    "val": "Fechas superpuestas para la Matrícula:",
+    "val": "Fechas superpuestas para la MatrÃ­cula:",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Size parameter name must not be null or empty!",
-    "val": "El nombre del parámetro de tamaño no debe ser nulo ni estar vacío.",
+    "val": "El nombre del parÃ¡metro de tamaÃ±o no debe ser nulo ni estar vacÃ­o.",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Monthly Overdue Penalty Rate (%) *",
-    "val": "Tasa de penalización mensual por retraso (%) *",
+    "val": "Tasa de penalizaciÃ³n mensual por retraso (%) *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6554,7 +6554,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "monthly overdue penalty rate",
-    "val": "tasa de penalización mensual por demora",
+    "val": "tasa de penalizaciÃ³n mensual por demora",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6575,63 +6575,63 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Ceiling",
-    "val": "Límite ",
+    "val": "LÃ­miteÂ ",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Exempt Route Ceiling",
-    "val": "Límite de Ruta Exento ",
+    "val": "LÃ­mite de Ruta ExentoÂ ",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Airspace Ceiling",
-    "val": "Límite de Espacio Aéreo",
+    "val": "LÃ­miteÂ de Espacio AÃ©reo",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Nominal Route Ceiling",
-    "val": "Límite de Ruta Nominal",
+    "val": "LÃ­miteÂ de Ruta Nominal",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Aviation Billing Phone Number",
-    "val": "Teléfono del Contacto de Facturación de Aviación",
+    "val": "TelÃ©fono del Contacto de FacturaciÃ³n de AviaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Non-Aviation Billing Phone Number",
-    "val": "Teléfono del Contacto de Facturación de No-Aviación",
+    "val": "TelÃ©fono del Contacto de FacturaciÃ³n de No-AviaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "aviation billing phone number",
-    "val": "teléfono del contacto de facturación de aviación",
+    "val": "telÃ©fono del contacto de facturaciÃ³n de aviaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "has start/end date is outside of this invoice''s billing period",
-    "val": "tiene una fecha de inicio/fin fuera del periodo de facturación de esta factura",
+    "val": "tiene una fecha de inicio/fin fuera del periodo de facturaciÃ³n de esta factura",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "has start/end date is outside of this Invoice''s billing period",
-    "val": "tiene una fecha de inicio/fin fuera del periodo de facturación de esta factura",
+    "val": "tiene una fecha de inicio/fin fuera del periodo de facturaciÃ³n de esta factura",
     "part": "backend",
     "created_by": "system"
   },
@@ -6645,7 +6645,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aircraft Type Management",
-    "val": "Gestión de Tipo de Aeronave",
+    "val": "GestiÃ³n de Tipo de Aeronave",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6715,7 +6715,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Invalid transaction payment currency",
-    "val": "Moneda de pago de la transacción no válida",
+    "val": "Moneda de pago de la transacciÃ³n no vÃ¡lida",
     "part": "backend",
     "created_by": "system"
   },
@@ -6729,21 +6729,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Transaction Approval Workflow Steps",
-    "val": "Pasos del flujo de trabajo de aprobación de transacciones",
+    "val": "Pasos del flujo de trabajo de aprobaciÃ³n de transacciones",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Exempt Transfer Passengers At Domestic Airport",
-    "val": "Exención de pasajeros en trasferencia en el aeropuerto nacional",
+    "val": "ExenciÃ³n de pasajeros en trasferencia en el aeropuerto nacional",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Transfer Children At Domestic Airport",
-    "val": "Niños en trasferencia en Aeropuertos Nacionales",
+    "val": "NiÃ±os en trasferencia en Aeropuertos Nacionales",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6778,7 +6778,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Undeletion Reason is required for undeleting a flight movement",
-    "val": "Razón de Recuperación es requerida para Recuperar un Movimiento de Vuelo",
+    "val": "RazÃ³n de RecuperaciÃ³n es requerida para Recuperar un Movimiento de Vuelo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6813,28 +6813,28 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "One or more fields are wrong for a flight movement with flightId=",
-    "val": "Uno o más campos son incorrectos para un movimiento de vuelo con flightId=",
+    "val": "Uno o mÃ¡s campos son incorrectos para un movimiento de vuelo con flightId=",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Use aviation billing contact for non-aviation",
-    "val": "Utilizar el contacto de facturación de la aviación para la no aviación",
+    "val": "Utilizar el contacto de facturaciÃ³n de la aviaciÃ³n para la no aviaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Use separate receipt number sequence for each billing centre",
-    "val": "Utilice una secuencia de números de recibo distinta para cada centro de facturación",
+    "val": "Utilice una secuencia de nÃºmeros de recibo distinta para cada centro de facturaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "You can create a flight schedule only for one account per file",
-    "val": "Sólo se puede crear un programa de vuelo para una cuenta por archivo",
+    "val": "SÃ³lo se puede crear un programa de vuelo para una cuenta por archivo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6862,14 +6862,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "User Login",
-    "val": "Inicio de sesión de usuario",
+    "val": "Inicio de sesiÃ³n de usuario",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "User Login *",
-    "val": "Inicio de sesión de usuario *",
+    "val": "Inicio de sesiÃ³n de usuario *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6911,21 +6911,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Use separate invoice number sequence for each billing centre",
-    "val": "Utilizar una secuencia de números de factura distinta para cada centro de facturación",
+    "val": "Utilizar una secuencia de nÃºmeros de factura distinta para cada centro de facturaciÃ³n",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Validating the flight movements list",
-    "val": "Validación de la lista de movimientos de vuelo",
+    "val": "ValidaciÃ³n de la lista de movimientos de vuelo",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Valid CoA",
-    "val": "CoA válido",
+    "val": "CoA vÃ¡lido",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6939,14 +6939,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "DEF_ERR_ILLEGAL_ARG",
-    "val": "Valores erróneos o falta de datos necesarios",
+    "val": "Valores errÃ³neos o falta de datos necesarios",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Wrong values or missing required data",
-    "val": "Valores erróneos o falta de datos necesarios",
+    "val": "Valores errÃ³neos o falta de datos necesarios",
     "part": "backend",
     "created_by": "system"
   },
@@ -6981,49 +6981,49 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Preview Air Navigation Charges File",
-    "val": "Vista Previa Archivo de Las Tasas de Navegación Aérea",
+    "val": "Vista Previa Archivo de Las Tasas de NavegaciÃ³n AÃ©rea",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Return Largest Integer Smaller than Number",
-    "val": "Devuelve el mayor entero menor que el número",
+    "val": "Devuelve el mayor entero menor que el nÃºmero",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Return Smallest Integer Greater than Number",
-    "val": "Devuelve el menor número entero mayor que el número",
+    "val": "Devuelve el menor nÃºmero entero mayor que el nÃºmero",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Return Integral Number",
-    "val": "Devolución de número integral",
+    "val": "DevoluciÃ³n de nÃºmero integral",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "flight Category",
-    "val": "Categoría de Vuelo",
+    "val": "CategorÃ­a de Vuelo",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Flight Movement Management",
-    "val": "Gestión de Movimientos de Vuelo",
+    "val": "GestiÃ³n de Movimientos de Vuelo",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "flight movement category",
-    "val": "Categoría de Movimientos de Vuelo",
+    "val": "CategorÃ­a de Movimientos de Vuelo",
     "part": "frontend",
     "created_by": "system"
   },
@@ -7093,28 +7093,28 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "XLSX file upload error: Invalid MediaType",
-    "val": "XLSX error de carga de archivos: Tipo de medio inválido",
+    "val": "XLSX error de carga de archivos: Tipo de medio invÃ¡lido",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "and maximum credit note amounts",
-    "val": "y los importes máximos de las notas de crédito",
+    "val": "y los importes mÃ¡ximos de las notas de crÃ©dito",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Already running the Job with ID",
-    "val": "Ya se está ejecutando el trabajo con ID",
+    "val": "Ya se estÃ¡ ejecutando el trabajo con ID",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Already fixed",
-    "val": "Ya está arreglado",
+    "val": "Ya estÃ¡ arreglado",
     "part": "backend",
     "created_by": "system"
   },
@@ -7177,7 +7177,7 @@ select add_languages_by_json('[
 {
     "code": "es",
     "token": "End",
-    "val": "Fin está",
+    "val": "Fin estÃ¡",
     "part": "frontend",
     "created_by": "system"
   },
@@ -7210,7 +7210,7 @@ select add_languages_by_json('[
 {
     "code": "es",
     "token": "From (Year)",
-    "val": "Desde (Año)",
+    "val": "Desde (AÃ±o)",
     "part": "frontend",
     "created_by": "system"
   },
@@ -7226,7 +7226,7 @@ select add_languages_by_json('[
 {
     "code": "es",
     "token": "To (Year)",
-    "val": "Hasta (Año)",
+    "val": "Hasta (AÃ±o)",
     "part": "frontend",
     "created_by": "system"
   },
@@ -7262,7 +7262,7 @@ select add_languages_by_json('[
 {
     "code": "es",
     "token": "Start Period *",
-    "val": "Período de Inicio *",
+    "val": "PerÃ­odo de Inicio *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -7278,7 +7278,7 @@ select add_languages_by_json('[
 {
     "code": "es",
     "token": "End Period *",
-    "val": "Período de Fin *",
+    "val": "PerÃ­odo de Fin *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -7294,7 +7294,7 @@ select add_languages_by_json('[
 {
     "code": "es",
     "token": "Add a Unified Tax",
-    "val": "Añadir de Tasa Unificada",
+    "val": "AÃ±adir de Tasa Unificada",
     "part": "frontend",
     "created_by": "system"
   },
@@ -7310,7 +7310,7 @@ select add_languages_by_json('[
 {
     "code": "es",
     "token": "From A/C Manufacturing Year *",
-    "val": "Desde el Año de Fabricación del A/C *",
+    "val": "Desde el AÃ±o de FabricaciÃ³n del A/C *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -7327,7 +7327,7 @@ select add_languages_by_json('[
 {
     "code": "es",
     "token": "To A/C Manufacturing Year *",
-    "val": "Al Año de Fabricación del A/C *",
+    "val": "Al AÃ±o de FabricaciÃ³n del A/C *",
     "part": "frontend",
     "created_by": "system"
   },
@@ -7505,7 +7505,7 @@ select add_languages_by_json('[
 {
     "code": "es",
     "token": "Reason of Missed Invoice",
-    "val": "Razón de Falla",
+    "val": "RazÃ³n de Falla",
     "part": "frontend",
     "created_by": "system"
   },
@@ -7590,7 +7590,7 @@ select add_languages_by_json('[
 {
     "code": "es",
     "token": "The Specified validity year is not available in the database",
-    "val": "El año de validez especificado no está disponible en la base de datos",
+    "val": "El aÃ±o de validez especificado no estÃ¡ disponible en la base de datos",
     "part": "frontend",
     "created_by": "system"
   },
@@ -7626,7 +7626,7 @@ select add_languages_by_json('[
 {
     "code": "es",
     "token": "Overlapped dates for aircraft registration number: LVADE",
-    "val": "Fechas superpuestas para la matrícula: LVADE",
+    "val": "Fechas superpuestas para la matrÃ­cula: LVADE",
     "part": "frontend",
     "created_by": "system"
   },

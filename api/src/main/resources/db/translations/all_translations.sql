@@ -50684,7 +50684,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Coa Issue Date",
-    "val": "CoA Fecha de Inicio",
+    "val": "CoA Fecha de Caducidad",
     "part": "frontend",
     "created_by": "system"
   },
