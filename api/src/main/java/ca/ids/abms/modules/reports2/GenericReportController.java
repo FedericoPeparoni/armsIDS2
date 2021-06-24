@@ -20,6 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,6 +56,8 @@ public class GenericReportController {
         this.systemConfigurationService = systemConfigurationService;
     }
 
+     DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd").withZone( ZoneId.of("UTC"));
+    
     // TODO: add permission annotations
 
     // This will match: /api/reports/generic/{{ organisation }}/path/suffix
@@ -117,7 +122,9 @@ public class GenericReportController {
         	//EANA has asksed to have it in Spanish
         	final String organisationName = systemConfigurationService.getString(SystemConfigurationItemName.ORGANISATION_NAME, null);
         	if(organisationName.equals("EANA") && partialName.equals("unified_tax")){
-                fileName = "Report_TU".concat(format.fileNameSuffix());
+        	String dataGeneration =	DATE_TIME_FORMATTER.format(new Date().toInstant());
+                fileName = "Report_TU-".concat(dataGeneration).concat(format.fileNameSuffix());
+              //
             }
             LOG.debug("Trying to generate the report {} with parameters: {}", partialName, params);
             final byte[] document = birtReportCreator.createOtherReport(partialName, params, format);
