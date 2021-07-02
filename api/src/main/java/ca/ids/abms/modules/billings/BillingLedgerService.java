@@ -980,7 +980,7 @@ public class BillingLedgerService extends AbstractPluginService<BillingLedgerSer
         return billingLedgerRepository.countAllForSelfCareAccounts();
     }
 
-    public List<BillingLedger> findAllByAccountIds(List<Integer> accountids){
-        return billingLedgerRepository.findByAccountId(accountids);
+    public List<BillingLedger> findIssuedInvoicesAccountsIdsByTypeAndDate (String invoiceType, Date fromDate, Date toDate ){
+        return billingLedgerRepository.findIssuedInvoicesAccountsIdsByTypeAndDate(invoiceType, fromDate, toDate);
     }
 }

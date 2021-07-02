@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -81,8 +82,6 @@ public interface BillingLedgerRepository extends ABMSRepository<BillingLedger, I
 
     List<BillingLedger> findByAccountIdIn(List<Integer> accountid);
 
-    @Query(nativeQuery = true, value = "SELECT * FROM billing_ledgers as bl WHERE bl.account_id IN (:accountids) AND bl.invoice_type LIKE '%unified-tax%'")
-    List<BillingLedger> findByAccountId(@Param("accountids")List<Integer> accountids);
-
-
+    @Query(nativeQuery = true, value = "SELECT * FROM billing_ledgers as bl WHERE bl.invoice_type LIKE :invoiceType AND bl.invoice_date_of_issue >= :fromDate AND bl.invoice_date_of_issue <= :toDate")
+    List<BillingLedger> findIssuedInvoicesAccountsIdsByTypeAndDate(@Param("invoiceType")String invoiceType, @Param("fromDate")Date fromDate, @Param("toDate")Date toDate );
 }

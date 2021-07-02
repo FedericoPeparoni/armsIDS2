@@ -2,6 +2,7 @@ package ca.ids.abms.modules.reports2;
 
 import ca.ids.abms.config.error.CustomParametrizedException;
 import ca.ids.abms.config.error.ErrorConstants;
+import ca.ids.abms.modules.accounts.Account;
 import ca.ids.abms.modules.billings.BillingLedger;
 import ca.ids.abms.modules.billings.BillingLedgerService;
 import ca.ids.abms.modules.reports2.common.BirtReportCreator;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,9 +64,8 @@ public class GenericReportController {
     private final BirtReportCreator birtReportCreator;
 
     private final SystemConfigurationService systemConfigurationService;
-    private final TransactionService transactionService;
     private final BillingLedgerService billingLedgerService;
-    private final TransactionPaymentRepository transactionPaymentRepository;
+
 
 
     public GenericReportController(final BirtReportCreator birtReportCreator,
@@ -75,9 +76,7 @@ public class GenericReportController {
 
         this.birtReportCreator = birtReportCreator;
         this.systemConfigurationService = systemConfigurationService;
-        this.transactionService = transactionService;
         this.billingLedgerService = billingLedgerService;
-        this.transactionPaymentRepository = transactionPaymentRepository;
 
     }
 
@@ -121,9 +120,7 @@ public class GenericReportController {
         String fileName = Paths.get(partialName).getFileName().toString().concat(format.fileNameSuffix());
 
         final Map <String, Object> params = new HashMap<>();
-        if (bodyParams != null) {
-            params.putAll (bodyParams);
-        }
+
 
         LocalDateTime endDate  = null;
         LocalDateTime startDate = null;
@@ -149,51 +146,30 @@ public class GenericReportController {
         }
 
         //new block for checking if evry account has almost one u.t. b4 passing his id to the template
-        if(partialName.equals("unified_tax")){
-            final List<String> accountIdListToCheck = (Arrays.asList(((String)bodyParams.get("account_id")).replace("{", "").replace("}", "").split(",")));
+        if (bodyParams != null) {
+            if( partialName.equals("unified_tax") && bodyParams.get("account_id") != null){
 
-            //Frist part of sub query t
-            final List<Integer> accountIdListChecked = new ArrayList<>();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                Date dFrom =  sdf.parse(queryParams.get("fromdate").toString());
+                Date dTo =  sdf.parse(queryParams.get("todate").toString());
 
-            Page<Transaction> trPage = transactionService.findAllTransactionsForSelfCareAccounts(null, null,
-            accountIdListToCheck , startDate.toLocalDate(), endDate.toLocalDate());
+                final List<String> accountIdListToCheck = (Arrays.asList(((String)bodyParams.get("account_id")).replace("{", "").replace("}", "").split(",")));
 
-            for(Transaction tr : trPage.getContent()){
-                BillingLedger bl = billingLedgerService.findByInvoiceNumber(tr.getPaymentReferenceNumber());
+                List<BillingLedger> blList = billingLedgerService.findIssuedInvoicesAccountsIdsByTypeAndDate("unified-tax",dFrom,dTo);
 
-                //with all accounts, start date 2021-04-01, end date 2021-05-31, accountIdListChecked is empty
-                if(bl != null && bl.getInvoiceType() != null && bl.getInvoiceType().equals("unified-tax")){
-                    accountIdListChecked.add(tr.getAccount().getId());
-                }
+                final List<Integer>  idValidAccountsPossible = blList.stream().map(BillingLedger::getAccount).map(Account::getId).collect(Collectors.toList());
+                final List<String>  idValidAccounts = new ArrayList<>();
+
+                for(String idAccount: accountIdListToCheck)
+                    if(idValidAccountsPossible.contains(Integer.parseInt(idAccount)))
+                        idValidAccounts.add(idAccount);
+
+                bodyParams.put("account_id", (Object) idValidAccounts.toString().replace("[", "{").replace("]", "}"));
+                params.putAll (bodyParams);
+            }else{
+                params.putAll (bodyParams);
             }
-
-            //Second part of sub query t
-            List<BillingLedger> blList = billingLedgerService.findAllByAccountIds((accountIdListToCheck.stream().map(Integer::parseInt).collect(Collectors.toList())));
-
-            blList.forEach(bl ->{
-
-
-                    final List<TransactionPayment> tpList = transactionPaymentRepository.findAllByBillingLedgerId(bl.getId());
-                    //with all accounts, start date 2021-04-01, end date 2021-05-31, trList is empty
-                    final List<Transaction>  trList = tpList.stream().map(TransactionPayment::getTransaction).collect(Collectors.toList());
-
-                     //TODO: missing steps:
-                     /*
-                        1) check all the Transaction found, and filter each with the params startDate and endDate
-                        2) if an account has at least one valid Transaction, add it to the valid account list
-                     */
-
-            });
-
-            //TODO: missing steps:
-            /*
-            1) get a set of unique acoount's ids that have passed the filters
-            2) set account_id propriety of bodyParams with the ids found
-
-            */
-
         }
-
 
         try {
         	//EANA:When downloading the report, the file name is in english (Unified Tax.pdf)

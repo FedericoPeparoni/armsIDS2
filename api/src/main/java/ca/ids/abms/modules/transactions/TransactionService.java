@@ -1730,37 +1730,6 @@ public class TransactionService extends AbstractPluginService<TransactionService
 
 
 
-    @Transactional(readOnly = true)
-	public Page<Transaction> findAllTransactionsForSelfCareAccounts(final Pageable pageable,
-                                                                    final String searchFilter,
-                                                                    final List<String> accountId,
-                                                                    final LocalDate startDate,
-                                                                    final LocalDate endDate){
-        LOG.debug("Request to get transactions by searchFilter {}, accountId {}, startDate {}, endDate {}, userId {}",
-            searchFilter, accountId, startDate, endDate);
-
-        final FiltersSpecification.Builder filterBuilder = new FiltersSpecification.Builder().lookFor(searchFilter);
-
-        List<Integer> accountUsersMap = accountRepository.getAllAccountsFromAccountUsersMap();
-
-       // filterBuilder.restrictOn(JoinFilter.in(ACCOUNT, "id", accountId));
-        filterBuilder.restrictOn(JoinFilter.in(ACCOUNT, "id", accountUsersMap));
-
-
-
-        if (startDate != null && endDate != null) {
-            LocalDateTime startAt = startDate.atStartOfDay();
-            LocalDateTime endAt = endDate.atTime(LocalTime.MAX);
-            filterBuilder.restrictOn(Filter.included(TRANSACTION_DATE_TIME, startAt, endAt));
-        }
-
-
-
-        return transactionRepository.findAll(filterBuilder.build(), pageable);
-	}
-
-
-
 	@Transactional(readOnly = true)
 	public List<Transaction> findAllUnexported() {
         return transactionRepository.findAll(new TransactionExportFilterSpecification(
@@ -2249,7 +2218,5 @@ public class TransactionService extends AbstractPluginService<TransactionService
             flightMovementRepositoryUtility.persist(flightMovement);
         }
     }
-    public List<Transaction> findAllById(List<Integer> ids){
-        return transactionRepository.findAllById(ids);
-    }
+
 }
