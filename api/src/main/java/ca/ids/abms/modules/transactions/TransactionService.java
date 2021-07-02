@@ -650,7 +650,7 @@ public class TransactionService extends AbstractPluginService<TransactionService
         }
 
         //update BillingLedger
-        doUpdateBillingLedgerByTransactionPayment(transactionPayment, preview, isCreditNote); 
+        doUpdateBillingLedgerByTransactionPayment(transactionPayment, preview, isCreditNote);
 
         return transactionPayment;
     }
@@ -688,13 +688,13 @@ public class TransactionService extends AbstractPluginService<TransactionService
 
             setBillingLedgerFinalPaymentDate(billingLedgerFromDb, transactionPayment);
             //se isCreditNote è true evitare di generare fatture con interessi
-            if(!isCreditNote) { 
-                checkAndCreateInterestInvoice(billingLedgerFromDb);     
+            if(!isCreditNote) {
+                checkAndCreateInterestInvoice(billingLedgerFromDb);
             }
         }
 
         billingLedgerFromDb.setAmountOwing(updatedAmountOwing);
-        
+
         // set kraClerkName and kraReceiptNumber
         billingLedgerFromDb.setClerkName(transactionPayment.getKraClerkName());
         billingLedgerFromDb.setReceiptNumber(transactionPayment.getKraReceiptNumber());
@@ -748,9 +748,9 @@ public class TransactionService extends AbstractPluginService<TransactionService
         if (!createInterestInvoice) {
             return;
         }
-        
+
         InvoiceOverduePenalty overduePenalty = overdueInvoiceService.createNewPenalty(billingLedger, finalPaymentDate);
-        
+
         if (overduePenalty != null && (overduePenalty.getDefaultPenaltyAmount() + overduePenalty.getPunitivePenaltyAmount() > 0)) {
             double defaultPenalty = overduePenalty.getDefaultPenaltyAmount();
             double punitivePenalty = overduePenalty.getPunitivePenaltyAmount();
@@ -1299,7 +1299,7 @@ public class TransactionService extends AbstractPluginService<TransactionService
         LOG.debug("get Billing Ledgers that have a transaction id: {}", transactionId);
         return transactionPaymentRepository.getAllBillingLedgerByTransactionId(transactionId, pageable);
     }
-    
+
     double calculateTransactionBalance(final Transaction currentTransaction) {
         Double transactionAmount = currentTransaction.getAmount();
         Double transactionBalance;
@@ -1474,31 +1474,31 @@ public class TransactionService extends AbstractPluginService<TransactionService
             newInvoiceCreator().createTransactionCreditNote(resultTransaction, transaction.getChargesAdjustment(),
                 transaction.getBillingLedgerIds());
 
-            // EANA 1.5.3 SAT issue:  
-            // When voiding a unified Tax Invoice with a Credit Note 
-            // (No other payments against the invoice, just the Credit Note for the total amount) 
-            // the dates of the CoA needs to be null            
+            // EANA 1.5.3 SAT issue:
+            // When voiding a unified Tax Invoice with a Credit Note
+            // (No other payments against the invoice, just the Credit Note for the total amount)
+            // the dates of the CoA needs to be null
             if (billingLedgersPaymentAmounts.size() == 1) {
-            	
+
             	Iterator<Map.Entry<Integer, Double>> iterator = billingLedgersPaymentAmounts.entrySet().iterator();
             	Map.Entry<Integer, Double> billingLedgerPaymentAmount = iterator.next();
-            	
+
             	BillingLedger bl = billingLedgerService.findOne(billingLedgerPaymentAmount.getKey());
             	if (bl != null) {
             		if (bl.getInvoiceType().equals(InvoiceType.UNIFIED_TAX.toValue())) {
             			if (bl.getInvoiceAmount() == -billingLedgerPaymentAmount.getValue()) {
-            				List<AircraftRegistration> aircraftRegistrations = 
+            				List<AircraftRegistration> aircraftRegistrations =
             						unifiedTaxChargesService.getAircraftRegistrationsByBillingLedgerId(bl.getId());
-            				
+
             				for (AircraftRegistration ar : aircraftRegistrations) {
             					ar.setCoaIssueDate(null);
             					ar.setCoaExpiryDate(null);
             				}
             			}
-            		} 
-            	}            	
+            		}
+            	}
             }
-            
+
             // broadcast created note created event
             creditNoteCreated(resultTransaction);
 
@@ -1670,13 +1670,13 @@ public class TransactionService extends AbstractPluginService<TransactionService
         transaction.setPaymentAmount(Calculation.truncate(transaction.getPaymentAmount(),
             transactionPaymentCurrency.getDecimalPlaces() != null ? transactionPaymentCurrency.getDecimalPlaces() : 2));
 
-/*        
+/*
         transaction.setAmount(Calculation.truncate(transaction.getAmount(),
             transactionCurrency.getDecimalPlaces() != null ? transactionCurrency.getDecimalPlaces() : 2));
 */
         Double transactionAmount = Calculation.truncate(transaction.getAmount(),
                 transactionCurrency.getDecimalPlaces() != null ? transactionCurrency.getDecimalPlaces() : 2);
-        
+
         // calculate transaction amounts using exchange amount service (same method used by front-end)
         // truncate to currency decimal places for even comparison
         final Double localAmount = currencyExchangeRateService.getExchangeAmount(exchangeRate, transaction.getPaymentAmount(),
@@ -1727,6 +1727,39 @@ public class TransactionService extends AbstractPluginService<TransactionService
 
         return transactionRepository.findAll(filterBuilder.build(), pageable);
 	}
+
+
+
+    @Transactional(readOnly = true)
+	public Page<Transaction> findAllTransactionsForSelfCareAccounts(final Pageable pageable,
+                                                                    final String searchFilter,
+                                                                    final List<String> accountId,
+                                                                    final LocalDate startDate,
+                                                                    final LocalDate endDate){
+        LOG.debug("Request to get transactions by searchFilter {}, accountId {}, startDate {}, endDate {}, userId {}",
+            searchFilter, accountId, startDate, endDate);
+
+        final FiltersSpecification.Builder filterBuilder = new FiltersSpecification.Builder().lookFor(searchFilter);
+
+        List<Integer> accountUsersMap = accountRepository.getAllAccountsFromAccountUsersMap();
+
+       // filterBuilder.restrictOn(JoinFilter.in(ACCOUNT, "id", accountId));
+        filterBuilder.restrictOn(JoinFilter.in(ACCOUNT, "id", accountUsersMap));
+
+
+
+        if (startDate != null && endDate != null) {
+            LocalDateTime startAt = startDate.atStartOfDay();
+            LocalDateTime endAt = endDate.atTime(LocalTime.MAX);
+            filterBuilder.restrictOn(Filter.included(TRANSACTION_DATE_TIME, startAt, endAt));
+        }
+
+
+
+        return transactionRepository.findAll(filterBuilder.build(), pageable);
+	}
+
+
 
 	@Transactional(readOnly = true)
 	public List<Transaction> findAllUnexported() {
@@ -2215,5 +2248,8 @@ public class TransactionService extends AbstractPluginService<TransactionService
             flightMovement.setStatus(FlightMovementStatus.PAID);
             flightMovementRepositoryUtility.persist(flightMovement);
         }
+    }
+    public List<Transaction> findAllById(List<Integer> ids){
+        return transactionRepository.findAllById(ids);
     }
 }

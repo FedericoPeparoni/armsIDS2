@@ -70,12 +70,19 @@ public interface BillingLedgerRepository extends ABMSRepository<BillingLedger, I
 
     @Query (value = "SELECT COUNT(bl) FROM BillingLedger bl JOIN bl.account ac JOIN ac.accountUsers au WHERE au.id = :userId")
     long countAllForSelfCareUser(@Param ("userId") final int userId);
-    
+
     @Modifying
     @Query("UPDATE BillingLedger SET invoiceAmount = :invoiceAmount where id = :id")
     void updateBillingLedgerByIdAndInvoiceAmount(@Param("id") Integer id,
                                              @Param("invoiceAmount") Double invoiceAmount);
 
     @Query("SELECT bl FROM Transaction t, BillingLedger bl WHERE t.id = :transactionId AND t.paymentReferenceNumber=bl.invoiceNumber AND t.paymentMechanism='adjustment'")
-	BillingLedger getDebitNoteBillingLedgerByTransactionId(@Param("transactionId") Integer transactionId); 
+	BillingLedger getDebitNoteBillingLedgerByTransactionId(@Param("transactionId") Integer transactionId);
+
+    List<BillingLedger> findByAccountIdIn(List<Integer> accountid);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM billing_ledgers as bl WHERE bl.account_id IN (:accountids) AND bl.invoice_type LIKE '%unified-tax%'")
+    List<BillingLedger> findByAccountId(@Param("accountids")List<Integer> accountids);
+
+
 }
