@@ -1947,9 +1947,6 @@ dataSetRow["amount"]&#13;
             <group id="1499">
                 <property name="groupName">Opening Balance</property>
                 <expression name="keyExpr" type="javascript">row["opening_balance"]</expression>
-                <structure name="toc">
-                    <expression name="expressionValue" type="javascript">row["opening_balance"]</expression>
-                </structure>
                 <property name="hideDetail">false</property>
                 <header>
                     <row id="1500">
