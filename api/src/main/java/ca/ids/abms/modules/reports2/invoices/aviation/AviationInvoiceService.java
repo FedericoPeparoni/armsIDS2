@@ -1148,11 +1148,16 @@ public class AviationInvoiceService {
 									  scope.getBillingInterval() == BillingInterval.UNIFIED_TAX_PARTIALLY;
 
     if (unifiedTaxAccount && unifiedTaxInvoice) {
+    	
+		int errorCountBefore = unifiedTaxInvoiceErrors.size();
+
         List<AircraftRegistration> registrationsToInvoice = getAircraftRegistrationToInvoice(
         		scope.getBillingInterval(), scope.getStartDate(), scope.getEndDateInclusive(),
         		scope.getUserBillingCenterOnly(), account, currentUser, scope.getInvoiceProgressCounter(),
         		unifiedTaxInvoiceErrors);
 
+		int errorCountAfter = unifiedTaxInvoiceErrors.size();
+        
         if (!registrationsToInvoice.isEmpty()) {
             this.generateAviationInvoice(account, invoiceCreator, 
             		new ArrayList<FlightMovement>(), unifiedTaxInvoice, registrationsToInvoice, 
@@ -1160,8 +1165,13 @@ public class AviationInvoiceService {
             		currentUser, scope.getIpAddress(), scope.getInvoiceProgressCounter(), scope.getPreview());
             
             accountProcessed = true;
-        } else {
-            LOG.debug("Account {} have been discarded because doesn't have billable aircraft registrations", account);
+        } else {        	
+
+			if (errorCountAfter == errorCountBefore) {				
+				unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(account, null, "No Unified Tax aircraft linked to this Account"));
+			}
+			
+			LOG.debug("Account {} have been discarded because doesn't have billable aircraft registrations", account);
         }
         return accountProcessed;
     }
@@ -1223,17 +1233,26 @@ public class AviationInvoiceService {
     									  scope.getBillingInterval() == BillingInterval.UNIFIED_TAX_PARTIALLY;
 
     	if (unifiedTaxAccount && unifiedTaxInvoice) {
-        	List<AircraftRegistration> registrationsToInvoice = getAircraftRegistrationToInvoice(
+    		
+    		int errorCountBefore = unifiedTaxInvoiceErrors.size();
+        	
+    		List<AircraftRegistration> registrationsToInvoice = getAircraftRegistrationToInvoice(
         			scope.getBillingInterval(), scope.getStartDate(), scope.getEndDateInclusive(),
                     scope.getUserBillingCenterOnly(), account, currentUser, scope.getInvoiceProgressCounter(),
                     unifiedTaxInvoiceErrors);
 
+        	int errorCountAfter = unifiedTaxInvoiceErrors.size();
+        	
     		if (!registrationsToInvoice.isEmpty()) {
                 this.generateAviationInvoice(account, invoiceCreator, null, unifiedTaxInvoice,
                 		registrationsToInvoice, unifiedTaxInvoiceErrors, invoiceList, flightmovementCategory,
                         currentUser, scope.getIpAddress(), scope.getInvoiceProgressCounter(), scope.getPreview());
                         accountProcessed = true;
-    		} else {
+    		} else {    		
+    			if (errorCountAfter == errorCountBefore) {
+    				unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(account, null, "No Unified Tax aircraft linked to this Account"));
+    			}
+    			
                 LOG.debug("Account {} have been discarded because don't have billable aircraft registrations", account);
     		}
     		return accountProcessed;
