@@ -391,6 +391,7 @@ public class AviationInvoiceCreator {
 
                 invoiceData.global.invoiceBillingPeriodSpanish =  String.format("%s - %s", reportHelper.formatDateUtc(startDate, dateFormatter), invoiceData.global.invoiceDateStr);
 
+                invoiceData.global.invoiceDateStr = reportHelper.formatDateUtc(ldtNow, dateFormatter);                
                 break;
             case UNIFIED_TAX_ANNUALLY:
             case UNIFIED_TAX_PARTIALLY:
