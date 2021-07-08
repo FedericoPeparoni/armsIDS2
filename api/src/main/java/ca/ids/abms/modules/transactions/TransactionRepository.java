@@ -77,4 +77,5 @@ public interface TransactionRepository extends ABMSRepository<Transaction, Integ
 
     @Query (value = "SELECT COUNT(tr) FROM Transaction tr JOIN tr.account ac JOIN ac.accountUsers au")
     long countAllForSelfCareAccounts();
+
 }

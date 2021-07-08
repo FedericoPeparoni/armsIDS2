@@ -2476,6 +2476,6 @@ databaseChangeLog:
         relativeToChangelogFile: true
     - include:
         author: Federico Peparoni
-        file: 202106091430_system_configuration_small_aircraft.sql
+        file: 202106091530_system_configuration_small_aircraft.sql
         relativeToChangelogFile: true
       

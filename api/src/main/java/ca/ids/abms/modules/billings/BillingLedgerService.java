@@ -128,7 +128,7 @@ public class BillingLedgerService extends AbstractPluginService<BillingLedgerSer
         this.invoicesApprovalWorkflow = invoicesApprovalWorkflow;
         this.chargesAdjustmentService = chargesAdjustmentService;
         this.overdueInvoiceService = overdueInvoiceService;
-        this.roundingUtils = roundingUtils; 
+        this.roundingUtils = roundingUtils;
         this.flightMovementService = flightMovementService;
         this.unifiedTaxChargesService = unifiedTaxChargesService;
     }
@@ -391,7 +391,7 @@ public class BillingLedgerService extends AbstractPluginService<BillingLedgerSer
 
         // if InvoiceExchangeToAnsp is not previously set, calculate and set it
         if (billingLedger.getInvoiceExchangeToAnsp() == null) {
-            final Double exchangeRateToAnsp = currencyUtils.getExchangeRate (currencyFromBillingLedger, anspCurrency,
+            final Double exchangeRateToAnsp = currencyUtils.getExchangeRate(currencyFromBillingLedger, anspCurrency,
                 billingLedger.getInvoicePeriodOrDate());
             billingLedger.setInvoiceExchangeToAnsp(exchangeRateToAnsp);
         }
@@ -809,7 +809,7 @@ public class BillingLedgerService extends AbstractPluginService<BillingLedgerSer
                 chargesAdjustmentService.save(chargesAdjustment);
             }
         }
-        
+
         if (billingLedger.getUnifiedTaxCharges() != null) {
             for (UnifiedTaxCharges unifiedTaxCharge : billingLedger.getUnifiedTaxCharges()) {
             	unifiedTaxCharge.setBillingLedger(billingLedger);
@@ -978,5 +978,9 @@ public class BillingLedgerService extends AbstractPluginService<BillingLedgerSer
 
     public long countAllForSelfCareAccounts() {
         return billingLedgerRepository.countAllForSelfCareAccounts();
+    }
+
+    public List<BillingLedger> findIssuedInvoicesAccountsIdsByTypeAndDate (String invoiceType, Date fromDate, Date toDate ){
+        return billingLedgerRepository.findIssuedInvoicesAccountsIdsByTypeAndDate(invoiceType, fromDate, toDate);
     }
 }

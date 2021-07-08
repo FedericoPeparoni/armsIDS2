@@ -321,6 +321,7 @@ export class SystemConfigurationService extends CRUDService {
       [SysConfigConstants.DUPL_OR_MISS_FLIGHTS_EET_PERC, this.getLabel(<any>SysConfigConstants.DUPL_OR_MISS_FLIGHTS_EET_PERC, '%')],
       [SysConfigConstants.FIRST_DAY_OF_FISCAL_YEAR, this.getLabel(<any>SysConfigConstants.FIRST_DAY_OF_FISCAL_YEAR, true)],
       [SysConfigConstants.SMALL_AIRCRAFT_MAXIMUM_WEIGHT, this.getLabel(<any>SysConfigConstants.SMALL_AIRCRAFT_MAXIMUM_WEIGHT, true)],
+      [SysConfigConstants.SMALL_AIRCRAFT_MINIMUN_WEIGHT, this.getLabel(<any>SysConfigConstants.SMALL_AIRCRAFT_MINIMUN_WEIGHT, true)],
       [SysConfigConstants.WL_INACTIVITY_PERIOD, this.getLabel(<any>SysConfigConstants.WL_INACTIVITY_PERIOD, true)],
       [SysConfigConstants.WL_EXPIRY_PERIOD, this.getLabel(<any>SysConfigConstants.WL_EXPIRY_PERIOD, true)]
     ];

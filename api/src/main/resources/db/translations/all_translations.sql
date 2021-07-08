@@ -56963,15 +56963,15 @@ select add_languages_by_json('[
 ,
   {
     "code": "en",
-    "token": "Small aircraft minimum weight (kg)",
-    "val": "Small aircraft minimum weight (kg)",
+    "token": "Small aircraft minimum weight",
+    "val": "Small aircraft minimum weight",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
-    "token": "Small aircraft minimum weight (kg)",
-    "val": "Peso mínimo de aire pequeño (kg)",
+    "token": "Small aircraft minimum weight",
+    "val": "Peso mínimo de aire pequeño",
     "part": "frontend",
     "created_by": "system"
   },

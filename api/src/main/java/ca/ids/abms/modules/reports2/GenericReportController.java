@@ -2,16 +2,24 @@ package ca.ids.abms.modules.reports2;
 
 import ca.ids.abms.config.error.CustomParametrizedException;
 import ca.ids.abms.config.error.ErrorConstants;
+import ca.ids.abms.modules.accounts.Account;
+import ca.ids.abms.modules.billings.BillingLedger;
+import ca.ids.abms.modules.billings.BillingLedgerService;
 import ca.ids.abms.modules.reports2.common.BirtReportCreator;
 import ca.ids.abms.modules.reports2.common.ReportFormat;
 import ca.ids.abms.modules.system.SystemConfigurationService;
 import ca.ids.abms.modules.system.summary.SystemConfigurationItemName;
+import ca.ids.abms.modules.transactions.Transaction;
+import ca.ids.abms.modules.transactions.TransactionPayment;
+import ca.ids.abms.modules.transactions.TransactionPaymentRepository;
+import ca.ids.abms.modules.transactions.TransactionService;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.birt.report.model.api.DesignFileException;
 import org.eclipse.birt.report.model.parser.DesignParserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.HandlerMapping;
 
@@ -19,9 +27,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static ca.ids.abms.modules.util.models.DateTimeUtils.convertStringToLocalDateTime;
 
@@ -45,13 +62,25 @@ public class GenericReportController {
     private static final Logger LOG = LoggerFactory.getLogger(GenericReportController.class);
 
     private final BirtReportCreator birtReportCreator;
-    
-    private final SystemConfigurationService systemConfigurationService;
 
-    public GenericReportController(final BirtReportCreator birtReportCreator,  final SystemConfigurationService systemConfigurationService ) {
+    private final SystemConfigurationService systemConfigurationService;
+    private final BillingLedgerService billingLedgerService;
+
+
+
+    public GenericReportController(final BirtReportCreator birtReportCreator,
+    final TransactionService transactionService,
+    final BillingLedgerService billingLedgerService,
+    final TransactionPaymentRepository transactionPaymentRepository,
+    final SystemConfigurationService systemConfigurationService ) {
+
         this.birtReportCreator = birtReportCreator;
         this.systemConfigurationService = systemConfigurationService;
+        this.billingLedgerService = billingLedgerService;
+
     }
+
+     DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd").withZone( ZoneId.of("UTC"));
 
     // TODO: add permission annotations
 
@@ -91,14 +120,17 @@ public class GenericReportController {
         String fileName = Paths.get(partialName).getFileName().toString().concat(format.fileNameSuffix());
 
         final Map <String, Object> params = new HashMap<>();
-        if (bodyParams != null) {
-            params.putAll (bodyParams);
-        }
+
+
+        LocalDateTime endDate  = null;
+        LocalDateTime startDate = null;
+
+
         if (queryParams != null) {
 
             if (queryParams.containsKey("todate") && queryParams.containsKey("fromdate")){
-                LocalDateTime endDate = convertStringToLocalDateTime(queryParams.get("todate").toString());
-                LocalDateTime startDate = convertStringToLocalDateTime(queryParams.get("fromdate").toString());
+                endDate = convertStringToLocalDateTime(queryParams.get("todate").toString());
+                startDate = convertStringToLocalDateTime(queryParams.get("fromdate").toString());
                 if (endDate.isAfter(startDate)) {
                     params.putAll (queryParams);
                 }
@@ -112,15 +144,48 @@ public class GenericReportController {
                 params.putAll (queryParams);
             }
         }
+
+        //new block for checking if evry account has almost one u.t. b4 passing his id to the template
+        if (bodyParams != null) {
+            if( partialName.equals("unified_tax") && bodyParams.get("account_id") != null){
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                Date dFrom =  sdf.parse(queryParams.get("fromdate").toString());
+                Date dTo =  sdf.parse(queryParams.get("todate").toString());
+
+                final List<String> accountIdListToCheck = (Arrays.asList(((String)bodyParams.get("account_id")).replace("{", "").replace("}", "").split(",")));
+
+                List<BillingLedger> blList = billingLedgerService.findIssuedInvoicesAccountsIdsByTypeAndDate("unified-tax",dFrom,dTo);
+
+                final List<Integer>  idValidAccountsPossible = blList.stream().map(BillingLedger::getAccount).map(Account::getId).collect(Collectors.toList());
+                final List<String>  idValidAccounts = new ArrayList<>();
+
+                for(String idAccount: accountIdListToCheck)
+                    if(idValidAccountsPossible.contains(Integer.parseInt(idAccount)))
+                        idValidAccounts.add(idAccount);
+
+                bodyParams.put("account_id", (Object) idValidAccounts.toString().replace("[", "{").replace("]", "}"));
+                params.putAll (bodyParams);
+            }else{
+                params.putAll (bodyParams);
+            }
+        }
+
         try {
-        	//EANA:When downloading the report, the file name is in english (Unified Tax.pdf) 
+        	//EANA:When downloading the report, the file name is in english (Unified Tax.pdf)
         	//EANA has asksed to have it in Spanish
         	final String organisationName = systemConfigurationService.getString(SystemConfigurationItemName.ORGANISATION_NAME, null);
         	if(organisationName.equals("EANA") && partialName.equals("unified_tax")){
-                fileName = "tasa_unificada".concat(format.fileNameSuffix());
+        	String dataGeneration =	DATE_TIME_FORMATTER.format(new Date().toInstant());
+                fileName = "Report_TU-".concat(dataGeneration).concat(format.fileNameSuffix());
+              //
             }
+
             LOG.debug("Trying to generate the report {} with parameters: {}", partialName, params);
+
+
             final byte[] document = birtReportCreator.createOtherReport(partialName, params, format);
+
             if (document != null && document.length > 0) {
                 response.addHeader("Content-disposition", "attachment;filename=" + fileName);
                 response.setContentType(format.contentType());

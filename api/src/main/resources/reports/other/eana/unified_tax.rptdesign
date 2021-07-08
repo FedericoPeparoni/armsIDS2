@@ -665,6 +665,7 @@ where
               a.aviation_billing_contact_person_name AS person_name,
 	   a.aviation_billing_phone_number        AS phone_number,
 	   a.aviation_billing_email_address       AS email_address,
+	   lng.val                     AS account_type,
 	   
        COALESCE (x.opening_balance, 0)    AS opening_balance,
        x.transaction_type_id 			  AS transaction_type_id,
@@ -754,6 +755,11 @@ INNER JOIN abms.billing_centers be ON bl.billing_center_id = be.id
                         WHERE  ( original.latest_balance IS NOT NULL  AND
                                                ((T.invoice_type='unified-tax' AND (T.payment_mechanism='invoice' OR  T.payment_mechanism='adjustment' OR T.payment_mechanism='wire' OR T.payment_mechanism='cash' OR T.payment_mechanism='debit' OR T.payment_mechanism='credit' OR T.payment_mechanism='cheque' ) )) OR t.id IS NOT NULL )) x 
                     ON a.id = x.account_id
+LEFT OUTER JOIN abms.account_types 
+ON abms.account_types.id = a.account_type
+
+LEFT OUTER JOIN (SELECT DISTINCT abms.languages.token, abms.languages.code, abms.languages.val FROM abms.languages) as lng
+ON abms.account_types.name = lng.token AND lng.code LIKE 'es'
 
 WHERE  a.id = any(?::int[])
 
@@ -1082,15 +1088,15 @@ WHERE  abms.accounts.id = ?]]></xml-property>
 var dt2=Formatter.format(params["todate"], "yyyy-MM-dd");&#13;
 var dt3=Formatter.format(params["fromdate"], "yyyy-MM-dd");&#13;
 "Creado el: "  + dt1 +  "&lt;br>" +&#13;
-"Desde de: " + dt3 +  "&lt;br>" +&#13;
-"Al Hasta: " + dt2</expression>
+"Desde: " + dt3 +  "&lt;br>" +&#13;
+"Hasta: " + dt2</expression>
                         <property name="contentType">html</property>
                     </text-data>
                 </cell>
             </row>
         </grid>
         <table name="Table User" id="1154">
-            <property name="width">100%</property>
+            <property name="width">7.958333333333333in</property>
             <property name="dataSet">statement</property>
             <list-property name="boundDataColumns">
                 <structure>
@@ -1313,42 +1319,50 @@ dataSetRow["amount"]&#13;
                     <property name="dataType">string</property>
                     <property name="allowExport">true</property>
                 </structure>
+                <structure>
+                    <property name="name">account_type</property>
+                    <text-property name="displayName">account_type</text-property>
+                    <expression name="expression" type="javascript">"(" + dataSetRow["account_type"] + ")"</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
             </list-property>
             <column id="1167">
-                <property name="width">100%</property>
+                <property name="width">1.1083333333333334in</property>
             </column>
             <column id="1168">
                 <property name="width">100%</property>
             </column>
             <column id="1649">
-                <property name="width">100%</property>
+                <property name="width">0.85in</property>
             </column>
             <column id="1198">
-                <property name="width">80%</property>
+                <property name="width">0.85in</property>
             </column>
             <column id="1222">
-                <property name="width">100%</property>
+                <property name="width">0.85in</property>
             </column>
             <column id="1494">
-                <property name="width">80%</property>
+                <property name="width">0.85in</property>
             </column>
             <column id="1703">
-                <property name="width">80%</property>
+                <property name="width">0.85in</property>
             </column>
             <column id="1205">
-                <property name="width">100%</property>
+                <property name="width">0.85in</property>
             </column>
             <column id="1212">
-                <property name="width">100%</property>
+                <property name="width">0.85in</property>
             </column>
             <column id="1169">
-                <property name="width">100%</property>
+                <property name="width">0.85in</property>
             </column>
             <group id="1354">
                 <property name="groupName">User Detail</property>
                 <expression name="keyExpr" type="javascript">row["account_name"]</expression>
                 <structure name="toc">
-                    <expression name="expressionValue" type="javascript">row["account_name"]</expression>
+                    <expression name="expressionValue" type="javascript">row["account_name"] != null? 
+                    (row["account_name"].length > 29 ? row["account_name"].substring(0,29) : row["account_name"]): row["account_name"]</expression>
                 </structure>
                 <property name="repeatHeader">false</property>
                 <property name="hideDetail">false</property>
@@ -1559,6 +1573,30 @@ dataSetRow["amount"]&#13;
                         <cell id="1683"/>
                         <cell id="1684"/>
                         <cell id="1685"/>
+                    </row>
+                    <row id="1833">
+                        <property name="height">0.25833333333333336in</property>
+                        <list-property name="visibility">
+                            <structure>
+                                <property name="format">all</property>
+                                <expression name="valueExpr" type="javascript">row["account_type"] == null || row["account_type"].length == 0</expression>
+                            </structure>
+                        </list-property>
+                        <cell id="1834">
+                            <property name="colSpan">3</property>
+                            <property name="rowSpan">1</property>
+                            <data id="1846">
+                                <property name="resultSetColumn">account_type</property>
+                            </data>
+                            <data id="1848"/>
+                        </cell>
+                        <cell id="1837"/>
+                        <cell id="1838"/>
+                        <cell id="1839"/>
+                        <cell id="1840"/>
+                        <cell id="1841"/>
+                        <cell id="1842"/>
+                        <cell id="1843"/>
                     </row>
                     <row id="1551">
                         <property name="borderBottomStyle">solid</property>
@@ -1909,9 +1947,6 @@ dataSetRow["amount"]&#13;
             <group id="1499">
                 <property name="groupName">Opening Balance</property>
                 <expression name="keyExpr" type="javascript">row["opening_balance"]</expression>
-                <structure name="toc">
-                    <expression name="expressionValue" type="javascript">row["opening_balance"]</expression>
-                </structure>
                 <property name="hideDetail">false</property>
                 <header>
                     <row id="1500">

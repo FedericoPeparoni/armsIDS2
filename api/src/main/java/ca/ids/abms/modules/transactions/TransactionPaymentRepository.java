@@ -15,6 +15,7 @@ public interface TransactionPaymentRepository extends JpaRepository<TransactionP
     List<TransactionPayment> findByTransactionId(Integer transactionId);
     List<TransactionPayment> findByBillingLedgerId(Integer billingLedgerId);
 
+
     @Query("SELECT tp.transaction FROM TransactionPayment tp WHERE tp.billingLedger.id = :billingLedgerId")
     List<Transaction> getAllTransactionByBillingLedgerId(@Param("billingLedgerId") int billingLedgerId);
 

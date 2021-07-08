@@ -954,7 +954,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Coa Issue Date",
-    "val": "CoA Fecha de Caducidad",
+    "val": "CoA Fecha de Inicio",
     "part": "frontend",
     "created_by": "system"
   },
@@ -7356,7 +7356,7 @@ select add_languages_by_json('[
     "part": "frontend",
     "created_by": "system"
   },
-									
+
 {
     "code": "es",
     "token": "Account Type Discount (%)",
@@ -7492,7 +7492,185 @@ select add_languages_by_json('[
     "val": "Escuelas de Entrenamiento",
     "part": "frontend",
     "created_by": "system"
+  },
+
+{
+    "code": "en",
+    "token": "Reason of Missed Invoice",
+    "val": "Reason of Missed Invoice",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "Reason of Missed Invoice",
+    "val": "Razón de Falla",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "en",
+    "token": "Missing Aircraft Service Date",
+    "val": "Missing Aircraft Service Date",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "Missing Aircraft Service Date",
+    "val": "Falta la fecha de servicio de la aeronave",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+
+{
+    "code": "en",
+    "token": "Aircraft alreay invoiced",
+    "val": "Aircraft alreay invoiced",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "Aircraft alreay invoiced",
+    "val": "Aeronave ya facturada",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+
+{
+    "code": "en",
+    "token": "Missing applicable tax for the Aircraft Service Date",
+    "val": "Missing applicable tax for the Aircraft Service Date",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "Missing applicable tax for the Aircraft Service Date",
+    "val": "Falta el impuesto aplicable para los datos de servicio de la aeronave",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+
+
+	{
+    "code": "en",
+    "token": "Task completed with unified tax missed invoices",
+    "val": "Task completed with unified tax missed invoices",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "Task completed with unified tax missed invoices",
+    "val": "Tarea completada con facturas de Tasa Unificada no emitidas",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+
+	{
+    "code": "en",
+    "token": "The Specified validity year is not available in the database",
+    "val": "The Specified validity year is not available in the database",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "The Specified validity year is not available in the database",
+    "val": "El año de validez especificado no está disponible en la base de datos",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+
+
+{
+    "code": "en",
+    "token": "Invalid Aviation invoice billing period",
+    "val": "Invalid Aviation invoice billing period",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "Invalid Aviation invoice billing period",
+    "val": "Period de Facturacion no valido",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+
+
+{
+    "code": "en",
+    "token": "Overlapped dates for aircraft registration number: LVADE",
+    "val": "Overlapped dates for aircraft registration number: LVADE",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "Overlapped dates for aircraft registration number: LVADE",
+    "val": "Fechas superpuestas para la matrícula: LVADE",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "en",
+    "token": "Interfaccia Invoices PAY",
+    "val": "Interfaccia Invoices PAY",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "Interfaccia Invoices PAY",
+    "val": "PAGAR",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "en",
+    "token": "Unified Tax Fees Exempt",
+    "val": "Unified Tax Fees Exempt",
+    "part": "frontend",
+    "created_by": "system"
+  },
+
+{
+    "code": "es",
+    "token": "Unified Tax Fees Exempt",
+    "val": "Exención de Tasas para Tasa Unificada",
+    "part": "frontend",
+    "created_by": "system"
   }
+
+
+
+
+
+
+
+
+
 
 
 ]');
