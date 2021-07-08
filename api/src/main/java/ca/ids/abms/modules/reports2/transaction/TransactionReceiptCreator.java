@@ -348,9 +348,10 @@ public class TransactionReceiptCreator {
         data.global.transactionReferenceNumber = transaction.getPaymentReferenceNumber();
         data.global.transactionDateStr = reportHelper.formatDateUtc (ldtNow, dateFormatter);
 
-        data.global.bankName = null;
-        data.global.bankBranch = null;
         data.global.bankAccount = null;
+        data.global.bankBranch = null;
+        data.global.bankName = transaction.getBankAccountName() + " (" + 
+        					   transaction.getBankAccountNumber() + ")";
 
         data.global.transactionOfficerName = currentUser != null ? currentUser.getName() : null;
         data.global.transactionOfficerPosition = currentUser != null ? currentUser.getJobTitle() : null;
