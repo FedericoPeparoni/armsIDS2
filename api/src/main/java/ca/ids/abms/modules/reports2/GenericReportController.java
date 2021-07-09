@@ -177,7 +177,7 @@ public class GenericReportController {
         	final String organisationName = systemConfigurationService.getString(SystemConfigurationItemName.ORGANISATION_NAME, null);
         	if(organisationName.equals("EANA") && partialName.equals("unified_tax")){
         	String dataGeneration =	DATE_TIME_FORMATTER.format(new Date().toInstant());
-                fileName = "Report_TU-".concat(dataGeneration).concat(format.fileNameSuffix());
+                fileName = "Reporte_TU-".concat(dataGeneration).concat(format.fileNameSuffix());
               //
             }
 
