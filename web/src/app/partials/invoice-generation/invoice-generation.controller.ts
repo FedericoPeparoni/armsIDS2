@@ -52,6 +52,16 @@ export class InvoiceGenerationController {
     aircraftTypeManagementService.findAllMinimalReturn().then((data: Array<IAircraftTypeMinimal>) => this.$scope.aircraftTypesList = data);
 
     $scope.invoiceByFmCategory = sysConfigBoolean.parse(this.systemConfigurationService.getValueByName(<any>SysConfigConstants.INVOICE_FM_CATEGORY) || 'f');
+    // $scope.showDisclaimer = () => this.showDisclaimer();
+    $scope.generateButtonIsDisabled = () => this.generateButtonIsDisabled();
+    $scope.invoiceByFMCategory = this.systemConfigurationService.getBooleanFromValueByName(<any>SysConfigConstants.INVOICE_FM_CATEGORY);
+    if ($scope.invoiceByFMCategory) {
+      $scope.notification_text = 'Note: Cannot generate an invoice when the selected flights are not pending' 
+    
+    } 
+    
+
+
 
     if ($scope.invoiceByFmCategory) {
       flightMovementCategoryService.getFlightMovementCategoryForAviationInvoice().then((resp: Array<IFlightMovementCategory>) => {
@@ -628,8 +638,10 @@ export class InvoiceGenerationController {
       isDisabled = isDisabled
         || this.$scope.workflow === 'cash'
         || (this.$scope.workflow === 'mixed' && this.$scope.account.cash_account);
+    } 
+    if(!isDisabled) {
+     return  this. generateButtonIsDisabled();    
     }
-
     return isDisabled;
   }
 
@@ -711,4 +723,14 @@ export class InvoiceGenerationController {
   private recalculateInvoiceAmount(): void {
     this.$scope.accountCurrencyCode = this.$scope.invoiceCurrency.currency_code;
   }
+
+
+  private generateButtonIsDisabled(): boolean {
+    if (this.$scope.flightMovementList == null) return true;
+    const flightMovementIncomplete = this.$scope.flightMovementList.content.filter((item: IFlightMovement) =>
+    item.status == 'INCOMPLETE').filter((item: IFlightMovement) =>this.$scope.selectedFlights.indexOf(item.id)> -1)
+ 
+   return flightMovementIncomplete.length != 0;
+  } 
+
 }
