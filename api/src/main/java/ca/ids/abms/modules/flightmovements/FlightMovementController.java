@@ -22,6 +22,8 @@ import ca.ids.abms.modules.users.User;
 import ca.ids.abms.modules.users.UserService;
 import ca.ids.abms.modules.util.models.PageImplCustom;
 import ca.ids.abms.util.StringUtils;
+
+import org.apache.poi.util.SystemOutLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.*;
@@ -33,6 +35,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
@@ -108,24 +112,27 @@ public class FlightMovementController extends MediaDocumentComponent {
         return ResponseEntity.ok().body(resultPage);
     }
 
+    
+    
     @GetMapping(value = "/filters")
     @SuppressWarnings("squid:S00107")
     public ResponseEntity<?> finAllFlightMovementByFilter(
-            @RequestParam(name = "search", required = false) final String textSearch,
-            @SortDefault.SortDefaults({
-                @SortDefault(sort = {"dateOfFlight"}, direction=Sort.Direction.DESC),
-                @SortDefault(sort = {"depTime"}, direction = Sort.Direction.DESC)})  Pageable pageable,
-            @RequestParam(name = "status", required = false) String status,
-            @RequestParam(name = "type", required = false) Integer flightMovementCategoryId,
-            @RequestParam(name = "iata", required = false) Boolean iata,
-            @RequestParam(required = false) String issue,
-            @RequestParam(required = false) String invoice,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate start,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate end,
-            @RequestParam(name = "duplicatesOrMissing", required = false) Boolean duplicatesOrMissing,
-            @RequestParam(name = "showActualDepDest", required = false) Boolean showActualDepDest,
-            @RequestParam(name = "showAllFlights", required = false) Boolean showAllFlights,
-            @RequestParam(name = "csvExport", required = false) Boolean csvExport) {
+        @RequestParam(name = "search", required = false) final String textSearch,
+        @SortDefault.SortDefaults({
+            @SortDefault(sort = {"dateOfFlight"}, direction=Sort.Direction.DESC),
+            @SortDefault(sort = {"depTime"}, direction = Sort.Direction.DESC)})  Pageable pageable,
+        @RequestParam(name = "status", required = false) String status,
+        @RequestParam(name = "type", required = false) Integer flightMovementCategoryId,
+        @RequestParam(name = "iata", required = false) Boolean iata,
+        @RequestParam(required = false) String issue,
+        @RequestParam(required = false) String invoice,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate start,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate end,
+        @RequestParam(name = "duplicatesOrMissing", required = false) Boolean duplicatesOrMissing,
+        @RequestParam(name = "showActualDepDest", required = false) Boolean showActualDepDest,
+        @RequestParam(name = "showAllFlights", required = false) Boolean showAllFlights,
+        @RequestParam(name = "csvExport", required = false) Boolean csvExport
+    ) throws IOException {
 
         LOG.debug("REST request to get All FlightMovement; textSearch: {} status: {} movementType: {} issue: {} invoice: {} iata: {} startDate: {} endDate: {}",
             textSearch, status, flightMovementCategoryId, issue, invoice, iata, start, end);
@@ -137,23 +144,61 @@ public class FlightMovementController extends MediaDocumentComponent {
                 new Sort.Order(Sort.Direction.ASC, "item18RegNum"),
                 new Sort.Order(Sort.Direction.ASC, "dateOfFlight"),
                 new Sort.Order(Sort.Direction.ASC, "depTime"));
-
             pageable = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), sortingOpts);
         }
 
-        final Page<FlightMovement> page = flightMovementService.findAllFlightMovementByFilter(pageable, textSearch,
-                flightMovementCategoryId, status, iata, issue, invoice, start, end, duplicatesOrMissing);
-
         if (csvExport != null && csvExport) {
-            final List<FlightMovement> list = page.getContent();
-            final List<FlightMovementCsvExportModel> csvExportModel = flightMovementMapper.toCsvModel(list);
-            ReportDocument report = reportDocumentCreator.createCsvDocument("Flight_Movement", csvExportModel, FlightMovementCsvExportModel.class, true);
-            return doCreateBinaryResponse(report);
+            int pageSize = 10000;
+            int start1 = 0;
+            
+            ReportDocument doc = null;
+            int id = 0;
+            int num = 0;
+            
+            while(true) {
+                pageable = new PageRequest(start1, pageSize);
+         
+                final Page<FlightMovement> page1 = flightMovementService.findAllFlightMovementByFilter(pageable, textSearch,
+                    flightMovementCategoryId, status, iata, issue, invoice, start, end, duplicatesOrMissing);
+
+                System.out.println("Chiamata numero: " + (num + 1));
+                num += 1;
+
+                if(!page1.hasContent()) {
+                    break;
+                }
+
+				final List<FlightMovement> list1 = new ArrayList();
+                list1.addAll(page1.getContent());
+				
+                start1 = start1 + 1;
+                //Recupero l'ultimo record della lista per recuperarne l'id
+                System.out.println("grandezza lista " + list1.size());
+                    
+              
+                //---------------------Parte nuova ---------------------------------------//
+            	if(doc == null) {
+            		doc = reportDocumentCreator.createCsvDocument("Flight_Movement", flightMovementMapper.toCsvModel(list1), FlightMovementCsvExportModel.class, true);
+            	}else {
+            		//Le volte successive, il documento esiste quindi ci aggiungo il resto
+					reportDocumentCreator.appendToCsvDocument(doc, flightMovementMapper.toCsvModel(list1),FlightMovementCsvExportModel.class, true);
+            	}	
+            }
+                        
+            return doCreateResource(doc);
 
         } else {
+			
+			final List<FlightMovement> list = new ArrayList();
+
+            final Page<FlightMovement> page = flightMovementService.findAllFlightMovementByFilter(pageable, textSearch,
+                flightMovementCategoryId, status, iata, issue, invoice, start, end, duplicatesOrMissing);
+
             final long countAllFlightMovement = flightMovementService.countAllFlightMovement();
-            final Page<FlightMovementViewModel> resultPage = new PageImplCustom<>(flightMovementMapper.toViewModel(page), pageable, page.getTotalElements(), countAllFlightMovement);
-            if (Boolean.TRUE.equals(duplicatesOrMissing)) {
+            final Page<FlightMovementViewModel> resultPage = new PageImplCustom<>(flightMovementMapper.toViewModel(page), 
+					pageable, page.getTotalElements(), countAllFlightMovement);
+            
+			if (Boolean.TRUE.equals(duplicatesOrMissing)) {
                 DuplicateOrMissingFlightsDetector.analyze(resultPage.getContent(),
                     systemConfigurationService.getIntOrZero(DUPL_OR_MISS_FLIGHTS_MIN_WIND),
                     systemConfigurationService.getIntOrZero(DUPL_OR_MISS_FLIGHTS_EET_PERC),

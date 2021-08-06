@@ -131,6 +131,13 @@ public class ReportDocumentCreator {
     public <T> ReportDocument createCsvDocument (final String name, final List <T> data, final Class<T> clazz, boolean exportFromTable) {
         return do_createReportDocument (name, ReportFormat.csv, outputStream -> writeCsv(data, clazz, outputStream, exportFromTable));
     }
+    
+    public <T> void appendToCsvDocument(ReportDocument reportDocument,final List <T> data,final Class<T> clazz, boolean exportFromTable ) {
+    	ByteArrayOutputStream stream =	new ByteArrayOutputStream(); 
+    		writeCsv(data, clazz, stream, exportFromTable);
+    
+    	 reportDocument.appendData(stream.toByteArray());
+    }
 
     /**
      * Format a report data object as JSON
