@@ -19765,7 +19765,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Dest Ad",
-    "val": "Aeródromo de Destino",
+    "val": "Ad. Dest.",
     "part": "frontend",
     "created_by": "system"
   },
@@ -50516,7 +50516,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Small aircraft maximum weight",
-    "val": "Peso máximo de aire pequeño",
+    "val": "Peso máximo de aereonave pequeña",
     "part": "frontend",
     "created_by": "system"
   },
@@ -52938,7 +52938,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Pay",
-    "val": "Paga",
+    "val": "Pagar",
     "part": "frontend",
     "created_by": "system"
   },
@@ -56971,7 +56971,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Small aircraft minimum weight",
-    "val": "Peso mínimo de aire pequeño",
+    "val": "Peso mínimo de aereonave pequeña",
     "part": "frontend",
     "created_by": "system"
   },
