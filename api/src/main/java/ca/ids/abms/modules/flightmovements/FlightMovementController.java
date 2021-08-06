@@ -151,19 +151,12 @@ public class FlightMovementController extends MediaDocumentComponent {
             int pageSize = 10000;
             int start1 = 0;
             
-            ReportDocument doc = null;
-            int id = 0;
-            int num = 0;
-            
+            ReportDocument doc = null;           
             while(true) {
                 pageable = new PageRequest(start1, pageSize);
          
                 final Page<FlightMovement> page1 = flightMovementService.findAllFlightMovementByFilter(pageable, textSearch,
                     flightMovementCategoryId, status, iata, issue, invoice, start, end, duplicatesOrMissing);
-
-                System.out.println("Chiamata numero: " + (num + 1));
-                num += 1;
-
                 if(!page1.hasContent()) {
                     break;
                 }
@@ -172,15 +165,9 @@ public class FlightMovementController extends MediaDocumentComponent {
                 list1.addAll(page1.getContent());
 				
                 start1 = start1 + 1;
-                //Recupero l'ultimo record della lista per recuperarne l'id
-                System.out.println("grandezza lista " + list1.size());
-                    
-              
-                //---------------------Parte nuova ---------------------------------------//
             	if(doc == null) {
             		doc = reportDocumentCreator.createCsvDocument("Flight_Movement", flightMovementMapper.toCsvModel(list1), FlightMovementCsvExportModel.class, true);
             	}else {
-            		//Le volte successive, il documento esiste quindi ci aggiungo il resto
 					reportDocumentCreator.appendToCsvDocument(doc, flightMovementMapper.toCsvModel(list1),FlightMovementCsvExportModel.class, true);
             	}	
             }
