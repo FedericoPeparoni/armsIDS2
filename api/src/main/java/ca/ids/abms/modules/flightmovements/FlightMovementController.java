@@ -112,8 +112,8 @@ public class FlightMovementController extends MediaDocumentComponent {
         return ResponseEntity.ok().body(resultPage);
     }
 
-    
-    
+
+
     @GetMapping(value = "/filters")
     @SuppressWarnings("squid:S00107")
     public ResponseEntity<?> finAllFlightMovementByFilter(
@@ -149,42 +149,51 @@ public class FlightMovementController extends MediaDocumentComponent {
 
         if (csvExport != null && csvExport) {
             int pageSize = 10000;
-            int start1 = 0;
-            
-            ReportDocument doc = null;           
+            int currentPage = 0;
+
+            ReportDocument doc = null;
+            //TODO: use For
             while(true) {
-                pageable = new PageRequest(start1, pageSize);
-         
-                final Page<FlightMovement> page1 = flightMovementService.findAllFlightMovementByFilter(pageable, textSearch,
+                pageable = new PageRequest(currentPage, pageSize);
+                LOG.debug("findAllFlightMovementByFilter  page");
+                final Page<FlightMovement> pageFlightMovement = flightMovementService.findAllFlightMovementByFilterForDownload(pageable, textSearch,
                     flightMovementCategoryId, status, iata, issue, invoice, start, end, duplicatesOrMissing);
-                if(!page1.hasContent()) {
+                if(!pageFlightMovement.hasContent()) {
                     break;
                 }
 
-				final List<FlightMovement> list1 = new ArrayList();
-                list1.addAll(page1.getContent());
-				
-                start1 = start1 + 1;
+                //Convert to List
+				final List<FlightMovement> flightMovementList = new ArrayList();
+                flightMovementList.addAll(pageFlightMovement.getContent());
+                LOG.debug("grandezza lista " + flightMovementList.size());
+                LOG.debug("Page: " + (currentPage));
+
+                currentPage = currentPage + 1;
             	if(doc == null) {
-            		doc = reportDocumentCreator.createCsvDocument("Flight_Movement", flightMovementMapper.toCsvModel(list1), FlightMovementCsvExportModel.class, true);
+            		doc = reportDocumentCreator.createCsvDocument("Flight_Movement", flightMovementMapper.toCsvModel(flightMovementList), FlightMovementCsvExportModel.class, true);
             	}else {
-					reportDocumentCreator.appendToCsvDocument(doc, flightMovementMapper.toCsvModel(list1),FlightMovementCsvExportModel.class, true);
-            	}	
+					reportDocumentCreator.appendToCsvDocument(doc, flightMovementMapper.toCsvModel(flightMovementList),FlightMovementCsvExportModel.class, true, false);
+            	}
+
+
             }
-                        
+            //Flush
+            doc.getOutputStream().flush();
+            doc.getOutputStream().close();
             return doCreateResource(doc);
+            //return doCreateStreamingResponse(doc);
 
         } else {
-			
-			final List<FlightMovement> list = new ArrayList();
 
+			final List<FlightMovement> list = new ArrayList();
+            LOG.debug("findAllFlightMovementByFilter No page");
             final Page<FlightMovement> page = flightMovementService.findAllFlightMovementByFilter(pageable, textSearch,
                 flightMovementCategoryId, status, iata, issue, invoice, start, end, duplicatesOrMissing);
 
             final long countAllFlightMovement = flightMovementService.countAllFlightMovement();
-            final Page<FlightMovementViewModel> resultPage = new PageImplCustom<>(flightMovementMapper.toViewModel(page), 
+            final Page<FlightMovementViewModel> resultPage = new PageImplCustom<>(flightMovementMapper.toViewModel(page),
 					pageable, page.getTotalElements(), countAllFlightMovement);
-            
+
 			if (Boolean.TRUE.equals(duplicatesOrMissing)) {
                 DuplicateOrMissingFlightsDetector.analyze(resultPage.getContent(),
                     systemConfigurationService.getIntOrZero(DUPL_OR_MISS_FLIGHTS_MIN_WIND),

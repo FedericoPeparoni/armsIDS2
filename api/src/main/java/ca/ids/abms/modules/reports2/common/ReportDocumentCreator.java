@@ -107,20 +107,43 @@ public class ReportDocumentCreator {
     /**
      * Format a list of objects as CSV
      */
+
+    private static final char character1 = '\ufeef'; // emits 0xef
+    private static final char character2 = '\ufebb'; // emits 0xbb
+    private static final char character3 = '\ufebf'; // emits 0xbf
     private <T> void writeCsv(final List<T> data, final Class<T> clazz, final OutputStream outputStream, boolean exportFromTable) {
         try (final InputStream inputStream = csvWriter.createStream (data, clazz, exportFromTable)){
 
-            outputStream.write('\ufeef'); // emits 0xef
-            outputStream.write('\ufebb'); // emits 0xbb
-            outputStream.write('\ufebf'); // emits 0xbf
+            //outputStream.write('\ufeef'); // emits 0xef
+            //outputStream.write('\ufebb'); // emits 0xbb
+            //outputStream.write('\ufebf'); // emits 0xbf
 
+            outputStream.write(character1); // emits 0xef
+            outputStream.write(character2); // emits 0xbb
+            outputStream.write(character3); // emits 0xbf
 
             IOUtils.copy (inputStream, outputStream);
         } catch (final RuntimeException x) {
+            x.printStackTrace();
             // Catch any runtime exceptions separately and throw as-is we DO NOT want them lumped together with
             // non-runtime exceptions. This must be done as calls within do not handle exceptions appropriately.
             throw x;
         } catch (final Exception x) {
+            x.printStackTrace();
+            throw new IllegalStateException(x);
+        }
+    }
+
+    private <T> void appendCsv(final List<T> data, final Class<T> clazz, final OutputStream outputStream, boolean exportFromTable, boolean header) {
+        try (final InputStream inputStream = csvWriter.createStream (data, clazz, exportFromTable, header)){
+            IOUtils.copy (inputStream, outputStream);
+        } catch (final RuntimeException x) {
+            x.printStackTrace();
+            // Catch any runtime exceptions separately and throw as-is we DO NOT want them lumped together with
+            // non-runtime exceptions. This must be done as calls within do not handle exceptions appropriately.
+            throw x;
+        } catch (final Exception x) {
+            x.printStackTrace();
             throw new IllegalStateException(x);
         }
     }
@@ -131,12 +154,22 @@ public class ReportDocumentCreator {
     public <T> ReportDocument createCsvDocument (final String name, final List <T> data, final Class<T> clazz, boolean exportFromTable) {
         return do_createReportDocument (name, ReportFormat.csv, outputStream -> writeCsv(data, clazz, outputStream, exportFromTable));
     }
-    
-    public <T> void appendToCsvDocument(ReportDocument reportDocument,final List <T> data,final Class<T> clazz, boolean exportFromTable ) {
-    	ByteArrayOutputStream stream =	new ByteArrayOutputStream(); 
-    		writeCsv(data, clazz, stream, exportFromTable);
-    
-    	 reportDocument.appendData(stream.toByteArray());
+
+    public <T> void appendToCsvDocument(ReportDocument reportDocument,final List <T> data,final Class<T> clazz, boolean exportFromTable, boolean header ) throws IOException {
+
+     /*  try(ByteArrayOutputStream stream =	new ByteArrayOutputStream()){
+    	    //converto data to outputstream
+    	    appendCsv(data, clazz, stream, exportFromTable);
+            reportDocument.appendData(stream.toByteArray());
+        }catch (IOException ex){
+    	    ex.printStackTrace();
+        }*/
+
+        //Oppure Salto un passaggio
+        //Attenzione Crea multiple Header
+        appendCsv(data, clazz, reportDocument.getOutputStream(), exportFromTable, header);
+
+
     }
 
     /**

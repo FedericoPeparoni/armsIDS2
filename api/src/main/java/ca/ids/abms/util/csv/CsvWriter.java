@@ -35,6 +35,10 @@ public final class CsvWriter {
         return createStream(data, clazz, null, export);
     }
 
+    public <T> InputStream createStream(Collection<T> data, Class<T> clazz, boolean export, boolean header) throws Exception {
+        return createStream(data, clazz, null, export, header);
+    }
+
     private <T> InputStream createStream(Collection<T> data,
                                          Class<T> clazz,
                                          Map<String, String> placeholders,
@@ -47,7 +51,33 @@ public final class CsvWriter {
 
                 mapper.mapHeaders(action, placeholders);
 
-                data.forEach(t -> mapper.mapData(t, action, export));
+                data.forEach(t -> mapper.mapData(t, action, export, true));
+            }
+
+            return new ByteArrayInputStream(os.toByteArray());
+        }
+    }
+
+    private <T> InputStream createStream(Collection<T> data,
+                                         Class<T> clazz,
+                                         Map<String, String> placeholders,
+                                         boolean export,
+                                         boolean header) throws Exception {
+
+        AutoCsvMapper<T> mapper = new AutoCsvMapper<>(clazz, systemConfigurationService);
+        try (ByteArrayOutputStream os = new ByteArrayOutputStream()) {
+            try (CSVWriter writer = createWriter(os)) {
+                Consumer<Collection<String>> action = row ->
+                    writer.writeNext(
+                        row.toArray(new String[0]));
+
+                if(header == true){
+                    mapper.mapHeaders(action, placeholders);
+                }
+
+
+                data.forEach(t ->
+                    mapper.mapData(t, action, export, header));
             }
 
             return new ByteArrayInputStream(os.toByteArray());

@@ -159,7 +159,7 @@ class AutoCsvMapper<T> {
      * @param data     An instance of the mapped type
      * @param callback A handler for the consumption of the data
      */
-    void mapData(T data, Consumer<Collection<String>> callback, boolean export) {
+    void mapData(T data, Consumer<Collection<String>> callback, boolean export, boolean header) {
         ArrayList<String> rowTemplate = new ArrayList<>();
 
         Property collectionProperty = null;
@@ -183,7 +183,6 @@ class AutoCsvMapper<T> {
 
         if (collectionProperty == null) {
             callback.accept(rowTemplate);
-
             return;
         }
 

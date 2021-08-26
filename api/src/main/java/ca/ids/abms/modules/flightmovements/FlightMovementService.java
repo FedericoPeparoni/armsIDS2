@@ -76,6 +76,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import java.io.IOException;
@@ -98,6 +100,11 @@ import static ca.ids.abms.util.MiscUtils.nvl;
 @Service
 @Transactional
 public class FlightMovementService {
+
+    //https://stackoverflow.com/questions/54147047/how-spring-data-clean-persited-entities-in-transactional-method
+    //Spring will ensure this entityManager is the same as the one that start transaction due to  @Transactional
+    @PersistenceContext
+    private EntityManager em;
 
     private static final String KEY_FLIGHT_MOVEMENT_CATEGORY = "flightmovementCategory";
 
@@ -161,7 +168,7 @@ public class FlightMovementService {
     private final WhitelistingUtils whitelistingUtils;
     private final PluginService pluginService;
     private HttpClient httpclient = null;
-    private final AircraftRegistrationService aircraftRegistrationService;    
+    private final AircraftRegistrationService aircraftRegistrationService;
 
     @SuppressWarnings("squid:S00107")
     public FlightMovementService(final FlightMovementRepository flightMovementRepository,
@@ -195,7 +202,7 @@ public class FlightMovementService {
         this.transactionService = transactionService;
         this.whitelistingUtils = whitelistingUtils;
         this.pluginService = pluginService;
-        this.aircraftRegistrationService = aircraftRegistrationService;        
+        this.aircraftRegistrationService = aircraftRegistrationService;
     }
 
     public SystemConfigurationService getSystemConfigurationService() {
@@ -341,6 +348,23 @@ public class FlightMovementService {
             }
         }
         return flightMovementRepository.findAll(filterBuilder.build(), pageable);
+    }
+
+    @Transactional(readOnly = true)
+    @SuppressWarnings("squid:S00107")
+    public Page<FlightMovement> findAllFlightMovementByFilterForDownload(Pageable pageable, String textSearch, Integer flightMovementCategoryId, String status,
+                                                              Boolean iata, String issue, String invoiceStatus, LocalDate startDate, LocalDate endDate, Boolean duplicatesOrMissing) {
+
+        Page<FlightMovement> flightMovementPage =  findAllFlightMovementByFilter(pageable, textSearch, flightMovementCategoryId, status,
+            iata, issue, invoiceStatus, startDate, endDate, duplicatesOrMissing);
+        /*****************************
+         The reason to flush is send the update SQL to DB .
+         Otherwise ,the update will lost if we clear the entity manager
+         afterward.
+         ******************************/
+        em.flush();
+        em.clear();
+        return flightMovementPage;
     }
 
     /**
@@ -535,7 +559,7 @@ public class FlightMovementService {
             final LocalDateTime dateOfFlight, final String depTime, final String depAd) {
         return doFindAllByLogicalKey (flightId, dateOfFlight, depTime, depAd, "0000");
     }
-    
+
     /**
      * Werner, Helen and Carmine discuss on February 23 2017.
      * LogicalKey is
@@ -1265,7 +1289,7 @@ public class FlightMovementService {
                 if(systemConfigurationService.getBoolean(SystemConfigurationItemName.VALIDATE_FLIGHT_LEVEL_AIRSPACE)) {
                     // check if existing RS and the new RS have different entry point time
                     // convert entry time from radar summary into dateTime
-                    // compare with the one from FM 
+                    // compare with the one from FM
                     LocalDateTime entry = null;
                     LocalDateTime exit = null;
                     LocalTime localEntryTime = JSR310DateConverters.convertStringToLocalTime(radarSummary.getFirEntryTime(),
@@ -1312,7 +1336,7 @@ public class FlightMovementService {
                 }
                 if (!thruFlightPlanUtility.isThruFlight(existFlightMovement)) {
 
-                    // not Thru flight 
+                    // not Thru flight
                     flightMovementRepositoryUtility.detach(existFlightMovement);
                     FlightMovement flightMovement = flightMovementBuilder
                         .updateFlightMovementFromRadarSummary(existFlightMovement, radarSummary);
@@ -1323,7 +1347,7 @@ public class FlightMovementService {
                     clearCurrentSession();
 
                     if (flightMovementResult != null) fplResult = ItemLoaderResult.UPDATED;
-                } 
+                }
             } else {
 
                 // find possible THRU flight movement
@@ -2481,7 +2505,7 @@ public class FlightMovementService {
                return  false;
            }
 
-            if (flight.getFlightId().equals(tempFlight.getFlightId()) && 
+            if (flight.getFlightId().equals(tempFlight.getFlightId()) &&
                 flight.getDepAd().equals(tempFlight.getDepAd()) &&
                 dateTimeMatch(flight,tempFlight)) {
                 return  true;
@@ -2507,11 +2531,11 @@ public class FlightMovementService {
                 : StringUtils.leftPad(existFlight.getDepTime(), 4, '0');
 
         String eet = StringUtils.isBlank(existFlight.getEstimatedElapsedTime()) ? "0000"
-            : StringUtils.leftPad(existFlight.getEstimatedElapsedTime(), 4, '0');        
+            : StringUtils.leftPad(existFlight.getEstimatedElapsedTime(), 4, '0');
 
-        //calculate range value in minutes from percentage of flight movement estimated elapsed time               
+        //calculate range value in minutes from percentage of flight movement estimated elapsed time
         long timeRange = 0;
-        if(StringUtils.isNotBlank(eet)) {           
+        if(StringUtils.isNotBlank(eet)) {
             timeRange = (Long.valueOf(eet.substring(0,2)) * 60  + Long.valueOf(eet.substring(2))) * configPrctValue/100;
         }
 
@@ -2886,13 +2910,13 @@ public class FlightMovementService {
                 statusLine.getStatusCode(), statusLine.getReasonPhrase());
         }
     }
-    
+
     public boolean checkIfUnifiedTaxFlight(FlightMovement flightMovement) {
-    	
+
     	boolean isUnifiedTaxAircraft = false;
 
     	String item18RegNum = flightMovementBuilderUtility.checkAircraftRegistrationNumber(flightMovement);
-        
+
         if (item18RegNum != null) {
 
             Double aMtow = null;
@@ -2901,15 +2925,15 @@ public class FlightMovementService {
             if (ar != null) {
             	// SMALL_AIRCRAFT_MAX_WEIGHT is expressed in KG
                 Integer maxWeight = systemConfigurationService.getIntOrZero(SystemConfigurationItemName.SMALL_AIRCRAFT_MAX_WEIGHT);
-                
+
                 // MTOW stored in small tones in the DB ==> need to convert it to KG
             	aMtow = ar.getMtowOverride()* ReportHelper.TO_KG;
 
                 if (aMtow <= maxWeight) {
-                	
-                	boolean isDomesticOrLocal = (ar.getIsLocal()) || 
+
+                	boolean isDomesticOrLocal = (ar.getIsLocal()) ||
                 		(flightMovement.getFlightCategoryNationality().equals(FlightmovementCategoryNationality.NATIONAL));
-                    
+
                 	if (isDomesticOrLocal) {
                 		isUnifiedTaxAircraft = true;
                 	}
@@ -2918,5 +2942,5 @@ public class FlightMovementService {
         }
         return isUnifiedTaxAircraft;
     }
-    
+
 }
