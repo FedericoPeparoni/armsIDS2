@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 
 import ca.ids.abms.modules.accounts.AccountMapper;
+import ca.ids.abms.util.ICsvExport;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -23,7 +24,7 @@ import ca.ids.abms.modules.common.services.EntityResolver;
 import ca.ids.abms.util.converter.JSR310DateConverters;
 
 @Mapper(uses = {EntityResolver.class, AccountMapper.class})
-public abstract class AircraftRegistrationMapper extends ABMSMapper {
+public abstract class AircraftRegistrationMapper extends ABMSMapper implements ICsvExport<AircraftRegistration, AircraftRegistrationCsvExportModel> {
 
     public abstract List<AircraftRegistrationViewModel> toViewModel(Iterable<AircraftRegistration> aircraftRegistrations);
 
@@ -93,6 +94,7 @@ public abstract class AircraftRegistrationMapper extends ABMSMapper {
     @Mapping(target = "aircraftType", source = "aircraftType.aircraftType")
     public abstract AircraftRegistrationCsvExportModel toCsvModel(AircraftRegistration item);
 
+    @Override
     public abstract List<AircraftRegistrationCsvExportModel> toCsvModel(Iterable<AircraftRegistration> items);
 
     @Mapping(target = "account", source = "account.name")

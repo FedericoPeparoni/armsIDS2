@@ -10,6 +10,7 @@ import ca.ids.abms.modules.accounts.Account;
 import ca.ids.abms.modules.accounts.AccountRepository;
 import ca.ids.abms.modules.countries.Country;
 import ca.ids.abms.modules.countries.CountryService;
+import ca.ids.abms.modules.flightmovements.FlightMovement;
 import ca.ids.abms.modules.system.SystemConfigurationService;
 import ca.ids.abms.modules.system.summary.SystemConfigurationItemName;
 import ca.ids.abms.modules.util.models.ModelUtils;
@@ -23,6 +24,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -34,6 +37,9 @@ import java.util.Optional;
 public class AircraftRegistrationService {
 
     private static final Logger LOG = LoggerFactory.getLogger(AircraftRegistrationService.class);
+
+    @PersistenceContext
+    private EntityManager em;
 
     private final AccountRepository accountRepository;
     private final AircraftRegistrationRepository aircraftRegistrationRepository;
@@ -142,6 +148,21 @@ public class AircraftRegistrationService {
             .lookFor(searchText);
         return aircraftRegistrationRepository.findAll(filterBuilder.build(), pageable);
     }
+
+    @Transactional(readOnly = true)
+    public Page<AircraftRegistration> findAllForDownload(Pageable pageable, String searchText) {
+        LOG.debug("Request to get AircraftRegistration");
+        Page<AircraftRegistration> aircraftRegistrationPage = findAll(pageable, searchText);
+        /*****************************
+         The reason to flush is send the update SQL to DB .
+         Otherwise ,the update will lost if we clear the entity manager
+         afterward.
+         ******************************/
+        em.flush();
+        em.clear();
+        return aircraftRegistrationPage;
+    }
+
 
     @Transactional(readOnly = true)
     public List<AircraftRegistration> findAircraftRegistrationForSelfCareUser(final Integer userId, final String searchFilter) {
@@ -266,7 +287,7 @@ public class AircraftRegistrationService {
     public long countAllForSelfCareAccounts() {
         return aircraftRegistrationRepository.countAllForSelfCareAccounts();
     }
-    
+
     public Country findCountryByRegistrationNumberPrefix(String aRegistrationNumber) {
         if (aRegistrationNumber == null) {
             return null;
@@ -283,5 +304,5 @@ public class AircraftRegistrationService {
     	}
     	return true;
     }
-    
+
 }

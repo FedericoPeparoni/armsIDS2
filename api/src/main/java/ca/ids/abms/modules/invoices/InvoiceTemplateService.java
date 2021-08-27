@@ -3,6 +3,7 @@ package ca.ids.abms.modules.invoices;
 import ca.ids.abms.config.error.CustomParametrizedException;
 import ca.ids.abms.modules.reports2.InvoiceTemplateCategory;
 import ca.ids.abms.modules.reports2.common.ReportHelper;
+import ca.ids.abms.modules.transactions.Transaction;
 import ca.ids.abms.modules.util.models.PageImplCustom;
 import ca.ids.abms.util.StringUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -29,6 +32,9 @@ import java.util.stream.Collectors;
 public class InvoiceTemplateService {
 
 	private final Logger log = LoggerFactory.getLogger(InvoiceTemplateService.class);
+
+    @PersistenceContext
+    private EntityManager em;
 
     private final InvoiceTemplateRepository invoiceTemplateRepository;
     private final InvoiceTemplateMapper invoiceTemplateMapper;
@@ -64,6 +70,20 @@ public class InvoiceTemplateService {
         }
         return new PageImplCustom<>(
             invoiceTemplateMapper.toViewModel(invoiceTemplateList), pageable, invoiceTemplateList.size(), totalTemplates);
+
+    }
+
+    public Page<InvoiceTemplateViewModel> findAllForDownload(Pageable pageable, String searchFilter) {
+        Page<InvoiceTemplateViewModel> invoiceTemplateViewModel = findAll(pageable, searchFilter);
+        /*****************************
+         The reason to flush is send the update SQL to DB .
+         Otherwise ,the update will lost if we clear the entity manager
+         afterward.
+         ******************************/
+        em.flush();
+        em.clear();
+        return invoiceTemplateViewModel;
+
 
     }
 

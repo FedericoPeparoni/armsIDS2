@@ -72,6 +72,9 @@ import ca.ids.abms.modules.workflows.ApprovalWorkflow;
 import ca.ids.abms.modules.workflows.ApprovalWorkflowService;
 import ca.ids.abms.util.EnumUtils;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import static java.time.temporal.ChronoUnit.DAYS;
 
 @Service
@@ -79,6 +82,9 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class TransactionService extends AbstractPluginService<TransactionServiceProvider> {
 
     private static final Logger LOG = LoggerFactory.getLogger(TransactionService.class);
+
+    @PersistenceContext
+    private EntityManager em;
 
     private static final String ACCOUNT = "account";
     private static final String TRANSACTION_DATE_TIME = "transactionDateTime";
@@ -217,6 +223,25 @@ public class TransactionService extends AbstractPluginService<TransactionService
 
         return transactionRepository.findAll(new TransactionExportFilterSpecification(
             filterBuilder, exportedFilter, exportSupport(), exportableMechanisms()), pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Transaction> findAllForDownload(final Pageable pageable,
+                                     final String searchFilter,
+                                     final Boolean exportedFilter,
+                                     final Integer accountId,
+                                     final LocalDate startDate,
+                                     final LocalDate endDate) {
+        Page<Transaction> transactionPage = findAll(pageable, searchFilter, exportedFilter, accountId, startDate, endDate);
+        /*****************************
+         The reason to flush is send the update SQL to DB .
+         Otherwise ,the update will lost if we clear the entity manager
+         afterward.
+         ******************************/
+        em.flush();
+        em.clear();
+        return transactionPage;
+
     }
 
     @Transactional(readOnly = true)

@@ -2,6 +2,7 @@ package ca.ids.abms.modules.flightmovements;
 
 import java.util.List;
 
+import ca.ids.abms.util.ICsvExport;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -19,7 +20,7 @@ import ca.ids.abms.modules.routesegments.RouteSegment;
 import ca.ids.abms.modules.routesegments.RouteSegmentViewModel;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public abstract class FlightMovementMapper {
+public abstract class FlightMovementMapper implements ICsvExport<FlightMovement, FlightMovementCsvExportModel> {
 
 
     @Mapping(target = "associatedAccount", source = "account.name")
@@ -87,32 +88,32 @@ public abstract class FlightMovementMapper {
     public String mapFlightMovementSource(final FlightMovementSource flightMovementSource) {
         return flightMovementSource != null ? flightMovementSource.toValue() : null;
     }
-    
+
     public String mapFlightmovementCategoryType(final FlightmovementCategoryType flightmovementCategoryType) {
         return flightmovementCategoryType != null ? flightmovementCategoryType.toValue() : null;
     }
-    
+
     public FlightmovementCategoryType mapFlightmovementCategoryType(final String flightmovementCategoryType) {
         return flightmovementCategoryType != null ? FlightmovementCategoryType.forValue(flightmovementCategoryType) : null;
     }
-    
+
     public String mapFlightmovementCategoryScope(final FlightmovementCategoryScope flightmovementCategoryScope) {
         return flightmovementCategoryScope != null ? flightmovementCategoryScope.toValue() : null;
     }
-    
+
     public FlightmovementCategoryScope mapFlightmovementCategoryScope(final String flightmovementCategoryScope) {
         return flightmovementCategoryScope != null ? FlightmovementCategoryScope.forValue(flightmovementCategoryScope) : null;
     }
-    
-    
+
+
     public String mapFlightmovementCategoryNationality(final FlightmovementCategoryNationality flightmovementCategoryNationality) {
         return flightmovementCategoryNationality != null ? flightmovementCategoryNationality.toValue() : null;
     }
-    
+
     public FlightmovementCategoryNationality mapFlightmovementCategoryNationality(final String flightmovementCategoryNationality) {
         return flightmovementCategoryNationality != null ? FlightmovementCategoryNationality.forValue(flightmovementCategoryNationality) : null;
     }
-    
+
     @AfterMapping
     public void resolveMovementCategories(final FlightMovementViewModel source, @MappingTarget FlightMovement target) {
         target.setFlightCategoryType(FlightmovementCategoryType.forValue(source.getFlightCategoryType()));
@@ -137,5 +138,6 @@ public abstract class FlightMovementMapper {
     @Mapping(target = "resolutionErrorsSet", ignore = true)
     public abstract FlightMovementCsvExportModel toCsvModel(FlightMovement flightMovement);
 
+    @Override
     public abstract List<FlightMovementCsvExportModel> toCsvModel(Iterable<FlightMovement> flightMovements);
 }
