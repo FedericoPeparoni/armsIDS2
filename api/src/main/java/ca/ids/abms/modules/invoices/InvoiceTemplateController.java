@@ -7,6 +7,7 @@ import ca.ids.abms.modules.reports2.common.ReportDocumentCreator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.SortDefault;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,17 +47,13 @@ public class InvoiceTemplateController extends MediaDocumentComponent {
     @GetMapping
     public ResponseEntity<?> findAll(@SortDefault(sort = {"invoiceTemplateName"}, direction = Sort.Direction.ASC) Pageable pageable,
                                      @RequestParam(name = "searchFilter", required = false) final String searchFilter,
-                                     @RequestParam(name = "csvExport", required = false) Boolean csvExport) {
+                                     @RequestParam(name = "csvExport", required = false) Boolean csvExport) throws Exception {
         LOG.debug("REST request to get all InvoiceTemplates");
-        Page<InvoiceTemplateViewModel> page = invoiceTemplateService.findAll(pageable, searchFilter);
 
         if (csvExport != null && csvExport) {
-            final List<InvoiceTemplateViewModel> list = page.getContent();
-            final List<InvoiceTemplateCsvExportModel> csvExportModel = invoiceTemplateMapper.toCsvModel(list);
-            ReportDocument report = reportDocumentCreator.createCsvDocument("Invoice_Templates", csvExportModel,
-                InvoiceTemplateCsvExportModel.class, true);
-            return doCreateBinaryResponse(report);
+            return findAllCSV(searchFilter, pageable);
         } else {
+            Page<InvoiceTemplateViewModel> page = invoiceTemplateService.findAll(pageable, searchFilter);
             return ResponseEntity.ok().body(page);
         }
     }
@@ -119,5 +117,47 @@ public class InvoiceTemplateController extends MediaDocumentComponent {
         response = ResponseEntity.created(new URI("/api/invoice-templates/" + result.getId()))
             .body(invoiceTemplateMapper.toViewModel(result));
         return response;
+    }
+
+
+;
+    //CSV Export
+    private ResponseEntity<?> findAllCSV(final String searchFilter,
+                                                             Pageable pageable) throws Exception {
+        LOG.debug("REST request to get all InvoiceTemplates CSV");
+
+        int pageSize = 10000;
+        int currentPage = 0;
+
+        ReportDocument doc = null;
+        //TODO: use For
+        while(true) {
+            pageable = new PageRequest(currentPage, pageSize);
+            final Page<InvoiceTemplateViewModel> pageInvoice = invoiceTemplateService.findAllForDownload(pageable, searchFilter);
+            if(!pageInvoice.hasContent()) {
+                break;
+            }
+
+            //Convert to List
+            final List<InvoiceTemplateViewModel> InvoiceList = new ArrayList();
+            InvoiceList.addAll(pageInvoice.getContent());
+            LOG.debug("grandezza lista " + InvoiceList.size());
+            LOG.debug("Page: " + (currentPage));
+            final List<InvoiceTemplateCsvExportModel> csvExportModel = invoiceTemplateMapper.toCsvModel(InvoiceList);
+
+            currentPage = currentPage + 1;
+            if(doc == null) {
+                doc =  reportDocumentCreator.createCsvDocument("Invoice_Templates", csvExportModel,
+                    InvoiceTemplateCsvExportModel.class, true);
+            }else {
+                reportDocumentCreator.appendToCsvDocument(doc, csvExportModel,InvoiceTemplateCsvExportModel.class, true, false);
+            }
+        }
+        //Flush
+        doc.getOutputStream().flush();
+        doc.getOutputStream().close();
+        return doCreateResource(doc);
+        //return doCreateStreamingResponse(doc);
+
     }
 }

@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.SortDefault;
@@ -92,18 +93,15 @@ public class TransactionController extends MediaDocumentComponent {
         @RequestParam(name = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate startDate,
         @RequestParam(name = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate endDate,
         @SortDefault(sort = { "transactionDateTime" }, direction = Sort.Direction.DESC) Pageable pageable,
-        @RequestParam(name = "csvExport", required = false) Boolean csvExport) {
+        @RequestParam(name = "csvExport", required = false) Boolean csvExport) throws Exception {
 
         LOG.debug("REST request to get all transactions");
 
-        final Page<Transaction> page = transactionService.findAll(pageable, searchFilter, exportedFilter, accountId, startDate, endDate);
 
         if (csvExport != null && csvExport) {
-            final List<Transaction> list = page.getContent();
-            final List<TransactionCsvExportModel> csvExportModel = transactionMapper.toCsvModel(list);
-            ReportDocument report = reportDocumentCreator.createCsvDocument("Transactions", csvExportModel, TransactionCsvExportModel.class, true);
-            return doCreateBinaryResponse(report);
+            return getAllTransactionsCSV(searchFilter, exportedFilter, accountId, startDate, endDate);
         } else {
+            final Page<Transaction> page = transactionService.findAll(pageable, searchFilter, exportedFilter, accountId, startDate, endDate);
             long countAllItem = transactionService.countAllTransactions();
             return ResponseEntity.ok().body(new PageImplCustom<>(transactionMapper.toViewModel(page), pageable, page.getTotalElements(), countAllItem));
         }
@@ -267,8 +265,8 @@ public class TransactionController extends MediaDocumentComponent {
             return new ResponseEntity<>(bl, HttpStatus.OK);
         }
     }
-   
-    
+
+
     @GetMapping(path = "/getPaymentMechanismList")
     public ResponseEntity<List<String>> listPaymentMechanism() {
         LOG.debug("REST request to get a list of TransactionPaymentMechanism");
@@ -345,5 +343,47 @@ public class TransactionController extends MediaDocumentComponent {
         LOG.debug("REST request to download '{}' document type for Transaction with ID: {}", documentType, id);
         return doCreateBinaryResponse(() -> transactionService.getMediaDocument(id,
             TransactionDocumentType.forValue(documentType)));
+    }
+
+
+    //CSV Export
+    private ResponseEntity<?> getAllTransactionsCSV(final String searchFilter,
+                                                    Boolean exportedFilter,
+                                                    Integer accountId,
+                                                    final LocalDate startDate,
+                                                    LocalDate endDate) throws Exception {
+        LOG.debug("REST request to get all transactions CSV");
+        Pageable pageable;
+        int pageSize = 10000;
+        int currentPage = 0;
+
+        ReportDocument doc = null;
+        //TODO: use For
+        while(true) {
+            pageable = new PageRequest(currentPage, pageSize);
+            final Page<Transaction> page = transactionService.findAllForDownload(pageable, searchFilter, exportedFilter, accountId, startDate, endDate);
+            if(!page.hasContent()) {
+                break;
+            }
+
+            //Convert to List
+            final List<Transaction> list = new ArrayList();
+            list.addAll(page.getContent());
+            LOG.debug("grandezza lista " + list.size());
+            LOG.debug("Page: " + (currentPage));
+            final List<TransactionCsvExportModel> csvExportModel = transactionMapper.toCsvModel(list);
+            currentPage = currentPage + 1;
+            if(doc == null) {
+                doc = reportDocumentCreator.createCsvDocument("Transactions", csvExportModel, TransactionCsvExportModel.class, true);
+            }else {
+                reportDocumentCreator.appendToCsvDocument(doc, csvExportModel,TransactionCsvExportModel.class, true, false);
+            }
+        }
+        //Flush
+        doc.getOutputStream().flush();
+        doc.getOutputStream().close();
+        return doCreateResource(doc);
+        //return doCreateStreamingResponse(doc);
+
     }
 }

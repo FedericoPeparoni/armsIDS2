@@ -3,6 +3,7 @@ package ca.ids.abms.modules.aircraft;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,11 +14,13 @@ import ca.ids.abms.modules.common.dto.UploadReportParsedItems;
 import ca.ids.abms.modules.flightmovements.FlightMovementService;
 import ca.ids.abms.modules.reports2.common.ReportDocument;
 import ca.ids.abms.modules.reports2.common.ReportDocumentCreator;
+import ca.ids.abms.util.ICsvExport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.SortDefault;
@@ -121,17 +124,14 @@ public class AircraftRegistrationController extends MediaDocumentComponent {
                                                                       @SortDefault(sort = { "registrationNumber" }, direction = Sort.Direction.ASC),
                                                                       @SortDefault(sort = { "registrationStartDate" }, direction = Sort.Direction.ASC) })
                                                                       Pageable pageable,
-                                                         @RequestParam(name = "csvExport", required = false) Boolean csvExport) {
+                                                         @RequestParam(name = "csvExport", required = false) Boolean csvExport) throws Exception {
         LOG.debug("REST request to get all AircraftRegistrations");
-        final Page<AircraftRegistration> page = aircraftRegistrationService.findAll(pageable, searchFilter);
-        long countAll = aircraftRegistrationService.countAllAircraftRegistrations();
 
         if (csvExport != null && csvExport) {
-            final List<AircraftRegistration> list = page.getContent();
-            final List<AircraftRegistrationCsvExportModel> csvExportModel = aircraftRegistrationMapper.toCsvModel(list);
-            ReportDocument report = reportDocumentCreator.createCsvDocument("Aircraft_Registrations", csvExportModel, AircraftRegistrationCsvExportModel.class, true);
-            return doCreateBinaryResponse(report);
+            return getAllAircraftRegistrationsCSV(searchFilter, pageable);
         } else {
+            final Page<AircraftRegistration> page = aircraftRegistrationService.findAll(pageable, searchFilter);
+            long countAll = aircraftRegistrationService.countAllAircraftRegistrations();
             final Page<AircraftRegistrationViewModel> resultPage = new PageImplCustom<>(aircraftRegistrationMapper.toViewModel(page),
                 pageable, page.getTotalElements(), countAll);
             return ResponseEntity.ok().body(resultPage);
@@ -200,5 +200,48 @@ public class AircraftRegistrationController extends MediaDocumentComponent {
         return Optional.ofNullable(aircraftType).map(result -> new ResponseEntity<>(result, HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    //CSV Export
+    private ResponseEntity<?> getAllAircraftRegistrationsCSV(final String searchFilter,
+                                                              Pageable pageable) throws Exception {
+        LOG.debug("REST request to get all AircraftRegistrations CSV");
+
+        int pageSize = 10000;
+        int currentPage = 0;
+
+        ReportDocument doc = null;
+        //TODO: use For
+        while(true) {
+            pageable = new PageRequest(currentPage, pageSize);
+            LOG.debug("AircraftRegistrations  page");
+            final Page<AircraftRegistration> pageAircraftRegistration = aircraftRegistrationService.findAll(pageable, searchFilter);
+            if(!pageAircraftRegistration.hasContent()) {
+                break;
+            }
+
+            //Convert to List
+            final List<AircraftRegistration> aircraftRegistrationList = new ArrayList();
+            aircraftRegistrationList.addAll(pageAircraftRegistration.getContent());
+            LOG.debug("grandezza lista " + aircraftRegistrationList.size());
+            LOG.debug("Page: " + (currentPage));
+            final List<AircraftRegistrationCsvExportModel> csvExportModel = aircraftRegistrationMapper.toCsvModel(aircraftRegistrationList);
+
+            currentPage = currentPage + 1;
+            if(doc == null) {
+                doc = reportDocumentCreator.createCsvDocument("Aircraft_Registrations", csvExportModel, AircraftRegistrationCsvExportModel.class, true);
+            }else {
+                reportDocumentCreator.appendToCsvDocument(doc, csvExportModel,AircraftRegistrationCsvExportModel.class, true, false);
+            }
+        }
+        //Flush
+        doc.getOutputStream().flush();
+        doc.getOutputStream().close();
+        return doCreateResource(doc);
+        //return doCreateStreamingResponse(doc);
+
+    }
+
+
+
 }
 
