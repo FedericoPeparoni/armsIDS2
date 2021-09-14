@@ -26,7 +26,7 @@ WITH
 const AS (
     SELECT
         -- effective_date   time without time zone
-        navdb__get_effective_date() AS effective_date,
+        navdb_common.navdb__get_effective_date() AS effective_date,
 
         -- name_or_ident  text
         CAST (:nameOrIdent AS TEXT) AS name_or_ident,
@@ -126,10 +126,9 @@ WHERE
         ST_DWithin (CAST (const.local_airspace_geom AS GEOGRAPHY), CAST (fix.geom AS GEOGRAPHY), const.border_tolerance_meters)
         OR
         -- or it intersects with the airspace
-        ids__st_intersects (const.local_airspace_geom, fix.geom)
+        navdb_common.ids__st_intersects (const.local_airspace_geom, fix.geom)
     )
 ORDER BY
     ST_Distance (CAST (fix.geom AS GEOGRAPHY), CAST (const.ref_point_geom AS GEOGRAPHY)) ASC
 LIMIT 1
 ;
-Leonardo

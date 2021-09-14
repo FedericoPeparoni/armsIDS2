@@ -6,6 +6,8 @@ import ca.ids.abms.modules.airspaces.utiliy.AirspaceNavDBMapper;
 import ca.ids.abms.modules.util.models.geometry.CoordinatesVO;
 import ca.ids.abms.util.StringUtils;
 
+import com.vividsolutions.jts.geom.*;
+import com.vividsolutions.jts.io.WKTWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
@@ -16,10 +18,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.google.common.io.CharStreams;
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.PrecisionModel;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
 
@@ -39,7 +37,7 @@ import java.util.Map;
 public class NavDBUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(NavDBUtils.class);
-    
+
     private static final String AIRPORT_COORD_SQLQRY = "SELECT ST_X(ST_Centroid (a.geom)) as lng, ST_Y(ST_Centroid (a.geom)) as lat FROM v_airport a WHERE ident = :airportIdentifier and geom is not null order by airport_pk desc limit 1";
 
     private static final String COUNT_AIRPORT_SQLQRY = "SELECT count(a.ident) FROM v_airport a WHERE a.ident LIKE :airportIdentifier";
@@ -59,13 +57,13 @@ public class NavDBUtils {
 
     // SQL file is in src/main/resources/...
     private static final String FIND_CLOSEST_SIGNIFICANT_POINT = loadSqlQueryResource ("FIND_CLOSEST_SIGNIFICANT_POINT.sql");
-    
+
     private final JdbcTemplate navdbJdbcTemplate;
-    
+
     private final GeometryFactory geometryFactory = new GeometryFactory (new PrecisionModel(), 4326);
 
     private static final String AIRSPACE_TYPE_FIR = "FIR";
-    
+
     public NavDBUtils(JdbcTemplate navDBJdbcTemplate){
         this.navdbJdbcTemplate=navDBJdbcTemplate;
     }
@@ -129,7 +127,7 @@ public class NavDBUtils {
 
             if(airspaceList!=null && !airspaceList.isEmpty()){
                 airspace=airspaceList.get(0);
-                
+
                 // 2020-04-09 TFS 115533
                 //FIRs are included by default, TMAs are excluded by default
                 airspace.setAirspaceIncluded(airspace.getAirspaceType().startsWith(AIRSPACE_TYPE_FIR));
@@ -192,7 +190,7 @@ public class NavDBUtils {
         LOG.debug("Retrieved {} FIR id for aerodrome {}", ids , adCode);
         return (ids!=null && !ids.isEmpty());
     }
-    
+
     private final Geometry tryParseWkt (final String wkt) {
         final WKTReader reader = new WKTReader (geometryFactory);
         try {
@@ -203,26 +201,31 @@ public class NavDBUtils {
         }
         return null;
     }
-    
+
     private static String formatPointWkt (final Coordinate coord) {
-        return String.format ("POINT (%f %f)", coord.x, coord.y);
+        //return String.format ("POINT (%f %f)", coord.x, coord.y);
+        GeometryFactory geomFactory = new GeometryFactory();
+        Point point = geomFactory.createPoint(coord);
+        WKTWriter writer = new WKTWriter();
+        String wktStr = writer.write(point);
+        return wktStr;
     }
-    
+
     /**
      * Find a nearby significant point near a local airspace.
-     * 
+     *
      * We will look for a point whose name matches "nameOrIdent", that is within "distanceMeters" of
      * any of the border points making up the "localAirspaceWkt". Among multiple matches we pick the one closest
      * to "refPointWkt". We segmentize localAirspaceWkt using geoid math before any calculations.
-     * 
+     *
      * @return the coordinate of the closest point matching the arguments, or null
-     * 
-     * @param nameOrIdent           - (String) the identifier of the waypoint 
+     *
+     * @param nameOrIdent           - (String) the identifier of the waypoint
      * @param refCoord              - (String) reference point geometry WKT, typically the departure point of the flight
      * @param localAirspaceWkt      - (String) geometry WKT that represents the local airspace(s)
      * @param localAirspaceSegmentLengthMeters - (Integer) segmentize local_airspace_geom with this segment length
      * @param distanceMeters        - (Integer) maximum distance between refPointWkt and localAirspaceWkt
-     *   
+     *
      */
     public Coordinate findClosestSignificantPoint (final String nameOrIdent, final Coordinate refCoord, final String localAirspaceWkt,
             final Integer localAirspaceSegmentLengthMeters, final Integer distanceMeters) {
@@ -266,7 +269,7 @@ public class NavDBUtils {
                 catch (final NumberFormatException e) {
                     LOG.error ("Failed to parse result of ST_Distance(): {}", e.getMessage(), e);
                 }
-                
+
             }
         }
         return null;
@@ -281,5 +284,5 @@ public class NavDBUtils {
             throw new RuntimeException (x);
         }
     }
-    
+
 }
