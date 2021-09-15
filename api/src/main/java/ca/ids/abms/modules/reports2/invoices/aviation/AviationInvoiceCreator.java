@@ -41,11 +41,14 @@ import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxCharges;
 import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxInvoiceError;
 import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxService;
 import ca.ids.abms.modules.users.User;
+import ca.ids.abms.modules.util.models.Calculation;
 import ca.ids.abms.modules.util.models.CurrencyUtils;
 import ca.ids.abms.modules.utilities.invoices.InvoiceSequenceNumberHelper;
 import ca.ids.abms.plugins.kcaa.aatis.modules.permitnumber.KcaaAatisPermitNumber;
 import ca.ids.abms.util.LocaleUtils;
 import ca.ids.abms.util.MiscUtils;
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 import com.google.common.util.concurrent.AtomicDouble;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
@@ -1702,6 +1705,7 @@ public class AviationInvoiceCreator {
         	//Convert MTOW from Short Tons to KG
             double mtow = ar.getMtowOverride();
             mtow = mtow * ReportHelper.TO_KG;
+            mtow = Calculation.roundNormal(mtow);
 
             vars.put(CostFormulaVar.MTOW.varName(), mtow);
 
@@ -1732,6 +1736,7 @@ public class AviationInvoiceCreator {
             FormulaEvaluator fe = unifiedTaxService.getFormulaEvaluator();
             try {
                 taxAmount = fe.evalDouble(chargeFormula, vars);
+                
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -1803,13 +1808,18 @@ public class AviationInvoiceCreator {
                 	LocalDateTime newCoaIssueDate = startDate;
                 	LocalDateTime newCoaExpiryeDate = endDateInclusive;
 
-                	if (coaIssueDate != null && endDateInclusive.getYear() == coaIssueDate.getYear() - 1) {
+                    if (coaExpireDate != null && endDateInclusive.getYear() == coaIssueDate.getYear() - 1  && billingInterval.equals(BillingInterval.UNIFIED_TAX_PARTIALLY)){
+                		newCoaIssueDate = LocalDateTime.of(startDate.getYear(),1,1, 0, 0, 0);
+                		newCoaExpiryeDate = coaExpireDate;
+                	System.out.println("é PARTIAL");
+                	}
+                    else if (coaIssueDate != null && endDateInclusive.getYear() == coaIssueDate.getYear() - 1) {
                 		newCoaExpiryeDate = coaExpireDate;
                 	}
-
-                	if (coaExpireDate != null && endDateInclusive.getYear() == coaExpireDate.getYear() + 1) {
+                	else if (coaExpireDate != null && endDateInclusive.getYear() == coaExpireDate.getYear() + 1) {
                 		newCoaIssueDate = coaIssueDate;
                 	}
+                	
 
                     aircraftRegistrationService.updateAircraftRegistrationCOAByIdAndDates(
                         ar.getId(), newCoaIssueDate, newCoaExpiryeDate);
