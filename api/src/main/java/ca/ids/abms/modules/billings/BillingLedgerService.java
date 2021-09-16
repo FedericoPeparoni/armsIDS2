@@ -134,6 +134,13 @@ public class BillingLedgerService extends AbstractPluginService<BillingLedgerSer
     }
 
     @Transactional(readOnly = true)
+    public List<BillingLedger> getPreviousBillingLedgerByAccountAndType(final Integer accountId, final String invoiceType, final LocalDateTime billingPeriodOrDate) {
+        LOG.debug("Request to get all transactions");
+        return billingLedgerRepository.findByAccountIdAndInvoiceTypeAndInvoicePeriodOrDate( accountId , invoiceType ,billingPeriodOrDate);
+    }
+    
+    
+    @Transactional(readOnly = true)
     @SuppressWarnings({"squid:S3776", "squid:S00107"})
     public Page<BillingLedger>findAll(final String filter,
                                       final String textSearch,

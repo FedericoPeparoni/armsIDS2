@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import ca.ids.abms.modules.common.controllers.AbmsCrudController;
 
 @RestController
 @RequestMapping(UnifiedTaxChargesController.ENDPOINT)
+@CrossOrigin
 public class UnifiedTaxChargesController{
 
 	
@@ -47,12 +49,19 @@ public class UnifiedTaxChargesController{
 	}
 	
     @GetMapping(path = "/getAircraftRegistrationsByBillingLedgerId/{billingLedgerId}")
+    @PreAuthorize("hasAuthority('unified_tax_charge_view')")
     public ResponseEntity<List<AircraftRegistration>> getAircraftRegistrationsByBillingLedgerId(@PathVariable final Integer billingLedgerId,
                                                               Pageable pageable,
                                                               @RequestParam(name = "csvExport", required = false) Boolean csvExport) {
         LOG.debug("REST request to get a list of aircraft registrations by unified-tax billing ledger id : {}", billingLedgerId);
 
 		return ResponseEntity.ok(unifiedTaxChargesService.getAircraftRegistrationsByBillingLedgerId(billingLedgerId));       
+    }
+    
+    @GetMapping(path = "/getUnifiedTaxChargesByAircraftRegistrationIdAndBillingLedgerId/{aircraftRegistrationId}/{billingLedgerId}")
+    @PreAuthorize("hasAuthority('unified_tax_charge_view')")
+    public ResponseEntity<UnifiedTaxCharges> getUnifiedTaxChargesByAircraftRegistrationIdAndBillingLedgerId(@PathVariable Integer aircraftRegistrationId,@PathVariable Integer billingLedgerId) {
+    	return ResponseEntity.ok(unifiedTaxChargesService.getUnifiedTaxChargesByAircraftRegistrationIdAndBillingLedgerId(aircraftRegistrationId, billingLedgerId));
     }
     
    /* @PostMapping()

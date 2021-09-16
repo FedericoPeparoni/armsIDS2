@@ -18,7 +18,19 @@ public interface UnifiedTaxChargesRepository extends ABMSRepository<UnifiedTaxCh
     List<AircraftRegistration> getAircraftRegistrationsByBillingLedgerId(@Param("billingLedgerId") Integer billingLedgerId); 
 
     @Query("SELECT bl FROM UnifiedTaxCharges utc INNER JOIN utc.aircraftRegistration ar INNER JOIN utc.billingLedger bl WHERE ar.registrationNumber = :registrationNumber AND utc.startDate >= :date AND :date <= utc.endDate")     
-    List<BillingLedger> getBillingLedgerByRegistrationNumberAndDate(@Param("registrationNumber") String registrationNumber, @Param("date") LocalDateTime date);
+    List<BillingLedger> getBillingLedgerByRegistrationNumberAndDate(@Param("registrationNumber") String registrationNumber, @Param("date") LocalDateTime date);  
+  
+    List<UnifiedTaxCharges> findByAircraftRegistrationId(Integer aircraftRegistrationId);
+    
+    UnifiedTaxCharges findByAircraftRegistrationIdAndBillingLedgerId(Integer aircraftRegistrationId,Integer billingLedgerId);
+    
+    @Query("SELECT utc FROM UnifiedTaxCharges utc INNER JOIN utc.billingLedger bl WHERE bl.id = utc.billingLedger AND bl.invoiceStateType != 'PAID' AND utc.endDate < :invoicePeriod and utc.aircraftRegistration = :aircraftRegistration")
+    List<UnifiedTaxCharges> getUnifiedTaxChargesPreviousBillingLedgerInvoicePeriod(@Param("invoicePeriod") LocalDateTime invoicePeriod,@Param("aircraftRegistration") AircraftRegistration aircraftRegistration);
+
+    @Query("SELECT utc FROM UnifiedTaxCharges utc INNER JOIN utc.billingLedger bl WHERE bl.id = utc.billingLedger AND bl.invoiceStateType != 'PAID' AND utc.startDate > :invoicePeriod AND utc.aircraftRegistration = :aircraftRegistration")
+    List<UnifiedTaxCharges> getUnifiedTaxChargesFollowingBillingLedgerInvoicePeriod(@Param("invoicePeriod") LocalDateTime invoicePeriod,@Param("aircraftRegistration") AircraftRegistration aircraftRegistration);
+
+    
 }
 
 
