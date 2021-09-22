@@ -61,6 +61,9 @@ export class FlightMovementManagementController extends CRUDFormControllerUserSe
     'from multiple accounts or are not pending';
     }
 
+    $scope.notification_text_mark_as_paid = 'Note: Some of the selected Flight Movements have charges associated. Mark as Paid not allowed.'
+
+
     // duplicate|missing flight properties, functions
     $scope.showDuplicateMissing = false;
     $scope.showAllFlights = true;
@@ -96,7 +99,16 @@ export class FlightMovementManagementController extends CRUDFormControllerUserSe
 
     $scope.countSelected = () => {
       let flights = this.getIdsFromCheckboxes();
+     let filterFlights =  this.$scope.list.filter((item: IFlightMovement) =>flights.indexOf(item.id)> -1);
+          let flagDisableButton = false;
+            if(filterFlights.filter((item: IFlightMovement) =>item.status == 'PENDING').filter((item: IFlightMovement)=>item.enroute_charges == 0).length > 0 ){
+              flagDisableButton = true;
+            }
+             else {
+              flagDisableButton = false;
+             }
 
+      $scope.flagDisableButton = flagDisableButton;
       $scope.numberOfSelectedMovements = $scope.selectedRecords = flights.length;
       $scope.isAllowedInvoice = this.allowInvoice(flights);
       $scope.notAllowedRecalculate = this.allowInvoiceRecalculation(flights);
@@ -488,6 +500,7 @@ export class FlightMovementManagementController extends CRUDFormControllerUserSe
   private getIdsFromCheckboxes(): Array<number> {
     let keys: string[] = Object.keys(this.$scope.selectedFlightMovements);
     return keys.filter((key: string) => { return this.$scope.selectedFlightMovements[key]; }).map(Number);
+
   }
 
   private showFlightMovementOnMap(flightMovement: IFlightMovement): void { // broadcasts a single airspace to be shown on map
@@ -737,7 +750,7 @@ export class FlightMovementManagementController extends CRUDFormControllerUserSe
 
   /**
    * Mark flight movements as paid, only PENDING zero cost flights will be processed.
-   * 
+   *
    * @param flightIdList list of flight movements to mark as paid
    */
   private markAsPaid(flightIdList: Array<number>): void {
@@ -745,4 +758,7 @@ export class FlightMovementManagementController extends CRUDFormControllerUserSe
       .then(() => { this.refreshOverride(); this.$scope.markedAsPaid = true; })
       .catch((error: IRestangularResponse) => this.$scope.error = { error });
   }
+
+
+
 }
