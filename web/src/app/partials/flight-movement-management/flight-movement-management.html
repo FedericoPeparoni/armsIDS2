@@ -98,7 +98,7 @@
                         </button>
                         <button translate class="btn btn-primary spaced-buttons"
                             ng-if="markZeroFlightCostsAsPaid === 'Manually'"
-                            ng-disabled="numberOfSelectedMovements === 0 || flagDisableButton === false || (!hasPermission('flight_movement_modify') && !hasPermission('flight_movement_key_modify'))"
+                            ng-disabled="(numberOfSelectedMovements === 0 || flagDisableButton === true) || (!hasPermission('flight_movement_modify') && !hasPermission('flight_movement_key_modify'))"
                             ng-click="markAsPaid(checkboxesSelected());">
                             Mark as PAID
                         </button>
@@ -228,7 +228,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row" ng-show="flagDisableButton === true">
                     <div class="col-xs-12 text-center">
                         <div class="notification">
                             <span>{{ notification_text_mark_as_paid | translate}}</span>

@@ -5,6 +5,24 @@
 $navbar-inverse-link-color: #5AADBB;
 $icon-font-path: "../../bower_components/bootstrap-sass/assets/fonts/bootstrap/";
 
+#loading-bar-spinner {
+  top: 50%;
+  left: 50%;
+  bottom: 50%;
+  right: 50%;
+  color: #29d;
+
+}
+
+#loading-bar-container{
+  height: 100%;
+  width:100%;
+  position:absolute;
+  z-index: 800;
+}
+
+
+
 /**
  *  Do not remove the comments below. It's the markers used by wiredep to inject
  *  sass dependencies when defined in the bower.json of your dependencies
