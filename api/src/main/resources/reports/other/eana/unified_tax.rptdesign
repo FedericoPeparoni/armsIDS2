@@ -1206,6 +1206,7 @@ var dt3=Formatter.format(params["fromdate"], "yyyy-MM-dd");&#13;
                     <text-property name="displayName">payment_mechanism</text-property>
                     <expression name="expression" type="javascript">dataSetRow["payment_mechanism"]</expression>
                     <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
                 </structure>
                 <structure>
                     <property name="name">Balance_USD</property>
@@ -1787,6 +1788,24 @@ dataSetRow["amount"]&#13;
                                         </cell>
                                         <cell id="1587">
                                             <data id="1588">
+                                                <list-property name="mapRules">
+                                                    <structure>
+                                                        <expression name="testExpr" type="javascript">row["agricultural_flight_school"]</expression>
+                                                        <property name="operator">eq</property>
+                                                        <simple-property-list name="value1">
+                                                            <value type="javascript">"agriculture"</value>
+                                                        </simple-property-list>
+                                                        <text-property name="display">Agricultura</text-property>
+                                                    </structure>
+                                                    <structure>
+                                                        <expression name="testExpr" type="javascript">row["agricultural_flight_school"]</expression>
+                                                        <property name="operator">eq</property>
+                                                        <simple-property-list name="value1">
+                                                            <value type="javascript">"flight-school"</value>
+                                                        </simple-property-list>
+                                                        <text-property name="display">Escuelas de entrenamiento</text-property>
+                                                    </structure>
+                                                </list-property>
                                                 <property name="resultSetColumn">agricultural_flight_school</property>
                                             </data>
                                         </cell>
@@ -1871,7 +1890,7 @@ dataSetRow["amount"]&#13;
                             <text id="1704">
                                 <property name="fontWeight">bold</property>
                                 <property name="contentType">auto</property>
-                                <text-property name="content"><![CDATA[Fect. Ref]]></text-property>
+                                <text-property name="content"><![CDATA[Fact. Ref]]></text-property>
                             </text>
                         </cell>
                         <cell id="1378">
@@ -2087,6 +2106,24 @@ dataSetRow["amount"]&#13;
                     </cell>
                     <cell id="1195">
                         <data id="1265">
+                            <list-property name="mapRules">
+                                <structure>
+                                    <expression name="testExpr" type="javascript">row["payment_mechanism"]</expression>
+                                    <property name="operator">eq</property>
+                                    <simple-property-list name="value1">
+                                        <value type="javascript">"invoice"</value>
+                                    </simple-property-list>
+                                    <text-property name="display">Factura</text-property>
+                                </structure>
+                                <structure>
+                                    <expression name="testExpr" type="javascript">row["payment_mechanism"]</expression>
+                                    <property name="operator">eq</property>
+                                    <simple-property-list name="value1">
+                                        <value type="javascript">"adjustment"</value>
+                                    </simple-property-list>
+                                    <text-property name="display">Ajuste</text-property>
+                                </structure>
+                            </list-property>
                             <property name="resultSetColumn">payment_mechanism</property>
                         </data>
                     </cell>
