@@ -1194,7 +1194,7 @@ public class FlightMovementValidator {
         return systemConfigurationService.getBoolean(SystemConfigurationItemName.VALIDATE_FLIGHT_LEVEL_AIRSPACE);
     }
  
-    private boolean isUnifiedTaxFlightMovement(FlightMovement flightMovement) {
+    public boolean isUnifiedTaxFlightMovement(FlightMovement flightMovement) {
         // get aircraft registration number from item18RegNum
     	String item18RegNum = flightMovementBuilderUtility.checkAircraftRegistrationNumber(flightMovement);
                 
