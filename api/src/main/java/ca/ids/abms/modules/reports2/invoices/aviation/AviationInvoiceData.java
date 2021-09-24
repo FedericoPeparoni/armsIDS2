@@ -35,8 +35,6 @@ public class AviationInvoiceData {
         public @XmlElement(nillable = true) String referenceMonthStr;
         public @XmlElement(nillable = true) String flightMovementCategoryScope;
 
-
-
         // Billing info
         public @XmlElement(nillable = true) String billingName;
         public @XmlElement(nillable = true) String billingAddress;
@@ -194,7 +192,9 @@ public class AviationInvoiceData {
         public @XmlElement(nillable = true) Integer totalFlightsWithTaspCharges;
         public @XmlElement(nillable = true) Integer totalFlightsWithLateDepartureArrivalCharges;
         public @XmlElement(nillable = true) Integer totalFlightsWithExtendedHoursCharges;
-
+        
+        public @XmlElement(nillable = true) Integer totalFlightsWithExemptions;        
+        public @XmlElement(nillable = true) Double totalExemptionsValue;
 
 
         // Domestic Flight Category info
@@ -249,8 +249,6 @@ public class AviationInvoiceData {
         public @XmlElement(nillable = true) Integer unifiedTaxDiscountAircraftTotalNumber;
         public @XmlElement(nillable = true) Double unifiedTaxTotalDiscountCharges;
         public @XmlElement(nillable = true) String unifiedTaxTotalDiscountChargesStr;
-
-
 
 
         // FIXME: these should be a booleans, also in all BIRT templates & XML files
@@ -376,7 +374,22 @@ public class AviationInvoiceData {
         public @XmlElement(nillable = true) String extendedHoursSurchargeAnspStr;
 
         public boolean invoicePaxAllowed;
+        
+        /// ----
+        public @XmlElement(nillable = true) Double exemptEnroutePercentage;
+        public @XmlElement(nillable = true) Double exemptApprochPercentage;
+        public @XmlElement(nillable = true) Double exemptAerodromePercentage;
+        public @XmlElement(nillable = true) Double exemptExtendedHoursPercentage;
+        public @XmlElement(nillable = true) Double exemptDepPercentage;
+        public @XmlElement(nillable = true) Double exemptLatePercentage;
+        public @XmlElement(nillable = true) Double exemptParkingPercentage;
+        public @XmlElement(nillable = true) Double exemptDomesticPassengerPercentage;
+        public @XmlElement(nillable = true) Double exemptInternationalPassengerPercentage;
+        
+        public @XmlElement(nillable = true) Double totalExemptionsValue;
+        /// ----         
     }
+    
     @XmlElementWrapper
     @XmlElement (name="flightInfo", nillable = true)
     public List <FlightInfo> flightInfoList;

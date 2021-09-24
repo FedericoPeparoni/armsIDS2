@@ -158,13 +158,12 @@ public class AviationInvoiceCreator {
         this.endDateInclusive = endDateInclusive;
         this.billingInterval = billingInterval;
 
-            if(billingInterval == BillingInterval.UNIFIED_TAX_PARTIALLY || billingInterval == BillingInterval.UNIFIED_TAX_ANNUALLY){
-                //Now
-                this.cachedCurrencyConverter = new CachedCurrencyConverter(currencyUtils, ldtNow);
-            }else{
-                this.cachedCurrencyConverter = new CachedCurrencyConverter(currencyUtils, endDateInclusive);
-
-            }
+        if (billingInterval == BillingInterval.UNIFIED_TAX_PARTIALLY || billingInterval == BillingInterval.UNIFIED_TAX_ANNUALLY) {
+            //Now
+            this.cachedCurrencyConverter = new CachedCurrencyConverter(currencyUtils, ldtNow);
+        } else {
+            this.cachedCurrencyConverter = new CachedCurrencyConverter(currencyUtils, endDateInclusive);
+        }
 
 
         this.invoiceReportUtility = new InvoiceReportUtility(reportHelper, billingLedgerService, transactionService,
@@ -378,17 +377,18 @@ public class AviationInvoiceCreator {
             switch (billingInterval) {
             case MONTHLY:
                 invoiceData.global.invoiceBillingPeriod = String.format("%s-%s", StringUtils.capitalize(endDateInclusive.getMonth().name().toLowerCase()), endDateInclusive.getYear());
-
                 invoiceData.global.invoiceBillingPeriodSpanish = String.format("%s-%s", StringUtils.capitalize(endDateInclusive.getMonth().getDisplayName(TextStyle.FULL, localeES).toLowerCase()), endDateInclusive.getYear());
+                
+                invoiceData.global.invoiceDateStr = reportHelper.formatDateUtc(ldtNow, dateFormatter);                
                 break;
             case WEEKLY:
                 invoiceData.global.invoiceBillingPeriod = String.format("%s - %s", reportHelper.formatDateUtc(endDateInclusive.minusDays(6), dateFormatter), invoiceData.global.invoiceDateStr);
-
                 invoiceData.global.invoiceBillingPeriodSpanish = String.format("%s - %s", reportHelper.formatDateUtc(endDateInclusive.minusDays(6), dateFormatter), invoiceData.global.invoiceDateStr);
+                
+                invoiceData.global.invoiceDateStr = reportHelper.formatDateUtc(ldtNow, dateFormatter);                
                 break;
             case OPEN:
                 invoiceData.global.invoiceBillingPeriod = String.format("%s - %s", reportHelper.formatDateUtc(startDate, dateFormatter), invoiceData.global.invoiceDateStr);
-
                 invoiceData.global.invoiceBillingPeriodSpanish =  String.format("%s - %s", reportHelper.formatDateUtc(startDate, dateFormatter), invoiceData.global.invoiceDateStr);
 
                 invoiceData.global.invoiceDateStr = reportHelper.formatDateUtc(ldtNow, dateFormatter);                
@@ -546,11 +546,10 @@ public class AviationInvoiceCreator {
 	        	}
 	        }
 
-            //Numero di aircratf tolali
+            //Numero di aircraft tolali
             invoiceData.global.unifiedTaxAircraftTotalNumber = countUnifiedTaxAircraftTotalWithoutDiscount.get() + countUnifiedTaxAircraftTotalWithDiscount.get();;
             invoiceData.global.unifiedTaxDiscountAircraftTotalNumber = countUnifiedTaxAircraftTotalWithDiscount.get();
             invoiceData.global.unifiedTaxTotalDiscountCharges = unifiedTaxTotalDiscount.get();
-
         }
 
         if (invoiceData.invoiceGenerationAllowed) {
@@ -585,8 +584,6 @@ public class AviationInvoiceCreator {
             Double totalLateDepartureArrivalChargesAnsp = 0d;
             Double totalExtendedHoursSurchargesAnsp = 0d;
 
-
-
             Integer totalFlightsWithEnrouteCharges = 0;
             Integer totalFlightsWithAerodromeCharges = 0;
             Integer totalFlightsWithApproachCharges = 0;
@@ -595,6 +592,10 @@ public class AviationInvoiceCreator {
             Integer totalFlightsWithTaspCharges = 0;
             Integer totalFlightsWithLateDepartureArrivalCharges = 0;
             Integer totalFlightsWithExtendedHoursCharges = 0;
+            Integer totalFlightsWithExcemptions = 0;
+
+            Double totalExemptionsValue = 0d;
+        	Integer totalFlightsWithExemptions = 0;
 
 
             // sub-totals for Domestic Flight Category
@@ -645,6 +646,8 @@ public class AviationInvoiceCreator {
                 totalFlightsWithLateDepartureArrivalCharges += fi.lateDepartureArrivalCharges != null
                     && fi.lateDepartureArrivalCharges > 0d ? 1 : 0;
                 totalFlightsWithExtendedHoursCharges += fi.extendedHoursSurcharge != null && fi.extendedHoursSurcharge > 0d ? 1 : 0;
+                
+                // totalFlightsWithExcemptions += fi.extendedHoursSurcharge != null && fi.extendedHoursSurcharge > 0d ? 1 : 0;
 
                 if (fi.flightCategory.equals("DO")) {
                     setSubtotalsByFlightCategories(fi, domesticData);
@@ -661,6 +664,12 @@ public class AviationInvoiceCreator {
                 if (fi.flightMovementCategoryScope != null) {
                 	flightMovementCategoryScope.add(fi.flightMovementCategoryScope);
                 }
+                
+                if (fi.totalExemptionsValue > 0) 
+                {
+                	totalExemptionsValue += fi.totalExemptionsValue;
+                	++totalFlightsWithExemptions;
+                }                                
             }
 
 	        if (billingOrgCode == BillingOrgCode.CADSUR) {
@@ -742,12 +751,6 @@ public class AviationInvoiceCreator {
             invoiceData.global.passengerChargesAnsp = totalPassengerChargesAnsp;
             invoiceData.global.passengerChargesAnspStr = reportHelper.formatCurrency(invoiceData.global.passengerChargesAnsp, anspCurrency);
 
-            /*
-         //public @XmlElement(nillable = true) Double amountOfTheInvoiceCharges;
-        //public @XmlElement(nillable = true) String amountOfTheInvoiceChargesStr;
-             */
-
-
             invoiceData.global.lateDepartureArrivalCharges = totalLateDepartureArrivalCharges;
             invoiceData.global.lateDepartureArrivalChargesStr = reportHelper.formatCurrency(invoiceData.global.lateDepartureArrivalCharges, aviationInvoiceCurrency);
             invoiceData.global.lateDepartureArrivalChargesStrWithCurrencySymbol = reportHelper.formatCurrency(invoiceData.global.lateDepartureArrivalCharges, aviationInvoiceCurrency);
@@ -768,7 +771,6 @@ public class AviationInvoiceCreator {
             invoiceData.global.totalFlightsWithTaspCharges = totalFlightsWithTaspCharges;
             invoiceData.global.totalFlightsWithLateDepartureArrivalCharges = totalFlightsWithLateDepartureArrivalCharges;
             invoiceData.global.totalFlightsWithExtendedHoursCharges = totalFlightsWithExtendedHoursCharges;
-
 
             invoiceData.global.domesticEnrouteChargesStr = reportHelper.formatCurrency(domesticData.enrouteCharges, aviationInvoiceCurrency);
             invoiceData.global.domesticAerodromeChargesStr = reportHelper.formatCurrency(domesticData.aerodromeCharges, aviationInvoiceCurrency);
@@ -805,6 +807,9 @@ public class AviationInvoiceCreator {
             invoiceData.global.overflightParkingFlights = overflightData.parkingFlights;
             invoiceData.global.overflightPassengerFlights = overflightData.passengerFlights;
             invoiceData.global.overflightTotalFlights = overflightData.totalFlights;
+
+            invoiceData.global.totalExemptionsValue = totalExemptionsValue;
+        	invoiceData.global.totalFlightsWithExemptions = totalFlightsWithExemptions;
 
             // total amount, due NOT round yet as additional charges not applied until billing ledger created
             invoiceData.global.totalAmount = totalCharges;
@@ -889,7 +894,6 @@ public class AviationInvoiceCreator {
 
         if (fm.getFlightmovementCategory()!=null) {
         	flightInfo.flightCategory = fm.getFlightmovementCategory().getShortName();
-
         }
 
         // entry, exit, and mid points must consider the flight movement type
@@ -1027,7 +1031,7 @@ public class AviationInvoiceCreator {
 
                 flightInfo.enrouteChargesAnsp = zeroToNull(flightMovementCurrencyConverter.toANSPCurrency(enrouteChargeCumulative, enrouteResultCurrency));
                 flightInfo.enrouteChargesAnspStr = reportHelper.formatCurrency(flightInfo.enrouteChargesAnsp, anspCurrency);
-
+                                
                 flightInfo.enrouteChargesIncluded = true;
             } else {
                 LOG.debug("Flight movement #{} regNum={}: this is an IATA flight, enroute charges will not be included in this invoice; generate IATA invoice to finalize the invoicing of this flight movement", fm.getId(), fm.getItem18RegNum());
@@ -1099,6 +1103,49 @@ public class AviationInvoiceCreator {
                 flightInfo.extendedHoursSurchargeAnspStr = reportHelper.formatCurrency(flightInfo.extendedHoursSurchargeAnsp, anspCurrency);
             }
 
+            /*
+            flightInfo.exemptLatePercentage = fm.exemptLatePercentage;
+            flightInfo.exemptParkingPercentage = fm.exemptParkingPercentage;
+            flightInfo.exemptDomesticPassengerPercentage = fm.exemptDomesticPassengerPercentage;
+            flightInfo.exemptInternationalPassengerPercentage = fm.exemptInternationalPassengerPercentage;
+            */
+            
+            if (fm.getExemptEnrouteCharges() != null && fm.getEnrouteCharges()!= null) {
+            	double unexemptedCharge = fm.getExemptEnrouteCharges() + fm.getEnrouteCharges();
+            	if (unexemptedCharge != 0) {
+            		double val = 100*fm.getExemptEnrouteCharges() / unexemptedCharge;
+        			flightInfo.exemptEnroutePercentage = Math.round(val * 100.0) / 100.0;
+            	}
+            }
+
+            if (fm.getExemptApprochCharges() != null && fm.getApproachCharges()!= null) {            
+            	double unexemptedCharge = fm.getExemptApprochCharges() + fm.getApproachCharges();
+            	if (unexemptedCharge != 0) {
+            		double val = 100*fm.getExemptApprochCharges() / unexemptedCharge;
+            		flightInfo.exemptApprochPercentage = Math.round(val * 100.0) / 100.0;
+            	}
+            }
+            
+            if (fm.getExemptAerodromeCharges() != null && fm.getAerodromeCharges() != null) {
+            	double unexemptedCharge = fm.getExemptAerodromeCharges() + fm.getAerodromeCharges();
+            	if (unexemptedCharge != 0) {
+            		double val = 100*fm.getExemptAerodromeCharges() / unexemptedCharge;
+        			flightInfo.exemptAerodromePercentage = Math.round(val * 100.0) / 100.0;
+            	}
+            }
+
+            if (fm.getExemptExtendedHoursSurcharge() != null && fm.getExemptExtendedHoursSurcharge() != null) {
+            	double unexemptedCharge = fm.getExemptExtendedHoursSurcharge() + fm.getExemptExtendedHoursSurcharge();
+            	if (unexemptedCharge != 0) {
+            		double val = 100*fm.getExemptAerodromeCharges() / unexemptedCharge;
+        			flightInfo.exemptExtendedHoursPercentage = Math.round(val * 100.0) / 100.0;
+            	}
+            }
+
+            
+            
+            // ROUND((100*exempt_enroute_charges/(enroute_charges + exempt_enroute_charges)))
+                        
             // sum up total flight movement charges
             // landing charges includes aerodrome and approach charges
             totalFlightCharges += nvl(flightInfo.enrouteCharges, 0d) +
@@ -1114,6 +1161,35 @@ public class AviationInvoiceCreator {
                 nvl(flightInfo.parkingChargesAnsp, 0d) +
                 nvl(flightInfo.lateDepartureArrivalChargesAnsp, 0d) +
                 nvl(flightInfo.extendedHoursSurchargeAnsp, 0d);
+
+            // sum up total flight movement exemptions
+            
+            Double totaleExeptions = 0d;
+            totaleExeptions += nvl(fm.getExemptAerodromeCharges(), 0d);
+            totaleExeptions += nvl(fm.getExemptApprochCharges(), 0d);
+            
+            Integer val = nvl(fm.getExemptArrivingPaxDomesticAirport(), 0);
+            totaleExeptions += val;
+            val = nvl(fm.getExemptDepartingPaxDomesticAirport(), 0);
+            totaleExeptions += val;
+            
+            totaleExeptions += nvl(fm.getExemptDomesticPassengerCharges(), 0d);
+            totaleExeptions += nvl(fm.getExemptEnrouteCharges(), 0d);
+            totaleExeptions += nvl(fm.getExemptExtendedHoursSurcharge(), 0d);
+            totaleExeptions += nvl(fm.getExemptInternationalPassengerCharges(), 0d);
+
+            val = nvl(fm.getExemptLandingPaxDomesticAirport(), 0);
+            totaleExeptions += val;
+
+            totaleExeptions += nvl(fm.getExemptLateArrivalCharges(), 0d);
+            totaleExeptions += nvl(fm.getExemptLateCharges(), 0d);
+            totaleExeptions += nvl(fm.getExemptLateDepartureCharges(), 0d);
+            totaleExeptions += nvl(fm.getExemptParkingCharges(), 0d);
+
+            val = nvl(fm.getExemptTransferPaxDomesticAirport(), 0);
+            totaleExeptions += val;
+            
+			flightInfo.totalExemptionsValue = totaleExeptions;			
         }
 
         if (fm.getPassengerInvoiceId() == null && (chargesIncluded == ALL || chargesIncluded == ONLY_PAX)) {
