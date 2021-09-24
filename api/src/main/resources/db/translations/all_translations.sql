@@ -57002,5 +57002,20 @@ select add_languages_by_json('[
     "val": "Informe de Ingresos",
     "part": "frontend",
     "created_by": "system"
+  },
+  {
+    "code": "en",
+    "token": "Note: Some of the selected Flight Movements have charges associated. Mark as Paid not allowed.",
+    "val": "Note: Some of the selected Flight Movements have charges associated. Mark as Paid not allowed.",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "es",
+    "token": "Note: Some of the selected Flight Movements have charges associated. Mark as Paid not allowed.",
+    "val": "Nota: Algunos de los Movimientos de Vuelo seleccionados tienen cargos asociados. No se permite Marcar como pagado.",
+    "part": "frontend",
+    "created_by": "system"
   }
+
 ]');

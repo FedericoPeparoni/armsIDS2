@@ -9,7 +9,7 @@
             <div class="box-content">
                 <form novalidate action="#" name="form" onsubmit="return false">
                     <fieldset ng-disabled="(!hasPermission('flight_movement_modify') && !hasPermission('flight_movement_key_modify')) || editable.status === 'INVOICED' || editable.status === 'PAID'">
-                        <flight-movement-form flight-movement="editable" manual="manual" should-show-charge="shouldShowCharge" distance-unit-of-measure="distanceUnitOfMeasure">
+                        <flight-movement-form  flight-movement="editable" manual="manual" should-show-charge="shouldShowCharge" distance-unit-of-measure="distanceUnitOfMeasure">
                             <!-- Flight Movement Component -->
                         </flight-movement-form>
                     </fieldset>
@@ -18,7 +18,7 @@
                             <button type="button" class="btn btn-primary btn-reset" translate ng-click="reset(); form.$setUntouched();">Clear</button>
 
                             <!-- Update -->
-                            <button class="btn btn-primary btn-update" translate 
+                            <button class="btn btn-primary btn-update" translate
                                 ng-show="editable.id !== null && (hasPermission('flight_movement_modify') || hasPermission('flight_movement_key_modify'))"
                                 ng-disabled="form.$invalid || editable.status === 'INVOICED' || editable.status === 'PAID' || editable.status === 'DELETED' || editable.status === 'DECLINED'"
                                 unit-converter unit-to-convert="user_crossing_distance" popup popup-text="Are you sure you want to update this?"
@@ -33,7 +33,7 @@
                             </button>
                             <button ng-if="editable.deletion_reason" class="btn btn-primary btn-delete"
                                 translate ng-show="editable.id !== null && (hasPermission('flight_movement_modify') || hasPermission('flight_movement_key_modify')) && editable.status !== 'DELETED'"
-                                popup popup-text="Are you sure you want to delete this flight?" 
+                                popup popup-text="Are you sure you want to delete this flight?"
                                 ng-disabled="editable.status === 'INVOICED' || editable.status === 'PAID' || editable.status === 'DELETED' || editable.status === 'CANCELED' || editable.status === 'DECLINED'"
                                 popup-local-storage-enable="SystemConfiguration:Require confirmation on delete"
                                 popup-confirm="deleteOverride(editable.id, editable.deletion_reason); form.$setUntouched()">Delete
@@ -67,20 +67,20 @@
 
 <!-- form for filtering/soring options -->
 <div class="row" ng-class="{'margin-top-20': toggle}">
-    <div class="col-xs-12 col-md-12">
-        <div class="box-container">
+    <div class="col-xs-12 col-md-12" >
+        <div class="box-container" >
             <box-header page-name="flight-data.flight-movement-management" class="margin-bottom-0" toggle="toggle" icon="'plane'"
                 title="{{ 'Flight Movements' | translate }}"></box-header>
-            <div class="box-content">
+            <div class="box-content" >
                 <ng-include src="'app/angular-ids-project/src/components/errorHandling/errorHandling.template.html'" ng-show="!toggle && !showErrorOnlyOnForm">
                     <!-- Error Handling -->
                 </ng-include>
-                <div class="row margin-top-5">
-                    <div class="col-xs-6">
+                <div class="row margin-top-5" >
+                    <div class="col-xs-6" style="z-index: 1500;">
                         <label translate for="text-filter">Filter</label>
                         <input id="text-filter" class="form-control" type="text" ng-model="search" ng-keyup="$event.keyCode == 13 && refreshOverride()"/>
                     </div>
-                    <div class="col-xs-6 text-right margin-top-15">
+                    <div class="col-xs-6 text-right margin-top-15" style="z-index: 1500;">
                         <button translate ng-click="refreshOverride(); resetSelectedFlightMovements();" class="btn btn-primary spaced-buttons">Refresh</button>
                         <button translate ng-show="reconcileJob.job_execution_status !== 'STARTED' && reconcileJob.job_execution_status !== 'QUEUED'"
                             ng-disabled="numberOfSelectedMovements === 0 || notAllowedRecalculate || (!hasPermission('flight_movement_modify') && !hasPermission('flight_movement_key_modify'))"
@@ -91,14 +91,14 @@
                             ng-click="cancelReconciliation()" class="btn btn-default spaced-buttons">
                             Cancel Recalculate
                         </button>
-                        <button translate class="btn btn-primary btn-generate spaced-buttons" 
+                        <button translate class="btn btn-primary btn-generate spaced-buttons"
                             ng-disabled="numberOfSelectedMovements === 0 || !isAllowedInvoice || (!hasPermission('flight_movement_modify') && !hasPermission('flight_movement_key_modify'))"
                             ng-click="generateInvoice(accountId, checkboxesSelected());">
                             Generate Invoice
                         </button>
                         <button translate class="btn btn-primary spaced-buttons"
                             ng-if="markZeroFlightCostsAsPaid === 'Manually'"
-                            ng-disabled="numberOfSelectedMovements === 0 || (!hasPermission('flight_movement_modify') && !hasPermission('flight_movement_key_modify'))"
+                            ng-disabled="(numberOfSelectedMovements === 0 || flagDisableButton === true) || (!hasPermission('flight_movement_modify') && !hasPermission('flight_movement_key_modify'))"
                             ng-click="markAsPaid(checkboxesSelected());">
                             Mark as PAID
                         </button>
@@ -113,7 +113,7 @@
                 </div>
 
                 <div class="row margin-top-5">
-                    <div class="col-xs-12 col-sm-12 col-md-3">
+                    <div class="col-xs-12 col-sm-12 col-md-3" style="z-index: 1500;">
                         <label translate for="invoice-status-filter">Invoice Status</label>
                         <select id="invoice-status-filter" class="form-control" ng-model="invoiceStatusFilter" empty-to-null ng-change="refreshOverride()"
                             ng-disabled="showDuplicateMissing">
@@ -129,7 +129,7 @@
                             <option translate value="OTHER_PAID">Other Paid</option>
                         </select>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-3">
+                    <div class="col-xs-12 col-sm-12 col-md-3" style="z-index: 1500;">
                         <label translate for="account-type-filter">Account Type</label>
                         <select id="account-type-filter" class="form-control" ng-model="accountTypeFilter" empty-to-null ng-change="refreshOverride()">
                             <option translate value=""></option>
@@ -137,15 +137,15 @@
                             <option translate value="false">Non-IATA</option>
                         </select>
                     </div>
-                    <div class="col-xs-12 col-md-3">
+                    <div class="col-xs-12 col-md-3" style="z-index: 1500;">
                         <label translate for="flight-category-filter">Flight Movement Category</label>
-                        <dynamic-service-dropdown class="text-capitalize" ng-model="flightCategoryFilter" empty-to-null allow-empty="true" 
+                        <dynamic-service-dropdown class="text-capitalize" ng-model="flightCategoryFilter" empty-to-null allow-empty="true"
                             id="flight-type-filter" name="flightCategoryFilter"
                             ng-change="refreshOverride()" dropdown-type="single" service="::flightMovementCategoryService"
                             options="item.id as (item.name | translate).toLowerCase() for item in list" disabled="showDuplicateMissing">
                         </dynamic-service-dropdown>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-3">
+                    <div class="col-xs-12 col-sm-12 col-md-3" style="z-index: 1500;">
                         <label translate for="flight-movement-status-filter">Flight Movement Status</label>
                         <select id="flight-movement-status-filter" empty-to-null class="form-control" ng-model="flightMovementStatusFilter" ng-change="refreshOverride()"
                             ng-disabled="showDuplicateMissing">
@@ -164,8 +164,8 @@
                         </select>
                     </div>
                 </div>
-                <div class="row margin-top-5">
-                    <div class="col-xs-12 col-sm-12 col-md-3">
+                <div class="row margin-top-5" >
+                    <div class="col-xs-12 col-sm-12 col-md-3" style="z-index: 1500;">
                         <label translate for="incomplete-flight-movement-reason">Incomplete Flight Reason</label>
                         <select id="incomplete-flight-movement-reason" class="form-control" ng-change="refreshOverride()" empty-to-null ng-model="incompleteFlightReason"
                             ng-disabled="showDuplicateMissing">
@@ -176,7 +176,7 @@
                             </option>
                         </select>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-3">
+                    <div class="col-xs-12 col-sm-12 col-md-3" style="z-index: 1500;">
                         <label translate for="canned-sort">Sort Options</label>
                         <select id="canned-sort" class="form-control" ng-model="cannedSort" ng-change="refreshOverride(false, cannedSort)"
                             ng-disabled="showDuplicateMissing">
@@ -185,7 +185,7 @@
                             <option translate value="sort=item18RegNum,asc&sort=dateOfFlight,asc&sort=depTime,asc">Aircraft</option>
                         </select>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-6">
+                    <div class="col-xs-12 col-sm-12 col-md-6" style="z-index: 1500;">
                         <date-range class="datepicker" is-required="false" control="control" ng-click="control.getUTCStartDate() !== null && control.getUTCEndDate() !== null ? refreshOverride() : ''"
                             ng-keyup="control.getUTCStartDate() === null && control.getUTCEndDate() === null ? refreshOverride() : '' " format="{{customDate}}">
                             <!--Datepickers -->
@@ -224,6 +224,14 @@
                     <div class="col-xs-12 text-center">
                         <div class="notification">
                             <span>{{ notification_text | translate }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" ng-show="flagDisableButton === true">
+                    <div class="col-xs-12 text-center">
+                        <div class="notification">
+                            <span>{{ notification_text_mark_as_paid | translate}}</span>
                         </div>
                     </div>
                 </div>

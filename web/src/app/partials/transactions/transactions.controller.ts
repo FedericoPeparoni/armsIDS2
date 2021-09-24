@@ -35,6 +35,7 @@ import { AircraftRegistrationService } from '../aircraft-registration/service/ai
 import { SysConfigConstants } from '../system-configuration/system-configuration.constants';
 import { ITransactionType } from '../transaction-types/transaction-types.interface';
 import { TransactionTypesService } from '../transaction-types/service/transaction-types.service';
+import { UnifiedTaxManagementService } from '../unified-tax-management/service/unified-tax-management.service';
 
 
 
@@ -54,7 +55,7 @@ export class TransactionsController extends CRUDFileUploadController {
     private catalogueServiceChargeService: CatalogueServiceChargeService, private systemConfigurationService: SystemConfigurationService,
     private customDate: CustomDate, private sysConfigBoolean: SysConfigBoolean, private $filter: ng.IFilterService,
     private flightMovementManagementService: FlightMovementManagementService, private chargeAdjustmentsService: ChargeAdjustmentsService,
-    private organizationService: OrganizationService, private bankAccountManagementService: BankAccountManagementService,
+    private organizationService: OrganizationService, private bankAccountManagementService: BankAccountManagementService,private unifiedTaxManagementService: UnifiedTaxManagementService,
     private $state: angular.ui.IStateService, private transactionTypesService: TransactionTypesService, private $q: angular.IQService) {
     super($scope, transactionsService, null, 'Supporting Document', CrudFileHandlerPropertyType.Part);
     super.setup();
@@ -78,6 +79,7 @@ export class TransactionsController extends CRUDFileUploadController {
 
     $scope.activeOrg = this.organizationService.active();
     $scope.taspLabel = systemConfigurationService.getValueByName(<any>SysConfigConstants.TASP_FEES_LABEL);
+
 
     $scope.selectedInvoiceIds = [];
     $scope.charges = [];
@@ -148,8 +150,7 @@ export class TransactionsController extends CRUDFileUploadController {
       coa_issue_date: null,
       aircraft_service_date: null,
       is_local: null,
-      aircraft_scope : null
-
+      aircraft_scope : null,
     };
 
     $scope.exportSupport = false;
@@ -162,6 +163,8 @@ export class TransactionsController extends CRUDFileUploadController {
     $scope.isExportSupport = (transaction: ITransaction) => this.isExportSupport(transaction);
     $scope.isSelectedItems = (selected: any) => this.isSelectedItems(selected);
     $scope.setExportSupportMechanism = (mechanism: string) => this.setExportSupportMechanism(mechanism);
+    $scope.getUnifiedTaxChargesByRegistrationNumberAndByBillingLedgerId = (aircraftRegistrationId: number,billingLedgerId: number) =>this.unifiedTaxManagementService.getUnifiedTaxChargesByAircraftRegistationNumberAndBillingLedgerdId(aircraftRegistrationId,billingLedgerId);
+
 
     $scope.setFlightId = (item: IFlightMovement) => {
       const {
@@ -221,9 +224,17 @@ export class TransactionsController extends CRUDFileUploadController {
 
     };
 
+
+
     $scope.setAircraftRegistration = (item : IAircraftRegistration) => {
         $scope.aircraftRegistration =  item ;
         $scope.charge.registration_number = item.registration_number;
+        let unifiedTaxCharges;
+        this.unifiedTaxManagementService.getUnifiedTaxChargesByAircraftRegistationNumberAndBillingLedgerdId(item.id,this.$scope.adjustmentInvoiceId).then((x) =>{
+        unifiedTaxCharges = x;
+        $scope.charge.charge_amount = unifiedTaxCharges.amount;
+    });
+
        }
 
     $scope.setAerodrome = (item: IInvoiceLineItem) => {
@@ -1190,10 +1201,12 @@ export class TransactionsController extends CRUDFileUploadController {
 
   // for unified-tax invoices
  private getAircraftRegistrationByBillingLedgerId(invoiceId: number): ng.IPromise<Array<IAircraftRegistration>> {
+   this.$scope.billingLedgedIdSelected = invoiceId;
     return this.aircraftRegistrationService.getAircraftRegistrationByBillingLedgerId(invoiceId)
     .then((listAircraftRegstration: Array<IAircraftRegistration>) => this.$scope.listAircraftRegstration = listAircraftRegstration);
-
      }
+
+
 
 
   /**

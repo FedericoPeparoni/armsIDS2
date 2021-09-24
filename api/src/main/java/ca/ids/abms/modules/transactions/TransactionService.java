@@ -1,6 +1,7 @@
 package ca.ids.abms.modules.transactions;
 
 import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -64,6 +65,7 @@ import ca.ids.abms.modules.reports2.transaction.TransactionReceiptCreator;
 import ca.ids.abms.modules.system.SystemConfigurationService;
 import ca.ids.abms.modules.system.summary.SystemConfigurationItemName;
 import ca.ids.abms.modules.translation.Translation;
+import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxCharges;
 import ca.ids.abms.modules.unifiedtaxes.UnifiedTaxChargesService;
 import ca.ids.abms.modules.util.models.Calculation;
 import ca.ids.abms.modules.util.models.Calculation.MathOperator;
@@ -71,6 +73,7 @@ import ca.ids.abms.modules.util.models.CurrencyUtils;
 import ca.ids.abms.modules.workflows.ApprovalWorkflow;
 import ca.ids.abms.modules.workflows.ApprovalWorkflowService;
 import ca.ids.abms.util.EnumUtils;
+import ch.qos.logback.core.net.SyslogOutputStream;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -1512,12 +1515,40 @@ public class TransactionService extends AbstractPluginService<TransactionService
             	if (bl != null) {
             		if (bl.getInvoiceType().equals(InvoiceType.UNIFIED_TAX.toValue())) {
             			if (bl.getInvoiceAmount() == -billingLedgerPaymentAmount.getValue()) {
-            				List<AircraftRegistration> aircraftRegistrations =
-            						unifiedTaxChargesService.getAircraftRegistrationsByBillingLedgerId(bl.getId());
-
-            				for (AircraftRegistration ar : aircraftRegistrations) {
-            					ar.setCoaIssueDate(null);
-            					ar.setCoaExpiryDate(null);
+            				
+							List<AircraftRegistration> aircraftRegistrations = unifiedTaxChargesService
+									.getAircraftRegistrationsByBillingLedgerId(bl.getId());
+							for (AircraftRegistration ar : aircraftRegistrations) {								
+								//list utc previous
+								List<UnifiedTaxCharges> utcp = unifiedTaxChargesService.
+										getUnifiedTaxChargesPreviousBillingLedgerInvoicePeriod
+										(LocalDateTime.of(bl.getInvoicePeriodOrDate().getYear(), 12, 31, 23, 59, 59, 999),ar);
+							Optional<LocalDateTime> maxDate = utcp.stream().map(UnifiedTaxCharges::getEndDate)
+										.max(LocalDateTime::compareTo);
+//							Optional<LocalDateTime> minDate = utcp.stream().map(UnifiedTaxCharges::getStartDate)
+//										.min(LocalDateTime::compareTo);
+								//list utc successive
+								List<UnifiedTaxCharges> utcs = unifiedTaxChargesService.
+										getUnifiedTaxChargesFollowingBillingLedgerInvoicePeriod
+										(LocalDateTime.of(bl.getInvoicePeriodOrDate().getYear(), 12, 31, 23, 59, 59, 999),ar);
+//								Optional<LocalDateTime> maxDateFollowing = utcs.stream().map(UnifiedTaxCharges::getEndDate)
+//										.max(LocalDateTime::compareTo);
+								Optional<LocalDateTime> minDateFollowing = utcs.stream().map(UnifiedTaxCharges::getStartDate)
+										.min(LocalDateTime::compareTo);
+								if(utcp.isEmpty() && utcs.isEmpty()) {
+									ar.setCoaIssueDate(null);
+                					ar.setCoaExpiryDate(null);
+								}
+								else if(utcp.size()>0 && utcs.isEmpty()) {
+									  if(maxDate.isPresent()) {
+											ar.setCoaExpiryDate(maxDate.get());
+									    }								
+								}
+								else if(utcp.isEmpty() && utcs.size()>0) {
+									if(minDateFollowing.isPresent()) {
+										ar.setCoaIssueDate(minDateFollowing.get());
+									}
+								}
             				}
             			}
             		}
@@ -1535,8 +1566,18 @@ public class TransactionService extends AbstractPluginService<TransactionService
 
         return resultTransaction;
     }
+    
 
-    @Transactional
+
+    
+    
+
+    private void SystemOutPrintLn() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Transactional
     public Transaction createCreditTransactionByPayments(final Transaction transaction) {
         LOG.debug("Creating a CREDIT TRANSACTION with ref.nr. {} for payments given", transaction.getPaymentReferenceNumber());
         validateAndVerifyAmounts(transaction);

@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,5 +51,24 @@ public class UnifiedTaxChargesService  {
 	public List<BillingLedger> getBillingLedgerByRegistrationNumberAndDate(String registrationNumber, LocalDateTime date) {
 		return unifiedTaxChargesRepository.getBillingLedgerByRegistrationNumberAndDate(registrationNumber, date);
 	}	
+    
+    @Transactional(readOnly = true)
+    public List<UnifiedTaxCharges> getUnifiedTaxChargesByAircraftRegistrationId(Integer aircraftRegistrationId) {
+    	return unifiedTaxChargesRepository.findByAircraftRegistrationId(aircraftRegistrationId);
+    }
    
+    @Transactional(readOnly = true)
+    public List<UnifiedTaxCharges> getUnifiedTaxChargesPreviousBillingLedgerInvoicePeriod(LocalDateTime invoicePeriod,AircraftRegistration aircraftRegistation) {
+    	return unifiedTaxChargesRepository.getUnifiedTaxChargesPreviousBillingLedgerInvoicePeriod( invoicePeriod,aircraftRegistation);
+    }
+    
+    @Transactional(readOnly = true)
+    public List<UnifiedTaxCharges> getUnifiedTaxChargesFollowingBillingLedgerInvoicePeriod(LocalDateTime invoicePeriod,AircraftRegistration aircraftRegistation) {
+    	return unifiedTaxChargesRepository.getUnifiedTaxChargesFollowingBillingLedgerInvoicePeriod( invoicePeriod,aircraftRegistation);
+    }
+    
+    @Transactional(readOnly = true)
+    public UnifiedTaxCharges getUnifiedTaxChargesByAircraftRegistrationIdAndBillingLedgerId(Integer aircraftRegistrationId,Integer billingLedgerId) {
+    	return unifiedTaxChargesRepository.findByAircraftRegistrationIdAndBillingLedgerId( aircraftRegistrationId,billingLedgerId);
+    }
 }

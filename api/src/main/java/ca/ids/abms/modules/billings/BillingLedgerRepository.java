@@ -1,6 +1,9 @@
 package ca.ids.abms.modules.billings;
 
 import ca.ids.abms.config.db.ABMSRepository;
+import ca.ids.abms.modules.common.enumerators.InvoiceStateType;
+import ca.ids.abms.modules.common.enumerators.InvoiceType;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
@@ -17,6 +20,10 @@ import java.util.List;
 public interface BillingLedgerRepository extends ABMSRepository<BillingLedger, Integer> {
 
     Page<BillingLedger> findAll(Pageable pageable);
+    
+    @Query(value="select bl.* from billing_ledgers bl where bl.account_id =:accountId and "
+    		+"bl.invoice_type =:invoiceType and bl.invoice_state_type ='PUBLISHED' and bl.invoice_period_or_date < :invoicePeriodOrDate Order By invoice_period_or_date desc",nativeQuery = true)
+    List<BillingLedger> findByAccountIdAndInvoiceTypeAndInvoicePeriodOrDate(@Param("accountId") final Integer accountId,  @Param("invoiceType") final String invoiceType, @Param("invoicePeriodOrDate") final LocalDateTime invoicePeriodOrDate);
 
     // every time transaction payment is made, amountOwing is deducted
     //if invoice is fully paid, amountOwing should equal 0

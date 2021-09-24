@@ -8,6 +8,8 @@ import { CRUDService, ISpringPageableParams } from '../../../angular-ids-project
 
 export let endpoint: string = 'unified-taxes';
 
+export let endpointCharges: string = 'unified-tax-charges';
+
 export class UnifiedTaxManagementService extends CRUDService {
 
   protected restangular: restangular.IService;
@@ -42,6 +44,9 @@ export class UnifiedTaxManagementService extends CRUDService {
     return taxList;
   }
 
+  public getUnifiedTaxChargesByAircraftRegistationNumberAndBillingLedgerdId(aircraftRegistrationId: number,billingLedgerdId: number ): ng.IPromise<any> {
+    return this.restangular.one(`${endpointCharges}/getUnifiedTaxChargesByAircraftRegistrationIdAndBillingLedgerId/${aircraftRegistrationId}/${billingLedgerdId}`).get()
+  }
 
    // validates formulas, returning which formulas are invalid and why
    public validate(unifiedTaxCharge: IUnifiedTaxManagement): ng.IPromise<any> {
@@ -49,6 +54,8 @@ export class UnifiedTaxManagementService extends CRUDService {
     copy.id = null;
     return this.restangular.all(`${endpoint}/validate`).customPOST(copy);
   }
+
+
 
 
 }

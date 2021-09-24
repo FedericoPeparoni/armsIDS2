@@ -24,6 +24,8 @@ import ca.ids.abms.modules.util.models.VersionedAuditedEntity;
 @Table(name = "unified_tax_charges")
 public class UnifiedTaxCharges extends VersionedAuditedEntity {
 	
+	
+
 	private static final long serialVersionUID = 1L;
 	
 	
@@ -110,6 +112,11 @@ public class UnifiedTaxCharges extends VersionedAuditedEntity {
 	}
 
 	
-	
+	@Override
+	public String toString() {
+		return "UnifiedTaxCharges [id=" + id + ", amount=" + amount + ", percentage=" + percentage + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", aircraftRegistration=" + aircraftRegistration
+				+ ", billingLedger=" + billingLedger + "]";
+	}
 	
 }
