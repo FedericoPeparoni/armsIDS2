@@ -658,14 +658,14 @@ where
                     <property name="nativeDataType">12</property>
                 </structure>
             </list-property>
-            <xml-property name="queryText"><![CDATA[SELECT a.id                               AS account_id,
+            <xml-property name="queryText"><![CDATA[SELECT a.id AS account_id,
        a.NAME                             AS account_name,
        
        a.aviation_billing_mailing_address AS aviation_billing_mailing_address,
-              a.aviation_billing_contact_person_name AS person_name,
+       a.aviation_billing_contact_person_name AS person_name,
 	   a.aviation_billing_phone_number        AS phone_number,
 	   a.aviation_billing_email_address       AS email_address,
-	   lng.val                     AS account_type,
+	   lng.val                     			  AS account_type,
 	   
        COALESCE (x.opening_balance, 0)    AS opening_balance,
        x.transaction_type_id 			  AS transaction_type_id,
@@ -730,13 +730,13 @@ FROM   accounts a
 
 SELECT *
   FROM (
-SELECT t.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.balance, bl.invoice_type, t.payment_mechanism, t.payment_reference_number, t.currency_id, t.transaction_type_id, t.id, t.description, t.exchange_rate,  be.name  AS billing_centers_name, ('') AS billing_invoice_number
-FROM   abms.transactions t
+SELECT t.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.balance, bl.invoice_type, t.payment_mechanism, t.payment_reference_number, t.currency_id, t.transaction_type_id, t.id, CONCAT(t.description, ' (', EXTRACT (YEAR FROM bl.invoice_period_or_date), ') ') AS description, t.exchange_rate,  be.name  AS billing_centers_name, ('') AS billing_invoice_number
+FROM   abms.transactions AS t
 INNER JOIN abms.billing_ledgers bl ON bl.invoice_number = t.payment_reference_number
 INNER JOIN abms.billing_centers be ON bl.billing_center_id = be.id
 
 UNION
-SELECT  bl.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.balance, bl.invoice_type, t.payment_mechanism, t.payment_reference_number, t.currency_id, t.transaction_type_id, t.id, t.description, t.exchange_rate, be.name  AS billing_centers_name, bl.invoice_number AS billing_invoice_number
+SELECT  bl.account_id, bl.invoice_number, t.transaction_date_time, t.amount, t.balance, bl.invoice_type, t.payment_mechanism, t.payment_reference_number, t.currency_id, t.transaction_type_id, t.id, t.description AS description, t.exchange_rate, be.name  AS billing_centers_name, bl.invoice_number AS billing_invoice_number
 FROM abms.billing_ledgers bl
 INNER JOIN abms.transaction_payments tp ON bl.id = tp.billing_ledger_id
 INNER JOIN abms.transactions t ON tp.transaction_id = t.id
