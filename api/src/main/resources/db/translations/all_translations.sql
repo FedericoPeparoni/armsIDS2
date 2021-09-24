@@ -8829,7 +8829,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Unrecognized aerodromes; ",
-    "val": "Aeródromos desconoscidos;",
+    "val": "Aeródromos desconocidos;",
     "part": "backend",
     "created_by": "system"
   },
@@ -13800,7 +13800,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aviation cash invoice currency conversion date",
-    "val": "Fecha a considerar para la conversión de moneda de la Facturaven Efectivo",
+    "val": "Fecha a considerar para la conversión de moneda de la facturación desde Punto de Venta",
     "part": "frontend",
     "created_by": "system"
   },
@@ -13814,7 +13814,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Aviation credit invoice currency conversion date",
-    "val": "Fecha a considerar para la conversión de moneda de la Factura a Crédito",
+    "val": "Fecha a considerar para la conversión de moneda de la facturación desde Facturación de Aviación",
     "part": "frontend",
     "created_by": "system"
   },
@@ -19793,7 +19793,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "destination ad",
-    "val": "anuncios de destino",
+    "val": "Ad De Destino",
     "part": "frontend",
     "created_by": "system"
   },
@@ -27248,7 +27248,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "In:",
-    "val": "En:",
+    "val": "Ingresa:",
     "part": "frontend",
     "created_by": "system"
   },
@@ -35060,7 +35060,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Out:",
-    "val": "Fuera:",
+    "val": "Sale:",
     "part": "frontend",
     "created_by": "system"
   },
@@ -38448,7 +38448,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "P.UDD.TITLE",
-    "val": "Lugares de Salida/Destino Desconoscidos",
+    "val": "Lugares de Salida/Destino Desconocidos",
     "part": "frontend",
     "created_by": "system"
   },
@@ -43978,7 +43978,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Successfully created invoice",
-    "val": "Ha creado correctamente la factura",
+    "val": "La factura fue creada exitosamente",
     "part": "frontend",
     "created_by": "system"
   },
@@ -48276,7 +48276,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Unspecified Departure and Destination Locations",
-    "val": "Lugares de Salida/Destino Desconoscidos",
+    "val": "Lugares de Salida/Destino Desconocidos",
     "part": "frontend",
     "created_by": "system"
   },
@@ -48304,7 +48304,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Unspecified Locations",
-    "val": "Lugares Desconoscidos",
+    "val": "Lugares Desconocidos",
     "part": "frontend",
     "created_by": "system"
   },
@@ -50251,6 +50251,20 @@ select add_languages_by_json('[
     "code": "es",
     "token": "YYYY-MM",
     "val": "AAAA-MM",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "en",
+    "token": "yyyy-MM",
+    "val": "yyyy-MM",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "es",
+    "token": "yyyy-MM",
+    "val": "aaaa-MM",
     "part": "frontend",
     "created_by": "system"
   },
@@ -56010,6 +56024,20 @@ select add_languages_by_json('[
   },
   {
     "code": "en",
+    "token": "AMHS Accounts",
+    "val": "AMHS Accounts",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "es",
+    "token": "AMHS Accounts",
+    "val": "Cuentas AMHS",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "en",
     "token": "EXTENDED",
     "val": "EXTENDED",
     "part": "frontend",
@@ -56957,21 +56985,6 @@ select add_languages_by_json('[
     "code": "es",
     "token": "Receipt Wire Sequence Number",
     "val": "Número de Secuencia del Cable de Recibo",
-    "part": "frontend",
-    "created_by": "system"
-  }
-,
-  {
-    "code": "en",
-    "token": "Small aircraft minimum weight",
-    "val": "Small aircraft minimum weight",
-    "part": "frontend",
-    "created_by": "system"
-  },
-  {
-    "code": "es",
-    "token": "Small aircraft minimum weight",
-    "val": "Peso mínimo de aereonave pequeña",
     "part": "frontend",
     "created_by": "system"
   },
