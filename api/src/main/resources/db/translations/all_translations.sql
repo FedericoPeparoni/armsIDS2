@@ -5809,20 +5809,7 @@ select add_languages_by_json('[
     "part": "backend",
     "created_by": "system"
   },
-  {
-    "code": "en",
-    "token": "Missing applicable exchange rates for currency {{fromCurrencyCode}} to {{toCurrencyCode}} on {{date}}",
-    "val": "Missing applicable exchange rates for currency {{fromCurrencyCode}} to {{toCurrencyCode}} on {{date}}",
-    "part": "frontend",
-    "created_by": "system"
-  },
-  {
-    "code": "es",
-    "token": "Missing applicable exchange rates for currency {{fromCurrencyCode}} to {{toCurrencyCode}} on {{date}}",
-    "val": "Faltan los tipos de cambio aplicables para la moneda {{fromCurrencyCode}} a {{toCurrencyCode}} en {{date}}",
-    "part": "frontend",
-    "created_by": "system"
-  },
+
   {
     "code": "en",
     "token": "missing day of flight",
@@ -57027,6 +57014,90 @@ select add_languages_by_json('[
     "code": "es",
     "token": "Note: Some of the selected Flight Movements have charges associated. Mark as Paid not allowed.",
     "val": "Nota: Algunos de los Movimientos de Vuelo seleccionados tienen cargos asociados. No se permite Marcar como pagado.",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "en",
+    "token": "No charges found for category",
+    "val": "No charges found for category",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "es",
+    "token": "No charges found for category",
+    "val": "No se han encontrado cargos para la categoría",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "en",
+    "token": "There are no charges found for this account using the selected category. Please choose a different charge category or ensure the account is eligible for the selected category.",
+    "val": "There are no charges found for this account using the selected category. Please choose a different charge category or ensure the account is eligible for the selected category.",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "es",
+    "token": "There are no charges found for this account using the selected category. Please choose a different charge category or ensure the account is eligible for the selected category.",
+    "val": "No se han encontrado cargos para esta cuenta utilizando la categoría seleccionada. Por favor, elija una categoría de cargos diferente o asegúrese de que la cuenta es elegible para la categoría seleccionada.",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "en",
+    "token": "Error found in the application: cannot perform the operation due to an unknown error",
+    "val": "Error found in the application: cannot perform the operation due to an unknown error",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "es",
+    "token": "Error found in the application: cannot perform the operation due to an unknown error",
+    "val": "Error encontrado en la aplicación: no se puede realizar la operación debido a un error desconocido",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "en",
+    "token": "The item has been modified in the meantime",
+    "val": "The item has been modified in the meantime",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "es",
+    "token": "The item has been modified in the meantime",
+    "val": "El objecto ha sido modificado mientras tanto",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "en",
+    "token": "Error found in the application: cannot perform the operation",
+    "val": "Error found in the application: cannot perform the operation",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "es",
+    "token": "Error found in the application: cannot perform the operation",
+    "val": "Error encontrado en la aplicación: no se puede realizar la operación",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "en",
+    "token": "Already exists",
+    "val": "Already exists",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "es",
+    "token": "Already exists",
+    "val": "Elemento ya existente",
     "part": "frontend",
     "created_by": "system"
   }
