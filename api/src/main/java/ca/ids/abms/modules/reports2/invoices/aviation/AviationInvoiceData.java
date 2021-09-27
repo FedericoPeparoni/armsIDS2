@@ -45,6 +45,11 @@ public class AviationInvoiceData {
         public @XmlElement(nillable = true) Double enrouteCharges;
         public @XmlElement(nillable = true) String enrouteChargesStr;
         public @XmlElement(nillable = true) String enrouteChargesStrWithCurrencySymbol;
+        public @XmlElement(nillable = true) Double enrouteChargesWithoutExemptions;
+        public @XmlElement(nillable = true) String enrouteChargesWithoutExemptionsStr;
+        public @XmlElement(nillable = true) String enrouteChargesWithoutExemptionsStrWithCurrencySymbol;
+
+        
         public @XmlElement(nillable = true) Double taspCharges;
         public @XmlElement(nillable = true) String taspChargesStr;
         public @XmlElement(nillable = true) String taspChargesStrWithCurrencySymbol;
@@ -315,48 +320,63 @@ public class AviationInvoiceData {
         public @XmlElement(nillable = true) Integer transitPassengerCount;
         public @XmlElement(nillable = true) Integer infantPassengerCount;
         public @XmlElement(nillable = true) Double enrouteCharges;
+        public @XmlElement(nillable = true) Double enrouteChargesWithoutExemptions;
         public @XmlElement(nillable = true) String enrouteChargesStr;
         public @XmlElement(nillable = true) String enrouteChargesStrWithCurrencySymbol;
         public @XmlElement(nillable = true) Double taspCharges;
+        public @XmlElement(nillable = true) Double taspChargesWithoutExemptions;        
         public @XmlElement(nillable = true) String taspChargesStr;
         public @XmlElement(nillable = true) String taspChargesStrWithCurrencySymbol;
         public @XmlElement(nillable = true) Double aerodromeCharges;
+        public @XmlElement(nillable = true) Double aerodromeChargesWithoutExemptions;        
         public @XmlElement(nillable = true) String aerodromeChargesStr;
         public @XmlElement(nillable = true) String aerodromeChargesStrWithCurrencySymbol;
         public @XmlElement(nillable = true) Double approachCharges;
+        public @XmlElement(nillable = true) Double approachChargesWithoutExemptions;        
         public @XmlElement(nillable = true) String approachChargesStr;
         public @XmlElement(nillable = true) String approachChargesStrWithCurrencySymbol;
         public @XmlElement(nillable = true) Double landingCharges;
+        public @XmlElement(nillable = true) Double landingChargesWithoutExemptions;
         public @XmlElement(nillable = true) String landingChargesStr;
         public @XmlElement(nillable = true) String landingChargesStrWithCurrencySymbol;
         public @XmlElement(nillable = true) Double parkingCharges;
+        public @XmlElement(nillable = true) Double parkingChargesWithoutExemptions;
         public @XmlElement(nillable = true) String parkingChargesStr;
         public @XmlElement(nillable = true) String parkingChargesStrWithCurrencySymbol;
         public @XmlElement(nillable = true) Double passengerCharges;
+        public @XmlElement(nillable = true) Double passengerChargesWithoutExemptions;
         public @XmlElement(nillable = true) String passengerChargesStr;
         public @XmlElement(nillable = true) String passengerChargesStrWithCurrencySymbol;
         public @XmlElement(nillable = true) Double lateDepartureArrivalCharges;
+        public @XmlElement(nillable = true) Double lateDepartureArrivalChargesWithoutExemptions;
         public @XmlElement(nillable = true) String lateDepartureArrivalChargesStr;
         public @XmlElement(nillable = true) String lateDepartureArrivalChargesStrWithCurrencySymbol;
         public @XmlElement(nillable = true) Double totalCharges;
+        public @XmlElement(nillable = true) Double totalChargesWithoutExemptions;        
         public @XmlElement(nillable = true) String totalChargesStr;
         public @XmlElement(nillable = true) String totalChargesStrWithCurrencySymbol;
         public @XmlElement(nillable = true) String distanceUnitOfMeasure;
         public @XmlElement(nillable = true) String mtowUnitOfMeasure;
         public @XmlElement(nillable = true) Double taspChargesAnsp;
         public @XmlElement(nillable = true) String taspChargesAnspStr;
+        public @XmlElement(nillable = true) Double taspChargesWithoutExemptionsAnsp;
         public @XmlElement(nillable = true) Double enrouteChargesAnsp;
+        public @XmlElement(nillable = true) Double enrouteChargesWithoutExemptionsAnsp;        
         public @XmlElement(nillable = true) String enrouteChargesAnspStr;
         public @XmlElement(nillable = true) Double aerodromeChargesAnsp;
         public @XmlElement(nillable = true) String aerodromeChargesAnspStr;
+        public @XmlElement(nillable = true) Double aerodromeChargesWithoutExemptionsAnsp;
         public @XmlElement(nillable = true) Double approachChargesAnsp;
         public @XmlElement(nillable = true) String approachChargesAnspStr;
+        public @XmlElement(nillable = true) Double approachChargesWithoutExemptionsAnsp;
         public @XmlElement(nillable = true) Double landingChargesAnsp;
         public @XmlElement(nillable = true) String landingChargesAnspStr;
+        public @XmlElement(nillable = true) Double landingChargesWithoutExemptionsAnsp;
         public @XmlElement(nillable = true) Double parkingChargesAnsp;
         public @XmlElement(nillable = true) String parkingChargesAnspStr;
         public @XmlElement(nillable = true) Double lateDepartureArrivalChargesAnsp;
         public @XmlElement(nillable = true) String lateDepartureArrivalChargesAnspStr;
+        public @XmlElement(nillable = true) Double lateDepartureArrivalChargesWithoutExemptionsAnsp;
         public @XmlElement(nillable = true) Double passengerChargesAnsp;
         public @XmlElement(nillable = true) String passengerChargesAnspStr;
         public @XmlElement(nillable = true) Double totalChargesAnsp;
@@ -372,10 +392,21 @@ public class AviationInvoiceData {
         public @XmlElement(nillable = true) String extendedHoursSurchargeStrWithCurrencySymbol;
         public @XmlElement(nillable = true) Double extendedHoursSurchargeAnsp;
         public @XmlElement(nillable = true) String extendedHoursSurchargeAnspStr;
-
+        public @XmlElement(nillable = true) Double extendedHoursSurchargeWithoutExemptions;
+        public @XmlElement(nillable = true) Double extendedHoursSurchargeWithoutExemptionsAnsp;
+        
         public boolean invoicePaxAllowed;
         
         /// ----
+        /*
+	        enrouteCharges
+	        taspCharges
+	        landingCharges = approachCharges + aerodromeCharges
+	        parkingCharges
+	        passengerCharges
+	        lateDepartureArrivalCharges
+         */
+        
         public @XmlElement(nillable = true) Double exemptEnroutePercentage;
         public @XmlElement(nillable = true) Double exemptApprochPercentage;
         public @XmlElement(nillable = true) Double exemptAerodromePercentage;
@@ -386,6 +417,9 @@ public class AviationInvoiceData {
         public @XmlElement(nillable = true) Double exemptDomesticPassengerPercentage;
         public @XmlElement(nillable = true) Double exemptInternationalPassengerPercentage;
         
+        public @XmlElement(nillable = true) Double exemptPercentage;
+        public @XmlElement(nillable = true) String exemptPercentageStr;
+                
         public @XmlElement(nillable = true) Double totalExemptionsValue;
         /// ----         
     }
