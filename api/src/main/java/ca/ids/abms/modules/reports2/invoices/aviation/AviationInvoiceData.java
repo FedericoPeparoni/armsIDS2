@@ -396,7 +396,7 @@ public class AviationInvoiceData {
         public @XmlElement(nillable = true) Double extendedHoursSurchargeWithoutExemptionsAnsp;
         
         public boolean invoicePaxAllowed;
-        
+
         /// ----
         /*
 	        enrouteCharges
@@ -416,14 +416,16 @@ public class AviationInvoiceData {
         public @XmlElement(nillable = true) Double exemptParkingPercentage;
         public @XmlElement(nillable = true) Double exemptDomesticPassengerPercentage;
         public @XmlElement(nillable = true) Double exemptInternationalPassengerPercentage;
-        
+        public @XmlElement(nillable = true) Double exemptUnifiedTaxPercentage;
+        public @XmlElement(nillable = true) String exemptNota;
+
         public @XmlElement(nillable = true) Double exemptPercentage;
         public @XmlElement(nillable = true) String exemptPercentageStr;
                 
         public @XmlElement(nillable = true) Double totalExemptionsValue;
-        /// ----         
+        /// ----
     }
-    
+
     @XmlElementWrapper
     @XmlElement (name="flightInfo", nillable = true)
     public List <FlightInfo> flightInfoList;
@@ -467,6 +469,8 @@ public class AviationInvoiceData {
         public @XmlElement String mtowStrSpanish;
         public @XmlElement String manufactureYearStr;
 
+
+        //Discount Agri-School
         public @XmlElement Double discountPercentage;
         public @XmlElement Double discountAmount;
         public @XmlElement String discountPercentageStr;
@@ -480,6 +484,11 @@ public class AviationInvoiceData {
 
         public @XmlElement String discountedAmountStr;
         public @XmlElement String discountedAmountStrSpanish;
+
+        //Exempt
+        public @XmlElement(nillable = true) Double exemptUnifiedTaxPercentage;
+        public @XmlElement(nillable = true) String exemptNota;
+
 
     }
 

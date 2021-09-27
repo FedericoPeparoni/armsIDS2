@@ -100,12 +100,15 @@ export class FlightMovementManagementController extends CRUDFormControllerUserSe
     $scope.countSelected = () => {
       let flights = this.getIdsFromCheckboxes();
      let filterFlights =  this.$scope.list.filter((item: IFlightMovement) =>flights.indexOf(item.id)> -1);
-          let flagDisableButton = true;
-            if(filterFlights.filter((item: IFlightMovement) =>item.status == 'PENDING').filter((item: IFlightMovement)=>item.enroute_charges == 0).length > 0 ){
-              flagDisableButton = false;
+          let flagDisableButton = false;
+         let filterstatus =  filterFlights.filter((item: IFlightMovement) =>item.status != 'PENDING');
+         let filterenroutecharges = filterFlights.filter((item: IFlightMovement)=>item.enroute_charges != 0);
+         let filterLanding = filterFlights.filter((item: IFlightMovement)=>item.approach_charges != 0);
+            if(filterenroutecharges.length > 0 || filterstatus.length > 0 || filterLanding.length > 0 ){
+              flagDisableButton = true;
             }
              else {
-              flagDisableButton = true;
+              flagDisableButton = false;
              }
 
       $scope.flagDisableButton = flagDisableButton;

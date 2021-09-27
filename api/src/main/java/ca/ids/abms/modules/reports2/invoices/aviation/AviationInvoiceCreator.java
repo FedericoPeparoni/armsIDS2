@@ -381,20 +381,20 @@ public class AviationInvoiceCreator {
             case MONTHLY:
                 invoiceData.global.invoiceBillingPeriod = String.format("%s-%s", StringUtils.capitalize(endDateInclusive.getMonth().name().toLowerCase()), endDateInclusive.getYear());
                 invoiceData.global.invoiceBillingPeriodSpanish = String.format("%s-%s", StringUtils.capitalize(endDateInclusive.getMonth().getDisplayName(TextStyle.FULL, localeES).toLowerCase()), endDateInclusive.getYear());
-                
-                invoiceData.global.invoiceDateStr = reportHelper.formatDateUtc(ldtNow, dateFormatter);                
+
+                invoiceData.global.invoiceDateStr = reportHelper.formatDateUtc(ldtNow, dateFormatter);
                 break;
             case WEEKLY:
                 invoiceData.global.invoiceBillingPeriod = String.format("%s - %s", reportHelper.formatDateUtc(endDateInclusive.minusDays(6), dateFormatter), invoiceData.global.invoiceDateStr);
                 invoiceData.global.invoiceBillingPeriodSpanish = String.format("%s - %s", reportHelper.formatDateUtc(endDateInclusive.minusDays(6), dateFormatter), invoiceData.global.invoiceDateStr);
-                
-                invoiceData.global.invoiceDateStr = reportHelper.formatDateUtc(ldtNow, dateFormatter);                
+
+                invoiceData.global.invoiceDateStr = reportHelper.formatDateUtc(ldtNow, dateFormatter);
                 break;
             case OPEN:
                 invoiceData.global.invoiceBillingPeriod = String.format("%s - %s", reportHelper.formatDateUtc(startDate, dateFormatter), invoiceData.global.invoiceDateStr);
                 invoiceData.global.invoiceBillingPeriodSpanish =  String.format("%s - %s", reportHelper.formatDateUtc(startDate, dateFormatter), invoiceData.global.invoiceDateStr);
 
-                invoiceData.global.invoiceDateStr = reportHelper.formatDateUtc(ldtNow, dateFormatter);                
+                invoiceData.global.invoiceDateStr = reportHelper.formatDateUtc(ldtNow, dateFormatter);
                 break;
             case UNIFIED_TAX_ANNUALLY:
             case UNIFIED_TAX_PARTIALLY:
@@ -589,6 +589,7 @@ public class AviationInvoiceCreator {
             Double totalLateDepartureArrivalChargesAnsp = 0d;
             Double totalExtendedHoursSurchargesAnsp = 0d;
 
+
             // Not exempted charges
             Double totalEnrouteChargesWithoutExemptions = 0d;
             Double totalTaspChargesWithoutExemptions = 0d;
@@ -600,7 +601,6 @@ public class AviationInvoiceCreator {
             Double totalLateDepartureArrivalChargesWithoutExemptions = 0d;
             Double totalExtendedHoursSurchargesWithoutExemptions = 0d;
 
-            // Not exempted charges
             Double totalEnrouteChargesWithoutExemptionsAnsp = 0d;
             Double totalTaspChargesWithoutExemptionsAnsp = 0d;
             Double totalAerodromeChargesWithoutExemptionsAnsp = 0d;
@@ -683,7 +683,7 @@ public class AviationInvoiceCreator {
                 totalFlightsWithLateDepartureArrivalCharges += fi.lateDepartureArrivalCharges != null
                     && fi.lateDepartureArrivalCharges > 0d ? 1 : 0;
                 totalFlightsWithExtendedHoursCharges += fi.extendedHoursSurcharge != null && fi.extendedHoursSurcharge > 0d ? 1 : 0;
-                
+
                 // totalFlightsWithExcemptions += fi.extendedHoursSurcharge != null && fi.extendedHoursSurcharge > 0d ? 1 : 0;
 
                 if (fi.flightCategory.equals("DO")) {
@@ -701,12 +701,12 @@ public class AviationInvoiceCreator {
                 if (fi.flightMovementCategoryScope != null) {
                 	flightMovementCategoryScope.add(fi.flightMovementCategoryScope);
                 }
-                
-                if (fi.totalExemptionsValue > 0) 
+
+                if (fi.totalExemptionsValue > 0)
                 {
                 	totalExemptionsValue += fi.totalExemptionsValue;
                 	++totalFlightsWithExemptions;
-                }                                
+                }
             }
 
 	        if (billingOrgCode == BillingOrgCode.CADSUR) {
@@ -1249,9 +1249,8 @@ public class AviationInvoiceCreator {
             flightInfo.exemptDomesticPassengerPercentage = fm.exemptDomesticPassengerPercentage;
             flightInfo.exemptInternationalPassengerPercentage = fm.exemptInternationalPassengerPercentage;
             */
-            
             // ROUND((100*exempt_enroute_charges/(enroute_charges + exempt_enroute_charges)))
-                        
+
             // sum up total flight movement charges
             // landing charges includes aerodrome and approach charges
             totalFlightCharges += nvl(flightInfo.enrouteCharges, 0d) +
@@ -1903,7 +1902,7 @@ public class AviationInvoiceCreator {
             FormulaEvaluator fe = unifiedTaxService.getFormulaEvaluator();
             try {
                 taxAmount = fe.evalDouble(chargeFormula, vars);
-                
+
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -1986,7 +1985,7 @@ public class AviationInvoiceCreator {
                 	else if (coaExpireDate != null && endDateInclusive.getYear() == coaExpireDate.getYear() + 1) {
                 		newCoaIssueDate = coaIssueDate;
                 	}
-                	
+
 
                     aircraftRegistrationService.updateAircraftRegistrationCOAByIdAndDates(
                         ar.getId(), newCoaIssueDate, newCoaExpiryeDate);
