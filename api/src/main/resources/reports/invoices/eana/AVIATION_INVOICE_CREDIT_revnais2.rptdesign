@@ -2283,6 +2283,11 @@
                     <property name="analysis">dimension</property>
                     <text-property name="heading">extendedHoursSurchargeStr</text-property>
                 </structure>
+                <structure>
+                    <property name="columnName">totalExemptionsValue</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">totalExemptionsValue</text-property>
+                </structure>
             </list-property>
             <list-property name="parameters"/>
             <structure name="cachedMetaData">
@@ -2645,6 +2650,11 @@
                     <structure>
                         <property name="position">72</property>
                         <property name="name">extendedHoursSurchargeStr</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">73</property>
+                        <property name="name">totalExemptionsValue</property>
                         <property name="dataType">string</property>
                     </structure>
                 </list-property>
@@ -3155,8 +3165,15 @@
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
+                <structure>
+                    <property name="position">73</property>
+                    <property name="name">totalExemptionsValue</property>
+                    <property name="nativeName">totalExemptionsValue</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
             </list-property>
-            <xml-property name="queryText"><![CDATA[table0#-TNAME-#table0#:#[/generalAviationInvoice/flightInfoList/flightInfo]#:#{flightMovementId;INT;/flightMovementId},{flightDateStr;STRING;/flightDateStr},{regNum;STRING;/regNum},{aircraftType;STRING;/aircraftType},{mtow;BIGDECIMAL;/mtow},{entryPoint;STRING;/entryPoint},{exitPoint;STRING;/exitPoint},{crossDist;BIGDECIMAL;/crossDist},{departureLocation;STRING;/departureLocation},{departureTimeStr;STRING;/departureTimeStr},{actualDepartureTimeStr;STRING;/actualDepartureTimeStr},{arrivalLocation;STRING;/arrivalLocation},{arrivalTimeStr;STRING;/arrivalTimeStr},{departurePassengerCount;INT;/departurePassengerCount},{arrivalPassengerCount;INT;/arrivalPassengerCount},{transitPassengerCount;INT;/transitPassengerCount},{enrouteCharges;BIGDECIMAL;/enrouteCharges},{enrouteChargesStr;STRING;/enrouteChargesStr},{taspCharges;BIGDECIMAL;/taspCharges},{taspChargesStr;STRING;/taspChargesStr},{landingCharges;BIGDECIMAL;/landingCharges},{landingChargesStr;STRING;/landingChargesStr},{parkingCharges;BIGDECIMAL;/parkingCharges},{parkingChargesStr;STRING;/parkingChargesStr},{passengerCharges;BIGDECIMAL;/passengerCharges},{passengerChargesStr;STRING;/passengerChargesStr},{totalCharges;BIGDECIMAL;/totalCharges},{totalChargesStr;STRING;/totalChargesStr},{crossDistStr;STRING;/crossDistStr},{mtowStr;STRING;/mtowStr},{enrouteChargesStrWithCurrencySymbol;STRING;/enrouteChargesStrWithCurrencySymbol},{taspChargesStrWithCurrencySymbol;STRING;/taspChargesStrWithCurrencySymbol},{landingChargesStrWithCurrencySymbol;STRING;/landingChargesStrWithCurrencySymbol},{parkingChargesStrWithCurrencySymbol;STRING;/parkingChargesStrWithCurrencySymbol},{passengerChargesStrWithCurrencySymbol;STRING;/passengerChargesStrWithCurrencySymbol},{totalChargesStrWithCurrencySymbol;STRING;/totalChargesStrWithCurrencySymbol},{flightEntryDateStr;STRING;/flightEntryDateStr},{flightExitDateStr;STRING;/flightExitDateStr},{infantPassengerCount;STRING;/infantPassengerCount},{taspTypeScheduled;BOOLEAN;/taspTypeScheduled},{taspTypeNonScheduled;BOOLEAN;/taspTypeNonScheduled},{taspTypeMilitary;BOOLEAN;/taspTypeMilitary},{taspTypePrivate;BOOLEAN;/taspTypePrivate},{mtowKg;BIGDECIMAL;/mtowKg},{mtowKgStr;STRING;/mtowKgStr},{billingDateStr;STRING;/billingDateStr},{billingEntryDateStr;STRING;/billingEntryDateStr},{billingExitDateStr;STRING;/billingExitDateStr},{mtowUnitOfMeasure;STRING;/mtowUnitOfMeasure},{distanceUnitOfMeasure;STRING;/distanceUnitOfMeasure},{passengerChargesEnabled;BOOLEAN;../../global/passengerChargesEnabled},{taspChargesEnabled;BOOLEAN;../../global/taspChargesEnabled},{invoiceCurrencyCode;STRING;../../global/invoiceCurrencyCode},{enrouteChargesAnsp;STRING;/enrouteChargesAnsp},{enrouteChargesAnspStr;STRING;/enrouteChargesAnspStr},{landingChargesAnsp;STRING;/landingChargesAnsp},{landingChargesAnspStr;STRING;/landingChargesAnspStr},{landingChargesAnspStrWithCurrencySymbol;STRING;/landingChargesAnspStrWithCurrencySymbol},{taspChargesAnsp;STRING;/taspChargesAnsp},{taspChargesAnspStr;STRING;/taspChargesAnspStr},{passengerChargesAnsp;STRING;/passengerChargesAnsp},{passengerChargesAnspStr;STRING;/passengerChargesAnspStr},{flightId;STRING;/flightId},{flightType;STRING;/flightType},{includePassengerCharges;STRING;../../global/includePassengerCharges},{includeTaspCharges;STRING;../../global/includeTaspCharges},{taspFeeLabel;STRING;../../global/taspFeeLabel},{lateDepartureArrivalCharges;BIGDECIMAL;/lateDepartureArrivalCharges},{lateDepartureArrivalChargesStr;STRING;/lateDepartureArrivalChargesStr},{lateDepartureArrivalChargesStrWithCurrencySymbol;STRING;/lateDepartureArrivalChargesStrWithCurrencySymbol},{crossingDistanceToMinimum;BIGDECIMAL;/crossingDistanceToMinimum},{extendedHoursSurchargeStr;STRING;/extendedHoursSurchargeStr}#:#<"xsi","http:%%www.w3.org%2001%XMLSchema-instance">]]></xml-property>
+            <xml-property name="queryText"><![CDATA[table0#-TNAME-#table0#:#[/generalAviationInvoice/flightInfoList/flightInfo]#:#{flightMovementId;INT;/flightMovementId},{flightDateStr;STRING;/flightDateStr},{regNum;STRING;/regNum},{aircraftType;STRING;/aircraftType},{mtow;BIGDECIMAL;/mtow},{entryPoint;STRING;/entryPoint},{exitPoint;STRING;/exitPoint},{crossDist;BIGDECIMAL;/crossDist},{departureLocation;STRING;/departureLocation},{departureTimeStr;STRING;/departureTimeStr},{actualDepartureTimeStr;STRING;/actualDepartureTimeStr},{arrivalLocation;STRING;/arrivalLocation},{arrivalTimeStr;STRING;/arrivalTimeStr},{departurePassengerCount;INT;/departurePassengerCount},{arrivalPassengerCount;INT;/arrivalPassengerCount},{transitPassengerCount;INT;/transitPassengerCount},{enrouteCharges;BIGDECIMAL;/enrouteCharges},{enrouteChargesStr;STRING;/enrouteChargesStr},{taspCharges;BIGDECIMAL;/taspCharges},{taspChargesStr;STRING;/taspChargesStr},{landingCharges;BIGDECIMAL;/landingCharges},{landingChargesStr;STRING;/landingChargesStr},{parkingCharges;BIGDECIMAL;/parkingCharges},{parkingChargesStr;STRING;/parkingChargesStr},{passengerCharges;BIGDECIMAL;/passengerCharges},{passengerChargesStr;STRING;/passengerChargesStr},{totalCharges;BIGDECIMAL;/totalCharges},{totalChargesStr;STRING;/totalChargesStr},{crossDistStr;STRING;/crossDistStr},{mtowStr;STRING;/mtowStr},{enrouteChargesStrWithCurrencySymbol;STRING;/enrouteChargesStrWithCurrencySymbol},{taspChargesStrWithCurrencySymbol;STRING;/taspChargesStrWithCurrencySymbol},{landingChargesStrWithCurrencySymbol;STRING;/landingChargesStrWithCurrencySymbol},{parkingChargesStrWithCurrencySymbol;STRING;/parkingChargesStrWithCurrencySymbol},{passengerChargesStrWithCurrencySymbol;STRING;/passengerChargesStrWithCurrencySymbol},{totalChargesStrWithCurrencySymbol;STRING;/totalChargesStrWithCurrencySymbol},{flightEntryDateStr;STRING;/flightEntryDateStr},{flightExitDateStr;STRING;/flightExitDateStr},{infantPassengerCount;STRING;/infantPassengerCount},{taspTypeScheduled;BOOLEAN;/taspTypeScheduled},{taspTypeNonScheduled;BOOLEAN;/taspTypeNonScheduled},{taspTypeMilitary;BOOLEAN;/taspTypeMilitary},{taspTypePrivate;BOOLEAN;/taspTypePrivate},{mtowKg;BIGDECIMAL;/mtowKg},{mtowKgStr;STRING;/mtowKgStr},{billingDateStr;STRING;/billingDateStr},{billingEntryDateStr;STRING;/billingEntryDateStr},{billingExitDateStr;STRING;/billingExitDateStr},{mtowUnitOfMeasure;STRING;/mtowUnitOfMeasure},{distanceUnitOfMeasure;STRING;/distanceUnitOfMeasure},{passengerChargesEnabled;BOOLEAN;../../global/passengerChargesEnabled},{taspChargesEnabled;BOOLEAN;../../global/taspChargesEnabled},{invoiceCurrencyCode;STRING;../../global/invoiceCurrencyCode},{enrouteChargesAnsp;STRING;/enrouteChargesAnsp},{enrouteChargesAnspStr;STRING;/enrouteChargesAnspStr},{landingChargesAnsp;STRING;/landingChargesAnsp},{landingChargesAnspStr;STRING;/landingChargesAnspStr},{landingChargesAnspStrWithCurrencySymbol;STRING;/landingChargesAnspStrWithCurrencySymbol},{taspChargesAnsp;STRING;/taspChargesAnsp},{taspChargesAnspStr;STRING;/taspChargesAnspStr},{passengerChargesAnsp;STRING;/passengerChargesAnsp},{passengerChargesAnspStr;STRING;/passengerChargesAnspStr},{flightId;STRING;/flightId},{flightType;STRING;/flightType},{includePassengerCharges;STRING;../../global/includePassengerCharges},{includeTaspCharges;STRING;../../global/includeTaspCharges},{taspFeeLabel;STRING;../../global/taspFeeLabel},{lateDepartureArrivalCharges;BIGDECIMAL;/lateDepartureArrivalCharges},{lateDepartureArrivalChargesStr;STRING;/lateDepartureArrivalChargesStr},{lateDepartureArrivalChargesStrWithCurrencySymbol;STRING;/lateDepartureArrivalChargesStrWithCurrencySymbol},{crossingDistanceToMinimum;BIGDECIMAL;/crossingDistanceToMinimum},{extendedHoursSurchargeStr;STRING;/extendedHoursSurchargeStr},{totalExemptionsValue;STRING;/totalExemptionsValue}#:#<"xsi","http:%%www.w3.org%2001%XMLSchema-instance">]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
   <Version>2.0</Version>
@@ -5694,7 +5711,7 @@ Website: www.eana.com.ar]]></text-property>
                     <text-property name="displayName">penaltyNum</text-property>
                     <expression name="expression" type="javascript">var list = [dataSetRow["includePassengerCharges"], dataSetRow["includeTaspCharges"]];&#13;
 &#13;
-var num = 4;&#13;
+var num = 5;&#13;
 for (var i = 0; i &lt; list.length; i++) {&#13;
 	num += list[i] === 't' ? 1 : 0;&#13;
 }&#13;
@@ -5794,6 +5811,20 @@ num.toString();</expression>
                     <property name="name">totalExemptionsValue</property>
                     <text-property name="displayName">totalExemptionsValue</text-property>
                     <expression name="expression" type="javascript">dataSetRow["totalExemptionsValue"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">descNum</property>
+                    <text-property name="displayName">descNum</text-property>
+                    <expression name="expression" type="javascript">var list = [dataSetRow["includePassengerCharges"], dataSetRow["includeTaspCharges"]];&#13;
+&#13;
+var num = 4;&#13;
+for (var i = 0; i &lt; list.length; i++) {&#13;
+	num += list[i] === 't' ? 1 : 0;&#13;
+}&#13;
+&#13;
+num.toString();</expression>
                     <property name="dataType">string</property>
                     <property name="allowExport">true</property>
                 </structure>
@@ -7316,60 +7347,11 @@ num.toString();</expression>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="3284">
-                            <property name="backgroundAttachment">scroll</property>
-                            <property name="backgroundColor">#FFFFFF</property>
-                            <property name="backgroundPositionX">0%</property>
-                            <property name="backgroundPositionY">0%</property>
-                            <property name="backgroundRepeat">repeat</property>
+                        <data id="3285">
                             <property name="fontFamily">"Tahoma"</property>
-                            <property name="fontSize">10pt</property>
-                            <property name="fontWeight">normal</property>
-                            <property name="fontStyle">normal</property>
-                            <property name="fontVariant">normal</property>
-                            <property name="color">black</property>
-                            <property name="textLineThrough">none</property>
-                            <property name="textOverline">none</property>
-                            <property name="textUnderline">none</property>
-                            <property name="borderBottomColor">black</property>
-                            <property name="borderBottomStyle">none</property>
-                            <property name="borderBottomWidth">medium</property>
-                            <property name="borderLeftColor">black</property>
-                            <property name="borderLeftStyle">none</property>
-                            <property name="borderLeftWidth">medium</property>
-                            <property name="borderRightColor">black</property>
-                            <property name="borderRightStyle">none</property>
-                            <property name="borderRightWidth">medium</property>
-                            <property name="borderTopColor">black</property>
-                            <property name="borderTopStyle">none</property>
-                            <property name="borderTopWidth">medium</property>
-                            <property name="marginTop">0pt</property>
-                            <property name="marginLeft">0pt</property>
-                            <property name="marginBottom">0pt</property>
-                            <property name="marginRight">0pt</property>
-                            <property name="paddingTop">1pt</property>
-                            <property name="paddingLeft">1pt</property>
-                            <property name="paddingBottom">1pt</property>
-                            <property name="paddingRight">1pt</property>
                             <property name="textAlign">center</property>
-                            <property name="textIndent">0em</property>
-                            <property name="letterSpacing">normal</property>
-                            <property name="lineHeight">normal</property>
-                            <property name="orphans">2</property>
-                            <property name="textTransform">none</property>
-                            <property name="whiteSpace">normal</property>
-                            <property name="widows">2</property>
-                            <property name="wordSpacing">normal</property>
-                            <property name="display">block</property>
-                            <property name="pageBreakAfter">auto</property>
-                            <property name="pageBreakBefore">auto</property>
-                            <property name="pageBreakInside">auto</property>
-                            <property name="showIfBlank">false</property>
-                            <property name="canShrink">false</property>
-                            <property name="overflow">hidden</property>
-                            <property name="contentType">auto</property>
-                            <text-property name="content"><![CDATA[310]]></text-property>
-                        </text>
+                            <property name="resultSetColumn">descNum</property>
+                        </data>
                     </cell>
                     <cell id="3269">
                         <property name="borderBottomStyle">solid</property>
@@ -7386,6 +7368,7 @@ num.toString();</expression>
                         </label>
                     </cell>
                     <cell id="3270">
+                        <property name="fontFamily">"Tahoma"</property>
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -7395,6 +7378,7 @@ num.toString();</expression>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
                         <data id="3274">
+                            <property name="textAlign">right</property>
                             <property name="resultSetColumn">totalFlightsWithExemptions</property>
                         </data>
                     </cell>
@@ -7408,6 +7392,8 @@ num.toString();</expression>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
                         <data id="3275">
+                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="textAlign">right</property>
                             <property name="resultSetColumn">totalExemptionsValue</property>
                         </data>
                     </cell>
@@ -9328,6 +9314,13 @@ USD/ARS]]></text-property>
                     <text-property name="displayName">LandingTime</text-property>
                     <expression name="expression" type="javascript">dataSetRow["arrivalTimeStr"]</expression>
                     <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">totalExemptionsValue</property>
+                    <text-property name="displayName">totalExemptionsValue</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["totalExemptionsValue"]</expression>
+                    <property name="dataType">integer</property>
                     <property name="allowExport">true</property>
                 </structure>
             </list-property>
@@ -11774,6 +11767,10 @@ USD/ARS]]></text-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
+                        <data id="3286">
+                            <property name="fontFamily">"Tahoma"</property>
+                            <property name="resultSetColumn">totalExemptionsValue</property>
+                        </data>
                     </cell>
                 </row>
             </detail>
