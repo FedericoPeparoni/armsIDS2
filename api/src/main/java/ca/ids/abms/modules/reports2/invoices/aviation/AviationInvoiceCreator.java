@@ -361,7 +361,10 @@ public class AviationInvoiceCreator {
                                                      final InvoiceProgressCounter counter,
                                                      final List<KcaaAatisPermitNumber> invoicePermits) {
 
-        final AviationInvoiceData invoiceData = new AviationInvoiceData();
+        BillingOrgCode billingOrgCode = systemConfigurationService.getBillingOrgCode();
+        boolean isEANA = billingOrgCode == BillingOrgCode.EANA;
+    	
+    	final AviationInvoiceData invoiceData = new AviationInvoiceData();
 
         invoiceData.global = new AviationInvoiceData.Global();
         if(!preview) {
@@ -722,12 +725,19 @@ public class AviationInvoiceCreator {
             // landing charges includes aerodrome and approach charges
             Double totalCharges;
             Double totalChargesAnsp;
+            Double totalChargesWithoutExemptions;
+            
             if (isPAXIncluded && invoiceData.global.includePassengerCharges.equalsIgnoreCase("t")) {
                 totalCharges = totalEnrouteCharges + totalTaspCharges + totalLandingCharges + totalParkingCharges +
                     totalPassengerCharges + totalLateDepartureArrivalCharges + totalExtendedHoursSurcharges;
 
                 totalChargesAnsp = totalEnrouteChargesAnsp + totalTaspChargesAnsp + totalLandingChargesAnsp +
                     totalParkingChargesAnsp + totalPassengerChargesAnsp + totalLateDepartureArrivalChargesAnsp + totalExtendedHoursSurchargesAnsp;
+                
+                totalChargesWithoutExemptions = totalEnrouteChargesWithoutExemptions + totalTaspChargesWithoutExemptions + 
+                		totalLandingChargesWithoutExemptions + totalParkingChargesWithoutExemptions +
+                        totalPassengerChargesWithoutExemptions + totalLateDepartureArrivalChargesWithoutExemptions + 
+                        totalExtendedHoursSurchargesWithoutExemptions;
             }
             else {
                 totalCharges = totalEnrouteCharges + totalTaspCharges + totalLandingCharges + totalParkingCharges +
@@ -735,6 +745,11 @@ public class AviationInvoiceCreator {
 
                 totalChargesAnsp = totalEnrouteChargesAnsp + totalTaspChargesAnsp + totalLandingChargesAnsp +
                     totalParkingChargesAnsp + totalLateDepartureArrivalChargesAnsp + totalExtendedHoursSurchargesAnsp;
+
+                totalChargesWithoutExemptions = totalEnrouteChargesWithoutExemptions + totalTaspChargesWithoutExemptions + totalLandingChargesWithoutExemptions + 
+                		totalParkingChargesWithoutExemptions + totalLateDepartureArrivalChargesWithoutExemptions + 
+                		totalExtendedHoursSurchargesWithoutExemptions;
+
             }
 
 
@@ -751,54 +766,72 @@ public class AviationInvoiceCreator {
             invoiceData.global.enrouteChargesStrWithCurrencySymbol = reportHelper.formatCurrency(invoiceData.global.enrouteCharges, aviationInvoiceCurrency);
             invoiceData.global.enrouteChargesAnsp = totalEnrouteChargesAnsp;
             invoiceData.global.enrouteChargesAnspStr = reportHelper.formatCurrency(invoiceData.global.enrouteChargesAnsp, anspCurrency);
-
+            invoiceData.global.enrouteChargesNoExemptions = totalEnrouteChargesWithoutExemptions;
+            invoiceData.global.enrouteChargesNoExemptionsStr = reportHelper.formatCurrency(invoiceData.global.enrouteChargesNoExemptions, aviationInvoiceCurrency);
+            
             invoiceData.global.taspCharges = totalTaspCharges;
             invoiceData.global.taspChargesStr = reportHelper.formatCurrency(invoiceData.global.taspCharges, aviationInvoiceCurrency);
             invoiceData.global.taspChargesStrWithCurrencySymbol = reportHelper.formatCurrency(invoiceData.global.taspCharges, aviationInvoiceCurrency);
             invoiceData.global.taspChargesAnsp = totalTaspChargesAnsp;
             invoiceData.global.taspChargesAnspStr = reportHelper.formatCurrency(invoiceData.global.taspChargesAnsp, anspCurrency);
-
+            invoiceData.global.taspChargesNoExemptions = totalTaspChargesWithoutExemptions;
+            invoiceData.global.taspChargesNoExemptionsStr = reportHelper.formatCurrency(totalTaspChargesWithoutExemptions, aviationInvoiceCurrency);
+            
             invoiceData.global.aerodromeCharges = totalAerodromeCharges;
             invoiceData.global.aerodromeChargesStr = reportHelper.formatCurrency(invoiceData.global.aerodromeCharges, aviationInvoiceCurrency);
             invoiceData.global.aerodromeChargesStrWithCurrencySymbol = reportHelper.formatCurrency(invoiceData.global.aerodromeCharges, aviationInvoiceCurrency);
             invoiceData.global.aerodromeChargesAnsp = totalAerodromeChargesAnsp;
             invoiceData.global.aerodromeChargesAnspStr = reportHelper.formatCurrency(invoiceData.global.aerodromeChargesAnsp, anspCurrency);
+            invoiceData.global.aerodromeChargesNoExemptions = totalAerodromeChargesWithoutExemptions;
+            invoiceData.global.aerodromeChargesNoExemptionsStr = reportHelper.formatCurrency(totalAerodromeChargesWithoutExemptions, aviationInvoiceCurrency);
 
             invoiceData.global.approachCharges = totalApproachCharges;
             invoiceData.global.approachChargesStr = reportHelper.formatCurrency(invoiceData.global.approachCharges, aviationInvoiceCurrency);
             invoiceData.global.approachChargesStrWithCurrencySymbol = reportHelper.formatCurrency(invoiceData.global.approachCharges, aviationInvoiceCurrency);
             invoiceData.global.approachChargesAnsp = totalApproachChargesAnsp;
             invoiceData.global.approachChargesAnspStr = reportHelper.formatCurrency(invoiceData.global.approachChargesAnsp, anspCurrency);
+            invoiceData.global.approachChargesNoExemptions = totalApproachChargesWithoutExemptions;
+            invoiceData.global.approachChargesNoExemptionsStr = reportHelper.formatCurrency(totalApproachChargesWithoutExemptions, aviationInvoiceCurrency);
 
             invoiceData.global.landingCharges = totalLandingCharges;
             invoiceData.global.landingChargesStr = reportHelper.formatCurrency(invoiceData.global.landingCharges, aviationInvoiceCurrency);
             invoiceData.global.landingChargesStrWithCurrencySymbol = reportHelper.formatCurrency(invoiceData.global.landingCharges, aviationInvoiceCurrency);
             invoiceData.global.landingChargesAnsp = totalLandingChargesAnsp;
             invoiceData.global.landingChargesAnspStr = reportHelper.formatCurrency(invoiceData.global.landingChargesAnsp, anspCurrency);
+            invoiceData.global.landingChargesNoExemptions = totalLandingChargesWithoutExemptions;
+            invoiceData.global.landingChargesNoExemptionsStr = reportHelper.formatCurrency(totalLandingChargesWithoutExemptions, aviationInvoiceCurrency);
 
             invoiceData.global.parkingCharges = totalParkingCharges;
             invoiceData.global.parkingChargesStr = reportHelper.formatCurrency(invoiceData.global.parkingCharges, aviationInvoiceCurrency);
             invoiceData.global.parkingChargesStrWithCurrencySymbol = reportHelper.formatCurrency(invoiceData.global.parkingCharges, aviationInvoiceCurrency);
             invoiceData.global.parkingChargesAnsp = totalParkingChargesAnsp;
             invoiceData.global.parkingChargesAnspStr = reportHelper.formatCurrency(invoiceData.global.parkingChargesAnsp , anspCurrency);
+            invoiceData.global.parkingChargesNoExemptions = totalParkingChargesWithoutExemptions;
+            invoiceData.global.parkingChargesNoExemptionsStr = reportHelper.formatCurrency(totalParkingChargesWithoutExemptions, aviationInvoiceCurrency);
 
             invoiceData.global.passengerCharges = totalPassengerCharges;
             invoiceData.global.passengerChargesStr = reportHelper.formatCurrency(invoiceData.global.passengerCharges, aviationInvoiceCurrency);
             invoiceData.global.passengerChargesStrWithCurrencySymbol = reportHelper.formatCurrency(invoiceData.global.passengerCharges, aviationInvoiceCurrency);
             invoiceData.global.passengerChargesAnsp = totalPassengerChargesAnsp;
             invoiceData.global.passengerChargesAnspStr = reportHelper.formatCurrency(invoiceData.global.passengerChargesAnsp, anspCurrency);
-
+            invoiceData.global.passengerChargesNoExemptions = totalPassengerChargesWithoutExemptions;
+            invoiceData.global.passengerChargesNoExemptionsStr = reportHelper.formatCurrency(totalPassengerChargesWithoutExemptions, aviationInvoiceCurrency);
+            
             invoiceData.global.lateDepartureArrivalCharges = totalLateDepartureArrivalCharges;
             invoiceData.global.lateDepartureArrivalChargesStr = reportHelper.formatCurrency(invoiceData.global.lateDepartureArrivalCharges, aviationInvoiceCurrency);
             invoiceData.global.lateDepartureArrivalChargesStrWithCurrencySymbol = reportHelper.formatCurrency(invoiceData.global.lateDepartureArrivalCharges, aviationInvoiceCurrency);
             invoiceData.global.lateDepartureArrivalChargesAnsp = totalLateDepartureArrivalChargesAnsp;
             invoiceData.global.lateDepartureArrivalChargesAnspStr = reportHelper.formatCurrency(invoiceData.global.lateDepartureArrivalChargesAnsp, anspCurrency);
+            invoiceData.global.lateDepartureArrivalChargesNoExemptions = totalLateDepartureArrivalChargesWithoutExemptions;
+            invoiceData.global.lateDepartureArrivalChargesNoExemptionsStr = reportHelper.formatCurrency(totalLateDepartureArrivalChargesWithoutExemptions, aviationInvoiceCurrency);
 
             invoiceData.global.extendedHoursSurcharge = totalExtendedHoursSurcharges;
             invoiceData.global.extendedHoursSurchargeStr = reportHelper.formatCurrency(invoiceData.global.extendedHoursSurcharge, aviationInvoiceCurrency);
             invoiceData.global.extendedHoursSurchargesStrWithCurrencySymbol = reportHelper.formatCurrency(invoiceData.global.extendedHoursSurcharge, aviationInvoiceCurrency);
             invoiceData.global.extendedHoursSurchargesAnsp = totalExtendedHoursSurchargesAnsp;
             invoiceData.global.extendedHoursSurchargesAnspStr = reportHelper.formatCurrency(invoiceData.global.extendedHoursSurchargesAnsp, anspCurrency);
+            invoiceData.global.extendedHoursSurchargeNoExemptions = totalExtendedHoursSurchargesWithoutExemptions;
+            invoiceData.global.extendedHoursSurchargeNoExemptionsStr = reportHelper.formatCurrency(totalExtendedHoursSurchargesWithoutExemptions, aviationInvoiceCurrency);
 
             invoiceData.global.totalFlightsWithEnrouteCharges = totalFlightsWithEnrouteCharges;
             invoiceData.global.totalFlightsWithAerodromeCharges = totalFlightsWithAerodromeCharges;
@@ -851,6 +884,8 @@ public class AviationInvoiceCreator {
             // total amount, due NOT round yet as additional charges not applied until billing ledger created
             invoiceData.global.totalAmount = totalCharges;
             invoiceData.global.totalAmountAnsp = totalChargesAnsp;
+            
+            invoiceData.global.totalAmountNoExemptions = totalChargesWithoutExemptions;
         }
 
         return invoiceData;
@@ -1326,7 +1361,7 @@ public class AviationInvoiceCreator {
 		flightInfo.totalExemptionsValue = totaleExeptions;			
 
 		flightInfo.exemptPercentage = exemptPercentage;
-		flightInfo.exemptPercentageStr = String.format("%.2f",exemptPercentage);
+		flightInfo.exemptPercentageStr = String.format("%.0f",exemptPercentage) + "%";
 		
         if (invoicePermits != null) {
             invoicePermits.stream().filter(permit ->
