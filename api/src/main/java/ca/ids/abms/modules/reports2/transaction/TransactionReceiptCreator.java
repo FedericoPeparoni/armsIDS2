@@ -554,8 +554,7 @@ public class TransactionReceiptCreator {
         data.global.billingName = account.getAviationBillingContactPersonName();
         data.global.billingAddress = account.getAviationBillingMailingAddress();
         data.global.billingContactTel = account.getAviationBillingPhoneNumber();
-
-
+        data.global.transactionDescription = transaction.getDescription();
 
         CreditDebitNoteData.Discriminator discFLIGHT_ID = null;
         CreditDebitNoteData.Discriminator discREGISTRATION_NUMBER = null;
