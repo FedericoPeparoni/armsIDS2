@@ -127,6 +127,7 @@ export class AirTrafficDataController extends CRUDFormControllerUserService {
     $scope.datacolumns = [];
     $scope.ylabel = [];
     $scope.datax = { 'id': 'x' };
+    $scope.xlabel = "Air Traffic Data";
 
     $scope.getEmptyModels = () => this.getEmptyModels();
     this.getEmptyModels();
@@ -222,7 +223,7 @@ export class AirTrafficDataController extends CRUDFormControllerUserService {
         return value.toLocaleString();
       }
     };
-  
+
     $scope.valueFormat = (value : any) =>{
       return value.toFixed(2);
     }
@@ -359,6 +360,7 @@ export class AirTrafficDataController extends CRUDFormControllerUserService {
   private generate(airTrafficData: IAirTrafficData, startDate: Date, endDate: Date, groupBy: string, chartType: string): ng.IPromise<IAirTrafficResponse[]> {
     this.$scope.noData = false;
     this.$scope.ylabel = this.$scope.displayValues.find((x: IStaticType) => x.value === this.$scope.display_value).name;
+
     let obj: IAirTrafficData = angular.copy(airTrafficData);
 
     if (startDate && endDate) {

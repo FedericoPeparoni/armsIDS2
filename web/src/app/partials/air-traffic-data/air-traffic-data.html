@@ -358,8 +358,8 @@
                         <chart-size chart-height="{{chartHeight}}" />
                         <chart-tooltip show-tooltip="true" group-tooltip="true" value-format-function="valueFormat"/>
                         <chart-axis>
-                            <chart-axis-x axis-position="outer-right" axis-label="Air Traffic Data" axis-type="category"/>
-                            <chart-axis-y axis-position="outer-right" axis-label="{{ ylabel }}"/>
+                            <chart-axis-x axis-position="outer-right"  axis-label="{{ xlabel | translate }}" axis-type="category"/>
+                            <chart-axis-y axis-position="outer-right" axis-label="{{ ylabel | translate }}"/>
                         </chart-axis>
                     </c3chart>
                 </div>
