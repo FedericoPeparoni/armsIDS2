@@ -18,6 +18,7 @@ public class CreditDebitNoteData {
         public @XmlElement(nillable = true) String transactionName;
         public @XmlElement(nillable = true) String transactionIssueLocation;
         public @XmlElement(nillable = true) String transactionDateStr;
+        public @XmlElement(nillable = true) String transactionDescription;
         public @XmlElement(nillable = true) Integer accountId;
         public @XmlElement(nillable = true) String accountName;
         public @XmlElement(nillable = true) String accountAlias;
