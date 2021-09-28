@@ -2036,11 +2036,13 @@ public class AviationInvoiceCreator {
 				if (aircraftInfo.unifiedTaxCharges != null) {
 					ExemptionChargeMethodResult result = exemptionTypeService.resolveUnifiedTaxExemptions(ar, aircraftInfo.unifiedTaxCharges, aviationInvoiceCurrency);
 					
-					aircraftInfo.exemptUnifiedTaxValue = result.getExemptCharge();
-					aircraftInfo.exemptUnifiedTaxPercentage = result.getExemptionPercentage();	
+					if (result != null) {
+						aircraftInfo.exemptUnifiedTaxValue = result.getExemptCharge();
+						aircraftInfo.exemptUnifiedTaxPercentage = result.getExemptionPercentage();
+						totalUnifiedTaxExemptions.addAndGet(aircraftInfo.exemptUnifiedTaxValue);						
+					}	
 				}
-                
-                
+                                
                 if(previewMode == false){
                 	LocalDateTime coaIssueDate = ar.getCoaIssueDate();
                 	LocalDateTime coaExpireDate = ar.getCoaExpiryDate();
