@@ -1836,7 +1836,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Edit Unspecified Aircraft Type",
-    "val": "Editar Tipos de Aeronaves Desconoscidas",
+    "val": "Editar Tipos de Aeronaves Desconocidas",
     "part": "frontend",
     "created_by": "system"
   },
@@ -3943,21 +3943,21 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Unspecified Locations",
-    "val": "Lugares Desconoscidos",
+    "val": "Lugares Desconocidos",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "P.UDD.TITLE",
-    "val": "Lugares de Salida/Destino Desconoscidos",
+    "val": "Lugares de Salida/Destino Desconocidos",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Unspecified Departure and Destination Locations",
-    "val": "Lugares de Salida/Destino Desconoscidos",
+    "val": "Lugares de Salida/Destino Desconocidos",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4063,13 +4063,6 @@ select add_languages_by_json('[
     "code": "es",
     "token": "Map Measurment Tool",
     "val": " Herramienta de Medición de la Mapa",
-    "part": "frontend",
-    "created_by": "system"
-  },
-  {
-    "code": "es",
-    "token": "Successfully marked PENDING zero cost flights as PAID",
-    "val": "Marcado con éxito Vuelos PENDIENTES de costo cero como PAGADO",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4412,14 +4405,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "ERR_UNSPECIFIED_LOCATION_ID_DUPLICATED",
-    "val": " El identificador de texto de los lugares desconoscidos y/o el identificador del aeródromo está duplicado",
+    "val": " El identificador de texto de los lugares desconocidos y/o el identificador del aeródromo está duplicado",
     "part": "backend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "Unspecified Location text identifier or/and aerodrome identifier is duplicated",
-    "val": " El identificador de texto de los lugares desconoscidos y/o el identificador del aeródromo está duplicado",
+    "val": " El identificador de texto de los lugares desconocidos y/o el identificador del aeródromo está duplicado",
     "part": "backend",
     "created_by": "system"
   },
@@ -4664,7 +4657,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "There are no Unspecified Departure and Destination Locations data",
-    "val": "No hay datos de lugares de salida/destino desconoscidos",
+    "val": "No hay datos de lugares de salida/destino desconocidos",
     "part": "frontend",
     "created_by": "system"
   },
@@ -4769,7 +4762,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "There are no Unspecified Aircraft Types data",
-    "val": "No hay datos de tipos de aeronaves desconoscidas",
+    "val": "No hay datos de tipos de aeronaves desconocidas",
     "part": "frontend",
     "created_by": "system"
   },
@@ -5769,6 +5762,13 @@ select add_languages_by_json('[
   },
   {
     "code": "es",
+    "token": "Small aircraft minimum weight",
+    "val": "Peso mínimo de aeronave pequeña",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "es",
     "token": "Pie",
     "val": "Pastel",
     "part": "frontend",
@@ -6456,14 +6456,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "unspecified departure destination locations",
-    "val": "Lugares de Salida/Destino Desconoscidos",
+    "val": "Lugares de Salida/Destino Desconocidos",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "unspecified aircraft types",
-    "val": "Tipos de Aeronaves Desconoscidas",
+    "val": "Tipos de Aeronaves Desconocidas",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6673,14 +6673,14 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "Unspecified Aircraft Types",
-    "val": "Tipos de Aeronaves Desconoscidas",
+    "val": "Tipos de Aeronaves Desconocidas",
     "part": "frontend",
     "created_by": "system"
   },
   {
     "code": "es",
     "token": "P.UAT.TITLE",
-    "val": "Tipos de Aeronaves Desconoscidas",
+    "val": "Tipos de Aeronaves Desconocidas",
     "part": "frontend",
     "created_by": "system"
   },
@@ -6953,7 +6953,7 @@ select add_languages_by_json('[
   {
     "code": "es",
     "token": "UNKNOWN_SPEED_EET",
-    "val": "VELOCIDAD_EET_DESCONOSCIDOS",
+    "val": "VELOCIDAD_EET_DESCONOCIDOS",
     "part": "backend",
     "created_by": "system"
   },
@@ -7661,8 +7661,63 @@ select add_languages_by_json('[
     "val": "Exención de Tasas para Tasa Unificada",
     "part": "frontend",
     "created_by": "system"
+  },
+{
+    "code": "en",
+    "token": "Note: Cannot generate an invoice when the selected flights are not pending",
+    "val": "Note: Cannot generate an invoice when the selected flights are not pending",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "es",
+    "token": "Note: Cannot generate an invoice when the selected flights are not pending",
+    "val": "Nota: No se puede generar una factura cuando los vuelos seleccionados no están pendientes",
+    "part": "frontend",
+    "created_by": "system"
+  },
+{
+    "code": "en",
+    "token": "There are no existing flight movements for this account that can be billed",
+    "val": "There are no existing flight movements for this account that can be billed",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "es",
+    "token": "There are no existing flight movements for this account that can be billed",
+    "val": "No hay Movimientos de Vuelo existentes para esta cuenta que puedan ser facturados",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "en",
+    "token": "UNIFIED_TAX_NOT_PAID_FOR_CURRENT_YEAR",
+    "val": "UNIFIED_TAX_NOT_PAID_FOR_CURRENT_YEAR",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "es",
+    "token": "UNIFIED_TAX_NOT_PAID_FOR_CURRENT_YEAR",
+    "val": "TASA_NO_FACTURADA_PARA_EL_AÑO_EN_CURSO",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "en",
+    "token": "Cannot read or write this item in the DB due to missing data or query wrong",
+    "val": "Cannot read or write this item in the DB due to missing data or query wrong",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "es",
+    "token": "Cannot read or write this item in the DB due to missing data or query wrong",
+    "val": "No se puede leer o escribir este elemento en la BD debido a que faltan datos o la consulta es incorrecta",
+    "part": "frontend",
+    "created_by": "system"
   }
-
 
 
 
