@@ -19,6 +19,7 @@ public class InterestInvoiceData {
         public @XmlElement(nillable = true) String invoiceDateStr;
         public @XmlElement(nillable = true) String invoiceDueDateStr;
         public @XmlElement(nillable = true) String invoiceBillingPeriod;
+        public @XmlElement(nillable = true) String invoiceBillingPeriodSpanish;
         public @XmlElement(nillable = true) Integer accountId;
         public @XmlElement(nillable = true) String accountName;
         public @XmlElement(nillable = true) String fromName;

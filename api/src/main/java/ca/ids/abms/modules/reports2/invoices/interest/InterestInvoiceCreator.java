@@ -28,7 +28,9 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Create invoice data, PDF doc, ledger and transaction; one at a time
@@ -190,6 +192,10 @@ public class InterestInvoiceCreator {
         x.global.invoiceDateStr = reportHelper.formatDateUtc (endDateInclusive, dateFormatter);
         x.global.invoiceDueDateStr = reportHelper.formatDateUtc(ldtNow.plusDays(account.getPaymentTerms()), dateFormatter);
         x.global.invoiceBillingPeriod = String.format("%s-%s", StringUtils.capitalize(endDateInclusive.getMonth().name().toLowerCase()), endDateInclusive.getYear());
+
+        Locale localeES = new Locale ("es" , "ES");        
+        x.global.invoiceBillingPeriodSpanish = String.format("%s-%s", StringUtils.capitalize(endDateInclusive.getMonth().getDisplayName(TextStyle.FULL, localeES).toLowerCase()), endDateInclusive.getYear());
+                
         x.global.accountId = account.getId();
         x.global.accountName = account.getName();
         x.global.fromName = currentUser.getName();
