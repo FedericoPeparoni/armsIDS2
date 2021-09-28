@@ -499,6 +499,8 @@ public class AviationInvoiceCreator {
         	//invoiceData.global.unifiedTaxAircraftTotal = aircraftRegistrationsToInvoiceByUnifiedTax.size();
             AtomicInteger countUnifiedTaxAircraftTotalWithoutDiscount = new AtomicInteger(0);
             AtomicInteger countUnifiedTaxAircraftTotalWithDiscount = new AtomicInteger(0);
+            AtomicInteger countUnifiedTaxAircraftTotalWithExemptions = new AtomicInteger(0);
+            
             AtomicDouble unifiedTaxTotalDiscount = new AtomicDouble(0);
             AtomicDouble unifiedTaxTotalExemptions = new AtomicDouble(0);
 
@@ -508,6 +510,7 @@ public class AviationInvoiceCreator {
             	aviationInvoiceCurrency, billingInterval,
                 countUnifiedTaxAircraftTotalWithoutDiscount, 
                 countUnifiedTaxAircraftTotalWithDiscount, 
+                countUnifiedTaxAircraftTotalWithExemptions,
                 unifiedTaxTotalDiscount,
                 unifiedTaxTotalExemptions,
                 unifiedTaxService, currencyUtils, preview);
@@ -568,10 +571,11 @@ public class AviationInvoiceCreator {
             // Total number of unified tax aircraft, with and without discounts applied 
             invoiceData.global.unifiedTaxAircraftTotalNumber = countUnifiedTaxAircraftTotalWithoutDiscount.get() + countUnifiedTaxAircraftTotalWithDiscount.get();;
             invoiceData.global.unifiedTaxDiscountAircraftTotalNumber = countUnifiedTaxAircraftTotalWithDiscount.get();
+            invoiceData.global.unifiedTaxExemptAircraftTotalNumber = countUnifiedTaxAircraftTotalWithExemptions.get();
             
             // It is requested to have a negative sign in the invoice in front of the discounts
-            invoiceData.global.unifiedTaxTotalDiscountCharges = -unifiedTaxTotalDiscount.get();
-            invoiceData.global.unifiedTaxTotalExemptions = -unifiedTaxTotalExemptions.get();
+            invoiceData.global.unifiedTaxTotalDiscountCharges = unifiedTaxTotalDiscount.get();
+            invoiceData.global.unifiedTaxTotalExemptions = unifiedTaxTotalExemptions.get();
         }
 
         if (invoiceData.invoiceGenerationAllowed) {
@@ -769,10 +773,18 @@ public class AviationInvoiceCreator {
 
 
             // UNIFIED TAX amount summed to total charges
+            // It is requested to have a negative sign in the invoice in front of the discounts
+            
             invoiceData.global.unifiedTaxTotalChargesStr = reportHelper.formatCurrency(invoiceData.global.unifiedTaxTotalCharges, aviationInvoiceCurrency);
-            invoiceData.global.unifiedTaxTotalDiscountChargesStr = reportHelper.formatCurrency(invoiceData.global.unifiedTaxTotalDiscountCharges, aviationInvoiceCurrency);            
-            invoiceData.global.unifiedTaxTotalExemptionsStr = reportHelper.formatCurrency(invoiceData.global.unifiedTaxTotalExemptions, aviationInvoiceCurrency);
-
+            if (invoiceData.global.unifiedTaxTotalDiscountCharges != null && invoiceData.global.unifiedTaxTotalDiscountCharges > 0) {
+            	invoiceData.global.unifiedTaxTotalDiscountChargesStr = reportHelper.formatCurrency(
+            	-invoiceData.global.unifiedTaxTotalDiscountCharges, aviationInvoiceCurrency);
+            }            
+            
+            if (invoiceData.global.unifiedTaxTotalExemptions != null) {
+            	invoiceData.global.unifiedTaxTotalExemptionsStr = reportHelper.formatCurrency(-invoiceData.global.unifiedTaxTotalExemptions, aviationInvoiceCurrency);
+			}
+            
             //unifiedtax - discount
             totalCharges += (invoiceData.global.unifiedTaxTotalCharges - 
             				 invoiceData.global.unifiedTaxTotalDiscountCharges);
@@ -1881,8 +1893,11 @@ public class AviationInvoiceCreator {
         //numero di Aircraft Registration senza sconto
         private AtomicInteger countUnifiedTaxAircraftTotalWithoutDiscount;
         
-        //numero di Aircraft Registration con sconto
+        //numero di Aircraft Registration con sconto (flight-school o agriculture)
         private AtomicInteger countUnifiedTaxAircraftTotalWithDiscount;
+        
+        //numero di Aircraft Registration con esenzione
+        private AtomicInteger countUnifiedTaxAircraftTotalWithExemptions;
         
         //Sconto totale di tutti gli aircraft
         private AtomicDouble totalUnifiedTaxDiscount;
@@ -1904,6 +1919,7 @@ public class AviationInvoiceCreator {
                                  final BillingInterval billingInterval,
                                  final AtomicInteger countUnifiedTaxAircraftTotalWithoutDiscount,
                                  final AtomicInteger countUnifiedTaxAircraftTotalWithDiscount,
+                                 final AtomicInteger countUnifiedTaxAircraftTotalWithExemptions,
                                  final AtomicDouble totalUnifiedTaxDiscount,
                                  final AtomicDouble totalUnifiedTaxExemptions,
                                  final UnifiedTaxService unifiedTaxService,
@@ -1919,6 +1935,7 @@ public class AviationInvoiceCreator {
 
             this.countUnifiedTaxAircraftTotalWithoutDiscount = countUnifiedTaxAircraftTotalWithoutDiscount;
             this.countUnifiedTaxAircraftTotalWithDiscount = countUnifiedTaxAircraftTotalWithDiscount;
+            this.countUnifiedTaxAircraftTotalWithExemptions = countUnifiedTaxAircraftTotalWithExemptions;
             this.totalUnifiedTaxDiscount = totalUnifiedTaxDiscount;
             this.totalUnifiedTaxExemptions = totalUnifiedTaxExemptions;
 
@@ -2039,7 +2056,13 @@ public class AviationInvoiceCreator {
 					if (result != null) {
 						aircraftInfo.exemptUnifiedTaxValue = result.getExemptCharge();
 						aircraftInfo.exemptUnifiedTaxPercentage = result.getExemptionPercentage();
-						totalUnifiedTaxExemptions.addAndGet(aircraftInfo.exemptUnifiedTaxValue);						
+						
+						Set<String> notes = new HashSet<String>();						
+        				notes.addAll (result.getExemptNotes());
+						aircraftInfo.exemptNota = StringUtils.join(notes.iterator(), "; ");
+						
+						totalUnifiedTaxExemptions.addAndGet(aircraftInfo.exemptUnifiedTaxValue);
+						countUnifiedTaxAircraftTotalWithExemptions.incrementAndGet();						
 					}	
 				}
                                 
