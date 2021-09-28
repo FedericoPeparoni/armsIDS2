@@ -62,6 +62,7 @@ public class LargestExemptionChargeMethod implements ExemptionChargeMethod {
         return new ExemptionChargeMethodResult.Builder()
             .setAppliedCharge(appliedCharge)
             .setExemptCharge(exemptCharge)
+            .setExemptionPercentage(percentage)
             .setExemptNotes(flightNotes)
             .build();
     }
