@@ -280,7 +280,11 @@ public class AviationInvoiceData {
         public @XmlElement(nillable = true) Double unifiedTaxTotalDiscountCharges;
         public @XmlElement(nillable = true) String unifiedTaxTotalDiscountChargesStr;
 
+        public @XmlElement(nillable = true) Integer unifiedTaxExemptAircraftTotalNumber;
+        public @XmlElement(nillable = true) Double unifiedTaxTotalExemptions;
+        public @XmlElement(nillable = true) String unifiedTaxTotalExemptionsStr;
 
+        
         // FIXME: these should be a booleans, also in all BIRT templates & XML files
         @SuppressWarnings("squid:S1134")
         public @XmlElement(nillable = true) String includePassengerCharges;
@@ -420,6 +424,8 @@ public class AviationInvoiceData {
         public @XmlElement(nillable = true) Double extendedHoursSurchargeWithoutExemptions;
         public @XmlElement(nillable = true) Double extendedHoursSurchargeWithoutExemptionsAnsp;
         
+        public @XmlElement(nillable = true) String flightNotes;
+        
         public boolean invoicePaxAllowed;
 
         /// ----
@@ -510,11 +516,10 @@ public class AviationInvoiceData {
         public @XmlElement String discountedAmountStr;
         public @XmlElement String discountedAmountStrSpanish;
 
-        //Exempt
+        //Other Exemptions
         public @XmlElement(nillable = true) Double exemptUnifiedTaxPercentage;
         public @XmlElement(nillable = true) String exemptNota;
-
-
+        public @XmlElement(nillable = true) Double exemptUnifiedTaxValue;
     }
 
     @XmlElementWrapper

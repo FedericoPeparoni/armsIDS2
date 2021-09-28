@@ -17,6 +17,11 @@ public class ExemptionChargeMethodResult {
     private final Double exemptCharge;
 
     /**
+     * Percentage of charge that has been exempted.
+     */
+    private final Double exemptionPercentage;
+    
+    /**
      * Exemption notes that have been found.
      */
     private final List<String> exemptNotes;
@@ -24,11 +29,13 @@ public class ExemptionChargeMethodResult {
     private ExemptionChargeMethodResult(
         final Double appliedCharge,
         final Double exemptCharge,
+        final Double exemptionPercentage,
         final List<String> exemptNotes
     ) {
         this.appliedCharge = appliedCharge;
         this.exemptCharge = exemptCharge;
         this.exemptNotes = exemptNotes;
+        this.exemptionPercentage = exemptionPercentage;
     }
 
     public Double getAppliedCharge() {
@@ -39,10 +46,15 @@ public class ExemptionChargeMethodResult {
         return exemptCharge;
     }
 
+    public Double getExemptionPercentage() {
+        return exemptionPercentage;
+    }    
+    
     public List<String> getExemptNotes() {
         return exemptNotes;
     }
 
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -71,6 +83,7 @@ public class ExemptionChargeMethodResult {
 
         private Double appliedCharge = null;
         private Double exemptCharge = null;
+        private Double exemptionPercentage = null;
         private List<String> exemptNotes = new ArrayList<>();
 
         Builder setAppliedCharge(final Double appliedCharge) {
@@ -83,13 +96,18 @@ public class ExemptionChargeMethodResult {
             return this;
         }
 
+        Builder setExemptionPercentage(final Double exemptionPercentage) {
+            this.exemptionPercentage = exemptionPercentage;
+            return this;
+        }
+        
         Builder setExemptNotes(final List<String> exemptNotes) {
             this.exemptNotes = exemptNotes;
             return this;
         }
 
         ExemptionChargeMethodResult build() {
-            return new ExemptionChargeMethodResult(appliedCharge, exemptCharge, exemptNotes);
+            return new ExemptionChargeMethodResult(appliedCharge, exemptCharge, exemptionPercentage, exemptNotes);
         }
     }
 }

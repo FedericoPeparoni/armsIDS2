@@ -8,7 +8,10 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import ca.ids.abms.modules.aerodromes.cluster.RepositioningAerodromeCluster;
+import ca.ids.abms.modules.aircraft.AircraftRegistration;
+import ca.ids.abms.modules.exemptions.charges.methods.ExemptionChargeMethodResult;
 import ca.ids.abms.modules.exemptions.charges.providers.ExemptionChargeProvider;
+import ca.ids.abms.modules.exemptions.charges.providers.UnifiedTaxExemptionChargeProvider;
 import ca.ids.abms.modules.exemptions.flightroutes.ExemptFlightRoute;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,15 +29,18 @@ public class ExemptionTypeService {
 
     private final CurrencyUtils currencyUtils;
     private final List<ExemptionChargeProvider> exemptionChargeProviders;
+    private final UnifiedTaxExemptionChargeProvider unifiedTaxExemptionChargeProvider;
     private final List<ExemptionTypeProvider> exemptionTypeProviders;
 
     ExemptionTypeService(
         final CurrencyUtils currencyUtils,
         final List<ExemptionChargeProvider> exemptionChargeProviders,
+        final UnifiedTaxExemptionChargeProvider unifiedTaxExemptionChargeProvider,
         final List<ExemptionTypeProvider> exemptionTypeProviders
     ) {
         this.currencyUtils = currencyUtils;
         this.exemptionChargeProviders = exemptionChargeProviders;
+        this.unifiedTaxExemptionChargeProvider = unifiedTaxExemptionChargeProvider;
         this.exemptionTypeProviders = exemptionTypeProviders;
     }
 
@@ -57,6 +63,19 @@ public class ExemptionTypeService {
         flightMovement.setTotalCharges(getTotalCharges(flightMovement));
     }
 
+    /**
+     * Apply exemptions to the unified tax of the given aircraft registration.
+     */
+    @Transactional(readOnly = true)
+    public ExemptionChargeMethodResult resolveUnifiedTaxExemptions(AircraftRegistration ar, double unifiedTaxChargeValue, final Currency currency) {
+
+        // retrieve all exemption types from all exemption type providers based on provided flight movement
+    	Collection<ExemptionType> exemptions = findUnifiedTaxExemptions(ar);
+
+        ExemptionChargeMethodResult result = unifiedTaxExemptionChargeProvider.apply(unifiedTaxChargeValue, currency, exemptions);
+        return result;
+    }
+   
     /**
      * Returns a collection of exemption types that should be applied to the provided flight movement.
      */
@@ -82,6 +101,31 @@ public class ExemptionTypeService {
         return exemptionTypes;
     }
 
+    /**
+     * Returns a collection of exemption types that should be applied to the provided aircraft registration.
+     */
+    private Collection<ExemptionType> findUnifiedTaxExemptions(final AircraftRegistration aircraftRegistration) {
+        Preconditions.checkArgument(aircraftRegistration != null);
+
+        Collection<ExemptionType> exemptionTypes = new ArrayList<>();
+
+        // loop through each exemption type provider and collect all exemptions
+        for (ExemptionTypeProvider exemptionTypeProvider : exemptionTypeProviders) {
+
+            // return collection of exemptions from provider
+            Collection<ExemptionType> exemptionType = exemptionTypeProvider.findApplicableExemptions(aircraftRegistration);
+
+            // only add non-null values to collection
+            if (exemptionType != null) {
+                exemptionTypes.addAll(exemptionType.stream()
+                    .filter(e -> Objects.nonNull(e))
+                    .collect(Collectors.toList()));
+            }
+        }
+
+        return exemptionTypes;
+    }
+    
     /**
      * Returns the recalculated flight movement total charges after exemptions applied. It must always respect
      * the charge currencies and be returned to the ANSP currency.

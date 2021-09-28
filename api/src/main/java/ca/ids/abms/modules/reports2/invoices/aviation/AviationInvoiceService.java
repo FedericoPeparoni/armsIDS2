@@ -15,6 +15,7 @@ import ca.ids.abms.modules.billings.BillingLedgerRepository;
 import ca.ids.abms.modules.billings.BillingLedgerService;
 import ca.ids.abms.modules.common.enumerators.InvoiceStateType;
 import ca.ids.abms.modules.countries.Country;
+import ca.ids.abms.modules.exemptions.ExemptionTypeService;
 import ca.ids.abms.modules.flightmovements.FlightMovement;
 import ca.ids.abms.modules.flightmovements.FlightMovementRepository;
 import ca.ids.abms.modules.flightmovements.FlightMovementRepositoryUtility;
@@ -88,6 +89,7 @@ public class AviationInvoiceService {
     private final List<AviationInvoiceChargeProvider> aviationInvoiceChargeProviders;
     private final FlightMovementRepositoryUtility flightMovementRepositoryUtility;
     private final AccountService accountService;
+    private final ExemptionTypeService exemptionTypeService;
 
     @SuppressWarnings("squid:S00107")
     public AviationInvoiceService(final ReportHelper reportHelper,
@@ -108,7 +110,9 @@ public class AviationInvoiceService {
                                   final BankCodeService bankCodeService,
                                   final List<AviationInvoiceChargeProvider> aviationInvoiceChargeProviders,
                                   final FlightMovementRepositoryUtility flightMovementRepositoryUtility,
-                                  final AccountService accountService) {
+                                  final AccountService accountService,
+                                  final ExemptionTypeService exemptionTypeService) {
+    	
         this.reportHelper = reportHelper;
         this.reportDocumentCreator = reportDocumentCreator;
         this.flightMovementRepository = flightMovementRepository;
@@ -128,6 +132,7 @@ public class AviationInvoiceService {
         this.aviationInvoiceChargeProviders = aviationInvoiceChargeProviders;
         this.flightMovementRepositoryUtility = flightMovementRepositoryUtility;
         this.accountService = accountService;
+        this.exemptionTypeService = exemptionTypeService;
     }
 
     @SuppressWarnings({"squid:S00107", "WeakerAccess"})
@@ -212,7 +217,8 @@ public class AviationInvoiceService {
             billingInterval,
             false, // pointOfSale
             currentUser,
-            aviationInvoiceChargeProviders);
+            aviationInvoiceChargeProviders,
+            exemptionTypeService);
     }
 
     /**
@@ -579,7 +585,8 @@ public class AviationInvoiceService {
             null, // billingInterval
             pointOfSale,
             reportHelper.getCurrentUser(),
-            aviationInvoiceChargeProviders);
+            aviationInvoiceChargeProviders,
+            exemptionTypeService);
 
         boolean supportPassengerCharges = reportHelper.passengerChargesEnabled();
 
@@ -622,7 +629,8 @@ public class AviationInvoiceService {
                 null, // billingInterval
                 true,
                 reportHelper.getCurrentUser(),
-                aviationInvoiceChargeProviders);
+                aviationInvoiceChargeProviders,
+                exemptionTypeService);
 
             paxInvoice = paxInvoiceCreator.createInvoice(account, accountFlights, false, null, null, null, ONLY_PAX, flightmovementCategory, null, null, selectedInvoiceCurrency);
         } else {

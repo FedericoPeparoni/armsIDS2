@@ -14,6 +14,7 @@ import ca.ids.abms.config.error.ErrorConstants;
 import ca.ids.abms.config.error.ExceptionFactory;
 import ca.ids.abms.modules.accounts.Account;
 import ca.ids.abms.modules.accounts.AccountRepository;
+import ca.ids.abms.modules.aircraft.AircraftRegistration;
 import ca.ids.abms.modules.util.models.ModelUtils;
 
 import java.util.ArrayList;
@@ -74,19 +75,19 @@ public class AccountExemptionService implements ExemptionTypeProvider {
     }
 
     /**
-     * Return applicable AccountExemption by provided flight movement.
+     * Return applicable AccountExemption by provided aircraft registration.
      */
     @Override
     @Transactional(readOnly = true)
-    public Collection<ExemptionType> findApplicableExemptions(FlightMovement flightMovement) {
-        Preconditions.checkArgument(flightMovement != null);
+    public Collection<ExemptionType> findApplicableExemptions(AircraftRegistration aircraftRegistration) {
+        Preconditions.checkArgument(aircraftRegistration != null);
 
         Collection<ExemptionType> exemptions = new ArrayList<>();
-        if (flightMovement.getAccount() != null) {
+        if (aircraftRegistration.getAccount() != null) {
 
             // find exemption by flight movement account
             AccountExemption exemption = accountExemptionRepository
-                .findOneByAccount(flightMovement.getAccount());
+                .findOneByAccount(aircraftRegistration.getAccount());
 
             // only add to collection if not null
             if (exemption != null) {

@@ -69,7 +69,14 @@ public interface ExemptionType {
         return null;
     }
 
+    /**
+     * Percentage to exempt unified tax, default null.
+     */
+    default Double unifiedTaxExemption() {
+        return null;
+    }
 
+    
     /**
      * Flight note to add when exempting charges, default null.
      */
