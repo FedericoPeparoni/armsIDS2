@@ -776,7 +776,7 @@ public class AviationInvoiceCreator {
             // It is requested to have a negative sign in the invoice in front of the discounts
 
             invoiceData.global.unifiedTaxTotalChargesStr = reportHelper.formatCurrency(invoiceData.global.unifiedTaxTotalCharges, aviationInvoiceCurrency);
-            if (invoiceData.global.unifiedTaxTotalDiscountCharges != null && invoiceData.global.unifiedTaxTotalDiscountCharges > 0) {
+            if (invoiceData.global.unifiedTaxTotalDiscountCharges != null && invoiceData.global.unifiedTaxTotalDiscountCharges >= 0) {
             	invoiceData.global.unifiedTaxTotalDiscountChargesStr = reportHelper.formatCurrency(
             	-invoiceData.global.unifiedTaxTotalDiscountCharges, aviationInvoiceCurrency);
             }
