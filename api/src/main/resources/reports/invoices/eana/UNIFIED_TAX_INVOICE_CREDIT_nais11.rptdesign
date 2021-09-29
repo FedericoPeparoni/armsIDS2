@@ -7214,6 +7214,33 @@ if(value){&#13;
                     <property name="dataType">string</property>
                     <property name="allowExport">true</property>
                 </structure>
+                <structure>
+                    <property name="name">discount</property>
+                    <text-property name="displayName">discount</text-property>
+                    <expression name="expression" type="javascript">var discountPercentagevalue = dataSetRow["discountPercentageStr"];&#13;
+var discounTypevalue = dataSetRow["discounTypeStrSpanish"];&#13;
+&#13;
+var discounStr;&#13;
+if(discountPercentagevalue || discounTypevalue){&#13;
+  discounStr = discountPercentagevalue+" % "+discounTypevalue&#13;
+}&#13;
+&#13;
+&#13;
+var exemptUnifiedTaxPercentageValue = dataSetRow["exemptUnifiedTaxPercentage"];&#13;
+var exemptNotavalue = dataSetRow["exemptNota"];&#13;
+&#13;
+var exemptUnifiedTaxStr;&#13;
+if(exemptUnifiedTaxPercentageValue || exemptNotavalue){&#13;
+  exemptUnifiedTaxStr = exemptUnifiedTaxPercentageValue+" % "+exemptNotavalue&#13;
+}&#13;
+&#13;
+discounStr&#13;
+if(exemptUnifiedTaxStr){&#13;
+"\n" + exemptUnifiedTaxStr;&#13;
+}</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
             </list-property>
             <column id="1624">
                 <property name="suppressDuplicates">true</property>
@@ -7951,21 +7978,9 @@ if(value){&#13;
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <data id="3352">
+                        <data id="3395">
                             <property name="fontFamily">"Tahoma"</property>
-                            <property name="resultSetColumn">discountPercentage + discountAmount</property>
-                        </data>
-                        <data id="3377">
-                            <property name="fontFamily">"Tahoma"</property>
-                            <property name="resultSetColumn">discounTypeStrSpanish</property>
-                        </data>
-                        <data id="3393">
-                            <property name="fontFamily">"Tahoma"</property>
-                            <property name="resultSetColumn">exemptUnifiedTaxPercentage</property>
-                        </data>
-                        <data id="3394">
-                            <property name="fontFamily">"Tahoma"</property>
-                            <property name="resultSetColumn">exemptNota</property>
+                            <property name="resultSetColumn">discount</property>
                         </data>
                     </cell>
                     <cell id="3358">
