@@ -907,7 +907,13 @@ public class AviationInvoiceCreator {
             invoiceData.global.overflightPassengerFlights = overflightData.passengerFlights;
             invoiceData.global.overflightTotalFlights = overflightData.totalFlights;
 
-            invoiceData.global.totalExemptionsValue = -totalExemptionsValue;
+            if(totalExemptionsValue == 0){
+                invoiceData.global.totalExemptionsValue = totalExemptionsValue;
+            }else{
+                invoiceData.global.totalExemptionsValue = -totalExemptionsValue;
+            }
+
+            invoiceData.global.totalExemptionsValueStr = reportHelper.formatCurrency(invoiceData.global.totalExemptionsValue, anspCurrency);
         	invoiceData.global.totalFlightsWithExemptions = totalFlightsWithExemptions;
 
             // total amount, due NOT round yet as additional charges not applied until billing ledger created
