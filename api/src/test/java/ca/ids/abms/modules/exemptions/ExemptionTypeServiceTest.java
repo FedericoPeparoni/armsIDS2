@@ -49,6 +49,7 @@ public class ExemptionTypeServiceTest {
 
         this.exemptionTypeService = new ExemptionTypeService(currencyUtils,
             Collections.singletonList(mockExemptionChargeProvider()),
+            null,
             Collections.singletonList(mockExemptionTypeProvider()));
 
         when(currencyRepository.getANSPCurrency()).thenReturn(RATES_TO_USD.get("BWP").getCurrency());
