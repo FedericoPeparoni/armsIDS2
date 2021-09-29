@@ -777,8 +777,11 @@ public class AviationInvoiceCreator {
 
             invoiceData.global.unifiedTaxTotalChargesStr = reportHelper.formatCurrency(invoiceData.global.unifiedTaxTotalCharges, aviationInvoiceCurrency);
             if (invoiceData.global.unifiedTaxTotalDiscountCharges != null && invoiceData.global.unifiedTaxTotalDiscountCharges >= 0) {
-            	invoiceData.global.unifiedTaxTotalDiscountChargesStr = reportHelper.formatCurrency(
-            	-invoiceData.global.unifiedTaxTotalDiscountCharges, aviationInvoiceCurrency);
+
+
+
+                invoiceData.global.unifiedTaxTotalDiscountChargesStr = reportHelper.formatCurrency(
+                    invoiceData.global.unifiedTaxTotalDiscountCharges == 0? invoiceData.global.unifiedTaxTotalDiscountCharges: -invoiceData.global.unifiedTaxTotalDiscountCharges, aviationInvoiceCurrency);
             }
 
             if (invoiceData.global.unifiedTaxTotalExemptions != null) {
