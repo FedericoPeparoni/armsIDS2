@@ -784,8 +784,10 @@ public class AviationInvoiceCreator {
                     invoiceData.global.unifiedTaxTotalDiscountCharges == 0? invoiceData.global.unifiedTaxTotalDiscountCharges: -invoiceData.global.unifiedTaxTotalDiscountCharges, aviationInvoiceCurrency);
             }
 
+
+
             if (invoiceData.global.unifiedTaxTotalExemptions != null) {
-            	invoiceData.global.unifiedTaxTotalExemptionsStr = reportHelper.formatCurrency(-invoiceData.global.unifiedTaxTotalExemptions, aviationInvoiceCurrency);
+            	invoiceData.global.unifiedTaxTotalExemptionsStr = reportHelper.formatCurrency(invoiceData.global.unifiedTaxTotalExemptions == 0? invoiceData.global.unifiedTaxTotalExemptions: -invoiceData.global.unifiedTaxTotalExemptions, aviationInvoiceCurrency);
 			}
 
             //unifiedtax - discount
