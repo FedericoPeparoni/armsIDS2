@@ -57100,6 +57100,20 @@ select add_languages_by_json('[
     "val": "Elemento ya existente",
     "part": "frontend",
     "created_by": "system"
+  },
+  {
+    "code": "en",
+    "token": "Default flight level",
+    "val": "Default flight level",
+    "part": "frontend",
+    "created_by": "system"
+  },
+  {
+    "code": "es",
+    "token": "Default flight level",
+    "val": "Nivel de vuelo predeterminado",
+    "part": "frontend",
+    "created_by": "system"
   }
 
 ]');

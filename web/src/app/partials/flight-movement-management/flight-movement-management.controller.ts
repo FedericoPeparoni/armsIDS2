@@ -104,7 +104,10 @@ export class FlightMovementManagementController extends CRUDFormControllerUserSe
          let filterstatus =  filterFlights.filter((item: IFlightMovement) =>item.status != 'PENDING');
          let filterenroutecharges = filterFlights.filter((item: IFlightMovement)=>item.enroute_charges != 0);
          let filterLanding = filterFlights.filter((item: IFlightMovement)=>item.approach_charges != 0);
-            if(filterenroutecharges.length > 0 || filterstatus.length > 0 || filterLanding.length > 0 ){
+         let filterLatArr = filterFlights.filter((item: IFlightMovement)=>item.late_arrival_charges != 0);
+         let filterLateDep = filterFlights.filter((item: IFlightMovement)=>item.late_departure_charges !=0);
+         let filterExtendedHours = filterFlights.filter((item: IFlightMovement)=>item.extended_hours_surcharge !=0)
+            if(filterenroutecharges.length > 0 || filterstatus.length > 0 || filterLanding.length > 0 || filterLatArr.length > 0 || filterLateDep.length > 0 || filterExtendedHours.length > 0){
               flagDisableButton = true;
             }
              else {
