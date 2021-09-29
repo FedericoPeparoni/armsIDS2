@@ -147,9 +147,9 @@
                     <text-property name="heading">enrouteCharges</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">enrouteChargesStr</property>
+                    <property name="columnName">enrouteChargesNoExemptionsStr</property>
                     <property name="analysis">dimension</property>
-                    <text-property name="heading">enrouteChargesStr</text-property>
+                    <text-property name="heading">enrouteChargesNoExemptionsStr</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">enrouteChargesStrWithCurrencySymbol</property>
@@ -177,9 +177,9 @@
                     <text-property name="heading">taspCharges</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">taspChargesStr</property>
+                    <property name="columnName">taspChargesNoExemptionsStr</property>
                     <property name="analysis">dimension</property>
-                    <text-property name="heading">taspChargesStr</text-property>
+                    <text-property name="heading">taspChargesNoExemptionsStr</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">taspChargesStrWithCurrencySymbol</property>
@@ -192,9 +192,9 @@
                     <text-property name="heading">landingCharges</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">landingChargesStr</property>
+                    <property name="columnName">landingChargesNoExemptionsStr</property>
                     <property name="analysis">dimension</property>
-                    <text-property name="heading">landingChargesStr</text-property>
+                    <text-property name="heading">landingChargesNoExemptionsStr</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">landingChargesStrWithCurrencySymbol</property>
@@ -652,7 +652,7 @@
                     </structure>
                     <structure>
                         <property name="position">27</property>
-                        <property name="name">enrouteChargesStr</property>
+                        <property name="name">enrouteChargesNoExemptionsStr</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -682,7 +682,7 @@
                     </structure>
                     <structure>
                         <property name="position">33</property>
-                        <property name="name">taspChargesStr</property>
+                        <property name="name">taspChargesNoExemptionsStr</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -697,7 +697,7 @@
                     </structure>
                     <structure>
                         <property name="position">36</property>
-                        <property name="name">landingChargesStr</property>
+                        <property name="name">landingChargesNoExemptionsStr</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -1208,8 +1208,8 @@
                 </structure>
                 <structure>
                     <property name="position">27</property>
-                    <property name="name">enrouteChargesStr</property>
-                    <property name="nativeName">enrouteChargesStr</property>
+                    <property name="name">enrouteChargesNoExemptionsStr</property>
+                    <property name="nativeName">enrouteChargesNoExemptionsStr</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
@@ -1250,8 +1250,8 @@
                 </structure>
                 <structure>
                     <property name="position">33</property>
-                    <property name="name">taspChargesStr</property>
-                    <property name="nativeName">taspChargesStr</property>
+                    <property name="name">taspChargesNoExemptionsStr</property>
+                    <property name="nativeName">taspChargesNoExemptionsStr</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
@@ -1271,8 +1271,8 @@
                 </structure>
                 <structure>
                     <property name="position">36</property>
-                    <property name="name">landingChargesStr</property>
-                    <property name="nativeName">landingChargesStr</property>
+                    <property name="name">landingChargesNoExemptionsStr</property>
+                    <property name="nativeName">landingChargesNoExemptionsStr</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
@@ -1725,7 +1725,7 @@
                     <property name="nativeDataType">12</property>
                 </structure>
             </list-property>
-            <xml-property name="queryText"><![CDATA[table0#-TNAME-#table0#:#[/generalAviationInvoice/global]#:#{realInvoiceNumber;STRING;/realInvoiceNumber},{invoiceNumber;STRING;/invoiceNumber},{invoiceName;STRING;/invoiceName},{invoiceIssueLocation;STRING;/invoiceIssueLocation},{invoiceDateStr;STRING;/invoiceDateStr},{accountId;STRING;/accountId},{accountName;STRING;/accountName},{fromName;STRING;/fromName},{fromPosition;STRING;/fromPosition},{billingName;STRING;/billingName},{billingAddress;STRING;/billingAddress},{billingContactTel;STRING;/billingContactTel},{totalAmount;STRING;/totalAmount},{totalAmountStr;STRING;/totalAmountStr},{totalAmountStrWithCurrencySymbol;STRING;/totalAmountStrWithCurrencySymbol},{amountDue;STRING;/amountDue},{amountDueStr;STRING;/amountDueStr},{amountDueAnsp;STRING;/amountDueAnsp},{amountDueAnspStr;STRING;/amountDueAnspStr},{amountDueStrWithCurrencySymbol;STRING;/amountDueStrWithCurrencySymbol},{creditAmount;STRING;/creditAmount},{creditAmountStr;STRING;/creditAmountStr},{creditAmountStrWithCurrencySymbol;STRING;/creditAmountStrWithCurrencySymbol},{invoiceCurrencyCode;STRING;/invoiceCurrencyCode},{invoiceCurrencyAnspCode;STRING;/invoiceCurrencyAnspCode},{enrouteCharges;STRING;/enrouteCharges},{enrouteChargesStr;STRING;/enrouteChargesStr},{enrouteChargesStrWithCurrencySymbol;STRING;/enrouteChargesStrWithCurrencySymbol},{enrouteChargesAnsp;STRING;/enrouteChargesAnsp},{enrouteChargesAnspStr;STRING;/enrouteChargesAnspStr},{enrouteChargesAnspStrWithCurrencySymbol;STRING;/enrouteChargesAnspStrWithCurrencySymbol},{taspCharges;STRING;/taspCharges},{taspChargesStr;STRING;/taspChargesStr},{taspChargesStrWithCurrencySymbol;STRING;/taspChargesStrWithCurrencySymbol},{landingCharges;STRING;/landingCharges},{landingChargesStr;STRING;/landingChargesStr},{landingChargesStrWithCurrencySymbol;STRING;/landingChargesStrWithCurrencySymbol},{landingChargesAnsp;STRING;/landingChargesAnsp},{landingChargesAnspStr;STRING;/landingChargesAnspStr},{landingChargesAnspStrWithCurrencySymbol;STRING;/landingChargesAnspStrWithCurrencySymbol},{parkingCharges;STRING;/parkingCharges},{parkingChargesStr;STRING;/parkingChargesStr},{parkingChargesStrWithCurrencySymbol;STRING;/parkingChargesStrWithCurrencySymbol},{passengerCharges;STRING;/passengerCharges},{passengerChargesStr;STRING;/passengerChargesStr},{passengerChargesStrWithCurrencySymbol;STRING;/passengerChargesStrWithCurrencySymbol},{lateDepartureArrivalCharges;STRING;/lateDepartureArrivalCharges},{lateDepartureArrivalChargesStr;STRING;/lateDepartureArrivalChargesStr},{lateDepartureArrivalChargesStrWithCurrencySymbol;STRING;/lateDepartureArrivalChargesStrWithCurrencySymbol},{distanceUnitOfMeasure;STRING;/distanceUnitOfMeasure},{mtowUnitOfMeasure;STRING;/mtowUnitOfMeasure},{passengerChargesEnabled;STRING;/passengerChargesEnabled},{taspChargesEnabled;STRING;/taspChargesEnabled},{taspChargesAnsp;STRING;/taspChargesAnsp},{taspChargesAnspStr;STRING;/taspChargesAnspStr},{parkingChargesAnsp;STRING;/parkingChargesAnsp},{parkingChargesAnspStr;STRING;/parkingChargesAnspStr},{passengerChargesAnsp;STRING;/passengerChargesAnsp},{passengerChargesAnspStr;STRING;/passengerChargesAnspStr},{lateDepartureArrivalChargesAnsp;STRING;/lateDepartureArrivalChargesAnsp},{lateDepartureArrivalChargesAnspStr;STRING;/lateDepartureArrivalChargesAnspStr},{totalAmountAnsp;STRING;/totalAmountAnsp},{totalAmountAnspStr;STRING;/totalAmountAnspStr},{billingEmail;STRING;/billingEmail},{invoiceCurrencyInWords;STRING;/invoiceCurrencyInWords},{totalOutstandingAmount;STRING;/totalOutstandingAmount},{exchageRate;STRING;/exchageRate},{equivalentAmount;STRING;/equivalentAmount},{totalFlightsWithEnrouteCharges;STRING;/totalFlightsWithEnrouteCharges},{totalFlightsWithLandingCharges;STRING;/totalFlightsWithLandingCharges},{totalFlightsWithPassengerCharges;STRING;/totalFlightsWithPassengerCharges},{totalFlightsWithTaspCharges;STRING;/totalFlightsWithTaspCharges},{totalFlightsWithLateDepartureArrivalCharges;STRING;/totalFlightsWithLateDepartureArrivalCharges},{invoiceBillingPeriod;STRING;/invoiceBillingPeriod},{invoiceDueDateStr;STRING;/invoiceDueDateStr},{totalPenalty;STRING;/totalPenalty},{includePassengerCharges;STRING;/includePassengerCharges},{includeTaspCharges;STRING;/includeTaspCharges},{totalAmountUsd;STRING;/totalAmountUsd},{totalAmountUsdStr;STRING;/totalAmountUsdStr},{exchageRateUsd;STRING;/exchageRateUsd},{invoiceCurrencyUsdCode;STRING;/invoiceCurrencyUsdCode},{amountDueUsd;STRING;/amountDueUsd},{amountDueUsdStr;STRING;/amountDueUsdStr},{taspFeeLabel;STRING;/taspFeeLabel},{totalAmountStrInWords;STRING;/totalAmountStrInWords},{totalAmountStrInWordsSpanish;STRING;/totalAmountStrInWordsSpanish},{totalAmountStrInWordsWithCurrencySymbol;STRING;/totalAmountStrInWordsWithCurrencySymbol},{totalAmountStrInWordsWithCurrencySymbolSpanish;STRING;/totalAmountStrInWordsWithCurrencySymbolSpanish},{amountDueStrInWords;STRING;/amountDueStrInWords},{amountDueStrInWordsSpanish;STRING;/amountDueStrInWordsSpanish},{amountDueStrInWordsWithCurrencySymbol;STRING;/amountDueStrInWordsWithCurrencySymbol},{amountDueStrInWordsWithCurrencySymbolSpanish;STRING;/amountDueStrInWordsWithCurrencySymbolSpanish},{extendedHoursSurchargeEnabled;STRING;/extendedHoursSurchargeEnabled},{extendedHoursSurchargeStr;STRING;/extendedHoursSurchargeStr},{totalFlightsWithExtendedHoursCharges;STRING;/totalFlightsWithExtendedHoursCharges},{invoiceBillingPeriodSpanish;STRING;/invoiceBillingPeriodSpanish}      ,{totalFlightsWithExemptions;STRING;/totalFlightsWithExemptions},{totalExemptionsValue;STRING;/totalExemptionsValue},{exemptionsChargesStr;STRING;/exemptionsChargesStr}#:#<"xsi","http:%%www.w3.org%2001%XMLSchema-instance">]]></xml-property>
+            <xml-property name="queryText"><![CDATA[table0#-TNAME-#table0#:#[/generalAviationInvoice/global]#:#{realInvoiceNumber;STRING;/realInvoiceNumber},{invoiceNumber;STRING;/invoiceNumber},{invoiceName;STRING;/invoiceName},{invoiceIssueLocation;STRING;/invoiceIssueLocation},{invoiceDateStr;STRING;/invoiceDateStr},{accountId;STRING;/accountId},{accountName;STRING;/accountName},{fromName;STRING;/fromName},{fromPosition;STRING;/fromPosition},{billingName;STRING;/billingName},{billingAddress;STRING;/billingAddress},{billingContactTel;STRING;/billingContactTel},{totalAmount;STRING;/totalAmount},{totalAmountStr;STRING;/totalAmountStr},{totalAmountStrWithCurrencySymbol;STRING;/totalAmountStrWithCurrencySymbol},{amountDue;STRING;/amountDue},{amountDueStr;STRING;/amountDueStr},{amountDueAnsp;STRING;/amountDueAnsp},{amountDueAnspStr;STRING;/amountDueAnspStr},{amountDueStrWithCurrencySymbol;STRING;/amountDueStrWithCurrencySymbol},{creditAmount;STRING;/creditAmount},{creditAmountStr;STRING;/creditAmountStr},{creditAmountStrWithCurrencySymbol;STRING;/creditAmountStrWithCurrencySymbol},{invoiceCurrencyCode;STRING;/invoiceCurrencyCode},{invoiceCurrencyAnspCode;STRING;/invoiceCurrencyAnspCode},{enrouteCharges;STRING;/enrouteCharges},{enrouteChargesNoExemptionsStr;STRING;/enrouteChargesNoExemptionsStr},{enrouteChargesStrWithCurrencySymbol;STRING;/enrouteChargesStrWithCurrencySymbol},{enrouteChargesAnsp;STRING;/enrouteChargesAnsp},{enrouteChargesAnspStr;STRING;/enrouteChargesAnspStr},{enrouteChargesAnspStrWithCurrencySymbol;STRING;/enrouteChargesAnspStrWithCurrencySymbol},{taspCharges;STRING;/taspCharges},{taspChargesNoExemptionsStr;STRING;/taspChargesNoExemptionsStr},{taspChargesStrWithCurrencySymbol;STRING;/taspChargesStrWithCurrencySymbol},{landingCharges;STRING;/landingCharges},{landingChargesNoExemptionsStr;STRING;/landingChargesNoExemptionsStr},{landingChargesStrWithCurrencySymbol;STRING;/landingChargesStrWithCurrencySymbol},{landingChargesAnsp;STRING;/landingChargesAnsp},{landingChargesAnspStr;STRING;/landingChargesAnspStr},{landingChargesAnspStrWithCurrencySymbol;STRING;/landingChargesAnspStrWithCurrencySymbol},{parkingCharges;STRING;/parkingCharges},{parkingChargesStr;STRING;/parkingChargesStr},{parkingChargesStrWithCurrencySymbol;STRING;/parkingChargesStrWithCurrencySymbol},{passengerCharges;STRING;/passengerCharges},{passengerChargesStr;STRING;/passengerChargesStr},{passengerChargesStrWithCurrencySymbol;STRING;/passengerChargesStrWithCurrencySymbol},{lateDepartureArrivalCharges;STRING;/lateDepartureArrivalCharges},{lateDepartureArrivalChargesStr;STRING;/lateDepartureArrivalChargesStr},{lateDepartureArrivalChargesStrWithCurrencySymbol;STRING;/lateDepartureArrivalChargesStrWithCurrencySymbol},{distanceUnitOfMeasure;STRING;/distanceUnitOfMeasure},{mtowUnitOfMeasure;STRING;/mtowUnitOfMeasure},{passengerChargesEnabled;STRING;/passengerChargesEnabled},{taspChargesEnabled;STRING;/taspChargesEnabled},{taspChargesAnsp;STRING;/taspChargesAnsp},{taspChargesAnspStr;STRING;/taspChargesAnspStr},{parkingChargesAnsp;STRING;/parkingChargesAnsp},{parkingChargesAnspStr;STRING;/parkingChargesAnspStr},{passengerChargesAnsp;STRING;/passengerChargesAnsp},{passengerChargesAnspStr;STRING;/passengerChargesAnspStr},{lateDepartureArrivalChargesAnsp;STRING;/lateDepartureArrivalChargesAnsp},{lateDepartureArrivalChargesAnspStr;STRING;/lateDepartureArrivalChargesAnspStr},{totalAmountAnsp;STRING;/totalAmountAnsp},{totalAmountAnspStr;STRING;/totalAmountAnspStr},{billingEmail;STRING;/billingEmail},{invoiceCurrencyInWords;STRING;/invoiceCurrencyInWords},{totalOutstandingAmount;STRING;/totalOutstandingAmount},{exchageRate;STRING;/exchageRate},{equivalentAmount;STRING;/equivalentAmount},{totalFlightsWithEnrouteCharges;STRING;/totalFlightsWithEnrouteCharges},{totalFlightsWithLandingCharges;STRING;/totalFlightsWithLandingCharges},{totalFlightsWithPassengerCharges;STRING;/totalFlightsWithPassengerCharges},{totalFlightsWithTaspCharges;STRING;/totalFlightsWithTaspCharges},{totalFlightsWithLateDepartureArrivalCharges;STRING;/totalFlightsWithLateDepartureArrivalCharges},{invoiceBillingPeriod;STRING;/invoiceBillingPeriod},{invoiceDueDateStr;STRING;/invoiceDueDateStr},{totalPenalty;STRING;/totalPenalty},{includePassengerCharges;STRING;/includePassengerCharges},{includeTaspCharges;STRING;/includeTaspCharges},{totalAmountUsd;STRING;/totalAmountUsd},{totalAmountUsdStr;STRING;/totalAmountUsdStr},{exchageRateUsd;STRING;/exchageRateUsd},{invoiceCurrencyUsdCode;STRING;/invoiceCurrencyUsdCode},{amountDueUsd;STRING;/amountDueUsd},{amountDueUsdStr;STRING;/amountDueUsdStr},{taspFeeLabel;STRING;/taspFeeLabel},{totalAmountStrInWords;STRING;/totalAmountStrInWords},{totalAmountStrInWordsSpanish;STRING;/totalAmountStrInWordsSpanish},{totalAmountStrInWordsWithCurrencySymbol;STRING;/totalAmountStrInWordsWithCurrencySymbol},{totalAmountStrInWordsWithCurrencySymbolSpanish;STRING;/totalAmountStrInWordsWithCurrencySymbolSpanish},{amountDueStrInWords;STRING;/amountDueStrInWords},{amountDueStrInWordsSpanish;STRING;/amountDueStrInWordsSpanish},{amountDueStrInWordsWithCurrencySymbol;STRING;/amountDueStrInWordsWithCurrencySymbol},{amountDueStrInWordsWithCurrencySymbolSpanish;STRING;/amountDueStrInWordsWithCurrencySymbolSpanish},{extendedHoursSurchargeEnabled;STRING;/extendedHoursSurchargeEnabled},{extendedHoursSurchargeStr;STRING;/extendedHoursSurchargeStr},{totalFlightsWithExtendedHoursCharges;STRING;/totalFlightsWithExtendedHoursCharges},{invoiceBillingPeriodSpanish;STRING;/invoiceBillingPeriodSpanish}      ,{totalFlightsWithExemptions;STRING;/totalFlightsWithExemptions},{totalExemptionsValue;STRING;/totalExemptionsValue},{exemptionsChargesStr;STRING;/exemptionsChargesStr}#:#<"xsi","http:%%www.w3.org%2001%XMLSchema-instance">]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
   <Version>2.0</Version>
@@ -2011,9 +2011,9 @@
                     <text-property name="heading">enrouteCharges</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">enrouteChargesStr</property>
+                    <property name="columnName">enrouteChargesNoExemptionsStr</property>
                     <property name="analysis">dimension</property>
-                    <text-property name="heading">enrouteChargesStr</text-property>
+                    <text-property name="heading">enrouteChargesNoExemptionsStr</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">taspCharges</property>
@@ -2021,9 +2021,9 @@
                     <text-property name="heading">taspCharges</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">taspChargesStr</property>
+                    <property name="columnName">taspChargesNoExemptionsStr</property>
                     <property name="analysis">dimension</property>
-                    <text-property name="heading">taspChargesStr</text-property>
+                    <text-property name="heading">taspChargesNoExemptionsStr</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">landingCharges</property>
@@ -2031,9 +2031,9 @@
                     <text-property name="heading">landingCharges</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">landingChargesStr</property>
+                    <property name="columnName">landingChargesNoExemptionsStr</property>
                     <property name="analysis">dimension</property>
-                    <text-property name="heading">landingChargesStr</text-property>
+                    <text-property name="heading">landingChargesNoExemptionsStr</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">parkingCharges</property>
@@ -2288,6 +2288,11 @@
                     <property name="analysis">dimension</property>
                     <text-property name="heading">totalExemptionsValue</text-property>
                 </structure>
+                <structure>
+                    <property name="columnName">exemptPercentageStr</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="heading">exemptPercentageStr</text-property>
+                </structure>
             </list-property>
             <list-property name="parameters"/>
             <structure name="cachedMetaData">
@@ -2379,7 +2384,7 @@
                     </structure>
                     <structure>
                         <property name="position">18</property>
-                        <property name="name">enrouteChargesStr</property>
+                        <property name="name">enrouteChargesNoExemptionsStr</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -2389,7 +2394,7 @@
                     </structure>
                     <structure>
                         <property name="position">20</property>
-                        <property name="name">taspChargesStr</property>
+                        <property name="name">taspChargesNoExemptionsStr</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -2399,7 +2404,7 @@
                     </structure>
                     <structure>
                         <property name="position">22</property>
-                        <property name="name">landingChargesStr</property>
+                        <property name="name">landingChargesNoExemptionsStr</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -2657,6 +2662,11 @@
                         <property name="name">totalExemptionsValue</property>
                         <property name="dataType">string</property>
                     </structure>
+                    <structure>
+                        <property name="position">74</property>
+                        <property name="name">exemptPercentageStr</property>
+                        <property name="dataType">string</property>
+                    </structure>
                 </list-property>
             </structure>
             <property name="dataSource">xml</property>
@@ -2782,8 +2792,8 @@
                 </structure>
                 <structure>
                     <property name="position">18</property>
-                    <property name="name">enrouteChargesStr</property>
-                    <property name="nativeName">enrouteChargesStr</property>
+                    <property name="name">enrouteChargesNoExemptionsStr</property>
+                    <property name="nativeName">enrouteChargesNoExemptionsStr</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
@@ -2796,8 +2806,8 @@
                 </structure>
                 <structure>
                     <property name="position">20</property>
-                    <property name="name">taspChargesStr</property>
-                    <property name="nativeName">taspChargesStr</property>
+                    <property name="name">taspChargesNoExemptionsStr</property>
+                    <property name="nativeName">taspChargesNoExemptionsStr</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
@@ -2810,8 +2820,8 @@
                 </structure>
                 <structure>
                     <property name="position">22</property>
-                    <property name="name">landingChargesStr</property>
-                    <property name="nativeName">landingChargesStr</property>
+                    <property name="name">landingChargesNoExemptionsStr</property>
+                    <property name="nativeName">landingChargesNoExemptionsStr</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
@@ -3172,8 +3182,15 @@
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
+                <structure>
+                    <property name="position">74</property>
+                    <property name="name">exemptPercentageStr</property>
+                    <property name="nativeName">exemptPercentageStr</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
             </list-property>
-            <xml-property name="queryText"><![CDATA[table0#-TNAME-#table0#:#[/generalAviationInvoice/flightInfoList/flightInfo]#:#{flightMovementId;INT;/flightMovementId},{flightDateStr;STRING;/flightDateStr},{regNum;STRING;/regNum},{aircraftType;STRING;/aircraftType},{mtow;BIGDECIMAL;/mtow},{entryPoint;STRING;/entryPoint},{exitPoint;STRING;/exitPoint},{crossDist;BIGDECIMAL;/crossDist},{departureLocation;STRING;/departureLocation},{departureTimeStr;STRING;/departureTimeStr},{actualDepartureTimeStr;STRING;/actualDepartureTimeStr},{arrivalLocation;STRING;/arrivalLocation},{arrivalTimeStr;STRING;/arrivalTimeStr},{departurePassengerCount;INT;/departurePassengerCount},{arrivalPassengerCount;INT;/arrivalPassengerCount},{transitPassengerCount;INT;/transitPassengerCount},{enrouteCharges;BIGDECIMAL;/enrouteCharges},{enrouteChargesStr;STRING;/enrouteChargesStr},{taspCharges;BIGDECIMAL;/taspCharges},{taspChargesStr;STRING;/taspChargesStr},{landingCharges;BIGDECIMAL;/landingCharges},{landingChargesStr;STRING;/landingChargesStr},{parkingCharges;BIGDECIMAL;/parkingCharges},{parkingChargesStr;STRING;/parkingChargesStr},{passengerCharges;BIGDECIMAL;/passengerCharges},{passengerChargesStr;STRING;/passengerChargesStr},{totalCharges;BIGDECIMAL;/totalCharges},{totalChargesStr;STRING;/totalChargesStr},{crossDistStr;STRING;/crossDistStr},{mtowStr;STRING;/mtowStr},{enrouteChargesStrWithCurrencySymbol;STRING;/enrouteChargesStrWithCurrencySymbol},{taspChargesStrWithCurrencySymbol;STRING;/taspChargesStrWithCurrencySymbol},{landingChargesStrWithCurrencySymbol;STRING;/landingChargesStrWithCurrencySymbol},{parkingChargesStrWithCurrencySymbol;STRING;/parkingChargesStrWithCurrencySymbol},{passengerChargesStrWithCurrencySymbol;STRING;/passengerChargesStrWithCurrencySymbol},{totalChargesStrWithCurrencySymbol;STRING;/totalChargesStrWithCurrencySymbol},{flightEntryDateStr;STRING;/flightEntryDateStr},{flightExitDateStr;STRING;/flightExitDateStr},{infantPassengerCount;STRING;/infantPassengerCount},{taspTypeScheduled;BOOLEAN;/taspTypeScheduled},{taspTypeNonScheduled;BOOLEAN;/taspTypeNonScheduled},{taspTypeMilitary;BOOLEAN;/taspTypeMilitary},{taspTypePrivate;BOOLEAN;/taspTypePrivate},{mtowKg;BIGDECIMAL;/mtowKg},{mtowKgStr;STRING;/mtowKgStr},{billingDateStr;STRING;/billingDateStr},{billingEntryDateStr;STRING;/billingEntryDateStr},{billingExitDateStr;STRING;/billingExitDateStr},{mtowUnitOfMeasure;STRING;/mtowUnitOfMeasure},{distanceUnitOfMeasure;STRING;/distanceUnitOfMeasure},{passengerChargesEnabled;BOOLEAN;../../global/passengerChargesEnabled},{taspChargesEnabled;BOOLEAN;../../global/taspChargesEnabled},{invoiceCurrencyCode;STRING;../../global/invoiceCurrencyCode},{enrouteChargesAnsp;STRING;/enrouteChargesAnsp},{enrouteChargesAnspStr;STRING;/enrouteChargesAnspStr},{landingChargesAnsp;STRING;/landingChargesAnsp},{landingChargesAnspStr;STRING;/landingChargesAnspStr},{landingChargesAnspStrWithCurrencySymbol;STRING;/landingChargesAnspStrWithCurrencySymbol},{taspChargesAnsp;STRING;/taspChargesAnsp},{taspChargesAnspStr;STRING;/taspChargesAnspStr},{passengerChargesAnsp;STRING;/passengerChargesAnsp},{passengerChargesAnspStr;STRING;/passengerChargesAnspStr},{flightId;STRING;/flightId},{flightType;STRING;/flightType},{includePassengerCharges;STRING;../../global/includePassengerCharges},{includeTaspCharges;STRING;../../global/includeTaspCharges},{taspFeeLabel;STRING;../../global/taspFeeLabel},{lateDepartureArrivalCharges;BIGDECIMAL;/lateDepartureArrivalCharges},{lateDepartureArrivalChargesStr;STRING;/lateDepartureArrivalChargesStr},{lateDepartureArrivalChargesStrWithCurrencySymbol;STRING;/lateDepartureArrivalChargesStrWithCurrencySymbol},{crossingDistanceToMinimum;BIGDECIMAL;/crossingDistanceToMinimum},{extendedHoursSurchargeStr;STRING;/extendedHoursSurchargeStr},{totalExemptionsValue;STRING;/totalExemptionsValue}#:#<"xsi","http:%%www.w3.org%2001%XMLSchema-instance">]]></xml-property>
+            <xml-property name="queryText"><![CDATA[table0#-TNAME-#table0#:#[/generalAviationInvoice/flightInfoList/flightInfo]#:#{flightMovementId;INT;/flightMovementId},{flightDateStr;STRING;/flightDateStr},{regNum;STRING;/regNum},{aircraftType;STRING;/aircraftType},{mtow;BIGDECIMAL;/mtow},{entryPoint;STRING;/entryPoint},{exitPoint;STRING;/exitPoint},{crossDist;BIGDECIMAL;/crossDist},{departureLocation;STRING;/departureLocation},{departureTimeStr;STRING;/departureTimeStr},{actualDepartureTimeStr;STRING;/actualDepartureTimeStr},{arrivalLocation;STRING;/arrivalLocation},{arrivalTimeStr;STRING;/arrivalTimeStr},{departurePassengerCount;INT;/departurePassengerCount},{arrivalPassengerCount;INT;/arrivalPassengerCount},{transitPassengerCount;INT;/transitPassengerCount},{enrouteCharges;BIGDECIMAL;/enrouteCharges},{enrouteChargesNoExemptionsStr;STRING;/enrouteChargesNoExemptionsStr},{taspCharges;BIGDECIMAL;/taspCharges},{taspChargesNoExemptionsStr;STRING;/taspChargesNoExemptionsStr},{landingCharges;BIGDECIMAL;/landingCharges},{landingChargesNoExemptionsStr;STRING;/landingChargesNoExemptionsStr},{parkingCharges;BIGDECIMAL;/parkingCharges},{parkingChargesStr;STRING;/parkingChargesStr},{passengerCharges;BIGDECIMAL;/passengerCharges},{passengerChargesStr;STRING;/passengerChargesStr},{totalCharges;BIGDECIMAL;/totalCharges},{totalChargesStr;STRING;/totalChargesStr},{crossDistStr;STRING;/crossDistStr},{mtowStr;STRING;/mtowStr},{enrouteChargesStrWithCurrencySymbol;STRING;/enrouteChargesStrWithCurrencySymbol},{taspChargesStrWithCurrencySymbol;STRING;/taspChargesStrWithCurrencySymbol},{landingChargesStrWithCurrencySymbol;STRING;/landingChargesStrWithCurrencySymbol},{parkingChargesStrWithCurrencySymbol;STRING;/parkingChargesStrWithCurrencySymbol},{passengerChargesStrWithCurrencySymbol;STRING;/passengerChargesStrWithCurrencySymbol},{totalChargesStrWithCurrencySymbol;STRING;/totalChargesStrWithCurrencySymbol},{flightEntryDateStr;STRING;/flightEntryDateStr},{flightExitDateStr;STRING;/flightExitDateStr},{infantPassengerCount;STRING;/infantPassengerCount},{taspTypeScheduled;BOOLEAN;/taspTypeScheduled},{taspTypeNonScheduled;BOOLEAN;/taspTypeNonScheduled},{taspTypeMilitary;BOOLEAN;/taspTypeMilitary},{taspTypePrivate;BOOLEAN;/taspTypePrivate},{mtowKg;BIGDECIMAL;/mtowKg},{mtowKgStr;STRING;/mtowKgStr},{billingDateStr;STRING;/billingDateStr},{billingEntryDateStr;STRING;/billingEntryDateStr},{billingExitDateStr;STRING;/billingExitDateStr},{mtowUnitOfMeasure;STRING;/mtowUnitOfMeasure},{distanceUnitOfMeasure;STRING;/distanceUnitOfMeasure},{passengerChargesEnabled;BOOLEAN;../../global/passengerChargesEnabled},{taspChargesEnabled;BOOLEAN;../../global/taspChargesEnabled},{invoiceCurrencyCode;STRING;../../global/invoiceCurrencyCode},{enrouteChargesAnsp;STRING;/enrouteChargesAnsp},{enrouteChargesAnspStr;STRING;/enrouteChargesAnspStr},{landingChargesAnsp;STRING;/landingChargesAnsp},{landingChargesAnspStr;STRING;/landingChargesAnspStr},{landingChargesAnspStrWithCurrencySymbol;STRING;/landingChargesAnspStrWithCurrencySymbol},{taspChargesAnsp;STRING;/taspChargesAnsp},{taspChargesAnspStr;STRING;/taspChargesAnspStr},{passengerChargesAnsp;STRING;/passengerChargesAnsp},{passengerChargesAnspStr;STRING;/passengerChargesAnspStr},{flightId;STRING;/flightId},{flightType;STRING;/flightType},{includePassengerCharges;STRING;../../global/includePassengerCharges},{includeTaspCharges;STRING;../../global/includeTaspCharges},{taspFeeLabel;STRING;../../global/taspFeeLabel},{lateDepartureArrivalCharges;BIGDECIMAL;/lateDepartureArrivalCharges},{lateDepartureArrivalChargesStr;STRING;/lateDepartureArrivalChargesStr},{lateDepartureArrivalChargesStrWithCurrencySymbol;STRING;/lateDepartureArrivalChargesStrWithCurrencySymbol},{crossingDistanceToMinimum;BIGDECIMAL;/crossingDistanceToMinimum},{extendedHoursSurchargeStr;STRING;/extendedHoursSurchargeStr},{totalExemptionsValue;STRING;/totalExemptionsValue},{exemptPercentageStr;STRING;/exemptPercentageStr}#:#<"xsi","http:%%www.w3.org%2001%XMLSchema-instance">]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
   <Version>2.0</Version>
@@ -3439,7 +3456,7 @@
         <design:resultColumnDefinitions>
           <design:attributes>
             <design:identifier>
-              <design:name>enrouteChargesStr</design:name>
+              <design:name>enrouteChargesNoExemptionsStr</design:name>
               <design:position>17</design:position>
             </design:identifier>
             <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
@@ -3448,7 +3465,7 @@
             <design:nullability>Unknown</design:nullability>
           </design:attributes>
           <design:usageHints>
-            <design:label>enrouteChargesStr</design:label>
+            <design:label>enrouteChargesNoExemptionsStr</design:label>
             <design:formattingHints/>
           </design:usageHints>
         </design:resultColumnDefinitions>
@@ -3471,7 +3488,7 @@
         <design:resultColumnDefinitions>
           <design:attributes>
             <design:identifier>
-              <design:name>taspChargesStr</design:name>
+              <design:name>taspChargesNoExemptionsStr</design:name>
               <design:position>19</design:position>
             </design:identifier>
             <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
@@ -3480,7 +3497,7 @@
             <design:nullability>Unknown</design:nullability>
           </design:attributes>
           <design:usageHints>
-            <design:label>taspChargesStr</design:label>
+            <design:label>taspChargesNoExemptionsStr</design:label>
             <design:formattingHints/>
           </design:usageHints>
         </design:resultColumnDefinitions>
@@ -3503,7 +3520,7 @@
         <design:resultColumnDefinitions>
           <design:attributes>
             <design:identifier>
-              <design:name>landingChargesStr</design:name>
+              <design:name>landingChargesNoExemptionsStr</design:name>
               <design:position>21</design:position>
             </design:identifier>
             <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
@@ -3512,7 +3529,7 @@
             <design:nullability>Unknown</design:nullability>
           </design:attributes>
           <design:usageHints>
-            <design:label>landingChargesStr</design:label>
+            <design:label>landingChargesNoExemptionsStr</design:label>
             <design:formattingHints/>
           </design:usageHints>
         </design:resultColumnDefinitions>
@@ -5651,15 +5668,15 @@ Website: www.eana.com.ar]]></text-property>
                     <property name="allowExport">true</property>
                 </structure>
                 <structure>
-                    <property name="name">enrouteChargesStr</property>
-                    <text-property name="displayName">enrouteChargesStr</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["enrouteChargesStr"]</expression>
+                    <property name="name">enrouteChargesNoExemptionsStr</property>
+                    <text-property name="displayName">enrouteChargesNoExemptionsStr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["enrouteChargesNoExemptionsStr"]</expression>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="name">landingChargesStr</property>
-                    <text-property name="displayName">landingChargesStr</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["landingChargesStr"]</expression>
+                    <property name="name">landingChargesNoExemptionsStr</property>
+                    <text-property name="displayName">landingChargesNoExemptionsStr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["landingChargesNoExemptionsStr"]</expression>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
@@ -5735,9 +5752,9 @@ num.toString();</expression>
                     <property name="allowExport">true</property>
                 </structure>
                 <structure>
-                    <property name="name">taspChargesStr</property>
-                    <text-property name="displayName">taspChargesStr</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["taspChargesStr"]</expression>
+                    <property name="name">taspChargesNoExemptionsStr</property>
+                    <text-property name="displayName">taspChargesNoExemptionsStr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["taspChargesNoExemptionsStr"]</expression>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
@@ -6319,7 +6336,7 @@ num.toString();</expression>
                             <property name="showIfBlank">false</property>
                             <property name="canShrink">false</property>
                             <property name="overflow">hidden</property>
-                            <property name="resultSetColumn">landingChargesStr</property>
+                            <property name="resultSetColumn">landingChargesNoExemptionsStr</property>
                         </data>
                     </cell>
                 </row>
@@ -6571,7 +6588,7 @@ num.toString();</expression>
                             <property name="showIfBlank">false</property>
                             <property name="canShrink">false</property>
                             <property name="overflow">hidden</property>
-                            <property name="resultSetColumn">enrouteChargesStr</property>
+                            <property name="resultSetColumn">enrouteChargesNoExemptionsStr</property>
                         </data>
                     </cell>
                 </row>
@@ -7084,7 +7101,7 @@ num.toString();</expression>
                             <property name="showIfBlank">false</property>
                             <property name="canShrink">false</property>
                             <property name="overflow">hidden</property>
-                            <property name="resultSetColumn">taspChargesStr</property>
+                            <property name="resultSetColumn">taspChargesNoExemptionsStr</property>
                         </data>
                     </cell>
                 </row>
@@ -9044,9 +9061,9 @@ USD/ARS]]></text-property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="name">enrouteChargesStr</property>
-                    <text-property name="displayName">enrouteChargesStr</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["enrouteChargesStr"]</expression>
+                    <property name="name">enrouteChargesNoExemptionsStr</property>
+                    <text-property name="displayName">enrouteChargesNoExemptionsStr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["enrouteChargesNoExemptionsStr"]</expression>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
@@ -9068,9 +9085,9 @@ USD/ARS]]></text-property>
                     <property name="allowExport">true</property>
                 </structure>
                 <structure>
-                    <property name="name">landingChargesStr</property>
-                    <text-property name="displayName">landingChargesStr</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["landingChargesStr"]</expression>
+                    <property name="name">landingChargesNoExemptionsStr</property>
+                    <text-property name="displayName">landingChargesNoExemptionsStr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["landingChargesNoExemptionsStr"]</expression>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
@@ -9128,7 +9145,7 @@ USD/ARS]]></text-property>
                     <list-property name="arguments">
                         <structure>
                             <property name="name">Expression</property>
-                            <expression name="value" type="javascript">row["landingChargesStr"]</expression>
+                            <expression name="value" type="javascript">row["landingChargesNoExemptionsStr"]</expression>
                         </structure>
                     </list-property>
                     <property name="allowExport">true</property>
@@ -9140,7 +9157,7 @@ USD/ARS]]></text-property>
                     <list-property name="arguments">
                         <structure>
                             <property name="name">Expression</property>
-                            <expression name="value" type="javascript">row["enrouteChargesStr"]</expression>
+                            <expression name="value" type="javascript">row["enrouteChargesNoExemptionsStr"]</expression>
                         </structure>
                     </list-property>
                     <property name="allowExport">true</property>
@@ -9152,7 +9169,7 @@ USD/ARS]]></text-property>
                     <list-property name="arguments">
                         <structure>
                             <property name="name">Expression</property>
-                            <expression name="value" type="javascript">row["enrouteChargesStr"]</expression>
+                            <expression name="value" type="javascript">row["enrouteChargesNoExemptionsStr"]</expression>
                         </structure>
                     </list-property>
                     <property name="allowExport">true</property>
@@ -9165,9 +9182,9 @@ USD/ARS]]></text-property>
                     <property name="allowExport">true</property>
                 </structure>
                 <structure>
-                    <property name="name">taspChargesStr</property>
-                    <text-property name="displayName">taspChargesStr</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["taspChargesStr"]</expression>
+                    <property name="name">taspChargesNoExemptionsStr</property>
+                    <text-property name="displayName">taspChargesNoExemptionsStr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["taspChargesNoExemptionsStr"]</expression>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
@@ -9285,7 +9302,7 @@ USD/ARS]]></text-property>
                     <list-property name="arguments">
                         <structure>
                             <property name="name">Expression</property>
-                            <expression name="value" type="javascript">row["taspChargesStr"]</expression>
+                            <expression name="value" type="javascript">row["taspChargesNoExemptionsStr"]</expression>
                         </structure>
                     </list-property>
                     <property name="allowExport">true</property>
@@ -9321,6 +9338,13 @@ USD/ARS]]></text-property>
                     <text-property name="displayName">totalExemptionsValue</text-property>
                     <expression name="expression" type="javascript">dataSetRow["totalExemptionsValue"]</expression>
                     <property name="dataType">integer</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">exemptPercentageStr</property>
+                    <text-property name="displayName">exemptPercentageStr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["exemptPercentageStr"]</expression>
+                    <property name="dataType">string</property>
                     <property name="allowExport">true</property>
                 </structure>
             </list-property>
@@ -11513,7 +11537,7 @@ USD/ARS]]></text-property>
                             <property name="showIfBlank">false</property>
                             <property name="canShrink">false</property>
                             <property name="overflow">hidden</property>
-                            <property name="resultSetColumn">enrouteChargesStr</property>
+                            <property name="resultSetColumn">enrouteChargesNoExemptionsStr</property>
                         </data>
                     </cell>
                     <cell id="1611">
@@ -11573,7 +11597,7 @@ USD/ARS]]></text-property>
                             <property name="showIfBlank">false</property>
                             <property name="canShrink">false</property>
                             <property name="overflow">hidden</property>
-                            <property name="resultSetColumn">landingChargesStr</property>
+                            <property name="resultSetColumn">landingChargesNoExemptionsStr</property>
                         </data>
                     </cell>
                     <cell id="1954">
@@ -11634,7 +11658,7 @@ USD/ARS]]></text-property>
                             <property name="showIfBlank">false</property>
                             <property name="canShrink">false</property>
                             <property name="overflow">hidden</property>
-                            <property name="resultSetColumn">taspChargesStr</property>
+                            <property name="resultSetColumn">taspChargesNoExemptionsStr</property>
                         </data>
                     </cell>
                     <cell id="1825">
@@ -11767,9 +11791,9 @@ USD/ARS]]></text-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <data id="3286">
+                        <data id="3287">
                             <property name="fontFamily">"Tahoma"</property>
-                            <property name="resultSetColumn">totalExemptionsValue</property>
+                            <property name="resultSetColumn">exemptPercentageStr</property>
                         </data>
                     </cell>
                 </row>
@@ -12045,7 +12069,7 @@ USD/ARS]]></text-property>
                                 <structure>
                                     <property name="name">Column Binding</property>
                                     <text-property name="displayName">TotalEnrouteCharges</text-property>
-                                    <expression name="expression" type="javascript">dataSetRow["enrouteChargesStr"]</expression>
+                                    <expression name="expression" type="javascript">dataSetRow["enrouteChargesNoExemptionsStr"]</expression>
                                     <property name="dataType">string</property>
                                     <property name="allowExport">true</property>
                                 </structure>
@@ -12120,7 +12144,7 @@ USD/ARS]]></text-property>
                                 <structure>
                                     <property name="name">Column Binding</property>
                                     <text-property name="displayName">TotalLandingCharges</text-property>
-                                    <expression name="expression" type="javascript">dataSetRow["landingChargesStr"]</expression>
+                                    <expression name="expression" type="javascript">dataSetRow["landingChargesNoExemptionsStr"]</expression>
                                     <property name="dataType">string</property>
                                     <property name="allowExport">true</property>
                                 </structure>

@@ -507,14 +507,14 @@
                     <text-property name="heading">unifiedTaxAircraftTotalNumber</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">unifiedTaxTotalDiscountChargesStr</property>
+                    <property name="columnName">unifiedTaxTotalExemptionsStr</property>
                     <property name="analysis">dimension</property>
-                    <text-property name="heading">unifiedTaxTotalDiscountChargesStr</text-property>
+                    <text-property name="heading">unifiedTaxTotalExemptionsStr</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">unifiedTaxDiscountAircraftTotalNumber</property>
+                    <property name="columnName">unifiedTaxExemptAircraftTotalNumber</property>
                     <property name="analysis">dimension</property>
-                    <text-property name="heading">unifiedTaxDiscountAircraftTotalNumber</text-property>
+                    <text-property name="heading">unifiedTaxExemptAircraftTotalNumber</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">invoiceDateOfIssueStr</property>
@@ -522,14 +522,14 @@
                     <text-property name="heading">invoiceDateOfIssueStr</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">totalFlightsWithExemptions</property>
+                    <property name="columnName">unifiedTaxDiscountAircraftTotalNumber</property>
                     <property name="analysis">dimension</property>
-                    <text-property name="heading">totalFlightsWithExemptions</text-property>
+                    <text-property name="heading">unifiedTaxDiscountAircraftTotalNumber</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">totalExemptionsValue</property>
+                    <property name="columnName">unifiedTaxTotalDiscountChargesStr</property>
                     <property name="analysis">dimension</property>
-                    <text-property name="heading">totalExemptionsValue</text-property>
+                    <text-property name="heading">unifiedTaxTotalDiscountChargesStr</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">exemptionsChargesStr</property>
@@ -1032,12 +1032,12 @@
                     </structure>
                     <structure>
                         <property name="position">99</property>
-                        <property name="name">unifiedTaxDiscountAircraftTotalNumber</property>
+                        <property name="name">unifiedTaxExemptAircraftTotalNumber</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
                         <property name="position">100</property>
-                        <property name="name">unifiedTaxTotalDiscountChargesStr</property>
+                        <property name="name">unifiedTaxTotalExemptionsStr</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -1047,12 +1047,12 @@
                     </structure>
                     <structure>
                         <property name="position">102</property>
-                        <property name="name">totalFlightsWithExemptions</property>
+                        <property name="name">unifiedTaxDiscountAircraftTotalNumber</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">103</property>
-                        <property name="name">totalExemptionsValue</property>
+                        <property name="name">unifiedTaxTotalDiscountChargesStr</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -1752,15 +1752,15 @@
                 </structure>
                 <structure>
                     <property name="position">99</property>
-                    <property name="name">unifiedTaxDiscountAircraftTotalNumber</property>
-                    <property name="nativeName">unifiedTaxDiscountAircraftTotalNumber</property>
+                    <property name="name">unifiedTaxExemptAircraftTotalNumber</property>
+                    <property name="nativeName">unifiedTaxExemptAircraftTotalNumber</property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
                     <property name="position">100</property>
-                    <property name="name">unifiedTaxTotalDiscountChargesStr</property>
-                    <property name="nativeName">unifiedTaxTotalDiscountChargesStr</property>
+                    <property name="name">unifiedTaxTotalExemptionsStr</property>
+                    <property name="nativeName">unifiedTaxTotalExemptionsStr</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
@@ -1773,15 +1773,15 @@
                 </structure>
                 <structure>
                     <property name="position">102</property>
-                    <property name="name">totalFlightsWithExemptions</property>
-                    <property name="nativeName">totalFlightsWithExemptions</property>
+                    <property name="name">unifiedTaxDiscountAircraftTotalNumber</property>
+                    <property name="nativeName">unifiedTaxDiscountAircraftTotalNumber</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
                     <property name="position">103</property>
-                    <property name="name">totalExemptionsValue</property>
-                    <property name="nativeName">totalExemptionsValue</property>
+                    <property name="name">unifiedTaxTotalDiscountChargesStr</property>
+                    <property name="nativeName">unifiedTaxTotalDiscountChargesStr</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
@@ -1793,7 +1793,7 @@
                     <property name="nativeDataType">12</property>
                 </structure>
             </list-property>
-            <xml-property name="queryText"><![CDATA[table0#-TNAME-#table0#:#[/generalAviationInvoice/global]#:#{realInvoiceNumber;STRING;/realInvoiceNumber},{invoiceNumber;STRING;/invoiceNumber},{invoiceName;STRING;/invoiceName},{invoiceIssueLocation;STRING;/invoiceIssueLocation},{invoiceDateStr;STRING;/invoiceDateStr},{accountId;STRING;/accountId},{accountName;STRING;/accountName},{fromName;STRING;/fromName},{fromPosition;STRING;/fromPosition},{billingName;STRING;/billingName},{billingAddress;STRING;/billingAddress},{billingContactTel;STRING;/billingContactTel},{totalAmount;STRING;/totalAmount},{totalAmountStr;STRING;/totalAmountStr},{totalAmountStrWithCurrencySymbol;STRING;/totalAmountStrWithCurrencySymbol},{amountDue;STRING;/amountDue},{amountDueStr;STRING;/amountDueStr},{amountDueAnsp;STRING;/amountDueAnsp},{amountDueAnspStr;STRING;/amountDueAnspStr},{amountDueStrWithCurrencySymbol;STRING;/amountDueStrWithCurrencySymbol},{creditAmount;STRING;/creditAmount},{creditAmountStr;STRING;/creditAmountStr},{creditAmountStrWithCurrencySymbol;STRING;/creditAmountStrWithCurrencySymbol},{invoiceCurrencyCode;STRING;/invoiceCurrencyCode},{invoiceCurrencyAnspCode;STRING;/invoiceCurrencyAnspCode},{enrouteCharges;STRING;/enrouteCharges},{enrouteChargesStr;STRING;/enrouteChargesStr},{enrouteChargesStrWithCurrencySymbol;STRING;/enrouteChargesStrWithCurrencySymbol},{enrouteChargesAnsp;STRING;/enrouteChargesAnsp},{enrouteChargesAnspStr;STRING;/enrouteChargesAnspStr},{enrouteChargesAnspStrWithCurrencySymbol;STRING;/enrouteChargesAnspStrWithCurrencySymbol},{taspCharges;STRING;/taspCharges},{taspChargesStr;STRING;/taspChargesStr},{taspChargesStrWithCurrencySymbol;STRING;/taspChargesStrWithCurrencySymbol},{landingCharges;STRING;/landingCharges},{landingChargesStr;STRING;/landingChargesStr},{landingChargesStrWithCurrencySymbol;STRING;/landingChargesStrWithCurrencySymbol},{landingChargesAnsp;STRING;/landingChargesAnsp},{landingChargesAnspStr;STRING;/landingChargesAnspStr},{landingChargesAnspStrWithCurrencySymbol;STRING;/landingChargesAnspStrWithCurrencySymbol},{parkingCharges;STRING;/parkingCharges},{parkingChargesStr;STRING;/parkingChargesStr},{parkingChargesStrWithCurrencySymbol;STRING;/parkingChargesStrWithCurrencySymbol},{passengerCharges;STRING;/passengerCharges},{passengerChargesStr;STRING;/passengerChargesStr},{passengerChargesStrWithCurrencySymbol;STRING;/passengerChargesStrWithCurrencySymbol},{lateDepartureArrivalCharges;STRING;/lateDepartureArrivalCharges},{lateDepartureArrivalChargesStr;STRING;/lateDepartureArrivalChargesStr},{lateDepartureArrivalChargesStrWithCurrencySymbol;STRING;/lateDepartureArrivalChargesStrWithCurrencySymbol},{distanceUnitOfMeasure;STRING;/distanceUnitOfMeasure},{mtowUnitOfMeasure;STRING;/mtowUnitOfMeasure},{passengerChargesEnabled;STRING;/passengerChargesEnabled},{taspChargesEnabled;STRING;/taspChargesEnabled},{taspChargesAnsp;STRING;/taspChargesAnsp},{taspChargesAnspStr;STRING;/taspChargesAnspStr},{parkingChargesAnsp;STRING;/parkingChargesAnsp},{parkingChargesAnspStr;STRING;/parkingChargesAnspStr},{passengerChargesAnsp;STRING;/passengerChargesAnsp},{passengerChargesAnspStr;STRING;/passengerChargesAnspStr},{lateDepartureArrivalChargesAnsp;STRING;/lateDepartureArrivalChargesAnsp},{lateDepartureArrivalChargesAnspStr;STRING;/lateDepartureArrivalChargesAnspStr},{totalAmountAnsp;STRING;/totalAmountAnsp},{totalAmountAnspStr;STRING;/totalAmountAnspStr},{billingEmail;STRING;/billingEmail},{invoiceCurrencyInWords;STRING;/invoiceCurrencyInWords},{totalOutstandingAmount;STRING;/totalOutstandingAmount},{exchageRate;STRING;/exchageRate},{equivalentAmount;STRING;/equivalentAmount},{totalFlightsWithEnrouteCharges;STRING;/totalFlightsWithEnrouteCharges},{totalFlightsWithLandingCharges;STRING;/totalFlightsWithLandingCharges},{totalFlightsWithPassengerCharges;STRING;/totalFlightsWithPassengerCharges},{totalFlightsWithTaspCharges;STRING;/totalFlightsWithTaspCharges},{totalFlightsWithLateDepartureArrivalCharges;STRING;/totalFlightsWithLateDepartureArrivalCharges},{invoiceBillingPeriod;STRING;/invoiceBillingPeriod},{invoiceDueDateStr;STRING;/invoiceDueDateStr},{totalPenalty;STRING;/totalPenalty},{includePassengerCharges;STRING;/includePassengerCharges},{includeTaspCharges;STRING;/includeTaspCharges},{totalAmountUsd;STRING;/totalAmountUsd},{totalAmountUsdStr;STRING;/totalAmountUsdStr},{exchageRateUsd;STRING;/exchageRateUsd},{invoiceCurrencyUsdCode;STRING;/invoiceCurrencyUsdCode},{amountDueUsd;STRING;/amountDueUsd},{amountDueUsdStr;STRING;/amountDueUsdStr},{taspFeeLabel;STRING;/taspFeeLabel},{totalAmountStrInWords;STRING;/totalAmountStrInWords},{totalAmountStrInWordsSpanish;STRING;/totalAmountStrInWordsSpanish},{totalAmountStrInWordsWithCurrencySymbol;STRING;/totalAmountStrInWordsWithCurrencySymbol},{totalAmountStrInWordsWithCurrencySymbolSpanish;STRING;/totalAmountStrInWordsWithCurrencySymbolSpanish},{amountDueStrInWords;STRING;/amountDueStrInWords},{amountDueStrInWordsSpanish;STRING;/amountDueStrInWordsSpanish},{amountDueStrInWordsWithCurrencySymbol;STRING;/amountDueStrInWordsWithCurrencySymbol},{amountDueStrInWordsWithCurrencySymbolSpanish;STRING;/amountDueStrInWordsWithCurrencySymbolSpanish},{extendedHoursSurchargeEnabled;STRING;/extendedHoursSurchargeEnabled},{extendedHoursSurchargeStr;STRING;/extendedHoursSurchargeStr},{totalFlightsWithExtendedHoursCharges;STRING;/totalFlightsWithExtendedHoursCharges},{unifiedTaxAircraftTotalNumber;STRING;/unifiedTaxAircraftTotalNumber},{unifiedTaxTotalChargesStr;STRING;/unifiedTaxTotalChargesStr},{unifiedTaxDiscountAircraftTotalNumber;STRING;/unifiedTaxDiscountAircraftTotalNumber},{unifiedTaxTotalDiscountChargesStr;STRING;/unifiedTaxTotalDiscountChargesStr},{invoiceDateOfIssueStr;STRING;/invoiceDateOfIssueStr},{totalFlightsWithExemptions;STRING;/totalFlightsWithExemptions},{totalExemptionsValue;STRING;/totalExemptionsValue},{exemptionsChargesStr;STRING;/exemptionsChargesStr}#:#<"xsi","http:%%www.w3.org%2001%XMLSchema-instance">]]></xml-property>
+            <xml-property name="queryText"><![CDATA[table0#-TNAME-#table0#:#[/generalAviationInvoice/global]#:#{realInvoiceNumber;STRING;/realInvoiceNumber},{invoiceNumber;STRING;/invoiceNumber},{invoiceName;STRING;/invoiceName},{invoiceIssueLocation;STRING;/invoiceIssueLocation},{invoiceDateStr;STRING;/invoiceDateStr},{accountId;STRING;/accountId},{accountName;STRING;/accountName},{fromName;STRING;/fromName},{fromPosition;STRING;/fromPosition},{billingName;STRING;/billingName},{billingAddress;STRING;/billingAddress},{billingContactTel;STRING;/billingContactTel},{totalAmount;STRING;/totalAmount},{totalAmountStr;STRING;/totalAmountStr},{totalAmountStrWithCurrencySymbol;STRING;/totalAmountStrWithCurrencySymbol},{amountDue;STRING;/amountDue},{amountDueStr;STRING;/amountDueStr},{amountDueAnsp;STRING;/amountDueAnsp},{amountDueAnspStr;STRING;/amountDueAnspStr},{amountDueStrWithCurrencySymbol;STRING;/amountDueStrWithCurrencySymbol},{creditAmount;STRING;/creditAmount},{creditAmountStr;STRING;/creditAmountStr},{creditAmountStrWithCurrencySymbol;STRING;/creditAmountStrWithCurrencySymbol},{invoiceCurrencyCode;STRING;/invoiceCurrencyCode},{invoiceCurrencyAnspCode;STRING;/invoiceCurrencyAnspCode},{enrouteCharges;STRING;/enrouteCharges},{enrouteChargesStr;STRING;/enrouteChargesStr},{enrouteChargesStrWithCurrencySymbol;STRING;/enrouteChargesStrWithCurrencySymbol},{enrouteChargesAnsp;STRING;/enrouteChargesAnsp},{enrouteChargesAnspStr;STRING;/enrouteChargesAnspStr},{enrouteChargesAnspStrWithCurrencySymbol;STRING;/enrouteChargesAnspStrWithCurrencySymbol},{taspCharges;STRING;/taspCharges},{taspChargesStr;STRING;/taspChargesStr},{taspChargesStrWithCurrencySymbol;STRING;/taspChargesStrWithCurrencySymbol},{landingCharges;STRING;/landingCharges},{landingChargesStr;STRING;/landingChargesStr},{landingChargesStrWithCurrencySymbol;STRING;/landingChargesStrWithCurrencySymbol},{landingChargesAnsp;STRING;/landingChargesAnsp},{landingChargesAnspStr;STRING;/landingChargesAnspStr},{landingChargesAnspStrWithCurrencySymbol;STRING;/landingChargesAnspStrWithCurrencySymbol},{parkingCharges;STRING;/parkingCharges},{parkingChargesStr;STRING;/parkingChargesStr},{parkingChargesStrWithCurrencySymbol;STRING;/parkingChargesStrWithCurrencySymbol},{passengerCharges;STRING;/passengerCharges},{passengerChargesStr;STRING;/passengerChargesStr},{passengerChargesStrWithCurrencySymbol;STRING;/passengerChargesStrWithCurrencySymbol},{lateDepartureArrivalCharges;STRING;/lateDepartureArrivalCharges},{lateDepartureArrivalChargesStr;STRING;/lateDepartureArrivalChargesStr},{lateDepartureArrivalChargesStrWithCurrencySymbol;STRING;/lateDepartureArrivalChargesStrWithCurrencySymbol},{distanceUnitOfMeasure;STRING;/distanceUnitOfMeasure},{mtowUnitOfMeasure;STRING;/mtowUnitOfMeasure},{passengerChargesEnabled;STRING;/passengerChargesEnabled},{taspChargesEnabled;STRING;/taspChargesEnabled},{taspChargesAnsp;STRING;/taspChargesAnsp},{taspChargesAnspStr;STRING;/taspChargesAnspStr},{parkingChargesAnsp;STRING;/parkingChargesAnsp},{parkingChargesAnspStr;STRING;/parkingChargesAnspStr},{passengerChargesAnsp;STRING;/passengerChargesAnsp},{passengerChargesAnspStr;STRING;/passengerChargesAnspStr},{lateDepartureArrivalChargesAnsp;STRING;/lateDepartureArrivalChargesAnsp},{lateDepartureArrivalChargesAnspStr;STRING;/lateDepartureArrivalChargesAnspStr},{totalAmountAnsp;STRING;/totalAmountAnsp},{totalAmountAnspStr;STRING;/totalAmountAnspStr},{billingEmail;STRING;/billingEmail},{invoiceCurrencyInWords;STRING;/invoiceCurrencyInWords},{totalOutstandingAmount;STRING;/totalOutstandingAmount},{exchageRate;STRING;/exchageRate},{equivalentAmount;STRING;/equivalentAmount},{totalFlightsWithEnrouteCharges;STRING;/totalFlightsWithEnrouteCharges},{totalFlightsWithLandingCharges;STRING;/totalFlightsWithLandingCharges},{totalFlightsWithPassengerCharges;STRING;/totalFlightsWithPassengerCharges},{totalFlightsWithTaspCharges;STRING;/totalFlightsWithTaspCharges},{totalFlightsWithLateDepartureArrivalCharges;STRING;/totalFlightsWithLateDepartureArrivalCharges},{invoiceBillingPeriod;STRING;/invoiceBillingPeriod},{invoiceDueDateStr;STRING;/invoiceDueDateStr},{totalPenalty;STRING;/totalPenalty},{includePassengerCharges;STRING;/includePassengerCharges},{includeTaspCharges;STRING;/includeTaspCharges},{totalAmountUsd;STRING;/totalAmountUsd},{totalAmountUsdStr;STRING;/totalAmountUsdStr},{exchageRateUsd;STRING;/exchageRateUsd},{invoiceCurrencyUsdCode;STRING;/invoiceCurrencyUsdCode},{amountDueUsd;STRING;/amountDueUsd},{amountDueUsdStr;STRING;/amountDueUsdStr},{taspFeeLabel;STRING;/taspFeeLabel},{totalAmountStrInWords;STRING;/totalAmountStrInWords},{totalAmountStrInWordsSpanish;STRING;/totalAmountStrInWordsSpanish},{totalAmountStrInWordsWithCurrencySymbol;STRING;/totalAmountStrInWordsWithCurrencySymbol},{totalAmountStrInWordsWithCurrencySymbolSpanish;STRING;/totalAmountStrInWordsWithCurrencySymbolSpanish},{amountDueStrInWords;STRING;/amountDueStrInWords},{amountDueStrInWordsSpanish;STRING;/amountDueStrInWordsSpanish},{amountDueStrInWordsWithCurrencySymbol;STRING;/amountDueStrInWordsWithCurrencySymbol},{amountDueStrInWordsWithCurrencySymbolSpanish;STRING;/amountDueStrInWordsWithCurrencySymbolSpanish},{extendedHoursSurchargeEnabled;STRING;/extendedHoursSurchargeEnabled},{extendedHoursSurchargeStr;STRING;/extendedHoursSurchargeStr},{totalFlightsWithExtendedHoursCharges;STRING;/totalFlightsWithExtendedHoursCharges},{unifiedTaxAircraftTotalNumber;STRING;/unifiedTaxAircraftTotalNumber},{unifiedTaxTotalChargesStr;STRING;/unifiedTaxTotalChargesStr},{unifiedTaxExemptAircraftTotalNumber;STRING;/unifiedTaxExemptAircraftTotalNumber},{unifiedTaxTotalExemptionsStr;STRING;/unifiedTaxTotalExemptionsStr},{invoiceDateOfIssueStr;STRING;/invoiceDateOfIssueStr},{unifiedTaxDiscountAircraftTotalNumber;STRING;/unifiedTaxDiscountAircraftTotalNumber},{unifiedTaxTotalDiscountChargesStr;STRING;/unifiedTaxTotalDiscountChargesStr},{exemptionsChargesStr;STRING;/exemptionsChargesStr}#:#<"xsi","http:%%www.w3.org%2001%XMLSchema-instance">]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
   <Version>2.0</Version>
@@ -5075,30 +5075,30 @@ num.toString();</expression>
                     <property name="allowExport">true</property>
                 </structure>
                 <structure>
+                    <property name="name">unifiedTaxExemptAircraftTotalNumber</property>
+                    <text-property name="displayName">unifiedTaxExemptAircraftTotalNumber</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["unifiedTaxExemptAircraftTotalNumber"]</expression>
+                    <property name="dataType">integer</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">unifiedTaxTotalExemptionsStr</property>
+                    <text-property name="displayName">unifiedTaxTotalExemptionsStr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["unifiedTaxTotalExemptionsStr"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
                     <property name="name">unifiedTaxDiscountAircraftTotalNumber</property>
                     <text-property name="displayName">unifiedTaxDiscountAircraftTotalNumber</text-property>
                     <expression name="expression" type="javascript">dataSetRow["unifiedTaxDiscountAircraftTotalNumber"]</expression>
-                    <property name="dataType">integer</property>
+                    <property name="dataType">string</property>
                     <property name="allowExport">true</property>
                 </structure>
                 <structure>
                     <property name="name">unifiedTaxTotalDiscountChargesStr</property>
                     <text-property name="displayName">unifiedTaxTotalDiscountChargesStr</text-property>
                     <expression name="expression" type="javascript">dataSetRow["unifiedTaxTotalDiscountChargesStr"]</expression>
-                    <property name="dataType">string</property>
-                    <property name="allowExport">true</property>
-                </structure>
-                <structure>
-                    <property name="name">totalFlightsWithExemptions</property>
-                    <text-property name="displayName">totalFlightsWithExemptions</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["totalFlightsWithExemptions"]</expression>
-                    <property name="dataType">string</property>
-                    <property name="allowExport">true</property>
-                </structure>
-                <structure>
-                    <property name="name">totalExemptionsValue</property>
-                    <text-property name="displayName">totalExemptionsValue</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["totalExemptionsValue"]</expression>
                     <property name="dataType">string</property>
                     <property name="allowExport">true</property>
                 </structure>
@@ -5601,7 +5601,7 @@ num.toString();</expression>
                     <list-property name="visibility">
                         <structure>
                             <property name="format">all</property>
-                            <expression name="valueExpr" type="javascript">dataSetRow["unifiedTaxDiscountAircraftTotalNumber"]=0</expression>
+                            <expression name="valueExpr" type="javascript">dataSetRow["unifiedTaxExemptAircraftTotalNumber"]=0</expression>
                         </structure>
                     </list-property>
                     <cell id="3343">
@@ -5642,7 +5642,7 @@ num.toString();</expression>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <data id="3350">
+                        <data id="3391">
                             <property name="fontFamily">"Tahoma"</property>
                             <property name="textAlign">right</property>
                             <property name="resultSetColumn">unifiedTaxDiscountAircraftTotalNumber</property>
@@ -5657,7 +5657,7 @@ num.toString();</expression>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <data id="3351">
+                        <data id="3392">
                             <property name="fontFamily">"Tahoma"</property>
                             <property name="textAlign">right</property>
                             <property name="resultSetColumn">unifiedTaxTotalDiscountChargesStr</property>
@@ -5668,7 +5668,7 @@ num.toString();</expression>
                     <list-property name="visibility">
                         <structure>
                             <property name="format">all</property>
-                            <expression name="valueExpr" type="javascript">dataSetRow["unifiedTaxDiscountAircraftTotalNumber"]=0</expression>
+                            <expression name="valueExpr" type="javascript">dataSetRow["unifiedTaxExemptAircraftTotalNumber"]=0</expression>
                         </structure>
                     </list-property>
                     <cell id="3379">
@@ -5709,10 +5709,10 @@ num.toString();</expression>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <data id="3391">
+                        <data id="3350">
                             <property name="fontFamily">"Tahoma"</property>
                             <property name="textAlign">right</property>
-                            <property name="resultSetColumn">totalFlightsWithExemptions</property>
+                            <property name="resultSetColumn">unifiedTaxExemptAircraftTotalNumber</property>
                         </data>
                     </cell>
                     <cell id="3382">
@@ -5724,10 +5724,10 @@ num.toString();</expression>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <data id="3392">
+                        <data id="3351">
                             <property name="fontFamily">"Tahoma"</property>
                             <property name="textAlign">right</property>
-                            <property name="resultSetColumn">totalExemptionsValue</property>
+                            <property name="resultSetColumn">unifiedTaxTotalExemptionsStr</property>
                         </data>
                     </cell>
                 </row>
@@ -7164,7 +7164,7 @@ USD/ARS]]></text-property>
                     <text-property name="displayName">discountPercentage + discountAmount</text-property>
                     <expression name="expression" type="javascript">var value = dataSetRow["discountPercentageStr"];&#13;
 &#13;
-if(!value){&#13;
+if(value){&#13;
   value+" %"&#13;
 }</expression>
                     <property name="dataType">string</property>
@@ -7196,7 +7196,10 @@ value</expression>
                     <property name="name">exemptUnifiedTaxPercentage</property>
                     <text-property name="displayName">exemptUnifiedTaxPercentage</text-property>
                     <expression name="expression" type="javascript">var value = dataSetRow["exemptUnifiedTaxPercentage"];&#13;
-value</expression>
+&#13;
+if(value){&#13;
+  value+" %"&#13;
+}</expression>
                     <property name="dataType">string</property>
                     <property name="allowExport">true</property>
                 </structure>
@@ -7205,7 +7208,7 @@ value</expression>
                     <text-property name="displayName">exemptNota</text-property>
                     <expression name="expression" type="javascript">var value = dataSetRow["exemptNota"];&#13;
 &#13;
-if(!value){&#13;
+if(value){&#13;
   value&#13;
 }</expression>
                     <property name="dataType">string</property>
