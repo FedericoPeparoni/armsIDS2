@@ -67,10 +67,14 @@ public class ExemptionTypeService {
      * Apply exemptions to the unified tax of the given aircraft registration.
      */
     @Transactional(readOnly = true)
-    public ExemptionChargeMethodResult resolveUnifiedTaxExemptions(AircraftRegistration ar, double unifiedTaxChargeValue, final Currency currency) {
+    public ExemptionChargeMethodResult resolveUnifiedTaxExemptions(
+    		AircraftRegistration ar, 
+            final LocalDateTime startDate,
+            final LocalDateTime endDate,
+    		double unifiedTaxChargeValue, final Currency currency) {
 
         // retrieve all exemption types from all exemption type providers based on provided flight movement
-    	Collection<ExemptionType> exemptions = findUnifiedTaxExemptions(ar);
+    	Collection<ExemptionType> exemptions = findUnifiedTaxExemptions(ar, startDate, endDate);
 
         ExemptionChargeMethodResult result = unifiedTaxExemptionChargeProvider.apply(unifiedTaxChargeValue, currency, exemptions);
         return result;
@@ -104,7 +108,10 @@ public class ExemptionTypeService {
     /**
      * Returns a collection of exemption types that should be applied to the provided aircraft registration.
      */
-    private Collection<ExemptionType> findUnifiedTaxExemptions(final AircraftRegistration aircraftRegistration) {
+    private Collection<ExemptionType> findUnifiedTaxExemptions(
+    		final AircraftRegistration aircraftRegistration,
+            final LocalDateTime startDate,
+            final LocalDateTime endDate) {
         Preconditions.checkArgument(aircraftRegistration != null);
 
         Collection<ExemptionType> exemptionTypes = new ArrayList<>();
@@ -113,7 +120,7 @@ public class ExemptionTypeService {
         for (ExemptionTypeProvider exemptionTypeProvider : exemptionTypeProviders) {
 
             // return collection of exemptions from provider
-            Collection<ExemptionType> exemptionType = exemptionTypeProvider.findApplicableExemptions(aircraftRegistration);
+            Collection<ExemptionType> exemptionType = exemptionTypeProvider.findApplicableExemptions(aircraftRegistration, startDate, endDate);
 
             // only add non-null values to collection
             if (exemptionType != null) {

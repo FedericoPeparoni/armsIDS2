@@ -3,6 +3,7 @@ package ca.ids.abms.modules.exemptions;
 import ca.ids.abms.modules.aircraft.AircraftRegistration;
 import ca.ids.abms.modules.flightmovements.FlightMovement;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -21,7 +22,10 @@ public interface ExemptionTypeProvider {
 	/**
      * Find applicable exemption types from aircraft registratio provided, default is an empty list.
 	 */
-	default Collection<ExemptionType> findApplicableExemptions(final AircraftRegistration aircraftRegistration) {
+	default Collection<ExemptionType> findApplicableExemptions(
+			final AircraftRegistration aircraftRegistration,
+            final LocalDateTime startDate,
+            final LocalDateTime endDate) {
         return Collections.emptyList();		
 	}
 }

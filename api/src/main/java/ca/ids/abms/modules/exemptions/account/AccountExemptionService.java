@@ -17,6 +17,7 @@ import ca.ids.abms.modules.accounts.AccountRepository;
 import ca.ids.abms.modules.aircraft.AircraftRegistration;
 import ca.ids.abms.modules.util.models.ModelUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -79,7 +80,11 @@ public class AccountExemptionService implements ExemptionTypeProvider {
      */
     @Override
     @Transactional(readOnly = true)
-    public Collection<ExemptionType> findApplicableExemptions(AircraftRegistration aircraftRegistration) {
+    public Collection<ExemptionType> findApplicableExemptions(
+    		AircraftRegistration aircraftRegistration,
+            final LocalDateTime startDate,
+            final LocalDateTime endDate) {
+    	
         Preconditions.checkArgument(aircraftRegistration != null);
 
         Collection<ExemptionType> exemptions = new ArrayList<>();

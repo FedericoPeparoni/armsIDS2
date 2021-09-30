@@ -4,6 +4,7 @@ import ca.ids.abms.config.db.FiltersSpecification;
 import ca.ids.abms.config.error.CustomParametrizedException;
 import ca.ids.abms.config.error.ErrorConstants;
 import ca.ids.abms.config.error.ExceptionFactory;
+import ca.ids.abms.modules.aircraft.AircraftRegistration;
 import ca.ids.abms.modules.exemptions.ExemptionType;
 import ca.ids.abms.modules.exemptions.ExemptionTypeProvider;
 import ca.ids.abms.modules.flightmovements.FlightMovement;
@@ -105,6 +106,29 @@ public class AircraftFlightsExemptionService implements ExemptionTypeProvider {
         return exemptions;
     }
 
+    /**
+     * Return applicable AircraftFlightsExemption by provided aircraft registration.
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public Collection<ExemptionType> findApplicableExemptions(
+    		AircraftRegistration aircraftRegistration,
+            final LocalDateTime startDate,
+            final LocalDateTime endDate) {
+    	
+        Preconditions.checkArgument(aircraftRegistration != null);
+
+        Collection<ExemptionType> exemptions = new ArrayList<>();
+        
+
+        if (aircraftRegistration != null && startDate != null && endDate != null) {
+        
+        	exemptions.addAll(aircraftFlightsExemptionRepository.findExemptionsByAircraftRegistrationAndDateRange(
+        		aircraftRegistration.getRegistrationNumber(), startDate, endDate));
+        }
+        return exemptions;
+    }
+    
     public void delete(Integer id) {
         try {
             aircraftFlightsExemptionRepository.delete(id);

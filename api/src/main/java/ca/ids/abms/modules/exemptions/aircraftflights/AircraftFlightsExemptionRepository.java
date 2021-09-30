@@ -45,6 +45,16 @@ public interface AircraftFlightsExemptionRepository extends ABMSRepository<Aircr
                                                                                     final @Param("startDate") LocalDateTime startDate);
 
     @Query(value =
+            "SELECT eaf FROM AircraftFlightsExemption eaf " +
+                "WHERE eaf.aircraftRegistration = :aircraftRegistration " +
+                "AND (eaf.flightId is NULL or eaf.flightId = '') " +
+                "AND eaf.exemptionStartDate <= :startDate " +
+                "AND eaf.exemptionEndDate >= :endDate")
+        List<AircraftFlightsExemption> findExemptionsByAircraftRegistrationAndDateRange(final @Param ("aircraftRegistration") String aircraftRegistration,
+                                                                                        final @Param("startDate") LocalDateTime startDate,
+                                                                                        final @Param("endDate") LocalDateTime endDate);
+    
+    @Query(value =
         "SELECT eaf FROM AircraftFlightsExemption eaf " +
             "WHERE eaf.aircraftRegistration = :aircraftRegistration " +
             "AND (eaf.flightId is NULL or eaf.flightId = '') " +

@@ -309,6 +309,11 @@ public class AircraftFlightsExemption extends VersionedAuditedEntity implements 
     }
 
     @Override
+    public Double unifiedTaxExemption() {
+        return unifiedTax;
+    }
+    
+    @Override
     public String flightNoteChargeExemption() {
         return flightNotes;
     }
