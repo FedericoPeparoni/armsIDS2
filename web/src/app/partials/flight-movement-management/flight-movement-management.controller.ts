@@ -102,12 +102,15 @@ export class FlightMovementManagementController extends CRUDFormControllerUserSe
      let filterFlights =  this.$scope.list.filter((item: IFlightMovement) =>flights.indexOf(item.id)> -1);
           let flagDisableButton = false;
          let filterstatus =  filterFlights.filter((item: IFlightMovement) =>item.status != 'PENDING');
-         let filterenroutecharges = filterFlights.filter((item: IFlightMovement)=>item.enroute_charges != 0);
+         let filterenroutecharges = filterFlights.filter((item: IFlightMovement)=>item.enroute_charges != 0 && item.enroute_charges !== null);
          let filterLanding = filterFlights.filter((item: IFlightMovement)=>item.approach_charges !== 0 && item.late_arrival_charges !== null);
          let filterLatArr = filterFlights.filter((item: IFlightMovement)=>item.late_arrival_charges !== 0 && item.late_arrival_charges !== null);
          let filterLateDep = filterFlights.filter((item: IFlightMovement)=>item.late_departure_charges !== 0 && item.late_departure_charges !== null);
          let filterExtendedHours = filterFlights.filter((item: IFlightMovement)=>item.extended_hours_surcharge !== 0 && item.extended_hours_surcharge !== null);
-            if(filterenroutecharges.length > 0 || filterstatus.length > 0 || filterLanding.length > 0 || filterLatArr.length > 0 || filterLateDep.length > 0 || filterExtendedHours.length > 0){
+         let filterDomestic = filterFlights.filter((item: IFlightMovement)=>item.domestic_passenger_charges !== 0 && item.domestic_passenger_charges !== null);
+         let filterInternational = filterFlights.filter((item: IFlightMovement)=>item.international_passenger_charges !== 0 && item.international_passenger_charges !== null);
+            if(filterenroutecharges.length > 0 || filterstatus.length > 0 || filterLanding.length > 0 || filterLatArr.length > 0 || filterLateDep.length > 0 || filterExtendedHours.length > 0
+             || filterDomestic.length > 0 || filterInternational.length > 0){
               flagDisableButton = true;
             }
              else {
