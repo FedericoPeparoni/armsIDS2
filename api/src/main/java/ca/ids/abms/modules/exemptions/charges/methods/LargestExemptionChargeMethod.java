@@ -59,11 +59,19 @@ public class LargestExemptionChargeMethod implements ExemptionChargeMethod {
         Double exemptCharge = appliedCharge == null ? null : Calculation.operation(
             chargeValue, appliedCharge, Calculation.MathOperator.SUBTRACT, precision);
 
+        List<String> newFlightNotes = new ArrayList<>();
+        for (String flightNote : flightNotes) {
+        	if (percentage > 0) {
+	        	String newFlightNote = String.format("%.1f", percentage) +"% (" + flightNote + ")";
+	        	newFlightNotes.add(newFlightNote);
+        	}
+        }
+        
         return new ExemptionChargeMethodResult.Builder()
             .setAppliedCharge(appliedCharge)
             .setExemptCharge(exemptCharge)
             .setExemptionPercentage(percentage)
-            .setExemptNotes(flightNotes)
+            .setExemptNotes(newFlightNotes)
             .build();
     }
 

@@ -1428,10 +1428,16 @@ public class AviationInvoiceCreator {
 		if (exemptPercentage > 0) {
 			flightInfo.exemptPercentage = exemptPercentage;
 			String notes = fm.getFlightNotes();
+
+			if (notes != null) {
+				flightInfo.exemptPercentageStr = notes;
+			}
+/*
 			flightInfo.exemptPercentageStr = exemptPercentageStr;
 			if (notes != null) {
 				flightInfo.exemptPercentageStr += " (" + notes + ")";
 			}
+*/
 		}
 
         if (invoicePermits != null) {
