@@ -76,6 +76,31 @@ public class AccountExemptionService implements ExemptionTypeProvider {
     }
 
     /**
+     * Return applicable AccountExemption by provided flight movement.
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public Collection<ExemptionType> findApplicableExemptions(FlightMovement flightMovement) {
+        Preconditions.checkArgument(flightMovement != null);
+
+        Collection<ExemptionType> exemptions = new ArrayList<>();
+        if (flightMovement.getAccount() != null) {
+
+            // find exemption by flight movement account
+            AccountExemption exemption = accountExemptionRepository
+                .findOneByAccount(flightMovement.getAccount());
+
+            // only add to collection if not null
+            if (exemption != null) {
+                exemptions.add(exemption);
+            }
+        }
+
+        return exemptions;
+    }
+    
+    
+    /**
      * Return applicable AccountExemption by provided aircraft registration.
      */
     @Override
