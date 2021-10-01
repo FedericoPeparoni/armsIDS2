@@ -80,11 +80,11 @@ public class MediaDocument {
         return fileName;
     }
 
-    //Evitare ti utilizzarlo
+    //Evitare di utilizzarlo
     @Deprecated
     public byte[] data() {
         //Logger.DEBUG()
-        System.out.println("NON UTILIZZARE DATA");
+        // System.out.println("NON UTILIZZARE DATA");
         //throw new RuntimeException("NON UTILIZZARE DATA");
 //       new CountingOutputStream(outputStream);;
     	 try (
