@@ -62,7 +62,7 @@ public class LargestExemptionChargeMethod implements ExemptionChargeMethod {
         List<String> newFlightNotes = new ArrayList<>();
         for (String flightNote : flightNotes) {
         	if (percentage > 0) {
-	        	String newFlightNote = String.format("%.1f", percentage) +"% (" + flightNote + ")";
+	        	String newFlightNote =  "("+flightNote+")" ;
 	        	newFlightNotes.add(newFlightNote);
         	}
         }
