@@ -229,11 +229,11 @@ export class TransactionsController extends CRUDFileUploadController {
     $scope.setAircraftRegistration = (item : IAircraftRegistration) => {
         $scope.aircraftRegistration =  item ;
         $scope.charge.registration_number = item.registration_number;
-        let unifiedTaxCharges;
-        this.unifiedTaxManagementService.getUnifiedTaxChargesByAircraftRegistationNumberAndBillingLedgerdId(item.id,this.$scope.adjustmentInvoiceId).then((x) =>{
-        unifiedTaxCharges = x;
-        $scope.charge.charge_amount = unifiedTaxCharges.amount;
-    });
+     //   let unifiedTaxCharges;
+     //   this.unifiedTaxManagementService.getUnifiedTaxChargesByAircraftRegistationNumberAndBillingLedgerdId(item.id,this.$scope.adjustmentInvoiceId).then((x) =>{
+   //     unifiedTaxCharges = x;
+  //      $scope.charge.charge_amount = unifiedTaxCharges.amount;
+  //  });
 
        }
 
