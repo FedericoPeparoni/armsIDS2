@@ -9087,8 +9087,17 @@ USD/ARS]]></text-property>
                 <structure>
                     <property name="name">landingChargesNoExemptionsStr</property>
                     <text-property name="displayName">landingChargesNoExemptionsStr</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["landingChargesNoExemptionsStr"]</expression>
+                    <expression name="expression" type="javascript">var landingCharges = dataSetRow["landingChargesNoExemptionsStr"]&#13;
+if(landingCharges &amp;&amp; landingCharges == 0){&#13;
+"0,00"&#13;
+}&#13;
+else if(landingCharges &amp;&amp; landingCharges != 0){&#13;
+landingCharges&#13;
+}else{&#13;
+"0,00"&#13;
+}</expression>
                     <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
                 </structure>
                 <structure>
                     <property name="name">parkingChargesStr</property>
@@ -9255,15 +9264,32 @@ USD/ARS]]></text-property>
                 <structure>
                     <property name="name">crossingDistanceToMinimum</property>
                     <text-property name="displayName">crossingDistanceToMinimum</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["crossingDistanceToMinimum"]</expression>
+                    <expression name="expression" type="javascript">var crossingDistance = dataSetRow["crossingDistanceToMinimum"]&#13;
+if(crossingDistance &amp;&amp; crossingDistance == 0){&#13;
+"0,00"&#13;
+}&#13;
+else if(crossingDistance &amp;&amp; crossingDistance != 0){&#13;
+crossingDistance&#13;
+}else{&#13;
+"0,00"&#13;
+}</expression>
                     <property name="dataType">string</property>
                     <property name="allowExport">true</property>
                 </structure>
                 <structure>
                     <property name="name">extendedHoursSurchargeStr</property>
                     <text-property name="displayName">extendedHoursSurchargeStr</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["extendedHoursSurchargeStr"]</expression>
+                    <expression name="expression" type="javascript">var extendedHours = dataSetRow["extendedHoursSurchargeStr"]&#13;
+if(extendedHours &amp;&amp; extendedHours == 0){&#13;
+"0,00"&#13;
+}&#13;
+else if(extendedHours &amp;&amp; extendedHours != 0){&#13;
+extendedHours&#13;
+}else{&#13;
+"0,00"&#13;
+}</expression>
                     <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
                 </structure>
                 <structure>
                     <property name="name">billingDateStr</property>
@@ -11462,6 +11488,10 @@ USD/ARS]]></text-property>
                             <property name="paddingLeft">1pt</property>
                             <property name="paddingBottom">1pt</property>
                             <property name="paddingRight">1pt</property>
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00{RoundingMode=HALF_UP}</property>
+                            </structure>
                             <property name="textAlign">right</property>
                             <property name="letterSpacing">normal</property>
                             <property name="lineHeight">normal</property>
@@ -11583,6 +11613,10 @@ USD/ARS]]></text-property>
                             <property name="paddingLeft">1pt</property>
                             <property name="paddingBottom">1pt</property>
                             <property name="paddingRight">1pt</property>
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00{RoundingMode=HALF_UP}</property>
+                            </structure>
                             <property name="textAlign">right</property>
                             <property name="letterSpacing">normal</property>
                             <property name="lineHeight">normal</property>
@@ -11764,6 +11798,10 @@ USD/ARS]]></text-property>
                             <property name="paddingLeft">1pt</property>
                             <property name="paddingBottom">1pt</property>
                             <property name="paddingRight">1pt</property>
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00{RoundingMode=HALF_UP}</property>
+                            </structure>
                             <property name="textAlign">right</property>
                             <property name="letterSpacing">normal</property>
                             <property name="lineHeight">normal</property>

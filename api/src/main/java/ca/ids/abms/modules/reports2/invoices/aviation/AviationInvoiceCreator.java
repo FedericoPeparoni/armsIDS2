@@ -569,7 +569,7 @@ public class AviationInvoiceCreator {
 	        }
 
             // Total number of unified tax aircraft, with and without discounts applied
-            invoiceData.global.unifiedTaxAircraftTotalNumber = countUnifiedTaxAircraftTotalWithoutDiscount.get() + countUnifiedTaxAircraftTotalWithDiscount.get();;
+            invoiceData.global.unifiedTaxAircraftTotalNumber = aircraftRegistrationsToInvoiceByUnifiedTax.size();
             invoiceData.global.unifiedTaxDiscountAircraftTotalNumber = countUnifiedTaxAircraftTotalWithDiscount.get();
             invoiceData.global.unifiedTaxExemptAircraftTotalNumber = countUnifiedTaxAircraftTotalWithExemptions.get();
 
@@ -921,10 +921,10 @@ public class AviationInvoiceCreator {
             invoiceData.global.totalAmount = totalCharges;
             invoiceData.global.totalAmountAnsp = totalChargesAnsp;
             invoiceData.global.totalAmountNoExemptions = totalChargesWithoutExemptions;
-                        
+
             // ATTENZIONE CORREGGERE IL TEMPLATE DEL REPORT
             invoiceData.global.totalAmountNoExemptionsStr = reportHelper.formatCurrency(
-            	invoiceData.global.totalAmount, aviationInvoiceCurrency);            
+            	invoiceData.global.totalAmount, aviationInvoiceCurrency);
         }
 
         return invoiceData;
@@ -1142,7 +1142,7 @@ public class AviationInvoiceCreator {
                 Currency enrouteResultCurrency = fm.getFlightmovementCategory().getEnrouteResultCurrency();
                 flightInfo.enrouteCharges = zeroToNull(flightMovementCurrencyConverter.convertCurrency(enrouteChargeCumulative, enrouteResultCurrency, aviationInvoiceCurrency));
                 flightInfo.enrouteChargesStr = reportHelper.formatCurrency(flightInfo.enrouteCharges, aviationInvoiceCurrency);
-                flightInfo.enrouteChargesStrWithCurrencySymbol = reportHelper.formatCurrencyWithSymbol(flightInfo.enrouteCharges, aviationInvoiceCurrency);                       
+                flightInfo.enrouteChargesStrWithCurrencySymbol = reportHelper.formatCurrencyWithSymbol(flightInfo.enrouteCharges, aviationInvoiceCurrency);
 
                 flightInfo.enrouteChargesAnsp = zeroToNull(flightMovementCurrencyConverter.toANSPCurrency(enrouteChargeCumulative, enrouteResultCurrency));
                 flightInfo.enrouteChargesAnspStr = reportHelper.formatCurrency(flightInfo.enrouteChargesAnsp, anspCurrency);
@@ -1155,7 +1155,7 @@ public class AviationInvoiceCreator {
 	                if (flightInfo.enrouteChargesNoExemptions != null && flightInfo.enrouteChargesNoExemptions != 0) {
 	            		double val = 100*fm.getExemptEnrouteCharges() / flightInfo.enrouteChargesNoExemptions;
 	        			flightInfo.exemptEnroutePercentage = Math.round(val * 100.0) / 100.0;
-	        				        			
+
 	        			if (flightInfo.exemptEnroutePercentage > exemptPercentage) {
 	        				exemptPercentage = flightInfo.exemptEnroutePercentage;
 	        			}
@@ -1215,9 +1215,9 @@ public class AviationInvoiceCreator {
 	        			if (flightInfo.exemptAerodromePercentage > exemptPercentage) {
 	        				exemptPercentage = flightInfo.exemptAerodromePercentage;
 	        			}
-	        			
+
 	        			exemptPercentageStr += String.format("%.0f",flightInfo.exemptAerodromePercentage) + "% ";
-	        			
+
                 	}
                 }
 
@@ -1244,10 +1244,10 @@ public class AviationInvoiceCreator {
 	            		flightInfo.exemptApprochPercentage = Math.round(val * 100.0) / 100.0;
 
 	        			if (flightInfo.exemptApprochPercentage > exemptPercentage) {
-	        				exemptPercentage = flightInfo.exemptApprochPercentage;	        				
+	        				exemptPercentage = flightInfo.exemptApprochPercentage;
 	        			}
 
-        				exemptPercentageStr += String.format("%.0f",flightInfo.exemptApprochPercentage) + "% ";	        					        			
+        				exemptPercentageStr += String.format("%.0f",flightInfo.exemptApprochPercentage) + "% ";
 	                }
                 }
 
@@ -1334,8 +1334,8 @@ public class AviationInvoiceCreator {
             			if (flightInfo.exemptExtendedHoursPercentage > exemptPercentage) {
             				exemptPercentage = flightInfo.exemptExtendedHoursPercentage;
             			}
-            			
-        				exemptPercentageStr += String.format("%.0f",flightInfo.exemptExtendedHoursPercentage) + "% ";            			
+
+        				exemptPercentageStr += String.format("%.0f",flightInfo.exemptExtendedHoursPercentage) + "% ";
                 	}
                 }
             }
@@ -2024,7 +2024,6 @@ public class AviationInvoiceCreator {
 
             Double taxAmount = null;
 
-            //Non c'è altro modo
             FormulaEvaluator fe = unifiedTaxService.getFormulaEvaluator();
             try {
                 taxAmount = fe.evalDouble(chargeFormula, vars);
@@ -2051,50 +2050,50 @@ public class AviationInvoiceCreator {
 	                		SystemConfigurationItemName.UNIFIED_TAX_FLIGHT_SCHOOL_DISCOUNT, 0d);
 	                } else if(ar.getAircraftScope().equals(AircraftScope.AGRICULTURE.toValue())){
 						discount = systemConfigurationService.getDouble(
-							SystemConfigurationItemName.UNIFIED_TAX_AGRICULTURAL_DISCOUNT, 0d);	                
+							SystemConfigurationItemName.UNIFIED_TAX_AGRICULTURAL_DISCOUNT, 0d);
 	                }
-				}			
-				
+				}
+
 				// computes other exemptions
-				ExemptionChargeMethodResult result = null; 
+				ExemptionChargeMethodResult result = null;
 				if (aircraftInfo.unifiedTaxCharges != null) {
 					result = exemptionTypeService.resolveUnifiedTaxExemptions(
-						ar, 
-						startDate, endDateInclusive, 
+						ar,
+						startDate, endDateInclusive,
 						aircraftInfo.unifiedTaxCharges, aviationInvoiceCurrency);
 				}
 
 				double discountedAmount = aircraftInfo.unifiedTaxCharges;
 				aircraftInfo.discountPercentage = 0d;
-				
+
 				if (discount != null && result != null) {
 					if (discount > result.getExemptionPercentage()) {
 	                    aircraftInfo.discountAmount = aircraftInfo.unifiedTaxCharges * discount / 100;
 	                    aircraftInfo.discountPercentage = discount;
-	                    
+
 	                    discountedAmount -= aircraftInfo.discountAmount;
-	                    
+
 	                    totalUnifiedTaxDiscount.addAndGet(aircraftInfo.discountAmount);
 	                    countUnifiedTaxAircraftTotalWithDiscount.incrementAndGet();
-	
+
 	                    aircraftInfo.discountAmountStr = reportHelper.formatCurrency(aircraftInfo.discountAmount, aviationInvoiceCurrency);
 	                    aircraftInfo.discountPercentageStr = aircraftInfo.discountPercentage == 0 ? "" : String.valueOf(Math.round(aircraftInfo.discountPercentage));
 
 	                    aircraftInfo.discounType = ar.getAircraftScope();
 	                    aircraftInfo.discounTypeStr =  Translation.getLangByToken(ar.getAircraftScope(),LocaleUtils.ENGLISH);
-	                    aircraftInfo.discounTypeStrSpanish = Translation.getLangByToken(ar.getAircraftScope(),LocaleUtils.SPANISH);	                    	                   
+	                    aircraftInfo.discounTypeStrSpanish = Translation.getLangByToken(ar.getAircraftScope(),LocaleUtils.SPANISH);
 					}
 					else {
 						  // discount <= result.getExemptionPercentage()
-	
+
 	                    aircraftInfo.discountAmount = result.getExemptCharge();
 	                    aircraftInfo.discountPercentage = result.getExemptionPercentage();
-	                    
+
 						discountedAmount -= aircraftInfo.discountAmount;
-	                    	                    
+
 	                    totalUnifiedTaxExemptions.addAndGet(result.getExemptCharge());
 						countUnifiedTaxAircraftTotalWithExemptions.incrementAndGet();
-	                    
+
 	                    aircraftInfo.discountAmountStr = reportHelper.formatCurrency(aircraftInfo.discountAmount, aviationInvoiceCurrency);
 	                    aircraftInfo.discountPercentageStr = aircraftInfo.discountPercentage == 0 ? "" : String.valueOf(Math.round(aircraftInfo.discountPercentage));
 
@@ -2108,38 +2107,39 @@ public class AviationInvoiceCreator {
 				else if (discount != null) {
 	                    aircraftInfo.discountAmount = aircraftInfo.unifiedTaxCharges * discount / 100;
 	                    aircraftInfo.discountPercentage = discount;
-	                    
+
 	                    discountedAmount -= aircraftInfo.discountAmount;
-	                    
+
 	                    totalUnifiedTaxDiscount.addAndGet(aircraftInfo.discountAmount);
 	                    countUnifiedTaxAircraftTotalWithDiscount.incrementAndGet();
-	
+
 	                    aircraftInfo.discountAmountStr = reportHelper.formatCurrency(aircraftInfo.discountAmount, aviationInvoiceCurrency);
 	                    aircraftInfo.discountPercentageStr = aircraftInfo.discountPercentage == 0 ? "" : String.valueOf(Math.round(aircraftInfo.discountPercentage));
 
 	                    aircraftInfo.discounType = ar.getAircraftScope();
 	                    aircraftInfo.discounTypeStr =  Translation.getLangByToken(ar.getAircraftScope(),LocaleUtils.ENGLISH);
-	                    aircraftInfo.discounTypeStrSpanish = Translation.getLangByToken(ar.getAircraftScope(),LocaleUtils.SPANISH);				
+	                    aircraftInfo.discounTypeStrSpanish = Translation.getLangByToken(ar.getAircraftScope(),LocaleUtils.SPANISH);
 				}
 				else if (result != null) {
 	                    aircraftInfo.discountAmount = result.getExemptCharge();
 	                    aircraftInfo.discountPercentage = result.getExemptionPercentage();
-	                    
+
 	                    discountedAmount -= aircraftInfo.discountAmount;
-	                    
+
 	                    totalUnifiedTaxExemptions.addAndGet(result.getExemptCharge());
 						countUnifiedTaxAircraftTotalWithExemptions.incrementAndGet();
-	
+
 	                    aircraftInfo.discountAmountStr = reportHelper.formatCurrency(aircraftInfo.discountAmount, aviationInvoiceCurrency);
-	                    aircraftInfo.discountPercentageStr = aircraftInfo.discountPercentage == 0 ? "" : String.valueOf(Math.round(aircraftInfo.discountPercentage));
+	                    aircraftInfo.discountPercentageStr = result.getExemptionPercentage().equals(new Double(0)) ? "" : String.valueOf(Math.round(result.getExemptionPercentage()));
 
 						Set<String> notes = new HashSet<String>();
         				notes.addAll (result.getExemptNotes());
 						aircraftInfo.discounType = StringUtils.join(notes.iterator(), "; ");
 	                    aircraftInfo.discounTypeStr = aircraftInfo.discounType;
-	                    aircraftInfo.discounTypeStrSpanish = aircraftInfo.discounType;				
+
+
 				}
-				
+
 
                 aircraftInfo.discountedAmountStr = reportHelper.formatCurrency(discountedAmount, aviationInvoiceCurrency);
         		aircraftInfo.discountedAmountStrSpanish = reportHelper.formatCurrency(discountedAmount, aviationInvoiceCurrency);
@@ -2154,7 +2154,6 @@ public class AviationInvoiceCreator {
                     if (coaExpireDate != null && endDateInclusive.getYear() == coaIssueDate.getYear() - 1  && billingInterval.equals(BillingInterval.UNIFIED_TAX_PARTIALLY)){
                 		newCoaIssueDate = LocalDateTime.of(startDate.getYear(),1,1, 0, 0, 0);
                 		newCoaExpiryeDate = coaExpireDate;
-                	System.out.println("é PARTIAL");
                 	}
                     else if (coaIssueDate != null && endDateInclusive.getYear() == coaIssueDate.getYear() - 1) {
                 		newCoaExpiryeDate = coaExpireDate;
