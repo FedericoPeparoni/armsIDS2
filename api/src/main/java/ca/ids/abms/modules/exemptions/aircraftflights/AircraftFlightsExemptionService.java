@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -124,7 +125,7 @@ public class AircraftFlightsExemptionService implements ExemptionTypeProvider {
         if (aircraftRegistration != null && startDate != null && endDate != null) {
         
         	exemptions.addAll(aircraftFlightsExemptionRepository.findExemptionsByAircraftRegistrationAndDateRange(
-        		aircraftRegistration.getRegistrationNumber(), startDate, endDate));
+        		aircraftRegistration.getRegistrationNumber(), startDate, endDate.truncatedTo(ChronoUnit.SECONDS)));
         }
         return exemptions;
     }

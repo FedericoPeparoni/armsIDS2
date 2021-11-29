@@ -40,13 +40,20 @@ public class LargestExemptionChargeMethod implements ExemptionChargeMethod {
                 continue;
 
             // only apply charge exemption if largest
-            if (chargeExemption > percentage)
-                percentage = chargeExemption;
+            if (chargeExemption > percentage) {
+            	percentage = chargeExemption;
+            	
+            	// only apply note if not null or blank
+            	 String flightNote = exemption.getFlightNote();
+                 if (StringUtils.isNotBlank(flightNote)) {
+                	 flightNotes = new ArrayList<>();
+                     flightNotes.add(flightNote);
+                 }
+            }
+                
 
-            // only apply note if not null or blank
-            String flightNote = exemption.getFlightNote();
-            if (StringUtils.isNotBlank(flightNote))
-                flightNotes.add(flightNote);
+            
+           
         }
 
         // determine decimal place precision from currency or default to two decimal places
