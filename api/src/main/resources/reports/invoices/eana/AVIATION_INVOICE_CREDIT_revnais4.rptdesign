@@ -9369,7 +9369,7 @@ extendedHours&#13;
                 <structure>
                     <property name="name">exemptPercentageStr</property>
                     <text-property name="displayName">exemptPercentageStr</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["exemptPercentageStr"]</expression>
+                    <expression name="expression" type="javascript">dataSetRow["exemptPercentageStr"];</expression>
                     <property name="dataType">string</property>
                     <property name="allowExport">true</property>
                 </structure>

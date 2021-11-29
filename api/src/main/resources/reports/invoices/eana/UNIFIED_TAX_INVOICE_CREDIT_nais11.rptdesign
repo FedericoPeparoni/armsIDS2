@@ -7222,20 +7222,16 @@ var discounTypevalue = dataSetRow["discounTypeStrSpanish"];&#13;
 &#13;
 var discounStr;&#13;
 if(discountPercentagevalue &amp;&amp; discounTypevalue){&#13;
-  discounStr = discountPercentagevalue+"%"+discounTypevalue&#13;
+  discounStr = discountPercentagevalue+"% "+discounTypevalue&#13;
 }&#13;
+&#13;
 &#13;
 var exemptUnifiedTaxPercentageValue = dataSetRow["exemptUnifiedTaxPercentage"];&#13;
 var exemptNotavalue = dataSetRow["exemptNota"];&#13;
 &#13;
 var exemptUnifiedTaxStr;&#13;
-if(exemptUnifiedTaxPercentageValue || exemptNotavalue){&#13;
-  exemptUnifiedTaxStr = exemptUnifiedTaxPercentageValue+" % "+exemptNotavalue&#13;
-}&#13;
-&#13;
-discounStr&#13;
-if(exemptUnifiedTaxStr){&#13;
-"\n" + exemptUnifiedTaxStr;&#13;
+if(exemptUnifiedTaxPercentageValue &amp;&amp; exemptNotavalue){&#13;
+  exemptUnifiedTaxStr = exemptUnifiedTaxPercentageValue+"%"+exemptNotavalue&#13;
 }</expression>
                     <property name="dataType">string</property>
                     <property name="allowExport">true</property>
