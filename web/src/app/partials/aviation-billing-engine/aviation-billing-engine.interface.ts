@@ -17,6 +17,7 @@ export interface IAviationBillingEngine {
   start_date: string;
   start_date_open: string;
   end_date_open: string;
+  due_date: string;
   processStartDate: string;
   processEndDate: string;
   preview: number;
@@ -74,6 +75,7 @@ export interface IAviationBillingEngineScope extends ng.IScope {
   dateOptions: Object;
   dateOptionsAnnually: Object;
   dateOptionsPartially: Object;
+  dateOptionsDueDate: Object;
   maxDate: string;
   startOfCurrentMonth: any;
   today: any;

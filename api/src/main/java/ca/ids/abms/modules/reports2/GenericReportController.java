@@ -155,7 +155,7 @@ public class GenericReportController {
 
                 final List<String> accountIdListToCheck = (Arrays.asList(((String)bodyParams.get("account_id")).replace("{", "").replace("}", "").split(",")));
 
-                List<BillingLedger> blList = billingLedgerService.findIssuedInvoicesAccountsIdsByTypeAndDate("unified-tax",dFrom,dTo);
+                List<BillingLedger> blList = billingLedgerService.findIssuedInvoicesAccountsIdsByTypeAndDateClear("unified-tax",dFrom,dTo);
 
                 final List<Integer>  idValidAccountsPossible = blList.stream().map(BillingLedger::getAccount).map(Account::getId).collect(Collectors.toList());
                 final List<String>  idValidAccounts = new ArrayList<>();

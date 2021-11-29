@@ -319,6 +319,7 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
       this.$scope.editable.processStartDate = this.firstDateOfYear();
       this.$scope.editable.processEndDate = this.lastDateOfYear();
       this.$scope.editable.endDateInclusive = this.lastDateOfYear();
+
     }
     else if (this.$scope.editable.billing_interval === 'UNIFIED_TAX_PARTIALLY') {
       this.$scope.editable.processStartDate = this.firstDateOfMonth();
@@ -348,10 +349,14 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
     }
     else if (this.$scope.editable.billing_interval === 'UNIFIED_TAX_ANNUALLY') {
       this.setAnnuallyDates();
+
+
     }
     else if (this.$scope.editable.billing_interval === 'UNIFIED_TAX_PARTIALLY') {
       this.setPartiallyDates();
       this.setDefaultPartiallyDate();
+
+
     }
     else {
       this.setWeeklyDefaultDate();
@@ -371,6 +376,13 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
     this.$scope.editable.start_date = this.firstDateOfMonth();
     this.$scope.editable.end_date = this.lastDateOfYear();
   }
+
+
+  // private onChangeDueDates(value: any): void {
+  //   var testDate = this.$scope.editable.due_date.toString();
+  //   console.log("value"+value);
+  //  console.log("test" + testDate);
+  // }
 
 
 
@@ -428,10 +440,8 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
     let month = today.getMonth();
     this.$scope.dateObject = new Date(today.getFullYear(), month - 1);
 
-    console.log(this.$scope.dateObject);
 
   }
-
 
   /**
     * Set default date for partially billing interval
@@ -441,8 +451,6 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
     let today = new Date();
     let month = today.getMonth();
     this.$scope.dateObject = new Date(today.getFullYear(), month);
-
-    console.log(this.$scope.dateObject);
 
   }
 
@@ -503,6 +511,8 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
       this.dateOptions();
       this.dateOptionsAnnually();
       this.dateOptionsPartially();
+      this.dateOptionsDueDate();
+
     });
   }
 
@@ -580,15 +590,21 @@ export class AviationBillingEngineController extends CRUDFormControllerUserServi
   };
 }
 
-  /**
-     * Set date options Open
-     */
-   private dateOptionsOpen(): void {
-  this.$scope.dateOptionsAnnually = {
-    minMode: 'day',
-  };
-}
 
+ /**
+     * Set date options Partially
+     */
+
+  private dateOptionsDueDate(): void {
+    this.$scope.dateOptionsDueDate = {
+      minMode: 'day',
+      dateDisabled: (data: any): boolean => {
+        let date = data.date;
+        return  date < new Date();
+
+      }
+    };
+  }
 
   /**
    * @param  {ISystemConfigurationSpring} data

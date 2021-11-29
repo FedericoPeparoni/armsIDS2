@@ -71,9 +71,9 @@ public class AsyncInvoiceGeneratorProcessor implements ItemProcessor<AsyncInvoic
                 Boolean result;
                 scope.getInvoiceProgressCounter().increaseAccountNumber();
                 if(scope.getPreview()) {
-                    result  = aviationInvoiceService.previewAccount(scope, accountId, invoiceList, unifiedTaxInvoiceErrorList, flightmovementCategory, currentUser);
+                    result  = aviationInvoiceService.previewAccount(scope, accountId, invoiceList, unifiedTaxInvoiceErrorList, flightmovementCategory, currentUser, scope.getDueDateOverrideUnifiedTax());
                 } else {
-                    result  = aviationInvoiceService.processAccount(scope, accountId, invoiceList, unifiedTaxInvoiceErrorList, flightmovementCategory, currentUser);
+                    result  = aviationInvoiceService.processAccount(scope, accountId, invoiceList, unifiedTaxInvoiceErrorList, flightmovementCategory, currentUser, scope.getDueDateOverrideUnifiedTax());
                 }
                 if(result) {
                     scope.getInvoiceProgressCounter().increaseProcessed();

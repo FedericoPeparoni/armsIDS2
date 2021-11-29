@@ -390,10 +390,10 @@ public class AviationInvoiceCreator {
         		  invoiceData.global.invoiceDueDateStr = reportHelper.formatDateUtc(dueDateOverrideUnifiedTax, dateFormatter);
               }
         }
-        
-        	
-        
-       
+
+
+
+
 
         Locale localeES = new Locale ("es" , "ES");
         if (billingInterval != null) {
@@ -1166,7 +1166,7 @@ public class AviationInvoiceCreator {
 	                if (flightInfo.enrouteChargesNoExemptions != null && flightInfo.enrouteChargesNoExemptions != 0) {
 	            		double val = 100*fm.getExemptEnrouteCharges() / flightInfo.enrouteChargesNoExemptions;
 	        			flightInfo.exemptEnroutePercentage = Math.round(val * 100.0) / 100.0;
-	        				        			
+
 	        			if (flightInfo.exemptEnroutePercentage > exemptPercentage) {
 	        				exemptPercentage = flightInfo.exemptEnroutePercentage;
 	        			}
@@ -1619,14 +1619,14 @@ public class AviationInvoiceCreator {
             final LocalDateTime dueDateOverrideUnifiedTax) {
 
        LocalDateTime dueDate = ldtNow.plusDays (account.getPaymentTerms());
-        
+
 
 		final double exchangeRate;
 		final double exchangeRateToAnsp;
 
 		final boolean unifiedTaxInvoice = billingInterval == BillingInterval.UNIFIED_TAX_ANNUALLY || billingInterval == BillingInterval.UNIFIED_TAX_PARTIALLY;
 		if (unifiedTaxInvoice) {
-			
+
  			exchangeRate = currencyUtils.getApplicableRate(invoiceCurrency, targetCurrency, startDate);
 			exchangeRateToAnsp = currencyUtils.getApplicableRate (invoiceCurrency, anspCurrency, startDate);
 		}
@@ -1676,7 +1676,7 @@ public class AviationInvoiceCreator {
         	bl.setPaymentDueDate(dueDate);
         }else {
         	 bl.setPaymentDueDate (dueDate);
-        }     
+        }
         bl.setUser (currentUser);
         bl.setInvoiceAmount (invoiceData.global.totalAmount);
         bl.setInvoiceCurrency (invoiceCurrency);
@@ -2082,7 +2082,7 @@ public class AviationInvoiceCreator {
 						aircraftInfo.unifiedTaxCharges, aviationInvoiceCurrency);
 				}
 
-				
+
 				double discountedAmount = aircraftInfo.unifiedTaxCharges;	//amounToDiscount = valore iniziale DA scontare
 				aircraftInfo.discountPercentage = 0d;
 
@@ -2104,7 +2104,7 @@ public class AviationInvoiceCreator {
 	                    aircraftInfo.discounTypeStrSpanish = Translation.getLangByToken(ar.getAircraftScope(),LocaleUtils.SPANISH);
 					}
 					else {
-						  // discount <= result.getExemptionPercentage()	                    
+						  // discount <= result.getExemptionPercentage()
 	                    aircraftInfo.exemptUnifiedTaxPercentage = result.getExemptionPercentage();
 	                    aircraftInfo.exemptUnifiedTaxValue = result.getExemptCharge();
 	                    aircraftInfo.exemptNota = result.getExemptNotes().get(0);
@@ -2137,7 +2137,7 @@ public class AviationInvoiceCreator {
 				else if (result != null) {
 
 	                    aircraftInfo.exemptUnifiedTaxPercentage = result.getExemptionPercentage();
-	                    aircraftInfo.exemptUnifiedTaxValue = aircraftInfo.unifiedTaxCharges * result.getExemptionPercentage() / 100;	                    
+	                    aircraftInfo.exemptUnifiedTaxValue = aircraftInfo.unifiedTaxCharges * result.getExemptionPercentage() / 100;
 	                    aircraftInfo.exemptNota = result.getExemptNotes().get(0);
 
 	                    discountedAmount -= aircraftInfo.exemptUnifiedTaxValue;

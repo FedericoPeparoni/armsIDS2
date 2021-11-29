@@ -91,6 +91,7 @@ public class AsyncInvoiceGeneratorController {
         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) final LocalDateTime startDate,
         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) final LocalDateTime endDateInclusive,
         @RequestParam(required = false, defaultValue = "false") Boolean iataInvoice,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) final LocalDateTime dueDateOverrideUnifiedTax,
         @RequestParam(required = false, defaultValue = "account,dateTime") final String sort,
         HttpServletRequest request
     ) {
@@ -104,7 +105,7 @@ public class AsyncInvoiceGeneratorController {
 
         final AsyncInvoiceGeneratorScope scope = new AsyncInvoiceGeneratorScope(userBillingCenterOnly,
             resolveReportFormat(preview, iataInvoice, format), preview, accountIdList, flightCategory,
-            billingInterval, startDate, endDateInclusive, currentUser, ipAddress, order);
+            billingInterval, startDate, endDateInclusive, dueDateOverrideUnifiedTax, currentUser, ipAddress, order);
 
         final JobParameters jobParameters = new JobParametersBuilder()
             .addParameter("user", MiscUtils.nvl(SecurityUtils.getCurrentUserLogin(),"system"), true)

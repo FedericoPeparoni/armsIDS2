@@ -25,6 +25,7 @@ export class AviationBillingEngineService extends CRUDService {
     start_date: null,
     start_date_open: null,
     end_date_open: null,
+    due_date: null,
     processStartDate: null,
     processEndDate: null,
     flightCategory: null,
@@ -76,6 +77,11 @@ export class AviationBillingEngineService extends CRUDService {
     // if flight movement category provided, add to params
     if (editable.flightCategory) {
       url += `&flightCategory=${editable.flightCategory}`;
+    }
+    if (editable.billing_interval === 'UNIFIED_TAX_ANNUALLY' || editable.billing_interval === 'UNIFIED_TAX_PARTIALLY') {
+      if(editable.due_date){
+        url += `&dueDateOverrideUnifiedTax=${editable.due_date.toISOString()}`;
+      }
     }
 
     return this.Restangular.one(url).customPOST(editable.account_id_list).then((data: IJobStatus) => {

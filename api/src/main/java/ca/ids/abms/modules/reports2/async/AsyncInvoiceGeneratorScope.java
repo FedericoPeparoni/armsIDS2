@@ -21,6 +21,7 @@ public class AsyncInvoiceGeneratorScope {
     private BillingInterval billingInterval;
     private LocalDateTime startDate;
     private LocalDateTime endDateInclusive;
+    private LocalDateTime dueDateOverrideUnifiedTax;
     private User currentUser;
     private String error;
     private String ipAddress;
@@ -33,7 +34,7 @@ public class AsyncInvoiceGeneratorScope {
 
     public AsyncInvoiceGeneratorScope(Boolean userBillingCenterOnly, ReportFormat format, Boolean preview,
                                       List<Integer> accountIdList, Integer flightCategory, BillingInterval billingInterval,
-                                      LocalDateTime startDate, LocalDateTime endDateInclusive, User currentUser, String ipAddress,
+                                      LocalDateTime startDate, LocalDateTime endDateInclusive, LocalDateTime dueDateOverrideUnifiedTax,User currentUser, String ipAddress,
                                       IataInvoiceItemOrder iataInvoiceItemOrder) {
         this.userBillingCenterOnly = userBillingCenterOnly;
         this.format = format;
@@ -43,6 +44,7 @@ public class AsyncInvoiceGeneratorScope {
         this.billingInterval = billingInterval;
         this.startDate = startDate;
         this.endDateInclusive = endDateInclusive;
+        this.dueDateOverrideUnifiedTax = dueDateOverrideUnifiedTax;
         this.currentUser = currentUser;
         this.ipAddress = ipAddress;
         this.iataInvoiceItemOrder = iataInvoiceItemOrder;
@@ -103,8 +105,18 @@ public class AsyncInvoiceGeneratorScope {
     public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
+    
 
-    public LocalDateTime getEndDateInclusive() {
+
+    public LocalDateTime getDueDateOverrideUnifiedTax() {
+		return dueDateOverrideUnifiedTax;
+	}
+
+	public void setDueDateOverrideUnifiedTax(LocalDateTime dueDateOverrideUnifiedTax) {
+		this.dueDateOverrideUnifiedTax = dueDateOverrideUnifiedTax;
+	}
+
+	public LocalDateTime getEndDateInclusive() {
         return endDateInclusive;
     }
 
