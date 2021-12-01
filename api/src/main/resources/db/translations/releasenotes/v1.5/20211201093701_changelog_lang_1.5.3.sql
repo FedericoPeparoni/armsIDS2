@@ -12,6 +12,20 @@ select add_languages_by_json('[
     "val": "Esta Cuenta no tiene Aeronaves de TU asociada",
     "part": "frontend",
     "created_by": "system"
+  },
+{
+    "code": "en",
+    "token": "Override Due Date",
+    "val": "Override Due Date",
+    "part": "frontend",
+    "created_by": "system"
+  },
+{
+    "code": "es",
+    "token": "Override Due Date",
+    "val": "Sobrescribir Fecha de Vencimiento",
+    "part": "frontend",
+    "created_by": "system"
   }
 
 
