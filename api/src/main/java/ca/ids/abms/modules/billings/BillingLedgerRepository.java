@@ -20,7 +20,7 @@ import java.util.List;
 public interface BillingLedgerRepository extends ABMSRepository<BillingLedger, Integer> {
 
     Page<BillingLedger> findAll(Pageable pageable);
-    
+
     @Query(value="select bl.* from billing_ledgers bl where bl.account_id =:accountId and "
     		+"bl.invoice_type =:invoiceType and bl.invoice_state_type ='PUBLISHED' and bl.invoice_period_or_date < :invoicePeriodOrDate Order By invoice_period_or_date desc",nativeQuery = true)
     List<BillingLedger> findByAccountIdAndInvoiceTypeAndInvoicePeriodOrDate(@Param("accountId") final Integer accountId,  @Param("invoiceType") final String invoiceType, @Param("invoicePeriodOrDate") final LocalDateTime invoicePeriodOrDate);
@@ -91,4 +91,8 @@ public interface BillingLedgerRepository extends ABMSRepository<BillingLedger, I
 
     @Query(nativeQuery = true, value = "SELECT * FROM billing_ledgers as bl WHERE bl.invoice_type LIKE :invoiceType AND bl.invoice_date_of_issue >= :fromDate AND bl.invoice_date_of_issue <= :toDate")
     List<BillingLedger> findIssuedInvoicesAccountsIdsByTypeAndDate(@Param("invoiceType")String invoiceType, @Param("fromDate")Date fromDate, @Param("toDate")Date toDate );
+
+    @Query("SELECT bl.account.id FROM BillingLedger bl WHERE bl.invoiceType LIKE :invoiceType AND bl.invoiceDateOfIssue >= :fromDate AND bl.invoiceDateOfIssue <= :toDate")
+    List<Integer> findAccountsIdByTypeAndDate(@Param("invoiceType")String invoiceType, @Param("fromDate")LocalDateTime fromDate, @Param("toDate")LocalDateTime toDate );
+
 }
