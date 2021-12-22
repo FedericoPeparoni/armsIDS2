@@ -609,6 +609,7 @@ public class TransactionReceiptCreator {
             item.aerodrome = adjustment.getAerodrome();
             item.chargeDescription = adjustment.getChargeDescription();
             item.chargeDescriptionSpanish = Translation.getLangByToken(item.chargeDescription, LocaleUtils.SPANISH);
+            item.description = adjustment.getTransaction().getDescription();
             item.amount = adjustment.getChargeAmount();
             item.amountStr = reportHelper.formatCurrency (Math.abs(item.amount), currency);
             item.amountStrWithCurrencySymbol = reportHelper.formatCurrencyWithSymbol (Math.abs(item.amount), currency);
