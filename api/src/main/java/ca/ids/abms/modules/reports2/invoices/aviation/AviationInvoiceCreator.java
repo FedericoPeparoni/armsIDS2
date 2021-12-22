@@ -736,13 +736,13 @@ public class AviationInvoiceCreator {
 
                 if (fi.totalExemptionsValue > 0)
                 {
-                	if(fi.exemptApprochPercentage != null) {
+                	if(fi.exemptApprochPercentage != null && fi.exemptApprochPercentage != 0) {
                 		++totalFlightsWithExemptions;
                 	}
-                	if(fi.exemptEnroutePercentage != null) {
+                	if(fi.exemptEnroutePercentage != null && fi.exemptEnroutePercentage != 0) {
                 		++totalFlightsWithExemptions;
                 	}
-                	if(fi.exemptExtendedHoursPercentage != null) {
+                	if(fi.exemptExtendedHoursPercentage != null && fi.exemptExtendedHoursPercentage != 0) {
                 		++totalFlightsWithExemptions;
                 	}
                 	totalExemptionsValue += fi.totalExemptionsValue;
