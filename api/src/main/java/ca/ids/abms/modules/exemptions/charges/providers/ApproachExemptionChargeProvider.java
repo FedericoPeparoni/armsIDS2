@@ -35,8 +35,13 @@ public class ApproachExemptionChargeProvider implements ExemptionChargeProvider 
 
         // map exemption types using applicable values to exemption charge object
         Collection<ExemptionCharge> exemptionCharges = exemptions.stream().filter(Objects::nonNull)
-            .map(e -> new ExemptionCharge(e.approachChargeExemption(), e.flightNoteChargeExemption()))
+        		.map(e -> new ExemptionCharge(e.approachChargeExemption(), e.flightNoteChargeExemption()))
+           // .map(e -> new ExemptionCharge(e.approachChargeExemption(), e.flightNoteChargeExemption() + " approach"))
             .collect(Collectors.toList());
+        
+
+        
+        
 
         // resolve exemption charge using largest exemption method
         ExemptionChargeMethodResult result = method.resolve(new ExemptionChargeMethodModel.Builder()

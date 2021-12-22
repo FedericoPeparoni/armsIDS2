@@ -736,8 +736,17 @@ public class AviationInvoiceCreator {
 
                 if (fi.totalExemptionsValue > 0)
                 {
+                	if(fi.exemptApprochPercentage != null) {
+                		++totalFlightsWithExemptions;
+                	}
+                	if(fi.exemptEnroutePercentage != null) {
+                		++totalFlightsWithExemptions;
+                	}
+                	if(fi.exemptExtendedHoursPercentage != null) {
+                		++totalFlightsWithExemptions;
+                	}
                 	totalExemptionsValue += fi.totalExemptionsValue;
-                	++totalFlightsWithExemptions;
+                	
                 }
             }
 
@@ -798,10 +807,14 @@ public class AviationInvoiceCreator {
 			}
 
             //unifiedtax - discount
-            totalCharges += (invoiceData.global.unifiedTaxTotalCharges -
-            				 invoiceData.global.unifiedTaxTotalDiscountCharges);
-            totalCharges += -nvl(invoiceData.global.unifiedTaxTotalExemptions, 0d);
-
+            if(invoiceData.global.unifiedTaxTotalCharges != 0 && invoiceData.global.unifiedTaxTotalCharges != null) {
+				totalCharges += (invoiceData.global.unifiedTaxTotalCharges
+						- invoiceData.global.unifiedTaxTotalDiscountCharges);
+				totalCharges += -nvl(invoiceData.global.unifiedTaxTotalExemptions, 0d);
+            }else {
+            	totalCharges = totalChargesWithoutExemptions - totalExemptionsValue;
+            }        
+            
             invoiceData.global.enrouteCharges = totalEnrouteCharges;
             invoiceData.global.enrouteChargesStr = reportHelper.formatCurrency(invoiceData.global.enrouteCharges, aviationInvoiceCurrency);
             invoiceData.global.enrouteChargesStrWithCurrencySymbol = reportHelper.formatCurrency(invoiceData.global.enrouteCharges, aviationInvoiceCurrency);
@@ -1162,15 +1175,19 @@ public class AviationInvoiceCreator {
                 flightInfo.enrouteChargesWithoutExemptionsAnsp = zeroToNull(flightMovementCurrencyConverter.toANSPCurrency(flightInfo.enrouteChargesNoExemptions, enrouteResultCurrency));
 	        	flightInfo.enrouteChargesNoExemptionsStr = reportHelper.formatCurrency(flightInfo.enrouteChargesNoExemptions, aviationInvoiceCurrency);
 
+	        	
+	        	exemptionTypeService.resolveFlightMovementExemptions(fm);	
+	        	
                 if (fm.getExemptEnrouteCharges() != null) {
 	                if (flightInfo.enrouteChargesNoExemptions != null && flightInfo.enrouteChargesNoExemptions != 0) {
-	            		double val = 100*fm.getExemptEnrouteCharges() / flightInfo.enrouteChargesNoExemptions;
-	        			flightInfo.exemptEnroutePercentage = Math.round(val * 100.0) / 100.0;
+	            		double val = Math.round(100*fm.getExemptEnrouteCharges() / flightInfo.enrouteChargesNoExemptions);
+	        			flightInfo.exemptEnroutePercentage = val;
 
 	        			if (flightInfo.exemptEnroutePercentage > exemptPercentage) {
-	        				exemptPercentage = flightInfo.exemptEnroutePercentage;
+	        				exemptPercentage = flightInfo.exemptEnroutePercentage;	        					        					        				
 	        			}
-
+	        			Double discount = flightInfo.enrouteChargesNoExemptions - ((flightInfo.enrouteChargesNoExemptions * exemptPercentage)/100);
+	        			flightInfo.enrouteChargesNoExemptionsStr = reportHelper.formatCurrency(discount, aviationInvoiceCurrency);
         				exemptPercentageStr = String.format("%.0f",flightInfo.exemptEnroutePercentage) + "% ";
 	                }
                 }
@@ -1241,7 +1258,7 @@ public class AviationInvoiceCreator {
                 flightInfo.approachChargesAnsp = cachedCurrencyConverter.toANSPCurrency(fm.getApproachCharges(), approachChargesCurrency);
                 flightInfo.approachChargesAnspStr = reportHelper.formatCurrency(flightInfo.approachChargesAnsp, anspCurrency);
 
-                Double approachChargesWithoutExemptions = flightInfo.approachCharges;
+                Double approachChargesWithoutExemptions = (flightInfo.approachCharges) ;
                 if (approachChargesWithoutExemptions != null && fm.getExemptApprochCharges() != null)
                 	approachChargesWithoutExemptions += fm.getExemptApprochCharges();
                 flightInfo.approachChargesNoExemptions = approachChargesWithoutExemptions;
@@ -1251,8 +1268,8 @@ public class AviationInvoiceCreator {
 
                 if (fm.getExemptApprochCharges() != null) {
 	                if (flightInfo.approachChargesNoExemptions != null && flightInfo.approachChargesNoExemptions != 0) {
-	            		double val = 100*fm.getExemptApprochCharges() / flightInfo.approachChargesNoExemptions;
-	            		flightInfo.exemptApprochPercentage = Math.round(val * 100.0) / 100.0;
+	            		double val =  Math.round(100*fm.getExemptApprochCharges() / flightInfo.approachChargesNoExemptions);
+	            		flightInfo.exemptApprochPercentage = val;
 
 	        			if (flightInfo.exemptApprochPercentage > exemptPercentage) {
 	        				exemptPercentage = flightInfo.exemptApprochPercentage;
@@ -1281,7 +1298,7 @@ public class AviationInvoiceCreator {
                 flightInfo.landingChargesNoExemptions = landingChargesWithoutExemptions;
                 flightInfo.landingChargesWithoutExemptionsAnsp = cachedCurrencyConverter.toANSPCurrency(landingChargesWithoutExemptions, approachChargesCurrency);
 
-	        	flightInfo.landingChargesNoExemptionsStr = reportHelper.formatCurrency(flightInfo.landingChargesNoExemptions, aviationInvoiceCurrency);
+	        	flightInfo.landingChargesNoExemptionsStr = reportHelper.formatCurrency(flightInfo.landingCharges, aviationInvoiceCurrency);
 
                 // flight movement parking charges
                 // parking charges are stored in ANSP
@@ -1439,9 +1456,21 @@ public class AviationInvoiceCreator {
 		if (exemptPercentage > 0) {
 			flightInfo.exemptPercentage = exemptPercentage;
 			String notes = fm.getFlightNotes();
+			List<String> notesList = new ArrayList<String>(Arrays.asList(notes.split(";")));
+			
+			// test note
+//			if(flightInfo.exemptApprochPercentage != null && flightInfo.exemptApprochPercentage != 0) {
+//				for(String approach : notesList) {
+//					if(approach.contains("approach")) {
+//						flightInfo.exemptPercentageStr = flightInfo.exemptEnroutePercentage + "% " + notesList.get(0) + flightInfo.exemptApprochPercentage + approach.replace(" approach", "");
+//					}
+//				}
+//				
+//			}
+			
 
 			if (notes != null) {
-				flightInfo.exemptPercentageStr = exemptPercentage + "% " + notes;
+				flightInfo.exemptPercentageStr = exemptPercentage + "% " + notesList.get(0);
 			}
 /*
 			flightInfo.exemptPercentageStr = exemptPercentageStr;

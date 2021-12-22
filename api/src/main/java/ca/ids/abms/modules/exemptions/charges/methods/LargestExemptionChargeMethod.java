@@ -26,7 +26,7 @@ public class LargestExemptionChargeMethod implements ExemptionChargeMethod {
         if (model.getExemptionCharges() == null || model.getExemptionCharges().isEmpty())
             return null;
 
-        double percentage = 0;
+        Double percentage = 0d;
         List<String> flightNotes = new ArrayList<>();
 
         // loop through each exemption charge and apply if defined
