@@ -80,6 +80,7 @@ public class CreditDebitNoteData {
         public @XmlElement(nillable = true) String aerodrome;
         public @XmlElement(nillable = true) String chargeDescription;
         public @XmlElement(nillable = true) String chargeDescriptionSpanish;
+        public @XmlElement(nillable = true) String description;
 
         public @XmlElement(nillable = true) Double amount;
         public @XmlElement(nillable = true) String amountStr;
