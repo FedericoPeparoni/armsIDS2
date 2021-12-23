@@ -190,10 +190,13 @@ public class FlightMovementController extends MediaDocumentComponent {
             final Page<FlightMovement> page = flightMovementService.findAllFlightMovementByFilter(pageable, textSearch,
                 flightMovementCategoryId, status, iata, issue, invoice, start, end, duplicatesOrMissing);
 			for (FlightMovement fm : page) {
-				if (fm.getAccount().getAccountType().getName().equalsIgnoreCase("Unified Tax")) {
-					fm.setApproachCharges(0d);
-					fm.setEnrouteCharges(0d);
+				if(fm.getAccount() != null && fm.getAccount().getAccountType() != null && fm.getAccount().getAccountType().getName() != null) {
+					if (fm.getAccount().getAccountType().getName().equalsIgnoreCase("Unified Tax")) {
+						fm.setApproachCharges(0d);
+						fm.setEnrouteCharges(0d);
+					}
 				}
+			
 			}
             
             final long countAllFlightMovement = flightMovementService.countAllFlightMovement();
