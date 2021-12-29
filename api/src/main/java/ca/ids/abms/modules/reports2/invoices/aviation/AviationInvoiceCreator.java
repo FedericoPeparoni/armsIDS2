@@ -2167,8 +2167,9 @@ public class AviationInvoiceCreator {
 
 	                    aircraftInfo.exemptUnifiedTaxPercentage = result.getExemptionPercentage();
 	                    aircraftInfo.exemptUnifiedTaxValue = aircraftInfo.unifiedTaxCharges * result.getExemptionPercentage() / 100;
-	                    aircraftInfo.exemptNota = result.getExemptNotes().get(0);
-
+	                    if(result.getExemptNotes().size() != 0 ){
+	                    	aircraftInfo.exemptNota = result.getExemptNotes().get(0);	
+	                    }	                    
 	                    discountedAmount -= aircraftInfo.exemptUnifiedTaxValue;
 
 	                    totalUnifiedTaxExemptions.addAndGet(result.getExemptCharge());

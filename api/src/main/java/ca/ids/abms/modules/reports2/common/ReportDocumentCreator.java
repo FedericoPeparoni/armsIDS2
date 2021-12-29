@@ -2,10 +2,15 @@ package ca.ids.abms.modules.reports2.common;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -22,6 +27,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import org.apache.pdfbox.io.MemoryUsageSetting;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
+import org.apache.pdfbox.multipdf.PDFMergerUtility.DocumentMergeMode;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -171,6 +177,13 @@ public class ReportDocumentCreator {
 
 
     }
+    
+    private static File createTempFile(Optional<String> suffix) throws IOException {
+        Path tempPathFile = Files.createTempFile("arms", suffix.orElse(null));
+        File tempFile = tempPathFile.toFile();
+        tempFile.deleteOnExit();
+        return tempFile;
+      }
 
     /**
      * Format a report data object as JSON
@@ -194,18 +207,34 @@ public class ReportDocumentCreator {
 
     /**
      * Combine multiple PDF files into one
+     * @throws IOException 
      */
-    public ReportDocument combinePdfFiles(String bundleName, List<ReportDocument> values) {
-        final int approCombinedSize = values.stream().map (MediaDocument::contentLength).reduce (0, Integer::sum);
-        final ByteArrayOutputStream out = new ByteArrayOutputStream (approCombinedSize);
-        PDFMergerUtility ut = new PDFMergerUtility();
+    public ReportDocument combinePdfFiles(String bundleName, List<ReportDocument> values)  {
+    	System.gc();
+    	FileOutputStream out = null;
+    	 try {
+     //   final int approCombinedSize = values.stream().map (MediaDocument::contentLength).reduce (0, Integer::sum);
+        File tempFile = createTempFile(Optional.empty());
+        out = new FileOutputStream (tempFile);
+        PDFMergerUtility ut = new PDFMergerUtility(); 
         ut.addSources(values.stream().map(d->(InputStream)new ByteArrayInputStream (d.data())).collect (Collectors.toList()));
         ut.setDestinationStream (out);
-        try {
+        ut.setDocumentMergeMode(DocumentMergeMode.OPTIMIZE_RESOURCES_MODE);
+       
             ut.mergeDocuments(MemoryUsageSetting.setupMixed(1024L * 512L));
-            return do_createReportDocument (bundleName, ReportFormat.pdf, out.toByteArray());
+            return do_createReportDocument (bundleName, ReportFormat.pdf, out, tempFile);
         } catch (final IOException x) {
             throw new CustomParametrizedException("Failed to combine multiple PDF files into one" + ": " + x.getMessage(), x);
+        }
+        finally {
+        	if(out != null) {
+        		try {
+					out.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}      	
         }
     }
 
@@ -216,6 +245,12 @@ public class ReportDocumentCreator {
     ) {
         return new ReportDocument (do_createFileName (fileName, format.fileNameSuffix()), format.contentType(), data);
     }
+    
+    private ReportDocument do_createReportDocument (
+            final String fileName, @SuppressWarnings("SameParameterValue") final ReportFormat format, final FileOutputStream outputStream, File file
+        ) {
+            return new ReportDocument (do_createFileName (fileName, format.fileNameSuffix()), format.contentType(), outputStream, file);
+        }
 
     private ReportDocument do_createReportDocument (final String fileName, final ReportFormat format, final Consumer <OutputStream> callback) {
         return do_createReportDocument (fileName, format.fileNameSuffix(), format.contentType(), callback);

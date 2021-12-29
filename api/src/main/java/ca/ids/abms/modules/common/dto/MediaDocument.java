@@ -24,10 +24,12 @@ public class MediaDocument {
     private final String fileName;
 
     private final String contentType;
+    
+    private File file;
 
 //    private  byte[] data;
 
-    private final String uuidAsString;
+//    private String uuidAsString;
     private final String tmpdir = System.getProperty("java.io.tmpdir");
     private FileOutputStream outputStream;
 
@@ -39,8 +41,8 @@ public class MediaDocument {
         //TODO: use tempFile
         //Creo un file Temploraneo
         UUID uuid = UUID.randomUUID();
-        uuidAsString = uuid.toString();
-        Paths.get(tmpdir,uuidAsString);
+        String uuidAsString = uuid.toString();
+        this.file = Paths.get(tmpdir,uuidAsString).toFile();
         try {
 			outputStream = new FileOutputStream(Paths.get(tmpdir,uuidAsString).toString());
 		} catch (FileNotFoundException e1) {
@@ -50,12 +52,19 @@ public class MediaDocument {
 
         //eseguo la scrittura nel buffer
         try {
-			outputStream.write(data);
+			outputStream.write(data);			
             outputStream.flush();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    }
+    
+    public MediaDocument(final String fileName, final String contentType, final FileOutputStream outputStream,File file) {
+    	  this.contentType = contentType;
+          this.fileName = fileName;
+          this.outputStream = outputStream;
+          this.file = file;
     }
 
     public String contentType() {
@@ -118,10 +127,10 @@ public class MediaDocument {
     }
 //
     public RandomAccessFile getReader() throws FileNotFoundException {
-    	 return  new RandomAccessFile(Paths.get(tmpdir,uuidAsString).toString(), "r");
+    	 return  new RandomAccessFile(this.file.toPath().toString(), "r");
     }
 //
     public File getFile() throws FileNotFoundException {
-   	 return (Paths.get(tmpdir,uuidAsString).toFile());
+   	 return this.file;
    }
 }
