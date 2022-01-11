@@ -746,7 +746,7 @@ public class AviationInvoiceCreator {
                 		++totalFlightsWithExemptions;
                 	}
                 	totalExemptionsValue += fi.totalExemptionsValue;
-                	
+
                 }
             }
 
@@ -813,8 +813,8 @@ public class AviationInvoiceCreator {
 				totalCharges += -nvl(invoiceData.global.unifiedTaxTotalExemptions, 0d);
             }else {
             	totalCharges = totalChargesWithoutExemptions - totalExemptionsValue;
-            }        
-            
+            }
+
             invoiceData.global.enrouteCharges = totalEnrouteCharges;
             invoiceData.global.enrouteChargesStr = reportHelper.formatCurrency(invoiceData.global.enrouteCharges, aviationInvoiceCurrency);
             invoiceData.global.enrouteChargesStrWithCurrencySymbol = reportHelper.formatCurrency(invoiceData.global.enrouteCharges, aviationInvoiceCurrency);
@@ -942,11 +942,11 @@ public class AviationInvoiceCreator {
         	invoiceData.global.totalFlightsWithExemptions = totalFlightsWithExemptions;
 
             // total amount, due NOT round yet as additional charges not applied until billing ledger created
-            invoiceData.global.totalAmount = totalCharges;
+        	invoiceData.global.totalAmount = Math.abs(totalCharges);
             invoiceData.global.totalAmountAnsp = totalChargesAnsp;
             invoiceData.global.totalAmountNoExemptions = totalChargesWithoutExemptions;
 
-            // ATTENZIONE CORREGGERE IL TEMPLATE DEL REPORT
+
             invoiceData.global.totalAmountNoExemptionsStr = reportHelper.formatCurrency(
             	invoiceData.global.totalAmount, aviationInvoiceCurrency);
         }
@@ -1159,7 +1159,7 @@ public class AviationInvoiceCreator {
 
             	// 2019-04-30 EANA requirement: en-route charges are calculated as the sum of the flight en-route charge and
             	// the charge for the remainder between the charges for the cumulative flights and minimum charged distance of 200 km
-            	Double enrouteChargeCumulative = fm.getEnrouteCharges();
+            	Double enrouteChargeCumulative = fm.getFplCrossingCost();
             	if(enrouteChargeCumulative != null && fm.getEnrouteCostToMinimum() != null) {
             		enrouteChargeCumulative = enrouteChargeCumulative + fm.getEnrouteCostToMinimum();
             	}
@@ -1171,22 +1171,22 @@ public class AviationInvoiceCreator {
                 flightInfo.enrouteChargesAnsp = zeroToNull(flightMovementCurrencyConverter.toANSPCurrency(enrouteChargeCumulative, enrouteResultCurrency));
                 flightInfo.enrouteChargesAnspStr = reportHelper.formatCurrency(flightInfo.enrouteChargesAnsp, anspCurrency);
 
-                flightInfo.enrouteChargesNoExemptions = zeroToNull( nvl(enrouteChargeCumulative, 0d) + nvl(fm.getExemptEnrouteCharges(), 0d));
+                flightInfo.enrouteChargesNoExemptions = zeroToNull( nvl(enrouteChargeCumulative, 0d));
                 flightInfo.enrouteChargesWithoutExemptionsAnsp = zeroToNull(flightMovementCurrencyConverter.toANSPCurrency(flightInfo.enrouteChargesNoExemptions, enrouteResultCurrency));
 	        	flightInfo.enrouteChargesNoExemptionsStr = reportHelper.formatCurrency(flightInfo.enrouteChargesNoExemptions, aviationInvoiceCurrency);
 
-	        	
-	        	exemptionTypeService.resolveFlightMovementExemptions(fm);	
-	        	
+
+	        	exemptionTypeService.resolveFlightMovementExemptions(fm);
+
                 if (fm.getExemptEnrouteCharges() != null) {
 	                if (flightInfo.enrouteChargesNoExemptions != null && flightInfo.enrouteChargesNoExemptions != 0) {
 	            		double val = Math.round(100*fm.getExemptEnrouteCharges() / flightInfo.enrouteChargesNoExemptions);
 	        			flightInfo.exemptEnroutePercentage = val;
 
 	        			if (flightInfo.exemptEnroutePercentage > exemptPercentage) {
-	        				exemptPercentage = flightInfo.exemptEnroutePercentage;	        					        					        				
+	        				exemptPercentage = flightInfo.exemptEnroutePercentage;
 	        			}
-	        			Double discount = flightInfo.enrouteChargesNoExemptions - ((flightInfo.enrouteChargesNoExemptions * exemptPercentage)/100);
+	        			Double discount = Math.abs(flightInfo.enrouteChargesNoExemptions - ((flightInfo.enrouteChargesNoExemptions * exemptPercentage)/100));
 	        			flightInfo.enrouteChargesNoExemptionsStr = reportHelper.formatCurrency(discount, aviationInvoiceCurrency);
         				exemptPercentageStr = String.format("%.0f",flightInfo.exemptEnroutePercentage) + "% ";
 	                }
@@ -1457,7 +1457,7 @@ public class AviationInvoiceCreator {
 			flightInfo.exemptPercentage = exemptPercentage;
 			String notes = fm.getFlightNotes();
 			List<String> notesList = new ArrayList<String>(Arrays.asList(notes.split(";")));
-			
+
 			// test note
 //			if(flightInfo.exemptApprochPercentage != null && flightInfo.exemptApprochPercentage != 0) {
 //				for(String approach : notesList) {
@@ -1465,9 +1465,9 @@ public class AviationInvoiceCreator {
 //						flightInfo.exemptPercentageStr = flightInfo.exemptEnroutePercentage + "% " + notesList.get(0) + flightInfo.exemptApprochPercentage + approach.replace(" approach", "");
 //					}
 //				}
-//				
+//
 //			}
-			
+
 
 			if (notes != null) {
 				flightInfo.exemptPercentageStr = exemptPercentage + "% " + notesList.get(0);
@@ -2168,8 +2168,8 @@ public class AviationInvoiceCreator {
 	                    aircraftInfo.exemptUnifiedTaxPercentage = result.getExemptionPercentage();
 	                    aircraftInfo.exemptUnifiedTaxValue = aircraftInfo.unifiedTaxCharges * result.getExemptionPercentage() / 100;
 	                    if(result.getExemptNotes().size() != 0 ){
-	                    	aircraftInfo.exemptNota = result.getExemptNotes().get(0);	
-	                    }	                    
+	                    	aircraftInfo.exemptNota = result.getExemptNotes().get(0);
+	                    }
 	                    discountedAmount -= aircraftInfo.exemptUnifiedTaxValue;
 
 	                    totalUnifiedTaxExemptions.addAndGet(result.getExemptCharge());
