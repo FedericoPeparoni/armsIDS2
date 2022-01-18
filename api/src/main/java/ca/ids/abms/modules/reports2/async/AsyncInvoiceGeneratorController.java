@@ -23,9 +23,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -191,6 +193,6 @@ public class AsyncInvoiceGeneratorController {
      * IATA invoice generation is forced in XLSX format ONLY.
      */
     private ReportFormat resolveReportFormat(final Boolean preview, final Boolean iata, final ReportFormat format) {
-        return !preview && iata ? ReportFormat.xlsx : format;
+        return !preview && iata ? ReportFormat.xlsx : !preview && format.equals(ReportFormat.pdf) ? ReportFormat.zip :  format;
     }
 }

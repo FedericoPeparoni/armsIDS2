@@ -760,7 +760,7 @@ public class AviationInvoiceService {
             if (documents.length == 1) {
                 doc = documents[0];
             } else {
-                doc = reportDocumentCreator.combinePdfFiles(bundleName, Arrays.asList(documents));
+                doc = reportDocumentCreator.combinePdfFiles(bundleName, Arrays.asList(documents), preview);
             }
         }
         return doc;
@@ -1021,7 +1021,11 @@ public class AviationInvoiceService {
                     AviationInvoiceData.FlightInfo.class, false);
         case pdf:
             //
-            return reportDocumentCreator.combinePdfFiles (bundleName,
+            return reportDocumentCreator.combinePdfFilesInOne (bundleName,
+                    invoiceList.stream().map (AviationInvoice::invoiceDocument).collect (Collectors.toList()));
+        case zip:
+            //
+            return reportDocumentCreator.combinePdfFilesInZip (bundleName,
                     invoiceList.stream().map (AviationInvoice::invoiceDocument).collect (Collectors.toList()));
         case docx:
         case xlsx:

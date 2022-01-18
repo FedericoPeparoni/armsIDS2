@@ -10,7 +10,8 @@ public enum ReportFormat {
     txt  (".txt",  "text/plain; charset=utf-8"),
     docx (".docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
     xlsx (".xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
-    xml  (".xml",  "application/xml; charset=utf-8");
+    xml  (".xml",  "application/xml; charset=utf-8"),
+	zip  (".zip", "application/octet-stream");
     
     public static ReportFormat parse(String value) {
         try {

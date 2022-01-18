@@ -292,10 +292,20 @@ public class AviationInvoiceCreator {
             	invoiceData.global.referenceMonthStr = reportHelper.formatMonth (billingLedger.getInvoicePeriodOrDate());
             }
 
-            // Create PDF file
-            final ReportDocument reportDocument = this.aviationInvoiceDocumentCreator.create(
-            		invoiceData, reportFormat, chargeSelection,
-            		cashAccount, unifiedTaxInvoice, pointOfSale);
+            // Create PDF file 
+             ReportDocument reportDocument = null;
+            
+            if(reportFormat.equals(ReportFormat.zip) ) {
+            	reportDocument = this.aviationInvoiceDocumentCreator.create(
+                 		invoiceData, ReportFormat.pdf, chargeSelection,
+                 		cashAccount, unifiedTaxInvoice, pointOfSale);
+            }
+            else {
+            	 reportDocument = this.aviationInvoiceDocumentCreator.create(
+                 		invoiceData, reportFormat, chargeSelection,
+                 		cashAccount, unifiedTaxInvoice, pointOfSale);
+            }
+           
 
             // save PDF file in billing ledger
             reportHelper.setReportDocument(billingLedger, reportDocument);

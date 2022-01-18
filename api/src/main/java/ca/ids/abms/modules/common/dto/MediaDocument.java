@@ -27,9 +27,6 @@ public class MediaDocument {
     
     private File file;
 
-//    private  byte[] data;
-
-//    private String uuidAsString;
     private final String tmpdir = System.getProperty("java.io.tmpdir");
     private FileOutputStream outputStream;
 
@@ -89,13 +86,8 @@ public class MediaDocument {
         return fileName;
     }
 
-    //Evitare di utilizzarlo
     @Deprecated
     public byte[] data() {
-        //Logger.DEBUG()
-        // System.out.println("NON UTILIZZARE DATA");
-        //throw new RuntimeException("NON UTILIZZARE DATA");
-//       new CountingOutputStream(outputStream);;
     	 try (
 			RandomAccessFile reader = getReader()){
 			 byte[] document = new byte[(int) reader.length()];
@@ -118,18 +110,17 @@ public class MediaDocument {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-   //   this.data = new byte[data.length + data1.length];
     }
 
 
     public FileOutputStream getOutputStream() {
         return outputStream;
     }
-//
+
     public RandomAccessFile getReader() throws FileNotFoundException {
     	 return  new RandomAccessFile(this.file.toPath().toString(), "r");
     }
-//
+
     public File getFile() throws FileNotFoundException {
    	 return this.file;
    }

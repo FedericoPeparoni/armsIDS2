@@ -294,7 +294,7 @@ public class NonAviationInvoiceService extends AbstractPluginService<NonAviation
             ReportDocument combinedDoc;
             if (ReportFormat.pdf.equals(reportFormat)) {
                 combinedDoc = reportDocumentCreator.combinePdfFiles(bundleName,
-                    Arrays.asList(invoice.invoiceDocument(), invoice.transactionDocument()));
+                    Arrays.asList(invoice.invoiceDocument(), invoice.transactionDocument()), preview);
             } else {
                 combinedDoc = invoice.invoiceDocument();
             }
