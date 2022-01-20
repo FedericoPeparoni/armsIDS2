@@ -990,4 +990,8 @@ public class BillingLedgerService extends AbstractPluginService<BillingLedgerSer
     public List<BillingLedger> findIssuedInvoicesAccountsIdsByTypeAndDate (String invoiceType, Date fromDate, Date toDate ){
         return billingLedgerRepository.findIssuedInvoicesAccountsIdsByTypeAndDate(invoiceType, fromDate, toDate);
     }
+
+	public List<Integer> findAccountsIdByTypeAndDate(String invoiceType, Date fromDate, Date toDate) {
+		return billingLedgerRepository.findAccountsIdByTypeAndDate(invoiceType, fromDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(), toDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+	}
 }
