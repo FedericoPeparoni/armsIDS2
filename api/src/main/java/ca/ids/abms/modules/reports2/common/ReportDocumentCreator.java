@@ -188,7 +188,6 @@ public class ReportDocumentCreator {
 		 * ex.printStackTrace(); }
 		 */
 
-		// Oppure Salto un passaggio
 		// Attenzione Crea multiple Header
 		appendCsv(data, clazz, reportDocument.getOutputStream(), exportFromTable, header);
 
@@ -296,17 +295,22 @@ public class ReportDocumentCreator {
 		System.gc();
 		FileOutputStream out = null;
 		try {
-			File tempFile = createTempFile(Optional.empty());
-			out = new FileOutputStream(tempFile);
-			PDFMergerUtility ut = new PDFMergerUtility();
-			ut.addSources(values.stream().map(d -> (InputStream) new ByteArrayInputStream(d.data()))
-					.collect(Collectors.toList()));
-			ut.setDestinationStream(out);
-			ut.setDocumentMergeMode(DocumentMergeMode.OPTIMIZE_RESOURCES_MODE);
+			if (!values.isEmpty()) {
+				File tempFile = createTempFile(Optional.empty());
+				out = new FileOutputStream(tempFile);
+				PDFMergerUtility ut = new PDFMergerUtility();
+				ut.addSources(values.stream().map(d -> (InputStream) new ByteArrayInputStream(d.data()))
+						.collect(Collectors.toList()));
+				ut.setDestinationStream(out);
+				ut.setDocumentMergeMode(DocumentMergeMode.OPTIMIZE_RESOURCES_MODE);
 
-			ut.mergeDocuments(MemoryUsageSetting.setupMixed(1024L * 512L));
+				ut.mergeDocuments(MemoryUsageSetting.setupMixed(1024L * 512L));
 
-			return do_createReportDocument(bundleName, ReportFormat.pdf, out, tempFile);
+				return do_createReportDocument(bundleName, ReportFormat.pdf, out, tempFile);
+			} else {
+
+				return do_createReportDocument(bundleName, ReportFormat.pdf, new byte[0]);
+			}
 		} catch (final IOException x) {
 			throw new CustomParametrizedException(
 					"Failed to combine multiple PDF files into one" + ": " + x.getMessage(), x);
