@@ -224,7 +224,7 @@ export class FlightMovementManagementService extends CRUDService {
       'aircraft_type', 'dest_ad', 'associated_account_id', 'flight_type', 'item18_status',
       'item18_rmk', 'item18_dep', 'item18_dest', 'item18_aircraft_type', 'route', 'arrival_ad', 'arrival_time',
       'parking_time', 'passengers_chargeable_intern', 'passengers_chargeable_domestic', 'passengers_child',
-      'elapsed_time', 'cruising_speed_or_mach_number', 'flight_level'];
+      'estimated_elapsed_time', 'cruising_speed_or_mach_number', 'flight_level', 'user_crossing_distance'];
   }
 
   // returns distinct dep_ad and dest_ad
@@ -284,7 +284,7 @@ export class FlightMovementManagementService extends CRUDService {
 
   /**
    * Mark flight movements as paid, only PENDING zero cost flights will be processed.
-   * 
+   *
    * @param flightIdList list of flight movements to mark as paid
    */
   public markAsPaid(flightIdList: Array<number>): ng.IPromise<any> {

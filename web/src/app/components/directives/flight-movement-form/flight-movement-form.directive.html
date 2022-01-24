@@ -72,7 +72,7 @@
             </label>
             <p class="input-group">
                 <date-picker id="date-of-flight" type="text"
-                                ng-change="dateChanged('expiry', expiry.date)" 
+                                ng-change="dateChanged('expiry', expiry.date)"
                                 ng-blur="getDataByIdentifier()"
                                 pad-hours="true"
                                 show-button-bar="false" class="form-control"
@@ -127,7 +127,7 @@
                 <span translate>Departure Aerodrome *</span>
                 <span title="{{ 'Manually Changed Field' | translate}}" ng-show="manual.dep_ad">&nbsp;<i class="fa fa-flag" aria-hidden="true"></i></span>
             </label>
-            <input id="dep-aerodrome" name="depAd" class="form-control" type="text" ng-model="flightMovement.dep_ad" 
+            <input id="dep-aerodrome" name="depAd" class="form-control" type="text" ng-model="flightMovement.dep_ad"
                 ng-change="flightMovement.dep_ad !== 'ZZZZ' && flightMovement.dep_ad !== 'AFIL' ? flightMovement.item18_dep = '' : '';"
                 ng-blur="checkBillingCentreMismatch(flightMovement)"
                 ng-disabled="flightMovement.source !== 'manual' && !hasPermission('flight_movement_key_modify')" maxlength="4" only-letters uppercase-input required />
@@ -180,7 +180,7 @@
             </label>
             <dynamic-service-dropdown ng-model="flightMovement.associated_account_id"
                                       id="account" name="account"
-                                      dropdown-type="single" service="::accountsService" 
+                                      dropdown-type="single" service="::accountsService"
                                       method="findAllActiveMinimalReturn"
                                       is-required="::false"
                                       options="item.id as item.name for item in list"
@@ -212,7 +212,8 @@
         </div>
 
         <div class="col-xs-12 col-md-4 col-lg-2">
-            <label for="user-crossing-distance"><span translate>User Crossing Distance</span>&nbsp;<span>({{ distanceUnitOfMeasure }})</span></label>
+            <label for="user-crossing-distance"><span translate>User Crossing Distance</span>&nbsp;<span>({{ distanceUnitOfMeasure }})</span>
+                <span title="{{ 'Manually Changed Field' | translate}}" ng-show="manual.user_crossing_distance">&nbsp;<i class="fa fa-flag" aria-hidden="true"></i></span></label>
             <unit-conversion-input id="user-crossing-distance" name="userCrossingDistance" ng-model="flightMovement.user_crossing_distance" />
         </div>
 
@@ -239,7 +240,7 @@
                 <span ng-show="flightMovement.dep_ad === 'ZZZZ' || flightMovement.dep_ad === 'AFIL'">*</span>
                 <span title="{{ 'Manually Changed Field' | translate}}" ng-show="manual.item18_dep">&nbsp;<i class="fa fa-flag" aria-hidden="true"></i></span>
             </label>
-            <input id="item18-dep" name="item18Dep" class="form-control" type="text" ng-model="flightMovement.item18_dep" 
+            <input id="item18-dep" name="item18Dep" class="form-control" type="text" ng-model="flightMovement.item18_dep"
                 ng-required="flightMovement.dep_ad === 'ZZZZ' || flightMovement.dep_ad === 'AFIL' ? true : false"
                 ng-disabled="flightMovement.dep_ad !== 'ZZZZ' && flightMovement.dep_ad !== 'AFIL' ? true : false"
                 ng-blur="checkBillingCentreMismatch(flightMovement)" uppercase-input />
@@ -252,7 +253,7 @@
                 <span ng-show="flightMovement.dest_ad === 'ZZZZ'">*</span>
                 <span title="{{ 'Manually Changed Field' | translate}}" ng-show="manual.item18_dest">&nbsp;<i class="fa fa-flag" aria-hidden="true"></i></span>
             </label>
-            <input id="item18-dest" name="item18Dest" class="form-control" type="text" ng-model="flightMovement.item18_dest" 
+            <input id="item18-dest" name="item18Dest" class="form-control" type="text" ng-model="flightMovement.item18_dest"
                 ng-required="flightMovement.dest_ad === 'ZZZZ' ? true : false"
                 ng-disabled="flightMovement.dest_ad !== 'ZZZZ' ? true : false"
                 ng-blur="checkBillingCentreMismatch(flightMovement)" uppercase-input />
@@ -274,9 +275,9 @@
         <div class="col-xs-12 col-md-4 col-lg-2">
             <label for="cruising-speed-or-mach-number">
                 <span translate>Cruising Speed</span>&nbsp;(Knnnn/Nnnnn/Mnnn)
-                <span ng-show="flightMovement.dep_ad !== 'ZZZZ' && flightMovement.dep_ad !== 'AFIL' 
-                    && flightMovement.dest_ad !== 'ZZZZ' && flightMovement.dep_ad === flightMovement.dest_ad 
-                    || flightMovement.item18_dest !== null && flightMovement.item18_dep !== null 
+                <span ng-show="flightMovement.dep_ad !== 'ZZZZ' && flightMovement.dep_ad !== 'AFIL'
+                    && flightMovement.dest_ad !== 'ZZZZ' && flightMovement.dep_ad === flightMovement.dest_ad
+                    || flightMovement.item18_dest !== null && flightMovement.item18_dep !== null
                     && flightMovement.item18_dest !== '' && flightMovement.item18_dep !== ''
                     && flightMovement.item18_dest === flightMovement.item18_dep">*</span>
                 <span title="{{ 'Manually Changed Field' | translate}}" ng-show="manual.cruising_speed_or_mach_number">&nbsp;<i class="fa fa-flag"></i></span>
@@ -289,9 +290,9 @@
                     ng-model="flightMovement.cruising_speed_or_mach_number"
                     ng-pattern="/^([kK][0-9]{4})|([mM][0-9]{3})|([nN][0-9]{4})$/"
                     name="cruisingSpeedOrMachNumber"
-                    ng-required="flightMovement.dep_ad !== 'ZZZZ' && flightMovement.dep_ad !== 'AFIL' 
-                        && flightMovement.dest_ad !== 'ZZZZ' && flightMovement.dep_ad === flightMovement.dest_ad 
-                        || flightMovement.item18_dest !== null && flightMovement.item18_dep !== null 
+                    ng-required="flightMovement.dep_ad !== 'ZZZZ' && flightMovement.dep_ad !== 'AFIL'
+                        && flightMovement.dest_ad !== 'ZZZZ' && flightMovement.dep_ad === flightMovement.dest_ad
+                        || flightMovement.item18_dest !== null && flightMovement.item18_dep !== null
                         && flightMovement.item18_dest !== '' && flightMovement.item18_dep !== ''
                         && flightMovement.item18_dest === flightMovement.item18_dep ? true : false" uppercase-input />
         </div>
@@ -301,9 +302,9 @@
         <div class="col-xs-12 col-md-4 col-lg-2">
             <label for="estimated-elapsed-time">
                 <span translate>Elapsed Time</span>&nbsp;(<span tranlate>HHmm</span>)
-                <span ng-show="flightMovement.dep_ad !== 'ZZZZ' && flightMovement.dep_ad !== 'AFIL' 
-                    && flightMovement.dest_ad !== 'ZZZZ' && flightMovement.dep_ad === flightMovement.dest_ad 
-                    || flightMovement.item18_dest !== null && flightMovement.item18_dep !== null 
+                <span ng-show="flightMovement.dep_ad !== 'ZZZZ' && flightMovement.dep_ad !== 'AFIL'
+                    && flightMovement.dest_ad !== 'ZZZZ' && flightMovement.dep_ad === flightMovement.dest_ad
+                    || flightMovement.item18_dest !== null && flightMovement.item18_dep !== null
                     && flightMovement.item18_dest !== '' && flightMovement.item18_dep !== ''
                     && flightMovement.item18_dest === flightMovement.item18_dep || domesticDestAd">*</span>
                 <span title="{{ 'Manually Changed Field' | translate}}" ng-show="manual.estimated_elapsed_time">&nbsp;<i class="fa fa-flag" aria-hidden="true"></i></span>
@@ -314,9 +315,9 @@
                     ng-model="flightMovement.estimated_elapsed_time"
                     ng-pattern="/^(?:2[0-3]|[0-1]?[0-9])?:?[0-5]?[0-9]$/"
                     name="estimatedElapsedTime"
-                    ng-required="flightMovement.dep_ad !== 'ZZZZ' && flightMovement.dep_ad !== 'AFIL' 
-                    && flightMovement.dest_ad !== 'ZZZZ' && flightMovement.dep_ad === flightMovement.dest_ad 
-                    || flightMovement.item18_dest !== null && flightMovement.item18_dep !== null 
+                    ng-required="flightMovement.dep_ad !== 'ZZZZ' && flightMovement.dep_ad !== 'AFIL'
+                    && flightMovement.dest_ad !== 'ZZZZ' && flightMovement.dep_ad === flightMovement.dest_ad
+                    || flightMovement.item18_dest !== null && flightMovement.item18_dep !== null
                     && flightMovement.item18_dest !== '' && flightMovement.item18_dep !== ''
                     && flightMovement.item18_dest === flightMovement.item18_dep || domesticDestAd ? true : false"/>
         </div>
@@ -357,7 +358,7 @@
 
         <div class="col-xs-12 col-md-4 col-lg-2" ng-if="shouldShowCharge('TASP')">
             <label translate for="tasp-charge">{{ taspLabel }} Charge</label>
-            <input id="tasp-charge" name="taspCharge" class="form-control" type="number" min="0" ng-model="flightMovement.tasp_charge" 
+            <input id="tasp-charge" name="taspCharge" class="form-control" type="number" min="0" ng-model="flightMovement.tasp_charge"
                 ng-disabled="flightMovement.disableTaspFees"/>
         </div>
 
