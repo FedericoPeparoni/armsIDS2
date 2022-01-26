@@ -1185,10 +1185,13 @@ public class AviationInvoiceCreator {
                 flightInfo.enrouteChargesWithoutExemptionsAnsp = zeroToNull(flightMovementCurrencyConverter.toANSPCurrency(flightInfo.enrouteChargesNoExemptions, enrouteResultCurrency));
 	        	flightInfo.enrouteChargesNoExemptionsStr = reportHelper.formatCurrency(flightInfo.enrouteChargesNoExemptions, aviationInvoiceCurrency);
 
+	        	if(!fm.getFlightNotes().isEmpty()) {
+	        		fm.setFlightNotes("");
+	        	}
 
 	        	exemptionTypeService.resolveFlightMovementExemptions(fm);
 
-                if (fm.getExemptEnrouteCharges() != null) {
+                if (fm.getExemptEnrouteCharges() != null && !fm.getFlightNotes().isEmpty()) {
 	                if (flightInfo.enrouteChargesNoExemptions != null && flightInfo.enrouteChargesNoExemptions != 0) {
 	            		double val = Math.round(100*fm.getExemptEnrouteCharges() / flightInfo.enrouteChargesNoExemptions);
 	        			flightInfo.exemptEnroutePercentage = val;
@@ -1200,6 +1203,8 @@ public class AviationInvoiceCreator {
 	        			flightInfo.enrouteChargesNoExemptionsStr = reportHelper.formatCurrency(discount, aviationInvoiceCurrency);
         				exemptPercentageStr = String.format("%.0f",flightInfo.exemptEnroutePercentage) + "% ";
 	                }
+                }else {
+                	fm.setExemptEnrouteCharges(0d);
                 }
 
                 flightInfo.enrouteChargesIncluded = true;
@@ -1244,7 +1249,7 @@ public class AviationInvoiceCreator {
 
 	        	flightInfo.aerodromeChargesNoExemptionsStr = reportHelper.formatCurrency(flightInfo.aerodromeChargesNoExemptions, aviationInvoiceCurrency);
 
-                if (fm.getExemptAerodromeCharges() != null && fm.getAerodromeCharges() != null) {
+                if (fm.getExemptAerodromeCharges() != null && fm.getAerodromeCharges() != null && !fm.getFlightNotes().isEmpty()) {
                 	double unexemptedCharge = fm.getExemptAerodromeCharges() + fm.getAerodromeCharges();
                 	if (unexemptedCharge != 0) {
                 		double val = 100*fm.getExemptAerodromeCharges() / unexemptedCharge;
@@ -1257,6 +1262,8 @@ public class AviationInvoiceCreator {
 	        			exemptPercentageStr += String.format("%.0f",flightInfo.exemptAerodromePercentage) + "% ";
 
                 	}
+                }else {
+                	fm.setExemptAerodromeCharges(0d);
                 }
 
                 // flight movement approach charges
@@ -1276,7 +1283,7 @@ public class AviationInvoiceCreator {
 
 	        	flightInfo.approachChargesNoExemptionsStr = reportHelper.formatCurrency(flightInfo.approachChargesNoExemptions, aviationInvoiceCurrency);
 
-                if (fm.getExemptApprochCharges() != null) {
+                if (fm.getExemptApprochCharges() != null && !fm.getFlightNotes().isEmpty()) {
 	                if (flightInfo.approachChargesNoExemptions != null && flightInfo.approachChargesNoExemptions != 0) {
 	            		double val =  Math.round(100*fm.getExemptApprochCharges() / flightInfo.approachChargesNoExemptions);
 	            		flightInfo.exemptApprochPercentage = val;
@@ -1287,6 +1294,8 @@ public class AviationInvoiceCreator {
 
         				exemptPercentageStr += String.format("%.0f",flightInfo.exemptApprochPercentage) + "% ";
 	                }
+                }else {
+                	fm.setExemptApprochCharges(0d);
                 }
 
                 // flight movement landing charges
@@ -1363,9 +1372,9 @@ public class AviationInvoiceCreator {
 
 	        	flightInfo.extendedHoursSurchargeNoExemptionsStr = reportHelper.formatCurrency(flightInfo.extendedHoursSurchargeWithoutExemptions, aviationInvoiceCurrency);
 
-                if (fm.getExemptExtendedHoursSurcharge() != null && fm.getExemptExtendedHoursSurcharge() != null) {
+                if (fm.getExemptExtendedHoursSurcharge() != null && fm.getExemptExtendedHoursSurcharge() != 0 && !fm.getFlightNotes().isEmpty()) {
                 	double unexemptedCharge = fm.getExemptExtendedHoursSurcharge() + fm.getExemptExtendedHoursSurcharge();
-                	if (unexemptedCharge != 0) {
+                	if (unexemptedCharge != 0 ) {
                 		double val = 100*fm.getExemptAerodromeCharges() / unexemptedCharge;
             			flightInfo.exemptExtendedHoursPercentage = Math.round(val * 100.0) / 100.0;
 
@@ -1375,6 +1384,8 @@ public class AviationInvoiceCreator {
 
         				exemptPercentageStr += String.format("%.0f",flightInfo.exemptExtendedHoursPercentage) + "% ";
                 	}
+                }else {
+                	fm.setExemptExtendedHoursSurcharge(0d);
                 }
             }
 
@@ -1482,12 +1493,6 @@ public class AviationInvoiceCreator {
 			if (notes != null) {
 				flightInfo.exemptPercentageStr = exemptPercentage + "% " + notesList.get(0);
 			}
-/*
-			flightInfo.exemptPercentageStr = exemptPercentageStr;
-			if (notes != null) {
-				flightInfo.exemptPercentageStr += " (" + notes + ")";
-			}
-*/
 		}
 
         if (invoicePermits != null) {
