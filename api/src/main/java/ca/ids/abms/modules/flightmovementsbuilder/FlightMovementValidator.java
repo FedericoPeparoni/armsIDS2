@@ -381,7 +381,7 @@ public class FlightMovementValidator {
         
         if (isUnifiedtaxFlightMovement) {
         	isUnifiedtaxFlightMovementInvoiced = checkUnifiedTaxInvoiced(flightMovement);
-			if (isUnifiedtaxFlightMovementInvoiced) {        
+			if (!isUnifiedtaxFlightMovementInvoiced) {        
 	            issues.add(FlightMovementValidatorIssue.UNIFIED_TAX_NOT_PAID_FOR_CURRENT_YEAR);
 	        }
         }        
