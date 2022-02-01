@@ -34,7 +34,8 @@ public class ExtendedHoursExemptionChargeProvider implements ExemptionChargeProv
 
         // map exemption types using applicable values to exemption charge object
         Collection<ExemptionCharge> exemptionCharges = exemptions.stream().filter(Objects::nonNull)
-            .map(e -> new ExemptionCharge(e.extendedHoursSurchargeExemption(), e.flightNoteChargeExemption()))
+          //  .map(e -> new ExemptionCharge(e.extendedHoursSurchargeExemption(), e.flightNoteChargeExemption()))
+            .map(e -> new ExemptionCharge(e.extendedHoursSurchargeExemption(), e.flightNoteChargeExemption() + " extended"))
             .collect(Collectors.toList());
 
         // resolve exemption charge using largest exemption method
@@ -47,8 +48,14 @@ public class ExtendedHoursExemptionChargeProvider implements ExemptionChargeProv
         if (result == null) return;
 
         // apply resolved exemption result to provided flight movement, duplicates flight notes are ignored
-        flightMovement.setExtendedHoursSurcharge(result.getAppliedCharge());
-        flightMovement.setExemptExtendedHoursSurcharge(result.getExemptCharge());
-        FlightNotesUtility.mergeFlightNotes(flightMovement, result.getExemptNotes());
+        String note = "";
+        if(result.getExemptCharge()!= null && result.getExemptCharge()!= 0 && result.getExemptNotes().size() != 0) {
+			flightMovement.setExtendedHoursSurcharge(result.getAppliedCharge());
+			flightMovement.setExemptExtendedHoursSurcharge(result.getExemptCharge());
+			note = result.getExemptionPercentage() + "% " + result.getExemptNotes().get(0);
+        }
+        
+        FlightNotesUtility.mergeFlightNotes(flightMovement, note);
+      //  FlightNotesUtility.mergeFlightNotes(flightMovement, result.getExemptNotes());
     }
 }

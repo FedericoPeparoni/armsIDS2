@@ -1136,12 +1136,12 @@ public class ChargesUtility {
 
         if ((billableCrossingDistance != null && billableCrossingDistance > 0.0) ||
                 !isFlightRequireBillableRoute(providedFlightMovement, enrouteFormula) ) {
+        	//test round 
             map.put(CostFormulaVar.SCHEDCROSSDIST.varName(), billableCrossingDistance);
 
             // find dfactor
             try {
                 Double dfactor = this.evalDoublePositive(dFactorFormula, map);
-                dfactor = (double) Math.round(dfactor);
                 map.put(CostFormulaVar.DFACTOR.varName(), dfactor);
             } catch (Exception e) {
                 LOG.error("D factor calculation failed", e);
@@ -1163,7 +1163,6 @@ public class ChargesUtility {
             // find dfactor
             try {
                 Double dfactor = this.evalDoublePositive(dFactorFormula, map);
-                dfactor = (double) Math.round(dfactor);
                 map.put(CostFormulaVar.DFACTOR.varName(), dfactor);
             } catch (Exception e) {
                 LOG.error("D factor calculation failed", e);
@@ -1184,7 +1183,6 @@ public class ChargesUtility {
             // find dfactor
             try {
                 Double dfactor = this.evalDoublePositive(dFactorFormula, map);
-                dfactor = (double) Math.round(dfactor);
                 map.put(CostFormulaVar.DFACTOR.varName(), dfactor);
             } catch (Exception e) {
                 LOG.error("D factor calculation failed", e);
@@ -1205,7 +1203,6 @@ public class ChargesUtility {
             // find dfactor
             try {
                 Double dfactor = this.evalDoublePositive(dFactorFormula, map);
-                dfactor = (double) Math.round(dfactor);
                 map.put(CostFormulaVar.DFACTOR.varName(), dfactor);
             } catch (Exception e) {
                 LOG.error("D factor calculation failed", e);
@@ -1222,12 +1219,11 @@ public class ChargesUtility {
         // Billable distance cost
         if (providedFlightMovement.getBillableCrossingDist() != null && providedFlightMovement.getBillableCrossingDist() > 0.0) {
 
-            map.put(CostFormulaVar.SCHEDCROSSDIST.varName(), providedFlightMovement.getBillableCrossingDist());
+            map.put(CostFormulaVar.SCHEDCROSSDIST.varName(), Math.round(providedFlightMovement.getBillableCrossingDist()));
 
             // find dfactor
             try {
                 Double dfactor = this.evalDoublePositive(dFactorFormula, map);
-                dfactor = (double) Math.round(dfactor);
                 providedFlightMovement.setDFactor(dfactor);
                 map.put(CostFormulaVar.DFACTOR.varName(), dfactor);
             } catch (Exception e) {
@@ -1317,7 +1313,6 @@ public class ChargesUtility {
                     try {
                         map.put(CostFormulaVar.SCHEDCROSSDIST.varName(), crossingDistanceToMinimum);
                         Double dfactor = this.evalDoublePositive(dFactorFormula, map);
-                        dfactor = (double) Math.round(dfactor);
                         map.put(CostFormulaVar.DFACTOR.varName(), dfactor);
                         enrouteCharges = this.evalDoublePositive(enrouteFormula, map);
                         providedFlightMovement.setEnrouteCostToMinimum(enrouteCharges);
@@ -1339,7 +1334,6 @@ public class ChargesUtility {
             // find dfactor
             try {
                 Double dfactor = this.evalDoublePositive(dFactorFormula, map);
-                dfactor = (double) Math.round(dfactor);
                 map.put(CostFormulaVar.DFACTOR.varName(), dfactor);
             } catch (Exception e) {
                 LOG.error("D factor calculation failed", e);
@@ -1361,7 +1355,6 @@ public class ChargesUtility {
             // find dfactor
             try {
                 Double dfactor = this.evalDoublePositive(dFactorFormula, map);
-                dfactor = (double) Math.round(dfactor);
                 map.put(CostFormulaVar.DFACTOR.varName(), dfactor);
             } catch (Exception e) {
                 LOG.error("D factor calculation failed", e);

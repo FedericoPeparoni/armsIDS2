@@ -388,9 +388,15 @@ public class AviationInvoiceCreator {
         if(!preview) {
             invoiceData.global.realInvoiceNumber = invoiceSeqNumGen.nextInvoiceSequenceNumber(InvoiceType.AVIATION_NONIATA);
         }
+        //invoiceName is the fileName
         invoiceData.global.invoiceNumber = reportHelper.getDisplayInvoiceNumber(invoiceData.global.realInvoiceNumber, preview);
-        invoiceData.global.invoiceName = String.format("%s %s%s", Translation.getLangByToken("Aviation invoice"),
-        invoiceData.global.invoiceNumber, invoiceNameSuffix);
+        if(billingInterval != null && (billingInterval == billingInterval.UNIFIED_TAX_ANNUALLY || billingInterval == billingInterval.UNIFIED_TAX_PARTIALLY)) {
+        	invoiceData.global.invoiceName = String.format("%s %s - %s %s", Translation.getLangByToken("Aviation invoice"),
+        	        invoiceData.global.invoiceNumber, account.getName() , invoiceNameSuffix);
+        }else {
+        	invoiceData.global.invoiceName = String.format("%s %s - %s", Translation.getLangByToken("Aviation invoice"),
+        	        invoiceData.global.invoiceNumber, invoiceNameSuffix);
+        }
         invoiceData.global.invoiceIssueLocation = billingCenter.getName();
         invoiceData.global.invoiceDateStr = reportHelper.formatDateUtc(endDateInclusive, dateFormatter);
         invoiceData.global.invoiceDateOfIssueStr = reportHelper.formatDateUtc(ldtNow, dateFormatter);
@@ -1478,21 +1484,33 @@ public class AviationInvoiceCreator {
 			flightInfo.exemptPercentage = exemptPercentage;
 			String notes = fm.getFlightNotes();
 			List<String> notesList = new ArrayList<String>(Arrays.asList(notes.split(";")));
-
+			
+			
+			//////////////////////////////////////////////////////////////////////////////////////////////////////
 			// test note
-//			if(flightInfo.exemptApprochPercentage != null && flightInfo.exemptApprochPercentage != 0) {
-//				for(String approach : notesList) {
-//					if(approach.contains("approach")) {
-//						flightInfo.exemptPercentageStr = flightInfo.exemptEnroutePercentage + "% " + notesList.get(0) + flightInfo.exemptApprochPercentage + approach.replace(" approach", "");
-//					}
-//				}
-//
-//			}
-
-
-			if (notes != null) {
-				flightInfo.exemptPercentageStr = exemptPercentage + "% " + notesList.get(0);
+			String approachExempt = "";
+			String enrouteExempt = "";
+			String extendedExempt = "";
+			
+			for (int i = 0; i < notesList.size(); i++) {
+				if (notesList.get(i).contains("approach")) {
+					approachExempt = notesList.get(i).replace(" approach", "");
+				} else if (notesList.get(i).contains("enroute")) {
+					enrouteExempt = notesList.get(i).replace(" enroute", "");
+				}else if (notesList.get(i).contains(" extended")) {
+					extendedExempt = notesList.get(i).replace(" extended", "");
+				}
 			}
+
+			if (!approachExempt.equalsIgnoreCase("") || !enrouteExempt.equalsIgnoreCase("") || !extendedExempt.equalsIgnoreCase("")) {
+				flightInfo.exemptPercentageStr = enrouteExempt + " " + approachExempt + " " + extendedExempt;
+			}
+			//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+			
+//			if (notes != null) {
+//				flightInfo.exemptPercentageStr = exemptPercentage + "% " + notesList.get(0);
+//			}
 		}
 
         if (invoicePermits != null) {

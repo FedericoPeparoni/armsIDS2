@@ -30,36 +30,14 @@ public class EnrouteExemptionChargeProvider  implements ExemptionChargeProvider{
      * Apply exemptions to flight movement using largest exemption defined. All flight notes are
      * applied where exemption is defined.
      */
-//    public void apply(final FlightMovement flightMovement, final Collection<ExemptionType> exemptions) {
-//        Preconditions.checkArgument(flightMovement != null && exemptions != null);
-//
-//        // map exemption types using applicable values to exemption charge object
-//        Collection<ExemptionCharge> exemptionCharges = exemptions.stream().filter(Objects::nonNull)
-//            .map(e -> new ExemptionCharge(e.enrouteChargeExemption(), e.flightNoteChargeExemption()))
-//            .collect(Collectors.toList());
-//
-//        // resolve exemption charge using largest exemption method
-//        ExemptionChargeMethodResult result = method.resolve(new ExemptionChargeMethodModel.Builder()
-//            .chargeCurrency(flightMovement.getEnrouteResultCurrency())
-//            .chargeValue(flightMovement.getEnrouteCharges())
-//            .exemptionCharges(exemptionCharges).build());
-//
-//        // return immediately if result is null as nothing to apply
-//        if (result == null) return;
-//
-//        // apply resolved exemption result to provided flight movement, duplicates flight notes are ignored
-//        flightMovement.setEnrouteCharges(result.getAppliedCharge());
-//        flightMovement.setExemptEnrouteCharges(result.getExemptCharge());
-//        FlightNotesUtility.mergeFlightNotes(flightMovement, result.getExemptNotes());
-//    }
     
-
     public void apply(final FlightMovement flightMovement, final Collection<ExemptionType> exemptions) {
         Preconditions.checkArgument(flightMovement != null && exemptions != null);
 
         // map exemption types using applicable values to exemption charge object
         Collection<ExemptionCharge> exemptionCharges = exemptions.stream().filter(Objects::nonNull)
-            .map(e -> new ExemptionCharge(e.enrouteChargeExemption(), e.flightNoteChargeExemption()))
+            //.map(e -> new ExemptionCharge(e.enrouteChargeExemption(), e.flightNoteChargeExemption()))
+            .map(e -> new ExemptionCharge(e.enrouteChargeExemption(), e.flightNoteChargeExemption() + " enroute"))
             .collect(Collectors.toList());
         
         Double costEnroute = 0d;
@@ -70,7 +48,6 @@ public class EnrouteExemptionChargeProvider  implements ExemptionChargeProvider{
         	 costEnroute = flightMovement.getFplCrossingCost() + flightMovement.getEnrouteCostToMinimum();
         }
         
-        
         // resolve exemption charge using largest exemption method
         ExemptionChargeMethodResult result = method.resolve(new ExemptionChargeMethodModel.Builder()
         	.chargeCurrency(flightMovement.getEnrouteResultCurrency())
@@ -79,12 +56,16 @@ public class EnrouteExemptionChargeProvider  implements ExemptionChargeProvider{
 
         if (result == null) return;
      
-
         // apply resolved exemption result to provided flight movement, duplicates flight notes are ignored
-        flightMovement.setEnrouteCharges(result.getAppliedCharge());
-        flightMovement.setExemptEnrouteCharges(result.getExemptCharge());
-      //  flightMovement.setFlightNotes(result.getExemptNotes().get(0));
-        FlightNotesUtility.mergeFlightNotes(flightMovement, result.getExemptNotes());
+        String note = "";
+        if(result.getExemptNotes().size() != 0 && result.getExemptCharge()!= null && result.getExemptCharge() != 0) {
+			flightMovement.setEnrouteCharges(result.getAppliedCharge());
+			flightMovement.setExemptEnrouteCharges(result.getExemptCharge());
+        	note  = result.getExemptionPercentage()+"% "+ result.getExemptNotes().get(0);
+        }
+        FlightNotesUtility.mergeFlightNotes(flightMovement, note);
+
+//        FlightNotesUtility.mergeFlightNotes(flightMovement,result.getExemptNotes());
     }
     
     

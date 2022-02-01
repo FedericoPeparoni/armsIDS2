@@ -35,14 +35,10 @@ public class ApproachExemptionChargeProvider implements ExemptionChargeProvider 
 
         // map exemption types using applicable values to exemption charge object
         Collection<ExemptionCharge> exemptionCharges = exemptions.stream().filter(Objects::nonNull)
-        		.map(e -> new ExemptionCharge(e.approachChargeExemption(), e.flightNoteChargeExemption()))
-           // .map(e -> new ExemptionCharge(e.approachChargeExemption(), e.flightNoteChargeExemption() + " approach"))
+//        		.map(e -> new ExemptionCharge(e.approachChargeExemption(), e.flightNoteChargeExemption()))
+        		.map(e -> new ExemptionCharge(e.approachChargeExemption(), e.flightNoteChargeExemption() + " approach"))
             .collect(Collectors.toList());
         
-
-        
-        
-
         // resolve exemption charge using largest exemption method
         ExemptionChargeMethodResult result = method.resolve(new ExemptionChargeMethodModel.Builder()
             .chargeCurrency(flightMovement.getApproachChargesCurrency())
@@ -53,8 +49,14 @@ public class ApproachExemptionChargeProvider implements ExemptionChargeProvider 
         if (result == null) return;
 
         // apply resolved exemption result to provided flight movement, duplicates flight notes are ignored
-        flightMovement.setApproachCharges(result.getAppliedCharge());
-        flightMovement.setExemptApprochCharges(result.getExemptCharge());
-        FlightNotesUtility.mergeFlightNotes(flightMovement, result.getExemptNotes());
+        String note = "";
+        if(result.getExemptNotes().size() !=0 && result.getExemptCharge() != null && result.getExemptCharge() != 0) {
+			flightMovement.setApproachCharges(result.getAppliedCharge());
+			flightMovement.setExemptApprochCharges(result.getExemptCharge());
+        	note = result.getExemptionPercentage()+"% "+ result.getExemptNotes().get(0);	
+        }
+        FlightNotesUtility.mergeFlightNotes(flightMovement, note);
+        
+//        FlightNotesUtility.mergeFlightNotes(flightMovement, result.getExemptNotes());
     }
 }

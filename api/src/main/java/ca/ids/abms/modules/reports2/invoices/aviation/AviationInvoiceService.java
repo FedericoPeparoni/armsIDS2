@@ -189,9 +189,16 @@ public class AviationInvoiceService {
 
         final LocalDateTime ldtNow = ZonedDateTime.now (ReportHelper.UTC_ZONE_ID).toLocalDateTime();
         do_ensureBillingPeriodValid(billingInterval, preview, ldtNow, startDate, endDateInclusive);
-
+        //suffix date file
         final ZonedDateTime zdtStart = ZonedDateTime.of(startDate, ReportHelper.UTC_ZONE_ID);
-        final String invoiceNameSuffix = String.format (" - %s", zdtStart.format (DateTimeFormatter.ofPattern("MMM YYYY")));
+        
+        String formatName = "";
+        if(billingInterval != null && (billingInterval == billingInterval.UNIFIED_TAX_ANNUALLY || billingInterval == billingInterval.UNIFIED_TAX_PARTIALLY)) {
+        	formatName = String.format ("%s", zdtStart.format (DateTimeFormatter.ofPattern("YYYY")));
+        }else {
+        	formatName = String.format ("%s", zdtStart.format (DateTimeFormatter.ofPattern("MMM YYYY")));
+        }
+        final String invoiceNameSuffix = formatName;
 
         // Create invoices for each account
         return new AviationInvoiceCreator (

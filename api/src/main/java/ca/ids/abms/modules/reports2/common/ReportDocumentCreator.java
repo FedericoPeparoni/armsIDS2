@@ -255,14 +255,17 @@ public class ReportDocumentCreator {
 		System.gc();
 		FileOutputStream out = null;
 		try {
-			File tempFile = createTempFile(Optional.empty());
-			out = new FileOutputStream(tempFile);
-			buildZipOutputStream(values, out);
+			if(!values.isEmpty()) {
+				File tempFile = createTempFile(Optional.empty());
+				out = new FileOutputStream(tempFile);
+				buildZipOutputStream(values, out);
 
-			return do_createReportDocument(bundleName, ReportFormat.zip, out, tempFile);
+				return do_createReportDocument(bundleName, ReportFormat.zip, out, tempFile);
+			}else {
+				return do_createReportDocument(bundleName, ReportFormat.zip, new byte[0]);
+			}
 		} catch (final IOException x) {
-			throw new CustomParametrizedException(
-					"Failed to combine multiple PDF files into one" + ": " + x.getMessage(), x);
+			throw new CustomParametrizedException("Failed to combine multiple PDF files into one" + ": " + x.getMessage(), x);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new CustomParametrizedException("Failed to create ZIP files into one" + ": " + e.getMessage(), e);
@@ -299,21 +302,17 @@ public class ReportDocumentCreator {
 				File tempFile = createTempFile(Optional.empty());
 				out = new FileOutputStream(tempFile);
 				PDFMergerUtility ut = new PDFMergerUtility();
-				ut.addSources(values.stream().map(d -> (InputStream) new ByteArrayInputStream(d.data()))
-						.collect(Collectors.toList()));
+				ut.addSources(values.stream().map(d -> (InputStream) new ByteArrayInputStream(d.data())).collect(Collectors.toList()));
 				ut.setDestinationStream(out);
 				ut.setDocumentMergeMode(DocumentMergeMode.OPTIMIZE_RESOURCES_MODE);
-
 				ut.mergeDocuments(MemoryUsageSetting.setupMixed(1024L * 512L));
 
 				return do_createReportDocument(bundleName, ReportFormat.pdf, out, tempFile);
 			} else {
-
 				return do_createReportDocument(bundleName, ReportFormat.pdf, new byte[0]);
 			}
 		} catch (final IOException x) {
-			throw new CustomParametrizedException(
-					"Failed to combine multiple PDF files into one" + ": " + x.getMessage(), x);
+			throw new CustomParametrizedException("Failed to combine multiple PDF files into one" + ": " + x.getMessage(), x);
 		} finally {
 			if (out != null) {
 				try {
