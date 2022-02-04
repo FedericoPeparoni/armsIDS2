@@ -43,6 +43,8 @@ public class RadarSummaryViewModel extends VersionedViewModel {
     @Time4Digits
     private String firEntryTime;
 
+    private LocalDateTime firEntryDate;
+
     private String firExitPoint;
 
     @Time4Digits
@@ -55,17 +57,17 @@ public class RadarSummaryViewModel extends VersionedViewModel {
     private List<RadarSummaryWaypoint> waypoints;
 
     private String cruisingSpeed;
-    
+
     private String wakeTurb;
-    
+
     private String flightLevel;
 
     private String firEntryFlightLevel;
-    
+
     private String firExitFlightLevel;
-    
+
     private Integer segment;
-    
+
     private String entryCoordinate;
     private String exitCoordinate;
 
