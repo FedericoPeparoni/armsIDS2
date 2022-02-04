@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import ca.ids.abms.modules.utilities.flights.FlightUtility;
+import com.ibm.icu.text.SimpleDateFormat;
+
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -22,6 +23,7 @@ import org.mapstruct.MappingTarget;
 import ca.ids.abms.modules.common.mappers.ABMSMapper;
 import ca.ids.abms.modules.flightmovementsbuilder.utility.cache.RouteCacheUtility;
 import ca.ids.abms.modules.radarsummary.enumerators.RadarSummaryFormat;
+import ca.ids.abms.modules.utilities.flights.FlightUtility;
 import ca.ids.abms.util.converter.DateTimeParserStrategy;
 import ca.ids.abms.util.converter.JSR310DateConverters;
 
@@ -55,6 +57,7 @@ public abstract class RadarSummaryMapper extends ABMSMapper {
     @Mapping(target = "date", ignore = true)
     @Mapping(target = "route", ignore = true)
     @Mapping(target = "dayOfFlight", ignore = true)
+    @Mapping(target = "firEntryDate", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
@@ -71,16 +74,15 @@ public abstract class RadarSummaryMapper extends ABMSMapper {
     void cleanRoute(final RadarSummaryCsvViewModel source, @MappingTarget final RadarSummary result) {
         result.setRoute(RouteCacheUtility.removeFlightLevelsAndNormalize(source.getRoute()));
     }
-    
+
     private static LocalDateTime parseDate (final String str) {
         return parseCustomLocalDateToLocalDateTime (
-                normalizeDate(str, DateTimeParserStrategy.DATE_PATTERNS_YEAR_FIRST),
-                JSR310DateConverters.DEFAULT_PATTERN_DATE, Locale.ENGLISH);   
+            normalizeDate(str, DateTimeParserStrategy.DATE_PATTERNS_YEAR_FIRST),
+            JSR310DateConverters.DEFAULT_PATTERN_DATE, Locale.ENGLISH);
     }
 
     @AfterMapping
     void parseDateTimeFromCSV(final RadarSummaryCsvViewModel source, @MappingTarget RadarSummary result) {
-
         // radar summary date differs from other uploads as year is first
         LocalDateTime date = parseDate (source.getDate());
         final String depTime = normalizeTime(source.getDepartureTime());
@@ -96,11 +98,23 @@ public abstract class RadarSummaryMapper extends ABMSMapper {
         result.setFirExitTime(firExitTime);
         result.setFlightRule(flightRule);
 
+        if (source.getFirEntryDate() != null) {
+            LocalDateTime firEntryDate = parseDate(source.getFirEntryDate());
+            result.setFirEntryDate(firEntryDate);
+        }
+
         // For all formats other than INDRA_REC; or when dayOfFlight is unknown:
         if (source.getFormat() != RadarSummaryFormat.INDRA_REC || (date != null && dayOfFlight == null)) {
             // Adjust dayOfFlight: if firEntryTime is earlier then departureTime, dayOfFlight is the day before
-            dayOfFlight = FlightUtility.resolveDateOfFlight(depTime, firEntryTime, date);
+
+            LocalDateTime firEntryDate = result.getFirEntryDate();
+
+            if (firEntryDate != null)
+                dayOfFlight = FlightUtility.resolveDateOfFlight(depTime, firEntryTime, firEntryDate);
+            else
+                dayOfFlight = FlightUtility.resolveDateOfFlight(depTime, firEntryTime, date);
         }
+
         result.setDayOfFlight(dayOfFlight);
 
         // If dayOfFlight is known, but date isn't, try to guess it
@@ -108,6 +122,7 @@ public abstract class RadarSummaryMapper extends ABMSMapper {
             // if firEntryTime is earlier then departureTime, the flight probably started the day before
             date = FlightUtility.resolveDateOfContact(depTime, firEntryTime, dayOfFlight);
         }
+
         result.setDate(date);
 
         // Convert (unparsed) fixes to (parsed) waypoints with full date/time fields
@@ -120,7 +135,7 @@ public abstract class RadarSummaryMapper extends ABMSMapper {
 
     /**
      * Convert flight rules to the format acceptable to RadarSummary entity
-     * 
+     *
      * Flight processing code expects "IFR" and "VFR" here, not just "I" and "V".
      */
     private static String normalizeFlightRule (final String s) {
@@ -158,14 +173,14 @@ public abstract class RadarSummaryMapper extends ABMSMapper {
         if (fixes == null || fixes.isEmpty()) {
             return null;
         }
-        
-        // Base date is unknown -- can't construct full dates for each waypoint => 
+
+        // Base date is unknown -- can't construct full dates for each waypoint =>
         // create them with NULL dates
         if (radarContactDateTime == null) {
             return fixes.stream()
-                    .map(fix->new RadarSummaryWaypoint (null, fix.point, fix.level))
-                    .collect (Collectors.toList())
-            ;
+                .map(fix->new RadarSummaryWaypoint (null, fix.point, fix.level))
+                .collect (Collectors.toList())
+                ;
         }
 
         // Convert fixes to waypoints by calculating the full date for each fix

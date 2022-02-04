@@ -2478,4 +2478,8 @@ databaseChangeLog:
         author: Federico Peparoni
         file: 202106091530_system_configuration_small_aircraft.sql
         relativeToChangelogFile: true
-      
+    - include:
+          author: Antonio Monteleone
+          file: 20210628180000_alter_radar_summaries_table.sql
+          relativeToChangelogFile: true
+

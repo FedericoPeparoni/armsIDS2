@@ -25,7 +25,7 @@ public class RadarSummary extends VersionedAuditedEntity {
 
     private static final long serialVersionUID = 1L;
 
-	@Id
+    @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
@@ -94,6 +94,9 @@ public class RadarSummary extends VersionedAuditedEntity {
     @CsvBindByPosition(position = 15)
     private String firEntryTime;
 
+    @Column(name="entry_date")
+    private LocalDateTime firEntryDate;
+
     @SearchableText
     @Column(name="exit_point")
     private String firExitPoint;
@@ -142,23 +145,23 @@ public class RadarSummary extends VersionedAuditedEntity {
     /**
      * Same as the like-named field in flight_movements table: cruising speed prefixed with
      * K (kilometers per hour), N (knots) or M (True Mach number), e.g. "N0100".
-     * 
+     *
      * See also ICAO DOC 4444 about the correct syntax of this field in flight plan messages.
-     * 
+     *
      * NOTE: the syntax of this field is not enforced at the database level, so it may contain
      * "garbage".
      */
     @Column(length = 5)
     private String cruisingSpeed;
-    
+
     /**
      * Same as the like-named field in flight_movements table, e.g. "M"
-     * 
+     *
      * See also ICAO DOC 4444 about the correct syntax of this field in flight plan messages.
      */
     @Column(length = 1)
     private String wakeTurb;
-    
+
     /**
      * Same as the like-named field in flight_movements table. In radar_summaries, this field
      * may not follow ICAO DOC 4444 syntax.
@@ -171,32 +174,32 @@ public class RadarSummary extends VersionedAuditedEntity {
      */
     @Column(name = "entryPointFlightLevel", length = 5)
     private String firEntryFlightLevel;
-    
+
     /**
      * Leonardo file may contain multiple segments for the same flight
      */
     @Column(name = "segment")
     private Integer segment;
-    
+
     /**
      * Flight level of the exit point
      */
     @Column(name = "exitPointFlightLevel", length = 5)
     private String firExitFlightLevel;
-    
+
     /**
      * Coordinate of the entry point
      */
     @Column(name = "entry_coordinate")
     private String entryCoordinate;
-    
+
     /**
      * Coordinate of the exit point
      */
     @Column(name = "exit_coordinate")
     private String exitCoordinate;
-   
-    
+
+
     public Integer getId() {
         return id;
     }
@@ -329,6 +332,14 @@ public class RadarSummary extends VersionedAuditedEntity {
 
     public void setFirEntryTime(String firEntryTime) {
         this.firEntryTime = firEntryTime;
+    }
+
+    public LocalDateTime getFirEntryDate() {
+        return firEntryDate;
+    }
+
+    public void setFirEntryDate(LocalDateTime firEntryDate) {
+        this.firEntryDate = firEntryDate;
     }
 
     public String getFirExitPoint() {
@@ -470,31 +481,31 @@ public class RadarSummary extends VersionedAuditedEntity {
 
         Boolean returnValue=Boolean.TRUE;
 
-            if (!StringUtils.isNotBlank(this.getDepartureAeroDrome())) {
+        if (!StringUtils.isNotBlank(this.getDepartureAeroDrome())) {
 
-                returnValue = Boolean.FALSE;
-            }
+            returnValue = Boolean.FALSE;
+        }
 
-            if (!StringUtils.isNotBlank(this.getDestinationAeroDrome())) {
+        if (!StringUtils.isNotBlank(this.getDestinationAeroDrome())) {
 
-                returnValue = Boolean.FALSE;
-            }
+            returnValue = Boolean.FALSE;
+        }
 
-            if (!StringUtils.isNotBlank(this.getDepartureTime())) {
-                returnValue = Boolean.FALSE;
-            }
+        if (!StringUtils.isNotBlank(this.getDepartureTime())) {
+            returnValue = Boolean.FALSE;
+        }
 
-            if (!StringUtils.isNotBlank(this.getFlightIdentifier()) ) {
-                returnValue = Boolean.FALSE;
-            }
+        if (!StringUtils.isNotBlank(this.getFlightIdentifier()) ) {
+            returnValue = Boolean.FALSE;
+        }
 
-            if (this.getDate() == null) {
-                returnValue = Boolean.FALSE;
-            }
-            
-            if (this.getSegment() == null) {
-                returnValue = Boolean.FALSE;
-            }
+        if (this.getDate() == null) {
+            returnValue = Boolean.FALSE;
+        }
+
+        if (this.getSegment() == null) {
+            returnValue = Boolean.FALSE;
+        }
         return returnValue;
 
     }
@@ -536,12 +547,12 @@ public class RadarSummary extends VersionedAuditedEntity {
         // item is a duplicate
         return true;
     }
-    
+
     @Transient
     public String getDisplayName() {
         final LocalDateTime dof = getDayOfFlight();
         return String.format ("RadarSummary {flgihtId=%s, dayOfFlight=%s, departureAerodrome=%s}",
-                getFlightIdentifier(), dof == null ? null : dof.toLocalDate().toString(), getDepartureAeroDrome());
+            getFlightIdentifier(), dof == null ? null : dof.toLocalDate().toString(), getDepartureAeroDrome());
     }
 
 }
