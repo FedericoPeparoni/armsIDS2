@@ -99,9 +99,9 @@ public abstract class RadarSummaryMapper extends ABMSMapper {
         result.setFlightRule(flightRule);
 
         if (source.getFirEntryDate() != null) {
-            LocalDateTime firEntryDate = parseDate(source.getFirEntryDate());
+        	LocalDateTime firEntryDate = parseDate(source.getFirEntryDate());
             result.setFirEntryDate(firEntryDate);
-        }
+        }  
 
         // For all formats other than INDRA_REC; or when dayOfFlight is unknown:
         if (source.getFormat() != RadarSummaryFormat.INDRA_REC || (date != null && dayOfFlight == null)) {

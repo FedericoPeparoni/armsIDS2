@@ -42,6 +42,8 @@ public class RadarSummaryCsvViewModel extends DefaultRejectableCsvModel {
     private String firEntryTime;
 
     private String firEntryFlightLevel;
+    
+    private String firEntryDate;
 
     private String firExitPoint;
 
@@ -346,7 +348,17 @@ public class RadarSummaryCsvViewModel extends DefaultRejectableCsvModel {
 
     @JsonProperty("operatorIcaoCode")
     public void setOperatorIcaoCode(String operatorIcaoCode) { this.operatorIcaoCode = operatorIcaoCode; }
+    
+	@JsonProperty("firEntryDate")
+	public String getFirEntryDate() {
+		return firEntryDate;
+	}
 
+	@JsonProperty("firEntryDate")
+	public void setFirEntryDate(String firEntryDate) {
+		this.firEntryDate = firEntryDate;
+	}
+    
     public String getFixes() {
         return fixes;
     }
@@ -390,6 +402,7 @@ public class RadarSummaryCsvViewModel extends DefaultRejectableCsvModel {
             ", firEntryTime='" + firEntryTime + '\'' +
             ", firExitPoint='" + firExitPoint + '\'' +
             ", firExitTime='" + firExitTime + '\'' +
+            ", firEntryDate='" + firEntryDate + '\'' +
             '}';
     }
 
