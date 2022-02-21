@@ -36,16 +36,15 @@ public class EnrouteExemptionChargeProvider  implements ExemptionChargeProvider{
 
         // map exemption types using applicable values to exemption charge object
         Collection<ExemptionCharge> exemptionCharges = exemptions.stream().filter(Objects::nonNull)
-            //.map(e -> new ExemptionCharge(e.enrouteChargeExemption(), e.flightNoteChargeExemption()))
             .map(e -> new ExemptionCharge(e.enrouteChargeExemption(), e.flightNoteChargeExemption() + " enroute"))
             .collect(Collectors.toList());
         
         Double costEnroute = 0d;
         
         if(flightMovement.getEnrouteCostToMinimum() == null) {
-        	costEnroute = flightMovement.getFplCrossingCost();
+        	costEnroute = flightMovement.getBillableCrossingCost();
         }else {
-        	 costEnroute = flightMovement.getFplCrossingCost() + flightMovement.getEnrouteCostToMinimum();
+        	 costEnroute = flightMovement.getBillableCrossingCost() + flightMovement.getEnrouteCostToMinimum();
         }
         
         // resolve exemption charge using largest exemption method
@@ -65,7 +64,6 @@ public class EnrouteExemptionChargeProvider  implements ExemptionChargeProvider{
         }
         FlightNotesUtility.mergeFlightNotes(flightMovement, note);
 
-//        FlightNotesUtility.mergeFlightNotes(flightMovement,result.getExemptNotes());
     }
     
     

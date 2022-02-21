@@ -34,7 +34,6 @@ public class ExtendedHoursExemptionChargeProvider implements ExemptionChargeProv
 
         // map exemption types using applicable values to exemption charge object
         Collection<ExemptionCharge> exemptionCharges = exemptions.stream().filter(Objects::nonNull)
-          //  .map(e -> new ExemptionCharge(e.extendedHoursSurchargeExemption(), e.flightNoteChargeExemption()))
             .map(e -> new ExemptionCharge(e.extendedHoursSurchargeExemption(), e.flightNoteChargeExemption() + " extended"))
             .collect(Collectors.toList());
 
@@ -54,8 +53,7 @@ public class ExtendedHoursExemptionChargeProvider implements ExemptionChargeProv
 			flightMovement.setExemptExtendedHoursSurcharge(result.getExemptCharge());
 			note = result.getExemptionPercentage() + "% " + result.getExemptNotes().get(0);
         }
-        
         FlightNotesUtility.mergeFlightNotes(flightMovement, note);
-      //  FlightNotesUtility.mergeFlightNotes(flightMovement, result.getExemptNotes());
+        
     }
 }

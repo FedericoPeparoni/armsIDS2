@@ -35,7 +35,7 @@ public class AerodromeExemptionChargeProvider implements ExemptionChargeProvider
 
         // map exemption types using applicable values to exemption charge object
         Collection<ExemptionCharge> exemptionCharges = exemptions.stream().filter(Objects::nonNull)
-            .map(e -> new ExemptionCharge(e.aerodromeChargeExemption(), e.flightNoteChargeExemption()))
+            .map(e -> new ExemptionCharge(e.aerodromeChargeExemption(), e.flightNoteChargeExemption() + " aerodrome"))
             .collect(Collectors.toList());
 
         // resolve exemption charge using largest exemption method
@@ -47,9 +47,13 @@ public class AerodromeExemptionChargeProvider implements ExemptionChargeProvider
         // return immediately if result is null as nothing to apply
         if (result == null) return;
 
-        // apply resolved exemption result to provided flight movement, duplicates flight notes are ignored
+     // apply resolved exemption result to provided flight movement, duplicates flight notes are ignored
+        String note = "";
+        if(result.getExemptNotes().size() !=0 && result.getExemptCharge() != null && result.getExemptCharge() != 0) {
         flightMovement.setAerodromeCharges(result.getAppliedCharge());
         flightMovement.setExemptAerodromeCharges(result.getExemptCharge());
-        FlightNotesUtility.mergeFlightNotes(flightMovement, result.getExemptNotes());
+        note = result.getExemptionPercentage()+"% "+ result.getExemptNotes().get(0);
+        }
+        FlightNotesUtility.mergeFlightNotes(flightMovement, note);
     }
 }
