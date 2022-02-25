@@ -639,7 +639,7 @@ export class InvoiceGenerationController {
         || this.$scope.workflow === 'cash'
         || (this.$scope.workflow === 'mixed' && this.$scope.account.cash_account);
     } 
-    if(!isDisabled) {
+    if(!isDisabled && this.$scope.typeOfSaleSelection === 'aviation') {
      return  this. generateButtonIsDisabled();    
     }
     return isDisabled;
