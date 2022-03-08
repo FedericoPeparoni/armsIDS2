@@ -57,8 +57,9 @@ public class EnrouteExemptionChargeProvider  implements ExemptionChargeProvider{
      
         // apply resolved exemption result to provided flight movement, duplicates flight notes are ignored
         String note = "";
+        flightMovement.setEnrouteCharges(result.getAppliedCharge());
         if(result.getExemptNotes().size() != 0 && result.getExemptCharge()!= null && result.getExemptCharge() != 0) {
-			flightMovement.setEnrouteCharges(result.getAppliedCharge());
+			
 			flightMovement.setExemptEnrouteCharges(result.getExemptCharge());
         	note  = result.getExemptionPercentage()+"% "+ result.getExemptNotes().get(0);
         }
