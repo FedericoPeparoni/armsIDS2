@@ -374,17 +374,16 @@ public class FlightMovementValidator {
                         !isValidLevelInSM(flightMovement.getFlightLevel()) &&
                         !isValidUncontrolledVFRFlight(flightMovement.getFlightLevel())))) {
             issues.add(FlightMovementValidatorIssue.INVALID_FLIGHT_LEVEL);
-        }
-        
-        boolean isUnifiedtaxFlightMovement = isUnifiedTaxFlightMovement(flightMovement);
-        boolean isUnifiedtaxFlightMovementInvoiced = false;
-        
-        if (isUnifiedtaxFlightMovement) {
-        	isUnifiedtaxFlightMovementInvoiced = checkUnifiedTaxInvoiced(flightMovement);
-			if (!isUnifiedtaxFlightMovementInvoiced) {        
-	            issues.add(FlightMovementValidatorIssue.UNIFIED_TAX_NOT_PAID_FOR_CURRENT_YEAR);
-	        }
-        }        
+		}
+
+		boolean isUnifiedtaxFlightMovement = isUnifiedTaxFlightMovement(flightMovement);
+		boolean isUnifiedtaxFlightMovementInvoiced = false;
+		if (isUnifiedtaxFlightMovement) {
+			isUnifiedtaxFlightMovementInvoiced = checkUnifiedTaxInvoiced(flightMovement);
+			if (!isUnifiedtaxFlightMovementInvoiced) {
+				issues.add(FlightMovementValidatorIssue.UNIFIED_TAX_NOT_PAID_FOR_CURRENT_YEAR);
+			}
+		}
                 
         if (!issues.isEmpty()) {
             flightMovementValidationViewModel.setStatus(FlightMovementStatus.INCOMPLETE);
@@ -1195,6 +1194,10 @@ public class FlightMovementValidator {
     }
  
     public boolean isUnifiedTaxFlightMovement(FlightMovement flightMovement) {
+    	
+    	if(!flightMovement.getAccount().getAccountType().getName().equalsIgnoreCase("Unified Tax"))
+    		return false;
+    		
         // get aircraft registration number from item18RegNum
     	String item18RegNum = flightMovementBuilderUtility.checkAircraftRegistrationNumber(flightMovement);
                 
