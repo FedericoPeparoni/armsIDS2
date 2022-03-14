@@ -36,11 +36,15 @@ public class ExtendedHoursExemptionChargeProvider implements ExemptionChargeProv
         Collection<ExemptionCharge> exemptionCharges = exemptions.stream().filter(Objects::nonNull)
             .map(e -> new ExemptionCharge(e.extendedHoursSurchargeExemption(), e.flightNoteChargeExemption() + " extended"))
             .collect(Collectors.toList());
-
+        
+        Double totalExtendedCharges = flightMovement.getExtendedHoursSurcharge();
+        if(flightMovement.getExemptExtendedHoursSurcharge() != null)
+        	totalExtendedCharges +=  flightMovement.getExemptExtendedHoursSurcharge();
+        
         // resolve exemption charge using largest exemption method
         ExemptionChargeMethodResult result = method.resolve(new ExemptionChargeMethodModel.Builder()
             .chargeCurrency(flightMovement.getExtendedHoursSurchargeCurrency())
-            .chargeValue(flightMovement.getExtendedHoursSurcharge())
+            .chargeValue(totalExtendedCharges)
             .exemptionCharges(exemptionCharges).build());
 
         // return immediately if result is null as nothing to apply

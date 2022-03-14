@@ -1700,13 +1700,12 @@ public class AviationInvoiceCreator {
 			maxExempt = "aerodrome";
 			maxPercentage = aerodrome;
 		}
-
-		if (enroute >= maxPercentage) {
-			maxExempt = "enroute";
-			maxPercentage = enroute;
-		}
 		if (extended >= maxPercentage) {
 			maxExempt = "extended";
+			maxPercentage = extended;
+		}
+		if (enroute >= maxPercentage) {
+			maxExempt = "enroute";
 		}
 
 		switch (maxExempt) {
