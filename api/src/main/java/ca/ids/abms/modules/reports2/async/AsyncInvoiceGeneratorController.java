@@ -16,6 +16,7 @@ import ca.ids.abms.modules.users.User;
 import ca.ids.abms.modules.users.UserService;
 import ca.ids.abms.util.MiscUtils;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.apache.maven.doxia.logging.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.FileSystemResource;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -159,13 +161,42 @@ public class AsyncInvoiceGeneratorController {
         if (resultSummary.getJobExecutionStatus().equals(JobExecutionStatus.COMPLETED)) {
 
             // iata non-preview invoice generation is xlsx
-            ReportFormat scopeFormat = resolveReportFormat(preview, iata, format);
+        	ReportFormat scopeFormat = null;
+        	Path filePath = null;
+        	
+        	File singleInvoiceFileGenerated = null;
+        	if(resultSummary.getStepsCompleted() == 1) {
+        		scopeFormat = resolveReportFormat(preview, iata, format); //zip
+        		//Cerco la cartella in formato zip, solo se sono in generate
+        		if(!preview) {
+        			filePath = AsyncInvoiceGeneratorPreviewWriter.getTempFile(currentUser, scopeFormat); //Punto la cartella zip
+        			try {
+        				singleInvoiceFileGenerated = new File(AsyncInvoiceGeneratorPreviewWriter.unzip(filePath)); //prendo il pdf trovato dalla cartella zip
+        			} catch (IOException e) {
+        				e.printStackTrace();
+        			}
+        			scopeFormat = resolveReportFormat(true, iata, format); //formato di risposta in pdf
+        		}else { //Se sono in preview, continuo normale
+        			filePath = AsyncInvoiceGeneratorPreviewWriter.getTempFile(currentUser, scopeFormat);
+        		}
+        	}else {
+        		scopeFormat = resolveReportFormat(preview, iata, format);
+        		filePath = AsyncInvoiceGeneratorPreviewWriter.getTempFile(currentUser, scopeFormat);
+        	}
 
-            final Path filePath = AsyncInvoiceGeneratorPreviewWriter.getTempFile(currentUser, scopeFormat);
 
-            if (filePath != null) {
-                final File file = new File(filePath.toString());
-                if (file.length() > 0) {
+            if (singleInvoiceFileGenerated != null) {
+                if (singleInvoiceFileGenerated.length() > 0) {
+                    return ResponseEntity.ok()
+                        .contentType(MediaType.valueOf(scopeFormat.contentType()))
+                        .contentLength(singleInvoiceFileGenerated.length())
+                        .header("Content-Disposition", "attachment; filename=\"" + singleInvoiceFileGenerated.getName() + "\"")
+                        .body(new FileSystemResource(singleInvoiceFileGenerated));
+                }
+            }
+            if (filePath != null){
+            	final File file = new File(filePath.toString());
+            	if (file.length() > 0) {
                     return ResponseEntity.ok()
                         .contentType(MediaType.valueOf(scopeFormat.contentType()))
                         .contentLength(file.length())

@@ -221,7 +221,6 @@ public class ReportDocumentCreator {
 	}
 
 	private void buildZipOutputStream(List<ReportDocument> values, OutputStream outputStream) throws Exception {
-		// byte[] buffer = new byte[1024*8];
 		try (ZipOutputStream zipOut = new ZipOutputStream(outputStream)) {
 			for (ReportDocument fileToZip : values) {
 				try (FileInputStream fis = new FileInputStream(fileToZip.getFile())) {
@@ -232,7 +231,6 @@ public class ReportDocumentCreator {
 					int length;
 					while ((length = fis.read(bytes)) >= 0) { // NOPMD
 						zipOut.write(bytes, 0, length);
-
 					}
 				}
 			}
@@ -240,7 +238,7 @@ public class ReportDocumentCreator {
 	}
 
 
-	  private static  String buildFilenameEntryZip(  ReportDocument reportDocument){
+	  private static String buildFilenameEntryZip( ReportDocument reportDocument){
 		  if(!reportDocument.fileName().contains(".pdf")) {
 			  return new StringBuilder(FilenameUtils.getBaseName(reportDocument.fileName()))
 					  .append(".pdf").toString();
