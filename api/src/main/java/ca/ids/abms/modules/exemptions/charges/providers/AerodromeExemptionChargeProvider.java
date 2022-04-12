@@ -41,7 +41,7 @@ public class AerodromeExemptionChargeProvider implements ExemptionChargeProvider
         // resolve exemption charge using largest exemption method
         ExemptionChargeMethodResult result = method.resolve(new ExemptionChargeMethodModel.Builder()
             .chargeCurrency(flightMovement.getAerodromeChargesCurrency())
-            .chargeValue(flightMovement.getAerodromeCharges())
+            .chargeValue(flightMovement.getAerodromeChargesWithoutDiscount())
             .exemptionCharges(exemptionCharges).build());
 
         // return immediately if result is null as nothing to apply

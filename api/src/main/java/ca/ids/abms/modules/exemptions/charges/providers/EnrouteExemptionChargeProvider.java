@@ -41,6 +41,7 @@ public class EnrouteExemptionChargeProvider  implements ExemptionChargeProvider{
         
         Double costEnroute = 0d;
         
+        //Art. 17
         if(flightMovement.getEnrouteCostToMinimum() == null) {
         	costEnroute = flightMovement.getBillableCrossingCost();
         }else {
