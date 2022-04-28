@@ -1136,7 +1136,7 @@ public class ChargesUtility {
 
         if ((billableCrossingDistance != null && billableCrossingDistance > 0.0) ||
                 !isFlightRequireBillableRoute(providedFlightMovement, enrouteFormula) ) {
-        	//test round 
+        	//test round
             map.put(CostFormulaVar.SCHEDCROSSDIST.varName(), billableCrossingDistance);
 
             // find dfactor
@@ -1304,8 +1304,13 @@ public class ChargesUtility {
                             // in case if the values were set when this flight was the last for the day
                             providedFlightMovement.setCrossingDistanceToMinimum(0.0);
                             providedFlightMovement.setEnrouteCostToMinimum(0.0);
-                        }
-                    }
+						}
+					} else {
+						if(providedFlightMovement.getBillableCrossingDist() < 200)
+							providedFlightMovement.setCrossingDistanceToMinimum(
+								FlightMovementConstants.EANA_MINIMUM_INTERNATIONAL_DISTANCE
+										- providedFlightMovement.getBillableCrossingDist());
+					}
                 }
                 if(crossingDistanceToMinimum > 0.0) {
 
