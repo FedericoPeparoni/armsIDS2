@@ -275,14 +275,14 @@ public class AviationInvoiceService {
                 counter.update();
             }
 
-            boolean asInvoiced = do_includeAsInvoiced();
-            entry.getValue().removeIf(flightMovement -> {
-                if (!asInvoiced && this.do_checkFlightChargesZero(flightMovement, entry.getKey())) {
-                    LOG.debug("skipping flight {} because its charges are zero", flightMovement.getFlightName());
-                    return true;
-                }
-                return false;
-            });
+ //           boolean asInvoiced = do_includeAsInvoiced();
+//            entry.getValue().removeIf(flightMovement -> {
+//                if (!asInvoiced && this.do_checkFlightChargesZero(flightMovement, entry.getKey())) {
+//                    LOG.debug("skipping flight {} because its charges are zero", flightMovement.getFlightName());
+//                    return true;
+//                }
+//                return false;
+//            });
 
             if (counter != null) {
                 counter.update();
