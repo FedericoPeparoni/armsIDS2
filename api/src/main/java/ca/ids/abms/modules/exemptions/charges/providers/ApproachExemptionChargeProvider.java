@@ -37,12 +37,19 @@ public class ApproachExemptionChargeProvider implements ExemptionChargeProvider 
         Collection<ExemptionCharge> exemptionCharges = exemptions.stream().filter(Objects::nonNull)
         	.map(e -> new ExemptionCharge(e.approachChargeExemption(), e.flightNoteChargeExemption() + " approach"))
             .collect(Collectors.toList());
-        
+        double charge = 0d;
+        if (flightMovement.getApproachChargesWithoutDiscount() == null) {
+        	charge = flightMovement.getApproachCharges();
+        	if (flightMovement.getExemptApprochCharges() != null)
+        		charge += flightMovement.getExemptApprochCharges();
+        }else {
+        	charge = flightMovement.getApproachChargesWithoutDiscount();
+        }
         
         // resolve exemption charge using largest exemption method
         ExemptionChargeMethodResult result = method.resolve(new ExemptionChargeMethodModel.Builder()
             .chargeCurrency(flightMovement.getApproachChargesCurrency())
-            .chargeValue(flightMovement.getApproachChargesWithoutDiscount())
+            .chargeValue(charge)
             .exemptionCharges(exemptionCharges).build());
 
         // return immediately if result is null as nothing to apply

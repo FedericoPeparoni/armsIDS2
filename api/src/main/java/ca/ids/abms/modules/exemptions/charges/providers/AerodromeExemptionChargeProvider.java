@@ -37,11 +37,20 @@ public class AerodromeExemptionChargeProvider implements ExemptionChargeProvider
         Collection<ExemptionCharge> exemptionCharges = exemptions.stream().filter(Objects::nonNull)
             .map(e -> new ExemptionCharge(e.aerodromeChargeExemption(), e.flightNoteChargeExemption() + " aerodrome"))
             .collect(Collectors.toList());
+        
+        double charge = 0d;
+        if (flightMovement.getAerodromeChargesWithoutDiscount() == null) {
+        	charge = flightMovement.getAerodromeCharges();
+        	if (flightMovement.getExemptAerodromeCharges() != null)
+        		charge += flightMovement.getExemptAerodromeCharges();
+        }else {
+        	charge = flightMovement.getAerodromeChargesWithoutDiscount();
+        }
 
         // resolve exemption charge using largest exemption method
         ExemptionChargeMethodResult result = method.resolve(new ExemptionChargeMethodModel.Builder()
             .chargeCurrency(flightMovement.getAerodromeChargesCurrency())
-            .chargeValue(flightMovement.getAerodromeChargesWithoutDiscount())
+            .chargeValue(charge)
             .exemptionCharges(exemptionCharges).build());
 
         // return immediately if result is null as nothing to apply
