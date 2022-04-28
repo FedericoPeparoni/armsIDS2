@@ -38,9 +38,9 @@ public class NavDBUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(NavDBUtils.class);
 
-    private static final String AIRPORT_COORD_SQLQRY = "SELECT ST_X(ST_Centroid (a.geom)) as lng, ST_Y(ST_Centroid (a.geom)) as lat FROM  navdb_common.v_airport a WHERE ident = :airportIdentifier and geom is not null order by airport_pk desc limit 1";
+    private static final String AIRPORT_COORD_SQLQRY = "SELECT ST_X(ST_Centroid (a.geom)) as lng, ST_Y(ST_Centroid (a.geom)) as lat FROM  v_airport a WHERE ident = :airportIdentifier and geom is not null order by airport_pk desc limit 1";
 
-    private static final String COUNT_AIRPORT_SQLQRY = "SELECT count(a.ident) FROM  navdb_common.v_airport a WHERE a.ident LIKE :airportIdentifier";
+    private static final String COUNT_AIRPORT_SQLQRY = "SELECT count(a.ident) FROM  v_airport a WHERE a.ident LIKE :airportIdentifier";
 
     private static final String GET_ALL_AIRSPACES_SQLQRY = "select airspace_pk, ident, typ, geom, nam, absupperlimit from v_airspace_all where typ in ('TMA','FIR','FIR_P') order by airspace_pk asc";
 
@@ -50,7 +50,7 @@ public class NavDBUtils {
 
     private static final String GET_FIRS_BY_LOCATION = "SELECT ident FROM v_airspace_all WHERE ST_Intersects(geom::geography,ST_GeographyFromText(:text));";
 
-    private static final String IS_AD_INSIDE_SOUTH_SUDAN = "SELECT ap.airport_pk FROM v_airspace_all asp,  navdb_common.v_airport ap " +
+    private static final String IS_AD_INSIDE_SOUTH_SUDAN = "SELECT ap.airport_pk FROM v_airspace_all asp,  v_airport ap " +
         "WHERE asp.typ = 'FIR_P' AND asp.ident = 'HSSS2' and ap.ident = :text AND ST_Intersects(asp.geom::geography, ap.geom);";
 
     private static final String FIND_GREAT_CIRCLE_DISTANCE = "SELECT ST_Distance (CAST (:wkt1 AS GEOGRAPHY), CAST (:wkt2 AS GEOGRAPHY), true)";

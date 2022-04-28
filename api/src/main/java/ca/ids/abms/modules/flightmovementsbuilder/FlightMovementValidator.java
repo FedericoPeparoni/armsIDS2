@@ -1195,8 +1195,9 @@ public class FlightMovementValidator {
  
     public boolean isUnifiedTaxFlightMovement(FlightMovement flightMovement) {
     	
-    	if(!flightMovement.getAccount().getAccountType().getName().equalsIgnoreCase("Unified Tax"))
-    		return false;
+		if (flightMovement.getAccount() != null)
+			if (!flightMovement.getAccount().getAccountType().getName().equalsIgnoreCase("Unified Tax"))
+				return false;
     		
         // get aircraft registration number from item18RegNum
     	String item18RegNum = flightMovementBuilderUtility.checkAircraftRegistrationNumber(flightMovement);
