@@ -2482,4 +2482,7 @@ databaseChangeLog:
           author: Antonio Monteleone
           file: 20210628180000_alter_radar_summaries_table.sql
           relativeToChangelogFile: true
-
+    - include:
+        author: Federico Peparoni
+        file: 20220505160000_insert_system_configuration_invoice.sql
+        relativeToChangelogFile: true
