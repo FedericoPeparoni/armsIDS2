@@ -173,6 +173,8 @@ public class SystemConfigurationItemName {
 
     public static final String UNIFIED_TAX_AGRICULTURAL_DISCOUNT = "Agricultural Discount (%)";
     public static final String UNIFIED_TAX_FLIGHT_SCHOOL_DISCOUNT= "Flight School Discount (%)";
+    
+    public static final String 	IGNORE_ZERO_COST_INVOICES = "Ignore zero cost invoices";
 
 
     private SystemConfigurationItemName() {}
