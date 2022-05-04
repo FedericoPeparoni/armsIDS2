@@ -275,14 +275,14 @@ public class AviationInvoiceService {
                 counter.update();
             }
 
- //           boolean asInvoiced = do_includeAsInvoiced();
-//            entry.getValue().removeIf(flightMovement -> {
-//                if (!asInvoiced && this.do_checkFlightChargesZero(flightMovement, entry.getKey())) {
-//                    LOG.debug("skipping flight {} because its charges are zero", flightMovement.getFlightName());
-//                    return true;
-//                }
-//                return false;
-//            });
+            boolean asInvoiced = do_includeAsInvoiced();
+            entry.getValue().removeIf(flightMovement -> {
+                if (!asInvoiced && this.do_checkFlightChargesZero(flightMovement, entry.getKey())) {
+                    LOG.debug("skipping flight {} because its charges are zero", flightMovement.getFlightName());
+                    return true;
+                }
+                return false;
+            });
 
             if (counter != null) {
                 counter.update();
@@ -1052,6 +1052,7 @@ public class AviationInvoiceService {
     private boolean do_checkFlightChargesZero(final FlightMovement flightMovement, final Account account) {
 
         boolean iataInvoiceEnabled = systemConfigurationService.getBoolean(SystemConfigurationItemName.IATA_INVOICING_SUPPORT);
+        boolean ignoreFlightZeroCost = systemConfigurationService.getBoolean(SystemConfigurationItemName.IGNORE_ZERO_COST_INVOICES);
 
         // validate enroute charges if only NON-IATA member that don't have an invoice yet
         // if iata invoice support is false we have to ignore the iata member check
@@ -1060,6 +1061,9 @@ public class AviationInvoiceService {
                 && flightMovement.getEnrouteInvoiceId() == null && (flightMovement.getEnrouteCharges() != null && flightMovement.getEnrouteCharges() > 0)) {
                 return false;
         }
+        
+        if(flightMovement.getExemptEnrouteCharges() != null && flightMovement.getExemptEnrouteCharges() > 0)
+        	return false;
 
         // validate other charges if no invoice yet
         if (flightMovement.getOtherInvoiceId() == null) {
@@ -1102,7 +1106,7 @@ public class AviationInvoiceService {
         }
 
         // otherwise return true to remove flight movement
-        return true;
+        return ignoreFlightZeroCost;
     }
 
     private boolean do_checkIfAviationInvoicingIsByFlightmovementCategory() {
