@@ -1243,11 +1243,11 @@ public class AviationInvoiceCreator {
 				if (enrouteChargeCumulative != null && fm.getEnrouteCostToMinimum() != null) {
 					enrouteChargeCumulative = enrouteChargeCumulative + fm.getEnrouteCostToMinimum();
 				}
-				if (!fm.getFlightNotes().isEmpty()) {
-					fm.setFlightNotes("");
-				}
+//				if (!fm.getFlightNotes().isEmpty()) {
+//					fm.setFlightNotes("");
+//				}
 
-				exemptionTypeService.resolveFlightMovementExemptions(fm);
+//				exemptionTypeService.resolveFlightMovementExemptions(fm);
 
 				Currency enrouteResultCurrency = fm.getFlightmovementCategory().getEnrouteResultCurrency();
 				flightInfo.enrouteCharges = flightMovementCurrencyConverter.convertCurrency(fm.getEnrouteCharges(),
