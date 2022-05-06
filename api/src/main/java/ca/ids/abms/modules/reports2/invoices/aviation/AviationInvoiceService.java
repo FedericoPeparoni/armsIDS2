@@ -274,20 +274,8 @@ public class AviationInvoiceService {
                 counter.setAccountName(entry.getKey().getName());
                 counter.update();
             }
-
-            boolean asInvoiced = do_includeAsInvoiced();
-            entry.getValue().removeIf(flightMovement -> {
-                if (!asInvoiced && this.do_checkFlightChargesZero(flightMovement, entry.getKey())) {
-                    LOG.debug("skipping flight {} because its charges are zero", flightMovement.getFlightName());
-                    return true;
-                }
-                return false;
-            });
-
-            if (counter != null) {
-                counter.update();
-            }
-            //if invoicing is by flightmovementCategory, filter flight movements by provided flightmovementCategory
+            
+          //if invoicing is by flightmovementCategory, filter flight movements by provided flightmovementCategory
             if (do_checkIfAviationInvoicingIsByFlightmovementCategory() && flightmovementCategory!= null) {
                 entry.getValue().removeIf(flightMovement -> {
                     if (!flightMovement.getFlightmovementCategory().equals(flightmovementCategory)) {
@@ -298,6 +286,29 @@ public class AviationInvoiceService {
                     }
                     return false;
                 });
+            }
+            
+            //se voglio ignorare le fatture a costo 0, controllo il costo della fattura singola e la rimuovo
+            if(systemConfigurationService.getBoolean(SystemConfigurationItemName.IGNORE_ZERO_COST_INVOICES)) {
+            	if(invoiceCost(entry.getValue()) == 0) {
+            		entry.getValue().removeAll(entry.getValue());
+            	}
+            }
+
+            //Qui vengono rimossi gli aerei a costo 0 (non dovuti a sconti)
+            if(!entry.getValue().isEmpty()) {
+				boolean asInvoiced = do_includeAsInvoiced();
+				entry.getValue().removeIf(flightMovement -> {
+					if (!asInvoiced && this.do_checkFlightChargesZero(flightMovement, entry.getKey())) {
+						LOG.debug("skipping flight {} because its charges are zero", flightMovement.getFlightName());
+						return true;
+					}
+					return false;
+				});
+            }
+
+            if (counter != null) {
+                counter.update();
             }
         }
 
@@ -311,6 +322,16 @@ public class AviationInvoiceService {
 
         // validate list is not empty
         return accountFlightMap;
+    }
+    
+    
+    private Double invoiceCost(List<FlightMovement> list) {
+    	Double total = 0d;
+    	
+    	for(FlightMovement f : list) {
+    		total += f.getTotalCharges();
+    	}
+    	return total;
     }
     
     /**
@@ -1052,7 +1073,7 @@ public class AviationInvoiceService {
     private boolean do_checkFlightChargesZero(final FlightMovement flightMovement, final Account account) {
 
         boolean iataInvoiceEnabled = systemConfigurationService.getBoolean(SystemConfigurationItemName.IATA_INVOICING_SUPPORT);
-        boolean ignoreFlightZeroCost = systemConfigurationService.getBoolean(SystemConfigurationItemName.IGNORE_ZERO_COST_INVOICES);
+        
 
         // validate enroute charges if only NON-IATA member that don't have an invoice yet
         // if iata invoice support is false we have to ignore the iata member check
@@ -1106,7 +1127,8 @@ public class AviationInvoiceService {
         }
 
         // otherwise return true to remove flight movement
-        return ignoreFlightZeroCost;
+        return true;
+        
     }
 
     private boolean do_checkIfAviationInvoicingIsByFlightmovementCategory() {
