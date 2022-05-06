@@ -61,7 +61,9 @@ public class ApproachExemptionChargeProvider implements ExemptionChargeProvider 
 			flightMovement.setApproachCharges(result.getAppliedCharge());
 			flightMovement.setExemptApprochCharges(result.getExemptCharge());
         	note = result.getExemptionPercentage()+"% "+ result.getExemptNotes().get(0);	
-        }
+        }else if (result.getExemptCharge() != null)
+        	flightMovement.setExemptApprochCharges(result.getExemptCharge());
+        
         FlightNotesUtility.mergeFlightNotes(flightMovement, note);
         
     }

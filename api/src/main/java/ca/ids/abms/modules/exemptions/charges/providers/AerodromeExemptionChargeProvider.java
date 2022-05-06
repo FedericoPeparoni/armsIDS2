@@ -62,7 +62,9 @@ public class AerodromeExemptionChargeProvider implements ExemptionChargeProvider
         flightMovement.setAerodromeCharges(result.getAppliedCharge());
         flightMovement.setExemptAerodromeCharges(result.getExemptCharge());
         note = result.getExemptionPercentage()+"% "+ result.getExemptNotes().get(0);
-        }
+        }else if(result.getExemptCharge() != null)
+        	flightMovement.setExemptAerodromeCharges(result.getExemptCharge());
+        
         FlightNotesUtility.mergeFlightNotes(flightMovement, note);
     }
 }

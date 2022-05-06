@@ -53,7 +53,9 @@ public class ExtendedHoursExemptionChargeProvider implements ExemptionChargeProv
 			flightMovement.setExtendedHoursSurcharge(result.getAppliedCharge());
 			flightMovement.setExemptExtendedHoursSurcharge(result.getExemptCharge());
 			note = result.getExemptionPercentage() + "% " + result.getExemptNotes().get(0);
-        }
+        } else if(result.getExemptCharge()!= null)
+        	flightMovement.setExemptExtendedHoursSurcharge(result.getExemptCharge());
+        
         FlightNotesUtility.mergeFlightNotes(flightMovement, note);
         
     }

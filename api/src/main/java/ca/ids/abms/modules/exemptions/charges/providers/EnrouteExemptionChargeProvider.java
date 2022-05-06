@@ -65,7 +65,9 @@ public class EnrouteExemptionChargeProvider  implements ExemptionChargeProvider{
 			// flight notes are ignored
 			flightMovement.setExemptEnrouteCharges(result.getExemptCharge());
 			note = result.getExemptionPercentage() + "% " + result.getExemptNotes().get(0);
-		}
+		}else if(result.getExemptCharge() != null)
+			flightMovement.setExemptEnrouteCharges(result.getExemptCharge());
+		
 		FlightNotesUtility.mergeFlightNotes(flightMovement, note);
 
     }
