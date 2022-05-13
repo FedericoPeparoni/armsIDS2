@@ -45,7 +45,10 @@ public class ExtendedHoursExemptionChargeProvider implements ExemptionChargeProv
             .exemptionCharges(exemptionCharges).build());
 
         // return immediately if result is null as nothing to apply
-        if (result == null) return;
+        if (result == null) {
+        	flightMovement.setExemptExtendedHoursSurcharge(0d);
+        	return;
+        }
 
         // apply resolved exemption result to provided flight movement, duplicates flight notes are ignored
         String note = "";
