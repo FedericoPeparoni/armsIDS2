@@ -686,7 +686,10 @@ public class ChargesUtility {
             } else {
                 approachFixedDiscount += outage.getApproachDiscountAmount();
             }
-            flightNotes.append(outage.getFlightNotes()).append("; ");
+            if(approachPercentageDiscount > 0) {
+            	flightNotes.insert(0, approachPercentageDiscount + "% (");
+            	flightNotes.append(outage.getFlightNotes()).append(" OutageApproach); ");
+            }
         }
 
         // ensure discount is never great than 100 percent
@@ -695,13 +698,18 @@ public class ChargesUtility {
 
         // apply discount to aerodrome charges
         LOG.debug("Applying AerodromeServiceOutages discount to aerodrome charges");
+        providedFlightMovement.setAerodromeChargesWithoutDiscount(providedFlightMovement.getAerodromeCharges());
         providedFlightMovement.setAerodromeCharges(getDiscountAmount(providedFlightMovement.getAerodromeCharges(),
             aerodromePercentageDiscount, aerodromeFixedDiscount));
+        providedFlightMovement.setExemptAerodromeCharges(providedFlightMovement.getAerodromeChargesWithoutDiscount() - providedFlightMovement.getAerodromeCharges());
+        
 
         // apply discount to approach charges
         LOG.debug("Applying AerodromeServiceOutages discount to approach charges");
+        providedFlightMovement.setApproachChargesWithoutDiscount(providedFlightMovement.getApproachCharges());
         providedFlightMovement.setApproachCharges(getDiscountAmount(providedFlightMovement.getApproachCharges(),
             approachPercentageDiscount, approachFixedDiscount));
+        providedFlightMovement.setExemptApprochCharges(providedFlightMovement.getApproachChargesWithoutDiscount() - providedFlightMovement.getApproachCharges());
 
         // append discount notes
         FlightNotesUtility.mergeFlightNotes(providedFlightMovement, flightNotes.toString());
