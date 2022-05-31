@@ -56,6 +56,7 @@ public class EnrouteExemptionChargeProvider  implements ExemptionChargeProvider{
 
         if (result == null) {
         	flightMovement.setEnrouteCharges(costEnroute);
+        	flightMovement.setExemptEnrouteCharges(0d);
         	return;
 		}
 		String note = "";
