@@ -10,6 +10,7 @@ import ca.ids.abms.modules.flightmovements.FlightMovement;
 import com.google.common.base.Preconditions;
 import org.springframework.stereotype.Component;
 
+import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -40,11 +41,14 @@ public class EnrouteExemptionChargeProvider  implements ExemptionChargeProvider{
             .collect(Collectors.toList());
         
         Double costEnroute = 0d;
+        DecimalFormat df = new DecimalFormat("#.##");
         
         //Art. 17
         if(flightMovement.getEnrouteCostToMinimum() == null) {
         	costEnroute = flightMovement.getBillableCrossingCost();
         }else {
+        	String cost = df.format(flightMovement.getEnrouteCostToMinimum());
+        	flightMovement.setEnrouteCostToMinimum(Double.valueOf(cost.replace(",", ".")));
         	 costEnroute = flightMovement.getBillableCrossingCost() + flightMovement.getEnrouteCostToMinimum();
         }
         
