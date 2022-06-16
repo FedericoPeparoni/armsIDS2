@@ -1619,35 +1619,45 @@ public class AviationInvoiceCreator {
 		List<String> notesList = new ArrayList<String>(Arrays.asList(notes.split(";")));
 
 		String approachExempt = "";
+		String outageApproachExempt = "";
 		String enrouteExempt = "";
 		String extendedExempt = "";
 		String aerodromeExempt = "";
 		String maxExempt = "";
+		Boolean approachIsPresent = false;
 
 		for (int i = 0; i < notesList.size(); i++) {
 			if (notesList.get(i).contains("approach")) {
 				approachExempt = notesList.get(i).replace(" approach", "");
-				flightWithApproachExemption += 1;
-
+				approachIsPresent = true;
+			} else if(notesList.get(i).contains("OutageApproach")) {
+				outageApproachExempt = notesList.get(i).replace(" OutageApproach", "");
+				approachIsPresent = true;
 			} else if (notesList.get(i).contains("enroute")) {
 				enrouteExempt = notesList.get(i).replace(" enroute", "");
 				flightWithEnrouteExemption += 1;
 			} else if (notesList.get(i).contains("extended")) {
 				extendedExempt = notesList.get(i).replace(" extended", "");
 				flightWithExtendedHoursExemption += 1;
-
 			} else if (notesList.get(i).contains("aerodrome")) {
 				aerodromeExempt = notesList.get(i).replace(" aerodrome", "");
 			}
 		}
+		
+		if (approachIsPresent)
+			flightWithApproachExemption += 1;
 
 		String enroutePercentage = "";
 		String extendedPercentage = "";
 		String approachPercentage = "";
+		String outageApproachPercentage = "";
 		String aerodromePercentage = "";
 
 		String[] stringApproach = approachExempt.split("%");
 		approachPercentage = stringApproach[0];
+		
+		String[] stringOutageApproach = outageApproachExempt.split("%");
+		outageApproachPercentage = stringOutageApproach[0];
 
 		String[] stringAerodrome = aerodromeExempt.split("%");
 		aerodromePercentage = stringAerodrome[0];
@@ -1659,6 +1669,7 @@ public class AviationInvoiceCreator {
 		extendedPercentage = stringextended[0];
 
 		Double approach = 0d;
+		Double outageApproach = 0d;
 		Double aerodrome = 0d;
 		Double enroute = 0d;
 		Double extended = 0d;
@@ -1681,6 +1692,12 @@ public class AviationInvoiceCreator {
 				approach = Double.valueOf(approachPercentage);
 			} catch (NumberFormatException e) {
 			}
+		
+		if(!outageApproachPercentage.equals(""))
+			try {
+				outageApproach = Double.valueOf(outageApproachPercentage);
+			} catch( NumberFormatException e) {
+			}
 
 		if (!aerodromePercentage.equals(""))
 			try {
@@ -1688,9 +1705,12 @@ public class AviationInvoiceCreator {
 			} catch (NumberFormatException e) {
 			}
 
-		if (approach >= aerodrome) {
+		if(approach >= outageApproach) {
 			maxExempt = "approach";
 			maxPercentage = approach;
+		} else if(outageApproach >= aerodrome) {
+			maxExempt = "outageApproach";
+			maxPercentage = outageApproach;
 		} else {
 			maxExempt = "aerodrome";
 			maxPercentage = aerodrome;
@@ -1702,13 +1722,16 @@ public class AviationInvoiceCreator {
 		if (enroute >= maxPercentage) {
 			maxExempt = "enroute";
 		}
-
+		
 		switch (maxExempt) {
 		case "enroute":
 			maxExempt = enrouteExempt;
 			break;
 		case "approach":
 			maxExempt = approachExempt;
+			break;
+		case "outageApproach":
+			maxExempt = outageApproachExempt;
 			break;
 		case "aerodrome":
 			maxExempt = aerodromeExempt;
