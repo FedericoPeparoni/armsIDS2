@@ -2293,8 +2293,21 @@ public class FlightMovementService {
         						flightMovement.getWakeTurb(),flightMovement.getBillingDate());
     		}
 
-    		int i=0;
-    		if(list !=null && !list.isEmpty()) {
+
+
+            double billableCrossingDist = list.stream()
+                .filter(fm -> fm.getBillableCrossingDist() != null)
+                .mapToDouble(FlightMovement::getBillableCrossingDist)
+                .sum();
+
+            double crossingDistanceToMinimum = list.stream()
+                .filter(fm -> fm.getCrossingDistanceToMinimum() != null)
+                .mapToDouble(FlightMovement::getCrossingDistanceToMinimum)
+                .sum();
+
+            int i=0;
+
+    		if(list.size() > 1 && (billableCrossingDist < FlightMovementConstants.EANA_MINIMUM_INTERNATIONAL_DISTANCE || crossingDistanceToMinimum > 0)) {
     			boolean chargesSet;
     			for(FlightMovement fm : list){
     				if(fm != null && fm.getId() != null){
