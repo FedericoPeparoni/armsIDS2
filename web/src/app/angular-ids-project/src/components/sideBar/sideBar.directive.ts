@@ -64,7 +64,7 @@ export function sideBarCategory(): angular.IDirective {
   return {
     restrict: 'E',
     templateUrl: 'app/angular-ids-project/src/components/sideBar/sideBarCategory.html',
-    controller: function(){this.$onInit = SideBarCategory},
+    controller:  SideBarCategory,
     controllerAs: 'SideBarCategory',
     bindToController: true,
     replace: true,
