@@ -112,7 +112,7 @@ public class AviationInvoiceService {
                                   final FlightMovementRepositoryUtility flightMovementRepositoryUtility,
                                   final AccountService accountService,
                                   final ExemptionTypeService exemptionTypeService) {
-
+    	
         this.reportHelper = reportHelper;
         this.reportDocumentCreator = reportDocumentCreator;
         this.flightMovementRepository = flightMovementRepository;
@@ -167,7 +167,7 @@ public class AviationInvoiceService {
         final List<Account> sortedAccounts = this.sortAccounts(accountFlightMap.keySet());
         final List<AviationInvoice> invoiceList = new ArrayList<>();
         for (final Account account : sortedAccounts) {
-            generateAviationInvoice(account, invoiceCreator, accountFlightMap.get(account),
+            generateAviationInvoice(account, invoiceCreator, accountFlightMap.get(account), 
             	false, null, null, invoiceList, flightmovementCategory,
                 currentUser, ipAddress, null, preview, null);
         }
@@ -191,7 +191,7 @@ public class AviationInvoiceService {
         do_ensureBillingPeriodValid(billingInterval, preview, ldtNow, startDate, endDateInclusive);
         //suffix date file
         final ZonedDateTime zdtStart = ZonedDateTime.of(startDate, ReportHelper.UTC_ZONE_ID);
-
+        
         String formatName = "";
         if(billingInterval != null && (billingInterval == billingInterval.UNIFIED_TAX_ANNUALLY || billingInterval == billingInterval.UNIFIED_TAX_PARTIALLY)) {
         	formatName = String.format ("%s", zdtStart.format (DateTimeFormatter.ofPattern("YYYY")));
@@ -274,7 +274,7 @@ public class AviationInvoiceService {
                 counter.setAccountName(entry.getKey().getName());
                 counter.update();
             }
-
+            
           //if invoicing is by flightmovementCategory, filter flight movements by provided flightmovementCategory
             if (do_checkIfAviationInvoicingIsByFlightmovementCategory() && flightmovementCategory!= null) {
                 entry.getValue().removeIf(flightMovement -> {
@@ -287,7 +287,7 @@ public class AviationInvoiceService {
                     return false;
                 });
             }
-
+            
             //se voglio ignorare le fatture a costo 0, controllo il costo della fattura singola e la rimuovo
             if(systemConfigurationService.getBoolean(SystemConfigurationItemName.IGNORE_ZERO_COST_INVOICES)) {
             	if(invoiceCost(entry.getValue()) == 0) {
@@ -323,17 +323,17 @@ public class AviationInvoiceService {
         // validate list is not empty
         return accountFlightMap;
     }
-
-
+    
+    
     private Double invoiceCost(List<FlightMovement> list) {
     	Double total = 0d;
-
+    	
     	for(FlightMovement f : list) {
     		total += f.getTotalCharges();
     	}
     	return total;
     }
-
+    
     /**
      * Find all aircraft registrations that can be invoiced for the provided unified tax account .
 +     */
@@ -365,7 +365,7 @@ public class AviationInvoiceService {
         List<AircraftRegistration> toInvoice = new ArrayList<AircraftRegistration>();
 
         for (AircraftRegistration ar : account.getAircraftRegistrations()) {
-
+        	    
         	// Foreign aircraft with the "Local" flag set at FALSE must be skipped
         	if  (aircraftRegistrationService.isaForeignAircraft(ar) && !ar.getIsLocal())
         		continue;
@@ -373,33 +373,33 @@ public class AviationInvoiceService {
         	// SMALL_AIRCRAFT_MAX_WEIGHT and SMALL_AIRCRAFT_MIN_WEIGHT are expressed in KG
             Integer maxWeight = systemConfigurationService.getIntOrZero(SystemConfigurationItemName.SMALL_AIRCRAFT_MAX_WEIGHT);
             Integer minWeight = systemConfigurationService.getIntOrZero(SystemConfigurationItemName.SMALL_AIRCRAFT_MIN_WEIGHT);
-
+            
             // MTOW stored in small tones in the DB ==> need to convert it to KG
         	double aMtow = ar.getMtowOverride()* ReportHelper.TO_KG;
 
             if (aMtow >= minWeight && aMtow <= maxWeight) {
-
+            	            	
 	        	if (!isUnifiedTaxPaid(ar, startDate, endDateInclusive)) {
 	        		if (ar.getAircraftServiceDate() != null) {
-
+	
 	        			LocalDateTime yearManufacture = ar.getAircraftServiceDate();
 	                    UnifiedTax ut = unifiedTaxService.findUnifiedTaxByValidityYearAndManufactureYear(
 	                    		startDate, yearManufacture);
 	                    if (ut == null) {
 	                    	unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(
-	                    			account, ar, "Missing applicable tax for the Aircraft Service Date"));
+	                    			account, ar, "Missing applicable tax for the Aircraft Service Date"));                    	
 	                    }
 	                    else
 	                    	toInvoice.add(ar);
 	        		}
 	        		else {
 		        		// manage "Missing Aircraft Service Date" error
-		        		unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(account, ar, "Missing Aircraft Service Date"));
+		        		unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(account, ar, "Missing Aircraft Service Date"));        			
 	        		}
 	        	}
 	        	else {
 	        		// manage "Already invoiced" error
-	        		unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(account, ar, "Aircraft alreay invoiced"));
+	        		unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(account, ar, "Aircraft alreay invoiced"));        			        		
 	        	}
             }
         }
@@ -440,9 +440,9 @@ public class AviationInvoiceService {
             LOG.debug("The account {} requires a separate invoice for the passenger charges.", account.getName());
 
             final AviationInvoice onlyEnrouteInvoice = invoiceCreator.createInvoice(
-            		account, accountFlights, unifiedTaxInvoice, aircraftRegistrationsToInvoiceByUnifiedTax,
+            		account, accountFlights, unifiedTaxInvoice, aircraftRegistrationsToInvoiceByUnifiedTax, 
             		unifiedTaxInvoiceErrors, null, ONLY_ENROUTE, flightmovementCategory, counter, null, null, dueDateOverrideUnifiedTax);
-
+            
             if (onlyEnrouteInvoice != null) {
                 invoicesList.add(onlyEnrouteInvoice);
                 if(!preview) {
@@ -459,10 +459,10 @@ public class AviationInvoiceService {
         } else {
             LOG.debug("The account {} requires an unique invoice for all charges.", account.getName());
             final AviationInvoice invoice = invoiceCreator.createInvoice(
-            		account, accountFlights,
-            		unifiedTaxInvoice, aircraftRegistrationsToInvoiceByUnifiedTax,
+            		account, accountFlights, 
+            		unifiedTaxInvoice, aircraftRegistrationsToInvoiceByUnifiedTax, 
             		unifiedTaxInvoiceErrors, null, ALL, flightmovementCategory, counter, null, null, dueDateOverrideUnifiedTax);
-
+            
             if (invoice != null) {
                 invoicesList.add(invoice);
                 if(!preview) {
@@ -1073,7 +1073,7 @@ public class AviationInvoiceService {
     private boolean do_checkFlightChargesZero(final FlightMovement flightMovement, final Account account) {
 
         boolean iataInvoiceEnabled = systemConfigurationService.getBoolean(SystemConfigurationItemName.IATA_INVOICING_SUPPORT);
-
+        
 
         // validate enroute charges if only NON-IATA member that don't have an invoice yet
         // if iata invoice support is false we have to ignore the iata member check
@@ -1082,7 +1082,7 @@ public class AviationInvoiceService {
                 && flightMovement.getEnrouteInvoiceId() == null && (flightMovement.getEnrouteCharges() != null && flightMovement.getEnrouteCharges() > 0)) {
                 return false;
         }
-
+        
         if(flightMovement.getExemptEnrouteCharges() != null && flightMovement.getExemptEnrouteCharges() > 0)
         	return false;
 
@@ -1128,7 +1128,7 @@ public class AviationInvoiceService {
 
         // otherwise return true to remove flight movement
         return true;
-
+        
     }
 
     private boolean do_checkIfAviationInvoicingIsByFlightmovementCategory() {
@@ -1177,7 +1177,7 @@ public class AviationInvoiceService {
 
     @Transactional()
     public Boolean processAccount(AsyncInvoiceGeneratorScope scope, Integer accountId, List <AviationInvoice> invoiceList,
-    		List <UnifiedTaxInvoiceError> unifiedTaxInvoiceErrors,
+    		List <UnifiedTaxInvoiceError> unifiedTaxInvoiceErrors, 
     		FlightmovementCategory flightmovementCategory,User currentUser, LocalDateTime dueDateOverrideUnifiedTax) {
         Boolean accountProcessed = false;
         if (scope.getPreview()) {
@@ -1189,12 +1189,12 @@ public class AviationInvoiceService {
 
     Account account = accountService.getOne(accountId);
     boolean unifiedTaxAccount = account.getAccountType().getName().equals("Unified Tax");
-
-	final boolean unifiedTaxInvoice = scope.getBillingInterval() == BillingInterval.UNIFIED_TAX_ANNUALLY ||
+    
+	final boolean unifiedTaxInvoice = scope.getBillingInterval() == BillingInterval.UNIFIED_TAX_ANNUALLY || 
 									  scope.getBillingInterval() == BillingInterval.UNIFIED_TAX_PARTIALLY;
 
     if (unifiedTaxAccount && unifiedTaxInvoice) {
-
+    	
 		int errorCountBefore = unifiedTaxInvoiceErrors.size();
 
         List<AircraftRegistration> registrationsToInvoice = getAircraftRegistrationToInvoice(
@@ -1203,20 +1203,20 @@ public class AviationInvoiceService {
         		unifiedTaxInvoiceErrors);
 
 		int errorCountAfter = unifiedTaxInvoiceErrors.size();
-
+        
         if (!registrationsToInvoice.isEmpty()) {
-            this.generateAviationInvoice(account, invoiceCreator,
-            		new ArrayList<FlightMovement>(), unifiedTaxInvoice, registrationsToInvoice,
+            this.generateAviationInvoice(account, invoiceCreator, 
+            		new ArrayList<FlightMovement>(), unifiedTaxInvoice, registrationsToInvoice, 
             		unifiedTaxInvoiceErrors, invoiceList, flightmovementCategory,
             		currentUser, scope.getIpAddress(), scope.getInvoiceProgressCounter(), scope.getPreview(), dueDateOverrideUnifiedTax);
-
+            
             accountProcessed = true;
-        } else {
+        } else {        	
 
-			if (errorCountAfter == errorCountBefore) {
+			if (errorCountAfter == errorCountBefore) {				
 				unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(account, null, "No Unified Tax aircraft linked to this Account"));
 			}
-
+			
 			LOG.debug("Account {} have been discarded because doesn't have billable aircraft registrations", account);
         }
         return accountProcessed;
@@ -1275,38 +1275,33 @@ public class AviationInvoiceService {
 
         Account account = accountService.getOne(accountId);
         boolean unifiedTaxAccount = account.getAccountType().getName().equals("Unified Tax");
-    	final boolean unifiedTaxInvoice = scope.getBillingInterval() == BillingInterval.UNIFIED_TAX_ANNUALLY ||
+    	final boolean unifiedTaxInvoice = scope.getBillingInterval() == BillingInterval.UNIFIED_TAX_ANNUALLY || 
     									  scope.getBillingInterval() == BillingInterval.UNIFIED_TAX_PARTIALLY;
 
     	if (unifiedTaxAccount && unifiedTaxInvoice) {
-
+    		
     		int errorCountBefore = unifiedTaxInvoiceErrors.size();
-
+        	
     		List<AircraftRegistration> registrationsToInvoice = getAircraftRegistrationToInvoice(
         			scope.getBillingInterval(), scope.getStartDate(), scope.getEndDateInclusive(),
                     scope.getUserBillingCenterOnly(), account, currentUser, scope.getInvoiceProgressCounter(),
                     unifiedTaxInvoiceErrors);
 
         	int errorCountAfter = unifiedTaxInvoiceErrors.size();
-
+        	
     		if (!registrationsToInvoice.isEmpty()) {
                 this.generateAviationInvoice(account, invoiceCreator, null, unifiedTaxInvoice,
                 		registrationsToInvoice, unifiedTaxInvoiceErrors, invoiceList, flightmovementCategory,
                         currentUser, scope.getIpAddress(), scope.getInvoiceProgressCounter(), scope.getPreview(), dueDateOverrideUnifiedTax);
                         accountProcessed = true;
-    		} else {
+    		} else {    		
     			if (errorCountAfter == errorCountBefore) {
     				unifiedTaxInvoiceErrors.add(new UnifiedTaxInvoiceError(account, null, "No Unified Tax aircraft linked to this Account"));
     			}
-
+    			
                 LOG.debug("Account {} have been discarded because don't have billable aircraft registrations", account);
     		}
-
-            if(systemConfigurationService.getBoolean(SystemConfigurationItemName.IGNORE_ZERO_COST_INVOICES)) {
-                LOG.debug("Zero cost invoices");
-                invoiceList.removeIf(it -> it.billingLedger().getInvoiceAmount().equals(0d));
-            }
-            return accountProcessed;
+    		return accountProcessed;
         }
 
 
@@ -1323,9 +1318,9 @@ public class AviationInvoiceService {
 
         try {
         	if(!accountFlightMap.isEmpty()) {
-                this.generateAviationInvoice(sortedAccounts.get(0), invoiceCreator, accountFlightMap.get(sortedAccounts.get(0)),
+                this.generateAviationInvoice(sortedAccounts.get(0), invoiceCreator, accountFlightMap.get(sortedAccounts.get(0)), 
                 							 false, null, null, invoiceList, flightmovementCategory,
-                							 currentUser, scope.getIpAddress(), scope.getInvoiceProgressCounter(),
+                							 currentUser, scope.getIpAddress(), scope.getInvoiceProgressCounter(), 
                 							 scope.getPreview(), null);
                 accountProcessed = true;
             } else {
