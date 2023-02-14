@@ -1302,7 +1302,6 @@ public class AviationInvoiceService {
                 LOG.debug("Account {} have been discarded because don't have billable aircraft registrations", account);
             }
             if (systemConfigurationService.getBoolean(SystemConfigurationItemName.IGNORE_ZERO_COST_INVOICES)) {
-                LOG.debug("Ignore Zero cost invoices");
                 invoiceList.removeIf(it -> it.billingLedger().getInvoiceAmount().equals(0d));
             }
     		return accountProcessed;
