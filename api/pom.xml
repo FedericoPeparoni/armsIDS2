@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -25,9 +23,8 @@
     </scm>
 
     <properties>
-        <!-- overrides project.artifactId value for SonarQube Project Name,
-            more descriptive then 'api' -->
-        <sonar.projectName>abms-api</sonar.projectName>
+        <ant-common-net.version>1.9.4</ant-common-net.version>
+        <ant-jsch.version>1.9.4</ant-jsch.version>
         <birt.version>4.4.2</birt.version>
         <commons-codec.version>1.10</commons-codec.version>
         <commons-io.version>2.5</commons-io.version>
@@ -36,15 +33,22 @@
         <geotools.version>12-RC1</geotools.version>
         <guava.version>19.0</guava.version>
         <hibernate.spatial.version>5.2.4.Final</hibernate.spatial.version>
+        <httpclient.version>4.5.2</httpclient.version>
+        <icu4j.version>64.2</icu4j.version>
+        <ids-spring-cache.version>1.5.7</ids-spring-cache.version>
+        <ids-xyzmodem.version>1.0.0</ids-xyzmodem.version>
         <inflector.version>1.0.1</inflector.version>
+        <io-springfox-swagger.version>2.8.0</io-springfox-swagger.version>
         <jackson-datatype-hibernate5.version>2.9.5</jackson-datatype-hibernate5.version>
         <jackson-datatype-jsr310.version>2.8.1</jackson-datatype-jsr310.version>
         <jacoco.version>0.7.7.201606060606</jacoco.version>
         <janino.version>2.7.8</janino.version>
         <java.version>1.8</java.version>
+        <javax.inject.version>1</javax.inject.version>
         <liquibase-slf4j.version>1.2.1</liquibase-slf4j.version>
         <liquibase.version>3.5.1</liquibase.version>
         <metrics-spring.version>3.1.3</metrics-spring.version>
+        <nfs-client.version>1.0.3</nfs-client.version>
         <opencsv.version>3.8</opencsv.version>
         <org.mapstruct.version>1.0.0.Final</org.mapstruct.version>
         <pdfbox.version>2.0.25</pdfbox.version>
@@ -54,17 +58,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <routeparser.version>1.3.17</routeparser.version>
+        <!-- overrides project.artifactId value for SonarQube Project Name,
+            more descriptive then 'api' -->
+        <sonar.projectName>abms-api</sonar.projectName>
         <sortpom-maven-plugin.version>2.5.0</sortpom-maven-plugin.version>
-        <httpclient.version>4.5.2</httpclient.version>
-        <ant-jsch.version>1.9.4</ant-jsch.version>
-        <ant-common-net.version>1.9.4</ant-common-net.version>
-        <nfs-client.version>1.0.3</nfs-client.version>
-        <ids-spring-cache.version>1.5.7</ids-spring-cache.version>
-        <ids-xyzmodem.version>1.0.0</ids-xyzmodem.version>
-        <io-springfox-swagger.version>2.8.0</io-springfox-swagger.version>
         <swagger-ui.version>3.19.0</swagger-ui.version>
-        <icu4j.version>64.2</icu4j.version>
-        <javax.inject.version>1</javax.inject.version>
     </properties>
 
     <dependencies>
@@ -82,14 +80,32 @@
         </dependency>
 
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>2.9.5</version>
+            <groupId>ca.ids</groupId>
+            <artifactId>ids-spring-cache</artifactId>
+            <version>${ids-spring-cache.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ca.ids</groupId>
+            <artifactId>ids-xyzmodem</artifactId>
+            <version>${ids-xyzmodem.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.emc.ecs</groupId>
+            <artifactId>nfs-client</artifactId>
+            <version>${nfs-client.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
+            <version>2.9.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
             <version>2.9.5</version>
         </dependency>
 
@@ -118,9 +134,21 @@
         </dependency>
 
         <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>${icu4j.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.mattbertolini</groupId>
             <artifactId>liquibase-slf4j</artifactId>
             <version>${liquibase-slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>6.2.2.jre8</version>
         </dependency>
 
         <dependency>
@@ -150,6 +178,29 @@
         </dependency>
 
         <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>mailapi</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.sun.mail/smtp -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>smtp</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>${commons-codec.version}</version>
@@ -159,10 +210,65 @@
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${io-springfox-swagger.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${io-springfox-swagger.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>mapstruct</artifactId>
+                    <groupId>org.mapstruct</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>${javax.inject.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+
+        <!-- https://github.com/xdrop/fuzzywuzzy -->
+        <dependency>
+            <groupId>me.xdrop</groupId>
+            <artifactId>fuzzywuzzy</artifactId>
+            <version>1.1.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-commons-net</artifactId>
+            <version>${ant-common-net.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-jsch</artifactId>
+            <version>${ant-jsch.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpclient.version}</version>
         </dependency>
 
         <dependency>
@@ -222,6 +328,10 @@
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>${jacoco.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.liquibase</groupId>
@@ -240,13 +350,13 @@
         </dependency>
         <dependency>
             <groupId>org.powermock</groupId>
-            <artifactId>powermock-module-junit4</artifactId>
+            <artifactId>powermock-api-mockito</artifactId>
             <version>${powermock.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.powermock</groupId>
-            <artifactId>powermock-api-mockito</artifactId>
+            <artifactId>powermock-module-junit4</artifactId>
             <version>${powermock.version}</version>
             <scope>test</scope>
         </dependency>
@@ -292,156 +402,44 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>${httpclient.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.ant</groupId>
-            <artifactId>ant-jsch</artifactId>
-            <version>${ant-jsch.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.ant</groupId>
-            <artifactId>ant-commons-net</artifactId>
-            <version>${ant-common-net.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.emc.ecs</groupId>
-            <artifactId>nfs-client</artifactId>
-            <version>${nfs-client.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>ca.ids</groupId>
-            <artifactId>ids-spring-cache</artifactId>
-            <version>${ids-spring-cache.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>ca.ids</groupId>
-            <artifactId>ids-xyzmodem</artifactId>
-            <version>${ids-xyzmodem.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
-            <version>6.2.2.jre8</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>mailapi</artifactId>
-            <version>1.6.1</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.sun.mail/smtp -->
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>smtp</artifactId>
-            <version>1.6.1</version>
-        </dependency>
-
-        <!-- https://github.com/xdrop/fuzzywuzzy -->
-        <dependency>
-            <groupId>me.xdrop</groupId>
-            <artifactId>fuzzywuzzy</artifactId>
-            <version>1.1.10</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${io-springfox-swagger.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>mapstruct</artifactId>
-                    <groupId>org.mapstruct</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${io-springfox-swagger.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>swagger-ui</artifactId>
             <version>${swagger-ui.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.ibm.icu</groupId>
-            <artifactId>icu4j</artifactId>
-            <version>${icu4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.inject</groupId>
-            <artifactId>javax.inject</artifactId>
-            <version>${javax.inject.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>2.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-core</artifactId>
-            <version>2.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>2.3.0</version>
-        </dependency>
-        
     </dependencies>
 
-	<!--     <repositories> -->
-	<!--         <repository> -->
-	<!--             <snapshots> -->
-	<!--                 <enabled>true</enabled> -->
-	<!--             </snapshots> -->
-	<!--             <id>ids</id> -->
-	<!--             <name>Shared IDS components</name> -->
-	<!--             <url>http://maven.idscorporation.ca/archiva/repository/ids</url> -->
-	<!--         </repository> -->
-	<!--         <repository> -->
-	<!--             <snapshots> -->
-	<!--                 <enabled>false</enabled> -->
-	<!--             </snapshots> -->
-	<!--             <id>world</id> -->
-	<!--             <name>External software repository</name> -->
-	<!--             <url>http://maven.idscorporation.ca/archiva/repository/internal</url> -->
-	<!--         </repository> -->
-	<!--     </repositories> -->
-	<repositories>
-	        <repository>
-	            <releases>
-	                <enabled>true</enabled>
-	            </releases>
-	            <snapshots>
-	                <enabled>false</enabled>
-	            </snapshots>
-	            <id>osgeo</id>
-	            <name>OSGeo Release Repository</name>
-	            <url>https://repo.osgeo.org/repository/release/</url>
-	        </repository>
-	    </repositories>
+    <!--     <repositories> -->
+    <!--         <repository> -->
+    <!--             <snapshots> -->
+    <!--                 <enabled>true</enabled> -->
+    <!--             </snapshots> -->
+    <!--             <id>ids</id> -->
+    <!--             <name>Shared IDS components</name> -->
+    <!--             <url>http://maven.idscorporation.ca/archiva/repository/ids</url> -->
+    <!--         </repository> -->
+    <!--         <repository> -->
+    <!--             <snapshots> -->
+    <!--                 <enabled>false</enabled> -->
+    <!--             </snapshots> -->
+    <!--             <id>world</id> -->
+    <!--             <name>External software repository</name> -->
+    <!--             <url>http://maven.idscorporation.ca/archiva/repository/internal</url> -->
+    <!--         </repository> -->
+    <!--     </repositories> -->
+    <repositories>
+        <repository>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>osgeo</id>
+            <name>OSGeo Release Repository</name>
+            <url>https://repo.osgeo.org/repository/release/</url>
+        </repository>
+    </repositories>
 
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>
@@ -465,6 +463,18 @@
                     <sortPlugins>groupId,artifactId</sortPlugins>
                     <keepBlankLines>true</keepBlankLines>
                     <expandEmptyElements>false</expandEmptyElements>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
             <plugin>
@@ -520,18 +530,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                        </manifest>
-                    </archive>
-                </configuration>
             </plugin>
         </plugins>
     </build>
