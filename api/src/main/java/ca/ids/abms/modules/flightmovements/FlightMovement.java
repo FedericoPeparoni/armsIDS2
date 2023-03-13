@@ -1833,6 +1833,11 @@ public class FlightMovement extends VersionedAuditedEntity {
         this.totalChargesUsd = totalChargesUsd;
     }
 
+    public Double getCrossingDistanceToMin(){ return crossingDistanceToMinimum; }
+
+    public void setCrossingDistanceToMin(Double crossingDistanceToMinimum){
+        this.crossingDistanceToMinimum = crossingDistanceToMinimum;
+    }
     /**
      * check if the flight movement is OTHER
      */

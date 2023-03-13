@@ -178,6 +178,8 @@ public class FlightMovementViewModel extends VersionedViewModel {
 
     private Double exemptApprochCharges;
 
+    private Double crossingDistanceToMinimum;
+
     private Double exemptDepCharges;
 
     private Double exemptLateCharges;
@@ -726,6 +728,7 @@ public class FlightMovementViewModel extends VersionedViewModel {
         return userCrossingDistance;
     }
 
+    public Double getCrossingDistanceToMinimum() { return crossingDistanceToMinimum;}
     public Double getUserCrossingDistanceCost() {
         return userCrossingDistanceCost;
     }
@@ -1251,6 +1254,9 @@ public class FlightMovementViewModel extends VersionedViewModel {
         this.enrouteResultCurrency = enrouteResultCurrency;
     }
 
+    public void setCrossingDistanceToMinimum(Double crossingDistanceToMinimum){
+        this.crossingDistanceToMinimum = crossingDistanceToMinimum;
+    }
     public void setEnrouteInvoiceCurrency(Currency enrouteInvoiceCurrency) {
         this.enrouteInvoiceCurrency = enrouteInvoiceCurrency;
     }
