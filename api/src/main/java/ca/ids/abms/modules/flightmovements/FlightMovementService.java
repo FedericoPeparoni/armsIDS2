@@ -1246,7 +1246,7 @@ public class FlightMovementService {
         return flightMovementResult;
     }
 
-    public FlightMovement createUpdateFlightMovementFromRadarSummary(final RadarSummary radarSummary, final ItemLoaderObserver o) throws FlightMovementBuilderException {
+    public FlightMovement createUpdateFlightMovementFromRadarSummary(final RadarSummary radarSummary, final ItemLoaderObserver o,boolean isUpdate) throws FlightMovementBuilderException {
         LOG.debug("Create or update Flight Movement from RadarSummary");
 
         FlightMovementValidator.validateRadarSummary(radarSummary);
@@ -1338,9 +1338,17 @@ public class FlightMovementService {
 
                     // not Thru flight
                     flightMovementRepositoryUtility.detach(existFlightMovement);
-                    FlightMovement flightMovement = flightMovementBuilder
-                        .updateFlightMovementFromRadarSummary(existFlightMovement, radarSummary);
-                    flightMovementResult = flightMovementRepositoryUtility.overwrite(flightMovement);
+                    if(isUpdate) {
+                        FlightMovement flightMovement = flightMovementBuilder
+                            .updateFlightMovementFromRadarSummaryFromGui(existFlightMovement, radarSummary);
+                        flightMovementResult = flightMovementRepositoryUtility.overwrite(flightMovement);
+                    }else{
+                        FlightMovement flightMovement = flightMovementBuilder
+                            .updateFlightMovementFromRadarSummary(existFlightMovement, radarSummary);
+                        flightMovementResult = flightMovementRepositoryUtility.overwrite(flightMovement);
+                    }
+
+
 
                     // need to clear the session after saving a FM to avoid an exception while doing bulk upload
                     // with files that attempt to update the same record two or more times

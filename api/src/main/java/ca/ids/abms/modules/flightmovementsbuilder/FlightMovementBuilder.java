@@ -144,12 +144,12 @@ public class FlightMovementBuilder {
     public FlightMovementBillable getFlightMovementBillable() {
         return flightMovementBillable;
     }
-       
+
     // Create Flight Movement from WebInterface
     public FlightMovement createUpdateFlightMovementFromUI(FlightMovement flightMovement, Boolean forInvoice)
             throws FlightMovementBuilderException {
         LOG.debug("Create or update Flight Movement from WebInterface");
-        
+
         // Create error for invalid flight level if it is configured either for the input from Cronos,
         // or is needed for TMA routing TFS 115533
         if(flightMovementValidator.isValidateFlightLevel() || flightMovementValidator.isValidateFlightLevelAirspace()) {
@@ -172,7 +172,7 @@ public class FlightMovementBuilder {
     public FlightMovement calculateFlightMovement(FlightMovement flightMovement, Boolean forInvoice, Boolean checkRegNum)
         throws FlightMovementBuilderException {
         LOG.debug("Calculate Flight Movement from WebInterface");
-    
+
         if (flightMovement.getId() == null) {
             flightMovement.setSource(FlightMovementSource.MANUAL);
         }
@@ -260,36 +260,36 @@ public class FlightMovementBuilder {
 
         // resolve billing center from dep and dest aerodromes based on movement type
         this.resolveBillingCenter(flightMovement, dep, dest);
-        
+
         return flightMovement;
     }
-        
+
     private boolean checkUnifiedTaxInvoiced(AircraftRegistration ar, LocalDateTime flightDate) {
     	LocalDateTime coaIssueDate = ar.getCoaIssueDate();
     	LocalDateTime coaExpiryDate = ar.getCoaExpiryDate();
     	if (coaIssueDate == null || coaExpiryDate == null)
     		return false;
-    	
+
     	if (flightDate.isBefore(coaIssueDate) || flightDate.isAfter(coaExpiryDate))
     		return false;
-    	
+
     	return true;
     }
-    
+
     private void setFlightStatusIfUnifiedTaxFlight2(FlightMovement flightMovement) {
-    	
+
     	if (flightMovementValidator.isUnifiedTaxFlightMovement(flightMovement))  {
 
         	// get aircraft registration number from item18RegNum
         	String item18RegNum = flightMovementBuilderUtility.checkAircraftRegistrationNumber(flightMovement);
-                    
+
             if (item18RegNum != null) {
                 AircraftRegistration ar = aircraftRegistrationService.findAircraftRegistrationByRegNumber(item18RegNum);
 
                 if (ar != null) {
-                
+
 		    		boolean invoiced = checkUnifiedTaxInvoiced(ar, flightMovement.getDateOfFlight());
-		    		if (invoiced) {        
+		    		if (invoiced) {
 		            	// Unified Tax ALREADY PAID for current year
 		                flightMovement.setStatus(FlightMovementStatus.INVOICED);
 		                flightMovement.setFlightNotes("");
@@ -303,7 +303,7 @@ public class FlightMovementBuilder {
     	}
     }
 
-    
+
     private void checkFlightRules(FlightMovement aFlightMovement) {
         // check and resolve flight rule
         String rule = aFlightMovement.getFlightRules();
@@ -326,7 +326,7 @@ public class FlightMovementBuilder {
         FlightMovement flightMovement = null;
         if(fplObject != null) {
             flightMovement = validateAndMapFromFplObject(fplObject);
-            
+
             // manage the FlightMovementStatus if the flight is "unified tax"
             setFlightStatusIfUnifiedTaxFlight2(flightMovement);
         }
@@ -341,9 +341,9 @@ public class FlightMovementBuilder {
     public FlightMovement calculateFlightMovementFromFlightObject(FlightMovement flightMovement) throws FlightMovementBuilderException {
 
         if(flightMovement != null) {
-                        
+
             setFlightStatusIfUnifiedTaxFlight2(flightMovement);
-            
+
             SegmentType segmentType = SegmentTypeMap
                     .mapFlightMovementSourceToSegmentType(FlightMovementSource.NETWORK);
 
@@ -571,8 +571,8 @@ public class FlightMovementBuilder {
                 }
                 checkAndParseItem18Field(validFM);
                 checkArrivalAerodromeTimeEet(validFM);
-                
-                
+
+
             } else {
                 final ErrorDTO errorDto = FlightMovementBuilderUtility.getMandatoryFieldNotValued(validFM,
                     "Cannot create/update a flight movement from Spatia", false);
@@ -619,14 +619,14 @@ public class FlightMovementBuilder {
         if (radarSummary != null && radarSummary.isValid()) {
             // Mapping some fields from RadarSummary to FlightMovement
             flightMovement = FlightMovementObjectMapper.radarSummaryToFlightMovement(radarSummary, null, null);
-         
+
             if (FlightMovementBuilderUtility.checkNotNullConstraint(flightMovement)) {
                 flightMovementValidator.validateFlightLevel(flightMovement);
                 checkAndParseItem18Field(flightMovement);
                 checkArrivalAerodromeTimeEet(flightMovement);
                 final SegmentType segmentType = SegmentTypeMap
                         .mapFlightMovementSourceToSegmentType(FlightMovementSource.RADAR_SUMMARY);
-                
+
                 /*
                     Check aerodrome without resolving to coordinates when not in NAVDB. This is done for billing center
                     which requires aerodrome names and NOT coordinates.
@@ -644,7 +644,7 @@ public class FlightMovementBuilder {
                     try {
                         dest = flightMovementBuilderUtility.checkAerodrome(flightMovement.getDestAd(),
                                 flightMovement.getItem18Dest(), false);
-                        
+
                         if(systemConfigurationService.getBoolean(SystemConfigurationItemName.VALIDATE_FLIGHT_LEVEL_AIRSPACE)) {
                             routeCacheVO = this.flightMovementBuilderUtility.getRouteInformationByLeonardoFile(radarSummary);
                         } else {
@@ -654,8 +654,8 @@ public class FlightMovementBuilder {
                     } catch (FlightMovementBuilderException fmbe) {
                         catchAerodromeErrors(flightMovement, fmbe);
                     }
-                
-                
+
+
                 if (routeCacheVO != null) {
                     flightMovement.setRadarCrossingDistance(routeCacheVO.getDistance());
                     flightMovement.setRadarRoute(routeCacheVO.getRoute());
@@ -733,16 +733,16 @@ public class FlightMovementBuilder {
                 } catch (FlightMovementBuilderException fmbe) {
                     catchAerodromeErrors(updateFlightMovement, fmbe);
                 }
-                
+
                if (routeCacheVO != null) {
                    //if update is done from Leonardo file we don't replace the route info, but instead add the new segment
                    if(systemConfigurationService.getBoolean(SystemConfigurationItemName.VALIDATE_FLIGHT_LEVEL_AIRSPACE)) {
-                       
+
                        List<RouteSegment> rsList = flightMovementBuilderUtility.addTheSegmentsList(
                                existingFlightMovement.getRouteSegments(), routeCacheVO.getRouteSegmentList(), segmentType);
-                       
+
                        updateFlightMovement.setRouteSegments(rsList);
-                       
+
                        if (!rsList.isEmpty()) {
                            LOG.debug("There are {} segments", rsList.size());
                            Double distance = 0.0d;
@@ -755,16 +755,16 @@ public class FlightMovementBuilder {
                                    merger.add(routeS.getLocation());
                                }
                            }
-                           
+
                            updateFlightMovement.setRadarCrossingDistance(roundTotalDistance(distance));
                            Collection<LineString>  geometries = merger.getMergedLineStrings();
                            Geometry geom = GeometryUtils.lineStringToMultiLineString(geometries);
                            updateFlightMovement.setRadarRoute(geom);
-                           
+
                        }
-                       
+
                    } else {
-     
+
                     updateFlightMovement.setRadarCrossingDistance(routeCacheVO.getDistance());
                     updateFlightMovement.setRadarRoute(routeCacheVO.getRoute());
                     updateFlightMovement.setRouteSegments(flightMovementBuilderUtility.mergeTheSegmentsList(
@@ -816,6 +816,119 @@ public class FlightMovementBuilder {
 
         return returnFlightMovement;
     }
+
+
+
+
+    // Update Flight Movement from RadarSummary when the change is done from GUI
+
+
+    public FlightMovement updateFlightMovementFromRadarSummaryFromGui(FlightMovement existingFlightMovement,
+                                                               RadarSummary radarSummary) throws FlightMovementBuilderException {
+
+        FlightMovement returnFlightMovement = null;
+        LOG.debug("Update Flight Movement from RadarSummary");
+        if (existingFlightMovement != null && radarSummary != null) {
+            // Mapping some fields from RadarSummary to FlightMovement
+            FlightMovement updateFlightMovement = FlightMovementObjectMapper.radarSummaryToFlightMovement(radarSummary, existingFlightMovement.getDepTime(), existingFlightMovement.getDateOfFlight());
+            if (FlightMovementBuilderUtility.checkAndFillNotNullConstraint(updateFlightMovement,
+                existingFlightMovement)) {
+                flightMovementValidator.validateFlightLevel(updateFlightMovement);
+                checkAndParseItem18Field(updateFlightMovement);
+                checkArrivalAerodromeTimeEet(updateFlightMovement);
+                final SegmentType segmentType = SegmentTypeMap
+                    .mapFlightMovementSourceToSegmentType(FlightMovementSource.RADAR_SUMMARY);
+
+                /*
+                    Check aerodrome without resolving to coordinates when not in NAVDB. This is done for billing center
+                    which requires aerodrome names and NOT coordinates.
+
+                    calculateRouteInformationByRouteParser are able to handle the resolving of ABMSDB aerodrome names
+                    to coordinates which in this case makes it redundant to ask
+                    flightMovementBuilderUtility.checkAerodrome to resolve aerodrome not in NAVDB to coordinates.
+                 */
+                final String dep = flightMovementBuilderUtility.checkAerodrome(updateFlightMovement.getDepAd(),
+                    updateFlightMovement.getItem18Dep(), false);
+
+                String dest = null;
+                RouteCacheVO routeCacheVO = null;
+
+                try {
+                    dest = flightMovementBuilderUtility.checkAerodrome(
+                        updateFlightMovement.getDestAd(), updateFlightMovement.getItem18Dest(), false
+                    );
+                    if(systemConfigurationService.getBoolean(SystemConfigurationItemName.VALIDATE_FLIGHT_LEVEL_AIRSPACE)) {
+                        routeCacheVO = this.flightMovementBuilderUtility.getRouteInformationByLeonardoFile(radarSummary);
+                    } else {
+                        routeCacheVO = calculateRouteInformationByRouteParser(
+                            updateFlightMovement, updateFlightMovement.getRadarRouteText(), segmentType, dep, dest
+                        );
+                    }
+                } catch (FlightMovementBuilderException fmbe) {
+                    catchAerodromeErrors(updateFlightMovement, fmbe);
+                }
+
+                if (routeCacheVO != null) {
+                    //if update is done from Leonardo file we don't replace the route info, but instead add the new segmente
+
+                        updateFlightMovement.setRadarCrossingDistance(routeCacheVO.getDistance());
+                        updateFlightMovement.setRadarRoute(routeCacheVO.getRoute());
+                        updateFlightMovement.setRouteSegments(flightMovementBuilderUtility.mergeTheSegmentsList(
+                            existingFlightMovement.getRouteSegments(), routeCacheVO.getRouteSegmentList(), segmentType));
+
+                } else {
+                    updateFlightMovement.setRouteSegments(existingFlightMovement.getRouteSegments());
+                }
+
+                if (existingFlightMovement.getSource().equals(FlightMovementSource.RADAR_SUMMARY)
+                    || existingFlightMovement.getSource().equals(FlightMovementSource.MANUAL)) {
+                    returnFlightMovement = flightMovementMerge.overwriteAllFieldsExceptUserUpdated(
+                        existingFlightMovement, updateFlightMovement);
+                }
+
+                if (existingFlightMovement.getSource().equals(FlightMovementSource.NETWORK)) {
+                    returnFlightMovement = flightMovementMerge.updateFlightMovementCreatedByFPL(
+                        existingFlightMovement, updateFlightMovement);
+                }
+
+                if (existingFlightMovement.getSource().equals(FlightMovementSource.TOWER_LOG)
+                    || existingFlightMovement.getSource().equals(FlightMovementSource.ATC_LOG)) {
+                    returnFlightMovement = flightMovementMerge.updateFlightMovementCreatedByRadarTowerAtc(
+                        existingFlightMovement, updateFlightMovement);
+                }
+
+                // check and calculate the other flight movement fields
+                // must be done after route segments have been defined
+                checkAndResolveFlightMovement(returnFlightMovement, false, true);
+
+                if (returnFlightMovement != null &&
+                    (returnFlightMovement.getFlightCategoryType() == FlightmovementCategoryType.ARRIVAL ||
+                        returnFlightMovement.getFlightCategoryType() == FlightmovementCategoryType.DEPARTURE) &&
+                    routeCacheVO != null && routeCacheVO.getDistance() != null) {
+                    if(systemConfigurationService.getBoolean(SystemConfigurationItemName.VALIDATE_FLIGHT_LEVEL_AIRSPACE)) {
+                        Double distance = returnFlightMovement.getRadarCrossingDistance();
+                        returnFlightMovement.setRadarCrossingDistance(flightMovementValidator.getRadarRouteLengthValid(distance));
+                    } else {
+                        returnFlightMovement.setRadarCrossingDistance(flightMovementValidator.getRadarRouteLengthValid(routeCacheVO.getDistance()));
+                    }
+                }
+
+                // resolve billing center from dep and dest aerodromes based on movement type
+                this.resolveBillingCenter(returnFlightMovement, dep, dest);
+            } else {
+                FlightMovementBuilderUtility.getMandatoryFieldNotValued(returnFlightMovement,"Cannot update a flight movement from radar logs", true);
+            }
+        }
+
+        return returnFlightMovement;
+    }
+
+
+
+
+
+
+
 
     // Create Flight Movement from TowerMovemntLog
     public FlightMovement createFlightMovementFromTowerMovementLog(TowerMovementLog towerMovementLog)
@@ -927,7 +1040,7 @@ public class FlightMovementBuilder {
 
                 // check and calculate the other flight movement fields
                 // must be done after route segments have been defined
-                
+
                 // 2020-01-13 Bug 115200 - Passenger count is updated from Tower Log only for departing flights.
                 // For Delta flights 2 Tower logs could be associated with FM, only the one departing from the initial aerodrome is changing passenger count in FM
                 // If the flight is domestic - domestic passengers count is updated.
@@ -938,7 +1051,7 @@ public class FlightMovementBuilder {
                 } else {
                     passengerCount = existingFlightMovement.getPassengersChargeableDomestic();
                 }
-                
+
                 if(StringUtils.isNotBlank(towerMovementLog.getDepartureAerodrome()) && StringUtils.isNotBlank(existingFlightMovement.getDepAd()) &&
                         towerMovementLog.getDepartureAerodrome().equals(existingFlightMovement.getDepAd())){
                     passengerCount =  towerMovementLog.getPassengers();
@@ -1153,7 +1266,7 @@ public class FlightMovementBuilder {
     }
 
     public Boolean recalculateCharges(FlightMovement flightMovement) {
-    	
+
     	// aggiungere cache per evitare ricalcolo?
     	// @UniqueKey(columnNames = { "flightId", "dateOfFlight", "depTime", "depAd" })
 
@@ -1472,7 +1585,7 @@ public class FlightMovementBuilder {
 
         // Calculate Route and Crossing Distance
         if (StringUtils.isNotBlank(flightMovement.getFplRoute())) {
-          
+
             RouteCacheVO routeCacheVO =null;
           //2020-04-02 TFS 115533 - TMA handling
             if(systemConfigurationService.getBoolean(SystemConfigurationItemName.VALIDATE_FLIGHT_LEVEL_AIRSPACE)) {
@@ -1485,12 +1598,12 @@ public class FlightMovementBuilder {
                     flightMovement.getFplRoute(), segmentType, flightMovement.getCruisingSpeedOrMachNumber(),
                     flightMovement.getEstimatedElapsedTime());
             }
-            
+
             if (routeCacheVO != null && routeCacheVO.getDistance() == null) {
                 // If a routeCache cannot be built, check if either dest/dep are in ABMSDB
                 String depCoords = flightMovementBuilderUtility.checkAerodrome(flightMovement.getDepAd(), flightMovement.getItem18Dep(), true);
                 String destCoords = flightMovementBuilderUtility.checkAerodrome(flightMovement.getDestAd(), flightMovement.getItem18Dest(), true);
-                
+
                 //2020-04-02 TFS 115533 - TMA handling
                 if(systemConfigurationService.getBoolean(SystemConfigurationItemName.VALIDATE_FLIGHT_LEVEL_AIRSPACE)) {
                     Double fl = Double.valueOf(systemConfigurationService.getIntOrZero(SystemConfigurationItemName.DEFAULT_FLIGHT_LEVEL));
@@ -1592,7 +1705,7 @@ public class FlightMovementBuilder {
         RouteCacheVO routeCacheVO = null;
         String routeText = route;
         if (segmentType.equals(SegmentType.RADAR)) {
-            
+
             routeText = getRouteForRadar(routeText, dep, dest, flightMovement);
         }
         // Calculate Route and Crossing Distance
@@ -1619,7 +1732,7 @@ public class FlightMovementBuilder {
         return routeCacheVO;
     }
 
-    
+
     /**
      * The purpose of this method is to link a flight movement to the right billing center.
      *
@@ -1739,7 +1852,7 @@ public class FlightMovementBuilder {
     }
 
 
-    
+
     private String getRouteWithAerodromes(String route, String dep, String dest) {
         if (StringUtils.isBlank (route)) {
             if (StringUtils.isNotBlank (dep) && StringUtils.isNotBlank (dest)) {
@@ -1758,7 +1871,7 @@ public class FlightMovementBuilder {
         }
         return dep + " " + route + " " + dest;
     }
-    
+
     public static String getFlightName (final FlightMovement x) {
         if (x != null) {
             final StringBuilder buf = new StringBuilder();
@@ -1785,7 +1898,7 @@ public class FlightMovementBuilder {
     public static void checkAndParseItem18Field (final FlightMovement flightMovement) {
         checkAndParseItem18Field (getFlightName (flightMovement), flightMovement);
     }
-    
+
     public static void checkAndParseItem18Field (final String flightName, final FlightMovement flightMovement) {
         // check and parse the Item18Field
         if (StringUtils.isNotBlank(flightMovement.getOtherInfo())) {
@@ -1919,7 +2032,7 @@ public class FlightMovementBuilder {
                  fm.getRouteSegments(), routeCacheVO.getRouteSegmentList(), SegmentType.RADAR));
              }
         }
-        
+
         if(StringUtils.isNotBlank(fm.getRadarTowerLogRouteText())) {
             RouteCacheVO  routeCacheVO = calculateRouteInformationByRouteParser(fm,
                 fm.getRadarTowerLogRouteText(), SegmentType.TOWER, dep, dest);
@@ -1964,7 +2077,7 @@ public class FlightMovementBuilder {
                 while (iter.hasNext())
                 {
                     RouteSegment rs = iter.next();
-                    if(rs!= null && 
+                    if(rs!= null &&
                            (!systemConfigurationService.getBoolean(SystemConfigurationItemName.VALIDATE_FLIGHT_LEVEL_AIRSPACE) && rs.getSegmentType().equals(SegmentType.RADAR) ||
                             rs.getSegmentType().equals(SegmentType.SCHED))) {
                         iter.remove();
@@ -1973,7 +2086,7 @@ public class FlightMovementBuilder {
             }
         }
     }
-    
+
     /**
      * Round total flight distance
      */

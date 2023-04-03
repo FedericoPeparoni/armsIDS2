@@ -100,7 +100,7 @@ public class RadarSummaryService {
     }
 
     public RadarSummary create(RadarSummary radarSummary) throws FlightMovementBuilderException {
-       
+
         //2020-07027 this code is called when Radar Summary is created from UI. Segment has to be set for the new RS.
         if(radarSummary != null) {
            radarSummary.setSegment(1);
@@ -132,17 +132,17 @@ public class RadarSummaryService {
         if (existingRadarSummary != null && existingRadarSummary.isDuplicate(radarSummary)) {
             throw new RejectedException(RejectedReasons.ALREADY_EXISTS_SHOULD_DISCARD, null, null);
         }
-        
+
         // resolve route and fir points from waypoints if not ignored
         // ignore waypoints flag is for UI so user can overwrite these fields
         if (!ignoreWaypoints) {
             radarSummaryWaypointUtility.resolveRouteAndFirPoints(radarSummary);
         }
-        
+
         //2020-07-27 If multiple segments are allowed the segment number will be increased,
         // if not allowed - duplicated RS will be rejected.
         if(systemConfigurationService.getBoolean(SystemConfigurationItemName.VALIDATE_FLIGHT_LEVEL_AIRSPACE)) {
-                       
+
             Integer maxSegment= this.radarSummaryRepository.getMaxSegmentNum(radarSummary.getFlightIdentifier(),
                     radarSummary.getDepartureAeroDrome(), radarSummary.getDayOfFlight(), radarSummary.getDepartureTime());
             if(maxSegment != null) {
@@ -153,7 +153,8 @@ public class RadarSummaryService {
         }
         newRadarSummary = radarSummaryRepository.save(radarSummary);
 
-        FlightMovement flightMovement = flightMovementService.createUpdateFlightMovementFromRadarSummary(newRadarSummary, o);
+        boolean isUpdate = false;
+        FlightMovement flightMovement = flightMovementService.createUpdateFlightMovementFromRadarSummary(newRadarSummary, o,isUpdate);
 
         // If radar summary does not contain entry and exit points/time, update with points parsed
         // during flightMovement processing
@@ -177,16 +178,21 @@ public class RadarSummaryService {
                 LOG.debug("Request to update radarSummary failed because ID or radarSummary is null");
                 return null;
             }
-            return this.update(id, radarSummary, true, null);
+            return this.update(id, radarSummary, true, null,true);
         } catch (RuntimeException e) {
             throw ExceptionFactory.persistenceDataManagement(e,ErrorConstants.ERR_UPDATE_NO_LONGER_EXISTS);
         }
     }
 
-    public RadarSummary update(Integer id, RadarSummary radarSummary, boolean ignoreWaypoints, ItemLoaderObserver o) throws FlightMovementBuilderException {
+    public RadarSummary update(Integer id, RadarSummary radarSummary, boolean ignoreWaypoints, ItemLoaderObserver o, boolean isUpdate) throws FlightMovementBuilderException {
         if (id == null || radarSummary == null) {
             LOG.debug("Request to update radarSummary failed because ID or radarSummary is null");
             return null;
+        }
+
+        isUpdate = true;
+        if(o != null){
+            isUpdate = false;
         }
 
         LOG.debug("Request to RadarSumnmary : {}", radarSummary);
@@ -204,7 +210,7 @@ public class RadarSummaryService {
             radarSummaryWaypointUtility.resolveRadarWaypoints(radarSummary, existingRadarSummary);
         }
 
-        FlightMovement flightMovement = flightMovementService.createUpdateFlightMovementFromRadarSummary(existingRadarSummary, o);
+        FlightMovement flightMovement = flightMovementService.createUpdateFlightMovementFromRadarSummary(existingRadarSummary, o,isUpdate);
 
         // If radar summary does not contain entry and exit points/time, update with points parsed
         // during flightMovement processing
@@ -228,22 +234,22 @@ public class RadarSummaryService {
         } else {
             radarSummaryID = this.checkIfExistsRadarSummary(item);
         }
-        
+
         if (radarSummaryID != null) {
-            return update(radarSummaryID, item, false, o);
+            return update(radarSummaryID, item, false, o,true);
         } else {
             return create(item, false, o);
         }
     }
 
-    
+
     /**
      * Find a record that matches the specified logical key exactly.
      */
     private RadarSummary findByLogicalKeyExact (final String flightId, final String depAd, final LocalDateTime dayOfFlight, final String depTime) {
         return radarSummaryRepository.findByLogicalKeyExact (flightId, depAd, dayOfFlight, depTime);
     }
-    
+
     /**
      * Find a record for the given flight and departure time within a few minutes of the specified time
      */
@@ -269,7 +275,7 @@ public class RadarSummaryService {
                     flightId, depAd, dateOfFlight, depTime);
             return null;
         }
-        
+
         // Find radar record that matches the given flight id/day of flight/departure time exactly
         final RadarSummary radarSummary = this.findByLogicalKeyExact (flightId, depAd, dateOfFlight, depTime);
         if (radarSummary != null) {
@@ -285,9 +291,9 @@ public class RadarSummaryService {
         return null;
     }
 
-    
+
     private RadarSummary getRadarLeonardoExist(RadarSummary newRS) {
-       
+
         // if Leonardo file find all radar summaries
         List<RadarSummary> rsList = this.radarSummaryRepository.findByLogicalKeyAll(newRS.getFlightIdentifier(), newRS.getDepartureAeroDrome(), newRS.getDayOfFlight(), newRS.getDepartureTime());
         if(rsList != null && !rsList.isEmpty()) {
@@ -296,12 +302,12 @@ public class RadarSummaryService {
                         || rs.getFirEntryTime().equalsIgnoreCase(newRS.getFirEntryTime())){
                     // duplicate found
                     return rs;
-                } 
+                }
             }
         }
         return null;
     }
-    
+
     private Integer checkIfExistsRadarSummary(RadarSummary radarSummary) {
 
         if (radarSummary != null && radarSummary.getFlightIdentifier() != null &&
