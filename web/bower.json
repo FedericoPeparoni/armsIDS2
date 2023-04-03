@@ -30,7 +30,7 @@
     "angular": "1.5.3",
     "angular-loading-bar": "^0.9.0",
     "es6-shim": "^0.35.3",
-    "draw-tools-polyline": "http://git.team.nais-solutions.it/Faas/IDS/arms.git/draw-tools-polyline",
+    "draw-tools-polyline": "C:/Users/fpepa/IdeaProjects/arms/draw-tools-polyline",
     "Sortable": "sortablejs#^1.6.0",
     "angular-recaptcha": "^4.1.2",
     "angular-filter": "^0.5.17",
