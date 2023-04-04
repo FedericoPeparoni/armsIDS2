@@ -38,6 +38,9 @@ class FlightMovementCsvExportModel {
     @CsvProperty(value = "MTOW", mtow = true, precision = 2)
     private Double actualMtow;
 
+    @CsvProperty(value = "W Factor")
+    private Double wFactor;
+
     @CsvProperty(value = "Type")
     private String flightCategoryType;
 
@@ -70,6 +73,10 @@ class FlightMovementCsvExportModel {
 
     @CsvProperty(value = "Billable Cros Dist", distance = true, precision = 2)
     private Double billableCrossingDist;
+
+
+    @CsvProperty(value = "D Factor")
+    private Double dFactor;
 
     @CsvProperty(value = "Entry Point")
     private String billableEntryPoint;
@@ -149,8 +156,11 @@ class FlightMovementCsvExportModel {
     @CsvProperty(value = "User Dist", distance = true, precision = 2)
     private Double userCrossingDistance;
 
+
     @CsvProperty(value = "Resolution Errors")
     private String resolutionErrorsSet;
+
+
 
     public LocalDateTime getDateOfFlight() {
         return dateOfFlight;
@@ -558,5 +568,21 @@ class FlightMovementCsvExportModel {
 
     public void setExitTime(String exitTime) {
         this.exitTime = exitTime;
+    }
+
+    public Double getWFactor() {
+        return wFactor;
+    }
+
+    public void  setWFactor(Double wFactor) {
+        this.wFactor = wFactor;
+    }
+
+    public Double getDFactor() {
+        return dFactor;
+    }
+
+    public void  setDFactor(Double dFactor) {
+        this.dFactor = dFactor;
     }
 }
