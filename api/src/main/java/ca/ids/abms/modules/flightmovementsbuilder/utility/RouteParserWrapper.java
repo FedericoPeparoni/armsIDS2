@@ -60,7 +60,7 @@ public class RouteParserWrapper {
     private static final String NAVDB_ROUNDING = "NAVDB";
     private static final String NAVDB_ERROR = "Error retrieving navdbconnection";
     private static final String NAVDB_ERROR_CLOSING_CONNECTION = "Error closing navdb connection";
-    
+
 
     public RouteParserWrapper(
         @Qualifier("navDBDataSource") final DataSource navDBDataSource,
@@ -174,7 +174,7 @@ public class RouteParserWrapper {
         if (rs != null) {
 
             // build route string
-            String routeString = getRouteForRadarLeonardo(rs.getEntryCoordinate(), rs.getExitCoordinate());
+            String routeString = getRouteForRadarLeonardo(rs.getFirEntryPoint(), rs.getFirExitPoint());
             routeCacheVO = getRouteCache(rs.getEntryCoordinate(), routeString, rs.getExitCoordinate(),null);
 
             if (routeCacheVO == null) {
@@ -193,7 +193,7 @@ public class RouteParserWrapper {
                     List<RouteSegmentVO> routeSegments = new ArrayList<>();
                     routeSegments.add(routeSegment);
                     routeCacheVO.setRouteSegmentList(routeSegments);
-                                                        
+
                     // calculate distance from route segment collocation length
                     if (!routeSegments.isEmpty()) {
                         LOG.debug("There are {} segments", routeSegments.size());
@@ -211,7 +211,7 @@ public class RouteParserWrapper {
         }
         return routeCacheVO;
     }
-    
+
     /**
      * This method return the following information:
      * <ul>
@@ -263,7 +263,7 @@ public class RouteParserWrapper {
                             // calculate route segments
                             List<RouteSegmentVO> routeSegments = getRouteSegmentsByRouteParser(segmentType, airspaceRP,
                                     routeFinder);
-                            
+
                             routeCacheVO.setRouteSegmentList(routeSegments);
 
                             // calculate distance
@@ -736,7 +736,7 @@ public class RouteParserWrapper {
     	int decimalPlaces = systemConfigurationService.getIntOrZero(SystemConfigurationItemName.FLIGHT_TOTAL_DECIMAL_PLACES);
         return Calculation.truncate(length, decimalPlaces);
     }
-    
+
     private String getRouteForRadarLeonardo(String entry, String exit) {
         if (StringUtils.isNotBlank (entry) && StringUtils.isNotBlank (exit)) {
             return entry + " DCT " + exit;
