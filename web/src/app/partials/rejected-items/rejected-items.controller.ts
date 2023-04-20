@@ -366,9 +366,9 @@ export class RejectedItemsController extends CRUDFormControllerUserService {
    */
   private visibleFieldsRadarSumm(itemFormat?: string): Array<string> {
     let fields: Array<string> = [
-      'flightTravelCategory', 'flightIdentifier', 'date', 'registration', 'flightType', 'flightRule', 'aircraftType', 'wakeTurb',
+      'entryCoordinate','exitCoordinate','flightTravelCategory', 'flightIdentifier', 'date', 'registration', 'flightType', 'flightRule', 'aircraftType', 'wakeTurb',
       'destinationAeroDrome', 'destTime', 'departureAeroDrome', 'departureTime', 'cruisingSpeed', 'flightLevel', 'firEntryPoint', 'firEntryTime',
-      'firEntryFlightLevel', 'firExitPoint', 'firExitTime', 'firExitFlightLevel'
+      'firEntryFlightLevel', 'firExitPoint', 'firExitTime', 'firExitFlightLevel', 'entryCordinate'
     ];
 
     if (itemFormat === 'INDRA_REC') {

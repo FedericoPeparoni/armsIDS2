@@ -11,10 +11,10 @@ import javax.validation.constraints.Size;
 
 @JsonPropertyOrder({ "id", "flightTravelCategory", "flightIdentifier", "date", "dayOfFlight", "registration",
     "flightType", "flightRule", "aircraftType", "destinationAeroDrome", "destTime", "departureAeroDrome",
-    "departureTime", "firEntryPoint", "firEntryTime", "firExitPoint", "firExitTime", "route" })
+    "departureTime", "firEntryPoint", "firEntryTime", "firExitPoint", "firExitTime", "route","entryCoordinate","exitCoordinate" })
 @UseCustomDataMapper(qualifier = "RadarSummaryCSVMapping",
     header="Flight travel category,Flight ID,Date,Registration,Flight type,Flight Rule,Aircraft Type,,," +
-        "Dest. Aerodrome,Dest. Time,Dep. Aerodrome,Dep. Time,,Entry Point,Entry Time,")
+        "Dest. Aerodrome,Dest. Time,Dep. Aerodrome,Dep. Time,,Entry Point,Entry Time, Entry Coordinate, Exit Coordinate")
 public class RadarSummaryCsvViewModel extends DefaultRejectableCsvModel {
 
     private Integer id;
@@ -42,7 +42,7 @@ public class RadarSummaryCsvViewModel extends DefaultRejectableCsvModel {
     private String firEntryTime;
 
     private String firEntryFlightLevel;
-    
+
     private String firEntryDate;
 
     private String firExitPoint;
@@ -76,20 +76,22 @@ public class RadarSummaryCsvViewModel extends DefaultRejectableCsvModel {
     private Integer segment;
 
     private String entryCoordinate;
+
     private String exitCoordinate;
 
+    @JsonProperty("entryCoordinate")
     public String getEntryCoordinate() {
         return entryCoordinate;
     }
-
+    @JsonProperty("entryCoordinate")
     public void setEntryCoordinate(String entryCoordinate) {
         this.entryCoordinate = entryCoordinate;
     }
-
+    @JsonProperty("exitCoordinate")
     public String getExitCoordinate() {
         return exitCoordinate;
     }
-
+    @JsonProperty("exitCoordinate")
     public void setExitCoordinate(String exitCoordinate) {
         this.exitCoordinate = exitCoordinate;
     }
@@ -348,7 +350,7 @@ public class RadarSummaryCsvViewModel extends DefaultRejectableCsvModel {
 
     @JsonProperty("operatorIcaoCode")
     public void setOperatorIcaoCode(String operatorIcaoCode) { this.operatorIcaoCode = operatorIcaoCode; }
-    
+
 	@JsonProperty("firEntryDate")
 	public String getFirEntryDate() {
 		return firEntryDate;
@@ -358,7 +360,7 @@ public class RadarSummaryCsvViewModel extends DefaultRejectableCsvModel {
 	public void setFirEntryDate(String firEntryDate) {
 		this.firEntryDate = firEntryDate;
 	}
-    
+
     public String getFixes() {
         return fixes;
     }
@@ -403,7 +405,7 @@ public class RadarSummaryCsvViewModel extends DefaultRejectableCsvModel {
             ", firExitPoint='" + firExitPoint + '\'' +
             ", firExitTime='" + firExitTime + '\'' +
             ", firEntryDate='" + firEntryDate + '\'' +
-            '}';
+            ", entryCordinate='" + entryCoordinate + '\'' ;
     }
 
 
@@ -453,7 +455,7 @@ public class RadarSummaryCsvViewModel extends DefaultRejectableCsvModel {
             .append("Dep. Time").append(',')
             .append("").append(',')
             .append("Entry Point").append(',')
-            .append("Entry Time").append(',');
+            .append("Entry ccc").append(',');
         return headerBuilder.toString();
     }
 }
