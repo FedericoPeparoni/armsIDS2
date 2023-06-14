@@ -126,11 +126,11 @@ public class FlightMovementServiceObservableTest {
         doReturn(null).when(flightMovementService).findFlightMovementFromRadarSummary(any(RadarSummary.class));
         when(flightMovementRepository.findAllByFlightIdAndDateOfFlight(radarSummary.getFlightIdentifier(), radarSummary.getDate())).thenReturn(null);
         when(thruFlightPlanUtility.isThruFlight(any())).thenReturn(false);
-        flightMovementService.createUpdateFlightMovementFromRadarSummary(radarSummary, bulkLoaderSummary);
+        flightMovementService.createUpdateFlightMovementFromRadarSummary(radarSummary, bulkLoaderSummary,false);
 
         when(thruFlightPlanUtility.isThruFlight(any())).thenReturn(false);
         doReturn(flightMovement).when(flightMovementService).findFlightMovementFromRadarSummary(any(RadarSummary.class));
-        flightMovementService.createUpdateFlightMovementFromRadarSummary(radarSummary, bulkLoaderSummary);
+        flightMovementService.createUpdateFlightMovementFromRadarSummary(radarSummary, bulkLoaderSummary,false);
 
         assertThat(bulkLoaderSummary.getFplAdded()).isEqualTo(1L);
         assertThat(bulkLoaderSummary.getFplUpdated()).isEqualTo(1L);
