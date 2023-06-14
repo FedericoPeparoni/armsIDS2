@@ -128,12 +128,12 @@ public class RadarSummaryServiceTest {
         radarSummaryService.delete(1);
         verify(radarSummaryRepository).delete(any(Integer.class));
     }
-    
+
     @Test
     public void testFindRadarSummaryByLogicalKey(){
-        
+
         final RadarSummary resultRecord = this.radarSummaryList.get(0);
-        
+
         // Exact match exists
         when(radarSummaryRepository.findByLogicalKeyExact(any(), any(), any(), any())).thenReturn(resultRecord);
         assertThat(radarSummaryService.findByLogicalKey ("TAL001", "AAAA", LocalDateTime.now(), "1234").getDestinationAeroDrome()).isEqualTo("DSTX");
@@ -142,33 +142,33 @@ public class RadarSummaryServiceTest {
         when(systemConfigurationService.getOneByItemName(SystemConfigurationItemName.DEP_TIME_RANGE_MIN)).thenReturn(null);
         when(radarSummaryRepository.findByLogicalKeyExact(any(),any(),any(),any())).thenReturn(null);
         assertThat (radarSummaryService.findByLogicalKey ("TAL001", "AAAA", LocalDateTime.now(), "1234")).isNull();
-        
+
         // Exact match doesn't exist, and time sensitivity option is 0
         systemConfiguration.setCurrentValue("0");
         when(systemConfigurationService.getOneByItemName(SystemConfigurationItemName.DEP_TIME_RANGE_MIN)).thenReturn (systemConfiguration);
         when(radarSummaryRepository.findByLogicalKeyExact(any(),any(),any(),any())).thenReturn(null);
         assertThat (radarSummaryService.findByLogicalKey ("TAL001", "AAAA", LocalDateTime.now(), "1234")).isNull();
-        
+
         // Exact match doesn't exist, and time sensitivity option is < 0
         systemConfiguration.setCurrentValue("-1");
         when(systemConfigurationService.getOneByItemName(SystemConfigurationItemName.DEP_TIME_RANGE_MIN)).thenReturn (systemConfiguration);
         when(radarSummaryRepository.findByLogicalKeyExact(any(),any(),any(),any())).thenReturn(null);
         assertThat (radarSummaryService.findByLogicalKey ("TAL001", "AAAA", LocalDateTime.now(), "1234")).isNull();
-        
+
         // Exact match doesn't exist, and fuzzy match also doesn't exist
         systemConfiguration.setCurrentValue("-1");
         when(systemConfigurationService.getOneByItemName(SystemConfigurationItemName.DEP_TIME_RANGE_MIN)).thenReturn (systemConfiguration);
         when(radarSummaryRepository.findByLogicalKeyExact(any(), any(), any(), any())).thenReturn(null);
         when(radarSummaryRepository.findByLogicalKeyFuzzy(any(), any(), any(), any(), any())).thenReturn(null);
         assertThat (radarSummaryService.findByLogicalKey ("TAL001", "AAAA", LocalDateTime.now(), "1234")).isNull();
-        
+
         // Exact match doesn't exist; but fuzzy match does
         systemConfiguration.setCurrentValue("10");
         when(systemConfigurationService.getOneByItemName(SystemConfigurationItemName.DEP_TIME_RANGE_MIN)).thenReturn (systemConfiguration);
         when(radarSummaryRepository.findByLogicalKeyExact(any(), any(), any(), any())).thenReturn (null);
         when(radarSummaryRepository.findByLogicalKeyFuzzy(any(), any(), any(), any(), any())).thenReturn (resultRecord);
         assertThat(radarSummaryService.findByLogicalKey ("TAL001", "AAAA", LocalDateTime.now(), "1234").getDestinationAeroDrome()).isEqualTo("DSTX");
-        
+
     }
 
     @Test
@@ -267,7 +267,7 @@ public class RadarSummaryServiceTest {
             .thenReturn(RadarSummaryFormat.INDRA_REC.getName());
 
         // by default, billing context should merge
-        RadarSummary result = radarSummaryService.update(1, update, false, null);
+        RadarSummary result = radarSummaryService.update(1, update);
 
         assertThat(result.getRoute()).isEqualTo("WYPNTA WYPNTB WYPNTC WYPNTD WYPNTE");
         assertThat(result.getFirEntryPoint()).isEqualTo("WYPNTA");
@@ -288,7 +288,7 @@ public class RadarSummaryServiceTest {
             .thenReturn(RadarSummaryFormat.INDRA_REC.getName());
 
         BillingContext.put(BillingContextKey.MERGE_WAYPOINTS, Boolean.FALSE);
-        RadarSummary result = radarSummaryService.update(1, update, false, null);
+        RadarSummary result = radarSummaryService.update(1, update);
 
         assertThat(result.getRoute()).isEqualTo("WYPNTA WYPNTB WYPNTC WYPNTD");
         assertThat(result.getFirEntryPoint()).isEqualTo("WYPNTA");

@@ -27,12 +27,14 @@ public class AmhsAccountController extends MediaDocumentComponent {
     private static final Logger LOG = LoggerFactory.getLogger(AmhsAccountController.class);
 
     private final AmhsAccountService amhsAccountService;
+    private final AmhsAccountMapper amhsAccountMapper;
     private final ReportDocumentCreator reportDocumentCreator;
 
     public AmhsAccountController(
-            final AmhsAccountService amhsAccountService,
-            final ReportDocumentCreator reportDocumentCreator) {
+        final AmhsAccountService amhsAccountService,
+        final AmhsAccountMapper amhsAccountMapper, final ReportDocumentCreator reportDocumentCreator) {
         this.amhsAccountService = amhsAccountService;
+        this.amhsAccountMapper = amhsAccountMapper;
         this.reportDocumentCreator = reportDocumentCreator;
     }
 
@@ -64,23 +66,32 @@ public class AmhsAccountController extends MediaDocumentComponent {
     @PostMapping
     @PreAuthorize("hasAuthority('amhs_config_modify')")
     @SuppressWarnings ({ "squid:S4684", "squid:S1075" })
-    public ResponseEntity<AmhsAccount> create(
-            @Valid @RequestBody final AmhsAccount viewModel) throws URISyntaxException {
+    public ResponseEntity<AmhsAccountViewModel> create(
+            @Valid @RequestBody final AmhsAccountViewModel viewModel) throws URISyntaxException {
         LOG.debug("REST request to create AMHS Account : {}", viewModel);
-        final AmhsAccount entity = amhsAccountService.create (viewModel);
+
+        AmhsAccount account = amhsAccountMapper.toModel(viewModel);
+
+        final AmhsAccount entity = amhsAccountService.create (account);
+
+        final AmhsAccountViewModel resultDto = amhsAccountMapper.toViewModel(entity);
+
         return ResponseEntity.created(new URI(ENDPOINT + "/" + entity.getId()))
-                .body(entity);
+                .body(resultDto);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('amhs_config_modify')")
     @SuppressWarnings ("squid:S4684")
-    public ResponseEntity<AmhsAccount> update(
+    public ResponseEntity<AmhsAccountViewModel> update(
             @PathVariable final Integer id,
-            @Valid @RequestBody final AmhsAccount viewModel) {
+            @Valid @RequestBody final AmhsAccountViewModel viewModel) {
         LOG.debug("REST request to update AMHS Account with id '{}' : {}", id, viewModel);
-        final AmhsAccount entity = amhsAccountService.update (id, viewModel);
-        return ResponseEntity.ok().body (entity);
+
+        AmhsAccount updateAmhsAccount = amhsAccountService.update(id,amhsAccountMapper.toModel(viewModel));
+        AmhsAccountViewModel result = amhsAccountMapper.toViewModel(updateAmhsAccount);
+
+        return ResponseEntity.ok().body (result);
     }
 
     @SuppressWarnings("rawtypes")

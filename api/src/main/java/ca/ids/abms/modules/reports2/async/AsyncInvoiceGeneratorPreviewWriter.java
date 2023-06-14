@@ -7,11 +7,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,9 +22,7 @@ public class AsyncInvoiceGeneratorPreviewWriter implements ItemWriter<AsyncInvoi
     private static final String PREFIX = "AviationInvoice_";
 
     private static final String TEMP_FOLDER = "java.io.tmpdir";
-    
-    private static final int BUFFER_SIZE = 4096;
-    
+
     @Override
     public void close() {
         // Not required
@@ -60,7 +54,7 @@ public class AsyncInvoiceGeneratorPreviewWriter implements ItemWriter<AsyncInvoi
 
     static Path getTempFile(final String userName, final ReportFormat format) {
         assert (userName != null && format != null);
-        
+
         Path path = null;
 
         String tempDir = getTempDirectory();
@@ -77,45 +71,52 @@ public class AsyncInvoiceGeneratorPreviewWriter implements ItemWriter<AsyncInvoi
         String tempDir = System.getProperty(TEMP_FOLDER);
         if (tempDir != null && tempDir.charAt(tempDir.length() - 1) != File.separatorChar)
             tempDir += File.separatorChar;
-         return tempDir;
+        return tempDir;
     }
-    
+
     public static String unzip(Path zipPath) throws IOException {
-    	String filePath = "";
-    	
+
         File destDir = new File(getTempDirectory() + File.separator + "singleFile");
         if (!destDir.exists()) {
-        	LOG.info("Directory does not Exists.");
+            LOG.info("Directory does not Exists.");
             destDir.mkdir();
-            LOG.info("Directory " + destDir + " created.");
+            LOG.info("Directory {} created.", destDir);
         }
-        ZipInputStream zipIn = new ZipInputStream(new FileInputStream(zipPath.toFile()));
-        ZipEntry entry = zipIn.getNextEntry();
-        // iterates over entries in the zip file
-        while (entry != null) {
-            filePath = destDir + File.separator + entry.getName();
-            if (!entry.isDirectory()) {
-                // if the entry is a file, extracts it
-                extractFile(zipIn, filePath);
-            } else {
-                // if the entry is a directory, make the directory
-                File dir = new File(filePath);
-                dir.mkdirs();
+
+        try (ZipInputStream zipIn = new ZipInputStream(new FileInputStream(zipPath.toFile()))) {
+            ZipEntry entry = zipIn.getNextEntry();
+
+            while (entry != null) {
+                String fileName = entry.getName();
+                File targetFile = new File(destDir, fileName);
+
+                if (!entry.isDirectory()) {
+                    // Extract the file
+                    LOG.info("Directory does not Exists.");
+                    extractFile(zipIn, targetFile);
+                } else {
+                    // Create the directory
+                    targetFile.mkdirs();
+                    LOG.info("Directory {} created.", destDir);
+                }
+
+                zipIn.closeEntry();
+                entry = zipIn.getNextEntry();
             }
-            zipIn.closeEntry();
-            entry = zipIn.getNextEntry();
         }
-        zipIn.close();
-        return filePath;
+
+        // Return the path of the extracted file or directory
+        return destDir.getAbsolutePath();
     }
-    
-    private static void extractFile(ZipInputStream zipIn, String filePath) throws IOException {
-        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath));
-        byte[] bytesIn = new byte[BUFFER_SIZE];
-        int read = 0;
-        while ((read = zipIn.read(bytesIn)) != -1) {
-            bos.write(bytesIn, 0, read);
+
+    private static void extractFile(ZipInputStream zipIn, File targetFile) throws IOException {
+        try (OutputStream out = new FileOutputStream(targetFile)) {
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+
+            while ((bytesRead = zipIn.read(buffer)) != -1) {
+                out.write(buffer, 0, bytesRead);
+            }
         }
-        bos.close();
     }
 }

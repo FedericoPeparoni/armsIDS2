@@ -135,11 +135,11 @@ public class ErrorDTO implements Serializable {
             return this;
         }
 
-        public Builder addErrorMessageVariable (final String key, final String value) {
+        public Builder addErrorMessageVariable(final String key, final String value) {
             if (this.errorMessageVariables == null) {
                 this.errorMessageVariables = new ErrorVariables();
             }
-            this.errorMessageVariables.addEntry(key,  value);
+            this.errorMessageVariables.addEntry(key, value);
             return this;
         }
 
@@ -188,13 +188,13 @@ public class ErrorDTO implements Serializable {
         }
 
         public Builder addInvalidField(final Class objectType, final String fieldName, final String message,
-                final Object currentValue) {
+                                       final Object currentValue) {
             fields.add(new FieldErrorDTO(objectType.getSimpleName(), fieldName, message, String.valueOf(currentValue)));
             return this;
         }
 
         public Builder addInvalidField(final String objectName, final String fieldName, final String message,
-                final Object currentValue) {
+                                       final Object currentValue) {
             fields.add(new FieldErrorDTO(objectName, fieldName, message, String.valueOf(currentValue)));
             return this;
         }
@@ -210,7 +210,7 @@ public class ErrorDTO implements Serializable {
         }
 
         public Builder addInvalidField(Class<? extends FlightMovement> flightMovement, String fieldName,
-                ErrorConstants errorConstants, FlightMovementStatus flightMovementStatus) {
+                                       ErrorConstants errorConstants, FlightMovementStatus flightMovementStatus) {
 
             fields.add(new FieldErrorDTO(flightMovement.toString(), fieldName, errorConstants.toValue(), flightMovementStatus.toString()));
 
@@ -218,7 +218,7 @@ public class ErrorDTO implements Serializable {
         }
 
         public Builder addInvalidField(Class<? extends FlightMovement> flightMovement, String fieldName,
-                ErrorConstants errorConstants, String aerodrome) {
+                                       ErrorConstants errorConstants, String aerodrome) {
 
             fields.add(new FieldErrorDTO(flightMovement.toString(), fieldName, errorConstants.toValue(), aerodrome));
 
@@ -226,7 +226,7 @@ public class ErrorDTO implements Serializable {
         }
 
         public Builder addInvalidField(Class<? extends FlightMovement> flightMovement, String fieldName,
-                ErrorConstants errorConstants) {
+                                       ErrorConstants errorConstants) {
 
             fields.add(new FieldErrorDTO(flightMovement.toString(), fieldName, errorConstants.toValue()));
 
@@ -315,17 +315,20 @@ public class ErrorDTO implements Serializable {
          */
         private void replaceKeysWithVariables(StringBuilder message, ErrorVariables variables) {
             for (String key : variables.getEntries().keySet()) {
-                String pattern = "\\{\\{" + key + "\\}\\}";
+                String pattern = "\\{\\{" + Pattern.quote(key) + "\\}\\}";
                 Pattern p = Pattern.compile(pattern);
                 Matcher m = p.matcher(message);
 
                 String replacementText = variables.getEntries().get(key);
 
-                message.replace(
-                    0,
-                    message.length(),
-                    m.replaceAll(replacementText != null ? replacementText : "null")
-                );
+                StringBuffer sb = new StringBuffer();
+                while (m.find()) {
+                    String replacement = replacementText != null ? Matcher.quoteReplacement(replacementText) : "null";
+                    m.appendReplacement(sb, replacement);
+                }
+                m.appendTail(sb);
+                message.setLength(0);
+                message.append(sb.toString());
             }
         }
     }
