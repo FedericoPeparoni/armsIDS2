@@ -1487,10 +1487,11 @@ public class AviationInvoiceCreator {
 					extendedHoursSurchargesWithoutExemptions += fm.getExemptExtendedHoursSurcharge();
 
 				flightInfo.extendedHoursSurchargeWithoutExemptions = extendedHoursSurchargesWithoutExemptions;
-
-				if (flightInfo.extendedHoursSurcharge != 0 || flightInfo.extendedHoursSurchargeWithoutExemptions != 0)
-					flightWithExtended += 1;
-
+                if(flightInfo.extendedHoursSurcharge != null || flightInfo.extendedHoursSurchargeWithoutExemptions != null){
+				if (flightInfo.extendedHoursSurcharge != 0 || flightInfo.extendedHoursSurchargeWithoutExemptions != 0){
+                    flightWithExtended += 1;
+                }
+                }
 				flightInfo.extendedHoursSurchargeWithoutExemptionsAnsp = zeroToNull(flightMovementCurrencyConverter
 						.toANSPCurrency(extendedHoursSurchargesWithoutExemptions, extendedHoursSurchargesCurrency));
 
@@ -1643,7 +1644,7 @@ public class AviationInvoiceCreator {
 				aerodromeExempt = notesList.get(i).replace(" aerodrome", "");
 			}
 		}
-		
+
 		if (approachIsPresent)
 			flightWithApproachExemption += 1;
 
@@ -1655,7 +1656,7 @@ public class AviationInvoiceCreator {
 
 		String[] stringApproach = approachExempt.split("%");
 		approachPercentage = stringApproach[0];
-		
+
 		String[] stringOutageApproach = outageApproachExempt.split("%");
 		outageApproachPercentage = stringOutageApproach[0];
 
@@ -1692,7 +1693,7 @@ public class AviationInvoiceCreator {
 				approach = Double.valueOf(approachPercentage);
 			} catch (NumberFormatException e) {
 			}
-		
+
 		if(!outageApproachPercentage.equals(""))
 			try {
 				outageApproach = Double.valueOf(outageApproachPercentage);
@@ -1722,7 +1723,7 @@ public class AviationInvoiceCreator {
 		if (enroute >= maxPercentage) {
 			maxExempt = "enroute";
 		}
-		
+
 		switch (maxExempt) {
 		case "enroute":
 			maxExempt = enrouteExempt;
