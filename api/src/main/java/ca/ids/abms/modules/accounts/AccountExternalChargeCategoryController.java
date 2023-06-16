@@ -19,11 +19,14 @@ public class AccountExternalChargeCategoryController {
 
     private final AccountExternalChargeCategoryService accountExternalChargeCategoryService;
 
-    public AccountExternalChargeCategoryController(final AccountExternalChargeCategoryService accountExternalChargeCategoryService) {
+    private final AccountExternalChargeCategoryMapper accountExternalChargeCategoryMapper;
+
+    public AccountExternalChargeCategoryController(final AccountExternalChargeCategoryService accountExternalChargeCategoryService, final AccountExternalChargeCategoryMapper accountExternalChargeCategoryMapper) {
         this.accountExternalChargeCategoryService = accountExternalChargeCategoryService;
+        this.accountExternalChargeCategoryMapper = accountExternalChargeCategoryMapper;
     }
 
-    @RequestMapping(value = "/for-account/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/for-account/{id}")
     public ResponseEntity<List<AccountExternalChargeCategory>> retrieveByAccount(
         @PathVariable(name = "id") Integer accountId,
         @RequestParam(required = false) Integer externalChargeCategoryId
@@ -32,29 +35,38 @@ public class AccountExternalChargeCategoryController {
         return ResponseEntity.ok(accountExternalChargeCategoryService.findByAccount(accountId, externalChargeCategoryId));
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<AccountExternalChargeCategory> create(
-        @Valid @RequestBody AccountExternalChargeCategory accountExternalChargeCategory
+    @PostMapping
+    public ResponseEntity<AccountExternalChargeCategoryViewModel> create(
+        @Valid @RequestBody AccountExternalChargeCategoryViewModel accountExternalChargeCategoryDto
     ) throws URISyntaxException {
-        LOG.debug("Request to create account external charge category : '{}'", accountExternalChargeCategory);
-        AccountExternalChargeCategory result = accountExternalChargeCategoryService.create(accountExternalChargeCategory);
-        return ResponseEntity.created(new URI("/api/accounts-external-charge-categories/" + result.getId())).body(result);
+        LOG.debug("Request to create account external charge category : '{}'", accountExternalChargeCategoryDto);
+        AccountExternalChargeCategory account = accountExternalChargeCategoryMapper.toModel(accountExternalChargeCategoryDto);
+
+        AccountExternalChargeCategory result = accountExternalChargeCategoryService.create(account);
+
+        final AccountExternalChargeCategoryViewModel resultDto = accountExternalChargeCategoryMapper.toViewModel(result);
+
+        return ResponseEntity.created(new URI("/api/accounts-external-charge-categories/" + result.getId())).body(resultDto);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<AccountExternalChargeCategory> update(
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<AccountExternalChargeCategoryViewModel> update(
         @PathVariable Integer id,
-        @Valid @RequestBody AccountExternalChargeCategory accountExternalChargeCategory
+        @Valid @RequestBody AccountExternalChargeCategoryViewModel accountExternalChargeCategoryDto
     ) {
-        LOG.debug("Request to update account external charge category : '{}", accountExternalChargeCategory);
-        if (accountExternalChargeCategory.getId() == null)
-            accountExternalChargeCategory.setId(id);
-        else if (!accountExternalChargeCategory.getId().equals(id))
+        LOG.debug("Request to update account external charge category : '{}", accountExternalChargeCategoryDto);
+        if (accountExternalChargeCategoryDto.getId() == null)
+            accountExternalChargeCategoryDto.setId(id);
+        else if (!accountExternalChargeCategoryDto.getId().equals(id))
             throw new IllegalArgumentException("Path variable identification does not match that of the request body.");
-        return ResponseEntity.ok(accountExternalChargeCategoryService.update(accountExternalChargeCategory));
+
+        AccountExternalChargeCategory updateAccountExternalChargeCategory = accountExternalChargeCategoryService.update(accountExternalChargeCategoryMapper.toModel(accountExternalChargeCategoryDto));
+        AccountExternalChargeCategoryViewModel result = accountExternalChargeCategoryMapper.toViewModel(updateAccountExternalChargeCategory);
+
+        return ResponseEntity.ok(result);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(
         @PathVariable Integer id
     ) {

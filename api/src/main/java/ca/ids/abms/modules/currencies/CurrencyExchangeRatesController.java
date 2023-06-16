@@ -35,15 +35,17 @@ public class CurrencyExchangeRatesController {
     private static final Logger LOG = LoggerFactory.getLogger(CurrencyExchangeRatesController.class);
 
     private final CurrencyExchangeRateService currencyExchangeRateService;
+    private final CurrencyExchangeRateMapper currencyExchangeRateMapper;
     private final CurrencyService currencyService;
     private final SystemConfigurationService systemConfigurationService;
 
     public CurrencyExchangeRatesController(
         final CurrencyExchangeRateService currencyExchangeRateService,
-        final CurrencyService currencyService,
+        final CurrencyExchangeRateMapper currencyExchangeRateMapper, final CurrencyService currencyService,
         final SystemConfigurationService systemConfigurationService
     ) {
         this.currencyExchangeRateService = currencyExchangeRateService;
+        this.currencyExchangeRateMapper = currencyExchangeRateMapper;
         this.currencyService = currencyService;
         this.systemConfigurationService = systemConfigurationService;
     }
@@ -56,16 +58,22 @@ public class CurrencyExchangeRatesController {
 
     @PreAuthorize("hasAuthority('currency_modify')")
     @PostMapping
-    public ResponseEntity<CurrencyExchangeRate> create(@Valid @RequestBody CurrencyExchangeRate currencyExchangeRate) throws URISyntaxException {
-        LOG.debug("REST request to save CurrencyExchangeRate : {}", currencyExchangeRate);
-        Integer currencyId = currencyExchangeRate.getCurrency().getId();
+    public ResponseEntity<CurrencyExchangeRateViewModel> create(@Valid @RequestBody CurrencyExchangeRateViewModel currencyExchangeRateDto) throws URISyntaxException {
+        LOG.debug("REST request to save CurrencyExchangeRate : {}", currencyExchangeRateDto);
+        Integer currencyId = currencyExchangeRateDto.getCurrency().getId();
         Currency c = currencyService.getOne(currencyId);
         if (c != null && c.getCurrencyCode().equals("USD")) {
             throw ExceptionFactory.getInvalidCurrencyUpdating (CurrencyExchangeRatesController.class);
         }
-        final CurrencyExchangeRate result = currencyExchangeRateService.create(currencyExchangeRate);
-        return ResponseEntity.created(new URI("/api/currency-exchange-rates/" + result.getId()))
-                .body(result);
+
+        CurrencyExchangeRate exhangeRate = currencyExchangeRateMapper.toModel(currencyExchangeRateDto);
+
+        final CurrencyExchangeRate entity = currencyExchangeRateService.create (exhangeRate);
+
+        final CurrencyExchangeRateViewModel resultDto = currencyExchangeRateMapper.toViewModel(entity);
+
+        return ResponseEntity.created(new URI("/api/currency-exchange-rates/" + entity.getId()))
+                .body(resultDto);
     }
 
     @PreAuthorize("hasAuthority('currency_modify')")
@@ -193,13 +201,15 @@ public class CurrencyExchangeRatesController {
 
     @PreAuthorize("hasAuthority('currency_modify')")
     @PutMapping(value = "/{id}")
-    public ResponseEntity<CurrencyExchangeRate> updateCurrency(@RequestBody CurrencyExchangeRate currencyExchangeRate, @PathVariable Integer id) {
-        LOG.debug("REST request to update CurrencyExchangeRate : {}, Code: {}", currencyExchangeRate, id);
-        Currency c = currencyExchangeRate.getCurrency();
+    public ResponseEntity<CurrencyExchangeRateViewModel> updateCurrency(@RequestBody CurrencyExchangeRateViewModel currencyExchangeRateDto, @PathVariable Integer id) {
+        LOG.debug("REST request to update CurrencyExchangeRate : {}, Code: {}", currencyExchangeRateDto, id);
+        Currency c = currencyExchangeRateDto.getCurrency();
         if (c != null && c.getCurrencyCode().equals("USD")) {
             throw ExceptionFactory.getInvalidCurrencyUpdating (CurrencyExchangeRatesController.class);
         }
-        CurrencyExchangeRate result = currencyExchangeRateService.update(id, currencyExchangeRate);
+
+        CurrencyExchangeRate updateCurrencyExchangeRate = currencyExchangeRateService.update(id,currencyExchangeRateMapper.toModel(currencyExchangeRateDto));
+        CurrencyExchangeRateViewModel result = currencyExchangeRateMapper.toViewModel(updateCurrencyExchangeRate);
 
         return ResponseEntity.ok().body(result);
     }
